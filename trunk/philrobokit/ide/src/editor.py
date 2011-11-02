@@ -65,3 +65,7 @@ class MultipleCppEditor(QtGui.QTabWidget):
         self.addTab(child, "untitled.c")
         self.setCurrentIndex(self.count()-1)
         
+    def closeFile(self):
+        # todo: check if the file has change before closing
+        self.removeTab(self.currentIndex())
+        
