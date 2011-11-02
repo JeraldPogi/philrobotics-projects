@@ -36,10 +36,14 @@ class AppMainWindow(QtGui.QMainWindow):
         self.newAct = QtGui.QAction( QtGui.QIcon("./images/new.png"), "&New",
                 self, shortcut=QtGui.QKeySequence("Ctrl+N"),
                 statusTip="Create a new file", triggered=self.Editor.newFile)
+        self.closeAct = QtGui.QAction("&Close",
+                self, shortcut=QtGui.QKeySequence("Ctrl+W"),
+                statusTip="Close the current window", triggered=self.Editor.closeFile)
         
     def createMenus(self):
         self.fileMenu = self.menuBar().addMenu("&File")
         self.fileMenu.addAction(self.newAct)
+        self.fileMenu.addAction(self.closeAct)
     
     def createToolBars(self):
         self.fileToolBar = self.addToolBar("File")
