@@ -28,13 +28,18 @@ class AppMainWindow(QtGui.QMainWindow):
         
         self.createActions()
         self.createMenus()
+        self.createToolBars()
         
     def createActions(self):
-        self.newAct = QtGui.QAction( "&New",
+        self.newAct = QtGui.QAction( QtGui.QIcon("./images/new.png"), "&New",
                 self, shortcut=QtGui.QKeySequence("Ctrl+N"),
                 statusTip="Create a new file", triggered=self.Editor.newFile)
         
     def createMenus(self):
         self.fileMenu = self.menuBar().addMenu("&File")
         self.fileMenu.addAction(self.newAct)
+    
+    def createToolBars(self):
+        self.fileToolBar = self.addToolBar("File")
+        self.fileToolBar.addAction(self.newAct)
         
