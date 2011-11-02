@@ -5,7 +5,7 @@
 
 '''
 
-from PyQt4 import QtGui
+from PyQt4 import QtGui, QtCore
 from editor import MultipleCppEditor
 
 class AppMainWindow(QtGui.QMainWindow):
@@ -29,6 +29,8 @@ class AppMainWindow(QtGui.QMainWindow):
         self.createActions()
         self.createMenus()
         self.createToolBars()
+        self.createStatusBar()
+        self.createLogWindow()
         
     def createActions(self):
         self.newAct = QtGui.QAction( QtGui.QIcon("./images/new.png"), "&New",
@@ -42,4 +44,18 @@ class AppMainWindow(QtGui.QMainWindow):
     def createToolBars(self):
         self.fileToolBar = self.addToolBar("File")
         self.fileToolBar.addAction(self.newAct)
+        
+    def createStatusBar(self):
+        self.statusBar().showMessage("Ready")
+        
+    def createLogWindow(self):
+        self.log = QtGui.QTextEdit(self)
+        self.log.setReadOnly(True)
+        self.log.setMaximumHeight(100)
+        self.log.setText("Ready")
+        palette = QtGui.QPalette(QtGui.QColor(0, 0, 0))
+        self.log.setPalette(palette)
+        logWindow = QtGui.QDockWidget(self)
+        logWindow.setWidget(self.log)
+        self.addDockWidget(QtCore.Qt.BottomDockWidgetArea, logWindow)
         
