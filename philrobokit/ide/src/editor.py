@@ -31,6 +31,20 @@ class CppEditor(QsciScintilla):
         self.lexer.setDefaultFont(font)
         self.setLexer(self.lexer)
         self.SendScintilla(QsciScintilla.SCI_STYLESETFONT, 1, 'Courier')
+        
+        # Convert tab to 4 white spaces
+        self.setTabWidth(4)
+        self.setIndentationsUseTabs(False)
+        
+        # Current line visible with special background color
+        self.setCaretLineVisible(True)
+        self.setCaretLineBackgroundColor(QtGui.QColor("#ffe4e4"))
+        
+        # Enable brace matching
+        self.setBraceMatching(QsciScintilla.SloppyBraceMatch)
+        
+        # Enable folding visual- use boxes
+        self.setFolding(QsciScintilla.BoxedTreeFoldStyle)
 
 
 class MultipleCppEditor(QtGui.QTabWidget):
