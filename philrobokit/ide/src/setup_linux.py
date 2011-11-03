@@ -3,7 +3,7 @@ from cx_Freeze import setup, Executable
 includes = ['sip', 'PyQt4.QtCore', 'atexit']
 files = []
 
-icons = ['new', 'open', 'save']
+icons = ['new', 'open', 'save', 'run', 'stop']
 for icon in icons:
     fn = './images/' + icon + '.png'
     files.append(fn)

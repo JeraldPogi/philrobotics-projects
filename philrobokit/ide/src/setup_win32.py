@@ -6,7 +6,7 @@ packages = []
 path = []
 files = []
 
-icons = ['new', 'open', 'save']
+icons = ['new', 'open', 'save', 'run', 'stop']
 for icon in icons:
     fn = 'images/' + icon + '.png'
     files.append(fn)
