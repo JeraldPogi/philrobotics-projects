@@ -42,17 +42,22 @@ class AppMainWindow(QtGui.QMainWindow):
         self.closeAct = QtGui.QAction("&Close",
                 self, shortcut=QtGui.QKeySequence("Ctrl+W"),
                 statusTip="Close the current window", triggered=self.Editor.closeFile)
+        self.saveAct = QtGui.QAction(QtGui.QIcon("./images/save.png"), "&Save",
+                self, shortcut=QtGui.QKeySequence("Ctrl+S"),
+                statusTip="Save the current file", triggered=self.Editor.saveFile)
         
     def createMenus(self):
         self.fileMenu = self.menuBar().addMenu("&File")
         self.fileMenu.addAction(self.newAct)
         self.fileMenu.addAction(self.openAct)
+        self.fileMenu.addAction(self.saveAct)
         self.fileMenu.addAction(self.closeAct)
     
     def createToolBars(self):
         self.fileToolBar = self.addToolBar("File")
         self.fileToolBar.addAction(self.newAct)
         self.fileToolBar.addAction(self.openAct)
+        self.fileToolBar.addAction(self.saveAct)
         
     def createStatusBar(self):
         self.statusBar().showMessage("Ready")
@@ -60,7 +65,7 @@ class AppMainWindow(QtGui.QMainWindow):
     def createLogWindow(self):
         self.log = QtGui.QTextEdit(self)
         self.log.setReadOnly(True)
-        self.log.setMaximumHeight(100)
+        self.log.resize(self.width(), 100 )
         self.log.setText("Ready")
         palette = QtGui.QPalette(QtGui.QColor(0, 0, 0))
         self.log.setPalette(palette)
