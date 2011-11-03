@@ -3,10 +3,10 @@ from cx_Freeze import setup, Executable
 includes = ['sip', 'PyQt4.QtCore', 'atexit']
 files = []
 
-icons = ['new', 'open']
+icons = ['new', 'open', 'save']
 for icon in icons:
-    file = './images/' + icon + '.png'
-    files.append(file)
+    fn = './images/' + icon + '.png'
+    files.append(fn)
 
 exe = Executable(
     script = 'main.pyw',

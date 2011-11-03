@@ -64,6 +64,27 @@ class CppEditor(QsciScintilla):
         instr = QtCore.QTextStream(qfile)
         self.setText(instr.readAll())
         return True
+    def saveFile(self, fileName):
+        qfile = QtCore.QFile(fileName)
+        if not qfile.open(QtCore.QFile.WriteOnly | QtCore.QFile.Text):
+            QtGui.QMessageBox.warning(self, "CppEditor",
+                    "Cannot write file %s:\n%s." % (fileName, qfile.errorString()))
+            return False
+
+        outstr = QtCore.QTextStream(qfile)
+        outstr << self.text()
+        return True
+    def saveAs(self):
+        fileName = QtGui.QFileDialog.getSaveFileName(self, "Save As",
+                self.curFile)
+        if not fileName:
+            return False
+        return self.saveFile(fileName)
+    def save(self):
+        if self.isUntitled:
+            return self.saveAs()
+        else:
+            return self.saveFile(self.curFile)
 
 
 class MultipleCppEditor(QtGui.QTabWidget):
@@ -92,7 +113,10 @@ class MultipleCppEditor(QtGui.QTabWidget):
         child = CppEditor(self, fileName)
         self.addTab(child, fileName.right(fileName.length() - fileName.lastIndexOf('/') - 1 ))
         self.setCurrentIndex(self.count()-1)
-        return True    
+        return True
+    def saveFile(self):
+        child = self.currentWidget()
+        return child.save()
     def closeFile(self):
         # todo: check if the file has change before closing
         self.removeTab(self.currentIndex())
