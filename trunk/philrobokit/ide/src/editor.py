@@ -85,6 +85,11 @@ class CppEditor(QsciScintilla):
             return self.saveAs()
         else:
             return self.saveFile(self.curFile)
+        
+    def startBuild(self):
+        print "todo: start build"
+    def stopBuild(self):
+        print "todo: stop build"
 
 
 class MultipleCppEditor(QtGui.QTabWidget):
@@ -120,4 +125,11 @@ class MultipleCppEditor(QtGui.QTabWidget):
     def closeFile(self):
         # todo: check if the file has change before closing
         self.removeTab(self.currentIndex())
+        
+    def startBuild(self):
+        child = self.currentWidget()
+        child.startBuild()
+    def stopBuild(self):
+        child = self.currentWidget()
+        child.stopBuild()
         

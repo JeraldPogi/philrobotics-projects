@@ -46,18 +46,32 @@ class AppMainWindow(QtGui.QMainWindow):
                 self, shortcut=QtGui.QKeySequence("Ctrl+S"),
                 statusTip="Save the current file", triggered=self.Editor.saveFile)
         
+        self.runAct = QtGui.QAction(QtGui.QIcon("./images/run.png"), "&Compile",
+                self, shortcut=QtGui.QKeySequence("Ctrl+R"),
+                statusTip="Build the current project", triggered=self.Editor.startBuild)
+        self.stopAct = QtGui.QAction(QtGui.QIcon("./images/stop.png"), "S&top",
+                self, statusTip="Cancel the build process", triggered=self.Editor.stopBuild)
+        
     def createMenus(self):
         self.fileMenu = self.menuBar().addMenu("&File")
         self.fileMenu.addAction(self.newAct)
         self.fileMenu.addAction(self.openAct)
         self.fileMenu.addAction(self.saveAct)
         self.fileMenu.addAction(self.closeAct)
+        
+        self.projectMenu = self.menuBar().addMenu("&Project")
+        self.projectMenu.addAction(self.runAct)
+        self.projectMenu.addAction(self.stopAct)
     
     def createToolBars(self):
         self.fileToolBar = self.addToolBar("File")
         self.fileToolBar.addAction(self.newAct)
         self.fileToolBar.addAction(self.openAct)
         self.fileToolBar.addAction(self.saveAct)
+        
+        self.projectToolBar = self.addToolBar("Project")
+        self.projectToolBar.addAction(self.runAct)
+        self.projectToolBar.addAction(self.stopAct)
         
     def createStatusBar(self):
         self.statusBar().showMessage("Ready")
