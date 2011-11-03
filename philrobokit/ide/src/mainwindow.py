@@ -32,6 +32,10 @@ class AppMainWindow(QtGui.QMainWindow):
         self.createStatusBar()
         self.createLogWindow()
         
+    def about(self):
+        QtGui.QMessageBox.about(self, "About",
+                "<b>PhilRobotics</b>' Integrated Development Environment for PhilRoboKit Boards")
+        
     def createActions(self):
         self.newAct = QtGui.QAction( QtGui.QIcon("./images/new.png"), "&New",
                 self, shortcut=QtGui.QKeySequence("Ctrl+N"),
@@ -52,6 +56,9 @@ class AppMainWindow(QtGui.QMainWindow):
         self.stopAct = QtGui.QAction(QtGui.QIcon("./images/stop.png"), "S&top",
                 self, statusTip="Cancel the build process", triggered=self.Editor.stopBuild)
         
+        self.aboutAct = QtGui.QAction("&About", self, shortcut=QtGui.QKeySequence("F1"),
+                statusTip="About the IDE", triggered=self.about)
+        
     def createMenus(self):
         self.fileMenu = self.menuBar().addMenu("&File")
         self.fileMenu.addAction(self.newAct)
@@ -62,6 +69,9 @@ class AppMainWindow(QtGui.QMainWindow):
         self.projectMenu = self.menuBar().addMenu("&Project")
         self.projectMenu.addAction(self.runAct)
         self.projectMenu.addAction(self.stopAct)
+        
+        self.helpMenu = self.menuBar().addMenu("&Help")
+        self.helpMenu.addAction(self.aboutAct)
     
     def createToolBars(self):
         self.fileToolBar = self.addToolBar("File")
