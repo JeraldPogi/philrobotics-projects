@@ -46,6 +46,11 @@ class CppEditor(QsciScintilla):
         # Enable folding visual- use boxes
         self.setFolding(QsciScintilla.BoxedTreeFoldStyle)
         
+        # "CTRL+Space" autocomplete
+        self.shortcut_ctrl_space = QtGui.QShortcut(QtGui.QKeySequence("Ctrl+Space"), self)        
+        self.connect(self.shortcut_ctrl_space,
+            QtCore.SIGNAL('activated()'), self.autoCompleteFromAll)
+        
         
         if fileName:
             self.curFile = fileName
