@@ -1,0 +1,4 @@
+void
+putch(char c)
+{
+}
