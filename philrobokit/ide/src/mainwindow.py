@@ -53,9 +53,10 @@ class AppMainWindow(QtGui.QMainWindow):
         rc = self.Compiler.buildProject(userCode = fn)
         if not rc[0]:
             self.insertLog(rc[1])
-            QtGui.QMessageBox.about( self, "Build Error", "File not found (may be unsaved yet). Create/save first the file." )
+            QtGui.QMessageBox.warning( self, "Build Error", "File not found (may be unsaved yet). " + \
+                                             "Create or save first the file." )
         else:
-            print self.Compiler.buildProject(userCode = fn)[1]
+            self.insertLog( rc[1] )
 
     def stopBuild(self):
         self.insertLog("todo: cancel build.")
@@ -75,7 +76,7 @@ class AppMainWindow(QtGui.QMainWindow):
                 statusTip="Save the current file", triggered=self.Editor.saveFile)
         
         self.runAct = QtGui.QAction(QtGui.QIcon("./images/run.png"), "&Compile",
-                self, shortcut=QtGui.QKeySequence("Ctrl+R"),
+                self, shortcut=QtGui.QKeySequence("Ctrl+B"),
                 statusTip="Build the current project", triggered=self.startBuild)
         self.stopAct = QtGui.QAction(QtGui.QIcon("./images/stop.png"), "S&top",
                 self, statusTip="Cancel the build process", triggered=self.stopBuild)
