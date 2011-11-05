@@ -78,6 +78,7 @@ class CppEditor(QsciScintilla):
 
         outstr = QtCore.QTextStream(qfile)
         outstr << self.text()
+        self.curFile = fileName
         return True
     def saveAs(self):
         fileName = QtGui.QFileDialog.getSaveFileName(self, "Save As",
@@ -90,6 +91,9 @@ class CppEditor(QsciScintilla):
             return self.saveAs()
         else:
             return self.saveFile(self.curFile)
+        
+    def currentFile(self):
+        return self.curFile
         
     def startBuild(self):
         print "todo: start build"
@@ -126,7 +130,12 @@ class MultipleCppEditor(QtGui.QTabWidget):
         return True
     def saveFile(self):
         child = self.currentWidget()
-        return child.save()
+        rc = child.save()
+        if rc:
+            fileName = child.currentFile()
+            self.setTabText(self.currentIndex(), fileName.right(fileName.length() - fileName.lastIndexOf('/') - 1 ))
+            return True
+        return False
     def closeFile(self):
         # todo: check if the file has change before closing
         self.removeTab(self.currentIndex())
