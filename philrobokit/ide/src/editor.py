@@ -8,6 +8,20 @@
 from PyQt4 import QtGui, QtCore
 from PyQt4.Qsci import QsciScintilla, QsciLexerCPP
 
+__default_content__ = '''
+#include "PhilRobokit_Macro.h"
+
+void init()
+{
+
+}
+
+void program()
+{
+
+}
+'''
+
 class CppEditor(QsciScintilla):
     '''
     classdocs
@@ -51,14 +65,16 @@ class CppEditor(QsciScintilla):
         self.connect(self.shortcut_ctrl_space,
             QtCore.SIGNAL('activated()'), self.autoCompleteFromAll)
         
-        
+                
         if fileName:
             self.curFile = fileName
             self.loadFile(fileName)
             self.isUntitled = False
         else:
             self.curFile = "untitled.c"
+            self.setText( __default_content__ )
             self.isUntitled = True
+            
         
     def loadFile(self, fileName):
         qfile = QtCore.QFile(fileName)
@@ -111,6 +127,8 @@ class MultipleCppEditor(QtGui.QTabWidget):
         '''
         super(MultipleCppEditor, self).__init__(parent)
         
+        self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+        
         if self.count()==0:
             self.newFile()
         
@@ -137,8 +155,13 @@ class MultipleCppEditor(QtGui.QTabWidget):
             return True
         return False
     def closeFile(self):
+        if self.count()==0:
+            return # nothing to close
         # todo: check if the file has change before closing
+        child = self.currentWidget()
         self.removeTab(self.currentIndex())
+        child.setParent(None)
+        child.close()
         
     def startBuild(self):
         child = self.currentWidget()
