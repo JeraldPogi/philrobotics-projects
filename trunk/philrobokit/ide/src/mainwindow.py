@@ -46,6 +46,19 @@ class AppMainWindow(QtGui.QMainWindow):
             QtGui.QMessageBox.about( self, "Compiler Information", info )
         else:
             QtGui.QMessageBox.about( self, "Compiler Information", "no compiler found!" )
+    
+    def startBuild(self):
+        self.insertLog('start project build...', True)
+        fn = self.Editor.getCurrentFile()
+        rc = self.Compiler.buildProject(userCode = fn)
+        if not rc[0]:
+            self.insertLog(rc[1])
+            QtGui.QMessageBox.about( self, "Build Error", "File not found (may be unsaved yet). Create/save first the file." )
+        else:
+            print self.Compiler.buildProject(userCode = fn)[1]
+
+    def stopBuild(self):
+        self.insertLog("todo: cancel build.")
         
     def createActions(self):
         self.newAct = QtGui.QAction( QtGui.QIcon("./images/new.png"), "&New",
@@ -63,9 +76,9 @@ class AppMainWindow(QtGui.QMainWindow):
         
         self.runAct = QtGui.QAction(QtGui.QIcon("./images/run.png"), "&Compile",
                 self, shortcut=QtGui.QKeySequence("Ctrl+R"),
-                statusTip="Build the current project", triggered=self.Editor.startBuild)
+                statusTip="Build the current project", triggered=self.startBuild)
         self.stopAct = QtGui.QAction(QtGui.QIcon("./images/stop.png"), "S&top",
-                self, statusTip="Cancel the build process", triggered=self.Editor.stopBuild)
+                self, statusTip="Cancel the build process", triggered=self.stopBuild)
         
         self.aboutAct = QtGui.QAction("&About", self, shortcut=QtGui.QKeySequence("F1"),
                 statusTip="About the IDE", triggered=self.about)
@@ -111,4 +124,10 @@ class AppMainWindow(QtGui.QMainWindow):
         logWindow = QtGui.QDockWidget(self)
         logWindow.setWidget(self.log)
         self.addDockWidget(QtCore.Qt.BottomDockWidgetArea, logWindow)
+    
+    def insertLog(self, log='', resetWindow=False):
+        if resetWindow:
+            self.log.setText('')
+        self.log.append(log)
+        
         
