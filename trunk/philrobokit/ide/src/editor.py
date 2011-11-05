@@ -5,8 +5,15 @@
 
 '''
 
-from PyQt4 import QtGui, QtCore
+from PyQt4 import QtGui, QtCore, Qsci
 from PyQt4.Qsci import QsciScintilla, QsciLexerCPP
+
+# library path
+LIB_DIR = 'libraries'
+# PhilRobokit Library
+PRK_LIB = LIB_DIR + '/PhilRobokitProjectLibrary'
+# file containing keywords
+KEYWORD_FILE = 'keywords.txt'
 
 __default_content__ = '''
 #include "PhilRobokit_Macro.h"
@@ -31,6 +38,7 @@ class CppEditor(QsciScintilla):
         Constructor
         '''
         super(CppEditor, self).__init__(parent)
+        self.parent = parent
         
         # Set the default font
         font = QtGui.QFont()
@@ -43,12 +51,14 @@ class CppEditor(QsciScintilla):
         # C/C++ lexer
         self.lexer = QsciLexerCPP(self,  True)
         self.lexer.setDefaultFont(font)
+        self.lexer.setAPIs(self.parent.getLibraryAPIs())
         self.setLexer(self.lexer)
         self.SendScintilla(QsciScintilla.SCI_STYLESETFONT, 1, 'Courier')
         
         # Convert tab to 4 white spaces
         self.setTabWidth(4)
         self.setIndentationsUseTabs(False)
+        self.setAutoIndent(True)
         
         # Current line visible with special background color
         self.setCaretLineVisible(True)
@@ -124,6 +134,8 @@ class MultipleCppEditor(QtGui.QTabWidget):
         
         self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         
+        self.prepareLibraryAPIs()
+        
         if self.count()==0:
             self.newFile()
         
@@ -161,4 +173,25 @@ class MultipleCppEditor(QtGui.QTabWidget):
     def getCurrentFile(self):
         child = self.currentWidget()
         return child.currentFile()
+    
+    def prepareLibraryAPIs(self):
+        self.LibraryAPIs = Qsci.QsciAPIs(QsciLexerCPP(self,True))
+        try:
+            keyword_file = open( PRK_LIB + '/' + KEYWORD_FILE, 'r')
+            for line in keyword_file.readlines():
+                if line.strip(): # ignore blank lines
+                    if line[0] <> '#': # ignore comments
+                        keyword = line.split('\t')[0]
+                        # todo: classify keywords according to types
+                        self.LibraryAPIs.add(keyword)
+            keyword_file.close()
+        except:
+            print 'file not found'
+        self.LibraryAPIs.prepare()
+        
+    def getLibraryAPIs(self):
+        return self.LibraryAPIs
+    
+    
+    
         
