@@ -7,6 +7,7 @@
 
 from PyQt4 import QtGui, QtCore
 from editor import MultipleCppEditor
+from compiler import PicCompiler
 
 class AppMainWindow(QtGui.QMainWindow):
     '''
@@ -26,6 +27,8 @@ class AppMainWindow(QtGui.QMainWindow):
         
         self.setCentralWidget(self.Editor)
         
+        self.Compiler = PicCompiler()
+        
         self.createActions()
         self.createMenus()
         self.createToolBars()
@@ -35,6 +38,14 @@ class AppMainWindow(QtGui.QMainWindow):
     def about(self):
         QtGui.QMessageBox.about(self, "About",
                 "<b>PhilRobotics</b>' Integrated Development Environment for PhilRoboKit Boards")
+        
+    def aboutCompiler(self):
+        info = self.Compiler.getInfo()
+        #self.log.append(info)
+        if info:
+            QtGui.QMessageBox.about( self, "Compiler Information", info )
+        else:
+            QtGui.QMessageBox.about( self, "Compiler Information", "no compiler found!" )
         
     def createActions(self):
         self.newAct = QtGui.QAction( QtGui.QIcon("./images/new.png"), "&New",
@@ -59,6 +70,9 @@ class AppMainWindow(QtGui.QMainWindow):
         self.aboutAct = QtGui.QAction("&About", self, shortcut=QtGui.QKeySequence("F1"),
                 statusTip="About the IDE", triggered=self.about)
         
+        self.aboutCompilerAct = QtGui.QAction("About &Compiler", self, shortcut=QtGui.QKeySequence("Alt+F1"),
+                statusTip="About PICC tool", triggered=self.aboutCompiler)
+        
     def createMenus(self):
         self.fileMenu = self.menuBar().addMenu("&File")
         self.fileMenu.addAction(self.newAct)
@@ -71,6 +85,7 @@ class AppMainWindow(QtGui.QMainWindow):
         self.projectMenu.addAction(self.stopAct)
         
         self.helpMenu = self.menuBar().addMenu("&Help")
+        self.helpMenu.addAction(self.aboutCompilerAct)
         self.helpMenu.addAction(self.aboutAct)
     
     def createToolBars(self):

@@ -8,6 +8,14 @@ for icon in icons:
     fn = './images/' + icon + '.png'
     files.append(fn)
 
+tools = ['picc']
+for tool in tools:
+    fn = 'tools/picc_linux/bin/' + tool
+    files.append(fn)
+
+# todo: add all needed files automatically
+files.append('tools/picc_linux/dat/en_msgs.txt')
+
 exe = Executable(
     script = 'main.pyw',
     targetName = 'PhilRoboKitIDE',
