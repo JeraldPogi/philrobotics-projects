@@ -1,0 +1,118 @@
+
+# use TABs!
+# format:
+#----- keyword ----- keyword type ----- "description"
+
+
+#--- Header.h--------------------------------------------------------------------------------
+LED1		CONSTANT	"RD1"
+LED2		CONSTANT	"RD0"
+LED3		CONSTANT	"RC3"
+LED4		CONSTANT	"RC2"
+
+SW1		CONSTANT	"RD2"
+SW2		CONSTANT	"RD3"
+SW3		CONSTANT	"RC4"
+SW4		CONSTANT	"RC5"
+
+SERVO		CONSTANT	"RC1"
+
+BUZZER		CONSTANT	"RC0"
+
+RXPIN		CONSTANT	"RC7"
+TXPIN		CONSTANT	"RC6"
+
+PIN0		CONSTANT	"RXPIN"
+PIN1		CONSTANT	"TXPIN"
+PIN2		CONSTANT	"RD4"
+PIN3		CONSTANT	"RD5"
+PIN4		CONSTANT	"RD6"
+PIN5		CONSTANT	"RD7"
+PIN6		CONSTANT	"RB0"
+PIN7		CONSTANT	"RB1"
+PIN8		CONSTANT	"RB2"
+PIN9		CONSTANT	"RB3"
+PIN10		CONSTANT	"RB4"
+PIN11		CONSTANT	"RB5"
+PIN12		CONSTANT	"RB6"
+PIN13		CONSTANT	"RB7"
+
+AN0		CONSTANT	"RA0"	
+AN1		CONSTANT	"RA1"
+AN2		CONSTANT	"RA2"
+AN3		CONSTANT	"RA5"
+AN4		CONSTANT	"RE0"
+AN5		CONSTANT	"RE1"
+
+
+#--- Macro.h--------------------------------------------------------------------------------
+
+setupLEDs		FUNCTION	"setup LEDs"
+clearLED		FUNCTION	"led x off?"
+setLED			FUNCTION	"led x on?"
+toggleLED		FUNCTION	"led x toggle"
+
+setupBuzzer		FUNCTION	"prepare buzzer"
+setBuzzer		FUNCTION	"buzzer on"
+clearBuzzer		FUNCTION	"buzzer off"
+	
+setupServo		FUNCTION	"prepare servo"
+setServo		FUNCTION	""
+
+setupSwitches		FUNCTION	"prepare buttons"
+isButtonPressed 	FUNCTION	"read button"
+	
+#--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+#define NULL		CONSTANT	'\0'	
+
+#--------------------------------------------------------------------------------------------------------------------------------------------------------------------------		
+setPinHigh		FUNCTION	"set pin high"
+setPinLow		FUNCTION	"set pin high"
+
+isPinHigh		FUNCTION	"check if pin is high"
+isPinLow		FUNCTION	"check if pin is low"
+
+
+delayUs			FUNCTION	"micro seconds delay"
+delayMs			FUNCTION	"milli seconds delay"
+
+#--------------------------------------------------------------------------------------------------------------------------------------------
+# Serial FIFO Routine
+setupSerial		FUNCTION	"set serial baudrate"
+
+FOSC_FREQ		CONSTANT 	"same with _XTAL_FREQ"
+
+serialSendChar		FUNCTION	"send character"
+serialSend		FUNCTION	"send string"
+serialRead		FUNCTION	"get character"
+isSerialAvailable	FUNCTION	"check if a character is available"
+
+BUFFER_SIZE		CONSTANT	"serial buffer size = 16 bytes"
+
+
+serialInit		FUNCTION	"initialize serial port"
+
+isSerialBufferFull	FUNCTION	"check buffer capacity"
+
+#--------------------------------------------------------------------------------------------------------------------------------------------
+# SPI Routine
+
+setupSPI		FUNCTION	"initialize SPI"
+spiSend			FUNCTION	"send a character"
+spiRead			FUNCTION	"read a character"
+spiSlaveSelect		FUNCTION	"enable slave"
+
+#--------------------------------------------------------------------------------------------------------------------------------------------
+# I2C Routine
+
+setupI2C		FUNCTION	"initialize I2C"
+i2cSend			FUNCTION	"send a character"
+i2cRead			FUNCTION	"read a character"
+
+
+#==========================================================================================================================================
+# Function Prototypes
+init			FUNCTION	"contains initilizations"
+program			FUNCTION	"inside forever loop"
+
+
