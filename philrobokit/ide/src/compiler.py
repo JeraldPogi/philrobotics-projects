@@ -8,6 +8,9 @@
 import os
 import sys
 
+#PhilRobokit Library Path
+PRK_LIB = 'libraries/PhilRobokitProjectLibrary'
+
 class PicCompiler:
     '''
     classdocs
@@ -31,7 +34,13 @@ class PicCompiler:
                 if info:
                     return info
             except:
-                return 'running ' + os.getcwd() + '/' + self.toolpath + '/bin/picc --ver'
+                return 'failed to execute: ' + os.getcwd() + '/' + self.toolpath + '/bin/picc --ver'
         return None
         
-            
+    def buildProject(self, userCode=None):
+        if not os.path.isfile(userCode):
+            return [False, 'file not found']
+        return [True, 'todo: start compiling ' + userCode]
+        
+        
+        

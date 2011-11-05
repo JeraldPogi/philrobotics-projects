@@ -110,11 +110,6 @@ class CppEditor(QsciScintilla):
         
     def currentFile(self):
         return self.curFile
-        
-    def startBuild(self):
-        print "todo: start build"
-    def stopBuild(self):
-        print "todo: stop build"
 
 
 class MultipleCppEditor(QtGui.QTabWidget):
@@ -163,10 +158,7 @@ class MultipleCppEditor(QtGui.QTabWidget):
         child.setParent(None)
         child.close()
         
-    def startBuild(self):
+    def getCurrentFile(self):
         child = self.currentWidget()
-        child.startBuild()
-    def stopBuild(self):
-        child = self.currentWidget()
-        child.stopBuild()
+        return child.currentFile()
         
