@@ -82,10 +82,16 @@ class PicCompiler:
 
         # todo: other compiler flags (e.g. hex output)
         CMD = [ self.PICC,
-               '--chip=' + self.chip,
-               '-I' + os.getcwd() + '/' + PRK_LIB,
-               '--OUTDIR=' + outpath,
-               userCode]
+               '--CHIP=' + self.chip, # chip part number
+              # '--WARN=-1',  # wrning level {-9 to 9}
+              # '-V', # verbose
+              # '--TIME', # compilation time
+              # '--OUTPUT=bin', # create *.bin
+              # '--MODE=lite', # pro, std, or lite
+              # '--SUMMARY=psect', # default to 'mem'
+               '-I' + os.getcwd() + '/' + PRK_LIB, # include directory
+               '--OUTDIR=' + outpath, # output directory
+               userCode] # C-codes
         
         commands = []
         for cmd in CMD:
@@ -98,14 +104,25 @@ class PicCompiler:
                          commands,
                          stdin=subprocess.PIPE,
                          stdout=subprocess.PIPE,
-                         stderr=subprocess.PIPE,
+                         stderr=subprocess.STDOUT,
                          shell=self.subprocessShell )
-            return [True, "build process running..."]
+            return [True, "Build process running. Please wait..."]
         except:
             return [False, "abort"]
     
-    def pollBuildProcess(self):
+    def pollBuildProcess(self, stopProcess=False):
         if self.BuildProcess:
+            if stopProcess:
+                try:
+                    self.BuildProcess.kill() # needs Admin privilege on Windows!
+                    self.BuildProcess = None
+                    return [True, "killed"]
+                except:
+                    print "n0 u can't kill me! :-p"
+                    self.BuildProcess.wait() # just wait for the process to finish
+                    self.BuildProcess = None
+                    return [False, "waited"]               
+            # read single lines    
             buff = self.BuildProcess.stdout.readline()
             if buff == '': # got nothing
                 if self.BuildProcess.poll() != None: # process exited
