@@ -73,7 +73,7 @@ class CppEditor(QsciScintilla):
         # show line numbers
         fontmetrics = QtGui.QFontMetrics(font)
         self.setMarginsFont(font)
-        self.setMarginWidth(0, fontmetrics.width("00000") + 6)
+        self.setMarginWidth(0, fontmetrics.width("00000") + 4)
         self.setMarginLineNumbers(0, True)
         self.setMarginsBackgroundColor(QtGui.QColor("#eecc77"))
         
@@ -91,6 +91,8 @@ class CppEditor(QsciScintilla):
             QtCore.SIGNAL('activated()'), self.autoCompleteFromAll)
         
         self.stringToSearch = ""
+        
+        self.connect(self, QtCore.SIGNAL('textChanged()'), self.parent.onChildContentChanged )
                 
         if fileName:
             self.curFile = fileName
@@ -157,7 +159,7 @@ class CppEditor(QsciScintilla):
                             False, # case sensitive
                             False, # whole word matches only
                             True,  # wraps around
-                            True ) # forward     
+                            True ) # forward
         
 
 class MultipleCppEditor(QtGui.QTabWidget):
@@ -180,7 +182,7 @@ class MultipleCppEditor(QtGui.QTabWidget):
     def newFile(self):
         child = CppEditor(self)
         self.addTab(child, "untitled.c * ")
-        self.setCurrentIndex(self.count()-1)        
+        self.setCurrentIndex(self.count()-1)
     def openFile(self):
         fileName = QtGui.QFileDialog.getOpenFileName(
                                         self, self.tr("Open Source File"),
@@ -214,7 +216,13 @@ class MultipleCppEditor(QtGui.QTabWidget):
     
     def findChildText(self, text=None):
         child = self.currentWidget()
-        return child.findText(text)
+        if child:
+            return child.findText(text)
+    
+    def onChildContentChanged(self):
+        title = self.tabText(self.currentIndex())
+        if not title.contains('*', QtCore.Qt.CaseInsensitive):
+            self.setTabText(self.currentIndex(), title + " * ")
         
     def prepareLibraryAPIs(self):
         self.LibraryAPIs = Qsci.QsciAPIs(QsciLexerCPP(self,True))
