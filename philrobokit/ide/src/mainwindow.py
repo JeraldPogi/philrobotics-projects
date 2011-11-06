@@ -49,11 +49,11 @@ class AppMainWindow(QtGui.QMainWindow):
             QtGui.QMessageBox.about( self, "Compiler Information", "no compiler found!" )
     
     def startBuild(self):
-        self.insertLog("start project build.", True)
+        self.insertLog("<font color=green>------- Start Project Build. -------</font>", True)
         fn = self.Editor.getCurrentFile()
         rc = self.Compiler.buildProject(userCode = fn)
         if not rc[0]:
-            self.insertLog(rc[1])
+            self.insertLog( "<font color=red>%s</font>"%rc[1] )
             if rc[1] == "file not found":
                 QtGui.QMessageBox.warning( self, "Build Error", "File not found (may be unsaved yet). " + \
                                              "Create or save first the file." )
@@ -62,13 +62,19 @@ class AppMainWindow(QtGui.QMainWindow):
             elif rc[1] == "abort":
                 QtGui.QMessageBox.warning( self, "Error", "Unable to start build process!" )
         else:
-            self.insertLog( rc[1] )
+            self.insertLog( "<font color=lightblue><i>   %s   </i></font>"%rc[1] )
             self.PollCompilerTimerID = self.startTimer(50)
             if not self.PollCompilerTimerID:
-                self.insertLog("unable to start Timer")
+                self.insertLog("<font color=red>Unable to start Timer.</font>")
 
     def stopBuild(self):
-        self.insertLog("todo: cancel build.")
+        if self.PollCompilerTimerID:
+            self.killTimer(self.PollCompilerTimerID)
+            self.PollCompilerTimerID = None
+            self.Compiler.pollBuildProcess(True)
+            self.insertLog("<font color=red>----- Stopped. -----</font>")
+        else:
+            print "nothing to stop"
         
     def createActions(self):
         self.newAct = QtGui.QAction( QtGui.QIcon("./images/new.png"), "&New",
@@ -145,10 +151,23 @@ class AppMainWindow(QtGui.QMainWindow):
         if timerID == self.PollCompilerTimerID:
             result = self.Compiler.pollBuildProcess()
             if result[0]:
-                msg = result [1]
-                # todo: parse compiler's warning/error messages
-                self.insertLog(msg)
+                msg = result[1]
+                msg_lowered = msg.lower()
+                if msg_lowered.find("warning") >= 0:
+                    print msg.lower()
+                    warning_msg = "<font color=yellow>%s</font>" % msg
+                    self.insertLog(warning_msg)
+                # todo: other error messages
+                elif msg_lowered.find("error") >= 0 \
+                        or msg_lowered.find("exit status = 1") >= 0 \
+                        or msg_lowered.find("^ (") >= 0 \
+                        or msg_lowered.find("defined") >= 0:                    
+                    error_msg = "<font color=red>%s</font>" % msg
+                    self.insertLog(error_msg)
+                else:
+                    self.insertLog( str(msg) )
             else:
                 self.killTimer(timerID)
+                self.PollCompilerTimerID = None
         
         
