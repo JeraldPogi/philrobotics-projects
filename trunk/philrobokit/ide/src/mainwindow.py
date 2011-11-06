@@ -90,6 +90,14 @@ class AppMainWindow(QtGui.QMainWindow):
                 self, shortcut=QtGui.QKeySequence("Ctrl+S"),
                 statusTip="Save the current file", triggered=self.Editor.saveFile)
         
+        self.exitAct = QtGui.QAction("E&xit", self,
+                shortcut=QtGui.QKeySequence("Alt+F4"),
+                statusTip="Exit the application", triggered=QtGui.qApp.closeAllWindows)
+        
+        self.findAct = QtGui.QAction("&Find", self,
+                shortcut=QtGui.QKeySequence("Ctrl+F"),
+                statusTip="Find text", triggered=self.Editor.findChildText)
+        
         self.runAct = QtGui.QAction(QtGui.QIcon("./images/run.png"), "&Compile",
                 self, shortcut=QtGui.QKeySequence("Ctrl+B"),
                 statusTip="Build the current project", triggered=self.startBuild)
@@ -108,10 +116,17 @@ class AppMainWindow(QtGui.QMainWindow):
         self.fileMenu.addAction(self.openAct)
         self.fileMenu.addAction(self.saveAct)
         self.fileMenu.addAction(self.closeAct)
+        self.fileMenu.addSeparator()
+        self.fileMenu.addAction(self.exitAct)
+        
+        self.editMenu = self.menuBar().addMenu("&Edit")
+        self.editMenu.addAction(self.findAct)
         
         self.projectMenu = self.menuBar().addMenu("&Project")
         self.projectMenu.addAction(self.runAct)
         self.projectMenu.addAction(self.stopAct)
+        
+        self.ToolsMenu = self.menuBar().addMenu("&Tools")
         
         self.helpMenu = self.menuBar().addMenu("&Help")
         self.helpMenu.addAction(self.aboutCompilerAct)
@@ -165,7 +180,7 @@ class AppMainWindow(QtGui.QMainWindow):
                     error_msg = "<font color=red>%s</font>" % msg
                     self.insertLog(error_msg)
                 else:
-                    self.insertLog( str(msg) )
+                    self.insertLog( "<font color=lightgreen>%s</font>" % msg )
             else:
                 self.killTimer(timerID)
                 self.PollCompilerTimerID = None

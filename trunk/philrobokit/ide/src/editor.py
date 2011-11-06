@@ -90,6 +90,7 @@ class CppEditor(QsciScintilla):
         self.connect(self.shortcut_ctrl_space,
             QtCore.SIGNAL('activated()'), self.autoCompleteFromAll)
         
+        self.stringToSearch = ""
                 
         if fileName:
             self.curFile = fileName
@@ -99,7 +100,6 @@ class CppEditor(QsciScintilla):
             self.curFile = "untitled.c"
             self.setText( __default_content__ )
             self.isUntitled = True
-            
         
     def loadFile(self, fileName):
         qfile = QtCore.QFile(fileName)
@@ -139,6 +139,26 @@ class CppEditor(QsciScintilla):
     def currentFile(self):
         return self.curFile
 
+    def findText(self, text=None):
+        if text:
+            self.stringToSearch = text
+        searchDlg = QtGui.QInputDialog(self)
+        repeate = True        
+        while repeate:            
+            searchResult = searchDlg.getText(self, "Find Text",
+                                             "type string to search:",
+                                             text=self.stringToSearch )
+            repeate = searchResult[1]
+            if repeate:
+                self.stringToSearch = searchResult[0]
+                self.findFirst(
+                            self.stringToSearch,
+                            False, # regular expression
+                            False, # case sensitive
+                            False, # whole word matches only
+                            True,  # wraps around
+                            True ) # forward     
+        
 
 class MultipleCppEditor(QtGui.QTabWidget):
     '''
@@ -192,6 +212,10 @@ class MultipleCppEditor(QtGui.QTabWidget):
         child = self.currentWidget()
         return child.currentFile()
     
+    def findChildText(self, text=None):
+        child = self.currentWidget()
+        return child.findText(text)
+        
     def prepareLibraryAPIs(self):
         self.LibraryAPIs = Qsci.QsciAPIs(QsciLexerCPP(self,True))
         try:
