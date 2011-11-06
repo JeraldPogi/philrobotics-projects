@@ -2,7 +2,7 @@
 import os
 from cx_Freeze import setup, Executable
 
-includes = ['sip', 'PyQt4.QtCore', 'atexit']
+includes = ['sip', 'PyQt4.QtCore']
 files = []
 
 icons = ['new', 'open', 'save', 'run', 'stop']

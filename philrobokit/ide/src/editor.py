@@ -159,7 +159,7 @@ class MultipleCppEditor(QtGui.QTabWidget):
         
     def newFile(self):
         child = CppEditor(self)
-        self.addTab(child, "untitled.c")
+        self.addTab(child, "untitled.c * ")
         self.setCurrentIndex(self.count()-1)        
     def openFile(self):
         fileName = QtGui.QFileDialog.getOpenFileName(
