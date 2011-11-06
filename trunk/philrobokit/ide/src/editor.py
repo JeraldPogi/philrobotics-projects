@@ -70,6 +70,21 @@ class CppEditor(QsciScintilla):
         # Enable folding visual- use boxes
         self.setFolding(QsciScintilla.BoxedTreeFoldStyle)
         
+        # show line numbers
+        fontmetrics = QtGui.QFontMetrics(font)
+        self.setMarginsFont(font)
+        self.setMarginWidth(0, fontmetrics.width("00000") + 6)
+        self.setMarginLineNumbers(0, True)
+        self.setMarginsBackgroundColor(QtGui.QColor("#eecc77"))
+        
+        # not too small
+        self.setMinimumSize(480, 320)
+        
+        # set the length of the string before the editor tries to auto-complete
+        self.setAutoCompletionThreshold(2)
+        # tell the editor we are using a QsciAPI for the auto-completion
+        self.setAutoCompletionSource(QsciScintilla.AcsAPIs)
+        
         # "CTRL+Space" autocomplete
         self.shortcut_ctrl_space = QtGui.QShortcut(QtGui.QKeySequence("Ctrl+Space"), self)        
         self.connect(self.shortcut_ctrl_space,
@@ -104,11 +119,14 @@ class CppEditor(QsciScintilla):
 
         outstr = QtCore.QTextStream(qfile)
         outstr << self.text()
+        
         self.curFile = fileName
+        self.isUntitled = False
         return True
+    
     def saveAs(self):
         fileName = QtGui.QFileDialog.getSaveFileName(self, "Save As",
-                self.curFile)
+                self.curFile, "C source (*.c);;Text File (*.txt);;All files (*.*)" )
         if not fileName:
             return False
         return self.saveFile(fileName)

@@ -29,27 +29,39 @@ class PicCompiler:
         # PIC chip part
         self.chip = chip
         
+        # compiler; todo: support for PICC18
+        self.PICC = None
+        
         # subprocess class    
         self.proc = None
         
+        # platform dependent
         self.isWin32Platform = False
+        self.subprocessShell = False
         
         if sys.platform == 'win32':
             self.toolpath = 'tools/picc_win32'
             self.isWin32Platform = True
+            self.subprocessShell = True
         elif sys.platform == 'linux2':
             self.toolpath = 'tools/picc_linux'
         else:
             self.toolpath = None
             
+        if self.toolpath:
+            self.PICC = os.getcwd() + '/' + self.toolpath + '/bin/picc'
         
     def getInfo(self):
         if self.toolpath:
-            try:
-                # todo: use "Popen" class from "subprocess" modules
-                info = os.popen(os.getcwd() + '/' + self.toolpath + '/bin/picc --ver').read()
-                if info:
-                    return info
+            try:              
+                info = subprocess.Popen(
+                            [ str(self.PICC), str('--ver') ], # get version info,
+                            stdin=subprocess.PIPE,
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.PIPE,
+                            shell=self.subprocessShell ).communicate()
+                if info[0]:
+                    return info[0]
             except:
                 return 'failed to execute: ' + os.getcwd() + '/' + self.toolpath + '/bin/picc --ver'
         return None
@@ -67,10 +79,8 @@ class PicCompiler:
         if not os.path.exists( outpath ):
             os.makedirs( outpath )
 
-        PICC = os.getcwd() + '/' + self.toolpath + '/bin/picc'
-        
         # todo: other compiler flags (e.g. hex output)
-        CMD = [PICC,
+        CMD = [ self.PICC,
                '--chip=' + self.chip,
                '-I' + os.getcwd() + '/' + PRK_LIB,
                '--OUTDIR=' + outpath,
@@ -80,17 +90,14 @@ class PicCompiler:
         for cmd in CMD:
             commands.append(str(cmd)) # Win32 workaround: QString problem
         
-        self.shell = False
-        if self.isWin32Platform:
-            self.shell = True
+        self.proc = subprocess.Popen(
+                         commands,
+                         stdin=subprocess.PIPE,
+                         stdout=subprocess.PIPE,
+                         stderr=subprocess.PIPE,
+                         shell=self.subprocessShell )
         
-        self.proc = subprocess.Popen( commands,
-                                      stdin=subprocess.PIPE,
-                                      stdout=subprocess.PIPE,
-                                      stderr=subprocess.PIPE,
-                                      shell=self.shell )
-        
-        # todo: dont wait!; show progressbar
+        # todo: dont wait!; show progressbar instead
         log = self.proc.stdout.read()
         return [True, log]
         
