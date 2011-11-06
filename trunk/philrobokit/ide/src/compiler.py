@@ -21,10 +21,11 @@ class PicCompiler:
     '''
     classdocs
     '''
-    def __init__(self, chip='16F877A'):
+    def __init__(self, parent=None, chip='16F877A'):
         '''
         Constructor
         '''
+        self.parent = parent
         
         # PIC chip part
         self.chip = chip
@@ -33,7 +34,7 @@ class PicCompiler:
         self.PICC = None
         
         # subprocess class    
-        self.proc = None
+        self.BuildProcess = None
         
         # platform dependent
         self.isWin32Platform = False
@@ -68,9 +69,9 @@ class PicCompiler:
         
     def buildProject(self, userCode=None):
         if not os.path.isfile(userCode):
-            return [False, 'file not found']
-        #if not self.proc:
-        #    return [False, 'previous process ongoing']
+            return [False, "file not found"]
+        if self.BuildProcess:
+            return [False, "busy"]
         
         # output folder - same location with user code
         outpath = os.path.dirname( str(userCode) ) + '/' + OUT_DIR
@@ -90,16 +91,30 @@ class PicCompiler:
         for cmd in CMD:
             commands.append(str(cmd)) # Win32 workaround: QString problem
         
-        self.proc = subprocess.Popen(
+        # hey, why not use PyQt QProcess() instead of Popen()?
+        # - for easy porting on other gui toolkit
+        try:
+            self.BuildProcess = subprocess.Popen(
                          commands,
                          stdin=subprocess.PIPE,
                          stdout=subprocess.PIPE,
                          stderr=subprocess.PIPE,
                          shell=self.subprocessShell )
-        
-        # todo: dont wait!; show progressbar instead
-        log = self.proc.stdout.read()
-        return [True, log]
+            return [True, "build process running..."]
+        except:
+            return [False, "abort"]
+    
+    def pollBuildProcess(self):
+        if self.BuildProcess:
+            buff = self.BuildProcess.stdout.readline()
+            if buff == '': # got nothing
+                if self.BuildProcess.poll() != None: # process exited
+                    self.BuildProcess = None
+                    return [False, "process exited"]
+            else:
+                return [True, buff.strip()]
+        else:
+            return [False, "process not running"]
         
         
         

@@ -27,7 +27,8 @@ class AppMainWindow(QtGui.QMainWindow):
         
         self.setCentralWidget(self.Editor)
         
-        self.Compiler = PicCompiler()
+        self.Compiler = PicCompiler(self)
+        self.PollCompilerTimerID = None
         
         self.createActions()
         self.createMenus()
@@ -48,15 +49,23 @@ class AppMainWindow(QtGui.QMainWindow):
             QtGui.QMessageBox.about( self, "Compiler Information", "no compiler found!" )
     
     def startBuild(self):
-        self.insertLog('start project build...', True)
+        self.insertLog("start project build.", True)
         fn = self.Editor.getCurrentFile()
         rc = self.Compiler.buildProject(userCode = fn)
         if not rc[0]:
             self.insertLog(rc[1])
-            QtGui.QMessageBox.warning( self, "Build Error", "File not found (may be unsaved yet). " + \
+            if rc[1] == "file not found":
+                QtGui.QMessageBox.warning( self, "Build Error", "File not found (may be unsaved yet). " + \
                                              "Create or save first the file." )
+            elif rc[1] == "busy":
+                QtGui.QMessageBox.warning( self, "Busy", "Previous build process still running!" )
+            elif rc[1] == "abort":
+                QtGui.QMessageBox.warning( self, "Error", "Unable to start build process!" )
         else:
             self.insertLog( rc[1] )
+            self.PollCompilerTimerID = self.startTimer(50)
+            if not self.PollCompilerTimerID:
+                self.insertLog("unable to start Timer")
 
     def stopBuild(self):
         self.insertLog("todo: cancel build.")
@@ -130,5 +139,16 @@ class AppMainWindow(QtGui.QMainWindow):
         if resetWindow:
             self.log.setText('')
         self.log.append(log)
+        
+    def timerEvent(self, *args, **kwargs):
+        timerID = args[0].timerId()
+        if timerID == self.PollCompilerTimerID:
+            result = self.Compiler.pollBuildProcess()
+            if result[0]:
+                msg = result [1]
+                # todo: parse compiler's warning/error messages
+                self.insertLog(msg)
+            else:
+                self.killTimer(timerID)
         
         
