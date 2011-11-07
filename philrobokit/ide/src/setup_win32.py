@@ -7,10 +7,11 @@ packages = []
 path = []
 files = []
 
-icons = ['new', 'open', 'save', 'run', 'stop']
-for icon in icons:
-    fn = 'images/' + icon + '.png'
-    files.append(fn)
+# png icons
+for fn in os.listdir('images'):
+    fn = str('images/' + fn)
+    if fn.find('.png') == len(fn) - 4:
+        files.append( fn )
 
 # add tool chain files
 for dirname, dirnames, filenames in os.walk('tools/picc_win32'):
