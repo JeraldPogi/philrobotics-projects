@@ -75,6 +75,10 @@ class AppMainWindow(QtGui.QMainWindow):
             self.insertLog("<font color=red>----- Stopped. -----</font>")
         else:
             print "nothing to stop"
+            
+    def programChip(self):
+        print "todo: check if user code is already compiled."
+        print "todo: use bootloader or programmer."
         
     def createActions(self):
         self.newAct = QtGui.QAction( QtGui.QIcon("./images/new.png"), "&New",
@@ -98,11 +102,13 @@ class AppMainWindow(QtGui.QMainWindow):
                 shortcut=QtGui.QKeySequence("Ctrl+F"),
                 statusTip="Find text", triggered=self.Editor.findChildText)
         
-        self.runAct = QtGui.QAction(QtGui.QIcon("./images/run.png"), "&Compile",
+        self.compileAct = QtGui.QAction(QtGui.QIcon("./images/build.png"), "&Compile",
                 self, shortcut=QtGui.QKeySequence("Ctrl+B"),
                 statusTip="Build the current project", triggered=self.startBuild)
         self.stopAct = QtGui.QAction(QtGui.QIcon("./images/stop.png"), "S&top",
                 self, statusTip="Cancel the build process", triggered=self.stopBuild)
+        self.programAct = QtGui.QAction(QtGui.QIcon("./images/load.png"), "Pro&gram",
+                self, statusTip="Download program to the board", triggered=self.programChip)
         
         self.aboutAct = QtGui.QAction("&About", self, shortcut=QtGui.QKeySequence("F1"),
                 statusTip="About the IDE", triggered=self.about)
@@ -123,8 +129,9 @@ class AppMainWindow(QtGui.QMainWindow):
         self.editMenu.addAction(self.findAct)
         
         self.projectMenu = self.menuBar().addMenu("&Project")
-        self.projectMenu.addAction(self.runAct)
+        self.projectMenu.addAction(self.compileAct)
         self.projectMenu.addAction(self.stopAct)
+        self.projectMenu.addAction(self.programAct)
         
         self.ToolsMenu = self.menuBar().addMenu("&Tools")
         
@@ -139,8 +146,9 @@ class AppMainWindow(QtGui.QMainWindow):
         self.fileToolBar.addAction(self.saveAct)
         
         self.projectToolBar = self.addToolBar("Project")
-        self.projectToolBar.addAction(self.runAct)
+        self.projectToolBar.addAction(self.compileAct)
         self.projectToolBar.addAction(self.stopAct)
+        self.projectToolBar.addAction(self.programAct)
         
     def createStatusBar(self):
         self.statusBar().showMessage("Ready")
