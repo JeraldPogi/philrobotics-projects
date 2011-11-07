@@ -1,4 +1,0 @@
-bit
-kbhit(void)
-{
-}
