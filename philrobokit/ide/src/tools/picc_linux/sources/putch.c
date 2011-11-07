@@ -1,4 +1,0 @@
-void
-putch(char c)
-{
-}
