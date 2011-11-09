@@ -30,6 +30,11 @@ for dirname, dirnames, filenames in os.walk('libraries'):
                 fn.find('.txt') == len(fn) - 4 :
                 files.append( fn )
 
+# ini config files
+for fn in os.listdir('configs'):
+    fn = str('configs/' + fn)
+    if fn.find('.ini') == len(fn) - 4:
+        files.append( fn )
 
 exe = Executable(
     script = 'main.pyw',
