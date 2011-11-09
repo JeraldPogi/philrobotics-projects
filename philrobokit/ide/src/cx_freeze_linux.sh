@@ -1,4 +1,4 @@
 #!/bin/bash
 
-python setup_linux.py build
+python setup.py build
 
