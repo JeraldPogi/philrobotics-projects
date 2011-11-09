@@ -8,6 +8,7 @@
 from PyQt4 import QtGui, QtCore
 from editor import MultipleCppEditor
 from compiler import PicCompiler
+from configs import Configurations
 
 class AppMainWindow(QtGui.QMainWindow):
     '''
@@ -23,12 +24,13 @@ class AppMainWindow(QtGui.QMainWindow):
         self.setMinimumSize(300, 400)
         self.resize(580, 600)
                 
-        self.Editor = MultipleCppEditor(self)
-        
+        self.Editor = MultipleCppEditor(self)        
         self.setCentralWidget(self.Editor)
         
         self.Compiler = PicCompiler(self)
         self.PollCompilerTimerID = None
+        
+        self.Configs = Configurations(self)
         
         self.createActions()
         self.createMenus()
