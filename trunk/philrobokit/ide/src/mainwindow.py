@@ -22,15 +22,14 @@ class AppMainWindow(QtGui.QMainWindow):
         super(AppMainWindow, self).__init__()
         self.setWindowTitle("PhilRobokit IDE")
         self.setMinimumSize(300, 400)
-        self.resize(580, 600)
+        
+        self.Configs = Configurations(self)
                 
         self.Editor = MultipleCppEditor(self)        
         self.setCentralWidget(self.Editor)
         
         self.Compiler = PicCompiler(self)
         self.PollCompilerTimerID = None
-        
-        self.Configs = Configurations(self)
         
         self.createActions()
         self.createMenus()
@@ -195,4 +194,10 @@ class AppMainWindow(QtGui.QMainWindow):
                 self.killTimer(timerID)
                 self.PollCompilerTimerID = None
         
-        
+   
+    def closeEvent(self, *args, **kwargs):
+        self.Configs.saveIdeSettings()
+        return QtGui.QMainWindow.closeEvent(self, *args, **kwargs)
+    
+    
+    
