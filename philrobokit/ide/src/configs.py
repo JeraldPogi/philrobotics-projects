@@ -4,17 +4,20 @@
 @filename: cofigs.py
 
 '''
-import os
+from PyQt4 import QtCore
 
 # directory containing ini files
-__CONFIG_DIR__ = 'configs'
+CONFIG_DIR = 'configs'
 # IDE configurations file
-__IDE_CONFIG__ = 'ide.ini'
+IDE_CONFIG = CONFIG_DIR + '/ide.ini'
 # compiler configurations file
-__COMPILER_CONFIG__ = 'compiler.ini'
+COMPILER_CONFIG = CONFIG_DIR + '/compiler.ini'
 # board settings file
-__BOARD_CONFIG__ = 'board.ini'
+BOARD_CONFIG = CONFIG_DIR + '/board.ini'
 
+#default main window dimensions
+IDE_SIZE = [580, 600]
+IDE_POS = [100, 100]
 
 class Configurations:
     '''
@@ -24,31 +27,31 @@ class Configurations:
         '''
         Constructor
         '''
-        self.ideCfg = None
-        self.compilerCfg = None
-        self.boardCfg = None
+        self.parent = parent # QMainWindow parent
         
-        if not os.path.exists( __CONFIG_DIR__ ):
-            self.createDefaults()
-
-    def createDefaults(self):
-        try:
-            # create configuration folder if not yet exiting
-            if not os.path.exists( __CONFIG_DIR__ ):
-                os.makedirs( __CONFIG_DIR__ )
-            # create files
-            self.ideCfg = open( __CONFIG_DIR__ + '/' + __IDE_CONFIG__, 'w+' )
-            self.compilerCfg = open( __CONFIG_DIR__ + '/' + __COMPILER_CONFIG__, 'w+' )
-            self.boardCfg = open( __CONFIG_DIR__ + '/' + __BOARD_CONFIG__, 'w+' )
-            self.ideCfg.close()
-            self.compilerCfg.close()
-            self.boardCfg.close()
-            # todo: write the contents to these files
-            return True
-        except:
-            print "unable to create default configurations"
-            return False
-
+        self.ideCfg = QtCore.QSettings(IDE_CONFIG, QtCore.QSettings.IniFormat, self.parent)
+        self.compilerCfg = QtCore.QSettings(COMPILER_CONFIG, QtCore.QSettings.IniFormat, self.parent)
+        self.boardCfg = QtCore.QSettings(BOARD_CONFIG, QtCore.QSettings.IniFormat, self.parent)
+        
+        self.restoreIdeSettings()
+        
+    def restoreIdeSettings( self ):
+        # reads settings from previous session
+        self.ideCfg.beginGroup( "MainWindow" )
+        self.parent.resize( self.ideCfg.value( "size",
+                            QtCore.QVariant( QtCore.QSize(IDE_SIZE[0],IDE_SIZE[1]) ) ).toSize() )
+        self.parent.move( self.ideCfg.value( "position",
+                            QtCore.QVariant( QtCore.QPoint(IDE_POS[0],IDE_POS[1]) ) ).toPoint() )
+        self.ideCfg.endGroup()
+        #todo: other IDE settings
+        
+    def saveIdeSettings( self ):
+        # save IDE settings.
+        self.ideCfg.beginGroup( "MainWindow" )
+        self.ideCfg.setValue( "size", QtCore.QVariant( self.parent.size() ) )
+        self.ideCfg.setValue( "position", QtCore.QVariant( self.parent.pos() ) )
+        self.ideCfg.endGroup()
+        #todo: other IDE settings
 
 
 
