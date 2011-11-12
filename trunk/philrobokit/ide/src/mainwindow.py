@@ -82,6 +82,7 @@ class AppMainWindow(QtGui.QMainWindow):
         print "todo: use bootloader or programmer."
         
     def createActions(self):
+        # file menu
         self.newAct = QtGui.QAction( QtGui.QIcon("./images/new.png"), "&New",
                 self, shortcut=QtGui.QKeySequence("Ctrl+N"),
                 statusTip="Create a new file", triggered=self.Editor.newFile)
@@ -99,10 +100,12 @@ class AppMainWindow(QtGui.QMainWindow):
                 shortcut=QtGui.QKeySequence("Alt+F4"),
                 statusTip="Exit the application", triggered=QtGui.qApp.closeAllWindows)
         
+        # edit menu
         self.findAct = QtGui.QAction("&Find", self,
                 shortcut=QtGui.QKeySequence("Ctrl+F"),
                 statusTip="Find text", triggered=self.Editor.findChildText)
         
+        # project menu
         self.compileAct = QtGui.QAction(QtGui.QIcon("./images/build.png"), "&Compile",
                 self, shortcut=QtGui.QKeySequence("Ctrl+B"),
                 statusTip="Build the current project", triggered=self.startBuild)
@@ -111,6 +114,22 @@ class AppMainWindow(QtGui.QMainWindow):
         self.programAct = QtGui.QAction(QtGui.QIcon("./images/load.png"), "Pro&gram",
                 self, statusTip="Download program to the board", triggered=self.programChip)
         
+        # todo: serial monitor/terminal window
+        self.serialMonitorAct = QtGui.QAction("Serial &Monitor",  self,
+                #shortcut=QtGui.QKeySequence("Ctrl+Shift+M"),
+                statusTip="Launch Serial Monitor Dialog")
+        
+        # todo: board names??
+        self.boardAnitoAct = QtGui.QAction("PhilRobokit &Anito",  self,
+                checkable=True, statusTip="Select PhilRobokit Anito board" )
+        self.boardEpicpicmoAct = QtGui.QAction("eGizmo &ePicPicMo",  self,
+                checkable=True, statusTip="Select eGizmo ePicPicMo board" ) # todo: pic18 support
+        self.boardGroup = QtGui.QActionGroup(self)
+        self.boardGroup.addAction(self.boardAnitoAct)
+        self.boardGroup.addAction(self.boardEpicpicmoAct)
+        self.boardAnitoAct.setChecked(True)
+        
+        # help menu
         self.aboutAct = QtGui.QAction("&About", self, shortcut=QtGui.QKeySequence("F1"),
                 statusTip="About the IDE", triggered=self.about)
         
@@ -134,7 +153,14 @@ class AppMainWindow(QtGui.QMainWindow):
         self.projectMenu.addAction(self.stopAct)
         self.projectMenu.addAction(self.programAct)
         
-        self.ToolsMenu = self.menuBar().addMenu("&Tools")
+        self.toolsMenu = self.menuBar().addMenu("&Tools")
+        self.toolsMenu.addAction(self.serialMonitorAct)
+        self.toolsMenu.addSeparator()
+        self.boardMenu = self.toolsMenu.addMenu("&Board")
+        self.boardMenu.addAction(self.boardAnitoAct)
+        self.boardMenu.addAction(self.boardEpicpicmoAct)
+        #self.serialPortMenu = self.toolsMenu.addMenu("&Serial Port")
+        #self.bootloaderMenu = self.toolsMenu.addMenu("&Booloader")
         
         self.helpMenu = self.menuBar().addMenu("&Help")
         self.helpMenu.addAction(self.aboutCompilerAct)
