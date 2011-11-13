@@ -40,7 +40,9 @@ class AppMainWindow(QtGui.QMainWindow):
     def about(self):
         QtGui.QMessageBox.about(self, "About",
                 "<b>PhilRobotics</b>' Integrated Development Environment for PhilRoboKit Boards")
-        
+    def openPhilRoboticsSite(self):
+        # todo: change to .ORG
+        QtGui.QDesktopServices.openUrl( QtCore.QUrl("http://www.philrobotics.com/") )
     def aboutCompiler(self):
         info = self.Compiler.getInfo()
         #self.log.append(info)
@@ -131,10 +133,13 @@ class AppMainWindow(QtGui.QMainWindow):
         
         # help menu
         self.aboutAct = QtGui.QAction("&About", self, shortcut=QtGui.QKeySequence("F1"),
-                statusTip="About the IDE", triggered=self.about)
-        
-        self.aboutCompilerAct = QtGui.QAction("About &Compiler", self, shortcut=QtGui.QKeySequence("Alt+F1"),
+                statusTip="About the IDE", triggered=self.about)        
+        self.aboutCompilerAct = QtGui.QAction("About &Compiler", self,
                 statusTip="About PICC tool", triggered=self.aboutCompiler)
+        self.aboutQtAct = QtGui.QAction("About &Qt", self,
+                statusTip="Show the Qt library's About box", triggered=QtGui.qApp.aboutQt)
+        self.visitSiteAct = QtGui.QAction("Visit &PhilRobotics", self,
+                statusTip="Open PhilRobotics Website", triggered=self.openPhilRoboticsSite)
         
     def createMenus(self):
         self.fileMenu = self.menuBar().addMenu("&File")
@@ -163,7 +168,9 @@ class AppMainWindow(QtGui.QMainWindow):
         #self.bootloaderMenu = self.toolsMenu.addMenu("&Booloader")
         
         self.helpMenu = self.menuBar().addMenu("&Help")
+        self.helpMenu.addAction(self.visitSiteAct)
         self.helpMenu.addAction(self.aboutCompilerAct)
+        self.helpMenu.addAction(self.aboutQtAct)
         self.helpMenu.addAction(self.aboutAct)
     
     def createToolBars(self):
