@@ -5,6 +5,7 @@
 
 '''
 
+import os
 from PyQt4 import QtGui, QtCore, Qsci
 from PyQt4.Qsci import QsciScintilla, QsciLexerCPP
 
@@ -14,10 +15,12 @@ LIB_DIR = 'libraries'
 PRK_LIB = LIB_DIR + '/PhilRobokitProjectLibrary'
 # file containing keywords
 KEYWORD_FILE = 'keywords.txt'
+# user source
+PROJECT_ALIAS = 'PhilRobokit Proyekto' #'PhilRobokit Project'
+PROJECT_EXT = '.phr'
+PROJECT_NONAME = 'untitled'
 
 __default_content__ = '''
-#include "PhilRobokit_Macro.h"
-
 void init()
 {
 
@@ -39,6 +42,8 @@ class CppEditor(QsciScintilla):
         '''
         super(CppEditor, self).__init__(parent)
         self.parent = parent
+        
+        self.setAcceptDrops(False) # drag&drop is on its parent
         
         # Set the default font
         font = QtGui.QFont()
@@ -99,14 +104,14 @@ class CppEditor(QsciScintilla):
             self.loadFile(fileName)
             self.isUntitled = False
         else:
-            self.curFile = "untitled.c"
+            self.curFile = PROJECT_NONAME + PROJECT_EXT
             self.setText( __default_content__ )
             self.isUntitled = True
         
     def loadFile(self, fileName):
         qfile = QtCore.QFile(fileName)
         if not qfile.open(QtCore.QFile.ReadOnly | QtCore.QFile.Text):
-            QtGui.QMessageBox.warning(self, "CppEditor",
+            QtGui.QMessageBox.warning(self, PROJECT_ALIAS,
                     "Cannot read file %s:\n%s." % (fileName, qfile.errorString()))
             return False
         instr = QtCore.QTextStream(qfile)
@@ -115,7 +120,7 @@ class CppEditor(QsciScintilla):
     def saveFile(self, fileName):
         qfile = QtCore.QFile(fileName)
         if not qfile.open(QtCore.QFile.WriteOnly | QtCore.QFile.Text):
-            QtGui.QMessageBox.warning(self, "CppEditor",
+            QtGui.QMessageBox.warning(self, PROJECT_ALIAS,
                     "Cannot write file %s:\n%s." % (fileName, qfile.errorString()))
             return False
 
@@ -128,7 +133,8 @@ class CppEditor(QsciScintilla):
     
     def saveAs(self):
         fileName = QtGui.QFileDialog.getSaveFileName(self, "Save As",
-                self.curFile, "C source (*.c);;Text File (*.txt);;All files (*.*)" )
+                self.curFile, PROJECT_ALIAS + " (*" + PROJECT_EXT + ");;" + 
+                    "C source (*.c);;Text File (*.txt);;All files (*.*)" )
         if not fileName:
             return False
         return self.saveFile(fileName)
@@ -176,21 +182,33 @@ class MultipleCppEditor(QtGui.QTabWidget):
         
         self.prepareLibraryAPIs()
         
+        self.setAcceptDrops(True)
+        
         if self.count()==0:
             self.newFile()
         
     def newFile(self):
         child = CppEditor(self)
-        self.addTab(child, "untitled.c * ")
+        self.addTab(child, PROJECT_NONAME + " * ")
         self.setCurrentIndex(self.count()-1)
     def openFile(self):
         fileName = QtGui.QFileDialog.getOpenFileName(
                                         self, self.tr("Open Source File"),
-                                        "", "C source (*.c);;Text File (*.txt);;All files (*.*)" )
+                                        "", PROJECT_ALIAS + " (*" + PROJECT_EXT + ");;" 
+                                        "C Source File (*.c);;Text File (*.txt);;All files (*.*)" )
         if fileName == "":
             return False
+        #check if it's already opened
+        for i in range(self.count()):
+            child = self.widget(i)
+            if fileName == child.currentFile(): # file already opened
+                self.setCurrentIndex(i)
+                return True
         child = CppEditor(self, fileName)
-        self.addTab(child, fileName.right(fileName.length() - fileName.lastIndexOf('/') - 1 ))
+        tabtext = os.path.basename( str(fileName) )
+        if tabtext.lower().find(PROJECT_EXT) == len(tabtext) - len(PROJECT_EXT):
+            tabtext = tabtext[:tabtext.lower().find(PROJECT_EXT)]
+        self.addTab(child, tabtext)
         self.setCurrentIndex(self.count()-1)
         return True
     def saveFile(self):
@@ -198,7 +216,10 @@ class MultipleCppEditor(QtGui.QTabWidget):
         rc = child.save()
         if rc:
             fileName = child.currentFile()
-            self.setTabText(self.currentIndex(), fileName.right(fileName.length() - fileName.lastIndexOf('/') - 1 ))
+            tabtext = os.path.basename( str(fileName) )
+            if tabtext.lower().find(PROJECT_EXT) == len(tabtext) - len(PROJECT_EXT):
+                tabtext = tabtext[:tabtext.lower().find(PROJECT_EXT)]
+            self.setTabText(self.currentIndex(), tabtext)
             return True
         return False
     def closeFile(self):
@@ -242,6 +263,30 @@ class MultipleCppEditor(QtGui.QTabWidget):
     def getLibraryAPIs(self):
         return self.LibraryAPIs
     
-    
+    def dragEnterEvent(self, e):
+        if e.mimeData().hasUrls():
+            url = str( e.mimeData().urls()[0].toString() ).lower()
+            if url.rfind(PROJECT_EXT) == len(url) - len(PROJECT_EXT):
+                e.accept()
+                return
+        e.ignore() 
+        
+    def dropEvent(self, e):
+        try:
+            fname = str(e.mimeData().urls()[0].toLocalFile() )
+            #check if it's already opened
+            for i in range(self.count()):
+                child = self.widget(i)
+                if fname == child.currentFile():
+                    self.setCurrentIndex(i)
+                    return
+            child = CppEditor(self, fname)
+            title = os.path.basename(fname)
+            if title.lower().rfind(PROJECT_EXT) == len(title) - len(PROJECT_EXT):
+                title = title[:title.lower().rfind(PROJECT_EXT)]
+            self.addTab(child, title)
+            self.setCurrentIndex(self.count()-1)
+        except:
+            print "drop error"
     
         
