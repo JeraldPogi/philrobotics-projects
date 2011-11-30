@@ -13,8 +13,10 @@ import subprocess
 LIB_DIR = 'libraries'
 # PhilRobokit Library
 PRK_LIB = LIB_DIR + '/PhilRobokitProjectLibrary'
+# required header file(s)
+REQUIRED_INCLUDES = ['#include "PhilRobokit_Macro.h"']
 # output directory 
-OUT_DIR = 'philrobokit_output'
+OUT_DIR = 'phr_out'
 
 
 class PicCompiler:
@@ -78,8 +80,35 @@ class PicCompiler:
         
         # create output directory, if not existing
         if not os.path.exists( outpath ):
-            os.makedirs( outpath )
-
+            try:
+                os.makedirs( outpath )
+            except:
+                self.BuildProcess = None
+                return [False, "make dir error"]
+            
+        # create temporary (parsed) source file
+        parsedUserCode = str(userCode)
+        # check if extension is not yet *.c
+        if parsedUserCode.lower().rfind('.c') <> len(parsedUserCode) - len('.c'):
+            parsedUserCode = os.path.basename(parsedUserCode)
+            dotpos = parsedUserCode.rfind('.')
+            if dotpos > 0:
+                parsedUserCode = parsedUserCode[:dotpos] + '.c'
+            else:
+                parsedUserCode += '.c'
+            parsedUserCode = outpath + '/' + parsedUserCode
+            try:
+                fin = open(userCode, 'rb')
+                fout = open(parsedUserCode, 'wb')
+                fout.writelines( REQUIRED_INCLUDES )
+                for line in fin.readlines():
+                    fout.write(line)
+                fin.close()
+                fout.close()
+            except:
+                self.BuildProcess = None
+                return [False, "file write error"]
+            
         # todo: other compiler flags (e.g. hex output)
         CMD = [ self.PICC,
                '--CHIP=' + self.chip, # chip part number
@@ -91,7 +120,7 @@ class PicCompiler:
               # '--SUMMARY=psect', # default to 'mem'
                '-I' + os.getcwd() + '/' + PRK_LIB, # include directory
                '--OUTDIR=' + outpath, # output directory
-               userCode] # C-codes
+               parsedUserCode] # C-codes
         
         commands = []
         for cmd in CMD:
@@ -108,6 +137,7 @@ class PicCompiler:
                          shell=self.subprocessShell )
             return [True, "Build process running. Please wait..."]
         except:
+            self.BuildProcess = None
             return [False, "abort"]
     
     def pollBuildProcess(self, stopProcess=False):
