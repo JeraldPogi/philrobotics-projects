@@ -9,6 +9,7 @@ from PyQt4 import QtGui, QtCore
 from editor import MultipleCppEditor
 from compiler import PicCompiler
 from configs import Configurations
+from serialport import scan_serialports, SerialPortMonitor
 
 class AppMainWindow(QtGui.QMainWindow):
     '''
@@ -30,6 +31,8 @@ class AppMainWindow(QtGui.QMainWindow):
         
         self.Compiler = PicCompiler(self)
         self.PollCompilerTimerID = None
+        
+        self.serialPortName = None
         
         self.createActions()
         self.createMenus()
@@ -83,6 +86,13 @@ class AppMainWindow(QtGui.QMainWindow):
         print "todo: check if user code is already compiled."
         print "todo: use bootloader or programmer."
         
+    def selectSerialPort(self):
+        act = self.serialPortGroup.checkedAction()
+        if act:
+            # todo: remember previously selected port
+            self.serialPortName = str( act.text() )
+            self.insertLog( 'selected port: ' + self.serialPortName )
+        
     def createActions(self):
         # file menu
         self.newAct = QtGui.QAction( QtGui.QIcon("./images/new.png"), "&New",
@@ -120,6 +130,16 @@ class AppMainWindow(QtGui.QMainWindow):
         self.serialMonitorAct = QtGui.QAction("Serial &Monitor",  self,
                 #shortcut=QtGui.QKeySequence("Ctrl+Shift+M"),
                 statusTip="Launch Serial Monitor Dialog")
+        self.serialPortGroup = QtGui.QActionGroup(self)
+        self.serialPortList = scan_serialports()
+        self.serialPortActs = []
+        if len(self.serialPortList):
+            for i in range(len(self.serialPortList)):
+                self.serialPortActs.append(
+                        QtGui.QAction(self.serialPortList[i],  self, checkable=True,
+                            statusTip="select " + self.serialPortList[i] + " serial port",
+                            triggered=self.selectSerialPort) )
+                self.serialPortGroup.addAction( self.serialPortActs[i] )
         
         # todo: board names??
         self.boardAnitoAct = QtGui.QAction("PhilRobokit &Anito",  self,
@@ -164,7 +184,10 @@ class AppMainWindow(QtGui.QMainWindow):
         self.boardMenu = self.toolsMenu.addMenu("&Board")
         self.boardMenu.addAction(self.boardAnitoAct)
         self.boardMenu.addAction(self.boardEpicpicmoAct)
-        #self.serialPortMenu = self.toolsMenu.addMenu("&Serial Port")
+        self.serialPortMenu = self.toolsMenu.addMenu("&Serial Port")
+        if len(self.serialPortActs):
+            for i in range(len(self.serialPortActs)):
+                self.serialPortMenu.addAction(self.serialPortActs[i])
         #self.bootloaderMenu = self.toolsMenu.addMenu("&Booloader")
         
         self.helpMenu = self.menuBar().addMenu("&Help")
