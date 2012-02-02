@@ -33,6 +33,7 @@ class AppMainWindow(QtGui.QMainWindow):
         self.PollCompilerTimerID = None
         
         self.serialPortName = None
+        self.SerialPortMonitorDialog = SerialPortMonitor(self)
         
         self.createActions()
         self.createMenus()
@@ -92,6 +93,12 @@ class AppMainWindow(QtGui.QMainWindow):
             # todo: remember previously selected port
             self.serialPortName = str( act.text() )
             self.insertLog( 'selected port: ' + self.serialPortName )
+            
+    def openSerialPortMonitorDialog(self):
+        if self.serialPortName == None:
+            self.insertLog( "<font color=red>no serial port selected!</font>" )
+            return
+        self.SerialPortMonitorDialog.show() # non-modal open
         
     def createActions(self):
         # file menu
@@ -129,7 +136,7 @@ class AppMainWindow(QtGui.QMainWindow):
         # todo: serial monitor/terminal window
         self.serialMonitorAct = QtGui.QAction("Serial &Monitor",  self,
                 #shortcut=QtGui.QKeySequence("Ctrl+Shift+M"),
-                statusTip="Launch Serial Monitor Dialog")
+                statusTip="Launch Serial Monitor Dialog", triggered=self.openSerialPortMonitorDialog)
         self.serialPortGroup = QtGui.QActionGroup(self)
         self.serialPortList = scan_serialports()
         self.serialPortActs = []
