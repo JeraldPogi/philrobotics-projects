@@ -8,6 +8,7 @@
 import os
 import sys
 import subprocess
+import glob
 
 # library path
 LIB_DIR = 'libraries'
@@ -18,6 +19,15 @@ REQUIRED_INCLUDES = ['#include "PhilRobokit_Macro.h"']
 # output directory 
 OUT_DIR = 'phr_out'
 
+def scanFirmwareLibs():
+    libraries = []
+    # todo: scan also header files instead of just folder names
+    folders = glob.glob(LIB_DIR + '/*')
+    for folder in folders:
+        # PRK_LIB is automatically included
+        if folder[len(LIB_DIR)+1:] != PRK_LIB[len(LIB_DIR)+1:]: # todo: other required libraries
+            libraries.append(folder[len(LIB_DIR)+1:])
+    return libraries
 
 class PicCompiler:
     '''

@@ -248,6 +248,7 @@ class MultipleCppEditor(QtGui.QTabWidget):
     def prepareLibraryAPIs(self):
         self.LibraryAPIs = Qsci.QsciAPIs(QsciLexerCPP(self,True))
         try:
+            # todo: prepare only APIs for the 'included' libraries
             keyword_file = open( PRK_LIB + '/' + KEYWORD_FILE, 'r')
             for line in keyword_file.readlines():
                 if line.strip(): # ignore blank lines
@@ -262,6 +263,12 @@ class MultipleCppEditor(QtGui.QTabWidget):
         
     def getLibraryAPIs(self):
         return self.LibraryAPIs
+    
+    def importFirmwareLib(self, library=None):        
+        child = self.currentWidget()
+        if child:
+            directive =  '#include <' + library + '.h>\r\n'
+            child.insertAt(directive, 0, 0) # insert at first line
     
     def dragEnterEvent(self, e):
         if e.mimeData().hasUrls():
