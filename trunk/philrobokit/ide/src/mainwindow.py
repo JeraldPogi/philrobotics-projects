@@ -91,14 +91,23 @@ class AppMainWindow(QtGui.QMainWindow):
         act = self.serialPortGroup.checkedAction()
         if act:
             # todo: remember previously selected port
-            self.serialPortName = str( act.text() )
-            self.insertLog( 'selected port: ' + self.serialPortName )
+            portname = str( act.text() )
+            if portname != self.serialPortName:
+                self.serialPortName = portname
+                self.insertLog( 'selected port: ' + self.serialPortName )
+                if self.SerialPortMonitorDialog.isPortOpen():
+                    if not self.SerialPortMonitorDialog.openPort(self.serialPortName):
+                        self.SerialPortMonitorDialog.close()
+                        self.insertLog( "<font color=red>unable to open %s</font>"%self.serialPortName)                                        
             
     def openSerialPortMonitorDialog(self):
         if self.serialPortName == None:
             self.insertLog( "<font color=red>no serial port selected!</font>" )
             return
-        self.SerialPortMonitorDialog.show() # non-modal open
+        if self.SerialPortMonitorDialog.openPort(self.serialPortName):
+            self.SerialPortMonitorDialog.show() # non-modal open
+        else:
+            self.insertLog( "<font color=red>unable to open serial port!</font>" )
         
     def createActions(self):
         # file menu
@@ -256,6 +265,7 @@ class AppMainWindow(QtGui.QMainWindow):
             else:
                 self.killTimer(timerID)
                 self.PollCompilerTimerID = None
+        return QtGui.QMainWindow.timerEvent(self, *args, **kwargs)
         
    
     def closeEvent(self, *args, **kwargs):
