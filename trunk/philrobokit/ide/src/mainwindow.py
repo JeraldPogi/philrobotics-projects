@@ -7,7 +7,7 @@
 
 from PyQt4 import QtGui, QtCore
 from editor import MultipleCppEditor
-from compiler import PicCompiler
+from compiler import scanFirmwareLibs, PicCompiler
 from configs import Configurations
 from serialport import scan_serialports, SerialPortMonitor
 
@@ -100,6 +100,11 @@ class AppMainWindow(QtGui.QMainWindow):
                         self.SerialPortMonitorDialog.close()
                         self.insertLog( "<font color=red>unable to open %s</font>"%self.serialPortName)                                        
             
+    def importFirmwareLib(self, action=None):
+        if action:
+            libname = str( action.text() )
+            self.Editor.importFirmwareLib(libname)
+    
     def openSerialPortMonitorDialog(self):
         if self.serialPortName == None:
             self.insertLog( "<font color=red>no serial port selected!</font>" )
@@ -141,6 +146,14 @@ class AppMainWindow(QtGui.QMainWindow):
                 self, statusTip="Cancel the build process", triggered=self.stopBuild)
         self.programAct = QtGui.QAction(QtGui.QIcon("./images/load.png"), "Pro&gram",
                 self, statusTip="Download program to the board", triggered=self.programChip)
+        
+        self.firmwareLibList = scanFirmwareLibs()
+        self.firmwareLibActs = []
+        if len(self.firmwareLibList):
+            for i in range(len(self.firmwareLibList)):
+                self.firmwareLibActs.append(
+                        QtGui.QAction(self.firmwareLibList[i],  self,
+                            statusTip="include " + self.firmwareLibList[i] + " library" ) ) 
         
         # todo: serial monitor/terminal window
         self.serialMonitorAct = QtGui.QAction("Serial &Monitor",  self,
@@ -193,6 +206,13 @@ class AppMainWindow(QtGui.QMainWindow):
         self.projectMenu.addAction(self.compileAct)
         self.projectMenu.addAction(self.stopAct)
         self.projectMenu.addAction(self.programAct)
+        self.projectMenu.addSeparator()
+        self.firmwareLibMenu = self.projectMenu.addMenu("Import &Library...")
+        if len(self.firmwareLibActs):
+            for i in range(len(self.firmwareLibActs)):
+                self.firmwareLibMenu.addAction(self.firmwareLibActs[i])
+        self.connect(self.firmwareLibMenu,
+                     QtCore.SIGNAL("triggered (QAction *)"), self.importFirmwareLib)
         
         self.toolsMenu = self.menuBar().addMenu("&Tools")
         self.toolsMenu.addAction(self.serialMonitorAct)
