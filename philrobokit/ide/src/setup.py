@@ -38,6 +38,8 @@ for fn in os.listdir('configs'):
 
 ######## Platform dependent settings ##################################
 if sys.platform == 'win32':
+    # add win32 for pyserial
+    packages.append('serial.win32')
     # add tool chain files
     for dirname, dirnames, filenames in os.walk('tools/picc_win32'):
         for filename in filenames:
