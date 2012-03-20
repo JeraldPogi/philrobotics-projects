@@ -1,6 +1,5 @@
 
-import os
-import sys
+import os, glob
 from cx_Freeze import setup, Executable
 
 includes = ['sip', 'PyQt4.QtCore']
@@ -12,11 +11,12 @@ EXE = None
 
 ######## Files to include in the distribution ########################
 
-# png icons
-for fn in os.listdir('images'):
-    fn = str('images/' + fn)
-    if fn.find('.png') == len(fn) - 4:
-        files.append( fn )
+# *.png images
+files += glob.glob('images/*.png')
+
+# core firmware files
+files += glob.glob('hardware/cores/*')
+files += glob.glob('hardware/cores/lib/*')
 
 # library files
 for dirname, dirnames, filenames in os.walk('libraries'):
@@ -30,14 +30,15 @@ for dirname, dirnames, filenames in os.walk('libraries'):
                 fn.find('.txt') == len(fn) - 4 :
                 files.append( fn )
 
-# ini config files
-for fn in os.listdir('configs'):
-    fn = str('configs/' + fn)
-    if fn.find('.ini') == len(fn) - 4:
-        files.append( fn )
+# pickit2 command line files
+files += glob.glob('tools/pickit2/*')
+
+# *.ini config files
+files += glob.glob('configs/*.ini')
+
 
 ######## Platform dependent settings ##################################
-if sys.platform == 'win32':
+if os.sys.platform == 'win32':
     # add win32 for pyserial
     packages.append('serial.win32')
     # add tool chain files
@@ -51,9 +52,9 @@ if sys.platform == 'win32':
         script = 'main.pyw',
         base = 'Win32GUI',
         targetName = 'PhilRoboKitIDE.exe',
-        icon = None,
+        icon = 'images/app.ico',
         )
-elif sys.platform == 'linux2':
+elif os.sys.platform == 'linux2':
     # add tool chain files
     for dirname, dirnames, filenames in os.walk('tools/picc_linux'):
         for filename in filenames:
@@ -73,7 +74,7 @@ else:
 if EXE:
     setup( name = "PhiRoboKit IDE",
            description = 'PhiRoboKit Integrated Development Environment',
-           version = '0.2',
+           version = '00.04',
            author = 'PhilRobotics',
            options = {'build_exe': {
                                     'include_files' : files,

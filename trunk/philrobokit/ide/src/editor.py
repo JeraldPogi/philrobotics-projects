@@ -8,14 +8,9 @@
 import os
 from PyQt4 import QtGui, QtCore, Qsci
 from PyQt4.Qsci import QsciScintilla, QsciLexerCPP
+from firmware import getLibraryKeywords
 
-# library path
-LIB_DIR = 'libraries'
-# PhilRobokit Library
-PRK_LIB = LIB_DIR + '/PhilRobokitProjectLibrary'
-# file containing keywords
-KEYWORD_FILE = 'keywords.txt'
-# user source
+# user source code
 PROJECT_ALIAS = 'PhilRobokit Proyekto' #'PhilRobokit Project'
 PROJECT_EXT = '.phr'
 PROJECT_NONAME = 'untitled'
@@ -247,18 +242,9 @@ class MultipleCppEditor(QtGui.QTabWidget):
         
     def prepareLibraryAPIs(self):
         self.LibraryAPIs = Qsci.QsciAPIs(QsciLexerCPP(self,True))
-        try:
-            # todo: prepare only APIs for the 'included' libraries
-            keyword_file = open( PRK_LIB + '/' + KEYWORD_FILE, 'r')
-            for line in keyword_file.readlines():
-                if line.strip(): # ignore blank lines
-                    if line[0] <> '#': # ignore comments
-                        keyword = line.split('\t')[0]
-                        # todo: classify keywords according to types
-                        self.LibraryAPIs.add(keyword)
-            keyword_file.close()
-        except:
-            print 'file not found'
+        keywords = getLibraryKeywords()
+        for keyword in keywords:
+            self.LibraryAPIs.add( keyword )
         self.LibraryAPIs.prepare()
         
     def getLibraryAPIs(self):
