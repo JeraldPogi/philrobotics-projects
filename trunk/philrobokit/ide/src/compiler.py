@@ -122,6 +122,8 @@ class PicCompilerThread(QtCore.QThread):
         if not Result:
             self.BuildProcess = None
             return [False, "file write error"]
+
+        Defines.append( '-D_' + self.chip )
            
         # todo: other compiler flags (e.g. hex output)
         '''CMD = [ self.PICC,

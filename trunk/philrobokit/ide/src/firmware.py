@@ -13,7 +13,7 @@ LIB_DIR = 'libraries'
 PRK_CORE_DIR = 'hardware/cores'
 PRK_CORELIB_DIR = PRK_CORE_DIR + '/lib'
 # required header file(s)
-REQUIRED_INCLUDES = ['#include <PhilRobokit_Macro.h>']
+REQUIRED_INCLUDES = ['#include <PhilRoboKit_CoreLib_Macro.h>']
 # Library API keywords
 KEYWORD_FILE = 'keywords.txt'
 
@@ -58,7 +58,7 @@ def parseUserCode(userCode=None, outPath=None):
             return False, [], [], []
     
     # initial return values (empty)
-    defines = [] # todo: compiler defines
+    defines = ['-DHI_TECH_C'] # todo: compiler defines
     includes = []
     sources = []
     

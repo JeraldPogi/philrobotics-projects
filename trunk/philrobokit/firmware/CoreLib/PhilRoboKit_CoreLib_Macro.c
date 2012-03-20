@@ -35,6 +35,9 @@
 
 #include "PhilRoboKit_CoreLib_Macro.h"
 
+/* device configuration settings */
+__CONFIG(WDTE_OFF & FOSC_HS & LVP_OFF & PWRTE_ON & BOREN_OFF);
+
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 /* Global PhilRobokit Functions */
 void configPin(unsigned char ucPinName, char bDirection)

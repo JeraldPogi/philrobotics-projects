@@ -40,13 +40,15 @@
 //unsigned int uiFreqOSC;
 
 #if defined(HI_TECH_C)	
-	#include "lib\htc_common.h"
+	#include "htc_common.h"
 	
 	#if defined( _16F873A ) || defined( _16F874A )  || defined( _16F876A ) || defined( _16F877A )  	
-		#include "lib\htc_16f87xa.h"
+		#include "htc_16f87xa.h"
 	#endif
 
-	#define _XTAL_FREQ 20000000	
+	#ifndef _XTAL_FREQ
+		#define _XTAL_FREQ 20000000	
+	#endif
 	//uiFreqOSC = _XTAL_FREQ;
 
 	//#define _LEGACY_HEADERS
