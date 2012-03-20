@@ -148,7 +148,7 @@ class PicCompilerThread(QtCore.QThread):
         return [True, "Build process running. Please wait..."]
 
     def pollBuildProcess(self, stopProcess=False):
-        if self.CompilerProcess:
+        if self.isRunning():
             if stopProcess:
                 try:
                     self.CompilerProcess.kill() # needs Admin privilege on Windows!
