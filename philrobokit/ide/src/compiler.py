@@ -5,122 +5,126 @@
 
 '''
 
-import os
-import sys
-import subprocess
-import glob
+import os, subprocess
+from PyQt4 import QtCore
+from firmware import parseUserCode
 
-# library path
-LIB_DIR = 'libraries'
-# PhilRobokit Library
-PRK_LIB = LIB_DIR + '/PhilRobokitProjectLibrary'
-# required header file(s)
-REQUIRED_INCLUDES = ['#include "PhilRobokit_Macro.h"']
+# hi-tech C compilers
+PICC_WIN32 = 'tools/picc_win32/bin/picc'
+PICC_LINUX = 'tools/picc_linux/bin/picc'
+
 # output directory 
-OUT_DIR = 'phr_out'
+OUT_DIR = '.phr_out'
 
-def scanFirmwareLibs():
-    libraries = []
-    # todo: scan also header files instead of just folder names
-    folders = glob.glob(LIB_DIR + '/*')
-    for folder in folders:
-        # PRK_LIB is automatically included
-        if folder[len(LIB_DIR)+1:] != PRK_LIB[len(LIB_DIR)+1:]: # todo: other required libraries
-            libraries.append(folder[len(LIB_DIR)+1:])
-    return libraries
-
-class PicCompiler:
+class PicCompilerThread(QtCore.QThread):
     '''
     classdocs
     '''
     def __init__(self, parent=None, chip='16F877A'):
-        '''
-        Constructor
-        '''
+        QtCore.QThread.__init__(self, parent)
         self.parent = parent
-        
-        # PIC chip part
         self.chip = chip
-        
-        # compiler; todo: support for PICC18
-        self.PICC = None
-        
-        # subprocess class    
-        self.BuildProcess = None
-        
-        # platform dependent
+
+        # platform dependent settings
         self.isWin32Platform = False
-        self.subprocessShell = False
-        
-        if sys.platform == 'win32':
-            self.toolpath = 'tools/picc_win32'
+        if os.sys.platform == 'win32':
+            self.PICC = os.getcwd() + '/' + PICC_WIN32
             self.isWin32Platform = True
-            self.subprocessShell = True
-        elif sys.platform == 'linux2':
-            self.toolpath = 'tools/picc_linux'
+        elif os.sys.platform == 'linux2':
+            self.PICC = os.getcwd() + '/' + PICC_LINUX
         else:
-            self.toolpath = None
+            self.PICC = None
             
-        if self.toolpath:
-            self.PICC = os.getcwd() + '/' + self.toolpath + '/bin/picc'
+        self.CompilerArguments = None            
+        self.CompilerProcess = None # todo: use QtCore.QProcess class instead
         
-    def getInfo(self):
-        if self.toolpath:
-            try:              
-                info = subprocess.Popen(
-                            [ str(self.PICC), str('--ver') ], # get version info,
-                            stdin=subprocess.PIPE,
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.PIPE,
-                            shell=self.subprocessShell ).communicate()
-                if info[0]:
-                    return info[0]
+        self.LogList = QtCore.QStringList()
+            
+    def run(self):
+        if not self.PICC:
+            print 'no supported compiler!'
+            return
+        # print self.CompilerArguments
+        if self.CompilerArguments:
+            try:
+                commands = []
+                for cmd in self.CompilerArguments:
+                    commands.append(cmd)
+                self.CompilerProcess = subprocess.Popen(
+                             commands,
+                             stdin=subprocess.PIPE,
+                             stdout=subprocess.PIPE,
+                             stderr=subprocess.STDOUT,
+                             shell=self.isWin32Platform )
+                
+                self.LogList.clear()
+                while True:
+                    self.usleep(50000)
+                    if not self.CompilerProcess:
+                        break;
+                    # read single lines    
+                    buff = self.CompilerProcess.stdout.readline()
+                    if buff == '': # got nothing
+                        if self.CompilerProcess.poll() != None: # process exited
+                            self.CompilerProcess = None
+                            print 'compiler process finished.'
+                            break
+                    else:
+                        msg = str(buff)
+                        msg_lowered = msg.lower()
+                        # string to QString
+                        if msg_lowered.find("warning") >= 0:
+                            self.LogList.append( "<font color=yellow>%s</font>" % msg )
+                        # todo: other error messages
+                        elif msg_lowered.find("error") >= 0 \
+                                or msg_lowered.find("exit status = 1") >= 0 \
+                                or msg_lowered.find("^ (") >= 0 \
+                                or msg_lowered.find("defined") >= 0:                    
+                            self.LogList.append( "<font color=red>%s</font>" % msg )
+                        else:
+                            self.LogList.append( "<font color=lightgreen>%s</font>" % msg )
             except:
-                return 'failed to execute: ' + os.getcwd() + '/' + self.toolpath + '/bin/picc --ver'
-        return None
-        
+                print 'got errors in compiler thread!'
+                self.CompilerProcess = None
+                
+        self.CompilerArguments = None
+        print 'compiler thread done.'
+            
+    def getCompilerInfo(self):
+        if self.isRunning():
+            return [False, "busy"]
+        self.CompilerArguments = [ self.PICC, '--ver' ] # get version info
+        self.start()
+        while True:
+            self.usleep(1000)
+            if not self.isRunning():
+                break;            
+        if not self.LogList.count():
+            return None
+        else:
+            info = ''
+            for msg in self.LogList:
+                info += msg
+            return info
+                        
+
     def buildProject(self, userCode=None):
+        if self.isRunning():
+            return [False, "busy"]
         if not os.path.isfile(userCode):
             return [False, "file not found"]
-        if self.BuildProcess:
-            return [False, "busy"]
         
         # output folder - same location with user code
         outpath = os.path.dirname( str(userCode) ) + '/' + OUT_DIR
         
-        # create output directory, if not existing
-        if not os.path.exists( outpath ):
-            try:
-                os.makedirs( outpath )
-            except:
-                self.BuildProcess = None
-                return [False, "make dir error"]
-            
-        # create temporary (parsed) source file
-        parsedUserCode = str(userCode)
-        # check if extension is not yet *.c
-        if parsedUserCode.lower().rfind('.c') <> len(parsedUserCode) - len('.c'):
-            parsedUserCode = os.path.basename(parsedUserCode)
-            dotpos = parsedUserCode.rfind('.')
-            if dotpos > 0:
-                parsedUserCode = parsedUserCode[:dotpos] + '.c'
-            else:
-                parsedUserCode += '.c'
-            parsedUserCode = outpath + '/' + parsedUserCode
-            try:
-                fin = open(userCode, 'rb')
-                fout = open(parsedUserCode, 'wb')
-                fout.writelines( REQUIRED_INCLUDES )
-                for line in fin.readlines():
-                    fout.write(line)
-                fin.close()
-                fout.close()
-            except:
-                self.BuildProcess = None
-                return [False, "file write error"]
-            
+        Result, Defines, Includes, Sources = parseUserCode( userCode, outpath )
+        # print Result, Defines, Includes, Sources
+        if not Result:
+            self.BuildProcess = None
+            return [False, "file write error"]
+           
         # todo: other compiler flags (e.g. hex output)
-        CMD = [ self.PICC,
+        '''CMD = [ self.PICC,
                '--CHIP=' + self.chip, # chip part number
               # '--WARN=-1',  # wrning level {-9 to 9}
               # '-V', # verbose
@@ -130,48 +134,34 @@ class PicCompiler:
               # '--SUMMARY=psect', # default to 'mem'
                '-I' + os.getcwd() + '/' + PRK_LIB, # include directory
                '--OUTDIR=' + outpath, # output directory
-               parsedUserCode] # C-codes
+               parsedUserCode] # C-codes '''
         
-        commands = []
-        for cmd in CMD:
-            commands.append(str(cmd)) # Win32 workaround: QString problem
+        self.CompilerArguments = [ self.PICC, '--CHIP=' + self.chip ]
+        self.CompilerArguments += Defines
+        self.CompilerArguments += Includes
+        self.CompilerArguments += ['--OUTDIR=' + outpath]
+        self.CompilerArguments += Sources
         
-        # hey, why not use PyQt QProcess() instead of Popen()?
-        # - for easy porting on other gui toolkit
-        try:
-            self.BuildProcess = subprocess.Popen(
-                         commands,
-                         stdin=subprocess.PIPE,
-                         stdout=subprocess.PIPE,
-                         stderr=subprocess.STDOUT,
-                         shell=self.subprocessShell )
-            return [True, "Build process running. Please wait..."]
-        except:
-            self.BuildProcess = None
-            return [False, "abort"]
-    
+        self.start()
+        return [True, "Build process running. Please wait..."]
+
     def pollBuildProcess(self, stopProcess=False):
-        if self.BuildProcess:
+        if self.CompilerProcess:
             if stopProcess:
                 try:
-                    self.BuildProcess.kill() # needs Admin privilege on Windows!
-                    self.BuildProcess = None
+                    self.CompilerProcess.kill() # needs Admin privilege on Windows!
+                    self.CompilerProcess = None
                     return [True, "killed"]
                 except:
                     print "n0 u can't kill me! :-p"
-                    self.BuildProcess.wait() # just wait for the process to finish
-                    self.BuildProcess = None
-                    return [False, "waited"]               
-            # read single lines    
-            buff = self.BuildProcess.stdout.readline()
-            if buff == '': # got nothing
-                if self.BuildProcess.poll() != None: # process exited
-                    self.BuildProcess = None
-                    return [False, "process exited"]
+                    self.CompilerProcess.wait() # just wait for the process to finish
+                    self.CompilerProcess = None
+                    return [False, "waited"]
+            if self.LogList.count():
+                return [True, str(self.LogList.takeFirst())]
             else:
-                return [True, buff.strip()]
+                return [True, '']
         else:
             return [False, "process not running"]
-        
-        
-        
+            
+

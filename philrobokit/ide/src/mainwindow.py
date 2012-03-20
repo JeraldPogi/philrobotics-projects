@@ -7,9 +7,13 @@
 
 from PyQt4 import QtGui, QtCore
 from editor import MultipleCppEditor
-from compiler import scanFirmwareLibs, PicCompiler
+from firmware import scanFirmwareLibs 
+from compiler import PicCompilerThread
 from configs import Configurations
 from serialport import scan_serialports, SerialPortMonitor
+from pickit2 import PICkit2ProgrammerThread
+from about import AboutDialog
+import time
 
 class AppMainWindow(QtGui.QMainWindow):
     '''
@@ -21,7 +25,12 @@ class AppMainWindow(QtGui.QMainWindow):
         Constructor
         '''
         super(AppMainWindow, self).__init__()
+        
+        self.aboutDlg = AboutDialog(self)
+        self.aboutDlg.show()
+        
         self.setWindowTitle("PhilRobokit IDE")
+        self.setWindowIcon(QtGui.QIcon('images/app.png'))
         self.setMinimumSize(300, 400)
         
         self.Configs = Configurations(self)
@@ -29,11 +38,14 @@ class AppMainWindow(QtGui.QMainWindow):
         self.Editor = MultipleCppEditor(self)        
         self.setCentralWidget(self.Editor)
         
-        self.Compiler = PicCompiler(self)
-        self.PollCompilerTimerID = None
+        self.Compiler = PicCompilerThread(self)
+        self.pollCompilerTimerID = None
         
         self.serialPortName = None
         self.SerialPortMonitorDialog = SerialPortMonitor(self)
+        
+        self.PK2Programmer = PICkit2ProgrammerThread(self)
+        self.pollPK2TimerID = None
         
         self.createActions()
         self.createMenus()
@@ -41,14 +53,19 @@ class AppMainWindow(QtGui.QMainWindow):
         self.createStatusBar()
         self.createLogWindow()
         
+        time.sleep(2) # todo: pyqt equivalent?
+        self.aboutDlg.finish(self)
+        
     def about(self):
-        QtGui.QMessageBox.about(self, "About",
-                "<b>PhilRobotics</b>' Integrated Development Environment for PhilRoboKit Boards")
+        self.aboutDlg.show()
+        # todo: other informations
+        self.aboutDlg.showMessage("PhilRobokit IDE . [ beta version ]",
+                           QtCore.Qt.AlignLeft | QtCore.Qt.AlignBottom, QtGui.QColor("#eecc77"));
     def openPhilRoboticsSite(self):
         # todo: change to .ORG
         QtGui.QDesktopServices.openUrl( QtCore.QUrl("http://www.philrobotics.com/") )
     def aboutCompiler(self):
-        info = self.Compiler.getInfo()
+        info = self.Compiler.getCompilerInfo()
         #self.log.append(info)
         if info:
             QtGui.QMessageBox.about( self, "Compiler Information", info )
@@ -56,6 +73,9 @@ class AppMainWindow(QtGui.QMainWindow):
             QtGui.QMessageBox.about( self, "Compiler Information", "no compiler found!" )
     
     def startBuild(self):
+        if self.Compiler.isRunning():
+            self.insertLog('compiler busy..')
+            return
         self.insertLog("<font color=green>------- Start Project Build. -------</font>", True)
         fn = self.Editor.getCurrentFile()
         rc = self.Compiler.buildProject(userCode = fn)
@@ -70,14 +90,14 @@ class AppMainWindow(QtGui.QMainWindow):
                 QtGui.QMessageBox.warning( self, "Error", "Unable to start build process!" )
         else:
             self.insertLog( "<font color=lightblue><i>   %s   </i></font>"%rc[1] )
-            self.PollCompilerTimerID = self.startTimer(50)
-            if not self.PollCompilerTimerID:
+            self.pollCompilerTimerID = self.startTimer(50)
+            if not self.pollCompilerTimerID:
                 self.insertLog("<font color=red>Unable to start Timer.</font>")
 
     def stopBuild(self):
-        if self.PollCompilerTimerID:
-            self.killTimer(self.PollCompilerTimerID)
-            self.PollCompilerTimerID = None
+        if self.pollCompilerTimerID:
+            self.killTimer(self.pollCompilerTimerID)
+            self.pollCompilerTimerID = None
             self.Compiler.pollBuildProcess(True)
             self.insertLog("<font color=red>----- Stopped. -----</font>")
         else:
@@ -85,7 +105,26 @@ class AppMainWindow(QtGui.QMainWindow):
             
     def programChip(self):
         print "todo: check if user code is already compiled."
-        print "todo: use bootloader or programmer."
+        self.insertLog("<font size=2 color=blue>[beta] todo: program using serial bootloader.</font>" );
+        
+    def pickit2ProgramChip(self):
+        #info = self.PK2Programmer.getPICkit2Info()
+        #if info:
+        #    self.insertLog("<font color=green>PICkit2 version information:</font>")
+        #    self.insertLog(info)
+        #return
+        if self.PK2Programmer.isRunning():
+            self.insertLog('pickit2 busy..')
+            return
+        info = self.PK2Programmer.programDevice('pic16f877a', self.Editor.getCurrentFile() )
+        if info[0]:
+            self.insertLog("<font color=green>PICkit2 Program Device:</font>", True)
+            self.insertLog(info[1])
+            self.pollPK2TimerID = self.startTimer(50)
+            if not self.pollPK2TimerID:
+                self.insertLog("<font color=red>Unable to start Timer.</font>")
+        else:
+            self.insertLog("<font color=red>%s</font>"%info[1])
         
     def selectSerialPort(self):
         act = self.serialPortGroup.checkedAction()
@@ -144,8 +183,11 @@ class AppMainWindow(QtGui.QMainWindow):
                 statusTip="Build the current project", triggered=self.startBuild)
         self.stopAct = QtGui.QAction(QtGui.QIcon("./images/stop.png"), "S&top",
                 self, statusTip="Cancel the build process", triggered=self.stopBuild)
-        self.programAct = QtGui.QAction(QtGui.QIcon("./images/load.png"), "Pro&gram",
+        self.programAct = QtGui.QAction(QtGui.QIcon("./images/load.png"), "&Bootloader",
                 self, statusTip="Download program to the board", triggered=self.programChip)
+        self.pickit2ProgramAct = QtGui.QAction(QtGui.QIcon("./images/pickit2.png"), "PIC&kit2",
+                self, statusTip="Download program to the board using PICkit2 programmer",
+                triggered=self.pickit2ProgramChip)
         
         self.firmwareLibList = scanFirmwareLibs()
         self.firmwareLibActs = []
@@ -205,7 +247,9 @@ class AppMainWindow(QtGui.QMainWindow):
         self.projectMenu = self.menuBar().addMenu("&Project")
         self.projectMenu.addAction(self.compileAct)
         self.projectMenu.addAction(self.stopAct)
-        self.projectMenu.addAction(self.programAct)
+        self.programMenu = self.projectMenu.addMenu("Program Board...")
+        self.programMenu.addAction(self.programAct)
+        self.programMenu.addAction(self.pickit2ProgramAct)
         self.projectMenu.addSeparator()
         self.firmwareLibMenu = self.projectMenu.addMenu("Import &Library...")
         if len(self.firmwareLibActs):
@@ -242,6 +286,7 @@ class AppMainWindow(QtGui.QMainWindow):
         self.projectToolBar.addAction(self.compileAct)
         self.projectToolBar.addAction(self.stopAct)
         self.projectToolBar.addAction(self.programAct)
+        self.projectToolBar.addAction(self.pickit2ProgramAct)
         
     def createStatusBar(self):
         self.statusBar().showMessage("Ready")
@@ -264,27 +309,24 @@ class AppMainWindow(QtGui.QMainWindow):
         
     def timerEvent(self, *args, **kwargs):
         timerID = args[0].timerId()
-        if timerID == self.PollCompilerTimerID:
+        if timerID == self.pollCompilerTimerID:
             result = self.Compiler.pollBuildProcess()
             if result[0]:
+                if len( result[1] ):
+                    self.insertLog( result[1] )
+            else:
+                self.killTimer(timerID)
+                self.pollCompilerTimerID = None
+        if timerID == self.pollPK2TimerID:
+            result = self.PK2Programmer.pollPK2Process()
+            if result[0]:
                 msg = result[1]
-                msg_lowered = msg.lower()
-                if msg_lowered.find("warning") >= 0:
-                    print msg.lower()
-                    warning_msg = "<font color=yellow>%s</font>" % msg
-                    self.insertLog(warning_msg)
-                # todo: other error messages
-                elif msg_lowered.find("error") >= 0 \
-                        or msg_lowered.find("exit status = 1") >= 0 \
-                        or msg_lowered.find("^ (") >= 0 \
-                        or msg_lowered.find("defined") >= 0:                    
-                    error_msg = "<font color=red>%s</font>" % msg
-                    self.insertLog(error_msg)
-                else:
+                if len(msg):
                     self.insertLog( "<font color=lightgreen>%s</font>" % msg )
             else:
                 self.killTimer(timerID)
-                self.PollCompilerTimerID = None
+                self.pollPK2TimerID = None
+
         return QtGui.QMainWindow.timerEvent(self, *args, **kwargs)
         
    
