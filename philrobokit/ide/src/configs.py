@@ -16,7 +16,7 @@ COMPILER_CONFIG = CONFIG_DIR + '/compiler.ini'
 BOARD_CONFIG = CONFIG_DIR + '/board.ini'
 
 #default main window dimensions
-IDE_SIZE = [580, 600]
+IDE_SIZE = [480, 560]
 IDE_POS = [100, 100]
 
 class Configurations:

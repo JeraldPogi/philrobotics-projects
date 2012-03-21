@@ -5,7 +5,7 @@
 
 '''
 
-import os, glob
+import os, glob, pyclibrary
 
 # library path
 LIB_DIR = 'libraries'
@@ -14,8 +14,6 @@ PRK_CORE_DIR = 'hardware/cores'
 PRK_CORELIB_DIR = PRK_CORE_DIR + '/lib'
 # required header file(s)
 REQUIRED_INCLUDES = ['#include <PhilRoboKit_CoreLib_Macro.h>']
-# Library API keywords
-KEYWORD_FILE = 'keywords.txt'
 
 def scanFirmwareLibs():
     libraries = []
@@ -106,25 +104,41 @@ def parseUserCode(userCode=None, outPath=None):
     return True, defines, includes, sources
 
 def getLibraryKeywords():
-    keywords = []
-    # search keyword files
-    keyword_files = glob.glob(PRK_CORE_DIR + '/' + KEYWORD_FILE)
-    keyword_files += glob.glob(PRK_CORELIB_DIR + '/' + KEYWORD_FILE)
+
+    # search header files
+    header_files = glob.glob( PRK_CORE_DIR + '/*.h' )
+    header_files += glob.glob( PRK_CORELIB_DIR + '/*.h' )
     # todo: add only if these were also 'included' by the user
-    keyword_files += glob.glob(LIB_DIR + '/*/' + KEYWORD_FILE)
-    # parse these files
-    for f in keyword_files:
-        try:
-            fin = open(f, 'r') # open for reading
-            for line in fin.readlines():
-                if line.strip(): # ignore blank lines
-                    if line[0] <> '#': # ignore comments
-                        keyword = line.split('\t')[0]
-                        keywords.append(keyword)
-            fin.close()
-        except:
-            print 'error in parsing: ', f
+    header_files += glob.glob( LIB_DIR + '/*/*.h' )
+    #print header_files
+
+    # parse header files with CParser
+    parser = pyclibrary.CParser( header_files )
+    parser.processAll()
+
+    functions = [] # C functions
+    for func, type in parser.defs['functions'].items():
+        functions.append( func )
+    #print 'functions:\n', functions
+
+    fnmacros = [] # function macros
+    for macro, type in parser.defs['fnmacros'].items():
+        fnmacros.append( macro )
+    #print 'fnmacros:\n', fnmacros
+
+    values = [] # variable defines
+    for val, type in parser.defs['values'].items():
+        if val.find('__') <> 0:
+            values.append( val )
+    #print 'values:\n', values
+
+    keywords = functions
+    keywords += fnmacros
+    keywords += values
+    keywords = list(set(keywords)) # remove duplicate items
     #print keywords
+    print 'found %d keywords' %len(keywords)
+
     return keywords
 
 
