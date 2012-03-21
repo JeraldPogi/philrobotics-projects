@@ -61,6 +61,14 @@ class SerialPortMonitor(QtGui.QDialog):
         for baud in BAUDRATES:
             self.baudList.addItem(str(baud))
         self.baudList.setCurrentIndex(DEFAULT_BAUD_IDX)
+
+        # character mode (ascii or hex)
+        self.charModeGroup = QtGui.QButtonGroup(self)
+        self.asciiModeButton = QtGui.QRadioButton("ASCII", self)
+        self.hexModeButton = QtGui.QRadioButton("HEX", self)
+        self.charModeGroup.addButton(self.asciiModeButton, 0)
+        self.charModeGroup.addButton(self.hexModeButton, 1)
+        self.asciiModeButton.setChecked(True) # default to ascii display
         
         # signals
         self.baudList.currentIndexChanged.connect(self.baudrateChange)
@@ -72,15 +80,23 @@ class SerialPortMonitor(QtGui.QDialog):
         layout.addWidget(self.userInput, 0, 0, 1, 18)
         layout.addWidget(self.sendButton, 0, 18, 1, 2)
         layout.addWidget(self.monitorWindow, 1, 0, 8, 20)
-        #layout.addWidget(QtGui.QLabel('Options'), 9, 0, 1, 2)
-        layout.addWidget(self.clearButton, 9, 0, 1, 1)
-        layout.addItem(QtGui.QSpacerItem(30,10), 9, 11, 1, 1)
-        layout.addWidget(QtGui.QLabel('EOL:'), 9, 12, 1, 1)
+        
+        layout.addWidget(self.clearButton, 9, 0, 2, 1)
+        #layout.addItem(QtGui.QSpacerItem(30,10), 9, 3, 1, 1)
+
+        layout.addWidget(QtGui.QLabel('Mode:'), 9, 4, 2, 2)
+        layout.addWidget(self.asciiModeButton, 9, 6, 1, 1)
+        layout.addWidget(self.hexModeButton, 10, 6, 1, 1)
+        #layout.addItem(QtGui.QSpacerItem(30,10), 9, 11, 1, 1)
+
+        layout.addWidget(QtGui.QLabel('EOL:'), 9, 12, 2, 1)
         layout.addWidget(self.addCR, 9, 13, 1, 1)
-        layout.addWidget(self.addLF, 9, 14, 1, 1)
-        layout.addItem(QtGui.QSpacerItem(30,10), 9, 15, 1, 1)
-        layout.addWidget(QtGui.QLabel('Baudrate:'), 9, 16, 1, 1)
-        layout.addWidget(self.baudList, 9, 17, 1, 3)
+        layout.addWidget(self.addLF, 10, 13, 1, 1)
+        #layout.addItem(QtGui.QSpacerItem(30,10), 9, 15, 1, 1)
+
+        layout.addWidget(QtGui.QLabel('Baudrate:'), 9, 16, 2, 1)
+        layout.addWidget(self.baudList, 9, 17, 2, 3)
+
         self.setLayout(layout)
         
     def openPort(self, portname=None):
@@ -122,6 +138,12 @@ class SerialPortMonitor(QtGui.QDialog):
     def sendString(self):
         if self.serialPort:
             string = str( self.userInput.text() )
+            if self.hexModeButton.isChecked():
+                try:
+                    string = string.decode('hex')
+                except: # error in conversion (e.g. odd-length)
+                    QtGui.QMessageBox.warning(self, 'serial monitor', 'unable to decode hex string input!')
+                    return
             if self.addCR.isChecked():
                 string += '\r'
             if self.addLF.isChecked():
@@ -133,7 +155,11 @@ class SerialPortMonitor(QtGui.QDialog):
             bytestoread = self.serialPort.inWaiting()
             if bytestoread:
                 prev = str(self.monitorWindow.toPlainText())
-                self.monitorWindow.setText(prev + self.serialPort.read(bytestoread))
+                rcv = self.serialPort.read(bytestoread)
+                if self.hexModeButton.isChecked():
+                    self.monitorWindow.setText( prev + rcv.encode('hex') )
+                else:
+                    self.monitorWindow.setText( prev + rcv )
                 self.monitorWindow.moveCursor(QtGui.QTextCursor.End) # auto scroll       
         return QtGui.QDialog.timerEvent(self, *args, **kwargs)
         
