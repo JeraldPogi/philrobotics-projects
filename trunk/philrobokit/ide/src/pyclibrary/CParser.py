@@ -131,7 +131,7 @@ class CParser():
         if processAll:
             self.processAll(cache=cache, verbose=verbose)
     
-    def processAll(self, cache=None, returnUnparsed=False, printAfterPreprocess=False, noCacheWarning=True, verbose=False):
+    def processAll(self, cache=None, returnUnparsed=False, printAfterPreprocess=False, noCacheWarning=False, verbose=False):
         """Remove comments, preprocess, and parse declarations from all files. (operates in memory; does not alter the original files)
         Returns a list of the results from parseDefs.
            'cache' may specify a file where cached results are be stored or retrieved. The cache

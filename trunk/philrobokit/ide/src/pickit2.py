@@ -122,8 +122,9 @@ class PICkit2ProgrammerThread(QtCore.QThread):
         return [True, "PICkit2 running. Please wait..."]
 
     def pollPK2Process(self, stopProcess=False):
-        if self.isRunning():
+        if self.isRunning() or self.LogList.count()>0:
             if stopProcess:
+                self.LogList.clear()
                 try:
                     self.ProgrammerProcess.kill() # needs Admin privilege on Windows!
                     self.ProgrammerProcess = None

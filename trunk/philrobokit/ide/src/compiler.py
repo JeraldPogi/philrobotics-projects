@@ -148,8 +148,9 @@ class PicCompilerThread(QtCore.QThread):
         return [True, "Build process running. Please wait..."]
 
     def pollBuildProcess(self, stopProcess=False):
-        if self.isRunning():
+        if self.isRunning() or self.LogList.count()>0:
             if stopProcess:
+                self.LogList.clear()
                 try:
                     self.CompilerProcess.kill() # needs Admin privilege on Windows!
                     self.CompilerProcess = None
@@ -158,7 +159,7 @@ class PicCompilerThread(QtCore.QThread):
                     print "n0 u can't kill me! :-p"
                     self.CompilerProcess.wait() # just wait for the process to finish
                     self.CompilerProcess = None
-                    return [False, "waited"]
+                    return [False, "waited"]                
             if self.LogList.count():
                 return [True, str(self.LogList.takeFirst())]
             else:

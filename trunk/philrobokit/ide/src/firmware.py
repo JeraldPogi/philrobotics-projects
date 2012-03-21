@@ -14,6 +14,10 @@ PRK_CORE_DIR = 'hardware/cores'
 PRK_CORELIB_DIR = PRK_CORE_DIR + '/lib'
 # required header file(s)
 REQUIRED_INCLUDES = ['#include <PhilRoboKit_CoreLib_Macro.h>']
+# compiler defines
+#COMPILER_DEFINES = { 'HI_TECH_C': '1', '_16F877A': '1' }
+COMPILER_DEFINES = { 'HI_TECH_C': '1' }
+
 
 def scanFirmwareLibs():
     libraries = []
@@ -56,7 +60,7 @@ def parseUserCode(userCode=None, outPath=None):
             return False, [], [], []
     
     # initial return values (empty)
-    defines = ['-DHI_TECH_C'] # todo: compiler defines
+    defines = []
     includes = []
     sources = []
     
@@ -96,6 +100,9 @@ def parseUserCode(userCode=None, outPath=None):
             fout.close()
         except: # unable to copy contents
             return False, [], [], []
+        
+    for macro, value in COMPILER_DEFINES.items():
+        defines.append( '-D' + macro + '=' + value )
 
     # lib core include paths and source files
     includes += getIncludeDirs()
@@ -113,7 +120,7 @@ def getLibraryKeywords():
     #print header_files
 
     # parse header files with CParser
-    parser = pyclibrary.CParser( header_files )
+    parser = pyclibrary.CParser( header_files , macros=COMPILER_DEFINES )
     parser.processAll()
 
     functions = [] # C functions
