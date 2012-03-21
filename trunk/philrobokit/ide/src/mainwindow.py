@@ -13,7 +13,7 @@ from configs import Configurations
 from serialport import scan_serialports, SerialPortMonitor
 from pickit2 import PICkit2ProgrammerThread
 from about import AboutDialog
-import time
+#import time
 
 class AppMainWindow(QtGui.QMainWindow):
     '''
@@ -53,7 +53,7 @@ class AppMainWindow(QtGui.QMainWindow):
         self.createStatusBar()
         self.createLogWindow()
         
-        time.sleep(2) # todo: pyqt equivalent?
+        #time.sleep(2) # todo: pyqt equivalent?
         self.aboutDlg.finish(self)
         
     def about(self):

@@ -33,10 +33,6 @@ for dirname, dirnames, filenames in os.walk('libraries'):
 # pickit2 command line files
 files += glob.glob('tools/pickit2/*')
 
-# *.ini config files
-files += glob.glob('configs/*.ini')
-
-
 ######## Platform dependent settings ##################################
 if os.sys.platform == 'win32':
     # add win32 for pyserial

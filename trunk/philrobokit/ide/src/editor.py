@@ -55,9 +55,9 @@ class CppEditor(QsciScintilla):
         self.setLexer(self.lexer)
         self.SendScintilla(QsciScintilla.SCI_STYLESETFONT, 1, 'Courier')
         
-        # Convert tab to 4 white spaces
+        # Auto-indent
         self.setTabWidth(4)
-        self.setIndentationsUseTabs(False)
+        #self.setIndentationsUseTabs(False)
         self.setAutoIndent(True)
         
         # Current line visible with special background color
@@ -78,10 +78,10 @@ class CppEditor(QsciScintilla):
         self.setMarginsBackgroundColor(QtGui.QColor("#eecc77"))
         
         # not too small
-        self.setMinimumSize(480, 320)
+        self.setMinimumSize(400, 200)
         
         # set the length of the string before the editor tries to auto-complete
-        self.setAutoCompletionThreshold(2)
+        self.setAutoCompletionThreshold(3)
         # tell the editor we are using a QsciAPI for the auto-completion
         self.setAutoCompletionSource(QsciScintilla.AcsAPIs)
         
