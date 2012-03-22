@@ -15,6 +15,7 @@ PICC_LINUX = 'tools/picc_linux/bin/picc'
 
 # output directory 
 OUT_DIR = '.phr_out'
+LIB_OUT_DIR = 'lib'
 
 class PicCompilerThread(QtCore.QThread):
     '''
@@ -35,7 +36,7 @@ class PicCompilerThread(QtCore.QThread):
         else:
             self.PICC = None
             
-        self.CompilerArguments = None            
+        self.CompilerCommands = None            
         self.CompilerProcess = None # todo: use QtCore.QProcess class instead
         
         self.LogList = QtCore.QStringList()
@@ -44,20 +45,22 @@ class PicCompilerThread(QtCore.QThread):
         if not self.PICC:
             print 'no supported compiler!'
             return
-        # print self.CompilerArguments
-        if self.CompilerArguments:
+        self.LogList.clear()
+        bStop = False
+        for command in self.CompilerCommands:
+            if bStop:
+                break
             try:
-                commands = []
-                for cmd in self.CompilerArguments:
-                    commands.append(cmd)
+                arguments = []
+                for arg in command:
+                    arguments.append(arg)
+                self.LogList.append( "<font color=lightgreen>%s</font>" % arguments )
                 self.CompilerProcess = subprocess.Popen(
-                             commands,
+                             arguments,
                              stdin=subprocess.PIPE,
                              stdout=subprocess.PIPE,
                              stderr=subprocess.STDOUT,
                              shell=self.isWin32Platform )
-                
-                self.LogList.clear()
                 while True:
                     self.usleep(50000)
                     if not self.CompilerProcess:
@@ -67,7 +70,7 @@ class PicCompilerThread(QtCore.QThread):
                     if buff == '': # got nothing
                         if self.CompilerProcess.poll() != None: # process exited
                             self.CompilerProcess = None
-                            print 'compiler process finished.'
+                            # print 'compiler process finished.'
                             break
                     else:
                         msg = str(buff)
@@ -81,19 +84,21 @@ class PicCompilerThread(QtCore.QThread):
                                 or msg_lowered.find("^ (") >= 0 \
                                 or msg_lowered.find("defined") >= 0:                    
                             self.LogList.append( "<font color=red>%s</font>" % msg )
+                            bStop = True
                         else:
                             self.LogList.append( "<font color=lightgreen>%s</font>" % msg )
             except:
                 print 'got errors in compiler thread!'
                 self.CompilerProcess = None
+                bStop = True
                 
-        self.CompilerArguments = None
+        self.CompilerCommands = None
         print 'compiler thread done.'
             
     def getCompilerInfo(self):
         if self.isRunning():
             return [False, "busy"]
-        self.CompilerArguments = [ self.PICC, '--ver' ] # get version info
+        self.CompilerCommands = [[ self.PICC, '--ver' ]] # get version info
         self.start()
         while True:
             self.usleep(1000)
@@ -103,6 +108,7 @@ class PicCompilerThread(QtCore.QThread):
             return None
         else:
             info = ''
+            self.LogList.takeFirst()
             for msg in self.LogList:
                 info += msg
             return info
@@ -117,7 +123,7 @@ class PicCompilerThread(QtCore.QThread):
         # output folder - same location with user code
         outpath = os.path.dirname( str(userCode) ) + '/' + OUT_DIR
         
-        Result, Defines, Includes, Sources = parseUserCode( userCode, outpath )
+        Result, Defines, Includes, Sources = parseUserCode( userCode, outpath + '/' + LIB_OUT_DIR )
         # print Result, Defines, Includes, Sources
         if not Result:
             self.BuildProcess = None
@@ -137,13 +143,30 @@ class PicCompilerThread(QtCore.QThread):
                '-I' + os.getcwd() + '/' + PRK_LIB, # include directory
                '--OUTDIR=' + outpath, # output directory
                parsedUserCode] # C-codes '''
-        
-        self.CompilerArguments = [ self.PICC, '--CHIP=' + self.chip ]
-        self.CompilerArguments += Defines
-        self.CompilerArguments += Includes
-        self.CompilerArguments += ['--OUTDIR=' + outpath]
-        self.CompilerArguments += Sources
-        
+
+        self.CompilerCommands = []
+        pcodeFiles = []
+        for i in range(len(Sources)):
+            src = Sources[i]
+            command = [ self.PICC, '--CHIP=' + self.chip ]
+            command += Defines
+            command += Includes
+            #command += ['--echo', '-Q', '--pass1']
+            command += ['-Q', '--pass1']
+            if i==0: # user code
+                command += ['--OUTDIR=' + outpath, src]
+                pcodeFiles.append( outpath + '/' + os.path.basename(src)[:-2] + '.p1' )
+            else: # separate folder for library intermediates
+                command += ['--OUTDIR=' + outpath + '/' + LIB_OUT_DIR, src]
+                pcodeFiles.append( outpath + '/' + LIB_OUT_DIR + '/' + os.path.basename(src)[:-2] + '.p1' )
+            self.CompilerCommands.append(command)
+
+        command = [ self.PICC, '--CHIP=' + self.chip ]
+        #command += ['--time', '--echo', '--OUTDIR=' + outpath]
+        command += ['--OUTDIR=' + outpath]
+        command += pcodeFiles        
+        self.CompilerCommands.append(command)
+
         self.start()
         return [True, "Build process running. Please wait..."]
 
@@ -154,11 +177,13 @@ class PicCompilerThread(QtCore.QThread):
                 try:
                     self.CompilerProcess.kill() # needs Admin privilege on Windows!
                     self.CompilerProcess = None
+                    self.exit()
                     return [True, "killed"]
                 except:
                     print "n0 u can't kill me! :-p"
                     self.CompilerProcess.wait() # just wait for the process to finish
                     self.CompilerProcess = None
+                    self.exit()
                     return [False, "waited"]                
             if self.LogList.count():
                 return [True, str(self.LogList.takeFirst())]
