@@ -19,6 +19,7 @@ files += glob.glob('hardware/cores/*')
 files += glob.glob('hardware/cores/lib/*')
 
 # library files
+'''
 for dirname, dirnames, filenames in os.walk('libraries'):
     for filename in filenames:
         fn = str( os.path.join(dirname, filename) )
@@ -29,6 +30,7 @@ for dirname, dirnames, filenames in os.walk('libraries'):
                 fn.find('.mcp') == len(fn) - 4 or \
                 fn.find('.txt') == len(fn) - 4 :
                 files.append( fn )
+'''
 
 # pickit2 command line files
 files += glob.glob('tools/pickit2/*')
@@ -38,12 +40,13 @@ if os.sys.platform == 'win32':
     # add win32 for pyserial
     packages.append('serial.win32')
     # add tool chain files
+    '''
     for dirname, dirnames, filenames in os.walk('tools/picc_win32'):
         for filename in filenames:
             fn = str( os.path.join(dirname, filename) )
             if fn.find('.svn') < 0 : # exclude svn files
                     files.append( fn )
-    
+    '''
     EXE = Executable(
         script = 'main.pyw',
         base = 'Win32GUI',
@@ -52,11 +55,13 @@ if os.sys.platform == 'win32':
         )
 elif os.sys.platform == 'linux2':
     # add tool chain files
+    '''
     for dirname, dirnames, filenames in os.walk('tools/picc_linux'):
         for filename in filenames:
             fn = str( os.path.join(dirname, filename) )
             if fn.find('.svn') < 0 : # exclude svn files
                     files.append( fn )
+    '''
     EXE = Executable(
         script = 'main.pyw',
         targetName = 'PhilRoboKitIDE',
