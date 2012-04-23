@@ -76,6 +76,7 @@ class AppMainWindow(QtGui.QMainWindow):
         if self.Compiler.isRunning():
             self.insertLog('compiler busy..')
             return
+        self.Editor.saveFile() # save the file first before starting the build.
         self.insertLog("<font color=green>------- Start Project Build. -------</font>", True)
         fn = self.Editor.getCurrentFile()
         rc = self.Compiler.buildProject(userCode = fn)
