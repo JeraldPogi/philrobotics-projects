@@ -8,10 +8,7 @@
 import os, subprocess
 from PyQt4 import QtCore
 from firmware import parseUserCode
-
-# hi-tech C compilers
-PICC_WIN32 = 'tools/picc_win32/bin/picc'
-PICC_LINUX = 'tools/picc_linux/bin/picc'
+from configs import CompilerConfig
 
 # output directory 
 OUT_DIR = '.phr_out'
@@ -21,20 +18,22 @@ class PicCompilerThread(QtCore.QThread):
     '''
     classdocs
     '''
-    def __init__(self, parent=None, chip='16F877A'):
+    def __init__(self, parent=None):
         QtCore.QThread.__init__(self, parent)
         self.parent = parent
-        self.chip = chip
+        
+        self.Configs = CompilerConfig(self)
+        self.Configs.saveCompilerSettings()
 
         # platform dependent settings
         self.isWin32Platform = False
         if os.sys.platform == 'win32':
-            self.PICC = os.getcwd() + '/' + PICC_WIN32
             self.isWin32Platform = True
-        elif os.sys.platform == 'linux2':
-            self.PICC = os.getcwd() + '/' + PICC_LINUX
-        else:
-            self.PICC = None
+            
+        self.PICC = self.Configs.getCompiler()
+        self.chip = self.Configs.getChip()
+        self.cflags = self.Configs.getCflags()
+        self.lflags = self.Configs.getLflags()
             
         self.CompilerCommands = None            
         self.CompilerProcess = None # todo: use QtCore.QProcess class instead
@@ -45,6 +44,7 @@ class PicCompilerThread(QtCore.QThread):
         if not self.PICC:
             print 'no supported compiler!'
             return
+        #print self.PICC
         self.LogList.clear()
         bStop = False
         for command in self.CompilerCommands:
@@ -54,7 +54,6 @@ class PicCompilerThread(QtCore.QThread):
                 arguments = []
                 for arg in command:
                     arguments.append(arg)
-                self.LogList.append( "<font color=lightgreen>%s</font>" % arguments )
                 self.CompilerProcess = subprocess.Popen(
                              arguments,
                              stdin=subprocess.PIPE,
@@ -77,18 +76,21 @@ class PicCompilerThread(QtCore.QThread):
                         msg_lowered = msg.lower()
                         # string to QString
                         if msg_lowered.find("warning") >= 0:
-                            self.LogList.append( "<font color=yellow>%s</font>" % msg )
+                            self.LogList.append( "<font color=orange>%s</font>" % msg )
                         # todo: other error messages
                         elif msg_lowered.find("error") >= 0 \
                                 or msg_lowered.find("exit status = 1") >= 0 \
                                 or msg_lowered.find("^ (") >= 0 \
-                                or msg_lowered.find("defined") >= 0:                    
+                                or msg_lowered.find("defined") >= 0 \
+                                or msg_lowered.find("conflicts with") >= 0:                    
                             self.LogList.append( "<font color=red>%s</font>" % msg )
                             bStop = True
                         else:
-                            self.LogList.append( "<font color=lightgreen>%s</font>" % msg )
+                            self.LogList.append( "<font color=green>%s</font>" % msg )
             except:
                 print 'got errors in compiler thread!'
+                self.LogList.append( "<font color=red>ERROR: build failed!</font>")
+                self.LogList.append( "<font color=red>%s</font>" % self.PICC)
                 self.CompilerProcess = None
                 bStop = True
                 
@@ -123,36 +125,19 @@ class PicCompilerThread(QtCore.QThread):
         # output folder - same location with user code
         outpath = os.path.dirname( str(userCode) ) + '/' + OUT_DIR
         
-        Result, Defines, Includes, Sources = parseUserCode( userCode, outpath + '/' + LIB_OUT_DIR )
-        # print Result, Defines, Includes, Sources
+        Result, Includes, Sources = parseUserCode( userCode, outpath + '/' + LIB_OUT_DIR )
+        # print Result, Includes, Sources
         if not Result:
             self.BuildProcess = None
             return [False, "file write error"]
-
-        Defines.append( '-D_' + self.chip )
-           
-        # todo: other compiler flags (e.g. hex output)
-        '''CMD = [ self.PICC,
-               '--CHIP=' + self.chip, # chip part number
-              # '--WARN=-1',  # wrning level {-9 to 9}
-              # '-V', # verbose
-              # '--TIME', # compilation time
-              # '--OUTPUT=bin', # create *.bin
-              # '--MODE=lite', # pro, std, or lite
-              # '--SUMMARY=psect', # default to 'mem'
-               '-I' + os.getcwd() + '/' + PRK_LIB, # include directory
-               '--OUTDIR=' + outpath, # output directory
-               parsedUserCode] # C-codes '''
 
         self.CompilerCommands = []
         pcodeFiles = []
         for i in range(len(Sources)):
             src = Sources[i]
             command = [ self.PICC, '--CHIP=' + self.chip ]
-            command += Defines
             command += Includes
-            #command += ['--echo', '-Q', '--pass1']
-            command += ['-Q', '--pass1']
+            command += self.cflags.split(';')
             if i==0: # user code
                 command += ['--OUTDIR=' + outpath, src]
                 pcodeFiles.append( outpath + '/' + os.path.basename(src)[:-2] + '.p1' )
@@ -162,8 +147,8 @@ class PicCompilerThread(QtCore.QThread):
             self.CompilerCommands.append(command)
 
         command = [ self.PICC, '--CHIP=' + self.chip ]
-        #command += ['--time', '--echo', '--OUTDIR=' + outpath]
         command += ['--OUTDIR=' + outpath]
+        command += self.lflags.split(';')
         command += pcodeFiles        
         self.CompilerCommands.append(command)
 

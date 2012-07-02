@@ -9,7 +9,7 @@ from PyQt4 import QtGui, QtCore
 from editor import MultipleCppEditor
 from firmware import scanFirmwareLibs 
 from compiler import PicCompilerThread
-from configs import Configurations
+from configs import IdeConfig
 from serialport import scan_serialports, SerialPortMonitor
 from pickit2 import PICkit2ProgrammerThread
 from about import AboutDialog
@@ -33,7 +33,7 @@ class AppMainWindow(QtGui.QMainWindow):
         self.setWindowIcon(QtGui.QIcon('images/app.png'))
         self.setMinimumSize(300, 400)
         
-        self.Configs = Configurations(self)
+        self.Configs = IdeConfig(self)
                 
         self.Editor = MultipleCppEditor(self)        
         self.setCentralWidget(self.Editor)
@@ -59,7 +59,7 @@ class AppMainWindow(QtGui.QMainWindow):
     def about(self):
         self.aboutDlg.show()
         # todo: other informations
-        self.aboutDlg.showMessage("PhilRobokit IDE . [ beta version ]",
+        self.aboutDlg.showMessage("PhilRobokit [ %s ]" % self.Configs.getVersions(),
                            QtCore.Qt.AlignLeft | QtCore.Qt.AlignBottom, QtGui.QColor("#eecc77"));
     def openPhilRoboticsSite(self):
         # todo: change to .ORG
@@ -223,6 +223,9 @@ class AppMainWindow(QtGui.QMainWindow):
         self.boardGroup.addAction(self.boardEpicpicmoAct)
         self.boardAnitoAct.setChecked(True)
         
+        self.restoreDefaultsAct = QtGui.QAction("Restore Defaults",  self,
+                statusTip="Clear configuration files", triggered=self.Configs.setDefaults) 
+        
         # help menu
         self.aboutAct = QtGui.QAction("&About", self, shortcut=QtGui.QKeySequence("F1"),
                 statusTip="About the IDE", triggered=self.about)        
@@ -269,6 +272,8 @@ class AppMainWindow(QtGui.QMainWindow):
         if len(self.serialPortActs):
             for i in range(len(self.serialPortActs)):
                 self.serialPortMenu.addAction(self.serialPortActs[i])
+        self.toolsMenu.addSeparator()
+        self.toolsMenu.addAction(self.restoreDefaultsAct) # todo: create settings dialog
         #self.bootloaderMenu = self.toolsMenu.addMenu("&Booloader")
         
         self.helpMenu = self.menuBar().addMenu("&Help")
