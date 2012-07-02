@@ -28,7 +28,7 @@ def scan_serialports():
         for device in devices:
             try:
                 ser = serial.Serial(device)
-                ports.append(ser.name)
+                ports.append(ser.portstr)
                 ser.close()
             except serial.SerialException:
                 pass

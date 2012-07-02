@@ -1,6 +1,7 @@
 
 import os, glob
 from cx_Freeze import setup, Executable
+from configs import get_svn_revision
 
 includes = ['sip', 'PyQt4.QtCore']
 excludes = ['unicodedata', 'bz2' ]
@@ -32,6 +33,16 @@ for dirname, dirnames, filenames in os.walk('libraries'):
 
 # pickit2 command line files
 files += glob.glob('tools/pickit2/*')
+
+# version file
+vfile = open('configs/versions.txt', 'w') # overwrite
+svn_rev = get_svn_revision()
+if svn_rev:
+    vfile.write('IDE build ' + svn_rev + '\n')
+vfile.write('firmware lib ' + "1.xx" + '\n') # todo: firmware library version
+vfile.close()
+
+files.append('configs/versions.txt')
 
 ######## Platform dependent settings ##################################
 if os.sys.platform == 'win32':

@@ -1,11 +1,12 @@
 
 '''
 
-@filename: firmwarelibs.py
+@filename: firmware.py
 
 '''
 
 import os, glob, pyclibrary
+from configs import FirmwareConfig
 
 # library path
 LIB_DIR = 'libraries'
@@ -14,10 +15,8 @@ PRK_CORE_DIR = 'hardware/cores'
 PRK_CORELIB_DIR = PRK_CORE_DIR + '/lib'
 # required header file(s)
 REQUIRED_INCLUDES = ['#include <PhilRoboKit_CoreLib_Macro.h>']
-# compiler defines
-#COMPILER_DEFINES = { 'HI_TECH_C': '1', '_16F877A': '1' }
-COMPILER_DEFINES = { 'HI_TECH_C': '1' }
 
+fwconfig = FirmwareConfig()
 
 def scanFirmwareLibs():
     libraries = []
@@ -44,7 +43,7 @@ def getIncludeDirs():
     #print includes
     return includes
 
-# output: { pass, [defines], [includes], [sources] }
+# output: { pass, [includes], [sources] }
 # [sources] contains the path name of the parsed used code
 def parseUserCode(userCode=None, outPath=None):
     
@@ -60,7 +59,6 @@ def parseUserCode(userCode=None, outPath=None):
             return False, [], [], []
     
     # initial return values (empty)
-    defines = []
     includes = []
     sources = []
     
@@ -100,15 +98,12 @@ def parseUserCode(userCode=None, outPath=None):
             fout.close()
         except: # unable to copy contents
             return False, [], [], []
-        
-    for macro, value in COMPILER_DEFINES.items():
-        defines.append( '-D' + macro + '=' + value )
 
     # lib core include paths and source files
     includes += getIncludeDirs()
     sources += getCoreSourceFiles()
     
-    return True, defines, includes, sources
+    return True, includes, sources
 
 def getLibraryKeywords():
 
@@ -119,8 +114,11 @@ def getLibraryKeywords():
     header_files += glob.glob( LIB_DIR + '/*/*.h' )
     #print header_files
 
+    fwconfig.saveFwSettings()
+    #print fwconfig.getDefines()
+    
     # parse header files with CParser
-    parser = pyclibrary.CParser( header_files , macros=COMPILER_DEFINES )
+    parser = pyclibrary.CParser( header_files , macros=fwconfig.getDefines() )
     parser.processAll()
 
     functions = [] # C functions
