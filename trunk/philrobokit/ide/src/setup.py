@@ -17,22 +17,15 @@ files += glob.glob('images/*.png')
 
 # core firmware files
 files += glob.glob('hardware/cores/*')
-files += glob.glob('hardware/cores/lib/*')
 
 # library files
-for dirname, dirnames, filenames in os.walk('libraries'):
-    for filename in filenames:
-        fn = str( os.path.join(dirname, filename) )
-        if fn.find('.svn') < 0 : # exclude svn files
-            # *.c , *.h, *.mcp & *.txt only
-            if fn.find('.c') == len(fn) - 2 or \
-                fn.find('.h') == len(fn) - 2 or \
-                fn.find('.mcp') == len(fn) - 4 or \
-                fn.find('.txt') == len(fn) - 4 :
-                files.append( fn )
+files += glob.glob('libraries/*')
 
 # pickit2 command line files
 files += glob.glob('tools/pickit2/*')
+
+# tinybld files
+files += glob.glob('hardware/bootloaders/tinybld/*')
 
 # version file
 vfile = open('configs/versions.txt', 'w') # overwrite
