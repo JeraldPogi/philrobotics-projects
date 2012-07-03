@@ -7,7 +7,6 @@
 
 import os, subprocess
 from PyQt4 import QtCore
-from compiler import OUT_DIR
 
 #pickit2 command line executables
 PK2CMD_DIR = 'tools/pickit2/'
@@ -78,7 +77,7 @@ class PICkit2ProgrammerThread(QtCore.QThread):
             
     def getPICkit2Info(self):
         if self.isRunning():
-            return [False, "busy"]
+            return False, "busy"
         self.ProgrammerArguments = [ str(self.pickit2), str('-B'+PK2CMD_DIR), str('-?V') ]
         self.start()
         while True:
@@ -94,32 +93,22 @@ class PICkit2ProgrammerThread(QtCore.QThread):
             return info
                         
 
-    def programDevice(self, chip='pic16f877a', userCode=None):
+    def programDevice(self, chip='pic16f877a', fileName=None):
         if self.isRunning():
-            return [False, "busy"]
-        if not userCode or not self.pickit2:
-            return [False, "program what?"]
-        #print userCode
-        outpath = os.path.dirname( str(userCode) ) + '/' + OUT_DIR
-        fname = os.path.basename( str(userCode) )
-        dotpos = fname.rfind('.')
-        if dotpos > 0:
-            hexfile = outpath + '/' + fname[:dotpos] + '.hex'
-        else:
-            hexfile = outpath + '/' + fname + '.hex'
-        #print hexfile
+            return False, "busy"
+        if not fileName or not self.pickit2:
+            return False, "program what?"
         
-        if not os.path.isfile(hexfile): # file not found
-            print 'hexfile not found: ', hexfile
-            return [False, "No *.hex file found! (re)build first the project."]
-        
+        if not os.path.isfile(fileName): # file not found
+            print 'hexfile not found: ', fileName
+            return False, "No *.hex file found! (re)build first the project."
         
         self.ProgrammerArguments = [ self.pickit2,  '-B'+PK2CMD_DIR, '-P'+chip ]
         # todo: not entire device (e.g. retain eeprom)
-        self.ProgrammerArguments += [ '-M', '-F'+hexfile, '-R' ]
+        self.ProgrammerArguments += [ '-M', '-F'+fileName, '-R' ]
         
         self.start()
-        return [True, "PICkit2 running. Please wait..."]
+        return True, "PICkit2 running. Please wait..."
 
     def pollPK2Process(self, stopProcess=False):
         if self.isRunning() or self.LogList.count()>0:
@@ -128,15 +117,15 @@ class PICkit2ProgrammerThread(QtCore.QThread):
                 try:
                     self.ProgrammerProcess.kill() # needs Admin privilege on Windows!
                     self.ProgrammerProcess = None
-                    return [True, "killed"]
+                    return True, "killed"
                 except:
                     print "n0 u can't kill me! :-p"
                     self.ProgrammerProcess.wait() # just wait for the process to finish
                     self.ProgrammerProcess = None
-                    return [False, "waited"]
+                    return False, "waited"
             if self.LogList.count():
-                return [True, str(self.LogList.takeFirst())]
+                return True, str(self.LogList.takeFirst())
             else:
-                return [True, '']
+                return True, ''
         else:
-            return [False, "process not running"]
+            return False, "process not running"
