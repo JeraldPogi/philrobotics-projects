@@ -99,7 +99,7 @@ class PicCompilerThread(QtCore.QThread):
             
     def getCompilerInfo(self):
         if self.isRunning():
-            return [False, "busy"]
+            return None
         self.CompilerCommands = [[ self.PICC, '--ver' ]] # get version info
         self.start()
         while True:
@@ -118,9 +118,9 @@ class PicCompilerThread(QtCore.QThread):
 
     def buildProject(self, userCode=None):
         if self.isRunning():
-            return [False, "busy"]
+            return False, "busy"
         if not os.path.isfile(userCode):
-            return [False, "file not found"]
+            return False, "file not found"
         
         # output folder - same location with user code
         outpath = os.path.dirname( str(userCode) ) + '/' + OUT_DIR
@@ -129,7 +129,7 @@ class PicCompilerThread(QtCore.QThread):
         # print Result, Includes, Sources
         if not Result:
             self.BuildProcess = None
-            return [False, "file write error"]
+            return False, "file write error"
 
         self.CompilerCommands = []
         pcodeFiles = []
@@ -153,7 +153,7 @@ class PicCompilerThread(QtCore.QThread):
         self.CompilerCommands.append(command)
 
         self.start()
-        return [True, "Build process running. Please wait..."]
+        return True, "Build process running. Please wait..."
 
     def pollBuildProcess(self, stopProcess=False):
         if self.isRunning() or self.LogList.count()>0:
@@ -163,18 +163,29 @@ class PicCompilerThread(QtCore.QThread):
                     self.CompilerProcess.kill() # needs Admin privilege on Windows!
                     self.CompilerProcess = None
                     self.exit()
-                    return [True, "killed"]
+                    return True, "killed"
                 except:
                     print "n0 u can't kill me! :-p"
                     self.CompilerProcess.wait() # just wait for the process to finish
                     self.CompilerProcess = None
                     self.exit()
-                    return [False, "waited"]                
+                    return False, "waited"             
             if self.LogList.count():
-                return [True, str(self.LogList.takeFirst())]
+                return True, str(self.LogList.takeFirst())
             else:
-                return [True, '']
+                return True, ''
         else:
-            return [False, "process not running"]
+            return False, "process not running"
             
+    def getExpectedHexFileName(self, userCode=None):
+        if not userCode:
+            return None
+        outpath = os.path.dirname( str(userCode) ) + '/' + OUT_DIR
+        fname = os.path.basename( str(userCode) )
+        dotpos = fname.rfind('.')
+        if dotpos > 0:
+            hexfile = outpath + '/' + fname[:dotpos] + '.hex'
+        else:
+            hexfile = outpath + '/' + fname + '.hex'
+        return hexfile
 

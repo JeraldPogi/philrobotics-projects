@@ -12,6 +12,7 @@ from compiler import PicCompilerThread
 from configs import IdeConfig
 from serialport import scan_serialports, SerialPortMonitor
 from pickit2 import PICkit2ProgrammerThread
+from tinypicbld import TinyPICBootloaderThread
 from about import AboutDialog
 #import time
 
@@ -47,6 +48,9 @@ class AppMainWindow(QtGui.QMainWindow):
         self.PK2Programmer = PICkit2ProgrammerThread(self)
         self.pollPK2TimerID = None
         
+        self.tinyBootloader = TinyPICBootloaderThread(self)
+        self.pollTblTimerID = None
+        
         self.createActions()
         self.createMenus()
         self.createToolBars()
@@ -79,18 +83,18 @@ class AppMainWindow(QtGui.QMainWindow):
         self.Editor.saveFile() # save the file first before starting the build.
         self.insertLog("<font color=green>------- Start Project Build. -------</font>", True)
         fn = self.Editor.getCurrentFile()
-        rc = self.Compiler.buildProject(userCode = fn)
-        if not rc[0]:
-            self.insertLog( "<font color=red>%s</font>"%rc[1] )
-            if rc[1] == "file not found":
+        ret, msg = self.Compiler.buildProject(userCode = fn)
+        if not ret:
+            self.insertLog( "<font color=red>%s</font>"%msg )
+            if msg == "file not found":
                 QtGui.QMessageBox.warning( self, "Build Error", "File not found (may be unsaved yet). " + \
                                              "Create or save first the file." )
-            elif rc[1] == "busy":
+            elif msg == "busy":
                 QtGui.QMessageBox.warning( self, "Busy", "Previous build process still running!" )
-            elif rc[1] == "abort":
+            elif msg == "abort":
                 QtGui.QMessageBox.warning( self, "Error", "Unable to start build process!" )
         else:
-            self.insertLog( "<font color=lightblue><i>   %s   </i></font>"%rc[1] )
+            self.insertLog( "<font color=lightblue><i>   %s   </i></font>"%msg )
             self.pollCompilerTimerID = self.startTimer(50)
             if not self.pollCompilerTimerID:
                 self.insertLog("<font color=red>Unable to start Timer.</font>")
@@ -105,9 +109,36 @@ class AppMainWindow(QtGui.QMainWindow):
             print "nothing to stop"
             
     def programChip(self):
-        print "todo: check if user code is already compiled."
-        self.insertLog("<font size=2 color=blue>[beta] todo: program using serial bootloader.</font>" );
+        if self.SerialPortMonitorDialog.isPortOpen():
+            self.SerialPortMonitorDialog.close() # close first serial port monitor
+        if self.tinyBootloader.isRunning():
+            self.insertLog('serial bootloader busy.')
+            return
+        hexfile = self.Compiler.getExpectedHexFileName( self.Editor.getCurrentFile() )
+        ret, msg = self.tinyBootloader.programDevice( hexfile, self.serialPortName )
+        if ret:
+            self.insertLog("<font color=green>Bootload/Program Device:</font>", True)
+            self.insertLog(msg)
+            self.pollTblTimerID = self.startTimer(0.5) # relatively fast!
+            if not self.pollTblTimerID:
+                self.insertLog("<font color=red>Unable to start Timer.</font>")
+        else:
+            self.insertLog("<font color=red>%s</font>"%msg)
         
+    def recoverBootloader(self):
+        if self.PK2Programmer.isRunning():
+            self.insertLog('pickit2 busy..')
+            return
+        ret, msg = self.PK2Programmer.programDevice('pic16f877a', self.tinyBootloader.getFW() )
+        if ret:
+            self.insertLog("<font color=green>Recover Bootloader:</font>", True)
+            self.insertLog(msg)
+            self.pollPK2TimerID = self.startTimer(50)
+            if not self.pollPK2TimerID:
+                self.insertLog("<font color=red>Unable to start Timer.</font>")
+        else:
+            self.insertLog("<font color=red>%s</font>"%msg)
+            
     def pickit2ProgramChip(self):
         #info = self.PK2Programmer.getPICkit2Info()
         #if info:
@@ -117,15 +148,16 @@ class AppMainWindow(QtGui.QMainWindow):
         if self.PK2Programmer.isRunning():
             self.insertLog('pickit2 busy..')
             return
-        info = self.PK2Programmer.programDevice('pic16f877a', self.Editor.getCurrentFile() )
-        if info[0]:
+        hexfile = self.Compiler.getExpectedHexFileName( self.Editor.getCurrentFile() )
+        ret, msg = self.PK2Programmer.programDevice('pic16f877a', hexfile )
+        if ret:
             self.insertLog("<font color=green>PICkit2 Program Device:</font>", True)
-            self.insertLog(info[1])
+            self.insertLog(msg)
             self.pollPK2TimerID = self.startTimer(50)
             if not self.pollPK2TimerID:
                 self.insertLog("<font color=red>Unable to start Timer.</font>")
         else:
-            self.insertLog("<font color=red>%s</font>"%info[1])
+            self.insertLog("<font color=red>%s</font>"%msg)
         
     def selectSerialPort(self):
         act = self.serialPortGroup.checkedAction()
@@ -223,8 +255,11 @@ class AppMainWindow(QtGui.QMainWindow):
         self.boardGroup.addAction(self.boardEpicpicmoAct)
         self.boardAnitoAct.setChecked(True)
         
+        self.recoverBootloaderAct = QtGui.QAction("Recover TinyPIC", self,
+                statusTip="Recover TinyPIC Bootloader Firmware using PICkit2",
+                triggered=self.recoverBootloader)
         self.restoreDefaultsAct = QtGui.QAction("Restore Defaults",  self,
-                statusTip="Clear configuration files", triggered=self.Configs.setDefaults) 
+                statusTip="Clear configuration files", triggered=self.Configs.setDefaults)
         
         # help menu
         self.aboutAct = QtGui.QAction("&About", self, shortcut=QtGui.QKeySequence("F1"),
@@ -273,6 +308,7 @@ class AppMainWindow(QtGui.QMainWindow):
             for i in range(len(self.serialPortActs)):
                 self.serialPortMenu.addAction(self.serialPortActs[i])
         self.toolsMenu.addSeparator()
+        self.toolsMenu.addAction(self.recoverBootloaderAct)
         self.toolsMenu.addAction(self.restoreDefaultsAct) # todo: create settings dialog
         #self.bootloaderMenu = self.toolsMenu.addMenu("&Booloader")
         
@@ -316,22 +352,29 @@ class AppMainWindow(QtGui.QMainWindow):
     def timerEvent(self, *args, **kwargs):
         timerID = args[0].timerId()
         if timerID == self.pollCompilerTimerID:
-            result = self.Compiler.pollBuildProcess()
-            if result[0]:
-                if len( result[1] ):
-                    self.insertLog( result[1] )
+            ret, msg = self.Compiler.pollBuildProcess()
+            if ret:
+                if len( msg ):
+                    self.insertLog( msg )
             else:
                 self.killTimer(timerID)
                 self.pollCompilerTimerID = None
         if timerID == self.pollPK2TimerID:
-            result = self.PK2Programmer.pollPK2Process()
-            if result[0]:
-                msg = result[1]
+            ret, msg = self.PK2Programmer.pollPK2Process()
+            if ret:
                 if len(msg):
                     self.insertLog( "<font color=lightgreen>%s</font>" % msg )
             else:
                 self.killTimer(timerID)
                 self.pollPK2TimerID = None
+        if timerID == self.pollTblTimerID:
+            ret, msg = self.tinyBootloader.pollBootLoadProcess()
+            if ret:
+                if len(msg):
+                    self.insertLog( "<font color=lightgreen>%s</font>" % msg )
+            else:
+                self.killTimer(timerID)
+                self.pollTblTimerID = None
 
         return QtGui.QMainWindow.timerEvent(self, *args, **kwargs)
         
