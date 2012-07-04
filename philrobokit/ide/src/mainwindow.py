@@ -379,9 +379,12 @@ class AppMainWindow(QtGui.QMainWindow):
         return QtGui.QMainWindow.timerEvent(self, *args, **kwargs)
         
    
-    def closeEvent(self, *args, **kwargs):
+    def closeEvent(self, event):
+        if not self.Editor.closeAllTabs(): # check for unsaved changes in the project(s)
+            event.ignore()
+            return
         self.Configs.saveIdeSettings()
-        return QtGui.QMainWindow.closeEvent(self, *args, **kwargs)
+        return QtGui.QMainWindow.closeEvent(self, event)
     
     
     
