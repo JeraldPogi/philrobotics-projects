@@ -91,8 +91,6 @@ class CppEditor(QsciScintilla):
             QtCore.SIGNAL('activated()'), self.autoCompleteFromAll)
         
         self.stringToSearch = ""
-        
-        self.connect(self, QtCore.SIGNAL('textChanged()'), self.parent.onChildContentChanged )
                 
         if fileName:
             self.curFile = fileName
@@ -102,6 +100,13 @@ class CppEditor(QsciScintilla):
             self.curFile = PROJECT_NONAME + PROJECT_EXT
             self.setText( __default_content__ )
             self.isUntitled = True
+        
+        self.isModified = False
+        self.connect(self, QtCore.SIGNAL('textChanged()'), self.onTextChanged )    
+            
+    def onTextChanged(self):
+        self.isModified = True
+        self.parent.onChildContentChanged()
         
     def loadFile(self, fileName):
         qfile = QtCore.QFile(fileName)
@@ -117,22 +122,24 @@ class CppEditor(QsciScintilla):
         if not qfile.open(QtCore.QFile.WriteOnly | QtCore.QFile.Text):
             QtGui.QMessageBox.warning(self, PROJECT_ALIAS,
                     "Cannot write file %s:\n%s." % (fileName, qfile.errorString()))
-            return False
+            return None
 
         outstr = QtCore.QTextStream(qfile)
         outstr << self.text()
         
         self.curFile = fileName
         self.isUntitled = False
-        return True
+        self.isModified = False
+        return fileName
     
     def saveAs(self):
         fileName = QtGui.QFileDialog.getSaveFileName(self, "Save As",
                 self.curFile, PROJECT_ALIAS + " (*" + PROJECT_EXT + ");;" + 
                     "C source (*.c);;Text File (*.txt);;All files (*.*)" )
         if not fileName:
-            return False
+            return None
         return self.saveFile(fileName)
+    
     def save(self):
         if self.isUntitled:
             return self.saveAs()
@@ -141,7 +148,10 @@ class CppEditor(QsciScintilla):
         
     def currentFile(self):
         return self.curFile
-
+    
+    def modified(self):
+        return self.isModified
+    
     def findText(self, text=None):
         if text:
             self.stringToSearch = text
@@ -178,6 +188,10 @@ class MultipleCppEditor(QtGui.QTabWidget):
         self.prepareLibraryAPIs()
         
         self.setAcceptDrops(True)
+        self.setTabShape(QtGui.QTabWidget.Triangular)
+        self.setTabsClosable(True)
+        
+        self.connect(self, QtCore.SIGNAL('tabCloseRequested(int)'), self.closeFile)
         
         if self.count()==0:
             self.newFile()
@@ -186,6 +200,8 @@ class MultipleCppEditor(QtGui.QTabWidget):
         child = CppEditor(self)
         self.addTab(child, PROJECT_NONAME + " * ")
         self.setCurrentIndex(self.count()-1)
+        self.setTabToolTip(self.currentIndex(), child.currentFile())
+        
     def openFile(self):
         fileName = QtGui.QFileDialog.getOpenFileName(
                                         self, self.tr("Open Source File"),
@@ -205,7 +221,9 @@ class MultipleCppEditor(QtGui.QTabWidget):
             tabtext = tabtext[:tabtext.lower().find(PROJECT_EXT)]
         self.addTab(child, tabtext)
         self.setCurrentIndex(self.count()-1)
+        self.setTabToolTip(self.currentIndex(), child.currentFile())
         return True
+    
     def saveFile(self):
         child = self.currentWidget()
         rc = child.save()
@@ -215,16 +233,28 @@ class MultipleCppEditor(QtGui.QTabWidget):
             if tabtext.lower().find(PROJECT_EXT) == len(tabtext) - len(PROJECT_EXT):
                 tabtext = tabtext[:tabtext.lower().find(PROJECT_EXT)]
             self.setTabText(self.currentIndex(), tabtext)
+            self.setTabToolTip(self.currentIndex(), fileName)
             return True
         return False
-    def closeFile(self):
+    
+    def closeFile(self, idx = 0):
         if self.count()==0:
             return # nothing to close
-        # todo: check if the file has change before closing
+        # check if the file has change before closing
         child = self.currentWidget()
+        if child.isModified:
+            result = QtGui.QMessageBox.question(self, "Modified",
+                         "Save changes on " + child.currentFile() + " ?",
+                         QtGui.QMessageBox.Yes, QtGui.QMessageBox.No, QtGui.QMessageBox.Cancel)
+            if result == QtGui.QMessageBox.Cancel:
+                return False
+            elif result == QtGui.QMessageBox.Yes:
+                if child.save() == None: # file was not save after
+                    return False
         self.removeTab(self.currentIndex())
         child.setParent(None)
         child.close()
+        return True
         
     def getCurrentFile(self):
         child = self.currentWidget()
@@ -279,7 +309,15 @@ class MultipleCppEditor(QtGui.QTabWidget):
                 title = title[:title.lower().rfind(PROJECT_EXT)]
             self.addTab(child, title)
             self.setCurrentIndex(self.count()-1)
+            self.setTabToolTip(self.currentIndex(), child.currentFile())
         except:
             print "drop error"
     
+    def closeAllTabs(self):
+        for index in range(self.count()):
+            self.setCurrentIndex(index)
+            if not self.closeFile():
+                return False
+        return True
+
         
