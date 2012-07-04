@@ -199,7 +199,9 @@ class AppMainWindow(QtGui.QMainWindow):
                 statusTip="Close the current window", triggered=self.Editor.closeFile)
         self.saveAct = QtGui.QAction(QtGui.QIcon("./images/save.png"), "&Save",
                 self, shortcut=QtGui.QKeySequence("Ctrl+S"),
-                statusTip="Save the current file", triggered=self.Editor.saveFile)
+                statusTip="Save the current file", triggered=self.Editor.saveFile)        
+        self.saveAsAct = QtGui.QAction("Save &As...", self,
+                statusTip="Save to another file", triggered=self.Editor.saveFileAs)
         
         self.exitAct = QtGui.QAction("E&xit", self,
                 shortcut=QtGui.QKeySequence("Alt+F4"),
@@ -276,6 +278,7 @@ class AppMainWindow(QtGui.QMainWindow):
         self.fileMenu.addAction(self.newAct)
         self.fileMenu.addAction(self.openAct)
         self.fileMenu.addAction(self.saveAct)
+        self.fileMenu.addAction(self.saveAsAct)
         self.fileMenu.addAction(self.closeAct)
         self.fileMenu.addSeparator()
         self.fileMenu.addAction(self.exitAct)
