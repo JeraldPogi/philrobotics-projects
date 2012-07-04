@@ -237,6 +237,19 @@ class MultipleCppEditor(QtGui.QTabWidget):
             return True
         return False
     
+    def saveFileAs(self):
+        child = self.currentWidget()
+        rc = child.saveAs()
+        if rc:
+            fileName = child.currentFile()
+            tabtext = os.path.basename( str(fileName) )
+            if tabtext.lower().find(PROJECT_EXT) == len(tabtext) - len(PROJECT_EXT):
+                tabtext = tabtext[:tabtext.lower().find(PROJECT_EXT)]
+            self.setTabText(self.currentIndex(), tabtext)
+            self.setTabToolTip(self.currentIndex(), fileName)
+            return True
+        return False
+    
     def closeFile(self, idx = 0):
         if self.count()==0:
             return # nothing to close
