@@ -208,9 +208,9 @@ class AppMainWindow(QtGui.QMainWindow):
                 statusTip="Exit the application", triggered=QtGui.qApp.closeAllWindows)
         
         # edit menu
-        self.findAct = QtGui.QAction("&Find", self,
+        self.findAct = QtGui.QAction("&Find/Replace...", self,
                 shortcut=QtGui.QKeySequence("Ctrl+F"),
-                statusTip="Find text", triggered=self.Editor.findChildText)
+                statusTip="Find/Replace texts", triggered=self.Editor.showFindDialog)
         
         # project menu
         self.compileAct = QtGui.QAction(QtGui.QIcon("./images/build.png"), "&Compile",
