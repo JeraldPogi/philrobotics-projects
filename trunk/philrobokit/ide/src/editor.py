@@ -93,26 +93,58 @@ class MultipleCppEditor(QtGui.QTabWidget):
     
     def closeFile(self, idx = 0):
         if self.count()==0:
-            return # nothing to close
-        # check if the file has change before closing
-        child = self.currentWidget()
+            return True# nothing to close
+        # check if the file has changed before closing
+        child = self.widget(idx)
         if child.isModified:
             result = QtGui.QMessageBox.question(self, "Modified",
-                         "Save changes on " + child.currentFile() + " ?",
+                         'Save changes on "' + child.currentFile() + '" ?',
                          QtGui.QMessageBox.Yes, QtGui.QMessageBox.No, QtGui.QMessageBox.Cancel)
             if result == QtGui.QMessageBox.Cancel:
                 return False
             elif result == QtGui.QMessageBox.Yes:
                 if child.save() == None: # file was not save after
                     return False
-        self.removeTab(self.currentIndex())
+        self.removeTab(idx)
         child.setParent(None)
         child.close()
         return True
+    
+    def closeCurrentFile(self):
+        return self.closeFile(self.currentIndex())
         
     def getCurrentFile(self):
         child = self.currentWidget()
         return child.currentFile()
+    
+    def editUndo(self):
+        child = self.currentWidget()
+        if child: child.undo()
+            
+    def editRedo(self):
+        child = self.currentWidget()
+        if child: child.redo()
+    
+    def editCut(self):
+        child = self.currentWidget()
+        if child:
+            if child.hasSelectedText(): child.cut()
+            
+    def editCopy(self):
+        child = self.currentWidget()
+        if child: child.copy()
+            
+    def editPaste(self):
+        child = self.currentWidget()
+        if child: child.paste()
+        
+    def editSelectAll(self):
+        child = self.currentWidget()
+        if child: child.selectAll()
+        
+    def editClear(self):
+        child = self.currentWidget()
+        if child: child.clear()
     
     def showFindDialog(self):
         child = self.currentWidget()
