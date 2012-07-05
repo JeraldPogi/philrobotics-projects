@@ -196,11 +196,11 @@ class AppMainWindow(QtGui.QMainWindow):
                 statusTip="Open an existing file", triggered=self.Editor.openFile)
         self.closeAct = QtGui.QAction("&Close",
                 self, shortcut=QtGui.QKeySequence("Ctrl+W"),
-                statusTip="Close the current window", triggered=self.Editor.closeFile)
+                statusTip="Close the current window", triggered=self.Editor.closeCurrentFile)
         self.saveAct = QtGui.QAction(QtGui.QIcon("./images/save.png"), "&Save",
                 self, shortcut=QtGui.QKeySequence("Ctrl+S"),
                 statusTip="Save the current file", triggered=self.Editor.saveFile)        
-        self.saveAsAct = QtGui.QAction("Save &As...", self,
+        self.saveAsAct = QtGui.QAction("Save &As...", self, shortcut=QtGui.QKeySequence("Ctrl+Shift+S"),
                 statusTip="Save to another file", triggered=self.Editor.saveFileAs)
         
         self.exitAct = QtGui.QAction("E&xit", self,
@@ -208,6 +208,20 @@ class AppMainWindow(QtGui.QMainWindow):
                 statusTip="Exit the application", triggered=QtGui.qApp.closeAllWindows)
         
         # edit menu
+        self.editUndoAct = QtGui.QAction("&Undo", self, shortcut=QtGui.QKeySequence("Ctrl+Z"),
+                                         triggered=self.Editor.editUndo)
+        self.editRedoAct = QtGui.QAction("&Redo", self, shortcut=QtGui.QKeySequence("Ctrl+Y"),
+                                         triggered=self.Editor.editRedo)
+        self.editCutAct = QtGui.QAction("Cu&t", self, shortcut=QtGui.QKeySequence("Ctrl+X"),
+                                         triggered=self.Editor.editCut)
+        self.editCopyAct = QtGui.QAction("&Copy", self, shortcut=QtGui.QKeySequence("Ctrl+C"),
+                                         triggered=self.Editor.editCopy)
+        self.editPasteAct = QtGui.QAction("&Paste", self, shortcut=QtGui.QKeySequence("Ctrl+V"),
+                                         triggered=self.Editor.editPaste)
+        self.editSelectAllAct = QtGui.QAction("Select &All", self, shortcut=QtGui.QKeySequence("Ctrl+A"),
+                                         triggered=self.Editor.editSelectAll)
+        self.editClearAct = QtGui.QAction("Clear", self,  triggered=self.Editor.editClear)
+        # find/replace
         self.findAct = QtGui.QAction("&Find/Replace...", self,
                 shortcut=QtGui.QKeySequence("Ctrl+F"),
                 statusTip="Find/Replace texts", triggered=self.Editor.showFindDialog)
@@ -284,6 +298,15 @@ class AppMainWindow(QtGui.QMainWindow):
         self.fileMenu.addAction(self.exitAct)
         
         self.editMenu = self.menuBar().addMenu("&Edit")
+        self.editMenu.addAction(self.editUndoAct)
+        self.editMenu.addAction(self.editRedoAct)
+        self.editMenu.addSeparator()
+        self.editMenu.addAction(self.editCutAct)
+        self.editMenu.addAction(self.editCopyAct)
+        self.editMenu.addAction(self.editPasteAct)
+        self.editMenu.addAction(self.editSelectAllAct)
+        self.editMenu.addAction(self.editClearAct)
+        self.editMenu.addSeparator()
         self.editMenu.addAction(self.findAct)
         
         self.projectMenu = self.menuBar().addMenu("&Project")
@@ -342,6 +365,7 @@ class AppMainWindow(QtGui.QMainWindow):
         self.log.resize(self.width(), 100 )
         self.log.setText("Ready")
         palette = QtGui.QPalette(QtGui.QColor(0, 0, 0))
+        palette.setColor(QtGui.QPalette.Active, QtGui.QPalette.Base, QtGui.QColor(30, 10, 0))
         self.log.setPalette(palette)
         logWindow = QtGui.QDockWidget(self)
         logWindow.setWidget(self.log)
