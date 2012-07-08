@@ -15,7 +15,7 @@ baud EQU 57600			; standard TinyBld baud rates: 115200 or 19200
 	#include "../bankswitch.inc"
 	#define first_address max_flash-100 ; 100 word in size
 
-	__CONFIG  _HS_OSC & _CP_OFF & _WDT_OFF & _BODEN_ON & _PWRTE_ON & _LVP_OFF & _DEBUG_OFF
+	__CONFIG  _HS_OSC & _CP_OFF & _WDT_OFF & _BODEN_OFF & _PWRTE_ON & _LVP_OFF & _DEBUG_OFF
 
 	errorlevel 1, -305			; suppress warning msg that takes f as default
 
