@@ -29,7 +29,8 @@ class MultipleCppEditor(QtGui.QTabWidget):
         self.findDlg = FindDialog(self)
         
         self.setAcceptDrops(True)
-        self.setTabShape(QtGui.QTabWidget.Triangular)
+        #self.setTabShape(QtGui.QTabWidget.Triangular)
+        self.setMovable(True)
         self.setTabsClosable(True)
         
         self.connect(self, QtCore.SIGNAL('tabCloseRequested(int)'), self.closeFile)
@@ -67,6 +68,8 @@ class MultipleCppEditor(QtGui.QTabWidget):
     
     def saveFile(self):
         child = self.currentWidget()
+        if child == None:
+            return None
         rc = child.save()
         if rc:
             fileName = child.currentFile()
@@ -115,7 +118,9 @@ class MultipleCppEditor(QtGui.QTabWidget):
         
     def getCurrentFile(self):
         child = self.currentWidget()
-        return child.currentFile()
+        if child:
+            return child.currentFile()
+        return None
     
     def editUndo(self):
         child = self.currentWidget()

@@ -26,6 +26,7 @@ class AppMainWindow(QtGui.QMainWindow):
         Constructor
         '''
         super(AppMainWindow, self).__init__()
+        print "PhilRoboKit IDE started..."
         
         self.aboutDlg = AboutDialog(self)
         self.aboutDlg.show()
@@ -43,6 +44,7 @@ class AppMainWindow(QtGui.QMainWindow):
         self.pollCompilerTimerID = None
         
         self.serialPortName = None
+        self.serialPortLabel = QtGui.QLabel('<i>(select port)</i>')
         self.SerialPortMonitorDialog = SerialPortMonitor(self)
         
         self.PK2Programmer = PICkit2ProgrammerThread(self)
@@ -80,7 +82,13 @@ class AppMainWindow(QtGui.QMainWindow):
         if self.Compiler.isRunning():
             self.insertLog('compiler busy..')
             return
-        self.Editor.saveFile() # save the file first before starting the build.
+        ret = self.Editor.saveFile() # save the file first before starting the build.
+        if ret == False:
+            self.insertLog("<font color=red>unable to save project!</font>")
+            return
+        elif ret == None:
+            self.insertLog("nothing to build.")
+            return
         self.insertLog("<font color=green>------- Start Project Build. -------</font>", True)
         fn = self.Editor.getCurrentFile()
         ret, msg = self.Compiler.buildProject(userCode = fn)
@@ -106,9 +114,12 @@ class AppMainWindow(QtGui.QMainWindow):
             self.Compiler.pollBuildProcess(True)
             self.insertLog("<font color=red>----- Stopped. -----</font>")
         else:
-            print "nothing to stop"
+            self.insertLog("nothing to stop.")
             
     def programChip(self):
+        if self.Compiler.isRunning():
+            self.insertLog('compiler busy... please wait...')
+            return
         if self.SerialPortMonitorDialog.isPortOpen():
             self.SerialPortMonitorDialog.close() # close first serial port monitor
         if self.tinyBootloader.isRunning():
@@ -167,6 +178,7 @@ class AppMainWindow(QtGui.QMainWindow):
             if portname != self.serialPortName:
                 self.serialPortName = portname
                 self.insertLog( 'selected port: ' + self.serialPortName )
+                self.serialPortLabel.setText(self.serialPortName)
                 if self.SerialPortMonitorDialog.isPortOpen():
                     if not self.SerialPortMonitorDialog.openPort(self.serialPortName):
                         self.SerialPortMonitorDialog.close()
@@ -247,8 +259,8 @@ class AppMainWindow(QtGui.QMainWindow):
                             statusTip="include " + self.firmwareLibList[i] + " library" ) ) 
         
         # todo: serial monitor/terminal window
-        self.serialMonitorAct = QtGui.QAction("Serial &Monitor",  self,
-                #shortcut=QtGui.QKeySequence("Ctrl+Shift+M"),
+        self.serialMonitorAct = QtGui.QAction(QtGui.QIcon("./images/serial.png"), "Serial &Monitor",
+                self, shortcut=QtGui.QKeySequence("Ctrl+Shift+M"),
                 statusTip="Launch Serial Monitor Dialog", triggered=self.openSerialPortMonitorDialog)
         self.serialPortGroup = QtGui.QActionGroup(self)
         self.serialPortList = scan_serialports()
@@ -354,7 +366,11 @@ class AppMainWindow(QtGui.QMainWindow):
         self.projectToolBar.addAction(self.compileAct)
         self.projectToolBar.addAction(self.stopAct)
         self.projectToolBar.addAction(self.programAct)
-        self.projectToolBar.addAction(self.pickit2ProgramAct)
+        #self.projectToolBar.addAction(self.pickit2ProgramAct)
+        
+        self.serialToolBar = self.addToolBar("Serial Port")
+        self.serialToolBar.addAction(self.serialMonitorAct)
+        self.serialToolBar.addWidget(self.serialPortLabel)
         
     def createStatusBar(self):
         self.statusBar().showMessage("Ready")
@@ -412,6 +428,4 @@ class AppMainWindow(QtGui.QMainWindow):
             return
         self.Configs.saveIdeSettings()
         return QtGui.QMainWindow.closeEvent(self, event)
-    
-    
-    
+

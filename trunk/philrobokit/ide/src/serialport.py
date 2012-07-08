@@ -51,6 +51,7 @@ class SerialPortMonitor(QtGui.QDialog):
         self.clearButton = QtGui.QPushButton('Clear')
         self.monitorWindow = QtGui.QTextEdit()
         self.monitorWindow.setReadOnly(True)
+        self.monitorWindow.setFontPointSize(10.0)
         # end-of-line options
         self.addCR = QtGui.QCheckBox('+CR')
         self.addCR.setCheckState(QtCore.Qt.Checked)

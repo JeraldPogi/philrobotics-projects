@@ -142,7 +142,7 @@ def getLibraryKeywords():
     keywords += values
     keywords = list(set(keywords)) # remove duplicate items
     #print keywords
-    print 'found %d keywords' %len(keywords)
+    #print 'found %d keywords' %len(keywords)
 
     return keywords
 
