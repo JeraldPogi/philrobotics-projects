@@ -53,14 +53,14 @@ class TinyPICBootloaderThread(QtCore.QThread):
         max_flash, family = self.detectPIC( True )
         
         if max_flash == None:
-            self.LogList.append("error: chip not detected.")
+            self.LogList.append("error: chip not detected!")
             self.Port.close()
             return
         
         try:
             f=open(self.HexFile, 'r')
         except IOError:
-            self.LogList.append("error: unable to read Hex file.")
+            self.LogList.append("error: unable to read Hex file!")
             self.Port.close()
             return
         
@@ -72,7 +72,7 @@ class TinyPICBootloaderThread(QtCore.QThread):
             # Check for the record begining
             if rec[0]!=":":
                 print "Hex file not recognized:\nLine: "+str(act)+" File: " + self.HexFile
-                self.LogList.append("error: Hex file not recognized")
+                self.LogList.append("error: Hex file not recognized!")
                 f.close()
                 self.Port.close()
                 return
@@ -113,7 +113,7 @@ class TinyPICBootloaderThread(QtCore.QThread):
                     chs=((-chs)&255)
                     # TODO: Check the hex file checksum
                     
-        # The programing block size is family dependant:
+        # The programming block size is family dependent:
         # For the 16F8XX family the block size is 8 bytes long (check in the
         # asm file for the max block size) 
         # For the 18F family the block size is 64 byte long    
@@ -162,7 +162,7 @@ class TinyPICBootloaderThread(QtCore.QThread):
             write_block=False
             for j in range(0,hblock):
     
-                #Remember .hex file address is pic_address/2 for the 16F familly
+                #Remember .hex file address is pic_address/2 for the 16F family
                 if (family=="16F8XX") or (family == "16F8X"):
                     hex_pos=2*pic_pos+j
                 elif family=="18F":
@@ -185,16 +185,21 @@ class TinyPICBootloaderThread(QtCore.QThread):
                     return
         
         self.Port.close()
-        self.LogList.append(" tinyPIC bootloader finished loading.")
+        self.LogList.append("<font color=lightblue>TinyPIC Bootloader finished loading.</font>")
         
     def detectPIC(self, resetRTS=False):
-        print 'detecting pic using ', self.serialPortName
-
+        #print 'detecting pic using ', self.serialPortName
         if resetRTS: # use '#RTS' pin to toggle VPP
-            self.Port.setRTS(1) # set low
-            time.sleep(0.1)
-            self.Port.setRTS(0) # set high
-            time.sleep(0.1)
+            try:
+                self.Port.setRTS(0) # set high
+                time.sleep(0.1)
+                self.Port.setRTS(1) # set low
+                time.sleep(0.1)
+                self.Port.setRTS(0) # set high
+                time.sleep(0.1)
+            except:
+                self.LogList.append("error: unable to toggle VPP pin!")
+                return None, None
         else: # use TXD BREAK
             self.Port.setBreak(False)
             self.Port.sendBreak(0.1)
@@ -212,10 +217,10 @@ class TinyPICBootloaderThread(QtCore.QThread):
         #Leer el tipo de pic retornado por la tarjeta
         if ret[1] != "K":
             self.LogList.append("error: PIC not recognized (protocol error)")
-            #return None, None
+            return None, None
             
         pt = ord(ret[0])
-        print 'ret = 0x%02X, 0x%02X' %(ord(ret[0]), ord(ret[1]) )
+        #print 'ret = 0x%02X, 0x%02X' %(ord(ret[0]), ord(ret[1]) )
 
         if pt==0x31:
             PicType="16F876A-16F877A";
