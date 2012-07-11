@@ -7,13 +7,13 @@
 //----------------------------------------------------------------------------------
 // Filename:	PhilRoboKit_CoreLib_Macro.c - PhilRobokit Macro File
 // Description:	
-// Revision:    v00.01.02
+// Revision:    v00.01.03
 // Author:      Giancarlo Acelajado
 //             	
 // Vendor:      Microchip Technology
 // Family:      PIC16F8X7A
 // Processor:   PIC16F877A
-// Compiler:    Hitech C 9.82
+// Compiler:    Hitech C 9.82 or Higher
 //
 //
 // This program is free software: you can redistribute it and/or modify
@@ -31,6 +31,7 @@
 // FW Version      Date        Author         Description
 // v00.01.01       201112xx    Giancarlo A.   Library Initial Release
 // v00.01.02       201202xx    Giancarlo A.   Modify LowLevel Configuration of Pins
+// v00.01.03       20120711    ESCII		  Changed Interrupt Priorities
 //***********************************************************************************
 
 #include "PhilRoboKit_CoreLib_Macro.h"
@@ -206,11 +207,11 @@ unsigned char checkPinState(unsigned char ucPinName, char bCheckState)
 // ==========================================================================================================================================
 void philrobokit_init(void)
 {
-	REGISTER_TRISA = CONST_DEFAULT_CONFIG_PORTA;
-	REGISTER_TRISB = CONST_DEFAULT_CONFIG_PORTB;
-	REGISTER_TRISC = CONST_DEFAULT_CONFIG_PORTC;
-	REGISTER_TRISD = CONST_DEFAULT_CONFIG_PORTD;
-	REGISTER_TRISE = CONST_DEFAULT_CONFIG_PORTE;	
+	REGISTER_TRISA = REGISTER_PORTA = CONST_DEFAULT_CONFIG_PORTA;
+	REGISTER_TRISB = REGISTER_PORTB = CONST_DEFAULT_CONFIG_PORTB;
+	REGISTER_TRISC = REGISTER_PORTC = CONST_DEFAULT_CONFIG_PORTC;
+	REGISTER_TRISD = REGISTER_PORTD = CONST_DEFAULT_CONFIG_PORTD;
+	REGISTER_TRISE = REGISTER_PORTE = CONST_DEFAULT_CONFIG_PORTE;
 }	
 
 //Main Program Routine
@@ -233,11 +234,12 @@ int main(void)
 // ==========================================================================================================================================
 void interrupt isr(void)
 {
-	//adcInterruptHandler();
-	serialRxInterruptHandler();	
-	serialTxInterruptHandler();	
 	timerInterruptHandler();
-	//userInterruptHandler();			
+	serialRxInterruptHandler();
+	userInterruptHandler();
+	timer8bitInterruptHandler();
+	serialTxInterruptHandler();
+	//adcInterruptHandler();
 }
 
 /* End of PhilRoboKit_CoreLib_Macro.c */

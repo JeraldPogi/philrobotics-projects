@@ -6,7 +6,7 @@
 //----------------------------------------------------------------------------------
 // Filename:	htc_16f87xa.h - Hitech C PIC16F87XA Header File
 // Description:	
-// Revision:    v00.01.00
+// Revision:    v00.01.01
 // Author:      Giancarlo Acelajado
 //
 // Dependencies:
@@ -25,7 +25,7 @@
 //***********************************************************************************
 // FW Version      Date        Author         Description
 // v00.01.00       201112xx    Giancarlo A.   Library Initial Release
-// 
+// v00.01.01       20120711    ESCII		  Added defines for PWM and Timers
 //***********************************************************************************
 	
 #ifndef __HTC_16F87XA_H
@@ -111,4 +111,65 @@
 		#define BIT_ADCON1_PCFG1	PCFG1	
 		#define BIT_ADCON1_PCFG0	PCFG0
 		
+    /* TMRx */
+	#define REGISTER_PR2        PR2
+	//define REGISTER_PR4          	PR4
+	//#define REGISTER_PR6          	PR6
+	
+	#define REGISTER_T2CON      T2CON     
+	//#define REGISTER_T4CON          T4CON 
+	//#define REGISTER_T6CON          T6CON 
+   	
+		//#define BIT_TxCON_RESERVED		T2CON.7	
+	    #define BIT_T2CON_TOUTPS3 	TOUTPS3
+	    #define BIT_T2CON_TOUTPS2   TOUTPS2
+	    #define BIT_T2CON_TOUTPS1   TOUTPS1
+		#define BIT_T2CON_TOUTPS0   TOUTPS0
+		#define BIT_T2CON_TMR2ON    TMR2ON
+		#define BIT_T2CON_T2CKPS1   T2CKPS1
+		#define BIT_T2CON_T2CKPS0	T2CKPS0
+
+	#define TMR_POSTSCALE_MASK  	0x78		// Bit 3 to Bit 6    
+	#define TMR_PRESCALE_MASK   	0x03		// Bit 0 to Bit 1 		
+	
+    /* CCPx */
+	#define REGISTER_CCP1CON	CCP1CON  
+	#define REGISTER_CCP2CON	CCP2CON
+	//#define REG_CCP3CON			CCP3CON
+	//#define REG_CCP4CON			CCP4CON
+	      	
+	    #define MASK_PxM1       	0x80		// Bit 7 (For ECCP Only)
+	    #define MASK_PxM0       	0x40		// Bit 6 (For ECCP Only)
+	    #define MASK_DCxB1      	0x20		// Bit 5
+	    #define MASK_DCxB0      	0x10		// Bit 4
+		#define MASK_CCPxM3     	0x08		// Bit 3
+		#define MASK_CCPxM2     	0x04		// Bit 2
+		#define MASK_CCPxM1     	0x02		// Bit 1
+		#define MASK_CCPxM0     	0x01		// Bit 0
+		
+		#define ECCP_CONFIG_MASK    0xC0        // Bit 6 to 7 (For ECCP Only)
+		#define PWM_DC_LSB_MASK     0x30        // Bit 4 to 5
+		#define CCP_MODE_MASK       0x0F        // Bit 0 to 3
+
+	#define REGISTER_CCPR1L		CCPR1L
+	#define REGISTER_CCPR2L		CCPR2L
+	//#define REG_CCPR3L			CCPR3L
+	//#define REG_CCPR4L			CCPR4L
+
+	#if 0 // not for PIC16F877A
+	#define REGISTER_CCPTMRS	CCPTMRS
+	    #define MASK_C4TSEL1     	0x80		// Bit 7 
+	    #define MASK_C4TSEL0     	0x40		// Bit 6 
+	    #define MASK_C3TSEL1     	0x20		// Bit 5
+	    #define MASK_C3TSEL0     	0x10		// Bit 4
+		#define MASK_C2TSEL1     	0x08		// Bit 3
+		#define MASK_C2TSEL0     	0x04		// Bit 2
+		#define MASK_C1TSEL1     	0x02		// Bit 1
+		#define MASK_C1TSEL0     	0x01		// Bit 0
+		
+		#define C4_TIMERSEL_MASK 	0xC0		// Bit 6 to 7
+		#define C3_TIMERSEL_MASK 	0x30		// Bit 4 to 5
+		#define C2_TIMERSEL_MASK 	0x0C		// Bit 2 to 3
+		#define C1_TIMERSEL_MASK 	0x03		// Bit 0 to 1
+	#endif	
 #endif
