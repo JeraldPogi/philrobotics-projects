@@ -1,12 +1,12 @@
 //***********************************************************************************
-// PhilRobotics | Amateur Robotics Club of the Philippines
-// http://philrobotics.com | http://facebook.com/philrobotics
+// PhilRobotics | Philippine Electronics and Robotics Enthusiasts Club
+// http://philrobotics.com | http://philrobotics.com/forum | http://facebook.com/philrobotics
 // phirobotics.core@philrobotics.com
 //
 //----------------------------------------------------------------------------------
 // Filename:	PhilRoboKit_CoreLib_timer.c - Timer Hardware Delay File
 // Description:	
-// Revision:    v00.00.02
+// Revision:    v00.00.03
 // Author:      Giancarlo Acelajado
 //
 // Dependencies:
@@ -26,6 +26,8 @@
 // FW Version      Date        Author         Description
 // v00.00.01       201202xx    Giancarlo A.   Library Initial Release(internal)
 // v00.00.02       201203xx    Giancarlo A.   XXXXXX
+// v00.00.03	   20130707	   ESCII		  Fixed Interrupt Handler and Set
+//												Overflow to Every 40uS
 // 
 //***********************************************************************************
 #include "PhilRoboKit_CoreLib_timer.h"
@@ -37,50 +39,45 @@
 	void timerInterruptHandler(void)
 	{
 		static int iMsCounter = 0;
-	
-		if(BIT_PIR1_TMR1IF){
-		
-			if((uiTimerUs >= 65000)){ // 650 000 uS
-				uiTimerUs = 0;
-			}
-			uiTimerUs++;
-		
-			iMsCounter++;
-			if(iMsCounter >= 10){	
-				iMsCounter = 0;	
-				
-				if(uiTimerMs >= 65000){
-					uiTimerMs = 0;
-				}
-				uiTimerMs++;
-			}
-		
+
+		if(BIT_PIR1_TMR1IF&&BIT_PIE1_TMR1IE)
+		{
+			BIT_PIR1_TMR1IF = 0; 	// Clear Timer1 Interrupt Flag
 			
-			REGISTER_TMR1L = (CONST16_TIMER & 0xFF);
+			/* Increment US Timer */
+			uiTimerUs += CONST16_TIMER_INCREMENT;
+
+			/* Increment MS Timer */
+			iMsCounter += CONST16_TIMER_INCREMENT;
+			if(iMsCounter >= 1000)
+			{
+				iMsCounter = 0;
+				uiTimerMs++;			
+			}
+			
+			REGISTER_TMR1L = (CONST16_TIMER);
 			REGISTER_TMR1H = (CONST16_TIMER >> 8);
-	
-			BIT_PIR1_TMR1IF = 0; //Clear Timer1 Interrupt Flag
 		}
 	}	
 
 	void timerInit(void)
 	{
-		BIT_T1CON_T1CKPS1 = 1; //Prescaler is 8
+		BIT_T1CON_T1CKPS1 = 1; 		// Prescaler is 8
 		BIT_T1CON_T1CKPS0 = 1; 
-		BIT_T1CON_T1OSCEN = 0; //Timer1 Oscillator Enable Control
-		BIT_T1CON_T1SYNC = 1; //Timer1 External Clock Input Synchronization Control
-		BIT_T1CON_TMR1CS = 0; //Timer1 Clock Source Select, Internal Clock (FOSC/4)
+		BIT_T1CON_T1OSCEN = 0; 		// Timer1 Oscillator Enable Control
+		BIT_T1CON_T1SYNC = 1; 		// Timer1 External Clock Input Synchronization Control
+		BIT_T1CON_TMR1CS = 0; 		// Timer1 Clock Source Select, Internal Clock (FOSC/4)
 			
-		REGISTER_TMR1L = (CONST16_TIMER & 0xFF);
+		REGISTER_TMR1L = (CONST16_TIMER);
 		REGISTER_TMR1H = (CONST16_TIMER >> 8);
 	
-		BIT_T1CON_TMR1ON = 1; //Timer1 is ON
+		BIT_T1CON_TMR1ON = 1; 		// Timer1 is ON
 	
-		BIT_PIE1_TMR1IE = 1; //Enable Timer1 Interrupt
-		BIT_PIR1_TMR1IF = 0; //Clear Timer1 Interrupt Flag
+		BIT_PIE1_TMR1IE = 1; 		// Enable Timer1 Interrupt
+		BIT_PIR1_TMR1IF = 0; 		// Clear Timer1 Interrupt Flag
 		
-		BIT_INTCON_PEIE = 1; //Enable Peripheral Interrupt
-		BIT_INTCON_GIE = 1;	 //Enable Global Interrupt
+		BIT_INTCON_PEIE = 1; 		// Enable Peripheral Interrupt
+		BIT_INTCON_GIE = 1;	 		// Enable Global Interrupt
 	}	
 
 	unsigned int getElapsedTimeMs(unsigned int uiTimeMs)

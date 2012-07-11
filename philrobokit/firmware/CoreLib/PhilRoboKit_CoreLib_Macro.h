@@ -6,7 +6,7 @@
 //----------------------------------------------------------------------------------
 // Filename:	PhilRoboKit_CoreLib_Macro.h - PhilRobokit Macro File
 // Description:	
-// Revision:    v00.01.02
+// Revision:    v00.01.03
 // Author:      Giancarlo Acelajado
 //             	
 // Vendor:      Microchip Technology
@@ -29,7 +29,8 @@
 //***********************************************************************************
 // FW Version      Date        Author         Description
 // v00.01.01       201112xx    Giancarlo A.   Library Initial Release
-// v00.01.02       201202xx    Giancarlo A.   Modify LowLevel Configuration of Pins		
+// v00.01.02       201202xx    Giancarlo A.   Modify LowLevel Configuration of Pins	
+// v00.01.03       20120711    ESCII		  Added User Int, 8Bit Timer, and PWM Modules	
 //***********************************************************************************
 
 #ifndef __PHILROBOKIT_MACRO_H__
@@ -41,6 +42,9 @@
 #include "lib\PhilRoboKit_CoreLib_uart.h"
 #include "lib\PhilRoboKit_CoreLib_adc.h"
 #include "lib\PhilRoboKit_CoreLib_timer.h"
+#include "lib\PhilRobokit_CoreLib_user_interrupt.h"
+#include "lib\PhilRobokit_CoreLib_8bit_timer.h"
+#include "lib\PhilRobokit_CoreLib_pwm.h"
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 /* PhilRobokit Specific Prototypes */
@@ -85,10 +89,9 @@ unsigned char checkPinState(unsigned char ucPinName, char bCheckState);
 // ==========================================================================================================================================
 // Function Prototypes
 // ==========================================================================================================================================
-
 void timerInterruptHandler(void);
+void userInterruptHandler(void);
 
-//void userInterruptHandler(void);
 void init(void);
 void program(void);
 

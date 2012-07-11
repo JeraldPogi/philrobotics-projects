@@ -4,10 +4,10 @@
 // phirobotics.core@philrobotics.com
 //
 //----------------------------------------------------------------------------------
-// Filename:	PhilRoboKit_CoreLib_timer.h - Timer Hardware Delay Header File
+// Filename:	PhilRobokit_CoreLib_user_interrupt.h - External Interrupt Header File
 // Description:	
 // Revision:    v00.00.03
-// Author:      Giancarlo Acelajado
+// Author:      Efren S. Cruzat II
 //
 // Dependencies:
 //
@@ -24,13 +24,16 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //***********************************************************************************
 // FW Version      Date        Author         Description
-// v00.00.01       201202xx    Giancarlo A.   Library Initial Release(internal)
-// v00.00.02       201203xx    Giancarlo A.   Fix CONST8_TIMER values(for 20MHz)
-// v00.00.03	   20130707	   ESCII		  Set Overflow to Every 40uS
-// 
+// v00.00.01		20120608	ESCII			- Library Initial Release
+// v00.00.02		20120624	ESCII			- Reorganized for Clarity
+//												- Have more strick policy on scope of
+//													variables and functions
+// v00.00.03		20120711	ESCII			- Code Cleanup
+//										- Removed void type on function pointers
+//										- Enumerated interrupt modes and sources
 //***********************************************************************************
-#ifndef __PH_TIMER_H
-#define __PH_TIMER_H
+#ifndef __PH_EXT_INTERRUPT_H__
+#define __PH_EXT_INTERRUPT_H__
 
 #if defined(HI_TECH_C)
 	#include "htc_common.h"
@@ -40,32 +43,40 @@
 	#endif
 #endif
 
-/* Hardware Delay Routine*/
-	#define	setupTimer()		timerInit()
+#include "PhilRoboKit_CoreLib_Macro.h"
 
-	#define CONST8_TIMER_10US				(65530) 	//(65536 - ((0.00001)*PROCESSOR_CLOCK_FREQ)/4*8)
-	#define CONST8_TIMER_40US				(65511) 	//(65536 - ((0.00004)*PROCESSOR_CLOCK_FREQ)/4*8)
-	#define CONST8_TIMER_100US				(65473) 	//(65536 - ((0.0001)*PROCESSOR_CLOCK_FREQ)/4*8)
-	#define CONST8_TIMER_1000US				(64911) 	//(65536 - ((0.001)*PROCESSOR_CLOCK_FREQ)/4*8)
+/* User Configuration Definitions */
+#define EXTINTENABLED		TRUE
+#define RBINTENABLED 		TRUE
 
-	#define	CONST16_TIMER	CONST8_TIMER_100US 
+	/* Interrupts Sources */
+enum etInterruptSources
+{
+	INT0
+	,INT1
+	,INT2
+	,INT3
+	,INT4
+};
+
+	/* Interrupt Modes */
+enum etInterruptModes
+{
+	LOWSTATE					// not available on PIC
+	,CHANGE
+	,RISING
+	,FALLING
+};
 	
-	#if (CONST16_TIMER == CONST8_TIMER_40US) 
-		#define CONST16_TIMER_INCREMENT		40
-	#elif (CONST16_TIMER == CONST8_TIMER_10US) 
-		#define CONST16_TIMER_INCREMENT		10
-	#elif (CONST16_TIMER == CONST8_TIMER_100US) 
-		#define CONST16_TIMER_INCREMENT		100
-	#elif (CONST16_TIMER == CONST8_TIMER_1000US) 
-		#define CONST16_TIMER_INCREMENT		1000	
-	#endif
+	/* PORTB  Pinmask */
+#define RB4_MASK	0x10
+#define RB5_MASK	0x20
+#define RB6_MASK	0x40
+#define RB7_MASK	0x80
 
-	void timerInterruptHandler(void);
+/* Public Function Prototypes */
+void setupUserInterrupt(enum etInterruptSources eIntSource, void(*function)(), enum etInterruptModes eIntMode);
+void userInterruptHandler(void);
 
-	void timerInit(void);
-	unsigned int getElapsedTimeMs(unsigned int uiTimeMs);
-	unsigned int getTimeMs(void);
-	unsigned int getElapsedTimeUs(unsigned int uiTimeUs);
-	unsigned int getTimeUs(void);
-	
-#endif
+#endif/* end of PhilRobokit_CoreLib_user_interrupt.h */
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	

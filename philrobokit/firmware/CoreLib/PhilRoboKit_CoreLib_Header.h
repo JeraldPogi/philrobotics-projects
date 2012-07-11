@@ -6,7 +6,7 @@
 //----------------------------------------------------------------------------------
 // Filename:	PhilRoboKit_CoreLib_Header.h - PhilRobokit Header File
 // Description:	
-// Revision:    v00.01.00
+// Revision:    v00.00.03
 // Author:      Giancarlo Acelajado
 //             	
 // Vendor:      Microchip Technology
@@ -29,6 +29,9 @@
 //***********************************************************************************
 // FW Version      Date        Author         Description
 // v00.00.01       201112xxx    Giancarlo A.   Library Initial Release
+// v00.00.02       201204xxx    Giancarlo A.   Modify CONST_DEFAULT_CONFIG_PORTA
+// v00.00.03       20120708    ESCII		   Modified delayUs and delayMs 
+//												to disable timer 1 peripheral
 //***********************************************************************************
 
 #ifndef __PHILROBOKIT_HEADER_H__
@@ -56,8 +59,20 @@
 
 	//__CONFIG(WDTE_OFF & FOSC_HS & LVP_OFF & PWRTE_ON & BOREN_OFF);
 	
-	#define delayUs(x)	__delay_us(x);
-	#define delayMs(x)	__delay_ms(x);
+	#define delayUs(x)		\
+		BIT_PIE1_TMR1IE = 0;	\
+		BIT_T1CON_TMR1ON = 0;	\
+		__delay_us(x);			\
+		BIT_PIE1_TMR1IE = 1;	\
+		BIT_T1CON_TMR1ON = 1	// Line Terminator Intentionally Omitted
+	
+	#define delayMs(x)		\
+		BIT_PIE1_TMR1IE = 0;	\
+		BIT_T1CON_TMR1ON = 0;	\
+		__delay_ms(x);			\
+		BIT_PIE1_TMR1IE = 1;	\
+		BIT_T1CON_TMR1ON = 1	// Line Terminator Intentionally Omitted
+	
 #endif
 
 /*

@@ -1,0 +1,11 @@
+// Frequency Adjustable between 1.22kHz - 200kHz
+void init()
+{
+	setupPWM(PWM0,200,500);		// 2kHz 50%
+	setupPWM(PWM1,200,750);		// 2kHz 75%
+}
+
+void program()
+{
+	
+}
