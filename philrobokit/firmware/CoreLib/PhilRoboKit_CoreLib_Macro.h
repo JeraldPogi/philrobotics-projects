@@ -40,12 +40,12 @@
 #include "PhilRoboKit_CoreLib_Header.h"
 
 /* PhilRobokit Library */
-#include "lib\CoreLib_uart.h"
-#include "lib\CoreLib_adc.h"
-#include "lib\CoreLib_timer.h"
-#include "lib\CoreLib_user_interrupt.h"
-#include "lib\CoreLib_8bit_timer.h"
-#include "lib\CoreLib_pwm.h"
+#include "lib\corelib_uart.h"
+#include "lib\corelib_adc.h"
+#include "lib\corelib_timer.h"
+#include "lib\corelib_user_interrupt.h"
+#include "lib\corelib_8bit_timer.h"
+#include "lib\corelib_pwm.h"
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 /* PhilRobokit Specific Prototypes */

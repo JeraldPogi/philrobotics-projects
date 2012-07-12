@@ -4,7 +4,7 @@
 // phirobotics.core@philrobotics.com
 //
 //----------------------------------------------------------------------------------
-// Filename:	servo.h - Servo Control Header File
+// Filename:	corelib_user_interrupt.h - External Interrupt Header File
 // Description:	
 // Revision:    v00.00.03
 // Author:      Efren S. Cruzat II
@@ -24,13 +24,16 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //***********************************************************************************
 // FW Version      Date        Author         Description
-// v00.00.01       <date>    <authorname>   - Library Initial Release
-// v00.00.02		20120711	ESCII		- Code Cleanup
-//											- Enumerated servo modules
-// v00.00.03		20120712	ESCII		- Modified 8bit timer library include link
+// v00.00.01		20120608	ESCII			- Library Initial Release
+// v00.00.02		20120624	ESCII			- Reorganized for Clarity
+//												- Have more strick policy on scope of
+//													variables and functions
+// v00.00.03		20120711	ESCII			- Code Cleanup
+//										- Removed void type on function pointers
+//										- Enumerated interrupt modes and sources
 //***********************************************************************************
-#ifndef __PH_SERVO_H__
-#define __PH_SERVO_H__
+#ifndef __PH_EXT_INTERRUPT_H__
+#define __PH_EXT_INTERRUPT_H__
 
 #if defined(HI_TECH_C)
 	#include "htc_common.h"
@@ -40,40 +43,40 @@
 	#endif
 #endif
 
-#include <PhilRoboKit_CoreLib_Macro.h>
-#include <lib\corelib_8bit_timer.h>
+#include "PhilRoboKit_CoreLib_Macro.h"
 
-#define SERVO_IDLE_PERIOD			2000	// 20mS
+/* User Configuration Definitions */
+#define EXTINTENABLED		TRUE
+#define RBINTENABLED 		TRUE
 
-/* Configuration for HTX900 Servo */
-#define SERVO_MIN_PULSEWIDTH		50		// 0.5mS		
-#define SERVO_MAX_PULSEWIDTH		250		// 2.5mS		
-#define SERVO_DEFAULT_PULSEWIDTH	150		// 1.5mS	
-#define SERVO_MIN_ANGLEPOSITION		(-90)
-#define SERVO_MAX_ANGLEPOSITION		(+90)
-#define SERVO_DEFAULT_ANGLEPOSITION	(0)
-
-#define SERVO_PULSE_OFFSET			SERVO_DEFAULT_PULSEWIDTH
-
-enum servoModules
+	/* Interrupts Sources */
+enum etInterruptSources
 {
-	SERV0
-	,SERV1
-	,SERV2
-	,SERV3
-	,SERV4
-	,SERV5
-	,SERV6
-	,SERV7
-	,NUMBEROFMODULES
+	INT0
+	,INT1
+	,INT2
+	,INT3
+	,INT4
 };
 
-/* Public Function Prototypes */
-void setupServo(enum servoModules ServoMod, unsigned char ServoPin, signed char DefaultAngle, unsigned char MinPulseWidth, unsigned char MaxPulseWidth, signed char MinAngle, signed char MaxAngle);
-void setupServoDef(enum servoModules ServoMod, unsigned char ServoPin, signed char DefaultAngle);
-void setupServoPort(signed char DefaultAngle);
-void setServoAngle(enum servoModules ServoMod, signed char servoAngle);
-void setServoPortAngle(signed char servoAngle);
+	/* Interrupt Modes */
+enum etInterruptModes
+{
+	LOWSTATE					// not available on PIC
+	,CHANGE
+	,RISING
+	,FALLING
+};
 	
-#endif /* end of servo.h */
+	/* PORTB  Pinmask */
+#define RB4_MASK	0x10
+#define RB5_MASK	0x20
+#define RB6_MASK	0x40
+#define RB7_MASK	0x80
+
+/* Public Function Prototypes */
+void setupUserInterrupt(enum etInterruptSources eIntSource, void(*function)(), enum etInterruptModes eIntMode);
+void userInterruptHandler(void);
+
+#endif/* end of corelib_user_interrupt.h */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
