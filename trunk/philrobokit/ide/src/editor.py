@@ -2,6 +2,8 @@
 '''
 
 @filename: editor.py
+@author: 'yus
+@organization: PhilRobotics
 
 '''
 
@@ -44,8 +46,9 @@ class MultipleCppEditor(QtGui.QTabWidget):
         self.setCurrentIndex(self.count()-1)
         self.setTabToolTip(self.currentIndex(), child.currentFile())
         
-    def openFile(self):
-        fileName = QtGui.QFileDialog.getOpenFileName(
+    def openFile(self, fileName=None):
+        if fileName == None: # prompt open dialog if filename is not specified
+            fileName = QtGui.QFileDialog.getOpenFileName(
                                         self, self.tr("Open Source File"),
                                         "", PROJECT_ALIAS + " (*" + PROJECT_EXT + ");;" 
                                         "C Source File (*.c);;Text File (*.txt);;All files (*.*)" )

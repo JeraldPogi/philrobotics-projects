@@ -2,19 +2,22 @@
 '''
 
 @filename: mainwindow.py
+@author: 'yus
+@organization: PhilRobotics
 
 '''
 
+import os, functools
 from PyQt4 import QtGui, QtCore
 from editor import MultipleCppEditor
-from firmware import scanFirmwareLibs 
+from firmware import scanFirmwareLibs, getExampleProjects
 from compiler import PicCompilerThread
 from configs import IdeConfig
 from serialport import scan_serialports, SerialPortMonitor
 from pickit2 import PICkit2ProgrammerThread
 from tinypicbld import TinyPICBootloaderThread
 from about import AboutDialog
-#import time
+
 
 class AppMainWindow(QtGui.QMainWindow):
     '''
@@ -59,8 +62,8 @@ class AppMainWindow(QtGui.QMainWindow):
         self.createStatusBar()
         self.createLogWindow()
         
-        #time.sleep(2) # todo: pyqt equivalent?
         self.aboutDlg.finish(self)
+        print "IDE ready."
         
     def about(self):
         self.aboutDlg.show()
@@ -203,9 +206,10 @@ class AppMainWindow(QtGui.QMainWindow):
         self.newAct = QtGui.QAction( QtGui.QIcon("./images/new.png"), "&New",
                 self, shortcut=QtGui.QKeySequence("Ctrl+N"),
                 statusTip="Create a new file", triggered=self.Editor.newFile)
-        self.openAct = QtGui.QAction(QtGui.QIcon("./images/open.png"), "&Open",
+        self.openAct = QtGui.QAction(QtGui.QIcon("./images/open.png"), "&Open...",
                 self, shortcut=QtGui.QKeySequence("Ctrl+O"),
-                statusTip="Open an existing file", triggered=self.Editor.openFile)
+                statusTip="Open an existing file")
+        self.openAct.triggered.connect( functools.partial(self.Editor.openFile, None) )
         self.closeAct = QtGui.QAction("&Close",
                 self, shortcut=QtGui.QKeySequence("Ctrl+W"),
                 statusTip="Close the current window", triggered=self.Editor.closeCurrentFile)
@@ -256,9 +260,19 @@ class AppMainWindow(QtGui.QMainWindow):
             for i in range(len(self.firmwareLibList)):
                 self.firmwareLibActs.append(
                         QtGui.QAction(self.firmwareLibList[i],  self,
-                            statusTip="include " + self.firmwareLibList[i] + " library" ) ) 
+                            statusTip="include " + self.firmwareLibList[i] + " library" ) )
+                
+        self.exampleProjects = getExampleProjects(self.firmwareLibList)
+        self.exampleFolderMenus = []
+        self.openExampleActs = []
+        for key, value in self.exampleProjects.items():
+            self.exampleFolderMenus.append(QtGui.QMenu(str(key), self))
+            for fname in value:
+                baseName = os.path.basename(fname)
+                self.openExampleActs.append(QtGui.QAction(os.path.splitext(baseName)[0], self,
+                                statusTip= 'Open "' + fname + ' "'))
         
-        # todo: serial monitor/terminal window
+        # serial monitor/terminal window
         self.serialMonitorAct = QtGui.QAction(QtGui.QIcon("./images/serial.png"), "Serial &Monitor",
                 self, shortcut=QtGui.QKeySequence("Ctrl+Shift+M"),
                 statusTip="Launch Serial Monitor Dialog", triggered=self.openSerialPortMonitorDialog)
@@ -300,15 +314,34 @@ class AppMainWindow(QtGui.QMainWindow):
                 statusTip="Open PhilRobotics Website", triggered=self.openPhilRoboticsSite)
         
     def createMenus(self):
+        ### File Menu ###
         self.fileMenu = self.menuBar().addMenu("&File")
         self.fileMenu.addAction(self.newAct)
         self.fileMenu.addAction(self.openAct)
+        self.fileMenu.addSeparator()
+        
+        self.examplesMenu = QtGui.QMenu('Examples', self)
+        fileCount = 0
+        for dirCount in range( len(self.exampleFolderMenus) ):
+            examples = self.exampleProjects[str(self.exampleFolderMenus[dirCount].title())]
+            for fname in examples:
+                pathname =  str( os.getcwd() + '/' + fname ) # complete path
+                pathname = pathname.replace('\\', '/') # for consistency
+                self.openExampleActs[fileCount].triggered.connect(
+                                        functools.partial(self.Editor.openFile, pathname) )
+                self.exampleFolderMenus[dirCount].addAction(self.openExampleActs[fileCount])
+                fileCount += 1
+            self.examplesMenu.addMenu(self.exampleFolderMenus[dirCount])
+        self.fileMenu.addMenu(self.examplesMenu)
+        self.fileMenu.addSeparator()
+        
         self.fileMenu.addAction(self.saveAct)
         self.fileMenu.addAction(self.saveAsAct)
         self.fileMenu.addAction(self.closeAct)
         self.fileMenu.addSeparator()
         self.fileMenu.addAction(self.exitAct)
         
+        ### Edit Menu ###
         self.editMenu = self.menuBar().addMenu("&Edit")
         self.editMenu.addAction(self.editUndoAct)
         self.editMenu.addAction(self.editRedoAct)
@@ -321,6 +354,7 @@ class AppMainWindow(QtGui.QMainWindow):
         self.editMenu.addSeparator()
         self.editMenu.addAction(self.findAct)
         
+        ### Project Menu ###
         self.projectMenu = self.menuBar().addMenu("&Project")
         self.projectMenu.addAction(self.compileAct)
         self.projectMenu.addAction(self.stopAct)
@@ -335,6 +369,7 @@ class AppMainWindow(QtGui.QMainWindow):
         self.connect(self.firmwareLibMenu,
                      QtCore.SIGNAL("triggered (QAction *)"), self.importFirmwareLib)
         
+        ### Tools Menu ###
         self.toolsMenu = self.menuBar().addMenu("&Tools")
         self.toolsMenu.addAction(self.serialMonitorAct)
         self.toolsMenu.addSeparator()
@@ -350,6 +385,7 @@ class AppMainWindow(QtGui.QMainWindow):
         self.toolsMenu.addAction(self.restoreDefaultsAct) # todo: create settings dialog
         #self.bootloaderMenu = self.toolsMenu.addMenu("&Booloader")
         
+        ### Help Menu ###
         self.helpMenu = self.menuBar().addMenu("&Help")
         self.helpMenu.addAction(self.visitSiteAct)
         self.helpMenu.addAction(self.aboutCompilerAct)
