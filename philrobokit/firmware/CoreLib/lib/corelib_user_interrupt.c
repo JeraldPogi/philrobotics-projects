@@ -4,7 +4,7 @@
 // phirobotics.core@philrobotics.com
 //
 //----------------------------------------------------------------------------------
-// Filename:	corelib_user_interrupt.c - External Interrupt
+// Filename:	CoreLib_user_interrupt.c - External Interrupt
 // Description:	
 // Revision:    v00.00.03
 // Author:      Efren S. Cruzat II
@@ -32,7 +32,7 @@
 //										- Removed void type on function pointers
 //										- Enumerated interrupt modes and sources
 //***********************************************************************************
-#include "corelib_user_interrupt.h"
+#include "CoreLib_user_interrupt.h"
 
 /* Local Variables */
 static int PORTB_BUFFER,PORTB_DIR;
@@ -307,7 +307,7 @@ static 	void rbInterruptHandler(void)
 }
 #endif	
 
-/* end of corelib_user_interrupt.c */
+/* end of CoreLib_user_interrupt.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 
 

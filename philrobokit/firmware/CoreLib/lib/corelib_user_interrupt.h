@@ -4,7 +4,7 @@
 // phirobotics.core@philrobotics.com
 //
 //----------------------------------------------------------------------------------
-// Filename:	corelib_user_interrupt.h - External Interrupt Header File
+// Filename:	CoreLib_user_interrupt.h - External Interrupt Header File
 // Description:	
 // Revision:    v00.00.03
 // Author:      Efren S. Cruzat II
@@ -78,5 +78,5 @@ enum etInterruptModes
 void setupUserInterrupt(enum etInterruptSources eIntSource, void(*function)(), enum etInterruptModes eIntMode);
 void userInterruptHandler(void);
 
-#endif/* end of corelib_user_interrupt.h */
+#endif/* end of CoreLib_user_interrupt.h */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
