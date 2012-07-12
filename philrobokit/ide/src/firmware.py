@@ -2,6 +2,8 @@
 '''
 
 @filename: firmware.py
+@author: 'yus
+@organization: PhilRobotics
 
 '''
 
@@ -13,6 +15,8 @@ LIB_DIR = 'libraries'
 # PhilRobokit Library
 PRK_CORE_DIR = 'hardware/cores'
 PRK_CORELIB_DIR = PRK_CORE_DIR + '/lib'
+# Example Projects
+EXAMPLES_DIR = 'examples'
 # required header file(s)
 REQUIRED_INCLUDES = ['#include <PhilRoboKit_CoreLib_Macro.h>']
 
@@ -27,6 +31,27 @@ def scanFirmwareLibs():
         if os.path.isfile(headerfile): # check if header file exists
             libraries.append( libname )
     return libraries
+
+def getExampleProjects(libFolders=[]):
+    sampleProjects = {} # use dictionary
+    # get example projects that use core libraries
+    sampleFolders = os.walk(EXAMPLES_DIR).next()[1] # get intermediate subfolders
+    for lib in sampleFolders:
+        if lib[0] != '.': # skip hidden folders
+            projects = glob.glob(EXAMPLES_DIR + '/' + lib +'/*.phr') # scan phr files
+            if len(projects):
+                group = str(lib).upper()
+                if not sampleProjects.has_key(group): # avoid duplicates
+                    sampleProjects[group] = projects # store in the dictionary
+    # get example projects that use optional user libraries
+    for lib in libFolders:
+        projects = glob.glob(LIB_DIR + '/' + lib +'/examples/*.phr')
+        if len(projects):
+            group = str(lib).upper()
+            if not sampleProjects.has_key(group):
+                sampleProjects[group] = projects
+    #print sampleProjects
+    return sampleProjects
 
 def getCoreSourceFiles():
     # scan all *.c files
