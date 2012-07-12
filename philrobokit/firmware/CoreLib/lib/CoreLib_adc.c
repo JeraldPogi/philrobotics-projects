@@ -4,7 +4,7 @@
 // phirobotics.core@philrobotics.com
 //
 //----------------------------------------------------------------------------------
-// Filename:	PhilRoboKit_CoreLib_adc.c - ADC File
+// Filename:	CoreLib_adc.c - ADC File
 // Description:	
 // Revision:    v00.01.00
 // Author:      Giancarlo Acelajado
@@ -28,7 +28,7 @@
 // v00.01.01       201203xx    Giancarlo A.   Fix Bugs, add setupADCPinsToDigital
 // 
 //***********************************************************************************
-#include "PhilRoboKit_CoreLib_adc.h"
+#include "CoreLib_adc.h"
 	
 //--- Private Variables -----------------------------------------------------------------
 	static float ADCVref = 5.00;
@@ -45,8 +45,8 @@ void adcInterruptHandler(void)
 */
 void setupADC(void)
 {	
-	REGISTER_TRISA = 0xFF;
-	REGISTER_TRISE = 0xFF;
+	REGISTER_TRISA = 0x3F;
+	REGISTER_TRISE = 0x07;
 	
 	BIT_ADCON0_ADON = 0; //AD Converter is temporarily disable	
 
@@ -78,12 +78,16 @@ void setupADC(void)
 	BIT_INTCON_PEIE = 1; //Enable Peripheral Interrupt
 	BIT_INTCON_GIE = 1;	 //Enable Global Interrupt
 }	
-/*
+
 void setupADCPinsToDigital(void)
 {
-
+	REGISTER_ADCON1 |= 0x07; //Set ADC Pins to Digital IO
+	BIT_ADCON0_ADON = 0; //Turn off ADC Module
+	
+	REGISTER_TRISA = 0x3F;
+	REGISTER_PORTA = 0x3F;
 }
-*/
+
 void adcSetChannel(unsigned char ucChannel)
 {	
 	switch(ucChannel){

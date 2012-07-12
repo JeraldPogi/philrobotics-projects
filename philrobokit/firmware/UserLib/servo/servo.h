@@ -6,7 +6,7 @@
 //----------------------------------------------------------------------------------
 // Filename:	servo.h - Servo Control Header File
 // Description:	
-// Revision:    v00.00.02
+// Revision:    v00.00.03
 // Author:      Efren S. Cruzat II
 //
 // Dependencies:
@@ -25,8 +25,9 @@
 //***********************************************************************************
 // FW Version      Date        Author         Description
 // v00.00.01       <date>    <authorname>   - Library Initial Release
-// v00.00.02		20120711	ESCII			- Code Cleanup
-//										- Enumerated servo modules
+// v00.00.02		20120711	ESCII		- Code Cleanup
+//											- Enumerated servo modules
+// v00.00.03		20120712	ESCII		- Modified 8bit timer library include link
 //***********************************************************************************
 #ifndef __PH_SERVO_H__
 #define __PH_SERVO_H__
@@ -40,7 +41,7 @@
 #endif
 
 #include <PhilRoboKit_CoreLib_Macro.h>
-#include <lib\PhilRobokit_CoreLib_8bit_timer.h>
+#include <lib\CoreLib_8bit_timer.h>
 
 #define SERVO_IDLE_PERIOD			2000	// 20mS
 

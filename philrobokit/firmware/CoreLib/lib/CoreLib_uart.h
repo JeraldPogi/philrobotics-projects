@@ -4,7 +4,7 @@
 // phirobotics.core@philrobotics.com
 //
 //----------------------------------------------------------------------------------
-// Filename:	uart.h - UART Header File
+// Filename:	CoreLib_uart.h - UART Header File
 // Description:	
 // Revision:    v00.01.01
 // Author:      Giancarlo Acelajado

@@ -4,7 +4,7 @@
 // phirobotics.core@philrobotics.com
 //
 //----------------------------------------------------------------------------------
-// Filename:	PhilRoboKit_CoreLib_uart.c - UART File
+// Filename:	CoreLib_uart.c - UART File
 // Description:	
 // Revision:    v00.01.01
 // Author:      Giancarlo Acelajado
@@ -28,7 +28,7 @@
 // v00.01.01       201201xx    Giancarlo A.   Add serialFlush Routine
 // 
 //***********************************************************************************
-#include "PhilRoboKit_CoreLib_uart.h"
+#include "CoreLib_uart.h"
 #include "string.h"
 
 	void setupSerial(unsigned int iBaudrate)

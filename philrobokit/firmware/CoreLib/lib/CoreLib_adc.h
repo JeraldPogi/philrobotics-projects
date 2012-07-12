@@ -4,7 +4,7 @@
 // phirobotics.core@philrobotics.com
 //
 //----------------------------------------------------------------------------------
-// Filename:	adc.h - ADC Header File
+// Filename:	CoreLib_adc.h - ADC Header File
 // Description:	
 // Revision:    v00.01.00
 // Author:      Giancarlo Acelajado
@@ -43,9 +43,9 @@
 
 /* ADCRoutine */
 	#define	isADCConversionDone()	(BIT_ADCON0_GO_DONE? 0: 1)
-
+	
 	void setupADC(void);
-	//void setupADCPinsToDigital(void);
+	void setupADCPinsToDigital(void);
 	void adcStart(void);
 	void adcSetChannel(unsigned char ucChannel);
 	float adcReadOnly(void);

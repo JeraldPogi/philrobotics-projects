@@ -4,7 +4,7 @@
 // phirobotics.core@philrobotics.com
 //
 //----------------------------------------------------------------------------------
-// Filename:	PhilRobokit_CoreLib_8bit_timer.c - 8 Bit Timer
+// Filename:	CoreLib_8bit_timer.c - 8 Bit Timer
 // Description:	
 // Revision:    v00.00.02
 // Author:      Efren S. Cruzat II
@@ -24,12 +24,12 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //***********************************************************************************
 // FW Version      Date        Author         Description
-// v00.00.01		20120620	ESCII			- Library Initial Release
-// v00.00.02		20120711	ESCII			- Code Cleanup
-//										- Removed void type on function pointers
-//										- Enumerated timer modules
+// v00.00.01	20120620	ESCII			- Library Initial Release
+// v00.00.02	20120711	ESCII			- Code Cleanup
+//									- Removed void type on function pointers
+//									- Enumerated timer modules
 //***********************************************************************************
-#include "lib\PhilRobokit_CoreLib_8bit_timer.h"
+#include "CoreLib_8bit_timer.h"
 
 /* Local Variables */
 
@@ -202,5 +202,5 @@ static void nullTMRFunction()
 	;/* NULL */
 }
 
-/* end of PhilRobokit_CoreLib_8bit_timer.c */
+/* end of CoreLib_8bit_timer.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
