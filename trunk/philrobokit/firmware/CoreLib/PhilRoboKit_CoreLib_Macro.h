@@ -6,7 +6,7 @@
 //----------------------------------------------------------------------------------
 // Filename:	PhilRoboKit_CoreLib_Macro.h - PhilRobokit Macro File
 // Description:	
-// Revision:    v00.01.03
+// Revision:    v00.01.04
 // Author:      Giancarlo Acelajado
 //             	
 // Vendor:      Microchip Technology
@@ -31,6 +31,7 @@
 // v00.01.01       201112xx    Giancarlo A.   Library Initial Release
 // v00.01.02       201202xx    Giancarlo A.   Modify LowLevel Configuration of Pins	
 // v00.01.03       20120711    ESCII		  Added User Int, 8Bit Timer, and PWM Modules	
+// v00.01.04       20120712    ESCII		  Modified library include links
 //***********************************************************************************
 
 #ifndef __PHILROBOKIT_MACRO_H__
@@ -39,12 +40,12 @@
 #include "PhilRoboKit_CoreLib_Header.h"
 
 /* PhilRobokit Library */
-#include "lib\PhilRoboKit_CoreLib_uart.h"
-#include "lib\PhilRoboKit_CoreLib_adc.h"
-#include "lib\PhilRoboKit_CoreLib_timer.h"
-#include "lib\PhilRobokit_CoreLib_user_interrupt.h"
-#include "lib\PhilRobokit_CoreLib_8bit_timer.h"
-#include "lib\PhilRobokit_CoreLib_pwm.h"
+#include "lib\CoreLib_uart.h"
+#include "lib\CoreLib_adc.h"
+#include "lib\CoreLib_timer.h"
+#include "lib\CoreLib_user_interrupt.h"
+#include "lib\CoreLib_8bit_timer.h"
+#include "lib\CoreLib_pwm.h"
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 /* PhilRobokit Specific Prototypes */

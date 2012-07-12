@@ -4,7 +4,7 @@
 // phirobotics.core@philrobotics.com
 //
 //----------------------------------------------------------------------------------
-// Filename:	PhilRoboKit_CoreLib_timer.h - Timer Hardware Delay Header File
+// Filename:	CoreLib_timer.h - Timer Hardware Delay Header File
 // Description:	
 // Revision:    v00.00.03
 // Author:      Giancarlo Acelajado
