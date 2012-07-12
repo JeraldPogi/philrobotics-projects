@@ -4,7 +4,7 @@
 // phirobotics.core@philrobotics.com
 //
 //----------------------------------------------------------------------------------
-// Filename:	corelib_adc.c - ADC File
+// Filename:	CoreLib_adc.c - ADC File
 // Description:	
 // Revision:    v00.01.00
 // Author:      Giancarlo Acelajado
@@ -28,7 +28,7 @@
 // v00.01.01       201203xx    Giancarlo A.   Fix Bugs, add setupADCPinsToDigital
 // 
 //***********************************************************************************
-#include "corelib_adc.h"
+#include "CoreLib_adc.h"
 	
 //--- Private Variables -----------------------------------------------------------------
 	static float ADCVref = 5.00;

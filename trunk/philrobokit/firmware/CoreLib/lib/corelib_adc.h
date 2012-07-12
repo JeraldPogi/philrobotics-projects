@@ -4,7 +4,7 @@
 // phirobotics.core@philrobotics.com
 //
 //----------------------------------------------------------------------------------
-// Filename:	corelib_adc.h - ADC Header File
+// Filename:	CoreLib_adc.h - ADC Header File
 // Description:	
 // Revision:    v00.01.00
 // Author:      Giancarlo Acelajado

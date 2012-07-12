@@ -4,7 +4,7 @@
 // phirobotics.core@philrobotics.com
 //
 //----------------------------------------------------------------------------------
-// Filename:	corelib_timer.h - Timer Hardware Delay Header File
+// Filename:	CoreLib_timer.h - Timer Hardware Delay Header File
 // Description:	
 // Revision:    v00.00.03
 // Author:      Giancarlo Acelajado
@@ -26,7 +26,7 @@
 // FW Version      Date        Author         Description
 // v00.00.01       201202xx    Giancarlo A.   Library Initial Release(internal)
 // v00.00.02       201203xx    Giancarlo A.   Fix CONST8_TIMER values(for 20MHz)
-// v00.00.03	   20130707	   ESCII		  Set Overflow to Every 100uS
+// v00.00.03	   20130707	   ESCII		  Set Overflow to Every 40uS
 // 
 //***********************************************************************************
 #ifndef __PH_TIMER_H

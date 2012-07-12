@@ -4,7 +4,7 @@
 // phirobotics.core@philrobotics.com
 //
 //----------------------------------------------------------------------------------
-// Filename:	corelib_timer.c - Timer Hardware Delay File
+// Filename:	CoreLib_timer.c - Timer Hardware Delay File
 // Description:	
 // Revision:    v00.00.03
 // Author:      Giancarlo Acelajado
@@ -27,7 +27,7 @@
 // v00.00.01       201202xx    Giancarlo A.   Library Initial Release(internal)
 // v00.00.02       201203xx    Giancarlo A.   XXXXXX
 // v00.00.03	20130707	   ESCII		  	Fixed Interrupt Handler and Set
-//									Overflow to Every 100uS
+//									Overflow to Every 40uS
 // 
 //***********************************************************************************
 #include "CoreLib_timer.h"
