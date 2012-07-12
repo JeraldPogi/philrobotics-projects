@@ -1,0 +1,32 @@
+#include <servo.h>
+
+void init()
+{
+	setupServoPort(-90);
+}
+
+void program()
+{
+	signed char i;
+	
+	/* increment angle */
+	for(i=-90;i<=90;i++)
+	{
+		setServoPortAngle(i);
+		delayMs(5);
+	}
+	
+	delayMs(200);
+	delayMs(200);
+	
+	/* decrement angle */
+	for(i=90;i>=-90;i--)
+	{
+		setServoPortAngle(i);
+		delayMs(5);
+	}
+	
+	delayMs(200);
+	delayMs(200);
+}
+

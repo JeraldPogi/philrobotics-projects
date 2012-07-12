@@ -1,0 +1,21 @@
+void pinToggle()
+{
+	togglePin(LED1);
+	togglePin(LED2);
+	togglePin(LED3);
+	togglePin(LED4);
+}
+
+void init()
+{
+	setupUserInterrupt(INT0, pinToggle, CHANGE);
+	setPinLow(LED1);
+	setPinLow(LED2);
+	setPinLow(LED3);
+	setPinLow(LED4);
+}
+
+void program()
+{
+	/* do nothing */
+}
