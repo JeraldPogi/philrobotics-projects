@@ -32,35 +32,61 @@
 #include "string.h"
 
 	void setupSerial(unsigned int iBaudrate)
-	{	
+	{
 		//UART_REGISTER |= UART_RX_MASK; UART_REGISTER &= ~UART_TX_MASK;
 			
 		TXFiFo.iIn = TXFiFo.iOut = RXFiFo.iIn = RXFiFo.iOut = 0;
 		
-		//#if defined( _16F873A ) || defined( _16F874A )  || defined( _16F876A ) || defined( _16F877A )  
-			BIT_TXSTA_TX9 = 0;	//8-bit
-			BIT_TXSTA_TXEN = 1; //Enable Transmit
-			BIT_TXSTA_SYNC = 0; //Asyncronous Mode
-			BIT_TXSTA_BRGH = 1; //High Speed Asyncronous
-			//BIT_TXSTA_TRMT = 1; //TSR is empty
+		BIT_TXSTA_TX9 = 0;	//8-bit
+		BIT_TXSTA_TXEN = 1; //Enable Transmit
+		BIT_TXSTA_SYNC = 0; //Asyncronous Mode
+		//BIT_TXSTA_TRMT = 1; //TSR is empty
+		
+		BIT_TXSTA_BRGH = 1; //High Speed Asyncronous // SPBRG = FOSC/(16*baud) - 1
+		if(iBaudrate < 4883) // @20MHz clk
+			BIT_TXSTA_BRGH = 0; // Low Speed Asyncronous // SPBRG = FOSC/(64*baud) - 1
+		
+		switch(iBaudrate){ // FOSC = 20MHz
+		case 1200:
+			REGISTER_SPBRG = 255 /*259*/; // 1220.7
+			break;
+		case 4800:
+		case 19200:
+			REGISTER_SPBRG = 64; // 4807.7 or 19230.8
+			break;
+		case 38400:
+			REGISTER_SPBRG = 32; // 39062.5
+			break;
+		case 57600:
+			REGISTER_SPBRG = 21; // 56818.2
+			break;
+		case 115200:
+			REGISTER_SPBRG = 10; // 113636.4
+			break;
+		case 230400:
+			REGISTER_SPBRG = 4; // 250000.0 (8.5% error!)
+			break;
+		case 2400:
+		case 9600:
+		default: // baud defaults
+			REGISTER_SPBRG = 129; // 2403.8 or 9615.4
+			break;
+		}
+		
+		BIT_RCSTA_SPEN = 1; //Enable Serial Port
+		BIT_RCSTA_RX9 = 0; //8-bit
+		BIT_RCSTA_CREN = 1; //Enable Continuous receive	
 
-			BIT_RCSTA_SPEN = 1; //Enable Serial Port
-			BIT_RCSTA_RX9 = 0; //8-bit
-			BIT_RCSTA_CREN = 1; //Enable Continuous receive	
+		BIT_PIE1_TXIE = 0; //Transmit Interrupt Disable
+		BIT_PIR1_TXIF = 0; //Clear Transmit Interrupt Flag
 		
+		BIT_PIE1_RCIE = 1; //Receive Interrupt Enable
+		BIT_PIR1_RCIF = 0; //Clear Receive Interrupt Flag
 		
-			BIT_PIE1_TXIE = 0; //Transmit Interrupt Disable
-			BIT_PIR1_TXIF = 0; //Clear Transmit Interrupt Flag	
-			
-			BIT_PIE1_RCIE = 1; //Receive Interrupt Enable
-			BIT_PIR1_RCIF = 0; //Clear Receive Interrupt Flag
-			
-			BIT_INTCON_PEIE = 1; //Enable Peripheral Interrupt
-			BIT_INTCON_GIE = 1;	 //Enable Global Interrupt
-				
-			REGISTER_SPBRG = BAUDRATE(iBaudrate);
-		//#endif	
-	}	
+		BIT_INTCON_PEIE = 1; //Enable Peripheral Interrupt
+		BIT_INTCON_GIE = 1;  //Enable Global Interrupt
+
+	}
 
 	unsigned char isSerialBufferFull(void)
 	{

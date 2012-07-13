@@ -70,9 +70,33 @@
 #define	setPinInput(x)			configPin(x, IN)
 #define	setPinOutput(x)			configPin(x, OUT)
 
-#define	setPinHigh(x) 			{if(x<=7){REGISTER_PORTC |= (1<<x);}else if(x>=8 && x<=13){REGISTER_PORTB |= (1<<(x-8));}else if(x>=21 && x<=28){REGISTER_PORTD |= (1<<(x-21));}}
-#define	setPinLow(x)			{if(x<=7){REGISTER_PORTC &= ~(1<<x);}else if(x>=8 && x<=13){REGISTER_PORTB &= ~(1<<(x-8));}else if(x>=21 && x<=28){REGISTER_PORTD &= ~(1<<(x-21));}}
-#define	togglePin(x)			{if(x<=7){REGISTER_PORTC ^= (1<<x);}else if (x>=8 && x<=13){REGISTER_PORTB ^= (1<<(x-8));}else if(x>=21 && x<=28){REGISTER_PORTD ^= (1<<(x-21));}}
+#define	setPinHigh(x) { \
+	if(x<=7) { \
+		REGISTER_PORTC |= (1UL<<x); \
+	}else if(x>=8 && x<=13) { \
+		REGISTER_PORTB |= (1UL<<(x-8)); \
+	}else if(x>=21 && x<=28) { \
+		REGISTER_PORTD |= (1UL<<(x-21)); \
+	} \
+}
+#define	setPinLow(x) { \
+	if(x<=7) { \
+		REGISTER_PORTC &= ~(1UL<<x); \
+	}else if(x>=8 && x<=13) { \
+		REGISTER_PORTB &= ~(1UL<<(x-8)); \
+	}else if(x>=21 && x<=28) { \
+		REGISTER_PORTD &= ~(1UL<<(x-21)); \
+	} \
+}
+#define	togglePin(x) { \
+	if(x<=7) { \
+		REGISTER_PORTC ^= (1UL<<x); \
+	}else if (x>=8 && x<=13) { \
+		REGISTER_PORTB ^= (1UL<<(x-8)); \
+	}else if(x>=21 && x<=28) { \
+		REGISTER_PORTD ^= (1UL<<(x-21)); \
+	} \
+}
 
 #define	isPinHigh(x)			checkPinState(x,HIGH)
 #define	isPinLow(x)				checkPinState(x,LOW)
