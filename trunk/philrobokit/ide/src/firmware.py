@@ -51,7 +51,7 @@ def getExampleProjects(libFolders=[]):
             if not sampleProjects.has_key(group):
                 sampleProjects[group] = projects
     #print sampleProjects
-    return sampleProjects
+    return sorted(sampleProjects.items(), key=lambda x: x[1]) # sort according to keys (folder name)
 
 def getCoreSourceFiles():
     # scan all *.c files

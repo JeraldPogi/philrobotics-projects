@@ -253,19 +253,7 @@ class MultipleCppEditor(QtGui.QTabWidget):
     def dropEvent(self, e):
         try:
             fname = str(e.mimeData().urls()[0].toLocalFile() )
-            #check if it's already opened
-            for i in range(self.count()):
-                child = self.widget(i)
-                if fname == child.currentFile():
-                    self.setCurrentIndex(i)
-                    return
-            child = CppEditor(self, fname)
-            title = os.path.basename(fname)
-            if title.lower().rfind(PROJECT_EXT) == len(title) - len(PROJECT_EXT):
-                title = title[:title.lower().rfind(PROJECT_EXT)]
-            self.addTab(child, title)
-            self.setCurrentIndex(self.count()-1)
-            self.setTabToolTip(self.currentIndex(), child.currentFile())
+            self.openFile(fname)
         except:
             print "drop error"
     

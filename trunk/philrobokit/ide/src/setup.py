@@ -21,6 +21,9 @@ files += glob.glob('hardware/cores/*')
 # library files
 files += glob.glob('libraries/*')
 
+# example projects
+files += glob.glob('examples/*')
+
 # pickit2 command line files
 files += glob.glob('tools/pickit2/*')
 
