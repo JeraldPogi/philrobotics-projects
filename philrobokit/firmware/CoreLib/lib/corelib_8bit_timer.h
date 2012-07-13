@@ -5,8 +5,8 @@
 //
 //----------------------------------------------------------------------------------
 // Filename:	corelib_8bit_timer.h - 8 Bit Timer Header File
-// Description:	
-// Revision:    v00.00.02
+// Description:	This is the header file the driver for micrcochip 8bit timer (TMR2, TMR4, TMR6)
+// Revision:    v00.00.03
 // Author:      Efren S. Cruzat II
 //
 // Dependencies:
@@ -23,11 +23,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //***********************************************************************************
-// FW Version      Date        Author         Description
-// v00.00.01	20120620	ESCII			- Library Initial Release
-// v00.00.02	20120711	ESCII			- Code Cleanup
-//									- Removed void type on function pointers
-//									- Enumerated timer modules
+// FW Version      	Date        	Author         	Description
+// v00.00.01		20120620		ESCII		- Library Initial Release
+// v00.00.02		20120711		ESCII		- Code Cleanup
+//												- Removed void type on function pointers
+//												- Enumerated timer modules
+// v00.00.03		20120713		ESCII		- removed include of stdint.h
 //***********************************************************************************
 #ifndef __PH_8BIT_TIMER_H__
 #define __PH_8BIT_TIMER_H__
@@ -40,8 +41,7 @@
 	#endif
 #endif
 
-#include "PhilRoboKit_CoreLib_Macro.h"
-#include <stdint.h>
+#include <PhilRoboKit_CoreLib_Macro.h>
 
 /* User Configuration Definitions */
 #define TIMER_8BIT_ENABLED	TRUE

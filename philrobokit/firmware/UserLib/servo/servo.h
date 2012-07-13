@@ -5,11 +5,11 @@
 //
 //----------------------------------------------------------------------------------
 // Filename:	servo.h - Servo Control Header File
-// Description:	
+// Description:	This is a header file of the driver for driving upto 8 Servos.
 // Revision:    v00.00.03
 // Author:      Efren S. Cruzat II
 //
-// Dependencies:
+// Dependencies:	corelib_8bit_timer.c/corelib_8bit_timer.h
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,11 +23,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //***********************************************************************************
-// FW Version      Date        Author         Description
-// v00.00.01       <date>    <authorname>   - Library Initial Release
-// v00.00.02		20120711	ESCII		- Code Cleanup
-//											- Enumerated servo modules
-// v00.00.03		20120712	ESCII		- Modified 8bit timer library include link
+// FW Version      	Date        	Author         	Description
+// v00.00.01       	<date>    		<authorname>   	- Library Initial Release
+// v00.00.02		20120711		ESCII			- Code Cleanup
+//													- Enumerated servo modules
+// v00.00.03		20120712		ESCII			- Modified 8bit timer library include link
 //***********************************************************************************
 #ifndef __PH_SERVO_H__
 #define __PH_SERVO_H__
@@ -41,11 +41,10 @@
 #endif
 
 #include <PhilRoboKit_CoreLib_Macro.h>
-#include <lib\corelib_8bit_timer.h>
 
 #define SERVO_IDLE_PERIOD			2000	// 20mS
 
-/* Configuration for HTX900 Servo */
+/* Configuration for Generic Servo */
 #define SERVO_MIN_PULSEWIDTH		50		// 0.5mS		
 #define SERVO_MAX_PULSEWIDTH		250		// 2.5mS		
 #define SERVO_DEFAULT_PULSEWIDTH	150		// 1.5mS	

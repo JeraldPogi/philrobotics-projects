@@ -4,10 +4,9 @@
 // phirobotics.core@philrobotics.com
 //
 //----------------------------------------------------------------------------------
-// Filename:	corelib_user_interrupt.h - External Interrupt Header File
-// Description:	This is the header file of the driver for PIC external interrupt 
-//				and interrupt on pin change
-// Revision:    v00.00.03
+// Filename:	PhilRoboKit_CoreLib_GlobalDefs.c - Global Definitions
+// Description:	Global variables will be defined here
+// Revision:    v00.00.01
 // Author:      Efren S. Cruzat II
 //
 // Dependencies:
@@ -25,59 +24,30 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //***********************************************************************************
 // FW Version      	Date        	Author         	Description
-// v00.00.01		20120608		ESCII			- Library Initial Release
-// v00.00.02		20120624		ESCII			- Reorganized for Clarity
-//													- Have more strick policy on scope of
-//									variables and functions
-// v00.00.03		20120711		ESCII			- Code Cleanup
-//													- Removed void type on function pointers
-//													- Enumerated interrupt modes and sources
+// v00.00.01	20120713	ESCII		- Library Initial Release
 //***********************************************************************************
-#ifndef __PH_EXT_INTERRUPT_H__
-#define __PH_EXT_INTERRUPT_H__
-
-#if defined(HI_TECH_C)
-	#include "htc_common.h"
-	
-	#if defined( _16F873A ) || defined( _16F874A )  || defined( _16F876A ) || defined( _16F877A )  	
-		#include "htc_16f87xa.h"
-	#endif
-#endif
-
 #include <PhilRoboKit_CoreLib_Macro.h>
 
-/* User Configuration Definitions */
-#define EXTINTENABLED		TRUE
-#define RBINTENABLED 		TRUE
+/* template */
+#if 0		
+/* Global Variables */
+static volatile	uint8_t		gui8SampleGlobal;
 
-	/* Interrupts Sources */
-enum etInterruptSources
+/* Private Function Prototypes */
+void setSampleGlobalValue(uint8_t ui8Value);
+uint8_t getSampleGlobalValue(void);
+
+/* Public Functions */
+void setSampleGlobalValue(uint8_t ui8Value)
 {
-	INT0
-	,INT1
-	,INT2
-	,INT3
-	,INT4
-};
+	gui8SampleGlobal = ui8Value
+}
 
-	/* Interrupt Modes */
-enum etInterruptModes
+uint8_t getSampleGlobalValue(void)
 {
-	LOWSTATE					// not available on PIC
-	,CHANGE
-	,RISING
-	,FALLING
-};
-	
-	/* PORTB  Pinmask */
-#define RB4_MASK	0x10
-#define RB5_MASK	0x20
-#define RB6_MASK	0x40
-#define RB7_MASK	0x80
+	return gui8SampleGlobal;
+}
+#endif
 
-/* Public Function Prototypes */
-void setupUserInterrupt(enum etInterruptSources eIntSource, void(*function)(), enum etInterruptModes eIntMode);
-void userInterruptHandler(void);
-
-#endif/* end of corelib_user_interrupt.h */
+/* end of PhilRoboKit_CoreLib_GlobalDefs.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	

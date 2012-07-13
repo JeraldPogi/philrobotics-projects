@@ -5,11 +5,12 @@
 //
 //----------------------------------------------------------------------------------
 // Filename:	servo.c - Servo Control
-// Description:	
-// Revision:    v00.00.02
+// Description:	This is a driver for driving upto 8 Servos and assignable to any digital pins.
+//				It uses one of the 8bit timers for generating the pulses
+// Revision:   	v00.00.02
 // Author:      Efren S. Cruzat II
 //
-// Dependencies:
+// Dependencies:	corelib_8bit_timer.c/corelib_8bit_timer.h
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,10 +24,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //***********************************************************************************
-// FW Version      Date        Author         Description
-// v00.00.01       <date>    <authorname>   - Library Initial Release
-// v00.00.02		20120711	ESCII			- Code Cleanup
-//										- Enumerated servo modules
+// FW Version      	Date        	Author         	Description
+// v00.00.01       	<date>    		<authorname>   	- Library Initial Release
+// v00.00.02		20120711		ESCII			- Code Cleanup
+//													- Enumerated servo modules
 //***********************************************************************************
 #include "servo.h"
 
@@ -76,7 +77,6 @@ void setupServo(enum servoModules ServoMod, unsigned char ServoPin, signed char 
 	servo[ServoMod][SERVO_SLOPE] = (unsigned char)TempBuffer;
 	
 	/* Compute Servo Pulse Width */
-	//setServoAngle(ServoMod, DefaultAngle); 										// disabled to eliminate stack overflow warning
 	servo[ServoMod][SERVO_PULSE] = (unsigned char)(((signed long)DefaultAngle*servo[ServoMod][SERVO_SLOPE]) / 128 + SERVO_PULSE_OFFSET);
 	
 	/* Initialize TMR2 for Servo Control */

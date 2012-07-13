@@ -6,7 +6,7 @@
 //----------------------------------------------------------------------------------
 // Filename:	PhilRoboKit_CoreLib_Macro.h - PhilRobokit Macro File
 // Description:	
-// Revision:    v00.01.04
+// Revision:    v00.01.05
 // Author:      Giancarlo Acelajado
 //             	
 // Vendor:      Microchip Technology
@@ -27,24 +27,26 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //***********************************************************************************
-// FW Version      Date        Author         Description
-// v00.01.01       201112xx    Giancarlo A.   Library Initial Release
-// v00.01.02       201202xx    Giancarlo A.   Modify LowLevel Configuration of Pins	
-// v00.01.03       20120711    ESCII		  Added User Int, 8Bit Timer, and PWM Modules	
-// v00.01.04       20120712    ESCII		  Modified library include links
+// FW Version      	Date        	Author         	Description
+// v00.01.01       	201112xx    Giancarlo A.   	- Library Initial Release
+// v00.01.02       	201202xx   Giancarlo A.   	- Modify LowLevel Configuration of Pins	
+// v00.01.03       	20120711    ESCII		- Added User Int, 8Bit Timer, and PWM Modules	
+// v00.01.04       	20120712    ESCII		-  Modified library include links
+// v00.01.05       	20120713    ESCII		-  Added includes for DataTypes.h
 //***********************************************************************************
 
 #ifndef __PHILROBOKIT_MACRO_H__
 #define __PHILROBOKIT_MACRO_H__
 
 #include "PhilRoboKit_CoreLib_Header.h"
+#include "PhilRoboKit_CoreLib_DataTypes.h"
 
 /* PhilRobokit Library */
 #include "lib\corelib_uart.h"
 #include "lib\corelib_adc.h"
 #include "lib\corelib_timer.h"
-#include "lib\corelib_user_interrupt.h"
 #include "lib\corelib_8bit_timer.h"
+#include "lib\corelib_user_interrupt.h"
 #include "lib\corelib_pwm.h"
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	

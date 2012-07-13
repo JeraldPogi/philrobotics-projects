@@ -5,7 +5,7 @@
 //
 //----------------------------------------------------------------------------------
 // Filename:	corelib_user_interrupt.c - External Interrupt
-// Description:	
+// Description:	This is the driver for PIC external interrupt and interrupt on pin change
 // Revision:    v00.00.03
 // Author:      Efren S. Cruzat II
 //
@@ -23,14 +23,14 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //***********************************************************************************
-// FW Version      Date        Author         Description
-// v00.00.01		20120608	ESCII			- Library Initial Release
-// v00.00.02		20120624	ESCII			- Reorganized for Clarity
-//												- Have more strick policy on scope of
-//													variables and functions
-// v00.00.03		20120711	ESCII			- Code Cleanup
-//										- Removed void type on function pointers
-//										- Enumerated interrupt modes and sources
+// FW Version      	Date        	Author         	Description
+// v00.00.01		20120608		ESCII			- Library Initial Release
+// v00.00.02		20120624		ESCII			- Reorganized for Clarity
+//													- Have more strick policy on scope of
+//														variables and functions
+// v00.00.03		20120711		ESCII			- Code Cleanup
+//													- Removed void type on function pointers
+//													- Enumerated interrupt modes and sources
 //***********************************************************************************
 #include "corelib_user_interrupt.h"
 

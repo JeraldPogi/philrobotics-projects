@@ -5,7 +5,7 @@
 //
 //----------------------------------------------------------------------------------
 // Filename:	corelib_8bit_timer.c - 8 Bit Timer
-// Description:	
+// Description:	This is a driver for micrcochip 8bit timer (TMR2, TMR4, TMR6)
 // Revision:    v00.00.02
 // Author:      Efren S. Cruzat II
 //
@@ -23,11 +23,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //***********************************************************************************
-// FW Version      Date        Author         Description
-// v00.00.01	20120620	ESCII			- Library Initial Release
-// v00.00.02	20120711	ESCII			- Code Cleanup
-//									- Removed void type on function pointers
-//									- Enumerated timer modules
+// FW Version      	Date        	Author         	Description
+// v00.00.01		20120620		ESCII			- Library Initial Release
+// v00.00.02		20120711		ESCII			- Code Cleanup
+//													- Removed void type on function pointers
+//													- Enumerated timer modules
 //***********************************************************************************
 #include "corelib_8bit_timer.h"
 

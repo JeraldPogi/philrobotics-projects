@@ -5,8 +5,8 @@
 //
 //----------------------------------------------------------------------------------
 // Filename:	corelib_pwm.h - PWM Module Header File
-// Description:	
-// Revision:    v00.00.01
+// Description:	This header file of the driver for PIC PWM modules
+// Revision:    v00.00.02
 // Author:      Efren S. Cruzat II
 //
 // Dependencies:
@@ -23,8 +23,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //***********************************************************************************
-// FW Version      Date        Author         Description
-// v00.00.01	20120710	ESCII			Library Initial Release
+// FW Version      	Date        	Author         	Description
+// v00.00.01		20120710		ESCII			- Library Initial Release
+// v00.00.02		20120713		ESCII			- removed include of stdint.h
+// 													- removed include of corelib_8bit_timer.h
+//													- enumerated PWM Modes
 //***********************************************************************************
 #ifndef __PH_PWM_H__
 #define __PH_PWM_H__
@@ -37,9 +40,7 @@
 	#endif
 #endif
 
-#include "PhilRoboKit_CoreLib_Macro.h"
-#include "corelib_8bit_timer.h"
-#include <stdint.h>
+#include <PhilRoboKit_CoreLib_Macro.h>
 
 /* User Configuration Definitions */
 /* PWMs */
@@ -53,17 +54,19 @@ enum ePWMModules
 #define DAC1							PWM1
 
 /* CCP_PWM Mode */
-#define PWM_OFF             0x00
-#define COMP_TOGGLE_CCPO    0x02
-#define CAPTURE_FALL        0x04
-#define CAPTURE_RISE        0x05
-#define CAPTURE_4TH_FALL    0x06
-#define CAPTURE_16TH_RISE   0x07
-
-#define PWM_MODE            0x0C
-								// 0x0D
-								// 0x0E
-								// 0x0F
+enum ePWMModes
+{
+	PWM_OFF             				= 0x00
+	,COMP_TOGGLE_CCPO    				= 0x02
+	,CAPTURE_FALL        				= 0x04
+	,CAPTURE_RISE        				= 0x05
+	,CAPTURE_4TH_FALL    				= 0x06
+	,CAPTURE_16TH_RISE   				= 0x07
+	,PWM_MODE            				= 0x0C
+											// 0x0D
+											// 0x0E
+											// 0x0F
+};
                          
 #define CCP_PWM_MODE        PWM_MODE
 
@@ -94,20 +97,20 @@ REGISTER_CCP1CON = a&CCP_MODE_MASK      // semi-collon intentionally omitted
 REGISTER_CCP2CON = a&CCP_MODE_MASK      // semi-collon intentionally omitted
 
 #define mc_setPWM0_On()                 \
-mc_configCCP1Mode(PWM_MODE);            \
-//mc_EnablePWMTmr()                       // semi-collon intentionally omitted
+mc_configCCP1Mode(PWM_MODE);            // semi-collon intentionally omitted
+//mc_EnablePWMTmr() 
 
 #define mc_setPWM0_Off()                \
-mc_configCCP1Mode(PWM_OFF);             \
-//mc_DisablePWMTmr()                      // semi-collon intentionally omitted
+mc_configCCP1Mode(PWM_OFF);             // semi-collon intentionally omitted
+//mc_DisablePWMTmr() 
 
 #define mc_setPWM1_On()                 \
-mc_configCCP2Mode(PWM_MODE);            \
-//mc_EnablePWMTmr()                       // semi-collon intentionally omitted
+mc_configCCP2Mode(PWM_MODE);            // semi-collon intentionally omitted
+//mc_EnablePWMTmr()
 
 #define mc_setPWM1_Off()                \
-mc_configCCP2Mode(PWM_OFF);             \
-//mc_DisablePWMTmr()                      // semi-collon intentionally omitted
+mc_configCCP2Mode(PWM_OFF);             // semi-collon intentionally omitted
+//mc_DisablePWMTmr() 
 
 #define mc_PWMTimer_Init(a)       		setup8BitTimer(TIMER2,a,0)
 
@@ -132,3 +135,4 @@ void setAnalogOut(enum ePWMModules eDAC_Module, uint16_t ui16Value);
 void removeAnalogOut(enum ePWMModules eDAC_Module);
 
 #endif/* end of corelib_pwm.h */
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	

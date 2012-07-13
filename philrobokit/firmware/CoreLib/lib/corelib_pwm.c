@@ -5,7 +5,7 @@
 //
 //----------------------------------------------------------------------------------
 // Filename:	corelib_pwm.c - PWM Module
-// Description:	
+// Description:	This is the driver for PIC PWM modules
 // Revision:    v00.00.01
 // Author:      Efren S. Cruzat II
 //
@@ -23,8 +23,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //***********************************************************************************
-// FW Version      Date        Author         Description
-// v00.00.01	20120710	ESCII			Library Initial Release
+// FW Version      	Date        	Author         	Description
+// v00.00.01		20120710		ESCII			- Library Initial Release
 //***********************************************************************************
 #include "corelib_pwm.h"
 

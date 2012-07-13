@@ -23,11 +23,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //***********************************************************************************
-// FW Version      Date        Author         Description
-// v00.00.01       201202xx    Giancarlo A.   Library Initial Release(internal)
-// v00.00.02       201203xx    Giancarlo A.   XXXXXX
-// v00.00.03	20130707	   ESCII		  	Fixed Interrupt Handler and Set
-//									Overflow to Every 40uS
+// FW Version      	Date        	Author         	Description
+// v00.00.01       	201202xx    	Giancarlo A.   	- Library Initial Release(internal)
+// v00.00.02       	201203xx    	Giancarlo A.   	- XXXXXX
+// v00.00.03		20130707	  	ESCII			- Fixed Interrupt Handler and Set
+//													- Overflow to Every 100uS
 // 
 //***********************************************************************************
 #include "corelib_timer.h"
