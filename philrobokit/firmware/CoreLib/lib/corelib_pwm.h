@@ -33,10 +33,18 @@
 #define __PH_PWM_H__
 
 #if defined(HI_TECH_C)
-	#include "htc_common.h"
+	#ifndef S_SPLINT_S 	// Suppress SPLint Unrecognized ID Errors
+		#include "htc_common.h"
+	#else
+		#include "htc_common_SPLint.h"
+	#endif
 	
 	#if defined( _16F873A ) || defined( _16F874A )  || defined( _16F876A ) || defined( _16F877A )  	
-		#include "htc_16f87xa.h"
+		#ifndef S_SPLINT_S 	// Suppress SPLint Unrecognized ID Errors
+			#include "htc_16f87xa.h"
+		#else
+			#include "htc_16f87xa_SPLint.h"
+		#endif
 	#endif
 #endif
 
