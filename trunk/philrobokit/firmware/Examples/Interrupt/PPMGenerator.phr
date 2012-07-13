@@ -18,7 +18,13 @@
 unsigned char	ChannelPeriods[NUM_OF_CHANNELS], PPM_State, tempvar;
 signed char 	channel_ctr;
 unsigned long	FrameBlankTime,SumOfPeriods;
-bit 			SendPulse, BlankTimeSet;
+
+#ifndef S_SPLINT_S // Suppress SPLint Parse Errors
+bit_t 
+#else
+uint8_t
+#endif			
+SendPulse, BlankTimeSet;
 
 enum PPMGenStates
 {

@@ -37,7 +37,9 @@
 #include "PhilRoboKit_CoreLib_Macro.h"
 
 /* device configuration settings */
+#ifndef S_SPLINT_S // Suppress SPLint Parse Errors
 __CONFIG(WDTE_OFF & FOSC_HS & LVP_OFF & PWRTE_ON & BOREN_OFF);
+#endif
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 /* Global PhilRobokit Functions */
@@ -207,11 +209,13 @@ unsigned char checkPinState(unsigned char ucPinName, char bCheckState)
 // ==========================================================================================================================================
 void philrobokit_init(void)
 {
+#ifndef S_SPLINT_S // Suppress SPLint Parse Errors
 	REGISTER_TRISA = REGISTER_PORTA = CONST_DEFAULT_CONFIG_PORTA;
 	REGISTER_TRISB = REGISTER_PORTB = CONST_DEFAULT_CONFIG_PORTB;
 	REGISTER_TRISC = REGISTER_PORTC = CONST_DEFAULT_CONFIG_PORTC;
 	REGISTER_TRISD = REGISTER_PORTD = CONST_DEFAULT_CONFIG_PORTD;
 	REGISTER_TRISE = REGISTER_PORTE = CONST_DEFAULT_CONFIG_PORTE;
+#endif
 }	
 
 //Main Program Routine
@@ -232,7 +236,11 @@ int main(void)
 // ==========================================================================================================================================
 // Interrupt Service Routine
 // ==========================================================================================================================================
-void interrupt isr(void)
+void 
+#ifndef S_SPLINT_S // Suppress SPLint Parse Errors
+interrupt 
+#endif
+isr(void)
 {
 	timerInterruptHandler();
 	serialRxInterruptHandler();
