@@ -50,11 +50,17 @@ enum servoInfo
 	,NUMBEROFINFO
 };
 
-static unsigned char servo[NUMBEROFMODULES][NUMBEROFINFO] = {0};
+static uint8_t servo[NUMBEROFMODULES][NUMBEROFINFO] = {0};
 	
-static unsigned char sequenceCounter = 8;
-static unsigned char servoState = SERVO_PULSEOFF;
-static bit			 kickStarted = 0;
+static uint8_t sequenceCounter = 8;
+static uint8_t servoState = SERVO_PULSEOFF;
+static 
+#ifndef S_SPLINT_S // Suppress SPLint Parse Errors
+bit_t 
+#else
+uint8_t
+#endif
+kickStarted = 0;
 
 /* Private Function Prototypes */
 static void servoController();

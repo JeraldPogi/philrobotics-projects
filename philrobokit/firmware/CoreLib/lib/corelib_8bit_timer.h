@@ -51,18 +51,26 @@
 
 #if(TIMER_8BIT_ENABLED == TRUE)
     /* TMR2 */
+	/*@notfunction@*/
 	#define mc_timer2IntEn()           				(BIT_PIE1_TMR2IE = 1)
+	/*@notfunction@*/
 	#define mc_timer2IntDis()          				(BIT_PIE1_TMR2IE = 0)
+	/*@notfunction@*/
 	#define mc_timer2IFClr()            			(BIT_PIR1_TMR2IF = 0)
 
+	/*@notfunction@*/
 	#define mc_enableTMR2()                 		(BIT_T2CON_TMR2ON = 1)
+	/*@notfunction@*/
 	#define mc_disableTMR2()                		(BIT_T2CON_TMR2ON = 0)
+	/*@notfunction@*/
 	#define mc_clearTMR2IF()
 
+	/*@notfunction@*/
 	#define mc_setTMR2Prescaler(a)          		\
 	REGISTER_T2CON &=~TMR_PRESCALE_MASK;         	\
 	REGISTER_T2CON |= a&TMR_PRESCALE_MASK        	// semi-collon intentionally omitted 
 
+	/*@notfunction@*/
 	#define mc_setTMR2Postscaler(a)         		\
 	REGISTER_T2CON &=~TMR_POSTSCALE_MASK;        	\
 	REGISTER_T2CON |= (a<<3)&TMR_POSTSCALE_MASK  	// semi-collon intentionally omitted 

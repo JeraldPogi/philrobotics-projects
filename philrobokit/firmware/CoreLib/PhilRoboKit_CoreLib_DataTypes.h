@@ -35,8 +35,12 @@
 	/* Hi-Tech C Datatypes Mapped to PhilRobokit Standard Datatypes */
 	#if defined(HI_TECH_C)
 	/*bit */
-		#define bit_t	bit;
 		/* same as with Hi-Tech C, not recommended */
+	#ifndef S_SPLINT_S // Suppress SPLint Parse Errors
+		#define bit_t	bit;
+	#else
+		#define bit_t	unsigned char;
+	#endif
 		
 	/* bool */
 		/* Same as stdbool.h */
@@ -51,6 +55,7 @@
 	/* unsigned int 8 */
 		/* int8_t */
 		/* Same as stdbool.h */
+		typedef bool bool_t;
 		
 	/* unsigned int 16 */
 		/* int16_t */
