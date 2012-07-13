@@ -265,12 +265,13 @@ class AppMainWindow(QtGui.QMainWindow):
         self.exampleProjects = getExampleProjects(self.firmwareLibList)
         self.exampleFolderMenus = []
         self.openExampleActs = []
-        for key, value in self.exampleProjects.items():
-            self.exampleFolderMenus.append(QtGui.QMenu(str(key), self))
-            for fname in value:
+        for group in self.exampleProjects:
+            folder, files = group[0], group[1]
+            self.exampleFolderMenus.append(QtGui.QMenu(str(folder), self))
+            for fname in files:
                 baseName = os.path.basename(fname)
                 self.openExampleActs.append(QtGui.QAction(os.path.splitext(baseName)[0], self,
-                                statusTip= 'Open "' + fname + ' "'))
+                                statusTip = 'Open "' + str(fname).replace('\\', '/') + '"') )
         
         # serial monitor/terminal window
         self.serialMonitorAct = QtGui.QAction(QtGui.QIcon("./images/serial.png"), "Serial &Monitor",
@@ -323,7 +324,7 @@ class AppMainWindow(QtGui.QMainWindow):
         self.examplesMenu = QtGui.QMenu('Examples', self)
         fileCount = 0
         for dirCount in range( len(self.exampleFolderMenus) ):
-            examples = self.exampleProjects[str(self.exampleFolderMenus[dirCount].title())]
+            examples = self.exampleProjects[dirCount][1]
             for fname in examples:
                 pathname =  str( os.getcwd() + '/' + fname ) # complete path
                 pathname = pathname.replace('\\', '/') # for consistency
