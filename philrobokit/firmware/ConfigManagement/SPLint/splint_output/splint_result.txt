@@ -1,0 +1,264 @@
+********************************************************************************** 	
+****************************   Checking CoreLib....   ****************************		
+********************************************************************************** 	
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c: (in function configPin)
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(48,5):
+    Operands of <= have incompatible types (unsigned char, int): ucPinName <= 7
+  To make char and int types equivalent, use +charint.
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(50,6):
+    Test expression for if not boolean, type char: bDirection
+  Test expression type is not boolean. (Use -predboolothers to inhibit warning)
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(51,4): Unrecognized identifier:
+                                                    REGISTER_TRISC
+  Identifier used in code has not been declared. (Use -unrecog to inhibit
+  warning)
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(57,10):
+    Operands of >= have incompatible types (unsigned char, int): ucPinName >= 8
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(57,28):
+    Operands of <= have incompatible types (unsigned char, int):
+    ucPinName <= 13
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(59,3):
+    Incompatible types for -= (unsigned char, int): ucPinName -= 8
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(61,6):
+    Test expression for if not boolean, type char: bDirection
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(62,4): Unrecognized identifier:
+                                                    REGISTER_TRISB
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(68,10):
+    Operands of >= have incompatible types (unsigned char, int):
+    ucPinName >= 14
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(68,29):
+    Operands of <= have incompatible types (unsigned char, int):
+    ucPinName <= 20
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(69,3):
+    Incompatible types for -= (unsigned char, int): ucPinName -= 14
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(70,6):
+    Test expression for if not boolean, type char: bDirection
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(71,7):
+    Operands of <= have incompatible types (unsigned char, int): ucPinName <= 2
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(72,5): Unrecognized identifier:
+                                                    REGISTER_TRISA
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(74,12):
+    Operands of == have incompatible types (unsigned char, int): ucPinName == 3
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(75,28):
+    Incompatible types for + (unsigned char, int): ucPinName + 2
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(77,12):
+    Operands of >= have incompatible types (unsigned char, int): ucPinName >= 4
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(77,30):
+    Operands of <= have incompatible types (unsigned char, int): ucPinName <= 6
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(78,5):
+    Incompatible types for -= (unsigned char, int): ucPinName -= 4
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(79,5): Unrecognized identifier:
+                                                    REGISTER_TRISE
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(83,7):
+    Operands of <= have incompatible types (unsigned char, int): ucPinName <= 2
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(86,12):
+    Operands of == have incompatible types (unsigned char, int): ucPinName == 3
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(87,29):
+    Incompatible types for + (unsigned char, int): ucPinName + 2
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(89,12):
+    Operands of <= have incompatible types (unsigned char, int): ucPinName <= 4
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(89,30):
+    Operands of <= have incompatible types (unsigned char, int): ucPinName <= 6
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(90,5):
+    Incompatible types for -= (unsigned char, int): ucPinName -= 4
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(95,10):
+    Operands of >= have incompatible types (unsigned char, int):
+    ucPinName >= 21
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(95,29):
+    Operands of <= have incompatible types (unsigned char, int):
+    ucPinName <= 28
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(96,3):
+    Incompatible types for -= (unsigned char, int): ucPinName -= 21
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(98,6):
+    Test expression for if not boolean, type char: bDirection
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(99,4): Unrecognized identifier:
+                                                    REGISTER_TRISD
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c: (in function checkPinState)
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(109,5):
+    Operands of <= have incompatible types (unsigned char, int): ucPinName <= 7
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(110,6): Unrecognized identifier:
+                                                     REGISTER_PORTC
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(111,7):
+    Test expression for if not boolean, type char: bCheckState
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(112,12):
+    Return value type int does not match declared type unsigned char: 1
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(115,12):
+    Return value type int does not match declared type unsigned char: 0
+  Types are incompatible. (Use -type to inhibit warning)
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(119,7):
+    Test expression for if not boolean, type char: bCheckState
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(120,12):
+    Return value type int does not match declared type unsigned char: 0
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(123,12):
+    Return value type int does not match declared type unsigned char: 1
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(127,10):
+    Operands of >= have incompatible types (unsigned char, int): ucPinName >= 8
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(127,28):
+    Operands of <= have incompatible types (unsigned char, int):
+    ucPinName <= 13
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(128,3):
+    Incompatible types for -= (unsigned char, int): ucPinName -= 8
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(129,6): Unrecognized identifier:
+                                                     REGISTER_PORTB
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(130,7):
+    Test expression for if not boolean, type char: bCheckState
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(131,12):
+    Return value type int does not match declared type unsigned char: 1
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(134,12):
+    Return value type int does not match declared type unsigned char: 0
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(138,7):
+    Test expression for if not boolean, type char: bCheckState
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(139,12):
+    Return value type int does not match declared type unsigned char: 0
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(142,12):
+    Return value type int does not match declared type unsigned char: 1
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(146,10):
+    Operands of >= have incompatible types (unsigned char, int):
+    ucPinName >= 14
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(146,29):
+    Operands of <= have incompatible types (unsigned char, int):
+    ucPinName <= 20
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(147,3):
+    Incompatible types for -= (unsigned char, int): ucPinName -= 14
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(148,6):
+    Operands of <= have incompatible types (unsigned char, int): ucPinName <= 2
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(149,7): Unrecognized identifier:
+                                                     REGISTER_PORTA
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(150,8):
+    Test expression for if not boolean, type char: bCheckState
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(151,13):
+    Return value type int does not match declared type unsigned char: 1
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(154,13):
+    Return value type int does not match declared type unsigned char: 0
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(158,11):
+    Operands of == have incompatible types (unsigned char, int): ucPinName == 3
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(159,26):
+    Incompatible types for + (unsigned char, int): ucPinName + 2
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(160,8):
+    Test expression for if not boolean, type char: bCheckState
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(161,13):
+    Return value type int does not match declared type unsigned char: 1
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(164,13):
+    Return value type int does not match declared type unsigned char: 0
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(168,11):
+    Operands of >= have incompatible types (unsigned char, int): ucPinName >= 4
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(168,29):
+    Operands of <= have incompatible types (unsigned char, int): ucPinName <= 6
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(169,4):
+    Incompatible types for -= (unsigned char, int): ucPinName -= 4
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(171,7): Unrecognized identifier:
+                                                     REGISTER_PORTE
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(171,26):
+    Incompatible types for + (unsigned char, int): ucPinName + 2
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(172,8):
+    Test expression for if not boolean, type char: bCheckState
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(173,13):
+    Return value type int does not match declared type unsigned char: 1
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(176,13):
+    Return value type int does not match declared type unsigned char: 0
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(181,10):
+    Operands of >= have incompatible types (unsigned char, int):
+    ucPinName >= 21
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(181,29):
+    Operands of <= have incompatible types (unsigned char, int):
+    ucPinName <= 28
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(182,3):
+    Incompatible types for -= (unsigned char, int): ucPinName -= 21
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(184,6): Unrecognized identifier:
+                                                     REGISTER_PORTD
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(185,7):
+    Test expression for if not boolean, type char: bCheckState
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(186,12):
+    Return value type int does not match declared type unsigned char: 1
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(189,12):
+    Return value type int does not match declared type unsigned char: 0
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(193,7):
+    Test expression for if not boolean, type char: bCheckState
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(194,12):
+    Return value type int does not match declared type unsigned char: 0
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(197,12):
+    Return value type int does not match declared type unsigned char: 1
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(202,9):
+    Return value type int does not match declared type unsigned char: 0
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c: (in function main)
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(229,8):
+    Test expression for while not boolean, type int: 1
+  Test expression type is not boolean or int. (Use -predboolint to inhibit
+  warning)
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(233,9): Unreachable code: return 0
+  This code will never be reached on any possible execution. (Use -unreachable
+  to inhibit warning)
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.h(125,6):
+    Function exported but not used outside PhilRoboKit_CoreLib_Macro:
+    philrobokit_init
+  A declaration is exported, but not used outside this module. Declaration can
+  use static qualifier. (Use -exportlocal to inhibit warning)
+   ..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(219,2):
+   Definition of philrobokit_init
+
+********************************************************************************** 	
+****************************   Checking UserLib....   ****************************		
+********************************************************************************** 	
+----------------------------------- 	
+*** Checking ServoLib.... ***			
+----------------------------------- 	
+..\..\UserLib\servo\servo.c(53,56): Static servo[0] initialized to null value:
+                                       servo[0] = 0
+  A reference with no null annotation is assigned or initialized to NULL.  Use
+  /*@null@*/ to declare the reference as a possibly null pointer. (Use
+  -nullassign to inhibit warning)
+..\..\UserLib\servo\servo.c: (in function setupServo)
+..\..\UserLib\servo\servo.c(74,2): Assignment of unsigned char to uint8_t:
+                                      servo[ServoMod][SERVO_PIN] = ServoPin
+  Types are incompatible. (Use -type to inhibit warning)
+..\..\UserLib\servo\servo.c(81,17): Incompatible types for - (long int,
+    unsigned char): (long int)MaxPulseWidth - MinPulseWidth
+  To make char and int types equivalent, use +charint.
+..\..\UserLib\servo\servo.c(82,17): Incompatible types for - (int, char):
+                                       (int)MaxAngle - MinAngle
+..\..\UserLib\servo\servo.c(83,2): Assignment of unsigned char to uint8_t:
+    servo[ServoMod][SERVO_SLOPE] = (unsigned char)TempBuffer
+..\..\UserLib\servo\servo.c(86,2): Assignment of unsigned char to uint8_t:
+    servo[ServoMod][SERVO_PULSE] = (unsigned char)(((long int)DefaultAngle *
+    servo[ServoMod][SERVO_SLOPE]) / 128 + 150)
+..\..\UserLib\servo\servo.c(91,3): Unrecognized identifier: setup8BitTimerDef
+  Identifier used in code has not been declared. (Use -unrecog to inhibit
+  warning)
+..\..\UserLib\servo\servo.c(91,21): Unrecognized identifier: TIMER2
+..\..\UserLib\servo\servo.c(92,3): Unrecognized identifier: setTimerValue
+..\..\UserLib\servo\servo.c: (in function setupServoDef)
+..\..\UserLib\servo\servo.c(99,47): Function setupServo expects arg 4 to be
+                                       unsigned char gets int: 50
+..\..\UserLib\servo\servo.c(99,51): Function setupServo expects arg 5 to be
+                                       unsigned char gets int: 250
+..\..\UserLib\servo\servo.c(99,56): Function setupServo expects arg 6 to be
+                                       char gets int: (-90)
+..\..\UserLib\servo\servo.c(99,63): Function setupServo expects arg 7 to be
+                                       char gets int: (+90)
+..\..\UserLib\servo\servo.c: (in function setupServoPort)
+..\..\UserLib\servo\servo.c(104,19): Unrecognized identifier: SERVO
+..\..\UserLib\servo\servo.c(104,39): Function setupServo expects arg 4 to be
+                                        unsigned char gets int: 50
+..\..\UserLib\servo\servo.c(104,43): Function setupServo expects arg 5 to be
+                                        unsigned char gets int: 250
+..\..\UserLib\servo\servo.c(104,48): Function setupServo expects arg 6 to be
+                                        char gets int: (-90)
+..\..\UserLib\servo\servo.c(104,55): Function setupServo expects arg 7 to be
+                                        char gets int: (+90)
+..\..\UserLib\servo\servo.c: (in function setServoAngle)
+..\..\UserLib\servo\servo.c(109,2): Assignment of unsigned char to uint8_t:
+    servo[ServoMod][SERVO_PULSE] = (unsigned char)(((long int)servoAngle *
+    servo[ServoMod][SERVO_SLOPE]) / 128 + 150)
+..\..\UserLib\servo\servo.c: (in function servoController)
+..\..\UserLib\servo\servo.c(126,4): Unrecognized identifier: setPinLow
+..\..\UserLib\servo\servo.c(154,5): Unrecognized identifier: setPinHigh
+..\..\UserLib\servo\servo.h(75,6): Function exported but not used outside
+                                      servo: setupServo
+  A declaration is exported, but not used outside this module. Declaration can
+  use static qualifier. (Use -exportlocal to inhibit warning)
+   ..\..\UserLib\servo\servo.c(95,1): Definition of setupServo
+..\..\UserLib\servo\servo.h(78,6): Function exported but not used outside
+                                      servo: setServoAngle
+   ..\..\UserLib\servo\servo.c(110,1): Definition of setServoAngle
+
+********************************************************************************** 	

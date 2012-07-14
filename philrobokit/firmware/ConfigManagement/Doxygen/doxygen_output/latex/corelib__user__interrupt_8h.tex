@@ -1,0 +1,176 @@
+\section{corelib\-\_\-user\-\_\-interrupt.\-h File Reference}
+\label{corelib__user__interrupt_8h}\index{corelib\-\_\-user\-\_\-interrupt.\-h@{corelib\-\_\-user\-\_\-interrupt.\-h}}
+{\ttfamily \#include $<$Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h$>$}\\*
+Include dependency graph for corelib\-\_\-user\-\_\-interrupt.\-h\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{corelib__user__interrupt_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{corelib__user__interrupt_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf E\-X\-T\-I\-N\-T\-E\-N\-A\-B\-L\-E\-D}~{\bf T\-R\-U\-E}
+\item 
+\#define {\bf R\-B\-I\-N\-T\-E\-N\-A\-B\-L\-E\-D}~{\bf T\-R\-U\-E}
+\item 
+\#define {\bf R\-B4\-\_\-\-M\-A\-S\-K}~0x10
+\item 
+\#define {\bf R\-B5\-\_\-\-M\-A\-S\-K}~0x20
+\item 
+\#define {\bf R\-B6\-\_\-\-M\-A\-S\-K}~0x40
+\item 
+\#define {\bf R\-B7\-\_\-\-M\-A\-S\-K}~0x80
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bf et\-Interrupt\-Sources} \{ \\*
+{\bf I\-N\-T0}, 
+{\bf I\-N\-T1}, 
+{\bf I\-N\-T2}, 
+{\bf I\-N\-T3}, 
+\\*
+{\bf I\-N\-T4}
+ \}
+\item 
+enum {\bf et\-Interrupt\-Modes} \{ {\bf L\-O\-W\-S\-T\-A\-T\-E}, 
+{\bf C\-H\-A\-N\-G\-E}, 
+{\bf R\-I\-S\-I\-N\-G}, 
+{\bf F\-A\-L\-L\-I\-N\-G}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void {\bf setup\-User\-Interrupt} (enum {\bf et\-Interrupt\-Sources} e\-Int\-Source, void($\ast$function)(), enum {\bf et\-Interrupt\-Modes} e\-Int\-Mode)
+\item 
+void {\bf user\-Interrupt\-Handler} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{corelib\-\_\-user\-\_\-interrupt.\-h@{corelib\-\_\-user\-\_\-interrupt.\-h}!E\-X\-T\-I\-N\-T\-E\-N\-A\-B\-L\-E\-D@{E\-X\-T\-I\-N\-T\-E\-N\-A\-B\-L\-E\-D}}
+\index{E\-X\-T\-I\-N\-T\-E\-N\-A\-B\-L\-E\-D@{E\-X\-T\-I\-N\-T\-E\-N\-A\-B\-L\-E\-D}!corelib_user_interrupt.h@{corelib\-\_\-user\-\_\-interrupt.\-h}}
+\subsubsection[{E\-X\-T\-I\-N\-T\-E\-N\-A\-B\-L\-E\-D}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\-X\-T\-I\-N\-T\-E\-N\-A\-B\-L\-E\-D~{\bf T\-R\-U\-E}}\label{corelib__user__interrupt_8h_a07ba89377226d3c36408d7576297952d}
+
+
+Definition at line 58 of file corelib\-\_\-user\-\_\-interrupt.\-h.
+
+\index{corelib\-\_\-user\-\_\-interrupt.\-h@{corelib\-\_\-user\-\_\-interrupt.\-h}!R\-B4\-\_\-\-M\-A\-S\-K@{R\-B4\-\_\-\-M\-A\-S\-K}}
+\index{R\-B4\-\_\-\-M\-A\-S\-K@{R\-B4\-\_\-\-M\-A\-S\-K}!corelib_user_interrupt.h@{corelib\-\_\-user\-\_\-interrupt.\-h}}
+\subsubsection[{R\-B4\-\_\-\-M\-A\-S\-K}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\-B4\-\_\-\-M\-A\-S\-K~0x10}\label{corelib__user__interrupt_8h_ad74e927c08dda8f02d1dbd964bc9dbb4}
+
+
+Definition at line 81 of file corelib\-\_\-user\-\_\-interrupt.\-h.
+
+\index{corelib\-\_\-user\-\_\-interrupt.\-h@{corelib\-\_\-user\-\_\-interrupt.\-h}!R\-B5\-\_\-\-M\-A\-S\-K@{R\-B5\-\_\-\-M\-A\-S\-K}}
+\index{R\-B5\-\_\-\-M\-A\-S\-K@{R\-B5\-\_\-\-M\-A\-S\-K}!corelib_user_interrupt.h@{corelib\-\_\-user\-\_\-interrupt.\-h}}
+\subsubsection[{R\-B5\-\_\-\-M\-A\-S\-K}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\-B5\-\_\-\-M\-A\-S\-K~0x20}\label{corelib__user__interrupt_8h_a5f50c97535ebf6b0d270010a7e0f2a93}
+
+
+Definition at line 82 of file corelib\-\_\-user\-\_\-interrupt.\-h.
+
+\index{corelib\-\_\-user\-\_\-interrupt.\-h@{corelib\-\_\-user\-\_\-interrupt.\-h}!R\-B6\-\_\-\-M\-A\-S\-K@{R\-B6\-\_\-\-M\-A\-S\-K}}
+\index{R\-B6\-\_\-\-M\-A\-S\-K@{R\-B6\-\_\-\-M\-A\-S\-K}!corelib_user_interrupt.h@{corelib\-\_\-user\-\_\-interrupt.\-h}}
+\subsubsection[{R\-B6\-\_\-\-M\-A\-S\-K}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\-B6\-\_\-\-M\-A\-S\-K~0x40}\label{corelib__user__interrupt_8h_ade6c00bc2b304a218e6a0736d626899e}
+
+
+Definition at line 83 of file corelib\-\_\-user\-\_\-interrupt.\-h.
+
+\index{corelib\-\_\-user\-\_\-interrupt.\-h@{corelib\-\_\-user\-\_\-interrupt.\-h}!R\-B7\-\_\-\-M\-A\-S\-K@{R\-B7\-\_\-\-M\-A\-S\-K}}
+\index{R\-B7\-\_\-\-M\-A\-S\-K@{R\-B7\-\_\-\-M\-A\-S\-K}!corelib_user_interrupt.h@{corelib\-\_\-user\-\_\-interrupt.\-h}}
+\subsubsection[{R\-B7\-\_\-\-M\-A\-S\-K}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\-B7\-\_\-\-M\-A\-S\-K~0x80}\label{corelib__user__interrupt_8h_a91e2a3a488d20adcd170cb441081eb7e}
+
+
+Definition at line 84 of file corelib\-\_\-user\-\_\-interrupt.\-h.
+
+\index{corelib\-\_\-user\-\_\-interrupt.\-h@{corelib\-\_\-user\-\_\-interrupt.\-h}!R\-B\-I\-N\-T\-E\-N\-A\-B\-L\-E\-D@{R\-B\-I\-N\-T\-E\-N\-A\-B\-L\-E\-D}}
+\index{R\-B\-I\-N\-T\-E\-N\-A\-B\-L\-E\-D@{R\-B\-I\-N\-T\-E\-N\-A\-B\-L\-E\-D}!corelib_user_interrupt.h@{corelib\-\_\-user\-\_\-interrupt.\-h}}
+\subsubsection[{R\-B\-I\-N\-T\-E\-N\-A\-B\-L\-E\-D}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\-B\-I\-N\-T\-E\-N\-A\-B\-L\-E\-D~{\bf T\-R\-U\-E}}\label{corelib__user__interrupt_8h_a96c091de2d5653e0b796bcf735092ce0}
+
+
+Definition at line 59 of file corelib\-\_\-user\-\_\-interrupt.\-h.
+
+
+
+\subsection{Enumeration Type Documentation}
+\index{corelib\-\_\-user\-\_\-interrupt.\-h@{corelib\-\_\-user\-\_\-interrupt.\-h}!et\-Interrupt\-Modes@{et\-Interrupt\-Modes}}
+\index{et\-Interrupt\-Modes@{et\-Interrupt\-Modes}!corelib_user_interrupt.h@{corelib\-\_\-user\-\_\-interrupt.\-h}}
+\subsubsection[{et\-Interrupt\-Modes}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf et\-Interrupt\-Modes}}\label{corelib__user__interrupt_8h_a4f3dc84cee6afc4f663e60ec08656b86}
+\begin{Desc}
+\item[Enumerator\-: ]\par
+\begin{description}
+\index{L\-O\-W\-S\-T\-A\-T\-E@{L\-O\-W\-S\-T\-A\-T\-E}!corelib\-\_\-user\-\_\-interrupt.\-h@{corelib\-\_\-user\-\_\-interrupt.\-h}}\index{corelib\-\_\-user\-\_\-interrupt.\-h@{corelib\-\_\-user\-\_\-interrupt.\-h}!L\-O\-W\-S\-T\-A\-T\-E@{L\-O\-W\-S\-T\-A\-T\-E}}\item[{\em 
+L\-O\-W\-S\-T\-A\-T\-E\label{corelib__user__interrupt_8h_a4f3dc84cee6afc4f663e60ec08656b86a45509f102e562c86cf17e82564a43e7e}
+}]\index{C\-H\-A\-N\-G\-E@{C\-H\-A\-N\-G\-E}!corelib\-\_\-user\-\_\-interrupt.\-h@{corelib\-\_\-user\-\_\-interrupt.\-h}}\index{corelib\-\_\-user\-\_\-interrupt.\-h@{corelib\-\_\-user\-\_\-interrupt.\-h}!C\-H\-A\-N\-G\-E@{C\-H\-A\-N\-G\-E}}\item[{\em 
+C\-H\-A\-N\-G\-E\label{corelib__user__interrupt_8h_a4f3dc84cee6afc4f663e60ec08656b86aada6cf2b086af8fd5f84e946d2bd145d}
+}]\index{R\-I\-S\-I\-N\-G@{R\-I\-S\-I\-N\-G}!corelib\-\_\-user\-\_\-interrupt.\-h@{corelib\-\_\-user\-\_\-interrupt.\-h}}\index{corelib\-\_\-user\-\_\-interrupt.\-h@{corelib\-\_\-user\-\_\-interrupt.\-h}!R\-I\-S\-I\-N\-G@{R\-I\-S\-I\-N\-G}}\item[{\em 
+R\-I\-S\-I\-N\-G\label{corelib__user__interrupt_8h_a4f3dc84cee6afc4f663e60ec08656b86ad93abe7aced82e9a4fcac4127a36ece3}
+}]\index{F\-A\-L\-L\-I\-N\-G@{F\-A\-L\-L\-I\-N\-G}!corelib\-\_\-user\-\_\-interrupt.\-h@{corelib\-\_\-user\-\_\-interrupt.\-h}}\index{corelib\-\_\-user\-\_\-interrupt.\-h@{corelib\-\_\-user\-\_\-interrupt.\-h}!F\-A\-L\-L\-I\-N\-G@{F\-A\-L\-L\-I\-N\-G}}\item[{\em 
+F\-A\-L\-L\-I\-N\-G\label{corelib__user__interrupt_8h_a4f3dc84cee6afc4f663e60ec08656b86ad24712a6a30c1d431b927d1ba2f84b66}
+}]\end{description}
+\end{Desc}
+
+
+
+Definition at line 72 of file corelib\-\_\-user\-\_\-interrupt.\-h.
+
+\index{corelib\-\_\-user\-\_\-interrupt.\-h@{corelib\-\_\-user\-\_\-interrupt.\-h}!et\-Interrupt\-Sources@{et\-Interrupt\-Sources}}
+\index{et\-Interrupt\-Sources@{et\-Interrupt\-Sources}!corelib_user_interrupt.h@{corelib\-\_\-user\-\_\-interrupt.\-h}}
+\subsubsection[{et\-Interrupt\-Sources}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf et\-Interrupt\-Sources}}\label{corelib__user__interrupt_8h_a92939e0f771d15c2c538cea24d952e24}
+\begin{Desc}
+\item[Enumerator\-: ]\par
+\begin{description}
+\index{I\-N\-T0@{I\-N\-T0}!corelib\-\_\-user\-\_\-interrupt.\-h@{corelib\-\_\-user\-\_\-interrupt.\-h}}\index{corelib\-\_\-user\-\_\-interrupt.\-h@{corelib\-\_\-user\-\_\-interrupt.\-h}!I\-N\-T0@{I\-N\-T0}}\item[{\em 
+I\-N\-T0\label{corelib__user__interrupt_8h_a92939e0f771d15c2c538cea24d952e24a15eea8e66ea11820ade640821d84382d}
+}]\index{I\-N\-T1@{I\-N\-T1}!corelib\-\_\-user\-\_\-interrupt.\-h@{corelib\-\_\-user\-\_\-interrupt.\-h}}\index{corelib\-\_\-user\-\_\-interrupt.\-h@{corelib\-\_\-user\-\_\-interrupt.\-h}!I\-N\-T1@{I\-N\-T1}}\item[{\em 
+I\-N\-T1\label{corelib__user__interrupt_8h_a92939e0f771d15c2c538cea24d952e24af557cd0d786ab83c4771da6eea65727b}
+}]\index{I\-N\-T2@{I\-N\-T2}!corelib\-\_\-user\-\_\-interrupt.\-h@{corelib\-\_\-user\-\_\-interrupt.\-h}}\index{corelib\-\_\-user\-\_\-interrupt.\-h@{corelib\-\_\-user\-\_\-interrupt.\-h}!I\-N\-T2@{I\-N\-T2}}\item[{\em 
+I\-N\-T2\label{corelib__user__interrupt_8h_a92939e0f771d15c2c538cea24d952e24ac982725fadf3a115b854a6ff2abaa137}
+}]\index{I\-N\-T3@{I\-N\-T3}!corelib\-\_\-user\-\_\-interrupt.\-h@{corelib\-\_\-user\-\_\-interrupt.\-h}}\index{corelib\-\_\-user\-\_\-interrupt.\-h@{corelib\-\_\-user\-\_\-interrupt.\-h}!I\-N\-T3@{I\-N\-T3}}\item[{\em 
+I\-N\-T3\label{corelib__user__interrupt_8h_a92939e0f771d15c2c538cea24d952e24a0ad460ad5366d6c276b08550b6a35554}
+}]\index{I\-N\-T4@{I\-N\-T4}!corelib\-\_\-user\-\_\-interrupt.\-h@{corelib\-\_\-user\-\_\-interrupt.\-h}}\index{corelib\-\_\-user\-\_\-interrupt.\-h@{corelib\-\_\-user\-\_\-interrupt.\-h}!I\-N\-T4@{I\-N\-T4}}\item[{\em 
+I\-N\-T4\label{corelib__user__interrupt_8h_a92939e0f771d15c2c538cea24d952e24a7a8518dedaab44a1a0e0d8ea3c5b567f}
+}]\end{description}
+\end{Desc}
+
+
+
+Definition at line 62 of file corelib\-\_\-user\-\_\-interrupt.\-h.
+
+
+
+\subsection{Function Documentation}
+\index{corelib\-\_\-user\-\_\-interrupt.\-h@{corelib\-\_\-user\-\_\-interrupt.\-h}!setup\-User\-Interrupt@{setup\-User\-Interrupt}}
+\index{setup\-User\-Interrupt@{setup\-User\-Interrupt}!corelib_user_interrupt.h@{corelib\-\_\-user\-\_\-interrupt.\-h}}
+\subsubsection[{setup\-User\-Interrupt}]{\setlength{\rightskip}{0pt plus 5cm}void setup\-User\-Interrupt (
+\begin{DoxyParamCaption}
+\item[{enum {\bf et\-Interrupt\-Sources}}]{e\-Int\-Source, }
+\item[{void($\ast$)()}]{function, }
+\item[{enum {\bf et\-Interrupt\-Modes}}]{e\-Int\-Mode}
+\end{DoxyParamCaption}
+)}\label{corelib__user__interrupt_8h_a234efbd3a1dc891dbfbcd0364a9b52ec}
+
+
+Definition at line 82 of file corelib\-\_\-user\-\_\-interrupt.\-c.
+
+\index{corelib\-\_\-user\-\_\-interrupt.\-h@{corelib\-\_\-user\-\_\-interrupt.\-h}!user\-Interrupt\-Handler@{user\-Interrupt\-Handler}}
+\index{user\-Interrupt\-Handler@{user\-Interrupt\-Handler}!corelib_user_interrupt.h@{corelib\-\_\-user\-\_\-interrupt.\-h}}
+\subsubsection[{user\-Interrupt\-Handler}]{\setlength{\rightskip}{0pt plus 5cm}void user\-Interrupt\-Handler (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{corelib__user__interrupt_8h_aa1ef5be24251d01808e5dec4c6babd01}
+
+
+Definition at line 178 of file corelib\-\_\-user\-\_\-interrupt.\-c.
+

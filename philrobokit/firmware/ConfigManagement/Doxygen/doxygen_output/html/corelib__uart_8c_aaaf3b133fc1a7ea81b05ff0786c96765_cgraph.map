@@ -1,0 +1,4 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$corelib__uart_8c.html#a6c415891a7120c91d1e8f02d47f7c366" title="serialSendChar" alt="" coords="171,5,282,32"/>
+<area shape="rect" id="node5" href="$corelib__uart_8c.html#acbd06afbb8c5228e13793b78aff16055" title="isSerialBufferFull" alt="" coords="331,5,450,32"/>
+</map>

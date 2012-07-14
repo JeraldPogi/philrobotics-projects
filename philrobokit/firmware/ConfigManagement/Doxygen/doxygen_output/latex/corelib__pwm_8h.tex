@@ -1,0 +1,443 @@
+\section{corelib\-\_\-pwm.\-h File Reference}
+\label{corelib__pwm_8h}\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}}
+{\ttfamily \#include $<$Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h$>$}\\*
+Include dependency graph for corelib\-\_\-pwm.\-h\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{corelib__pwm_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{corelib__pwm_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf D\-A\-C0}~{\bf P\-W\-M0}
+\item 
+\#define {\bf D\-A\-C1}~{\bf P\-W\-M1}
+\item 
+\#define {\bf C\-C\-P\-\_\-\-P\-W\-M\-\_\-\-M\-O\-D\-E}~{\bf P\-W\-M\-\_\-\-M\-O\-D\-E}
+\item 
+\#define {\bf mc\-\_\-\-P\-W\-M\-Timer\-Int\-En}()~{\bf mc\-\_\-timer2\-Int\-En}()
+\item 
+\#define {\bf mc\-\_\-\-P\-W\-M\-Timer\-Int\-Dis}()~{\bf mc\-\_\-timer2\-Int\-Dis}()
+\item 
+\#define {\bf mc\-\_\-\-P\-W\-M\-Timer\-I\-F\-Clr}()~{\bf mc\-\_\-timer2\-I\-F\-Clr}()
+\item 
+\#define {\bf mc\-\_\-\-Enable\-P\-W\-M\-Tmr}()~{\bf mc\-\_\-enable\-T\-M\-R2}()
+\item 
+\#define {\bf mc\-\_\-\-Disable\-P\-W\-M\-Tmr}()~{\bf mc\-\_\-disable\-T\-M\-R2}()
+\item 
+\#define {\bf mc\-\_\-config\-C\-C\-P1\-Mode}(a)~{\bf R\-E\-G\-I\-S\-T\-E\-R\-\_\-\-C\-C\-P1\-C\-O\-N} = a\&{\bf C\-C\-P\-\_\-\-M\-O\-D\-E\-\_\-\-M\-A\-S\-K}
+\item 
+\#define {\bf mc\-\_\-config\-C\-C\-P2\-Mode}(a)~{\bf R\-E\-G\-I\-S\-T\-E\-R\-\_\-\-C\-C\-P2\-C\-O\-N} = a\&{\bf C\-C\-P\-\_\-\-M\-O\-D\-E\-\_\-\-M\-A\-S\-K}
+\item 
+\#define {\bf mc\-\_\-set\-P\-W\-M0\-\_\-\-On}()~{\bf mc\-\_\-config\-C\-C\-P1\-Mode}({\bf P\-W\-M\-\_\-\-M\-O\-D\-E});
+\item 
+\#define {\bf mc\-\_\-set\-P\-W\-M0\-\_\-\-Off}()~{\bf mc\-\_\-config\-C\-C\-P1\-Mode}({\bf P\-W\-M\-\_\-\-O\-F\-F});
+\item 
+\#define {\bf mc\-\_\-set\-P\-W\-M1\-\_\-\-On}()~{\bf mc\-\_\-config\-C\-C\-P2\-Mode}({\bf P\-W\-M\-\_\-\-M\-O\-D\-E});
+\item 
+\#define {\bf mc\-\_\-set\-P\-W\-M1\-\_\-\-Off}()~{\bf mc\-\_\-config\-C\-C\-P2\-Mode}({\bf P\-W\-M\-\_\-\-O\-F\-F});
+\item 
+\#define {\bf mc\-\_\-\-P\-W\-M\-Timer\-\_\-\-Init}(a)~{\bf setup8\-Bit\-Timer}({\bf T\-I\-M\-E\-R2},a,0)
+\item 
+\#define {\bf mc\-\_\-set\-P\-W\-M\-Period}(a)~{\bf set\-Timer\-Value}({\bf T\-I\-M\-E\-R2},a)
+\item 
+\#define {\bf mc\-\_\-set\-P\-W\-M0\-Ton}(a)
+\item 
+\#define {\bf mc\-\_\-set\-P\-W\-M1\-Ton}(a)
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bf e\-P\-W\-M\-Modules} \{ {\bf P\-W\-M0}, 
+{\bf P\-W\-M1}
+ \}
+\item 
+enum {\bf e\-P\-W\-M\-Modes} \{ \\*
+{\bf P\-W\-M\-\_\-\-O\-F\-F} =  0x00, 
+{\bf C\-O\-M\-P\-\_\-\-T\-O\-G\-G\-L\-E\-\_\-\-C\-C\-P\-O} =  0x02, 
+{\bf C\-A\-P\-T\-U\-R\-E\-\_\-\-F\-A\-L\-L} =  0x04, 
+{\bf C\-A\-P\-T\-U\-R\-E\-\_\-\-R\-I\-S\-E} =  0x05, 
+\\*
+{\bf C\-A\-P\-T\-U\-R\-E\-\_\-4\-T\-H\-\_\-\-F\-A\-L\-L} =  0x06, 
+{\bf C\-A\-P\-T\-U\-R\-E\-\_\-16\-T\-H\-\_\-\-R\-I\-S\-E} =  0x07, 
+{\bf P\-W\-M\-\_\-\-M\-O\-D\-E} =  0x0\-C
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void {\bf setup\-P\-W\-M} (enum {\bf e\-P\-W\-M\-Modules} e\-P\-W\-M\-\_\-\-Module, uint16\-\_\-t ui16\-Frequency, uint16\-\_\-t ui16\-Duty\-Cycle)
+\item 
+void {\bf set\-P\-W\-M\-Frequency} (uint16\-\_\-t ui16\-Frequency)
+\item 
+void {\bf set\-P\-W\-M\-Duty} (enum {\bf e\-P\-W\-M\-Modules} e\-P\-W\-M\-\_\-\-Module, uint16\-\_\-t ui16\-Duty\-Cycle)
+\item 
+void {\bf remove\-P\-W\-M} (enum {\bf e\-P\-W\-M\-Modules} e\-P\-W\-M\-\_\-\-Module)
+\item 
+void {\bf set\-Analog\-Out} (enum {\bf e\-P\-W\-M\-Modules} e\-D\-A\-C\-\_\-\-Module, uint16\-\_\-t ui16\-Value)
+\item 
+void {\bf remove\-Analog\-Out} (enum {\bf e\-P\-W\-M\-Modules} e\-D\-A\-C\-\_\-\-Module)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}!C\-C\-P\-\_\-\-P\-W\-M\-\_\-\-M\-O\-D\-E@{C\-C\-P\-\_\-\-P\-W\-M\-\_\-\-M\-O\-D\-E}}
+\index{C\-C\-P\-\_\-\-P\-W\-M\-\_\-\-M\-O\-D\-E@{C\-C\-P\-\_\-\-P\-W\-M\-\_\-\-M\-O\-D\-E}!corelib_pwm.h@{corelib\-\_\-pwm.\-h}}
+\subsubsection[{C\-C\-P\-\_\-\-P\-W\-M\-\_\-\-M\-O\-D\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-C\-P\-\_\-\-P\-W\-M\-\_\-\-M\-O\-D\-E~{\bf P\-W\-M\-\_\-\-M\-O\-D\-E}}\label{corelib__pwm_8h_ac360f480cfde33db8392547be6ee2bc9}
+
+
+Definition at line 79 of file corelib\-\_\-pwm.\-h.
+
+\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}!D\-A\-C0@{D\-A\-C0}}
+\index{D\-A\-C0@{D\-A\-C0}!corelib_pwm.h@{corelib\-\_\-pwm.\-h}}
+\subsubsection[{D\-A\-C0}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\-A\-C0~{\bf P\-W\-M0}}\label{corelib__pwm_8h_adfe0025fe66918c644e110c3b055c955}
+
+
+Definition at line 61 of file corelib\-\_\-pwm.\-h.
+
+\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}!D\-A\-C1@{D\-A\-C1}}
+\index{D\-A\-C1@{D\-A\-C1}!corelib_pwm.h@{corelib\-\_\-pwm.\-h}}
+\subsubsection[{D\-A\-C1}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\-A\-C1~{\bf P\-W\-M1}}\label{corelib__pwm_8h_affb5ff8779fa698f3c7165a617d56e4f}
+
+
+Definition at line 62 of file corelib\-\_\-pwm.\-h.
+
+\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}!mc\-\_\-config\-C\-C\-P1\-Mode@{mc\-\_\-config\-C\-C\-P1\-Mode}}
+\index{mc\-\_\-config\-C\-C\-P1\-Mode@{mc\-\_\-config\-C\-C\-P1\-Mode}!corelib_pwm.h@{corelib\-\_\-pwm.\-h}}
+\subsubsection[{mc\-\_\-config\-C\-C\-P1\-Mode}]{\setlength{\rightskip}{0pt plus 5cm}\#define mc\-\_\-config\-C\-C\-P1\-Mode(
+\begin{DoxyParamCaption}
+\item[{}]{a}
+\end{DoxyParamCaption}
+)~{\bf R\-E\-G\-I\-S\-T\-E\-R\-\_\-\-C\-C\-P1\-C\-O\-N} = a\&{\bf C\-C\-P\-\_\-\-M\-O\-D\-E\-\_\-\-M\-A\-S\-K}}\label{corelib__pwm_8h_a78bf3c6004f792de8090235ef6f3b9ee}
+
+
+Definition at line 101 of file corelib\-\_\-pwm.\-h.
+
+\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}!mc\-\_\-config\-C\-C\-P2\-Mode@{mc\-\_\-config\-C\-C\-P2\-Mode}}
+\index{mc\-\_\-config\-C\-C\-P2\-Mode@{mc\-\_\-config\-C\-C\-P2\-Mode}!corelib_pwm.h@{corelib\-\_\-pwm.\-h}}
+\subsubsection[{mc\-\_\-config\-C\-C\-P2\-Mode}]{\setlength{\rightskip}{0pt plus 5cm}\#define mc\-\_\-config\-C\-C\-P2\-Mode(
+\begin{DoxyParamCaption}
+\item[{}]{a}
+\end{DoxyParamCaption}
+)~{\bf R\-E\-G\-I\-S\-T\-E\-R\-\_\-\-C\-C\-P2\-C\-O\-N} = a\&{\bf C\-C\-P\-\_\-\-M\-O\-D\-E\-\_\-\-M\-A\-S\-K}}\label{corelib__pwm_8h_a3434882bab79cf0630d184625c34fd22}
+
+
+Definition at line 104 of file corelib\-\_\-pwm.\-h.
+
+\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}!mc\-\_\-\-Disable\-P\-W\-M\-Tmr@{mc\-\_\-\-Disable\-P\-W\-M\-Tmr}}
+\index{mc\-\_\-\-Disable\-P\-W\-M\-Tmr@{mc\-\_\-\-Disable\-P\-W\-M\-Tmr}!corelib_pwm.h@{corelib\-\_\-pwm.\-h}}
+\subsubsection[{mc\-\_\-\-Disable\-P\-W\-M\-Tmr}]{\setlength{\rightskip}{0pt plus 5cm}\#define mc\-\_\-\-Disable\-P\-W\-M\-Tmr(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~{\bf mc\-\_\-disable\-T\-M\-R2}()}\label{corelib__pwm_8h_addb7f485cd1e6c599a8037b92913e27d}
+
+
+Definition at line 99 of file corelib\-\_\-pwm.\-h.
+
+\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}!mc\-\_\-\-Enable\-P\-W\-M\-Tmr@{mc\-\_\-\-Enable\-P\-W\-M\-Tmr}}
+\index{mc\-\_\-\-Enable\-P\-W\-M\-Tmr@{mc\-\_\-\-Enable\-P\-W\-M\-Tmr}!corelib_pwm.h@{corelib\-\_\-pwm.\-h}}
+\subsubsection[{mc\-\_\-\-Enable\-P\-W\-M\-Tmr}]{\setlength{\rightskip}{0pt plus 5cm}\#define mc\-\_\-\-Enable\-P\-W\-M\-Tmr(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~{\bf mc\-\_\-enable\-T\-M\-R2}()}\label{corelib__pwm_8h_a5d66695ca5af5c07b0f4a18f301d1d1a}
+
+
+Definition at line 98 of file corelib\-\_\-pwm.\-h.
+
+\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}!mc\-\_\-\-P\-W\-M\-Timer\-\_\-\-Init@{mc\-\_\-\-P\-W\-M\-Timer\-\_\-\-Init}}
+\index{mc\-\_\-\-P\-W\-M\-Timer\-\_\-\-Init@{mc\-\_\-\-P\-W\-M\-Timer\-\_\-\-Init}!corelib_pwm.h@{corelib\-\_\-pwm.\-h}}
+\subsubsection[{mc\-\_\-\-P\-W\-M\-Timer\-\_\-\-Init}]{\setlength{\rightskip}{0pt plus 5cm}\#define mc\-\_\-\-P\-W\-M\-Timer\-\_\-\-Init(
+\begin{DoxyParamCaption}
+\item[{}]{a}
+\end{DoxyParamCaption}
+)~{\bf setup8\-Bit\-Timer}({\bf T\-I\-M\-E\-R2},a,0)}\label{corelib__pwm_8h_aacd1c8895939bf3d5b152c2112cf6100}
+
+
+Definition at line 123 of file corelib\-\_\-pwm.\-h.
+
+\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}!mc\-\_\-\-P\-W\-M\-Timer\-I\-F\-Clr@{mc\-\_\-\-P\-W\-M\-Timer\-I\-F\-Clr}}
+\index{mc\-\_\-\-P\-W\-M\-Timer\-I\-F\-Clr@{mc\-\_\-\-P\-W\-M\-Timer\-I\-F\-Clr}!corelib_pwm.h@{corelib\-\_\-pwm.\-h}}
+\subsubsection[{mc\-\_\-\-P\-W\-M\-Timer\-I\-F\-Clr}]{\setlength{\rightskip}{0pt plus 5cm}\#define mc\-\_\-\-P\-W\-M\-Timer\-I\-F\-Clr(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~{\bf mc\-\_\-timer2\-I\-F\-Clr}()}\label{corelib__pwm_8h_aa4381c22db0c13a3c1ed7c0a3a7d74a3}
+
+
+Definition at line 96 of file corelib\-\_\-pwm.\-h.
+
+\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}!mc\-\_\-\-P\-W\-M\-Timer\-Int\-Dis@{mc\-\_\-\-P\-W\-M\-Timer\-Int\-Dis}}
+\index{mc\-\_\-\-P\-W\-M\-Timer\-Int\-Dis@{mc\-\_\-\-P\-W\-M\-Timer\-Int\-Dis}!corelib_pwm.h@{corelib\-\_\-pwm.\-h}}
+\subsubsection[{mc\-\_\-\-P\-W\-M\-Timer\-Int\-Dis}]{\setlength{\rightskip}{0pt plus 5cm}\#define mc\-\_\-\-P\-W\-M\-Timer\-Int\-Dis(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~{\bf mc\-\_\-timer2\-Int\-Dis}()}\label{corelib__pwm_8h_a887e6f0073aced33ac69b12185a1ecc6}
+
+
+Definition at line 95 of file corelib\-\_\-pwm.\-h.
+
+\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}!mc\-\_\-\-P\-W\-M\-Timer\-Int\-En@{mc\-\_\-\-P\-W\-M\-Timer\-Int\-En}}
+\index{mc\-\_\-\-P\-W\-M\-Timer\-Int\-En@{mc\-\_\-\-P\-W\-M\-Timer\-Int\-En}!corelib_pwm.h@{corelib\-\_\-pwm.\-h}}
+\subsubsection[{mc\-\_\-\-P\-W\-M\-Timer\-Int\-En}]{\setlength{\rightskip}{0pt plus 5cm}\#define mc\-\_\-\-P\-W\-M\-Timer\-Int\-En(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~{\bf mc\-\_\-timer2\-Int\-En}()}\label{corelib__pwm_8h_a5ea4853bff66fc720f2aab00f46686d2}
+
+
+Definition at line 94 of file corelib\-\_\-pwm.\-h.
+
+\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}!mc\-\_\-set\-P\-W\-M0\-\_\-\-Off@{mc\-\_\-set\-P\-W\-M0\-\_\-\-Off}}
+\index{mc\-\_\-set\-P\-W\-M0\-\_\-\-Off@{mc\-\_\-set\-P\-W\-M0\-\_\-\-Off}!corelib_pwm.h@{corelib\-\_\-pwm.\-h}}
+\subsubsection[{mc\-\_\-set\-P\-W\-M0\-\_\-\-Off}]{\setlength{\rightskip}{0pt plus 5cm}\#define mc\-\_\-set\-P\-W\-M0\-\_\-\-Off(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~{\bf mc\-\_\-config\-C\-C\-P1\-Mode}({\bf P\-W\-M\-\_\-\-O\-F\-F});}\label{corelib__pwm_8h_a8308316bc0968fdf532703d5af07cbdb}
+
+
+Definition at line 111 of file corelib\-\_\-pwm.\-h.
+
+\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}!mc\-\_\-set\-P\-W\-M0\-\_\-\-On@{mc\-\_\-set\-P\-W\-M0\-\_\-\-On}}
+\index{mc\-\_\-set\-P\-W\-M0\-\_\-\-On@{mc\-\_\-set\-P\-W\-M0\-\_\-\-On}!corelib_pwm.h@{corelib\-\_\-pwm.\-h}}
+\subsubsection[{mc\-\_\-set\-P\-W\-M0\-\_\-\-On}]{\setlength{\rightskip}{0pt plus 5cm}\#define mc\-\_\-set\-P\-W\-M0\-\_\-\-On(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~{\bf mc\-\_\-config\-C\-C\-P1\-Mode}({\bf P\-W\-M\-\_\-\-M\-O\-D\-E});}\label{corelib__pwm_8h_a82946d85050eb117a9001bb76bc240b0}
+
+
+Definition at line 107 of file corelib\-\_\-pwm.\-h.
+
+\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}!mc\-\_\-set\-P\-W\-M0\-Ton@{mc\-\_\-set\-P\-W\-M0\-Ton}}
+\index{mc\-\_\-set\-P\-W\-M0\-Ton@{mc\-\_\-set\-P\-W\-M0\-Ton}!corelib_pwm.h@{corelib\-\_\-pwm.\-h}}
+\subsubsection[{mc\-\_\-set\-P\-W\-M0\-Ton}]{\setlength{\rightskip}{0pt plus 5cm}\#define mc\-\_\-set\-P\-W\-M0\-Ton(
+\begin{DoxyParamCaption}
+\item[{}]{a}
+\end{DoxyParamCaption}
+)}\label{corelib__pwm_8h_aa641e26d101dcced4ecbfebcfb435feb}
+{\bfseries Value\-:}
+\begin{DoxyCode}
+REGISTER_CCP1CON &= ~PWM_DC_LSB_MASK;   \(\backslash\)
+    REGISTER\_CCP1CON |= (a&0x0003)<<4;      \(\backslash\)
+    REGISTER\_CCPR1L = (a&0x03FC)>>2
+\end{DoxyCode}
+
+
+Definition at line 126 of file corelib\-\_\-pwm.\-h.
+
+\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}!mc\-\_\-set\-P\-W\-M1\-\_\-\-Off@{mc\-\_\-set\-P\-W\-M1\-\_\-\-Off}}
+\index{mc\-\_\-set\-P\-W\-M1\-\_\-\-Off@{mc\-\_\-set\-P\-W\-M1\-\_\-\-Off}!corelib_pwm.h@{corelib\-\_\-pwm.\-h}}
+\subsubsection[{mc\-\_\-set\-P\-W\-M1\-\_\-\-Off}]{\setlength{\rightskip}{0pt plus 5cm}\#define mc\-\_\-set\-P\-W\-M1\-\_\-\-Off(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~{\bf mc\-\_\-config\-C\-C\-P2\-Mode}({\bf P\-W\-M\-\_\-\-O\-F\-F});}\label{corelib__pwm_8h_a57680580e13685e77d9f1fd50417ddac}
+
+
+Definition at line 119 of file corelib\-\_\-pwm.\-h.
+
+\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}!mc\-\_\-set\-P\-W\-M1\-\_\-\-On@{mc\-\_\-set\-P\-W\-M1\-\_\-\-On}}
+\index{mc\-\_\-set\-P\-W\-M1\-\_\-\-On@{mc\-\_\-set\-P\-W\-M1\-\_\-\-On}!corelib_pwm.h@{corelib\-\_\-pwm.\-h}}
+\subsubsection[{mc\-\_\-set\-P\-W\-M1\-\_\-\-On}]{\setlength{\rightskip}{0pt plus 5cm}\#define mc\-\_\-set\-P\-W\-M1\-\_\-\-On(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~{\bf mc\-\_\-config\-C\-C\-P2\-Mode}({\bf P\-W\-M\-\_\-\-M\-O\-D\-E});}\label{corelib__pwm_8h_aabb6449a94f06e1cc954d65b91663f08}
+
+
+Definition at line 115 of file corelib\-\_\-pwm.\-h.
+
+\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}!mc\-\_\-set\-P\-W\-M1\-Ton@{mc\-\_\-set\-P\-W\-M1\-Ton}}
+\index{mc\-\_\-set\-P\-W\-M1\-Ton@{mc\-\_\-set\-P\-W\-M1\-Ton}!corelib_pwm.h@{corelib\-\_\-pwm.\-h}}
+\subsubsection[{mc\-\_\-set\-P\-W\-M1\-Ton}]{\setlength{\rightskip}{0pt plus 5cm}\#define mc\-\_\-set\-P\-W\-M1\-Ton(
+\begin{DoxyParamCaption}
+\item[{}]{a}
+\end{DoxyParamCaption}
+)}\label{corelib__pwm_8h_aec2cae4085a744b3774713e5729b2957}
+{\bfseries Value\-:}
+\begin{DoxyCode}
+REGISTER_CCP2CON &= ~PWM_DC_LSB_MASK;   \(\backslash\)
+    REGISTER\_CCP2CON |= (a&0x0003)<<4;      \(\backslash\)
+    REGISTER\_CCPR2L = (a&0x03FC)>>2
+\end{DoxyCode}
+
+
+Definition at line 130 of file corelib\-\_\-pwm.\-h.
+
+\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}!mc\-\_\-set\-P\-W\-M\-Period@{mc\-\_\-set\-P\-W\-M\-Period}}
+\index{mc\-\_\-set\-P\-W\-M\-Period@{mc\-\_\-set\-P\-W\-M\-Period}!corelib_pwm.h@{corelib\-\_\-pwm.\-h}}
+\subsubsection[{mc\-\_\-set\-P\-W\-M\-Period}]{\setlength{\rightskip}{0pt plus 5cm}\#define mc\-\_\-set\-P\-W\-M\-Period(
+\begin{DoxyParamCaption}
+\item[{}]{a}
+\end{DoxyParamCaption}
+)~{\bf set\-Timer\-Value}({\bf T\-I\-M\-E\-R2},a)}\label{corelib__pwm_8h_a290f5deacb52284fed8b63bcc801d1d8}
+
+
+Definition at line 125 of file corelib\-\_\-pwm.\-h.
+
+
+
+\subsection{Enumeration Type Documentation}
+\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}!e\-P\-W\-M\-Modes@{e\-P\-W\-M\-Modes}}
+\index{e\-P\-W\-M\-Modes@{e\-P\-W\-M\-Modes}!corelib_pwm.h@{corelib\-\_\-pwm.\-h}}
+\subsubsection[{e\-P\-W\-M\-Modes}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf e\-P\-W\-M\-Modes}}\label{corelib__pwm_8h_a451f0b8686340890e1bfcfe19089833d}
+\begin{Desc}
+\item[Enumerator\-: ]\par
+\begin{description}
+\index{P\-W\-M\-\_\-\-O\-F\-F@{P\-W\-M\-\_\-\-O\-F\-F}!corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}}\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}!P\-W\-M\-\_\-\-O\-F\-F@{P\-W\-M\-\_\-\-O\-F\-F}}\item[{\em 
+P\-W\-M\-\_\-\-O\-F\-F\label{corelib__pwm_8h_a451f0b8686340890e1bfcfe19089833da4b87f8b5b8f76b141c7a22d2c95e0ecb}
+}]\index{C\-O\-M\-P\-\_\-\-T\-O\-G\-G\-L\-E\-\_\-\-C\-C\-P\-O@{C\-O\-M\-P\-\_\-\-T\-O\-G\-G\-L\-E\-\_\-\-C\-C\-P\-O}!corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}}\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}!C\-O\-M\-P\-\_\-\-T\-O\-G\-G\-L\-E\-\_\-\-C\-C\-P\-O@{C\-O\-M\-P\-\_\-\-T\-O\-G\-G\-L\-E\-\_\-\-C\-C\-P\-O}}\item[{\em 
+C\-O\-M\-P\-\_\-\-T\-O\-G\-G\-L\-E\-\_\-\-C\-C\-P\-O\label{corelib__pwm_8h_a451f0b8686340890e1bfcfe19089833da082ed5ba6d803da087a6595f9b63d18f}
+}]\index{C\-A\-P\-T\-U\-R\-E\-\_\-\-F\-A\-L\-L@{C\-A\-P\-T\-U\-R\-E\-\_\-\-F\-A\-L\-L}!corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}}\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}!C\-A\-P\-T\-U\-R\-E\-\_\-\-F\-A\-L\-L@{C\-A\-P\-T\-U\-R\-E\-\_\-\-F\-A\-L\-L}}\item[{\em 
+C\-A\-P\-T\-U\-R\-E\-\_\-\-F\-A\-L\-L\label{corelib__pwm_8h_a451f0b8686340890e1bfcfe19089833da7e52f19e2d2538bde3caac8e948f38e7}
+}]\index{C\-A\-P\-T\-U\-R\-E\-\_\-\-R\-I\-S\-E@{C\-A\-P\-T\-U\-R\-E\-\_\-\-R\-I\-S\-E}!corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}}\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}!C\-A\-P\-T\-U\-R\-E\-\_\-\-R\-I\-S\-E@{C\-A\-P\-T\-U\-R\-E\-\_\-\-R\-I\-S\-E}}\item[{\em 
+C\-A\-P\-T\-U\-R\-E\-\_\-\-R\-I\-S\-E\label{corelib__pwm_8h_a451f0b8686340890e1bfcfe19089833dade10ec968a8cd24412fa887fdd7acd8c}
+}]\index{C\-A\-P\-T\-U\-R\-E\-\_\-4\-T\-H\-\_\-\-F\-A\-L\-L@{C\-A\-P\-T\-U\-R\-E\-\_\-4\-T\-H\-\_\-\-F\-A\-L\-L}!corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}}\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}!C\-A\-P\-T\-U\-R\-E\-\_\-4\-T\-H\-\_\-\-F\-A\-L\-L@{C\-A\-P\-T\-U\-R\-E\-\_\-4\-T\-H\-\_\-\-F\-A\-L\-L}}\item[{\em 
+C\-A\-P\-T\-U\-R\-E\-\_\-4\-T\-H\-\_\-\-F\-A\-L\-L\label{corelib__pwm_8h_a451f0b8686340890e1bfcfe19089833da1b6c765177dec9bf2f4b49da4f232489}
+}]\index{C\-A\-P\-T\-U\-R\-E\-\_\-16\-T\-H\-\_\-\-R\-I\-S\-E@{C\-A\-P\-T\-U\-R\-E\-\_\-16\-T\-H\-\_\-\-R\-I\-S\-E}!corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}}\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}!C\-A\-P\-T\-U\-R\-E\-\_\-16\-T\-H\-\_\-\-R\-I\-S\-E@{C\-A\-P\-T\-U\-R\-E\-\_\-16\-T\-H\-\_\-\-R\-I\-S\-E}}\item[{\em 
+C\-A\-P\-T\-U\-R\-E\-\_\-16\-T\-H\-\_\-\-R\-I\-S\-E\label{corelib__pwm_8h_a451f0b8686340890e1bfcfe19089833da84e7672799da93eebb08f649b6212389}
+}]\index{P\-W\-M\-\_\-\-M\-O\-D\-E@{P\-W\-M\-\_\-\-M\-O\-D\-E}!corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}}\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}!P\-W\-M\-\_\-\-M\-O\-D\-E@{P\-W\-M\-\_\-\-M\-O\-D\-E}}\item[{\em 
+P\-W\-M\-\_\-\-M\-O\-D\-E\label{corelib__pwm_8h_a451f0b8686340890e1bfcfe19089833da6ddb3b94e3599054126d1f65cd1109f3}
+}]\end{description}
+\end{Desc}
+
+
+
+Definition at line 65 of file corelib\-\_\-pwm.\-h.
+
+\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}!e\-P\-W\-M\-Modules@{e\-P\-W\-M\-Modules}}
+\index{e\-P\-W\-M\-Modules@{e\-P\-W\-M\-Modules}!corelib_pwm.h@{corelib\-\_\-pwm.\-h}}
+\subsubsection[{e\-P\-W\-M\-Modules}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf e\-P\-W\-M\-Modules}}\label{corelib__pwm_8h_a438983ad60cd20801958dc7bcc00e903}
+\begin{Desc}
+\item[Enumerator\-: ]\par
+\begin{description}
+\index{P\-W\-M0@{P\-W\-M0}!corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}}\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}!P\-W\-M0@{P\-W\-M0}}\item[{\em 
+P\-W\-M0\label{corelib__pwm_8h_a438983ad60cd20801958dc7bcc00e903a4969f4b49dd00aa89aa0b6b3a7cce0cc}
+}]\index{P\-W\-M1@{P\-W\-M1}!corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}}\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}!P\-W\-M1@{P\-W\-M1}}\item[{\em 
+P\-W\-M1\label{corelib__pwm_8h_a438983ad60cd20801958dc7bcc00e903acc6ab0fb66c5ba52524e32ea2ad0bd1a}
+}]\end{description}
+\end{Desc}
+
+
+
+Definition at line 55 of file corelib\-\_\-pwm.\-h.
+
+
+
+\subsection{Function Documentation}
+\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}!remove\-Analog\-Out@{remove\-Analog\-Out}}
+\index{remove\-Analog\-Out@{remove\-Analog\-Out}!corelib_pwm.h@{corelib\-\_\-pwm.\-h}}
+\subsubsection[{remove\-Analog\-Out}]{\setlength{\rightskip}{0pt plus 5cm}void remove\-Analog\-Out (
+\begin{DoxyParamCaption}
+\item[{enum {\bf e\-P\-W\-M\-Modules}}]{e\-D\-A\-C\-\_\-\-Module}
+\end{DoxyParamCaption}
+)}\label{corelib__pwm_8h_af28b8a69190fdf2709585f9e36bd98d4}
+
+
+Definition at line 194 of file corelib\-\_\-pwm.\-c.
+
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=282pt]{corelib__pwm_8h_af28b8a69190fdf2709585f9e36bd98d4_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}!remove\-P\-W\-M@{remove\-P\-W\-M}}
+\index{remove\-P\-W\-M@{remove\-P\-W\-M}!corelib_pwm.h@{corelib\-\_\-pwm.\-h}}
+\subsubsection[{remove\-P\-W\-M}]{\setlength{\rightskip}{0pt plus 5cm}void remove\-P\-W\-M (
+\begin{DoxyParamCaption}
+\item[{enum {\bf e\-P\-W\-M\-Modules}}]{e\-P\-W\-M\-\_\-\-Module}
+\end{DoxyParamCaption}
+)}\label{corelib__pwm_8h_a0c549ab97a20654a43590a51ba61f706}
+
+
+Definition at line 199 of file corelib\-\_\-pwm.\-c.
+
+\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}!set\-Analog\-Out@{set\-Analog\-Out}}
+\index{set\-Analog\-Out@{set\-Analog\-Out}!corelib_pwm.h@{corelib\-\_\-pwm.\-h}}
+\subsubsection[{set\-Analog\-Out}]{\setlength{\rightskip}{0pt plus 5cm}void set\-Analog\-Out (
+\begin{DoxyParamCaption}
+\item[{enum {\bf e\-P\-W\-M\-Modules}}]{e\-D\-A\-C\-\_\-\-Module, }
+\item[{uint16\-\_\-t}]{ui16\-Value}
+\end{DoxyParamCaption}
+)}\label{corelib__pwm_8h_acbef1791f4d3d135da66a88b1f69988b}
+
+
+Definition at line 184 of file corelib\-\_\-pwm.\-c.
+
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{corelib__pwm_8h_acbef1791f4d3d135da66a88b1f69988b_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}!set\-P\-W\-M\-Duty@{set\-P\-W\-M\-Duty}}
+\index{set\-P\-W\-M\-Duty@{set\-P\-W\-M\-Duty}!corelib_pwm.h@{corelib\-\_\-pwm.\-h}}
+\subsubsection[{set\-P\-W\-M\-Duty}]{\setlength{\rightskip}{0pt plus 5cm}void set\-P\-W\-M\-Duty (
+\begin{DoxyParamCaption}
+\item[{enum {\bf e\-P\-W\-M\-Modules}}]{e\-P\-W\-M\-\_\-\-Module, }
+\item[{uint16\-\_\-t}]{ui16\-Duty\-Cycle}
+\end{DoxyParamCaption}
+)}\label{corelib__pwm_8h_a27c205e7d1e45f5bdb245bd38c23d51e}
+
+
+Definition at line 115 of file corelib\-\_\-pwm.\-c.
+
+\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}!set\-P\-W\-M\-Frequency@{set\-P\-W\-M\-Frequency}}
+\index{set\-P\-W\-M\-Frequency@{set\-P\-W\-M\-Frequency}!corelib_pwm.h@{corelib\-\_\-pwm.\-h}}
+\subsubsection[{set\-P\-W\-M\-Frequency}]{\setlength{\rightskip}{0pt plus 5cm}void set\-P\-W\-M\-Frequency (
+\begin{DoxyParamCaption}
+\item[{uint16\-\_\-t}]{ui16\-Frequency}
+\end{DoxyParamCaption}
+)}\label{corelib__pwm_8h_ad30cbd98de04abc5d58ec540df5a04fc}
+
+
+Definition at line 52 of file corelib\-\_\-pwm.\-c.
+
+\index{corelib\-\_\-pwm.\-h@{corelib\-\_\-pwm.\-h}!setup\-P\-W\-M@{setup\-P\-W\-M}}
+\index{setup\-P\-W\-M@{setup\-P\-W\-M}!corelib_pwm.h@{corelib\-\_\-pwm.\-h}}
+\subsubsection[{setup\-P\-W\-M}]{\setlength{\rightskip}{0pt plus 5cm}void setup\-P\-W\-M (
+\begin{DoxyParamCaption}
+\item[{enum {\bf e\-P\-W\-M\-Modules}}]{e\-P\-W\-M\-\_\-\-Module, }
+\item[{uint16\-\_\-t}]{ui16\-Frequency, }
+\item[{uint16\-\_\-t}]{ui16\-Duty\-Cycle}
+\end{DoxyParamCaption}
+)}\label{corelib__pwm_8h_a21481afa7d76f35cb0bb0140613352e4}
+
+
+Definition at line 144 of file corelib\-\_\-pwm.\-c.
+
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=284pt]{corelib__pwm_8h_a21481afa7d76f35cb0bb0140613352e4_cgraph}
+\end{center}
+\end{figure}
+
+

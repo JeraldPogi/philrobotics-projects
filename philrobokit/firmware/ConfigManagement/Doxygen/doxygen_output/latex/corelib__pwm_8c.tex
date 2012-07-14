@@ -1,0 +1,131 @@
+\section{corelib\-\_\-pwm.\-c File Reference}
+\label{corelib__pwm_8c}\index{corelib\-\_\-pwm.\-c@{corelib\-\_\-pwm.\-c}}
+{\ttfamily \#include \char`\"{}corelib\-\_\-pwm.\-h\char`\"{}}\\*
+Include dependency graph for corelib\-\_\-pwm.\-c\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{corelib__pwm_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void {\bf set\-P\-W\-M\-Frequency} (uint16\-\_\-t ui16\-Frequency)
+\item 
+void {\bf set\-P\-W\-M\-Duty} (enum {\bf e\-P\-W\-M\-Modules} e\-P\-W\-M\-\_\-\-Module, uint16\-\_\-t ui16\-Duty\-Cycle)
+\item 
+void {\bf setup\-P\-W\-M} (enum {\bf e\-P\-W\-M\-Modules} e\-P\-W\-M\-\_\-\-Module, uint16\-\_\-t ui16\-Frequency, uint16\-\_\-t ui16\-Duty\-Cycle)
+\item 
+void {\bf set\-Analog\-Out} (enum {\bf e\-P\-W\-M\-Modules} e\-D\-A\-C\-\_\-\-Module, uint16\-\_\-t ui16\-Value)
+\item 
+void {\bf remove\-Analog\-Out} (enum {\bf e\-P\-W\-M\-Modules} e\-D\-A\-C\-\_\-\-Module)
+\item 
+void {\bf remove\-P\-W\-M} (enum {\bf e\-P\-W\-M\-Modules} e\-P\-W\-M\-\_\-\-Module)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{corelib\-\_\-pwm.\-c@{corelib\-\_\-pwm.\-c}!remove\-Analog\-Out@{remove\-Analog\-Out}}
+\index{remove\-Analog\-Out@{remove\-Analog\-Out}!corelib_pwm.c@{corelib\-\_\-pwm.\-c}}
+\subsubsection[{remove\-Analog\-Out}]{\setlength{\rightskip}{0pt plus 5cm}void remove\-Analog\-Out (
+\begin{DoxyParamCaption}
+\item[{enum {\bf e\-P\-W\-M\-Modules}}]{e\-D\-A\-C\-\_\-\-Module}
+\end{DoxyParamCaption}
+)}\label{corelib__pwm_8c_af28b8a69190fdf2709585f9e36bd98d4}
+
+
+Definition at line 194 of file corelib\-\_\-pwm.\-c.
+
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=282pt]{corelib__pwm_8c_af28b8a69190fdf2709585f9e36bd98d4_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{corelib\-\_\-pwm.\-c@{corelib\-\_\-pwm.\-c}!remove\-P\-W\-M@{remove\-P\-W\-M}}
+\index{remove\-P\-W\-M@{remove\-P\-W\-M}!corelib_pwm.c@{corelib\-\_\-pwm.\-c}}
+\subsubsection[{remove\-P\-W\-M}]{\setlength{\rightskip}{0pt plus 5cm}void remove\-P\-W\-M (
+\begin{DoxyParamCaption}
+\item[{enum {\bf e\-P\-W\-M\-Modules}}]{e\-P\-W\-M\-\_\-\-Module}
+\end{DoxyParamCaption}
+)}\label{corelib__pwm_8c_a0c549ab97a20654a43590a51ba61f706}
+
+
+Definition at line 199 of file corelib\-\_\-pwm.\-c.
+
+\index{corelib\-\_\-pwm.\-c@{corelib\-\_\-pwm.\-c}!set\-Analog\-Out@{set\-Analog\-Out}}
+\index{set\-Analog\-Out@{set\-Analog\-Out}!corelib_pwm.c@{corelib\-\_\-pwm.\-c}}
+\subsubsection[{set\-Analog\-Out}]{\setlength{\rightskip}{0pt plus 5cm}void set\-Analog\-Out (
+\begin{DoxyParamCaption}
+\item[{enum {\bf e\-P\-W\-M\-Modules}}]{e\-D\-A\-C\-\_\-\-Module, }
+\item[{uint16\-\_\-t}]{ui16\-Value}
+\end{DoxyParamCaption}
+)}\label{corelib__pwm_8c_acbef1791f4d3d135da66a88b1f69988b}
+
+
+Definition at line 184 of file corelib\-\_\-pwm.\-c.
+
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{corelib__pwm_8c_acbef1791f4d3d135da66a88b1f69988b_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{corelib\-\_\-pwm.\-c@{corelib\-\_\-pwm.\-c}!set\-P\-W\-M\-Duty@{set\-P\-W\-M\-Duty}}
+\index{set\-P\-W\-M\-Duty@{set\-P\-W\-M\-Duty}!corelib_pwm.c@{corelib\-\_\-pwm.\-c}}
+\subsubsection[{set\-P\-W\-M\-Duty}]{\setlength{\rightskip}{0pt plus 5cm}void set\-P\-W\-M\-Duty (
+\begin{DoxyParamCaption}
+\item[{enum {\bf e\-P\-W\-M\-Modules}}]{e\-P\-W\-M\-\_\-\-Module, }
+\item[{uint16\-\_\-t}]{ui16\-Duty\-Cycle}
+\end{DoxyParamCaption}
+)}\label{corelib__pwm_8c_a27c205e7d1e45f5bdb245bd38c23d51e}
+
+
+Definition at line 115 of file corelib\-\_\-pwm.\-c.
+
+\index{corelib\-\_\-pwm.\-c@{corelib\-\_\-pwm.\-c}!set\-P\-W\-M\-Frequency@{set\-P\-W\-M\-Frequency}}
+\index{set\-P\-W\-M\-Frequency@{set\-P\-W\-M\-Frequency}!corelib_pwm.c@{corelib\-\_\-pwm.\-c}}
+\subsubsection[{set\-P\-W\-M\-Frequency}]{\setlength{\rightskip}{0pt plus 5cm}void set\-P\-W\-M\-Frequency (
+\begin{DoxyParamCaption}
+\item[{uint16\-\_\-t}]{ui16\-Frequency}
+\end{DoxyParamCaption}
+)}\label{corelib__pwm_8c_ad30cbd98de04abc5d58ec540df5a04fc}
+
+
+Definition at line 52 of file corelib\-\_\-pwm.\-c.
+
+\index{corelib\-\_\-pwm.\-c@{corelib\-\_\-pwm.\-c}!setup\-P\-W\-M@{setup\-P\-W\-M}}
+\index{setup\-P\-W\-M@{setup\-P\-W\-M}!corelib_pwm.c@{corelib\-\_\-pwm.\-c}}
+\subsubsection[{setup\-P\-W\-M}]{\setlength{\rightskip}{0pt plus 5cm}void setup\-P\-W\-M (
+\begin{DoxyParamCaption}
+\item[{enum {\bf e\-P\-W\-M\-Modules}}]{e\-P\-W\-M\-\_\-\-Module, }
+\item[{uint16\-\_\-t}]{ui16\-Frequency, }
+\item[{uint16\-\_\-t}]{ui16\-Duty\-Cycle}
+\end{DoxyParamCaption}
+)}\label{corelib__pwm_8c_a21481afa7d76f35cb0bb0140613352e4}
+
+
+Definition at line 144 of file corelib\-\_\-pwm.\-c.
+
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=284pt]{corelib__pwm_8c_a21481afa7d76f35cb0bb0140613352e4_cgraph}
+\end{center}
+\end{figure}
+
+
