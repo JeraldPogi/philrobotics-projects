@@ -1,0 +1,188 @@
+\section{servo.\-c File Reference}
+\label{servo_8c}\index{servo.\-c@{servo.\-c}}
+{\ttfamily \#include \char`\"{}servo.\-h\char`\"{}}\\*
+Include dependency graph for servo.\-c\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{servo_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bf servo\-States} \{ {\bf S\-E\-R\-V\-O\-\_\-\-P\-U\-L\-S\-E\-O\-N}, 
+{\bf S\-E\-R\-V\-O\-\_\-\-P\-U\-L\-S\-E\-O\-F\-F}
+ \}
+\item 
+enum {\bf servo\-Info} \{ {\bf S\-E\-R\-V\-O\-\_\-\-P\-I\-N}, 
+{\bf S\-E\-R\-V\-O\-\_\-\-P\-U\-L\-S\-E}, 
+{\bf S\-E\-R\-V\-O\-\_\-\-S\-L\-O\-P\-E}, 
+{\bf N\-U\-M\-B\-E\-R\-O\-F\-I\-N\-F\-O}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void {\bf setup\-Servo} (enum {\bf servo\-Modules} Servo\-Mod, unsigned char Servo\-Pin, signed char Default\-Angle, unsigned char Min\-Pulse\-Width, unsigned char Max\-Pulse\-Width, signed char Min\-Angle, signed char Max\-Angle)
+\item 
+void {\bf setup\-Servo\-Def} (enum {\bf servo\-Modules} Servo\-Mod, unsigned char Servo\-Pin, signed char Default\-Angle)
+\item 
+void {\bf setup\-Servo\-Port} (signed char Default\-Angle)
+\item 
+void {\bf set\-Servo\-Angle} (enum {\bf servo\-Modules} Servo\-Mod, signed char servo\-Angle)
+\item 
+void {\bf set\-Servo\-Port\-Angle} (signed char servo\-Angle)
+\end{DoxyCompactItemize}
+
+
+\subsection{Enumeration Type Documentation}
+\index{servo.\-c@{servo.\-c}!servo\-Info@{servo\-Info}}
+\index{servo\-Info@{servo\-Info}!servo.c@{servo.\-c}}
+\subsubsection[{servo\-Info}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf servo\-Info}}\label{servo_8c_afe0e37fb54101ef2adb0802da17eeda5}
+\begin{Desc}
+\item[Enumerator\-: ]\par
+\begin{description}
+\index{S\-E\-R\-V\-O\-\_\-\-P\-I\-N@{S\-E\-R\-V\-O\-\_\-\-P\-I\-N}!servo.\-c@{servo.\-c}}\index{servo.\-c@{servo.\-c}!S\-E\-R\-V\-O\-\_\-\-P\-I\-N@{S\-E\-R\-V\-O\-\_\-\-P\-I\-N}}\item[{\em 
+S\-E\-R\-V\-O\-\_\-\-P\-I\-N\label{servo_8c_afe0e37fb54101ef2adb0802da17eeda5ae983ceb76f93b6419f1584ddc5c5157d}
+}]\index{S\-E\-R\-V\-O\-\_\-\-P\-U\-L\-S\-E@{S\-E\-R\-V\-O\-\_\-\-P\-U\-L\-S\-E}!servo.\-c@{servo.\-c}}\index{servo.\-c@{servo.\-c}!S\-E\-R\-V\-O\-\_\-\-P\-U\-L\-S\-E@{S\-E\-R\-V\-O\-\_\-\-P\-U\-L\-S\-E}}\item[{\em 
+S\-E\-R\-V\-O\-\_\-\-P\-U\-L\-S\-E\label{servo_8c_afe0e37fb54101ef2adb0802da17eeda5a201fc1bdac08e5532464c7b24819ef71}
+}]\index{S\-E\-R\-V\-O\-\_\-\-S\-L\-O\-P\-E@{S\-E\-R\-V\-O\-\_\-\-S\-L\-O\-P\-E}!servo.\-c@{servo.\-c}}\index{servo.\-c@{servo.\-c}!S\-E\-R\-V\-O\-\_\-\-S\-L\-O\-P\-E@{S\-E\-R\-V\-O\-\_\-\-S\-L\-O\-P\-E}}\item[{\em 
+S\-E\-R\-V\-O\-\_\-\-S\-L\-O\-P\-E\label{servo_8c_afe0e37fb54101ef2adb0802da17eeda5a1e112850dd00118806412f985d3d558b}
+}]\index{N\-U\-M\-B\-E\-R\-O\-F\-I\-N\-F\-O@{N\-U\-M\-B\-E\-R\-O\-F\-I\-N\-F\-O}!servo.\-c@{servo.\-c}}\index{servo.\-c@{servo.\-c}!N\-U\-M\-B\-E\-R\-O\-F\-I\-N\-F\-O@{N\-U\-M\-B\-E\-R\-O\-F\-I\-N\-F\-O}}\item[{\em 
+N\-U\-M\-B\-E\-R\-O\-F\-I\-N\-F\-O\label{servo_8c_afe0e37fb54101ef2adb0802da17eeda5a87a3b55147079979a95c53732db281cc}
+}]\end{description}
+\end{Desc}
+
+
+
+Definition at line 41 of file servo.\-c.
+
+\index{servo.\-c@{servo.\-c}!servo\-States@{servo\-States}}
+\index{servo\-States@{servo\-States}!servo.c@{servo.\-c}}
+\subsubsection[{servo\-States}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf servo\-States}}\label{servo_8c_a3d7b60ba15dca727fbd3090a2141db04}
+\begin{Desc}
+\item[Enumerator\-: ]\par
+\begin{description}
+\index{S\-E\-R\-V\-O\-\_\-\-P\-U\-L\-S\-E\-O\-N@{S\-E\-R\-V\-O\-\_\-\-P\-U\-L\-S\-E\-O\-N}!servo.\-c@{servo.\-c}}\index{servo.\-c@{servo.\-c}!S\-E\-R\-V\-O\-\_\-\-P\-U\-L\-S\-E\-O\-N@{S\-E\-R\-V\-O\-\_\-\-P\-U\-L\-S\-E\-O\-N}}\item[{\em 
+S\-E\-R\-V\-O\-\_\-\-P\-U\-L\-S\-E\-O\-N\label{servo_8c_a3d7b60ba15dca727fbd3090a2141db04a9d9773dd4e58bcce61f07da598a575a6}
+}]\index{S\-E\-R\-V\-O\-\_\-\-P\-U\-L\-S\-E\-O\-F\-F@{S\-E\-R\-V\-O\-\_\-\-P\-U\-L\-S\-E\-O\-F\-F}!servo.\-c@{servo.\-c}}\index{servo.\-c@{servo.\-c}!S\-E\-R\-V\-O\-\_\-\-P\-U\-L\-S\-E\-O\-F\-F@{S\-E\-R\-V\-O\-\_\-\-P\-U\-L\-S\-E\-O\-F\-F}}\item[{\em 
+S\-E\-R\-V\-O\-\_\-\-P\-U\-L\-S\-E\-O\-F\-F\label{servo_8c_a3d7b60ba15dca727fbd3090a2141db04a9c595867152994a1481afbdc288267c4}
+}]\end{description}
+\end{Desc}
+
+
+
+Definition at line 35 of file servo.\-c.
+
+
+
+\subsection{Function Documentation}
+\index{servo.\-c@{servo.\-c}!set\-Servo\-Angle@{set\-Servo\-Angle}}
+\index{set\-Servo\-Angle@{set\-Servo\-Angle}!servo.c@{servo.\-c}}
+\subsubsection[{set\-Servo\-Angle}]{\setlength{\rightskip}{0pt plus 5cm}void set\-Servo\-Angle (
+\begin{DoxyParamCaption}
+\item[{enum {\bf servo\-Modules}}]{Servo\-Mod, }
+\item[{signed char}]{servo\-Angle}
+\end{DoxyParamCaption}
+)}\label{servo_8c_a5a71de0d87a95d500d5ead1ff0572c3a}
+
+
+Definition at line 107 of file servo.\-c.
+
+\index{servo.\-c@{servo.\-c}!set\-Servo\-Port\-Angle@{set\-Servo\-Port\-Angle}}
+\index{set\-Servo\-Port\-Angle@{set\-Servo\-Port\-Angle}!servo.c@{servo.\-c}}
+\subsubsection[{set\-Servo\-Port\-Angle}]{\setlength{\rightskip}{0pt plus 5cm}void set\-Servo\-Port\-Angle (
+\begin{DoxyParamCaption}
+\item[{signed char}]{servo\-Angle}
+\end{DoxyParamCaption}
+)}\label{servo_8c_ac3d05484a8479f4ccc8a944931a05af3}
+
+
+Definition at line 112 of file servo.\-c.
+
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=294pt]{servo_8c_ac3d05484a8479f4ccc8a944931a05af3_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{servo.\-c@{servo.\-c}!setup\-Servo@{setup\-Servo}}
+\index{setup\-Servo@{setup\-Servo}!servo.c@{servo.\-c}}
+\subsubsection[{setup\-Servo}]{\setlength{\rightskip}{0pt plus 5cm}void setup\-Servo (
+\begin{DoxyParamCaption}
+\item[{enum {\bf servo\-Modules}}]{Servo\-Mod, }
+\item[{unsigned char}]{Servo\-Pin, }
+\item[{signed char}]{Default\-Angle, }
+\item[{unsigned char}]{Min\-Pulse\-Width, }
+\item[{unsigned char}]{Max\-Pulse\-Width, }
+\item[{signed char}]{Min\-Angle, }
+\item[{signed char}]{Max\-Angle}
+\end{DoxyParamCaption}
+)}\label{servo_8c_a9fbd5eba0b22eb119370281f129cb515}
+
+
+Definition at line 69 of file servo.\-c.
+
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=278pt]{servo_8c_a9fbd5eba0b22eb119370281f129cb515_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{servo.\-c@{servo.\-c}!setup\-Servo\-Def@{setup\-Servo\-Def}}
+\index{setup\-Servo\-Def@{setup\-Servo\-Def}!servo.c@{servo.\-c}}
+\subsubsection[{setup\-Servo\-Def}]{\setlength{\rightskip}{0pt plus 5cm}void setup\-Servo\-Def (
+\begin{DoxyParamCaption}
+\item[{enum {\bf servo\-Modules}}]{Servo\-Mod, }
+\item[{unsigned char}]{Servo\-Pin, }
+\item[{signed char}]{Default\-Angle}
+\end{DoxyParamCaption}
+)}\label{servo_8c_a844602341a3dc4ec61412c3ee9c9026d}
+
+
+Definition at line 97 of file servo.\-c.
+
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{servo_8c_a844602341a3dc4ec61412c3ee9c9026d_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{servo.\-c@{servo.\-c}!setup\-Servo\-Port@{setup\-Servo\-Port}}
+\index{setup\-Servo\-Port@{setup\-Servo\-Port}!servo.c@{servo.\-c}}
+\subsubsection[{setup\-Servo\-Port}]{\setlength{\rightskip}{0pt plus 5cm}void setup\-Servo\-Port (
+\begin{DoxyParamCaption}
+\item[{signed char}]{Default\-Angle}
+\end{DoxyParamCaption}
+)}\label{servo_8c_a66d97908134cd09f1b8e8b1d9085697b}
+
+
+Definition at line 102 of file servo.\-c.
+
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{servo_8c_a66d97908134cd09f1b8e8b1d9085697b_cgraph}
+\end{center}
+\end{figure}
+
+

@@ -1,0 +1,373 @@
+\section{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h File Reference}
+\label{_phil_robo_kit___core_lib___macro_8h}\index{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}}
+{\ttfamily \#include \char`\"{}Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Header.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Data\-Types.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lib\textbackslash{}corelib\-\_\-uart.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lib\textbackslash{}corelib\-\_\-adc.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lib\textbackslash{}corelib\-\_\-timer.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lib\textbackslash{}corelib\-\_\-8bit\-\_\-timer.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lib\textbackslash{}corelib\-\_\-user\-\_\-interrupt.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lib\textbackslash{}corelib\-\_\-pwm.\-h\char`\"{}}\\*
+Include dependency graph for Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_phil_robo_kit___core_lib___macro_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_phil_robo_kit___core_lib___macro_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf I\-N}~1
+\item 
+\#define {\bf O\-U\-T}~0
+\item 
+\#define {\bf I\-N\-P\-U\-T}~{\bf I\-N}
+\item 
+\#define {\bf O\-U\-T\-P\-U\-T}~{\bf O\-U\-T}
+\item 
+\#define {\bf A\-N\-A\-L\-O\-G}~1
+\item 
+\#define {\bf H\-I\-G\-H}~1
+\item 
+\#define {\bf L\-O\-W}~0
+\item 
+\#define {\bf T\-R\-U\-E}~1
+\item 
+\#define {\bf F\-A\-L\-S\-E}~0
+\item 
+\#define {\bf set\-Pin}(x, y)~{\bf config\-Pin}(x,y)
+\item 
+\#define {\bf set\-Pin\-Input}(x)~{\bf config\-Pin}(x, {\bf I\-N})
+\item 
+\#define {\bf set\-Pin\-Output}(x)~{\bf config\-Pin}(x, {\bf O\-U\-T})
+\item 
+\#define {\bf set\-Pin\-High}(x)
+\item 
+\#define {\bf set\-Pin\-Low}(x)
+\item 
+\#define {\bf toggle\-Pin}(x)
+\item 
+\#define {\bf is\-Pin\-High}(x)~{\bf check\-Pin\-State}(x,{\bf H\-I\-G\-H})
+\item 
+\#define {\bf is\-Pin\-Low}(x)~{\bf check\-Pin\-State}(x,{\bf L\-O\-W})
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void {\bf config\-Pin} (unsigned char uc\-Pin\-Name, char b\-Direction)
+\item 
+unsigned char {\bf check\-Pin\-State} (unsigned char uc\-Pin\-Name, char b\-Check\-State)
+\item 
+void {\bf timer\-Interrupt\-Handler} (void)
+\item 
+void {\bf user\-Interrupt\-Handler} (void)
+\item 
+void {\bf init} (void)
+\item 
+void {\bf program} (void)
+\item 
+void {\bf philrobokit\-\_\-init} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}!A\-N\-A\-L\-O\-G@{A\-N\-A\-L\-O\-G}}
+\index{A\-N\-A\-L\-O\-G@{A\-N\-A\-L\-O\-G}!PhilRoboKit_CoreLib_Macro.h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}}
+\subsubsection[{A\-N\-A\-L\-O\-G}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\-N\-A\-L\-O\-G~1}\label{_phil_robo_kit___core_lib___macro_8h_ad42aa2404559d4a465d5d45e857f2881}
+
+
+Definition at line 63 of file Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h.
+
+\index{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}!F\-A\-L\-S\-E@{F\-A\-L\-S\-E}}
+\index{F\-A\-L\-S\-E@{F\-A\-L\-S\-E}!PhilRoboKit_CoreLib_Macro.h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}}
+\subsubsection[{F\-A\-L\-S\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\-A\-L\-S\-E~0}\label{_phil_robo_kit___core_lib___macro_8h_aa93f0eb578d23995850d61f7d61c55c1}
+
+
+Definition at line 69 of file Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h.
+
+\index{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}!H\-I\-G\-H@{H\-I\-G\-H}}
+\index{H\-I\-G\-H@{H\-I\-G\-H}!PhilRoboKit_CoreLib_Macro.h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}}
+\subsubsection[{H\-I\-G\-H}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\-I\-G\-H~1}\label{_phil_robo_kit___core_lib___macro_8h_a5bb885982ff66a2e0a0a45a8ee9c35e2}
+
+
+Definition at line 65 of file Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h.
+
+\index{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}!I\-N@{I\-N}}
+\index{I\-N@{I\-N}!PhilRoboKit_CoreLib_Macro.h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}}
+\subsubsection[{I\-N}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\-N~1}\label{_phil_robo_kit___core_lib___macro_8h_ac2bbd6d630a06a980d9a92ddb9a49928}
+
+
+Definition at line 58 of file Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h.
+
+\index{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}!I\-N\-P\-U\-T@{I\-N\-P\-U\-T}}
+\index{I\-N\-P\-U\-T@{I\-N\-P\-U\-T}!PhilRoboKit_CoreLib_Macro.h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}}
+\subsubsection[{I\-N\-P\-U\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\-N\-P\-U\-T~{\bf I\-N}}\label{_phil_robo_kit___core_lib___macro_8h_a1bb283bd7893b9855e2f23013891fc82}
+
+
+Definition at line 61 of file Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h.
+
+\index{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}!is\-Pin\-High@{is\-Pin\-High}}
+\index{is\-Pin\-High@{is\-Pin\-High}!PhilRoboKit_CoreLib_Macro.h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}}
+\subsubsection[{is\-Pin\-High}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\-Pin\-High(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~{\bf check\-Pin\-State}(x,{\bf H\-I\-G\-H})}\label{_phil_robo_kit___core_lib___macro_8h_a05d0b3e17ba8edfe3653898f0b86350f}
+
+
+Definition at line 103 of file Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h.
+
+\index{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}!is\-Pin\-Low@{is\-Pin\-Low}}
+\index{is\-Pin\-Low@{is\-Pin\-Low}!PhilRoboKit_CoreLib_Macro.h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}}
+\subsubsection[{is\-Pin\-Low}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\-Pin\-Low(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~{\bf check\-Pin\-State}(x,{\bf L\-O\-W})}\label{_phil_robo_kit___core_lib___macro_8h_a4dcb01d02bd94957e9f096df78162afd}
+
+
+Definition at line 104 of file Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h.
+
+\index{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}!L\-O\-W@{L\-O\-W}}
+\index{L\-O\-W@{L\-O\-W}!PhilRoboKit_CoreLib_Macro.h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}}
+\subsubsection[{L\-O\-W}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\-O\-W~0}\label{_phil_robo_kit___core_lib___macro_8h_ab811d8c6ff3a505312d3276590444289}
+
+
+Definition at line 66 of file Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h.
+
+\index{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}!O\-U\-T@{O\-U\-T}}
+\index{O\-U\-T@{O\-U\-T}!PhilRoboKit_CoreLib_Macro.h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}}
+\subsubsection[{O\-U\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\-U\-T~0}\label{_phil_robo_kit___core_lib___macro_8h_aec78e7a9e90a406a56f859ee456e8eae}
+
+
+Definition at line 59 of file Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h.
+
+\index{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}!O\-U\-T\-P\-U\-T@{O\-U\-T\-P\-U\-T}}
+\index{O\-U\-T\-P\-U\-T@{O\-U\-T\-P\-U\-T}!PhilRoboKit_CoreLib_Macro.h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}}
+\subsubsection[{O\-U\-T\-P\-U\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\-U\-T\-P\-U\-T~{\bf O\-U\-T}}\label{_phil_robo_kit___core_lib___macro_8h_a61a3c9a18380aafb6e430e79bf596557}
+
+
+Definition at line 62 of file Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h.
+
+\index{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}!set\-Pin@{set\-Pin}}
+\index{set\-Pin@{set\-Pin}!PhilRoboKit_CoreLib_Macro.h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}}
+\subsubsection[{set\-Pin}]{\setlength{\rightskip}{0pt plus 5cm}\#define set\-Pin(
+\begin{DoxyParamCaption}
+\item[{}]{x, }
+\item[{}]{y}
+\end{DoxyParamCaption}
+)~{\bf config\-Pin}(x,y)}\label{_phil_robo_kit___core_lib___macro_8h_a6a9342ef97a53f118bdc973d3ffb1e91}
+
+
+Definition at line 71 of file Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h.
+
+\index{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}!set\-Pin\-High@{set\-Pin\-High}}
+\index{set\-Pin\-High@{set\-Pin\-High}!PhilRoboKit_CoreLib_Macro.h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}}
+\subsubsection[{set\-Pin\-High}]{\setlength{\rightskip}{0pt plus 5cm}\#define set\-Pin\-High(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)}\label{_phil_robo_kit___core_lib___macro_8h_a2eda14a8d2a7c56022748cbc90c9ab00}
+{\bfseries Value\-:}
+\begin{DoxyCode}
+\{ \(\backslash\)
+     if(x<=7) \{ \(\backslash\)
+          REGISTER\_PORTC |= (1UL<<x); \(\backslash\)
+     \}\textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(x>=8 && x<=13) \{ \(\backslash\)
+          REGISTER\_PORTB |= (1UL<<(x-8)); \(\backslash\)
+     \}\textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(x>=21 && x<=28) \{ \(\backslash\)
+          REGISTER\_PORTD |= (1UL<<(x-21)); \(\backslash\)
+     \} \(\backslash\)
+\}
+\end{DoxyCode}
+
+
+Definition at line 75 of file Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h.
+
+\index{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}!set\-Pin\-Input@{set\-Pin\-Input}}
+\index{set\-Pin\-Input@{set\-Pin\-Input}!PhilRoboKit_CoreLib_Macro.h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}}
+\subsubsection[{set\-Pin\-Input}]{\setlength{\rightskip}{0pt plus 5cm}\#define set\-Pin\-Input(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~{\bf config\-Pin}(x, {\bf I\-N})}\label{_phil_robo_kit___core_lib___macro_8h_a1426e7826729d8875aeba7a0e2b6a217}
+
+
+Definition at line 72 of file Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h.
+
+\index{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}!set\-Pin\-Low@{set\-Pin\-Low}}
+\index{set\-Pin\-Low@{set\-Pin\-Low}!PhilRoboKit_CoreLib_Macro.h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}}
+\subsubsection[{set\-Pin\-Low}]{\setlength{\rightskip}{0pt plus 5cm}\#define set\-Pin\-Low(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)}\label{_phil_robo_kit___core_lib___macro_8h_ae77921bdc97c16d3cbe59bf31d1e3885}
+{\bfseries Value\-:}
+\begin{DoxyCode}
+\{ \(\backslash\)
+     if(x<=7) \{ \(\backslash\)
+          REGISTER\_PORTC &= ~(1UL<<x); \(\backslash\)
+     \}\textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(x>=8 && x<=13) \{ \(\backslash\)
+          REGISTER\_PORTB &= ~(1UL<<(x-8)); \(\backslash\)
+     \}\textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(x>=21 && x<=28) \{ \(\backslash\)
+          REGISTER\_PORTD &= ~(1UL<<(x-21)); \(\backslash\)
+     \} \(\backslash\)
+\}
+\end{DoxyCode}
+
+
+Definition at line 84 of file Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h.
+
+\index{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}!set\-Pin\-Output@{set\-Pin\-Output}}
+\index{set\-Pin\-Output@{set\-Pin\-Output}!PhilRoboKit_CoreLib_Macro.h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}}
+\subsubsection[{set\-Pin\-Output}]{\setlength{\rightskip}{0pt plus 5cm}\#define set\-Pin\-Output(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~{\bf config\-Pin}(x, {\bf O\-U\-T})}\label{_phil_robo_kit___core_lib___macro_8h_a38d4d2f9c5196b8e2b027fa33b0770ac}
+
+
+Definition at line 73 of file Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h.
+
+\index{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}!toggle\-Pin@{toggle\-Pin}}
+\index{toggle\-Pin@{toggle\-Pin}!PhilRoboKit_CoreLib_Macro.h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}}
+\subsubsection[{toggle\-Pin}]{\setlength{\rightskip}{0pt plus 5cm}\#define toggle\-Pin(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)}\label{_phil_robo_kit___core_lib___macro_8h_ab278de2f52559384724741a48cb71ca7}
+{\bfseries Value\-:}
+\begin{DoxyCode}
+\{ \(\backslash\)
+     if(x<=7) \{ \(\backslash\)
+          REGISTER\_PORTC ^= (1UL<<x); \(\backslash\)
+     \}\textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (x>=8 && x<=13) \{ \(\backslash\)
+          REGISTER\_PORTB ^= (1UL<<(x-8)); \(\backslash\)
+     \}\textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(x>=21 && x<=28) \{ \(\backslash\)
+          REGISTER\_PORTD ^= (1UL<<(x-21)); \(\backslash\)
+     \} \(\backslash\)
+\}
+\end{DoxyCode}
+
+
+Definition at line 93 of file Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h.
+
+\index{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}!T\-R\-U\-E@{T\-R\-U\-E}}
+\index{T\-R\-U\-E@{T\-R\-U\-E}!PhilRoboKit_CoreLib_Macro.h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}}
+\subsubsection[{T\-R\-U\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-R\-U\-E~1}\label{_phil_robo_kit___core_lib___macro_8h_aa8cecfc5c5c054d2875c03e77b7be15d}
+
+
+Definition at line 68 of file Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h.
+
+
+
+\subsection{Function Documentation}
+\index{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}!check\-Pin\-State@{check\-Pin\-State}}
+\index{check\-Pin\-State@{check\-Pin\-State}!PhilRoboKit_CoreLib_Macro.h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}}
+\subsubsection[{check\-Pin\-State}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char check\-Pin\-State (
+\begin{DoxyParamCaption}
+\item[{unsigned char}]{uc\-Pin\-Name, }
+\item[{char}]{b\-Check\-State}
+\end{DoxyParamCaption}
+)}\label{_phil_robo_kit___core_lib___macro_8h_ac30b1018bb53a4641359277443ec47d1}
+
+
+Definition at line 107 of file Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-c.
+
+\index{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}!config\-Pin@{config\-Pin}}
+\index{config\-Pin@{config\-Pin}!PhilRoboKit_CoreLib_Macro.h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}}
+\subsubsection[{config\-Pin}]{\setlength{\rightskip}{0pt plus 5cm}void config\-Pin (
+\begin{DoxyParamCaption}
+\item[{unsigned char}]{uc\-Pin\-Name, }
+\item[{char}]{b\-Direction}
+\end{DoxyParamCaption}
+)}\label{_phil_robo_kit___core_lib___macro_8h_a19923266a235ca6fea0783beec80ce2c}
+
+
+Definition at line 46 of file Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-c.
+
+\index{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}!init@{init}}
+\index{init@{init}!PhilRoboKit_CoreLib_Macro.h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}}
+\subsubsection[{init}]{\setlength{\rightskip}{0pt plus 5cm}void init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{_phil_robo_kit___core_lib___macro_8h_a2858154e2009b0e6e616f313177762bc}
+
+
+Definition at line 17 of file Blink\-Without\-Delay.\-phr.
+
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_phil_robo_kit___core_lib___macro_8h_a2858154e2009b0e6e616f313177762bc_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}!philrobokit\-\_\-init@{philrobokit\-\_\-init}}
+\index{philrobokit\-\_\-init@{philrobokit\-\_\-init}!PhilRoboKit_CoreLib_Macro.h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}}
+\subsubsection[{philrobokit\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void philrobokit\-\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{_phil_robo_kit___core_lib___macro_8h_abeecea64dc12504fc8236fdaeee3ae61}
+
+
+Definition at line 210 of file Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-c.
+
+\index{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}!program@{program}}
+\index{program@{program}!PhilRoboKit_CoreLib_Macro.h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}}
+\subsubsection[{program}]{\setlength{\rightskip}{0pt plus 5cm}void program (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{_phil_robo_kit___core_lib___macro_8h_a4e60091b55013a9208e1f53f8bc391c9}
+
+
+Definition at line 27 of file Blink\-Without\-Delay.\-phr.
+
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_phil_robo_kit___core_lib___macro_8h_a4e60091b55013a9208e1f53f8bc391c9_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}!timer\-Interrupt\-Handler@{timer\-Interrupt\-Handler}}
+\index{timer\-Interrupt\-Handler@{timer\-Interrupt\-Handler}!PhilRoboKit_CoreLib_Macro.h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}}
+\subsubsection[{timer\-Interrupt\-Handler}]{\setlength{\rightskip}{0pt plus 5cm}void timer\-Interrupt\-Handler (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{_phil_robo_kit___core_lib___macro_8h_ae6b9991ee92a30ad115ef6928829566a}
+
+
+Definition at line 39 of file corelib\-\_\-timer.\-c.
+
+\index{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}!user\-Interrupt\-Handler@{user\-Interrupt\-Handler}}
+\index{user\-Interrupt\-Handler@{user\-Interrupt\-Handler}!PhilRoboKit_CoreLib_Macro.h@{Phil\-Robo\-Kit\-\_\-\-Core\-Lib\-\_\-\-Macro.\-h}}
+\subsubsection[{user\-Interrupt\-Handler}]{\setlength{\rightskip}{0pt plus 5cm}void user\-Interrupt\-Handler (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{_phil_robo_kit___core_lib___macro_8h_aa1ef5be24251d01808e5dec4c6babd01}
+
+
+Definition at line 178 of file corelib\-\_\-user\-\_\-interrupt.\-c.
+

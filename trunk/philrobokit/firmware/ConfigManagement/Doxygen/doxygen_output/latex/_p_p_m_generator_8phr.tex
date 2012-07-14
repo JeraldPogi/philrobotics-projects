@@ -1,0 +1,288 @@
+\section{P\-P\-M\-Generator.\-phr File Reference}
+\label{_p_p_m_generator_8phr}\index{P\-P\-M\-Generator.\-phr@{P\-P\-M\-Generator.\-phr}}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf N\-U\-M\-\_\-\-O\-F\-\_\-\-C\-H\-A\-N\-N\-E\-L\-S}~6
+\item 
+\#define {\bf T\-M\-R2\-\_\-\-M\-A\-X\-\_\-\-C\-O\-U\-N\-T}~255
+\item 
+\#define {\bf P\-U\-L\-S\-E\-\_\-\-P\-E\-R\-I\-O\-D}~15
+\item 
+\#define {\bf C\-Y\-C\-L\-E\-\_\-\-P\-E\-R\-I\-O\-D}~2500
+\item 
+\#define {\bf M\-A\-X\-\_\-\-P\-O\-S\-I\-T\-I\-O\-N}~250
+\item 
+\#define {\bf D\-E\-F\-\_\-\-P\-O\-S\-I\-T\-I\-O\-N}~150
+\item 
+\#define {\bf M\-I\-N\-\_\-\-P\-O\-S\-I\-T\-I\-O\-N}~50
+\item 
+\#define {\bf A\-D\-C2\-P\-P\-M\-\_\-\-S\-L\-O\-P\-E}~((250-\/50)$\ast$256/(1023))
+\item 
+\#define {\bf A\-D\-C2\-P\-P\-M\-\_\-\-O\-F\-F\-S\-E\-T}~{\bf D\-E\-F\-\_\-\-P\-O\-S\-I\-T\-I\-O\-N}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bf P\-P\-M\-Gen\-States} \{ {\bf S\-E\-N\-D\-\_\-\-P\-U\-L\-S\-E}, 
+{\bf S\-E\-N\-D\-\_\-\-C\-H\-A\-N\-N\-E\-L\-\_\-\-P\-E\-R\-I\-O\-D}, 
+{\bf W\-A\-I\-T\-\_\-\-E\-N\-D\-\_\-\-O\-F\-\_\-\-C\-Y\-C\-L\-E}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void {\bf P\-P\-M\-Generator} ()
+\item 
+unsigned int {\bf convert\-A\-D\-C2\-Period} (unsigned int A\-D\-C\-Value)
+\item 
+void {\bf init} ()
+\item 
+void {\bf program} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+unsigned char {\bf Channel\-Periods} [{\bf N\-U\-M\-\_\-\-O\-F\-\_\-\-C\-H\-A\-N\-N\-E\-L\-S}]
+\item 
+unsigned char {\bf P\-P\-M\-\_\-\-State}
+\item 
+unsigned char {\bf tempvar}
+\item 
+signed char {\bf channel\-\_\-ctr}
+\item 
+unsigned long {\bf Frame\-Blank\-Time}
+\item 
+unsigned long {\bf Sum\-Of\-Periods}
+\item 
+bit\-\_\-t {\bf Send\-Pulse}
+\item 
+bit\-\_\-t {\bf Blank\-Time\-Set}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{P\-P\-M\-Generator.\-phr@{P\-P\-M\-Generator.\-phr}!A\-D\-C2\-P\-P\-M\-\_\-\-O\-F\-F\-S\-E\-T@{A\-D\-C2\-P\-P\-M\-\_\-\-O\-F\-F\-S\-E\-T}}
+\index{A\-D\-C2\-P\-P\-M\-\_\-\-O\-F\-F\-S\-E\-T@{A\-D\-C2\-P\-P\-M\-\_\-\-O\-F\-F\-S\-E\-T}!PPMGenerator.phr@{P\-P\-M\-Generator.\-phr}}
+\subsubsection[{A\-D\-C2\-P\-P\-M\-\_\-\-O\-F\-F\-S\-E\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\-D\-C2\-P\-P\-M\-\_\-\-O\-F\-F\-S\-E\-T~{\bf D\-E\-F\-\_\-\-P\-O\-S\-I\-T\-I\-O\-N}}\label{_p_p_m_generator_8phr_a2cc1354c38c7cae0cc329cdff853f61f}
+
+
+Definition at line 16 of file P\-P\-M\-Generator.\-phr.
+
+\index{P\-P\-M\-Generator.\-phr@{P\-P\-M\-Generator.\-phr}!A\-D\-C2\-P\-P\-M\-\_\-\-S\-L\-O\-P\-E@{A\-D\-C2\-P\-P\-M\-\_\-\-S\-L\-O\-P\-E}}
+\index{A\-D\-C2\-P\-P\-M\-\_\-\-S\-L\-O\-P\-E@{A\-D\-C2\-P\-P\-M\-\_\-\-S\-L\-O\-P\-E}!PPMGenerator.phr@{P\-P\-M\-Generator.\-phr}}
+\subsubsection[{A\-D\-C2\-P\-P\-M\-\_\-\-S\-L\-O\-P\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\-D\-C2\-P\-P\-M\-\_\-\-S\-L\-O\-P\-E~((250-\/50)$\ast$256/(1023))}\label{_p_p_m_generator_8phr_a4a43ae11482e27b37fc46cea0b99a22a}
+
+
+Definition at line 15 of file P\-P\-M\-Generator.\-phr.
+
+\index{P\-P\-M\-Generator.\-phr@{P\-P\-M\-Generator.\-phr}!C\-Y\-C\-L\-E\-\_\-\-P\-E\-R\-I\-O\-D@{C\-Y\-C\-L\-E\-\_\-\-P\-E\-R\-I\-O\-D}}
+\index{C\-Y\-C\-L\-E\-\_\-\-P\-E\-R\-I\-O\-D@{C\-Y\-C\-L\-E\-\_\-\-P\-E\-R\-I\-O\-D}!PPMGenerator.phr@{P\-P\-M\-Generator.\-phr}}
+\subsubsection[{C\-Y\-C\-L\-E\-\_\-\-P\-E\-R\-I\-O\-D}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-Y\-C\-L\-E\-\_\-\-P\-E\-R\-I\-O\-D~2500}\label{_p_p_m_generator_8phr_abef880b6be4139b7db1a8e0975828ef5}
+
+
+Definition at line 7 of file P\-P\-M\-Generator.\-phr.
+
+\index{P\-P\-M\-Generator.\-phr@{P\-P\-M\-Generator.\-phr}!D\-E\-F\-\_\-\-P\-O\-S\-I\-T\-I\-O\-N@{D\-E\-F\-\_\-\-P\-O\-S\-I\-T\-I\-O\-N}}
+\index{D\-E\-F\-\_\-\-P\-O\-S\-I\-T\-I\-O\-N@{D\-E\-F\-\_\-\-P\-O\-S\-I\-T\-I\-O\-N}!PPMGenerator.phr@{P\-P\-M\-Generator.\-phr}}
+\subsubsection[{D\-E\-F\-\_\-\-P\-O\-S\-I\-T\-I\-O\-N}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\-E\-F\-\_\-\-P\-O\-S\-I\-T\-I\-O\-N~150}\label{_p_p_m_generator_8phr_aaeadacb316afe075c2221ff0b5ca2b8b}
+
+
+Definition at line 11 of file P\-P\-M\-Generator.\-phr.
+
+\index{P\-P\-M\-Generator.\-phr@{P\-P\-M\-Generator.\-phr}!M\-A\-X\-\_\-\-P\-O\-S\-I\-T\-I\-O\-N@{M\-A\-X\-\_\-\-P\-O\-S\-I\-T\-I\-O\-N}}
+\index{M\-A\-X\-\_\-\-P\-O\-S\-I\-T\-I\-O\-N@{M\-A\-X\-\_\-\-P\-O\-S\-I\-T\-I\-O\-N}!PPMGenerator.phr@{P\-P\-M\-Generator.\-phr}}
+\subsubsection[{M\-A\-X\-\_\-\-P\-O\-S\-I\-T\-I\-O\-N}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\-A\-X\-\_\-\-P\-O\-S\-I\-T\-I\-O\-N~250}\label{_p_p_m_generator_8phr_a850290a622822618b3cfb2fb46f8d269}
+
+
+Definition at line 10 of file P\-P\-M\-Generator.\-phr.
+
+\index{P\-P\-M\-Generator.\-phr@{P\-P\-M\-Generator.\-phr}!M\-I\-N\-\_\-\-P\-O\-S\-I\-T\-I\-O\-N@{M\-I\-N\-\_\-\-P\-O\-S\-I\-T\-I\-O\-N}}
+\index{M\-I\-N\-\_\-\-P\-O\-S\-I\-T\-I\-O\-N@{M\-I\-N\-\_\-\-P\-O\-S\-I\-T\-I\-O\-N}!PPMGenerator.phr@{P\-P\-M\-Generator.\-phr}}
+\subsubsection[{M\-I\-N\-\_\-\-P\-O\-S\-I\-T\-I\-O\-N}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\-I\-N\-\_\-\-P\-O\-S\-I\-T\-I\-O\-N~50}\label{_p_p_m_generator_8phr_ae1933db0f5cd1f42ad9d70e345b5d5b6}
+
+
+Definition at line 12 of file P\-P\-M\-Generator.\-phr.
+
+\index{P\-P\-M\-Generator.\-phr@{P\-P\-M\-Generator.\-phr}!N\-U\-M\-\_\-\-O\-F\-\_\-\-C\-H\-A\-N\-N\-E\-L\-S@{N\-U\-M\-\_\-\-O\-F\-\_\-\-C\-H\-A\-N\-N\-E\-L\-S}}
+\index{N\-U\-M\-\_\-\-O\-F\-\_\-\-C\-H\-A\-N\-N\-E\-L\-S@{N\-U\-M\-\_\-\-O\-F\-\_\-\-C\-H\-A\-N\-N\-E\-L\-S}!PPMGenerator.phr@{P\-P\-M\-Generator.\-phr}}
+\subsubsection[{N\-U\-M\-\_\-\-O\-F\-\_\-\-C\-H\-A\-N\-N\-E\-L\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\-U\-M\-\_\-\-O\-F\-\_\-\-C\-H\-A\-N\-N\-E\-L\-S~6}\label{_p_p_m_generator_8phr_a9e110db4ce345512a71b6dc84dd92ab1}
+
+
+Definition at line 1 of file P\-P\-M\-Generator.\-phr.
+
+\index{P\-P\-M\-Generator.\-phr@{P\-P\-M\-Generator.\-phr}!P\-U\-L\-S\-E\-\_\-\-P\-E\-R\-I\-O\-D@{P\-U\-L\-S\-E\-\_\-\-P\-E\-R\-I\-O\-D}}
+\index{P\-U\-L\-S\-E\-\_\-\-P\-E\-R\-I\-O\-D@{P\-U\-L\-S\-E\-\_\-\-P\-E\-R\-I\-O\-D}!PPMGenerator.phr@{P\-P\-M\-Generator.\-phr}}
+\subsubsection[{P\-U\-L\-S\-E\-\_\-\-P\-E\-R\-I\-O\-D}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\-U\-L\-S\-E\-\_\-\-P\-E\-R\-I\-O\-D~15}\label{_p_p_m_generator_8phr_a7c9123f0f194d229b81ba3052c2f63f2}
+
+
+Definition at line 6 of file P\-P\-M\-Generator.\-phr.
+
+\index{P\-P\-M\-Generator.\-phr@{P\-P\-M\-Generator.\-phr}!T\-M\-R2\-\_\-\-M\-A\-X\-\_\-\-C\-O\-U\-N\-T@{T\-M\-R2\-\_\-\-M\-A\-X\-\_\-\-C\-O\-U\-N\-T}}
+\index{T\-M\-R2\-\_\-\-M\-A\-X\-\_\-\-C\-O\-U\-N\-T@{T\-M\-R2\-\_\-\-M\-A\-X\-\_\-\-C\-O\-U\-N\-T}!PPMGenerator.phr@{P\-P\-M\-Generator.\-phr}}
+\subsubsection[{T\-M\-R2\-\_\-\-M\-A\-X\-\_\-\-C\-O\-U\-N\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-M\-R2\-\_\-\-M\-A\-X\-\_\-\-C\-O\-U\-N\-T~255}\label{_p_p_m_generator_8phr_a9bcdc55e749bca6e890121b015bb1bdd}
+
+
+Definition at line 3 of file P\-P\-M\-Generator.\-phr.
+
+
+
+\subsection{Enumeration Type Documentation}
+\index{P\-P\-M\-Generator.\-phr@{P\-P\-M\-Generator.\-phr}!P\-P\-M\-Gen\-States@{P\-P\-M\-Gen\-States}}
+\index{P\-P\-M\-Gen\-States@{P\-P\-M\-Gen\-States}!PPMGenerator.phr@{P\-P\-M\-Generator.\-phr}}
+\subsubsection[{P\-P\-M\-Gen\-States}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf P\-P\-M\-Gen\-States}}\label{_p_p_m_generator_8phr_a311ad7b91a32e440fb79217000830a31}
+\begin{Desc}
+\item[Enumerator\-: ]\par
+\begin{description}
+\index{S\-E\-N\-D\-\_\-\-P\-U\-L\-S\-E@{S\-E\-N\-D\-\_\-\-P\-U\-L\-S\-E}!P\-P\-M\-Generator.\-phr@{P\-P\-M\-Generator.\-phr}}\index{P\-P\-M\-Generator.\-phr@{P\-P\-M\-Generator.\-phr}!S\-E\-N\-D\-\_\-\-P\-U\-L\-S\-E@{S\-E\-N\-D\-\_\-\-P\-U\-L\-S\-E}}\item[{\em 
+S\-E\-N\-D\-\_\-\-P\-U\-L\-S\-E\label{_p_p_m_generator_8phr_a311ad7b91a32e440fb79217000830a31a8dadcb39ce7e264fb28174fb6a5188a7}
+}]\index{S\-E\-N\-D\-\_\-\-C\-H\-A\-N\-N\-E\-L\-\_\-\-P\-E\-R\-I\-O\-D@{S\-E\-N\-D\-\_\-\-C\-H\-A\-N\-N\-E\-L\-\_\-\-P\-E\-R\-I\-O\-D}!P\-P\-M\-Generator.\-phr@{P\-P\-M\-Generator.\-phr}}\index{P\-P\-M\-Generator.\-phr@{P\-P\-M\-Generator.\-phr}!S\-E\-N\-D\-\_\-\-C\-H\-A\-N\-N\-E\-L\-\_\-\-P\-E\-R\-I\-O\-D@{S\-E\-N\-D\-\_\-\-C\-H\-A\-N\-N\-E\-L\-\_\-\-P\-E\-R\-I\-O\-D}}\item[{\em 
+S\-E\-N\-D\-\_\-\-C\-H\-A\-N\-N\-E\-L\-\_\-\-P\-E\-R\-I\-O\-D\label{_p_p_m_generator_8phr_a311ad7b91a32e440fb79217000830a31aa485cd7c8efb596058e0ca627e9b3325}
+}]\index{W\-A\-I\-T\-\_\-\-E\-N\-D\-\_\-\-O\-F\-\_\-\-C\-Y\-C\-L\-E@{W\-A\-I\-T\-\_\-\-E\-N\-D\-\_\-\-O\-F\-\_\-\-C\-Y\-C\-L\-E}!P\-P\-M\-Generator.\-phr@{P\-P\-M\-Generator.\-phr}}\index{P\-P\-M\-Generator.\-phr@{P\-P\-M\-Generator.\-phr}!W\-A\-I\-T\-\_\-\-E\-N\-D\-\_\-\-O\-F\-\_\-\-C\-Y\-C\-L\-E@{W\-A\-I\-T\-\_\-\-E\-N\-D\-\_\-\-O\-F\-\_\-\-C\-Y\-C\-L\-E}}\item[{\em 
+W\-A\-I\-T\-\_\-\-E\-N\-D\-\_\-\-O\-F\-\_\-\-C\-Y\-C\-L\-E\label{_p_p_m_generator_8phr_a311ad7b91a32e440fb79217000830a31a2b66206e3b8ae767241d47f20e8a42fd}
+}]\end{description}
+\end{Desc}
+
+
+
+Definition at line 29 of file P\-P\-M\-Generator.\-phr.
+
+
+
+\subsection{Function Documentation}
+\index{P\-P\-M\-Generator.\-phr@{P\-P\-M\-Generator.\-phr}!convert\-A\-D\-C2\-Period@{convert\-A\-D\-C2\-Period}}
+\index{convert\-A\-D\-C2\-Period@{convert\-A\-D\-C2\-Period}!PPMGenerator.phr@{P\-P\-M\-Generator.\-phr}}
+\subsubsection[{convert\-A\-D\-C2\-Period}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int convert\-A\-D\-C2\-Period (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{A\-D\-C\-Value}
+\end{DoxyParamCaption}
+)}\label{_p_p_m_generator_8phr_a9bd76a388fd9dd3260bf36afd96d958f}
+
+
+Definition at line 97 of file P\-P\-M\-Generator.\-phr.
+
+\index{P\-P\-M\-Generator.\-phr@{P\-P\-M\-Generator.\-phr}!init@{init}}
+\index{init@{init}!PPMGenerator.phr@{P\-P\-M\-Generator.\-phr}}
+\subsubsection[{init}]{\setlength{\rightskip}{0pt plus 5cm}void init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{_p_p_m_generator_8phr_a02fd73d861ef2e4aabb38c0c9ff82947}
+
+
+Definition at line 106 of file P\-P\-M\-Generator.\-phr.
+
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_p_p_m_generator_8phr_a02fd73d861ef2e4aabb38c0c9ff82947_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{P\-P\-M\-Generator.\-phr@{P\-P\-M\-Generator.\-phr}!P\-P\-M\-Generator@{P\-P\-M\-Generator}}
+\index{P\-P\-M\-Generator@{P\-P\-M\-Generator}!PPMGenerator.phr@{P\-P\-M\-Generator.\-phr}}
+\subsubsection[{P\-P\-M\-Generator}]{\setlength{\rightskip}{0pt plus 5cm}void P\-P\-M\-Generator (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{_p_p_m_generator_8phr_abc9a97503459061d4c0e740124645f2e}
+
+
+Definition at line 36 of file P\-P\-M\-Generator.\-phr.
+
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=278pt]{_p_p_m_generator_8phr_abc9a97503459061d4c0e740124645f2e_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{P\-P\-M\-Generator.\-phr@{P\-P\-M\-Generator.\-phr}!program@{program}}
+\index{program@{program}!PPMGenerator.phr@{P\-P\-M\-Generator.\-phr}}
+\subsubsection[{program}]{\setlength{\rightskip}{0pt plus 5cm}void program (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{_p_p_m_generator_8phr_aaed33fe77209e582d96078370b5f8da4}
+
+
+Definition at line 124 of file P\-P\-M\-Generator.\-phr.
+
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=270pt]{_p_p_m_generator_8phr_aaed33fe77209e582d96078370b5f8da4_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{Variable Documentation}
+\index{P\-P\-M\-Generator.\-phr@{P\-P\-M\-Generator.\-phr}!Blank\-Time\-Set@{Blank\-Time\-Set}}
+\index{Blank\-Time\-Set@{Blank\-Time\-Set}!PPMGenerator.phr@{P\-P\-M\-Generator.\-phr}}
+\subsubsection[{Blank\-Time\-Set}]{\setlength{\rightskip}{0pt plus 5cm}bit\-\_\-t Blank\-Time\-Set}\label{_p_p_m_generator_8phr_a6319ff798958abe5a210736cb945eabd}
+
+
+Definition at line 27 of file P\-P\-M\-Generator.\-phr.
+
+\index{P\-P\-M\-Generator.\-phr@{P\-P\-M\-Generator.\-phr}!channel\-\_\-ctr@{channel\-\_\-ctr}}
+\index{channel\-\_\-ctr@{channel\-\_\-ctr}!PPMGenerator.phr@{P\-P\-M\-Generator.\-phr}}
+\subsubsection[{channel\-\_\-ctr}]{\setlength{\rightskip}{0pt plus 5cm}signed char channel\-\_\-ctr}\label{_p_p_m_generator_8phr_ab802a746ef8b6394aaf8bf671ee08c86}
+
+
+Definition at line 19 of file P\-P\-M\-Generator.\-phr.
+
+\index{P\-P\-M\-Generator.\-phr@{P\-P\-M\-Generator.\-phr}!Channel\-Periods@{Channel\-Periods}}
+\index{Channel\-Periods@{Channel\-Periods}!PPMGenerator.phr@{P\-P\-M\-Generator.\-phr}}
+\subsubsection[{Channel\-Periods}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char Channel\-Periods[{\bf N\-U\-M\-\_\-\-O\-F\-\_\-\-C\-H\-A\-N\-N\-E\-L\-S}]}\label{_p_p_m_generator_8phr_a2645385d9990125efb50ff67b50df5ec}
+
+
+Definition at line 18 of file P\-P\-M\-Generator.\-phr.
+
+\index{P\-P\-M\-Generator.\-phr@{P\-P\-M\-Generator.\-phr}!Frame\-Blank\-Time@{Frame\-Blank\-Time}}
+\index{Frame\-Blank\-Time@{Frame\-Blank\-Time}!PPMGenerator.phr@{P\-P\-M\-Generator.\-phr}}
+\subsubsection[{Frame\-Blank\-Time}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long Frame\-Blank\-Time}\label{_p_p_m_generator_8phr_aa59552485ec3b8a1734aeb0850e41309}
+
+
+Definition at line 20 of file P\-P\-M\-Generator.\-phr.
+
+\index{P\-P\-M\-Generator.\-phr@{P\-P\-M\-Generator.\-phr}!P\-P\-M\-\_\-\-State@{P\-P\-M\-\_\-\-State}}
+\index{P\-P\-M\-\_\-\-State@{P\-P\-M\-\_\-\-State}!PPMGenerator.phr@{P\-P\-M\-Generator.\-phr}}
+\subsubsection[{P\-P\-M\-\_\-\-State}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char P\-P\-M\-\_\-\-State}\label{_p_p_m_generator_8phr_a18d8bc8a9be8e37de6acd9dd92fed209}
+
+
+Definition at line 18 of file P\-P\-M\-Generator.\-phr.
+
+\index{P\-P\-M\-Generator.\-phr@{P\-P\-M\-Generator.\-phr}!Send\-Pulse@{Send\-Pulse}}
+\index{Send\-Pulse@{Send\-Pulse}!PPMGenerator.phr@{P\-P\-M\-Generator.\-phr}}
+\subsubsection[{Send\-Pulse}]{\setlength{\rightskip}{0pt plus 5cm}bit\-\_\-t Send\-Pulse}\label{_p_p_m_generator_8phr_aafe5d17d764f167e414ce013f279b889}
+
+
+Definition at line 27 of file P\-P\-M\-Generator.\-phr.
+
+\index{P\-P\-M\-Generator.\-phr@{P\-P\-M\-Generator.\-phr}!Sum\-Of\-Periods@{Sum\-Of\-Periods}}
+\index{Sum\-Of\-Periods@{Sum\-Of\-Periods}!PPMGenerator.phr@{P\-P\-M\-Generator.\-phr}}
+\subsubsection[{Sum\-Of\-Periods}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long Sum\-Of\-Periods}\label{_p_p_m_generator_8phr_a2945ba2113bb2daae5840aa783f20df3}
+
+
+Definition at line 20 of file P\-P\-M\-Generator.\-phr.
+
+\index{P\-P\-M\-Generator.\-phr@{P\-P\-M\-Generator.\-phr}!tempvar@{tempvar}}
+\index{tempvar@{tempvar}!PPMGenerator.phr@{P\-P\-M\-Generator.\-phr}}
+\subsubsection[{tempvar}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char tempvar}\label{_p_p_m_generator_8phr_a6bb5ad6a4f802a6f8f847d997b10f071}
+
+
+Definition at line 18 of file P\-P\-M\-Generator.\-phr.
+

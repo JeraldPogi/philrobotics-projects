@@ -1,0 +1,11 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$corelib__timer_8c.html#acf72cf4216df47fd55b2b68944acd8e7" title="getElapsedTimeMs" alt="" coords="124,5,257,32"/>
+<area shape="rect" id="node5" href="$corelib__timer_8c.html#ae9bfb9f90b70aa56cee9f098bc432af9" title="getTimeMs" alt="" coords="147,56,234,83"/>
+<area shape="rect" id="node7" href="$corelib__pwm_8c.html#acbef1791f4d3d135da66a88b1f69988b" title="setAnalogOut" alt="" coords="140,107,241,133"/>
+<area shape="rect" id="node15" href="$servo_8c.html#a5a71de0d87a95d500d5ead1ff0572c3a" title="setServoAngle" alt="" coords="307,208,413,235"/>
+<area shape="rect" id="node17" href="$_p_p_m_generator_8phr.html#a9bd76a388fd9dd3260bf36afd96d958f" title="convertADC2Period" alt="" coords="123,208,258,235"/>
+<area shape="rect" id="node19" href="$servo_8c.html#ac3d05484a8479f4ccc8a944931a05af3" title="setServoPortAngle" alt="" coords="126,259,255,285"/>
+<area shape="rect" id="node9" href="$corelib__pwm_8c.html#a21481afa7d76f35cb0bb0140613352e4" title="setupPWM" alt="" coords="317,107,403,133"/>
+<area shape="rect" id="node11" href="$corelib__pwm_8c.html#ad30cbd98de04abc5d58ec540df5a04fc" title="setPWMFrequency" alt="" coords="462,81,597,108"/>
+<area shape="rect" id="node13" href="$corelib__pwm_8c.html#a27c205e7d1e45f5bdb245bd38c23d51e" title="setPWMDuty" alt="" coords="479,132,579,159"/>
+</map>

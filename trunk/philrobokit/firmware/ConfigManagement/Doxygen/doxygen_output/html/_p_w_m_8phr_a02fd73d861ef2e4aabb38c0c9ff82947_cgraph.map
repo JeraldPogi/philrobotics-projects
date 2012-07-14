@@ -1,0 +1,5 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$corelib__pwm_8c.html#a21481afa7d76f35cb0bb0140613352e4" title="setupPWM" alt="" coords="94,31,181,57"/>
+<area shape="rect" id="node5" href="$corelib__pwm_8c.html#ad30cbd98de04abc5d58ec540df5a04fc" title="setPWMFrequency" alt="" coords="230,5,365,32"/>
+<area shape="rect" id="node7" href="$corelib__pwm_8c.html#a27c205e7d1e45f5bdb245bd38c23d51e" title="setPWMDuty" alt="" coords="247,56,347,83"/>
+</map>

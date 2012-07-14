@@ -1,0 +1,7 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$corelib__timer_8c.html#ae6b9991ee92a30ad115ef6928829566a" title="timerInterruptHandler" alt="" coords="103,5,246,32"/>
+<area shape="rect" id="node5" href="$corelib__uart_8c.html#ae0717c2e8facfb4304da7e22d0127310" title="serialRxInterruptHandler" alt="" coords="95,56,255,83"/>
+<area shape="rect" id="node7" href="$corelib__user__interrupt_8c.html#aa1ef5be24251d01808e5dec4c6babd01" title="userInterruptHandler" alt="" coords="105,107,244,133"/>
+<area shape="rect" id="node9" href="$corelib__8bit__timer_8c.html#ae50d8b3d1589fa043eb15e8644275f1b" title="timer8bitInterruptHandler" alt="" coords="93,157,256,184"/>
+<area shape="rect" id="node11" href="$corelib__uart_8c.html#a6e374afdfd344351c59c2005a0b1eee0" title="serialTxInterruptHandler" alt="" coords="95,208,254,235"/>
+</map>

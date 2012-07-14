@@ -1,0 +1,166 @@
+\section{corelib\-\_\-timer.\-h File Reference}
+\label{corelib__timer_8h}\index{corelib\-\_\-timer.\-h@{corelib\-\_\-timer.\-h}}
+This graph shows which files directly or indirectly include this file\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{corelib__timer_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf setup\-Timer}()~{\bf timer\-Init}()
+\item 
+\#define {\bf C\-O\-N\-S\-T8\-\_\-\-T\-I\-M\-E\-R\-\_\-10\-U\-S}~(65530)
+\item 
+\#define {\bf C\-O\-N\-S\-T8\-\_\-\-T\-I\-M\-E\-R\-\_\-40\-U\-S}~(65511)
+\item 
+\#define {\bf C\-O\-N\-S\-T8\-\_\-\-T\-I\-M\-E\-R\-\_\-100\-U\-S}~(65473)
+\item 
+\#define {\bf C\-O\-N\-S\-T8\-\_\-\-T\-I\-M\-E\-R\-\_\-1000\-U\-S}~(64911)
+\item 
+\#define {\bf C\-O\-N\-S\-T16\-\_\-\-T\-I\-M\-E\-R}~{\bf C\-O\-N\-S\-T8\-\_\-\-T\-I\-M\-E\-R\-\_\-100\-U\-S}
+\item 
+\#define {\bf C\-O\-N\-S\-T16\-\_\-\-T\-I\-M\-E\-R\-\_\-\-I\-N\-C\-R\-E\-M\-E\-N\-T}~100
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void {\bf timer\-Interrupt\-Handler} (void)
+\item 
+void {\bf timer\-Init} (void)
+\item 
+unsigned int {\bf get\-Elapsed\-Time\-Ms} (unsigned int ui\-Time\-Ms)
+\item 
+unsigned int {\bf get\-Time\-Ms} (void)
+\item 
+unsigned int {\bf get\-Elapsed\-Time\-Us} (unsigned int ui\-Time\-Us)
+\item 
+unsigned int {\bf get\-Time\-Us} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{corelib\-\_\-timer.\-h@{corelib\-\_\-timer.\-h}!C\-O\-N\-S\-T16\-\_\-\-T\-I\-M\-E\-R@{C\-O\-N\-S\-T16\-\_\-\-T\-I\-M\-E\-R}}
+\index{C\-O\-N\-S\-T16\-\_\-\-T\-I\-M\-E\-R@{C\-O\-N\-S\-T16\-\_\-\-T\-I\-M\-E\-R}!corelib_timer.h@{corelib\-\_\-timer.\-h}}
+\subsubsection[{C\-O\-N\-S\-T16\-\_\-\-T\-I\-M\-E\-R}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-O\-N\-S\-T16\-\_\-\-T\-I\-M\-E\-R~{\bf C\-O\-N\-S\-T8\-\_\-\-T\-I\-M\-E\-R\-\_\-100\-U\-S}}\label{corelib__timer_8h_ab1e34d0568170099c396c1c17e32c0f4}
+
+
+Definition at line 59 of file corelib\-\_\-timer.\-h.
+
+\index{corelib\-\_\-timer.\-h@{corelib\-\_\-timer.\-h}!C\-O\-N\-S\-T16\-\_\-\-T\-I\-M\-E\-R\-\_\-\-I\-N\-C\-R\-E\-M\-E\-N\-T@{C\-O\-N\-S\-T16\-\_\-\-T\-I\-M\-E\-R\-\_\-\-I\-N\-C\-R\-E\-M\-E\-N\-T}}
+\index{C\-O\-N\-S\-T16\-\_\-\-T\-I\-M\-E\-R\-\_\-\-I\-N\-C\-R\-E\-M\-E\-N\-T@{C\-O\-N\-S\-T16\-\_\-\-T\-I\-M\-E\-R\-\_\-\-I\-N\-C\-R\-E\-M\-E\-N\-T}!corelib_timer.h@{corelib\-\_\-timer.\-h}}
+\subsubsection[{C\-O\-N\-S\-T16\-\_\-\-T\-I\-M\-E\-R\-\_\-\-I\-N\-C\-R\-E\-M\-E\-N\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-O\-N\-S\-T16\-\_\-\-T\-I\-M\-E\-R\-\_\-\-I\-N\-C\-R\-E\-M\-E\-N\-T~100}\label{corelib__timer_8h_a764ff9c4a8cbf28b27f7183e61532701}
+
+
+Definition at line 66 of file corelib\-\_\-timer.\-h.
+
+\index{corelib\-\_\-timer.\-h@{corelib\-\_\-timer.\-h}!C\-O\-N\-S\-T8\-\_\-\-T\-I\-M\-E\-R\-\_\-1000\-U\-S@{C\-O\-N\-S\-T8\-\_\-\-T\-I\-M\-E\-R\-\_\-1000\-U\-S}}
+\index{C\-O\-N\-S\-T8\-\_\-\-T\-I\-M\-E\-R\-\_\-1000\-U\-S@{C\-O\-N\-S\-T8\-\_\-\-T\-I\-M\-E\-R\-\_\-1000\-U\-S}!corelib_timer.h@{corelib\-\_\-timer.\-h}}
+\subsubsection[{C\-O\-N\-S\-T8\-\_\-\-T\-I\-M\-E\-R\-\_\-1000\-U\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-O\-N\-S\-T8\-\_\-\-T\-I\-M\-E\-R\-\_\-1000\-U\-S~(64911)}\label{corelib__timer_8h_a84acf4a011f9e3ef7f80ed2acc9e8911}
+
+
+Definition at line 57 of file corelib\-\_\-timer.\-h.
+
+\index{corelib\-\_\-timer.\-h@{corelib\-\_\-timer.\-h}!C\-O\-N\-S\-T8\-\_\-\-T\-I\-M\-E\-R\-\_\-100\-U\-S@{C\-O\-N\-S\-T8\-\_\-\-T\-I\-M\-E\-R\-\_\-100\-U\-S}}
+\index{C\-O\-N\-S\-T8\-\_\-\-T\-I\-M\-E\-R\-\_\-100\-U\-S@{C\-O\-N\-S\-T8\-\_\-\-T\-I\-M\-E\-R\-\_\-100\-U\-S}!corelib_timer.h@{corelib\-\_\-timer.\-h}}
+\subsubsection[{C\-O\-N\-S\-T8\-\_\-\-T\-I\-M\-E\-R\-\_\-100\-U\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-O\-N\-S\-T8\-\_\-\-T\-I\-M\-E\-R\-\_\-100\-U\-S~(65473)}\label{corelib__timer_8h_acec7f308afa3fe03929c63cbd7142518}
+
+
+Definition at line 56 of file corelib\-\_\-timer.\-h.
+
+\index{corelib\-\_\-timer.\-h@{corelib\-\_\-timer.\-h}!C\-O\-N\-S\-T8\-\_\-\-T\-I\-M\-E\-R\-\_\-10\-U\-S@{C\-O\-N\-S\-T8\-\_\-\-T\-I\-M\-E\-R\-\_\-10\-U\-S}}
+\index{C\-O\-N\-S\-T8\-\_\-\-T\-I\-M\-E\-R\-\_\-10\-U\-S@{C\-O\-N\-S\-T8\-\_\-\-T\-I\-M\-E\-R\-\_\-10\-U\-S}!corelib_timer.h@{corelib\-\_\-timer.\-h}}
+\subsubsection[{C\-O\-N\-S\-T8\-\_\-\-T\-I\-M\-E\-R\-\_\-10\-U\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-O\-N\-S\-T8\-\_\-\-T\-I\-M\-E\-R\-\_\-10\-U\-S~(65530)}\label{corelib__timer_8h_a7d10b4c09bb287c15fb884bf2c494fb6}
+
+
+Definition at line 54 of file corelib\-\_\-timer.\-h.
+
+\index{corelib\-\_\-timer.\-h@{corelib\-\_\-timer.\-h}!C\-O\-N\-S\-T8\-\_\-\-T\-I\-M\-E\-R\-\_\-40\-U\-S@{C\-O\-N\-S\-T8\-\_\-\-T\-I\-M\-E\-R\-\_\-40\-U\-S}}
+\index{C\-O\-N\-S\-T8\-\_\-\-T\-I\-M\-E\-R\-\_\-40\-U\-S@{C\-O\-N\-S\-T8\-\_\-\-T\-I\-M\-E\-R\-\_\-40\-U\-S}!corelib_timer.h@{corelib\-\_\-timer.\-h}}
+\subsubsection[{C\-O\-N\-S\-T8\-\_\-\-T\-I\-M\-E\-R\-\_\-40\-U\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-O\-N\-S\-T8\-\_\-\-T\-I\-M\-E\-R\-\_\-40\-U\-S~(65511)}\label{corelib__timer_8h_a11f28503310cb1f04502255784f1e75e}
+
+
+Definition at line 55 of file corelib\-\_\-timer.\-h.
+
+\index{corelib\-\_\-timer.\-h@{corelib\-\_\-timer.\-h}!setup\-Timer@{setup\-Timer}}
+\index{setup\-Timer@{setup\-Timer}!corelib_timer.h@{corelib\-\_\-timer.\-h}}
+\subsubsection[{setup\-Timer}]{\setlength{\rightskip}{0pt plus 5cm}\#define setup\-Timer(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~{\bf timer\-Init}()}\label{corelib__timer_8h_aaf8f8cfbfa3cd87d92855860610e801f}
+
+
+Definition at line 52 of file corelib\-\_\-timer.\-h.
+
+
+
+\subsection{Function Documentation}
+\index{corelib\-\_\-timer.\-h@{corelib\-\_\-timer.\-h}!get\-Elapsed\-Time\-Ms@{get\-Elapsed\-Time\-Ms}}
+\index{get\-Elapsed\-Time\-Ms@{get\-Elapsed\-Time\-Ms}!corelib_timer.h@{corelib\-\_\-timer.\-h}}
+\subsubsection[{get\-Elapsed\-Time\-Ms}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int get\-Elapsed\-Time\-Ms (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{ui\-Time\-Ms}
+\end{DoxyParamCaption}
+)}\label{corelib__timer_8h_acf72cf4216df47fd55b2b68944acd8e7}
+
+
+Definition at line 83 of file corelib\-\_\-timer.\-c.
+
+\index{corelib\-\_\-timer.\-h@{corelib\-\_\-timer.\-h}!get\-Elapsed\-Time\-Us@{get\-Elapsed\-Time\-Us}}
+\index{get\-Elapsed\-Time\-Us@{get\-Elapsed\-Time\-Us}!corelib_timer.h@{corelib\-\_\-timer.\-h}}
+\subsubsection[{get\-Elapsed\-Time\-Us}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int get\-Elapsed\-Time\-Us (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{ui\-Time\-Us}
+\end{DoxyParamCaption}
+)}\label{corelib__timer_8h_a0493c088a76d2d3ab4037d3f8ddcdb96}
+
+
+Definition at line 93 of file corelib\-\_\-timer.\-c.
+
+\index{corelib\-\_\-timer.\-h@{corelib\-\_\-timer.\-h}!get\-Time\-Ms@{get\-Time\-Ms}}
+\index{get\-Time\-Ms@{get\-Time\-Ms}!corelib_timer.h@{corelib\-\_\-timer.\-h}}
+\subsubsection[{get\-Time\-Ms}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int get\-Time\-Ms (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{corelib__timer_8h_ae9bfb9f90b70aa56cee9f098bc432af9}
+
+
+Definition at line 88 of file corelib\-\_\-timer.\-c.
+
+\index{corelib\-\_\-timer.\-h@{corelib\-\_\-timer.\-h}!get\-Time\-Us@{get\-Time\-Us}}
+\index{get\-Time\-Us@{get\-Time\-Us}!corelib_timer.h@{corelib\-\_\-timer.\-h}}
+\subsubsection[{get\-Time\-Us}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int get\-Time\-Us (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{corelib__timer_8h_a266203d02833370efae4349490a6046f}
+
+
+Definition at line 98 of file corelib\-\_\-timer.\-c.
+
+\index{corelib\-\_\-timer.\-h@{corelib\-\_\-timer.\-h}!timer\-Init@{timer\-Init}}
+\index{timer\-Init@{timer\-Init}!corelib_timer.h@{corelib\-\_\-timer.\-h}}
+\subsubsection[{timer\-Init}]{\setlength{\rightskip}{0pt plus 5cm}void timer\-Init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{corelib__timer_8h_a1cabbdb02f36420b24c4ccd132972080}
+
+
+Definition at line 63 of file corelib\-\_\-timer.\-c.
+
+\index{corelib\-\_\-timer.\-h@{corelib\-\_\-timer.\-h}!timer\-Interrupt\-Handler@{timer\-Interrupt\-Handler}}
+\index{timer\-Interrupt\-Handler@{timer\-Interrupt\-Handler}!corelib_timer.h@{corelib\-\_\-timer.\-h}}
+\subsubsection[{timer\-Interrupt\-Handler}]{\setlength{\rightskip}{0pt plus 5cm}void timer\-Interrupt\-Handler (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{corelib__timer_8h_ae6b9991ee92a30ad115ef6928829566a}
+
+
+Definition at line 39 of file corelib\-\_\-timer.\-c.
+
