@@ -1,0 +1,6 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$____lib__template_8c.html#a3fef8284d54c3b0fb13d2f0dc5196821" title="Description: Formula can be documented by enclosing it between two \f$ symbol." alt="" coords="189,5,288,32"/>
+<area shape="rect" id="node5" href="$____lib__template_8c.html#a325f8c2e407e46eb43378ccebb135d24" title="Description: Tables are good for representing logic behavior." alt="" coords="193,56,284,83"/>
+<area shape="rect" id="node7" href="$____lib__template_8c.html#a62be57cef528180a0a7d7a792ffebfc3" title="Description: Flow Charts are good for showing sequential program flow." alt="" coords="347,31,464,57"/>
+<area shape="rect" id="node9" href="$____lib__template_8c.html#aeff2641d927668bc85b0d32861b24f22" title="Description: State Diagrams are good for showing distinct state behavior." alt="" coords="336,81,475,108"/>
+</map>

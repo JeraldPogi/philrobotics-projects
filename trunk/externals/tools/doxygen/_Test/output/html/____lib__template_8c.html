@@ -36,7 +36,7 @@
   <td style="padding-left: 0.5em;">
    <div id="projectname">PhilRobokit Coding Guidelines
    </div>
-   <div id="projectbrief">A Coding Guide Template for Developers and Contributors</div>
+   <div id="projectbrief">A Coding Guide and Template for Developers and Contributors</div>
   </td>
  </tr>
  </tbody>
@@ -94,7 +94,7 @@ $(document).ready(function(){initNavTree('____lib__template_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -106,7 +106,9 @@ $(document).ready(function(){initNavTree('____lib__template_8c.html','');});
 <div class="header">
   <div class="summary">
 <a href="#define-members">Macros</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">__lib_template.c File Reference</div>  </div>
 </div><!--header-->
@@ -124,47 +126,76 @@ Include dependency graph for __lib_template.c:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:af75326f3ca42905e32d07f10c31e78fb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____lib__template_8c.html#af75326f3ca42905e32d07f10c31e78fb">__MODULE_HEADER__</a></td></tr>
-<tr class="memdesc:af75326f3ca42905e32d07f10c31e78fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">This section was added for the Module Header to be shown on the documentation.  <a href="#af75326f3ca42905e32d07f10c31e78fb"></a><br/></td></tr>
-<tr class="memitem:a28927887322c9fa75b2aebd172f28e38"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____lib__template_8c.html#a28927887322c9fa75b2aebd172f28e38">K8_CONSTANTS</a>&#160;&#160;&#160;3UC</td></tr>
-<tr class="memdesc:a28927887322c9fa75b2aebd172f28e38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constants (Local or Global)  <a href="#a28927887322c9fa75b2aebd172f28e38"></a><br/></td></tr>
+<tr class="memitem:aa61948e995c04179b19d5e2ad6f5ac9f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____lib__template_8c.html#aa61948e995c04179b19d5e2ad6f5ac9f">__SHOW_MODULE_HEADER__</a></td></tr>
+<tr class="memdesc:aa61948e995c04179b19d5e2ad6f5ac9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This section is to include Module Header on the documentation.  <a href="#aa61948e995c04179b19d5e2ad6f5ac9f"></a><br/></td></tr>
+<tr class="memitem:ac02329c80da184245493ab1db0d0c435"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____lib__template_8c.html#ac02329c80da184245493ab1db0d0c435">KU8_CONSTANTS</a>&#160;&#160;&#160;3UC</td></tr>
+<tr class="memdesc:ac02329c80da184245493ab1db0d0c435"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constants (Local or Global)  <a href="#ac02329c80da184245493ab1db0d0c435"></a><br/></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:aa507e06619a5bbe7d9df1c5b38ececc8"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____lib__template_8c.html#aa507e06619a5bbe7d9df1c5b38ececc8">valid_states_e</a> { <br/>
+&#160;&#160;<a class="el" href="____lib__template_8c.html#aa507e06619a5bbe7d9df1c5b38ececc8adadac56a5b7d2248ca2cb34c907818c3">EU8_STATE0</a> =  0UC, 
+<a class="el" href="____lib__template_8c.html#aa507e06619a5bbe7d9df1c5b38ececc8aa393ffba30c6dbe8327461216b18420b">EU8_STATE1</a> =  1UC, 
+<a class="el" href="____lib__template_8c.html#aa507e06619a5bbe7d9df1c5b38ececc8abeaeb0357aa84a42748cfee3a189599e">EU8_STATE2</a> =  2UC, 
+<a class="el" href="____lib__template_8c.html#aa507e06619a5bbe7d9df1c5b38ececc8a983dfa9c0acbcaa9dce46584aa550914">EU8_STATE3</a> =  3UC, 
+<br/>
+&#160;&#160;<a class="el" href="____lib__template_8c.html#aa507e06619a5bbe7d9df1c5b38ececc8a89f1795dbd04e205466ce921c927d051">EU8_STATE4</a> =  4UC
+<br/>
+ }</td></tr>
+<tr class="memdesc:aa507e06619a5bbe7d9df1c5b38ececc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">&lt;  <a href="____lib__template_8c.html#aa507e06619a5bbe7d9df1c5b38ececc8">More...</a><br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:aa305cefaca8ce317c7d88cc1874ac7a5"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____lib__template_8c.html#aa305cefaca8ce317c7d88cc1874ac7a5">createFunctionNames</a> (void)</td></tr>
+<tr class="memdesc:aa305cefaca8ce317c7d88cc1874ac7a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Description: Function Naming Conventions.  <a href="#aa305cefaca8ce317c7d88cc1874ac7a5"></a><br/></td></tr>
+<tr class="memitem:a1ceef190ab10997b0a6566e85d1ec04c"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____lib__template_8c.html#a1ceef190ab10997b0a6566e85d1ec04c">callPrivateFunctions</a> (void)</td></tr>
+<tr class="memdesc:a1ceef190ab10997b0a6566e85d1ec04c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Description: Private Functions are functions that are accessible only within the module.  <a href="#a1ceef190ab10997b0a6566e85d1ec04c"></a><br/></td></tr>
+<tr class="memitem:aeff2641d927668bc85b0d32861b24f22"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____lib__template_8c.html#aeff2641d927668bc85b0d32861b24f22">showStateDiagrams</a> (uint8_t ui8X_Value)</td></tr>
+<tr class="memdesc:aeff2641d927668bc85b0d32861b24f22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Description: State Diagrams are good for showing distinct state behavior.  <a href="#aeff2641d927668bc85b0d32861b24f22"></a><br/></td></tr>
+<tr class="memitem:a62be57cef528180a0a7d7a792ffebfc3"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____lib__template_8c.html#a62be57cef528180a0a7d7a792ffebfc3">showFlowCharts</a> (uint8_t ui8X_Value)</td></tr>
+<tr class="memdesc:a62be57cef528180a0a7d7a792ffebfc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Description: Flow Charts are good for showing sequential program flow.  <a href="#a62be57cef528180a0a7d7a792ffebfc3"></a><br/></td></tr>
 <tr class="memitem:a3a6923995f4e3e60ca42cfd6c1b9849b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____lib__template_8c.html#a3a6923995f4e3e60ca42cfd6c1b9849b">callPublicFunctions</a> ()</td></tr>
-<tr class="memdesc:a3a6923995f4e3e60ca42cfd6c1b9849b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Public Functions are functions that are accessible outside the module.  <a href="#a3a6923995f4e3e60ca42cfd6c1b9849b"></a><br/></td></tr>
+<tr class="memdesc:a3a6923995f4e3e60ca42cfd6c1b9849b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Description: Public Functions are functions that are accessible outside the module.  <a href="#a3a6923995f4e3e60ca42cfd6c1b9849b"></a><br/></td></tr>
 <tr class="memitem:a3fef8284d54c3b0fb13d2f0dc5196821"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____lib__template_8c.html#a3fef8284d54c3b0fb13d2f0dc5196821">showFormula</a> (uint8_t ui8X_Value)</td></tr>
-<tr class="memdesc:a3fef8284d54c3b0fb13d2f0dc5196821"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formula can also be documented by enclosing it between \f$ symbol.  <a href="#a3fef8284d54c3b0fb13d2f0dc5196821"></a><br/></td></tr>
+<tr class="memdesc:a3fef8284d54c3b0fb13d2f0dc5196821"><td class="mdescLeft">&#160;</td><td class="mdescRight">Description: Formula can be documented by enclosing it between two \f$ symbol.  <a href="#a3fef8284d54c3b0fb13d2f0dc5196821"></a><br/></td></tr>
+<tr class="memitem:a325f8c2e407e46eb43378ccebb135d24"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____lib__template_8c.html#a325f8c2e407e46eb43378ccebb135d24">showTables</a> (uint8_t ui8X_Value)</td></tr>
+<tr class="memdesc:a325f8c2e407e46eb43378ccebb135d24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Description: Tables are good for representing logic behavior.  <a href="#a325f8c2e407e46eb43378ccebb135d24"></a><br/></td></tr>
 <tr class="memitem:a6288eba0f8e8ad3ab1544ad731eb7667"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____lib__template_8c.html#a6288eba0f8e8ad3ab1544ad731eb7667">main</a> (void)</td></tr>
-<tr class="memdesc:a6288eba0f8e8ad3ab1544ad731eb7667"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains a brief description of what a function does. This brief description can span multiple lines and is terminated by an empty line.  <a href="#a6288eba0f8e8ad3ab1544ad731eb7667"></a><br/></td></tr>
+<tr class="memdesc:a6288eba0f8e8ad3ab1544ad731eb7667"><td class="mdescLeft">&#160;</td><td class="mdescRight">Description: Contains a brief description of what a function does. This brief description can span multiple lines and is terminated by an empty line.  <a href="#a6288eba0f8e8ad3ab1544ad731eb7667"></a><br/></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a06262aab6d307fdbaea9efc5a1d9e9d9"><td class="memItemLeft" align="right" valign="top">static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____lib__template_8c.html#a06262aab6d307fdbaea9efc5a1d9e9d9">ui8LocalVariable</a></td></tr>
+<tr class="memdesc:a06262aab6d307fdbaea9efc5a1d9e9d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Local Variables (variable that are local to a module)  <a href="#a06262aab6d307fdbaea9efc5a1d9e9d9"></a><br/></td></tr>
+<tr class="memitem:a6baad34712404c0dee14696f3c26612d"><td class="memItemLeft" align="right" valign="top">enum <a class="el" href="____lib__template_8c.html#aa507e06619a5bbe7d9df1c5b38ececc8">valid_states_e</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____lib__template_8c.html#a6baad34712404c0dee14696f3c26612d">eValidStates</a></td></tr>
 </table>
 <hr/><h2>Macro Definition Documentation</h2>
-<a class="anchor" id="af75326f3ca42905e32d07f10c31e78fb"></a>
+<a class="anchor" id="aa61948e995c04179b19d5e2ad6f5ac9f"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define __MODULE_HEADER__</td>
+          <td class="memname">#define __SHOW_MODULE_HEADER__</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>This section was added for the Module Header to be shown on the documentation. </p>
+<p>This section is to include Module Header on the documentation. </p>
 <h1>PhilRobotics | Philippine Electronics and Robotics Enthusiasts Club</h1>
 <p><a href="http://philrobotics.com">http://philrobotics.com</a> | <a href="http://philrobotics.com/forum">http://philrobotics.com/forum</a> | <a href="http://facebook.com/philrobotics">http://facebook.com/philrobotics</a> <a href="#" onclick="location.href='mai'+'lto:'+'phi'+'ro'+'bot'+'ic'+'s.c'+'or'+'e@p'+'hi'+'lro'+'bo'+'tic'+'s.'+'com'; return false;">phiro<span style="display: none;">.nosp@m.</span>boti<span style="display: none;">.nosp@m.</span>cs.co<span style="display: none;">.nosp@m.</span>re@p<span style="display: none;">.nosp@m.</span>hilro<span style="display: none;">.nosp@m.</span>boti<span style="display: none;">.nosp@m.</span>cs.co<span style="display: none;">.nosp@m.</span>m</a> <hr/>
  <table class="doxtable">
 <tr>
-<th align="left">Filename: </th><th align="left">"__lib_template.c" </th></tr>
+<th align="left">Filename: </th><th align="left">"[filename].c" </th></tr>
 <tr>
 <td align="left">Description: </td><td align="left">This is a coding standard template file </td></tr>
 <tr>
-<td align="left">Revision: </td><td align="left">v00.00.01 </td></tr>
+<td align="left">Revision: </td><td align="left">vxx.xx.xx </td></tr>
 <tr>
-<td align="left">Author: </td><td align="left">Efren S. Cruzat II </td></tr>
+<td align="left">Author: </td><td align="left">[author's name] </td></tr>
 <tr>
 <td align="left"></td><td align="left"></td></tr>
 <tr>
-<td align="left">Dependencies:</td><td align="left"></td></tr>
+<td align="left">Dependencies:</td><td align="left">"__lib_template.h" </td></tr>
 </table>
 <blockquote class="doxtable">
 <p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. <br/>
@@ -172,8 +203,9 @@ Functions</h2></td></tr>
  You should have received a copy of the GNU General Public License along with this program. If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a></p>
 <p></p>
 </blockquote>
-<hr/>
- <table class="doxtable">
+<h2><br/>
+</h2>
+<table class="doxtable">
 <tr>
 <th align="left">FW Version </th><th align="left">Date </th><th align="left">Author </th><th align="left">Description </th></tr>
 <tr>
@@ -184,30 +216,116 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a28927887322c9fa75b2aebd172f28e38"></a>
+<a class="anchor" id="ac02329c80da184245493ab1db0d0c435"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define K8_CONSTANTS&#160;&#160;&#160;3UC</td>
+          <td class="memname">#define KU8_CONSTANTS&#160;&#160;&#160;3UC</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Constants (Local or Global) </p>
 <ul>
-<li>+ must have prefixed with "K&lt;#of_bits&gt;_"<ul>
-<li>must be written on all caps</li>
-<li>value must have explicitly defined type </li>
-</ul>
-</li>
+<li>must have a <b>prefix of K[unsigned][num_of_bits]_</b></li>
+<li>must be written on <em>all caps</em></li>
+<li>value must have <b>explicitly defined</b> data type </li>
 </ul>
 
 <p>Definition at line <a class="el" href="____lib__template_8c_source.html#l00038">38</a> of file <a class="el" href="____lib__template_8c_source.html">__lib_template.c</a>.</p>
 
 </div>
 </div>
+<hr/><h2>Enumeration Type Documentation</h2>
+<a class="anchor" id="aa507e06619a5bbe7d9df1c5b38ececc8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="____lib__template_8c.html#aa507e06619a5bbe7d9df1c5b38ececc8">valid_states_e</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>&lt; </p>
+<p>Enumeration </p>
+<dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em><a class="anchor" id="aa507e06619a5bbe7d9df1c5b38ececc8adadac56a5b7d2248ca2cb34c907818c3"></a>EU8_STATE0</em>&nbsp;</td><td>
+<ul>
+<li>enumeration identifier must have a <em>suffix of _e</em> to distinguish that it is an enumeration id </li>
+</ul>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="aa507e06619a5bbe7d9df1c5b38ececc8aa393ffba30c6dbe8327461216b18420b"></a>EU8_STATE1</em>&nbsp;</td><td>
+<ul>
+<li>if one of the list entry has its value defined, all the others must also be defined </li>
+</ul>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="aa507e06619a5bbe7d9df1c5b38ececc8abeaeb0357aa84a42748cfee3a189599e"></a>EU8_STATE2</em>&nbsp;</td><td>
+<ul>
+<li>must have a <b>prefix of E[unsigned][num_of_bits]_</b> </li>
+</ul>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="aa507e06619a5bbe7d9df1c5b38ececc8a983dfa9c0acbcaa9dce46584aa550914"></a>EU8_STATE3</em>&nbsp;</td><td>
+<ul>
+<li>must be written on <em>all caps</em> </li>
+</ul>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="aa507e06619a5bbe7d9df1c5b38ececc8a89f1795dbd04e205466ce921c927d051"></a>EU8_STATE4</em>&nbsp;</td><td>
+<ul>
+<li>value must have <b>explicitly defined</b> data type </li>
+</ul>
+</td></tr>
+</table>
+</dd>
+</dl>
+
+<p>Definition at line <a class="el" href="____lib__template_8c_source.html#l00070">70</a> of file <a class="el" href="____lib__template_8c_source.html">__lib_template.c</a>.</p>
+
+</div>
+</div>
 <hr/><h2>Function Documentation</h2>
+<a class="anchor" id="a1ceef190ab10997b0a6566e85d1ec04c"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void callPrivateFunctions </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Description: Private Functions are functions that are accessible only within the module. </p>
+<ul>
+<li>it must always be declared static</li>
+<li>prototypes must be declared on the ".c file" where the function is located </li>
+</ul>
+
+<p>Definition at line <a class="el" href="____lib__template_8c_source.html#l00277">277</a> of file <a class="el" href="____lib__template_8c_source.html">__lib_template.c</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="____lib__template_8c_a1ceef190ab10997b0a6566e85d1ec04c_cgraph.png" border="0" usemap="#____lib__template_8c_a1ceef190ab10997b0a6566e85d1ec04c_cgraph" alt=""/></div>
+<map name="____lib__template_8c_a1ceef190ab10997b0a6566e85d1ec04c_cgraph" id="____lib__template_8c_a1ceef190ab10997b0a6566e85d1ec04c_cgraph">
+<area shape="rect" id="node3" href="____lib__template_8c.html#aa305cefaca8ce317c7d88cc1874ac7a5" title="Description: Function Naming Conventions." alt="" coords="192,5,341,32"/></map>
+</div>
+</p>
+
+</div>
+</div>
 <a class="anchor" id="a3a6923995f4e3e60ca42cfd6c1b9849b"></a>
 <div class="memitem">
 <div class="memproto">
@@ -221,18 +339,75 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Public Functions are functions that are accessible outside the module. </p>
+<p>Description: Public Functions are functions that are accessible outside the module. </p>
 <ul>
-<li>function name must follow the format &lt;action&gt;&lt;Module&gt;&lt;Parameter&gt;<ul>
+<li>functions must always have a prototype and must be declared at the ".h file" of that module</li>
+<li>if a function has no parameter, the "void" type is omitted in order to prevent compiler warnings (specifically for the Hi-Tech C) when used on the .phr without the void </li>
+</ul>
+<p>&lt; Local Variables (variables that are local to a function)</p>
+<ul>
+<li>must have assigned values before it can be used</li>
+<li>interrupt local variables must be declared static</li>
+</ul>
+
+<p>Definition at line <a class="el" href="____lib__template_8c_source.html#l00096">96</a> of file <a class="el" href="____lib__template_8c_source.html">__lib_template.c</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="____lib__template_8c_a3a6923995f4e3e60ca42cfd6c1b9849b_cgraph.png" border="0" usemap="#____lib__template_8c_a3a6923995f4e3e60ca42cfd6c1b9849b_cgraph" alt=""/></div>
+<map name="____lib__template_8c_a3a6923995f4e3e60ca42cfd6c1b9849b_cgraph" id="____lib__template_8c_a3a6923995f4e3e60ca42cfd6c1b9849b_cgraph">
+<area shape="rect" id="node3" href="____lib__template_8c.html#a3fef8284d54c3b0fb13d2f0dc5196821" title="Description: Formula can be documented by enclosing it between two \f$ symbol." alt="" coords="189,5,288,32"/><area shape="rect" id="node5" href="____lib__template_8c.html#a325f8c2e407e46eb43378ccebb135d24" title="Description: Tables are good for representing logic behavior." alt="" coords="193,56,284,83"/><area shape="rect" id="node7" href="____lib__template_8c.html#a62be57cef528180a0a7d7a792ffebfc3" title="Description: Flow Charts are good for showing sequential program flow." alt="" coords="347,31,464,57"/><area shape="rect" id="node9" href="____lib__template_8c.html#aeff2641d927668bc85b0d32861b24f22" title="Description: State Diagrams are good for showing distinct state behavior." alt="" coords="336,81,475,108"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="aa305cefaca8ce317c7d88cc1874ac7a5"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void createFunctionNames </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Description: Function Naming Conventions. </p>
+<ul>
+<li>must be as short as possible (2-4 words long)</li>
+<li>function names must follow the format [action][Module][Parameter]<ul>
 <li>e.g. getPinValue(Pin)</li>
 </ul>
 </li>
-<li>A prototype of the function must always be defined at the .h file of that module</li>
-<li>If a function has no parameter the "void" type is omitted to prevent Hi-Tech C warnings </li>
+<li>the [Parameter] may be omitted if there are no parameters to be set or derived on the module<ul>
+<li>e.g. setPin(Pin), clrPin(Pin)</li>
 </ul>
-<p>&lt; Variables local to a function must have assigned values before it can be used </p>
+</li>
+<li>the [Module] may be omitted if the [Parameter] is exclusive to the module or for the purpose of simplicity<ul>
+<li>e.g. getMS() </li>
+</ul>
+</li>
+</ul>
+<p>&lt; Local Variables (variables that are local to a function)</p>
+<ul>
+<li>must have assigned values before they can be used</li>
+<li>interrupt local variables must be declared static</li>
+</ul>
 
-<p>Definition at line <a class="el" href="____lib__template_8c_source.html#l00069">69</a> of file <a class="el" href="____lib__template_8c_source.html">__lib_template.c</a>.</p>
+<p>Definition at line <a class="el" href="____lib__template_8c_source.html#l00262">262</a> of file <a class="el" href="____lib__template_8c_source.html">__lib_template.c</a>.</p>
 
 </div>
 </div>
@@ -250,10 +425,51 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Contains a brief description of what a function does. This brief description can span multiple lines and is terminated by an empty line. </p>
-<p>Detailed Description can start after the empty line. Entries entered on the detailed description are not shown on the summary view </p>
+<p>Description: Contains a brief description of what a function does. This brief description can span multiple lines and is terminated by an empty line. </p>
+<p>A detailed description can start after the empty line. Entries entered on the detailed description are not shown on the Functions summary view </p>
 
-<p>Definition at line <a class="el" href="____lib__template_8c_source.html#l00099">99</a> of file <a class="el" href="____lib__template_8c_source.html">__lib_template.c</a>.</p>
+<p>Definition at line <a class="el" href="____lib__template_8c_source.html#l00237">237</a> of file <a class="el" href="____lib__template_8c_source.html">__lib_template.c</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="____lib__template_8c_a6288eba0f8e8ad3ab1544ad731eb7667_cgraph.png" border="0" usemap="#____lib__template_8c_a6288eba0f8e8ad3ab1544ad731eb7667_cgraph" alt=""/></div>
+<map name="____lib__template_8c_a6288eba0f8e8ad3ab1544ad731eb7667_cgraph" id="____lib__template_8c_a6288eba0f8e8ad3ab1544ad731eb7667_cgraph">
+<area shape="rect" id="node3" href="____lib__template_8c.html#a1ceef190ab10997b0a6566e85d1ec04c" title="Description: Private Functions are functions that are accessible only within the module." alt="" coords="104,5,243,32"/><area shape="rect" id="node7" href="____lib__template_8c.html#a3a6923995f4e3e60ca42cfd6c1b9849b" title="Description: Public Functions are functions that are accessible outside the module." alt="" coords="106,56,241,83"/><area shape="rect" id="node5" href="____lib__template_8c.html#aa305cefaca8ce317c7d88cc1874ac7a5" title="Description: Function Naming Conventions." alt="" coords="291,5,440,32"/><area shape="rect" id="node9" href="____lib__template_8c.html#a3fef8284d54c3b0fb13d2f0dc5196821" title="Description: Formula can be documented by enclosing it between two \f$ symbol." alt="" coords="316,56,415,83"/><area shape="rect" id="node11" href="____lib__template_8c.html#a325f8c2e407e46eb43378ccebb135d24" title="Description: Tables are good for representing logic behavior." alt="" coords="320,107,411,133"/><area shape="rect" id="node13" href="____lib__template_8c.html#a62be57cef528180a0a7d7a792ffebfc3" title="Description: Flow Charts are good for showing sequential program flow." alt="" coords="499,81,616,108"/><area shape="rect" id="node15" href="____lib__template_8c.html#aeff2641d927668bc85b0d32861b24f22" title="Description: State Diagrams are good for showing distinct state behavior." alt="" coords="488,132,627,159"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a62be57cef528180a0a7d7a792ffebfc3"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void showFlowCharts </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>ui8X_Value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Description: Flow Charts are good for showing sequential program flow. </p>
+<div align="center">
+<img src="dot_inline_dotgraph_1.png" alt="dot_inline_dotgraph_1.png" border="0" usemap="#dot_inline_dotgraph_1.map"/>
+<map name="dot_inline_dotgraph_1.map" id="dot_inline_dotgraph_1.map"></map>
+</div>
+
+<p>Definition at line <a class="el" href="____lib__template_8c_source.html#l00168">168</a> of file <a class="el" href="____lib__template_8c_source.html">__lib_template.c</a>.</p>
 
 </div>
 </div>
@@ -271,13 +487,167 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Formula can also be documented by enclosing it between \f$ symbol. </p>
-<p>This example function converts the input X to corresponding Y value... </p>
+<p>Description: Formula can be documented by enclosing it between two \f$ symbol. </p>
+<p>This is an example of a function that converts the input X to corresponding Y value. </p>
 <blockquote class="doxtable">
 <p>\( Y = 3/4 X + 10 \) </p>
 </blockquote>
+<p>&lt; function returns and assignment to variables must be explicitly casted to proper types </p>
 
-<p>Definition at line <a class="el" href="____lib__template_8c_source.html#l00083">83</a> of file <a class="el" href="____lib__template_8c_source.html">__lib_template.c</a>.</p>
+<p>Definition at line <a class="el" href="____lib__template_8c_source.html#l00113">113</a> of file <a class="el" href="____lib__template_8c_source.html">__lib_template.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aeff2641d927668bc85b0d32861b24f22"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void showStateDiagrams </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>ui8X_Value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Description: State Diagrams are good for showing distinct state behavior. </p>
+<div align="center">
+<img src="dot_inline_dotgraph_2.png" alt="dot_inline_dotgraph_2.png" border="0" usemap="#dot_inline_dotgraph_2.map"/>
+<map name="dot_inline_dotgraph_2.map" id="dot_inline_dotgraph_2.map"></map>
+</div>
+<p>&lt; all switch cases must have a break at the end.</p>
+<p>&lt; if it is an intentional fallthrough, the purpose must be clearly documented</p>
+<p>&lt; there should always have a default condition on every switch statements </p>
+
+<p>Definition at line <a class="el" href="____lib__template_8c_source.html#l00190">190</a> of file <a class="el" href="____lib__template_8c_source.html">__lib_template.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a325f8c2e407e46eb43378ccebb135d24"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void showTables </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>ui8X_Value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Description: Tables are good for representing logic behavior. </p>
+<table class="doxtable">
+<tr>
+<th align="left">Left Aligned </th><th align="center">Center Aligned </th><th align="right">Right Aligned </th></tr>
+<tr>
+<td align="left">0 </td><td align="center">0 </td><td align="right">0 </td></tr>
+<tr>
+<td align="left">0 </td><td align="center">1 </td><td align="right">1 </td></tr>
+<tr>
+<td align="left">1 </td><td align="center">0 </td><td align="right">1 </td></tr>
+<tr>
+<td align="left">1 </td><td align="center">1 </td><td align="right">0 </td></tr>
+</table>
+<p>&lt; when using the *== operator* to compare a variable to a constant, it is best to place the constant on the left hand side of the operation because this prevents the possibility of assigning a value, instead of comparing it, when one of the '=' sign gets accidentally omitted. For consistency, same rule applies for the *!=* operator.</p>
+<p>&lt; every <b>if-else if</b> statement must end with else condition even if it is doing nothing </p>
+
+<p>Definition at line <a class="el" href="____lib__template_8c_source.html#l00128">128</a> of file <a class="el" href="____lib__template_8c_source.html">__lib_template.c</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="____lib__template_8c_a325f8c2e407e46eb43378ccebb135d24_cgraph.png" border="0" usemap="#____lib__template_8c_a325f8c2e407e46eb43378ccebb135d24_cgraph" alt=""/></div>
+<map name="____lib__template_8c_a325f8c2e407e46eb43378ccebb135d24_cgraph" id="____lib__template_8c_a325f8c2e407e46eb43378ccebb135d24_cgraph">
+<area shape="rect" id="node3" href="____lib__template_8c.html#a62be57cef528180a0a7d7a792ffebfc3" title="Description: Flow Charts are good for showing sequential program flow." alt="" coords="155,5,272,32"/><area shape="rect" id="node5" href="____lib__template_8c.html#aeff2641d927668bc85b0d32861b24f22" title="Description: State Diagrams are good for showing distinct state behavior." alt="" coords="144,56,283,83"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<hr/><h2>Variable Documentation</h2>
+<a class="anchor" id="a6baad34712404c0dee14696f3c26612d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="____lib__template_8c.html#aa507e06619a5bbe7d9df1c5b38ececc8">valid_states_e</a> eValidStates</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a06262aab6d307fdbaea9efc5a1d9e9d9"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t ui8LocalVariable</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Local Variables (variable that are local to a module) </p>
+<ul>
+<li>must be declared <b>static</b></li>
+<li>the name must be a <em>noun that will best describe its purpose</em><ul>
+<li>(e.g. ui8EventsCounter, ui8TimeDelay, ui8SecTimer)</li>
+</ul>
+</li>
+<li>the name must follow <a href="http://en.wikipedia.org/wiki/Hungarian_notation">Hungarian Notation</a> for adding name prefix</li>
+</ul>
+<table class="doxtable">
+<tr>
+<th align="left">data types </th><th align="left">prefix </th><th align="left">example </th></tr>
+<tr>
+<td align="left">local </td><td align="left">none </td><td align="left">i8TempVar </td></tr>
+<tr>
+<td align="left">global </td><td align="left">g </td><td align="left">gi8TempVar </td></tr>
+<tr>
+<td align="left">signed </td><td align="left">none </td><td align="left">i8TempVar </td></tr>
+<tr>
+<td align="left">unsigned </td><td align="left">u </td><td align="left">ui8TempVar </td></tr>
+<tr>
+<td align="left">char_t </td><td align="left">c </td><td align="left">cTempVar </td></tr>
+<tr>
+<td align="left">int8_t </td><td align="left">i8 </td><td align="left">i8TempVar </td></tr>
+<tr>
+<td align="left">int16_t </td><td align="left">i16 </td><td align="left">i16TempVar </td></tr>
+<tr>
+<td align="left">int24_t </td><td align="left">i24 </td><td align="left">i24TempVar </td></tr>
+<tr>
+<td align="left">int32_t </td><td align="left">i32 </td><td align="left">i32TempVar </td></tr>
+<tr>
+<td align="left">float_t </td><td align="left">f </td><td align="left">fTempVar </td></tr>
+<tr>
+<td align="left">double_t </td><td align="left">d </td><td align="left">dTempVar </td></tr>
+<tr>
+<td align="left">bit_t </td><td align="left">b </td><td align="left">bTempVar </td></tr>
+<tr>
+<td align="left">bool_t </td><td align="left">bl </td><td align="left">blTempVar </td></tr>
+</table>
+
+<p>Definition at line <a class="el" href="____lib__template_8c_source.html#l00046">46</a> of file <a class="el" href="____lib__template_8c_source.html">__lib_template.c</a>.</p>
 
 </div>
 </div>
@@ -287,7 +657,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="____lib__template_8c.html">__lib_template.c</a></li>
-    <li class="footer">Generated on Sat Jul 14 2012 15:55:45 for PhilRobokit Coding Guidelines by
+    <li class="footer">Generated on Mon Jul 16 2012 00:01:49 for PhilRobokit Coding Guidelines by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.1.1 </li>
   </ul>
