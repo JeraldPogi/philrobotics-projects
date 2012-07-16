@@ -11,28 +11,57 @@ Include dependency graph for \-\_\-\-\_\-lib\-\_\-template.\-c\-:\nopagebreak
 \subsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define {\bf \-\_\-\-\_\-\-M\-O\-D\-U\-L\-E\-\_\-\-H\-E\-A\-D\-E\-R\-\_\-\-\_\-}
-\begin{DoxyCompactList}\small\item\em This section was added for the Module Header to be shown on the documentation. \end{DoxyCompactList}\item 
-\#define {\bf K8\-\_\-\-C\-O\-N\-S\-T\-A\-N\-T\-S}~3\-U\-C
+\#define {\bf \-\_\-\-\_\-\-S\-H\-O\-W\-\_\-\-M\-O\-D\-U\-L\-E\-\_\-\-H\-E\-A\-D\-E\-R\-\_\-\-\_\-}
+\begin{DoxyCompactList}\small\item\em This section is to include Module Header on the documentation. \end{DoxyCompactList}\item 
+\#define {\bf K\-U8\-\_\-\-C\-O\-N\-S\-T\-A\-N\-T\-S}~3\-U\-C
 \begin{DoxyCompactList}\small\item\em Constants (Local or Global) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bf valid\-\_\-states\-\_\-e} \{ \\*
+{\bf E\-U8\-\_\-\-S\-T\-A\-T\-E0} =  0\-U\-C, 
+{\bf E\-U8\-\_\-\-S\-T\-A\-T\-E1} =  1\-U\-C, 
+{\bf E\-U8\-\_\-\-S\-T\-A\-T\-E2} =  2\-U\-C, 
+{\bf E\-U8\-\_\-\-S\-T\-A\-T\-E3} =  3\-U\-C, 
+\\*
+{\bf E\-U8\-\_\-\-S\-T\-A\-T\-E4} =  4\-U\-C
+ \}
+\begin{DoxyCompactList}\small\item\em $<$ \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+static void {\bf create\-Function\-Names} (void)
+\begin{DoxyCompactList}\small\item\em Description\-: Function Naming Conventions. \end{DoxyCompactList}\item 
+static void {\bf call\-Private\-Functions} (void)
+\begin{DoxyCompactList}\small\item\em Description\-: Private Functions are functions that are accessible only within the module. \end{DoxyCompactList}\item 
+static void {\bf show\-State\-Diagrams} (uint8\-\_\-t ui8\-X\-\_\-\-Value)
+\begin{DoxyCompactList}\small\item\em Description\-: State Diagrams are good for showing distinct state behavior. \end{DoxyCompactList}\item 
+static void {\bf show\-Flow\-Charts} (uint8\-\_\-t ui8\-X\-\_\-\-Value)
+\begin{DoxyCompactList}\small\item\em Description\-: Flow Charts are good for showing sequential program flow. \end{DoxyCompactList}\item 
 void {\bf call\-Public\-Functions} ()
-\begin{DoxyCompactList}\small\item\em Public Functions are functions that are accessible outside the module. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Description\-: Public Functions are functions that are accessible outside the module. \end{DoxyCompactList}\item 
 uint8\-\_\-t {\bf show\-Formula} (uint8\-\_\-t ui8\-X\-\_\-\-Value)
-\begin{DoxyCompactList}\small\item\em Formula can also be documented by enclosing it between \textbackslash{}f\$ symbol. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Description\-: Formula can be documented by enclosing it between two \textbackslash{}f\$ symbol. \end{DoxyCompactList}\item 
+void {\bf show\-Tables} (uint8\-\_\-t ui8\-X\-\_\-\-Value)
+\begin{DoxyCompactList}\small\item\em Description\-: Tables are good for representing logic behavior. \end{DoxyCompactList}\item 
 void {\bf main} (void)
-\begin{DoxyCompactList}\small\item\em Contains a brief description of what a function does. This brief description can span multiple lines and is terminated by an empty line. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Description\-: Contains a brief description of what a function does. This brief description can span multiple lines and is terminated by an empty line. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static uint8\-\_\-t {\bf ui8\-Local\-Variable}
+\begin{DoxyCompactList}\small\item\em Local Variables (variable that are local to a module) \end{DoxyCompactList}\item 
+enum {\bf valid\-\_\-states\-\_\-e} {\bf e\-Valid\-States}
+\end{DoxyCompactItemize}
 
 
 \subsection{Macro Definition Documentation}
-\index{\-\_\-\-\_\-lib\-\_\-template.\-c@{\-\_\-\-\_\-lib\-\_\-template.\-c}!\-\_\-\-\_\-\-M\-O\-D\-U\-L\-E\-\_\-\-H\-E\-A\-D\-E\-R\-\_\-\-\_\-@{\-\_\-\-\_\-\-M\-O\-D\-U\-L\-E\-\_\-\-H\-E\-A\-D\-E\-R\-\_\-\-\_\-}}
-\index{\-\_\-\-\_\-\-M\-O\-D\-U\-L\-E\-\_\-\-H\-E\-A\-D\-E\-R\-\_\-\-\_\-@{\-\_\-\-\_\-\-M\-O\-D\-U\-L\-E\-\_\-\-H\-E\-A\-D\-E\-R\-\_\-\-\_\-}!__lib_template.c@{\-\_\-\-\_\-lib\-\_\-template.\-c}}
-\subsubsection[{\-\_\-\-\_\-\-M\-O\-D\-U\-L\-E\-\_\-\-H\-E\-A\-D\-E\-R\-\_\-\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\#define \-\_\-\-\_\-\-M\-O\-D\-U\-L\-E\-\_\-\-H\-E\-A\-D\-E\-R\-\_\-\-\_\-}\label{____lib__template_8c_af75326f3ca42905e32d07f10c31e78fb}
+\index{\-\_\-\-\_\-lib\-\_\-template.\-c@{\-\_\-\-\_\-lib\-\_\-template.\-c}!\-\_\-\-\_\-\-S\-H\-O\-W\-\_\-\-M\-O\-D\-U\-L\-E\-\_\-\-H\-E\-A\-D\-E\-R\-\_\-\-\_\-@{\-\_\-\-\_\-\-S\-H\-O\-W\-\_\-\-M\-O\-D\-U\-L\-E\-\_\-\-H\-E\-A\-D\-E\-R\-\_\-\-\_\-}}
+\index{\-\_\-\-\_\-\-S\-H\-O\-W\-\_\-\-M\-O\-D\-U\-L\-E\-\_\-\-H\-E\-A\-D\-E\-R\-\_\-\-\_\-@{\-\_\-\-\_\-\-S\-H\-O\-W\-\_\-\-M\-O\-D\-U\-L\-E\-\_\-\-H\-E\-A\-D\-E\-R\-\_\-\-\_\-}!__lib_template.c@{\-\_\-\-\_\-lib\-\_\-template.\-c}}
+\subsubsection[{\-\_\-\-\_\-\-S\-H\-O\-W\-\_\-\-M\-O\-D\-U\-L\-E\-\_\-\-H\-E\-A\-D\-E\-R\-\_\-\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\#define \-\_\-\-\_\-\-S\-H\-O\-W\-\_\-\-M\-O\-D\-U\-L\-E\-\_\-\-H\-E\-A\-D\-E\-R\-\_\-\-\_\-}\label{____lib__template_8c_aa61948e995c04179b19d5e2ad6f5ac9f}
 
 
-This section was added for the Module Header to be shown on the documentation. 
+This section is to include Module Header on the documentation. 
 
 \subsection*{Phil\-Robotics $|$ Philippine Electronics and Robotics Enthusiasts Club}
 
@@ -40,12 +69,12 @@ This section was added for the Module Header to be shown on the documentation.
 
  \begin{TabularC}{2}
 \hline
-\rowcolor{lightgray}{\bf Filename\-: }&{\bf \char`\"{}\-\_\-\-\_\-lib\-\_\-template.\-c\char`\"{} }\\\cline{1-2}
+\rowcolor{lightgray}{\bf Filename\-: }&{\bf \char`\"{}[filename].\-c\char`\"{} }\\\cline{1-2}
 Description\-: &This is a coding standard template file \\\cline{1-2}
-Revision\-: &v00.\-00.\-01 \\\cline{1-2}
-Author\-: &Efren S. Cruzat I\-I \\\cline{1-2}
+Revision\-: &vxx.\-xx.\-xx \\\cline{1-2}
+Author\-: &[author's name] \\\cline{1-2}
 &\\\cline{1-2}
-Dependencies\-:&\\\cline{1-2}
+Dependencies\-:&\char`\"{}\-\_\-\-\_\-lib\-\_\-template.\-h\char`\"{} \\\cline{1-2}
 \end{TabularC}
 
 
@@ -55,9 +84,10 @@ This program is free software\-: you can redistribute it and/or modify it under 
  You should have received a copy of the G\-N\-U General Public License along with this program. If not, see {\tt http\-://www.\-gnu.\-org/licenses/}
 
 \end{quotation}
+\subsubsection*{\par
+}
 
-
- \begin{TabularC}{4}
+\begin{TabularC}{4}
 \hline
 \rowcolor{lightgray}{\bf F\-W Version }&{\bf Date }&{\bf Author }&{\bf Description }\\\cline{1-4}
 v00.\-00.\-01 &20120714 &E\-S\-C\-I\-I &Library Initial Release \\\cline{1-4}
@@ -66,27 +96,100 @@ v00.\-00.\-01 &20120714 &E\-S\-C\-I\-I &Library Initial Release \\\cline{1-4}
 
 Definition at line 32 of file \-\_\-\-\_\-lib\-\_\-template.\-c.
 
-\index{\-\_\-\-\_\-lib\-\_\-template.\-c@{\-\_\-\-\_\-lib\-\_\-template.\-c}!K8\-\_\-\-C\-O\-N\-S\-T\-A\-N\-T\-S@{K8\-\_\-\-C\-O\-N\-S\-T\-A\-N\-T\-S}}
-\index{K8\-\_\-\-C\-O\-N\-S\-T\-A\-N\-T\-S@{K8\-\_\-\-C\-O\-N\-S\-T\-A\-N\-T\-S}!__lib_template.c@{\-\_\-\-\_\-lib\-\_\-template.\-c}}
-\subsubsection[{K8\-\_\-\-C\-O\-N\-S\-T\-A\-N\-T\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define K8\-\_\-\-C\-O\-N\-S\-T\-A\-N\-T\-S~3\-U\-C}\label{____lib__template_8c_a28927887322c9fa75b2aebd172f28e38}
+\index{\-\_\-\-\_\-lib\-\_\-template.\-c@{\-\_\-\-\_\-lib\-\_\-template.\-c}!K\-U8\-\_\-\-C\-O\-N\-S\-T\-A\-N\-T\-S@{K\-U8\-\_\-\-C\-O\-N\-S\-T\-A\-N\-T\-S}}
+\index{K\-U8\-\_\-\-C\-O\-N\-S\-T\-A\-N\-T\-S@{K\-U8\-\_\-\-C\-O\-N\-S\-T\-A\-N\-T\-S}!__lib_template.c@{\-\_\-\-\_\-lib\-\_\-template.\-c}}
+\subsubsection[{K\-U8\-\_\-\-C\-O\-N\-S\-T\-A\-N\-T\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define K\-U8\-\_\-\-C\-O\-N\-S\-T\-A\-N\-T\-S~3\-U\-C}\label{____lib__template_8c_ac02329c80da184245493ab1db0d0c435}
 
 
 Constants (Local or Global) 
 
 
 \begin{DoxyItemize}
-\item + must have prefixed with \char`\"{}\-K$<$\#of\-\_\-bits$>$\-\_\-\char`\"{}
-\begin{DoxyItemize}
-\item must be written on all caps
-\item value must have explicitly defined type 
-\end{DoxyItemize}
+\item must have a {\bfseries prefix of K[unsigned][num\-\_\-of\-\_\-bits]\-\_\-}
+\item must be written on {\itshape all caps}
+\item value must have {\bfseries explicitly defined} data type 
 \end{DoxyItemize}
 
 Definition at line 38 of file \-\_\-\-\_\-lib\-\_\-template.\-c.
 
 
 
+\subsection{Enumeration Type Documentation}
+\index{\-\_\-\-\_\-lib\-\_\-template.\-c@{\-\_\-\-\_\-lib\-\_\-template.\-c}!valid\-\_\-states\-\_\-e@{valid\-\_\-states\-\_\-e}}
+\index{valid\-\_\-states\-\_\-e@{valid\-\_\-states\-\_\-e}!__lib_template.c@{\-\_\-\-\_\-lib\-\_\-template.\-c}}
+\subsubsection[{valid\-\_\-states\-\_\-e}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf valid\-\_\-states\-\_\-e}}\label{____lib__template_8c_aa507e06619a5bbe7d9df1c5b38ececc8}
+
+
+$<$ 
+
+Enumeration \begin{Desc}
+\item[Enumerator\-: ]\par
+\begin{description}
+\index{E\-U8\-\_\-\-S\-T\-A\-T\-E0@{E\-U8\-\_\-\-S\-T\-A\-T\-E0}!\-\_\-\-\_\-lib\-\_\-template.\-c@{\-\_\-\-\_\-lib\-\_\-template.\-c}}\index{\-\_\-\-\_\-lib\-\_\-template.\-c@{\-\_\-\-\_\-lib\-\_\-template.\-c}!E\-U8\-\_\-\-S\-T\-A\-T\-E0@{E\-U8\-\_\-\-S\-T\-A\-T\-E0}}\item[{\em 
+E\-U8\-\_\-\-S\-T\-A\-T\-E0\label{____lib__template_8c_aa507e06619a5bbe7d9df1c5b38ececc8adadac56a5b7d2248ca2cb34c907818c3}
+}]
+\begin{DoxyItemize}
+\item enumeration identifier must have a {\itshape suffix of \-\_\-e} to distinguish that it is an enumeration id 
+\end{DoxyItemize}\index{E\-U8\-\_\-\-S\-T\-A\-T\-E1@{E\-U8\-\_\-\-S\-T\-A\-T\-E1}!\-\_\-\-\_\-lib\-\_\-template.\-c@{\-\_\-\-\_\-lib\-\_\-template.\-c}}\index{\-\_\-\-\_\-lib\-\_\-template.\-c@{\-\_\-\-\_\-lib\-\_\-template.\-c}!E\-U8\-\_\-\-S\-T\-A\-T\-E1@{E\-U8\-\_\-\-S\-T\-A\-T\-E1}}\item[{\em 
+E\-U8\-\_\-\-S\-T\-A\-T\-E1\label{____lib__template_8c_aa507e06619a5bbe7d9df1c5b38ececc8aa393ffba30c6dbe8327461216b18420b}
+}]
+\begin{DoxyItemize}
+\item if one of the list entry has its value defined, all the others must also be defined 
+\end{DoxyItemize}\index{E\-U8\-\_\-\-S\-T\-A\-T\-E2@{E\-U8\-\_\-\-S\-T\-A\-T\-E2}!\-\_\-\-\_\-lib\-\_\-template.\-c@{\-\_\-\-\_\-lib\-\_\-template.\-c}}\index{\-\_\-\-\_\-lib\-\_\-template.\-c@{\-\_\-\-\_\-lib\-\_\-template.\-c}!E\-U8\-\_\-\-S\-T\-A\-T\-E2@{E\-U8\-\_\-\-S\-T\-A\-T\-E2}}\item[{\em 
+E\-U8\-\_\-\-S\-T\-A\-T\-E2\label{____lib__template_8c_aa507e06619a5bbe7d9df1c5b38ececc8abeaeb0357aa84a42748cfee3a189599e}
+}]
+\begin{DoxyItemize}
+\item must have a {\bfseries prefix of E[unsigned][num\-\_\-of\-\_\-bits]\-\_\-} 
+\end{DoxyItemize}\index{E\-U8\-\_\-\-S\-T\-A\-T\-E3@{E\-U8\-\_\-\-S\-T\-A\-T\-E3}!\-\_\-\-\_\-lib\-\_\-template.\-c@{\-\_\-\-\_\-lib\-\_\-template.\-c}}\index{\-\_\-\-\_\-lib\-\_\-template.\-c@{\-\_\-\-\_\-lib\-\_\-template.\-c}!E\-U8\-\_\-\-S\-T\-A\-T\-E3@{E\-U8\-\_\-\-S\-T\-A\-T\-E3}}\item[{\em 
+E\-U8\-\_\-\-S\-T\-A\-T\-E3\label{____lib__template_8c_aa507e06619a5bbe7d9df1c5b38ececc8a983dfa9c0acbcaa9dce46584aa550914}
+}]
+\begin{DoxyItemize}
+\item must be written on {\itshape all caps} 
+\end{DoxyItemize}\index{E\-U8\-\_\-\-S\-T\-A\-T\-E4@{E\-U8\-\_\-\-S\-T\-A\-T\-E4}!\-\_\-\-\_\-lib\-\_\-template.\-c@{\-\_\-\-\_\-lib\-\_\-template.\-c}}\index{\-\_\-\-\_\-lib\-\_\-template.\-c@{\-\_\-\-\_\-lib\-\_\-template.\-c}!E\-U8\-\_\-\-S\-T\-A\-T\-E4@{E\-U8\-\_\-\-S\-T\-A\-T\-E4}}\item[{\em 
+E\-U8\-\_\-\-S\-T\-A\-T\-E4\label{____lib__template_8c_aa507e06619a5bbe7d9df1c5b38ececc8a89f1795dbd04e205466ce921c927d051}
+}]
+\begin{DoxyItemize}
+\item value must have {\bfseries explicitly defined} data type 
+\end{DoxyItemize}\end{description}
+\end{Desc}
+
+
+
+Definition at line 70 of file \-\_\-\-\_\-lib\-\_\-template.\-c.
+
+
+
 \subsection{Function Documentation}
+\index{\-\_\-\-\_\-lib\-\_\-template.\-c@{\-\_\-\-\_\-lib\-\_\-template.\-c}!call\-Private\-Functions@{call\-Private\-Functions}}
+\index{call\-Private\-Functions@{call\-Private\-Functions}!__lib_template.c@{\-\_\-\-\_\-lib\-\_\-template.\-c}}
+\subsubsection[{call\-Private\-Functions}]{\setlength{\rightskip}{0pt plus 5cm}static void call\-Private\-Functions (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{____lib__template_8c_a1ceef190ab10997b0a6566e85d1ec04c}
+
+
+Description\-: Private Functions are functions that are accessible only within the module. 
+
+
+\begin{DoxyItemize}
+\item it must always be declared static
+\item prototypes must be declared on the \char`\"{}.\-c file\char`\"{} where the function is located 
+\end{DoxyItemize}
+
+Definition at line 277 of file \-\_\-\-\_\-lib\-\_\-template.\-c.
+
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{____lib__template_8c_a1ceef190ab10997b0a6566e85d1ec04c_cgraph}
+\end{center}
+\end{figure}
+
+
 \index{\-\_\-\-\_\-lib\-\_\-template.\-c@{\-\_\-\-\_\-lib\-\_\-template.\-c}!call\-Public\-Functions@{call\-Public\-Functions}}
 \index{call\-Public\-Functions@{call\-Public\-Functions}!__lib_template.c@{\-\_\-\-\_\-lib\-\_\-template.\-c}}
 \subsubsection[{call\-Public\-Functions}]{\setlength{\rightskip}{0pt plus 5cm}void call\-Public\-Functions (
@@ -96,19 +199,64 @@ Definition at line 38 of file \-\_\-\-\_\-lib\-\_\-template.\-c.
 )}\label{____lib__template_8c_a3a6923995f4e3e60ca42cfd6c1b9849b}
 
 
-Public Functions are functions that are accessible outside the module. 
+Description\-: Public Functions are functions that are accessible outside the module. 
 
 
 \begin{DoxyItemize}
-\item function name must follow the format $<$action$>$$<$\-Module$>$$<$\-Parameter$>$
+\item functions must always have a prototype and must be declared at the \char`\"{}.\-h file\char`\"{} of that module
+\item if a function has no parameter, the \char`\"{}void\char`\"{} type is omitted in order to prevent compiler warnings (specifically for the Hi-\/\-Tech C) when used on the .phr without the void 
+\end{DoxyItemize}$<$ Local Variables (variables that are local to a function)
+\begin{DoxyItemize}
+\item must have assigned values before it can be used
+\item interrupt local variables must be declared static
+\end{DoxyItemize}
+
+Definition at line 96 of file \-\_\-\-\_\-lib\-\_\-template.\-c.
+
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{____lib__template_8c_a3a6923995f4e3e60ca42cfd6c1b9849b_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{\-\_\-\-\_\-lib\-\_\-template.\-c@{\-\_\-\-\_\-lib\-\_\-template.\-c}!create\-Function\-Names@{create\-Function\-Names}}
+\index{create\-Function\-Names@{create\-Function\-Names}!__lib_template.c@{\-\_\-\-\_\-lib\-\_\-template.\-c}}
+\subsubsection[{create\-Function\-Names}]{\setlength{\rightskip}{0pt plus 5cm}void create\-Function\-Names (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{____lib__template_8c_aa305cefaca8ce317c7d88cc1874ac7a5}
+
+
+Description\-: Function Naming Conventions. 
+
+
+\begin{DoxyItemize}
+\item must be as short as possible (2-\/4 words long)
+\item function names must follow the format [action][Module][Parameter]
 \begin{DoxyItemize}
 \item e.\-g. get\-Pin\-Value(\-Pin)
 \end{DoxyItemize}
-\item A prototype of the function must always be defined at the .h file of that module
-\item If a function has no parameter the \char`\"{}void\char`\"{} type is omitted to prevent Hi-\/\-Tech C warnings 
-\end{DoxyItemize}$<$ Variables local to a function must have assigned values before it can be used 
+\item the [Parameter] may be omitted if there are no parameters to be set or derived on the module
+\begin{DoxyItemize}
+\item e.\-g. set\-Pin(\-Pin), clr\-Pin(\-Pin)
+\end{DoxyItemize}
+\item the [Module] may be omitted if the [Parameter] is exclusive to the module or for the purpose of simplicity
+\begin{DoxyItemize}
+\item e.\-g. get\-M\-S() 
+\end{DoxyItemize}
+\end{DoxyItemize}$<$ Local Variables (variables that are local to a function)
+\begin{DoxyItemize}
+\item must have assigned values before they can be used
+\item interrupt local variables must be declared static
+\end{DoxyItemize}
 
-Definition at line 69 of file \-\_\-\-\_\-lib\-\_\-template.\-c.
+Definition at line 262 of file \-\_\-\-\_\-lib\-\_\-template.\-c.
 
 \index{\-\_\-\-\_\-lib\-\_\-template.\-c@{\-\_\-\-\_\-lib\-\_\-template.\-c}!main@{main}}
 \index{main@{main}!__lib_template.c@{\-\_\-\-\_\-lib\-\_\-template.\-c}}
@@ -119,11 +267,43 @@ Definition at line 69 of file \-\_\-\-\_\-lib\-\_\-template.\-c.
 )}\label{____lib__template_8c_a6288eba0f8e8ad3ab1544ad731eb7667}
 
 
-Contains a brief description of what a function does. This brief description can span multiple lines and is terminated by an empty line. 
+Description\-: Contains a brief description of what a function does. This brief description can span multiple lines and is terminated by an empty line. 
 
-Detailed Description can start after the empty line. Entries entered on the detailed description are not shown on the summary view 
+A detailed description can start after the empty line. Entries entered on the detailed description are not shown on the Functions summary view 
 
-Definition at line 99 of file \-\_\-\-\_\-lib\-\_\-template.\-c.
+Definition at line 237 of file \-\_\-\-\_\-lib\-\_\-template.\-c.
+
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{____lib__template_8c_a6288eba0f8e8ad3ab1544ad731eb7667_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{\-\_\-\-\_\-lib\-\_\-template.\-c@{\-\_\-\-\_\-lib\-\_\-template.\-c}!show\-Flow\-Charts@{show\-Flow\-Charts}}
+\index{show\-Flow\-Charts@{show\-Flow\-Charts}!__lib_template.c@{\-\_\-\-\_\-lib\-\_\-template.\-c}}
+\subsubsection[{show\-Flow\-Charts}]{\setlength{\rightskip}{0pt plus 5cm}static void show\-Flow\-Charts (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{ui8\-X\-\_\-\-Value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{____lib__template_8c_a62be57cef528180a0a7d7a792ffebfc3}
+
+
+Description\-: Flow Charts are good for showing sequential program flow. 
+
+\begin{center}
+
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=\textwidth]{dot_inline_dotgraph_1}}
+\end{DoxyImageNoCaption}
+\end{center}
+
+
+Definition at line 168 of file \-\_\-\-\_\-lib\-\_\-template.\-c.
 
 \index{\-\_\-\-\_\-lib\-\_\-template.\-c@{\-\_\-\-\_\-lib\-\_\-template.\-c}!show\-Formula@{show\-Formula}}
 \index{show\-Formula@{show\-Formula}!__lib_template.c@{\-\_\-\-\_\-lib\-\_\-template.\-c}}
@@ -134,11 +314,122 @@ Definition at line 99 of file \-\_\-\-\_\-lib\-\_\-template.\-c.
 )}\label{____lib__template_8c_a3fef8284d54c3b0fb13d2f0dc5196821}
 
 
-Formula can also be documented by enclosing it between \textbackslash{}f\$ symbol. 
+Description\-: Formula can be documented by enclosing it between two \textbackslash{}f\$ symbol. 
 
-This example function converts the input X to corresponding Y value... \begin{quotation}
+This is an example of a function that converts the input X to corresponding Y value. \begin{quotation}
 $ Y = 3/4 X + 10 $ \end{quotation}
 
 
-Definition at line 83 of file \-\_\-\-\_\-lib\-\_\-template.\-c.
+$<$ function returns and assignment to variables must be explicitly casted to proper types 
+
+Definition at line 113 of file \-\_\-\-\_\-lib\-\_\-template.\-c.
+
+\index{\-\_\-\-\_\-lib\-\_\-template.\-c@{\-\_\-\-\_\-lib\-\_\-template.\-c}!show\-State\-Diagrams@{show\-State\-Diagrams}}
+\index{show\-State\-Diagrams@{show\-State\-Diagrams}!__lib_template.c@{\-\_\-\-\_\-lib\-\_\-template.\-c}}
+\subsubsection[{show\-State\-Diagrams}]{\setlength{\rightskip}{0pt plus 5cm}static void show\-State\-Diagrams (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{ui8\-X\-\_\-\-Value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{____lib__template_8c_aeff2641d927668bc85b0d32861b24f22}
+
+
+Description\-: State Diagrams are good for showing distinct state behavior. 
+
+\begin{center}
+
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=\textwidth]{dot_inline_dotgraph_2}}
+\end{DoxyImageNoCaption}
+\end{center}
+
+
+$<$ all switch cases must have a break at the end.
+
+$<$ if it is an intentional fallthrough, the purpose must be clearly documented
+
+$<$ there should always have a default condition on every switch statements 
+
+Definition at line 190 of file \-\_\-\-\_\-lib\-\_\-template.\-c.
+
+\index{\-\_\-\-\_\-lib\-\_\-template.\-c@{\-\_\-\-\_\-lib\-\_\-template.\-c}!show\-Tables@{show\-Tables}}
+\index{show\-Tables@{show\-Tables}!__lib_template.c@{\-\_\-\-\_\-lib\-\_\-template.\-c}}
+\subsubsection[{show\-Tables}]{\setlength{\rightskip}{0pt plus 5cm}void show\-Tables (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{ui8\-X\-\_\-\-Value}
+\end{DoxyParamCaption}
+)}\label{____lib__template_8c_a325f8c2e407e46eb43378ccebb135d24}
+
+
+Description\-: Tables are good for representing logic behavior. 
+
+\begin{TabularC}{3}
+\hline
+\rowcolor{lightgray}{\bf Left Aligned }&\PBS\centering {\bf Center Aligned }&\PBS\raggedleft {\bf Right Aligned }\\\cline{1-3}
+0 &\PBS\centering 0 &\PBS\raggedleft 0 \\\cline{1-3}
+0 &\PBS\centering 1 &\PBS\raggedleft 1 \\\cline{1-3}
+1 &\PBS\centering 0 &\PBS\raggedleft 1 \\\cline{1-3}
+1 &\PBS\centering 1 &\PBS\raggedleft 0 \\\cline{1-3}
+\end{TabularC}
+
+
+$<$ when using the $\ast$== operator$\ast$ to compare a variable to a constant, it is best to place the constant on the left hand side of the operation because this prevents the possibility of assigning a value, instead of comparing it, when one of the '=' sign gets accidentally omitted. For consistency, same rule applies for the $\ast$!=$\ast$ operator.
+
+$<$ every {\bfseries if-\/else if} statement must end with else condition even if it is doing nothing 
+
+Definition at line 128 of file \-\_\-\-\_\-lib\-\_\-template.\-c.
+
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=288pt]{____lib__template_8c_a325f8c2e407e46eb43378ccebb135d24_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{Variable Documentation}
+\index{\-\_\-\-\_\-lib\-\_\-template.\-c@{\-\_\-\-\_\-lib\-\_\-template.\-c}!e\-Valid\-States@{e\-Valid\-States}}
+\index{e\-Valid\-States@{e\-Valid\-States}!__lib_template.c@{\-\_\-\-\_\-lib\-\_\-template.\-c}}
+\subsubsection[{e\-Valid\-States}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf valid\-\_\-states\-\_\-e} e\-Valid\-States}\label{____lib__template_8c_a6baad34712404c0dee14696f3c26612d}
+\index{\-\_\-\-\_\-lib\-\_\-template.\-c@{\-\_\-\-\_\-lib\-\_\-template.\-c}!ui8\-Local\-Variable@{ui8\-Local\-Variable}}
+\index{ui8\-Local\-Variable@{ui8\-Local\-Variable}!__lib_template.c@{\-\_\-\-\_\-lib\-\_\-template.\-c}}
+\subsubsection[{ui8\-Local\-Variable}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t ui8\-Local\-Variable\hspace{0.3cm}{\ttfamily [static]}}\label{____lib__template_8c_a06262aab6d307fdbaea9efc5a1d9e9d9}
+
+
+Local Variables (variable that are local to a module) 
+
+
+\begin{DoxyItemize}
+\item must be declared {\bfseries static}
+\item the name must be a {\itshape noun that will best describe its purpose}
+\begin{DoxyItemize}
+\item (e.\-g. ui8\-Events\-Counter, ui8\-Time\-Delay, ui8\-Sec\-Timer)
+\end{DoxyItemize}
+\item the name must follow {\tt Hungarian Notation} for adding name prefix
+\end{DoxyItemize}
+
+\begin{TabularC}{3}
+\hline
+\rowcolor{lightgray}{\bf data types }&{\bf prefix }&{\bf example }\\\cline{1-3}
+local &none &i8\-Temp\-Var \\\cline{1-3}
+global &g &gi8\-Temp\-Var \\\cline{1-3}
+signed &none &i8\-Temp\-Var \\\cline{1-3}
+unsigned &u &ui8\-Temp\-Var \\\cline{1-3}
+char\-\_\-t &c &c\-Temp\-Var \\\cline{1-3}
+int8\-\_\-t &i8 &i8\-Temp\-Var \\\cline{1-3}
+int16\-\_\-t &i16 &i16\-Temp\-Var \\\cline{1-3}
+int24\-\_\-t &i24 &i24\-Temp\-Var \\\cline{1-3}
+int32\-\_\-t &i32 &i32\-Temp\-Var \\\cline{1-3}
+float\-\_\-t &f &f\-Temp\-Var \\\cline{1-3}
+double\-\_\-t &d &d\-Temp\-Var \\\cline{1-3}
+bit\-\_\-t &b &b\-Temp\-Var \\\cline{1-3}
+bool\-\_\-t &bl &bl\-Temp\-Var \\\cline{1-3}
+\end{TabularC}
+
+
+Definition at line 46 of file \-\_\-\-\_\-lib\-\_\-template.\-c.
 

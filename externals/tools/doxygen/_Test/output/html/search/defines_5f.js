@@ -1,4 +1,25 @@
 var searchData=
 [
-  ['_5f_5fshow_5fmodule_5fheader_5f_5f',['__SHOW_MODULE_HEADER__',['../____lib__template_8c.html#aa61948e995c04179b19d5e2ad6f5ac9f',1,'__SHOW_MODULE_HEADER__():&#160;__lib_template.c'],['../____lib__template_8h.html#aa61948e995c04179b19d5e2ad6f5ac9f',1,'__SHOW_MODULE_HEADER__():&#160;__lib_template.h']]]
+  ['_5f_5fbasics',['__BASICS',['../____lib__template_8h.html#a7864a852d9905ab5240b86ec05b7dafb',1,'__lib_template.h']]],
+  ['_5f_5fblocking_5ffunction',['__BLOCKING_FUNCTION',['../____lib__template_8h.html#a5e71ff5923bf14eb62355703edcc90c2',1,'__lib_template.h']]],
+  ['_5f_5fbrief',['__BRIEF',['../_commenting_01_guidelines_8h.html#a08daa730661cb3248b00239e7d0efa93',1,'Commenting Guidelines.h']]],
+  ['_5f_5fbullets',['__BULLETS',['../_commenting_01_guidelines_8h.html#add778a3ec5a13201a93c99ac7358f2f4',1,'Commenting Guidelines.h']]],
+  ['_5f_5fdoc_5fcomment_5fafter',['__DOC_COMMENT_AFTER',['../_commenting_01_guidelines_8h.html#a05481f633e29eef515b0444498677613',1,'Commenting Guidelines.h']]],
+  ['_5f_5fdoc_5fcomment_5fblock',['__DOC_COMMENT_BLOCK',['../_commenting_01_guidelines_8h.html#a67edf61ed8b786078bf4b121f25dfae8',1,'Commenting Guidelines.h']]],
+  ['_5f_5fdoc_5fcomment_5fontop',['__DOC_COMMENT_ONTOP',['../_commenting_01_guidelines_8h.html#a958480aceeadf39dc04920ba2747ffdb',1,'Commenting Guidelines.h']]],
+  ['_5f_5fdocumented_5fcomments',['__DOCUMENTED_COMMENTS',['../_commenting_01_guidelines_8h.html#a99e6a732bbd43c67e56c23a9246bdc1d',1,'Commenting Guidelines.h']]],
+  ['_5f_5femphasized',['__EMPHASIZED',['../_commenting_01_guidelines_8h.html#aa0a931a179622d48dcd7b0306f1b2e07',1,'Commenting Guidelines.h']]],
+  ['_5f_5ffunction_5fheaders',['__FUNCTION_HEADERS',['../_commenting_01_guidelines_8h.html#ac4b5df0c06e000352574229919103b4a',1,'Commenting Guidelines.h']]],
+  ['_5f_5flinks',['__LINKS',['../_commenting_01_guidelines_8h.html#a40746123d3443c33b94b1740fbf4c944',1,'Commenting Guidelines.h']]],
+  ['_5f_5fmodule_5fheaders',['__MODULE_HEADERS',['../_commenting_01_guidelines_8h.html#ae330e2c1688f21390daac2a636690d22',1,'Commenting Guidelines.h']]],
+  ['_5f_5fparagraph',['__PARAGRAPH',['../_commenting_01_guidelines_8h.html#a0022ffa77c9c45c3eef8e07c63f8fca1',1,'Commenting Guidelines.h']]],
+  ['_5f_5fph_5f',['__PH_',['../____lib__template_8h.html#a5558e4961c902c9d89a041dadd84d43e',1,'__lib_template.h']]],
+  ['_5f_5fph_5fcomments_5f_5fh_5f_5f',['__PH_COMMENTS__H__',['../_commenting_01_guidelines_8h.html#a9775ef95daddfe5e2f6dfc499769c6d8',1,'Commenting Guidelines.h']]],
+  ['_5f_5fqoutes',['__QOUTES',['../_commenting_01_guidelines_8h.html#a89fb37c2af27bdeb067b7415f4d5d973',1,'Commenting Guidelines.h']]],
+  ['_5f_5fshow_5fmodule_5fheader_5f_5f',['__SHOW_MODULE_HEADER__',['../____lib__template_8c.html#aa61948e995c04179b19d5e2ad6f5ac9f',1,'__SHOW_MODULE_HEADER__():&#160;__lib_template.c'],['../____lib__template_8h.html#aa61948e995c04179b19d5e2ad6f5ac9f',1,'__SHOW_MODULE_HEADER__():&#160;__lib_template.h'],['../_commenting_01_guidelines_8h.html#aa61948e995c04179b19d5e2ad6f5ac9f',1,'__SHOW_MODULE_HEADER__():&#160;Commenting Guidelines.h']]],
+  ['_5f_5ftabsize',['__TABSIZE',['../____lib__template_8h.html#a92becee03c19eb792bea3841c2cab633',1,'__lib_template.h']]],
+  ['_5f_5fundoc_5fcomment_5fafter',['__UNDOC_COMMENT_AFTER',['../_commenting_01_guidelines_8h.html#a8fc77337a2a32ae81cd1946cce324554',1,'Commenting Guidelines.h']]],
+  ['_5f_5fundoc_5fcomment_5fblock',['__UNDOC_COMMENT_BLOCK',['../_commenting_01_guidelines_8h.html#a250deeda134747bca6afcb07e417386d',1,'Commenting Guidelines.h']]],
+  ['_5f_5fundoc_5fcomment_5fontop',['__UNDOC_COMMENT_ONTOP',['../_commenting_01_guidelines_8h.html#a9d34bd0e40f9f1da18c9987ced225a0a',1,'Commenting Guidelines.h']]],
+  ['_5f_5fundocumented_5fcomments',['__UNDOCUMENTED_COMMENTS',['../_commenting_01_guidelines_8h.html#a4be95810703ad22687ae778f55e87a62',1,'Commenting Guidelines.h']]]
 ];
