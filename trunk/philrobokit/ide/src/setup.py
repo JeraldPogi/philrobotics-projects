@@ -45,31 +45,34 @@ if os.sys.platform == 'win32':
     # add win32 for pyserial
     packages.append('serial.win32')
     # add tool chain files
-    for dirname, dirnames, filenames in os.walk('tools/picc_win32'):
-        for filename in filenames:
-            fn = str( os.path.join(dirname, filename) )
-            if fn.find('.svn') < 0 : # exclude svn files
-                    files.append( fn )
-    
+    files += glob.glob('tools/picc_win32/*')
     EXE = Executable(
         script = 'main.pyw',
         base = 'Win32GUI',
         targetName = 'PhilRoboKitIDE.exe',
         icon = 'images/app.ico',
         )
+
 elif os.sys.platform == 'linux2':
     # add tool chain files
-    for dirname, dirnames, filenames in os.walk('tools/picc_linux'):
-        for filename in filenames:
-            fn = str( os.path.join(dirname, filename) )
-            if fn.find('.svn') < 0 : # exclude svn files
-                    files.append( fn )
+    files += glob.glob('tools/picc_linux/*')
     EXE = Executable(
         script = 'main.pyw',
         targetName = 'PhilRoboKitIDE',
         base = None,
         icon = None,
         )
+
+elif os.sys.platform == 'darwin':
+    # add tool chain files
+    files += glob.glob('tools/picc_osx/*')
+    EXE = Executable(
+        script = 'main.pyw',
+        targetName = 'PhilRoboKitIDE',
+        base = None,
+        icon = None,
+        )
+
 else:
     print 'platform not (yet) supported!'
 
