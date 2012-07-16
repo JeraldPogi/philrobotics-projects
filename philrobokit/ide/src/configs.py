@@ -25,6 +25,7 @@ IDE_POS = [100, 100]
 # default compilers (hi-tech C)
 DEFAULT_CC_WIN32 = 'tools/picc_win32/bin/picc'
 DEFAULT_CC_LINUX = 'tools/picc_linux/bin/picc'
+DEFAULT_CC_OSX   = 'tools/picc_osx/bin/picc'
 
 # default chip
 DEFAULT_CHIP = '16F877A' 
@@ -134,7 +135,12 @@ class CompilerConfig:
         elif os.sys.platform == 'linux2':
             self.CC = self.compilerCfg.value("COMPILER",
                             QtCore.QVariant(os.getcwd() + '/' + DEFAULT_CC_LINUX)).toString()
-        # todo: other host platform
+        elif os.sys.platform == 'darwin':
+            self.CC = self.compilerCfg.value("COMPILER",
+                            QtCore.QVariant(os.getcwd() + '/' + DEFAULT_CC_OSX)).toString()
+        else:
+            # todo: other host platform
+            self.CC = ""
         
         self.CHIP = self.compilerCfg.value("CHIP", QtCore.QVariant(DEFAULT_CHIP)).toString()
         self.CFLAGS = self.compilerCfg.value("CFLAGS", QtCore.QVariant(DEFAULT_CFLAGS)).toString()
