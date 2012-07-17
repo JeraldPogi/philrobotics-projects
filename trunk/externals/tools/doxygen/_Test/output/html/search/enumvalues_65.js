@@ -1,8 +1,12 @@
 var searchData=
 [
-  ['eu8_5fstate0',['EU8_STATE0',['../____lib__template_8c.html#aa507e06619a5bbe7d9df1c5b38ececc8adadac56a5b7d2248ca2cb34c907818c3',1,'__lib_template.c']]],
-  ['eu8_5fstate1',['EU8_STATE1',['../____lib__template_8c.html#aa507e06619a5bbe7d9df1c5b38ececc8aa393ffba30c6dbe8327461216b18420b',1,'__lib_template.c']]],
-  ['eu8_5fstate2',['EU8_STATE2',['../____lib__template_8c.html#aa507e06619a5bbe7d9df1c5b38ececc8abeaeb0357aa84a42748cfee3a189599e',1,'__lib_template.c']]],
-  ['eu8_5fstate3',['EU8_STATE3',['../____lib__template_8c.html#aa507e06619a5bbe7d9df1c5b38ececc8a983dfa9c0acbcaa9dce46584aa550914',1,'__lib_template.c']]],
-  ['eu8_5fstate4',['EU8_STATE4',['../____lib__template_8c.html#aa507e06619a5bbe7d9df1c5b38ececc8a89f1795dbd04e205466ce921c927d051',1,'__lib_template.c']]]
+  ['e_5fboot',['E_BOOT',['../____lib__template_8c.html#aa507e06619a5bbe7d9df1c5b38ececc8aaaff488d2713be817ecc7bcbd2f081eb',1,'__lib_template.c']]],
+  ['e_5ffaulted',['E_FAULTED',['../____lib__template_8c.html#aa507e06619a5bbe7d9df1c5b38ececc8aac253726276f0874ec577a9d08bbb348',1,'__lib_template.c']]],
+  ['e_5finit',['E_INIT',['../____lib__template_8c.html#aa507e06619a5bbe7d9df1c5b38ececc8ae5b17a6cbef319f39c92c567338e03ac',1,'__lib_template.c']]],
+  ['e_5foff',['E_OFF',['../____lib__template_8c.html#aa507e06619a5bbe7d9df1c5b38ececc8ae522111b9e6af661c2b4f73ef1593cd9',1,'__lib_template.c']]],
+  ['e_5fon',['E_ON',['../____lib__template_8c.html#aa507e06619a5bbe7d9df1c5b38ececc8a9306728b99ab7bfb2ae77b7c7c18597c',1,'__lib_template.c']]],
+  ['eu16_5fled1_5flim',['EU16_LED1_LIM',['../____lib__template_8c.html#a7bfcd27ab65de4cbf82e97c8a8352658a828ccc77d76db7d2562f6a81733a020e',1,'__lib_template.c']]],
+  ['eu16_5fled2_5flim',['EU16_LED2_LIM',['../____lib__template_8c.html#a7bfcd27ab65de4cbf82e97c8a8352658a1d0f968b67795da9e04ede9d08d106d1',1,'__lib_template.c']]],
+  ['eu16_5fled3_5flim',['EU16_LED3_LIM',['../____lib__template_8c.html#a7bfcd27ab65de4cbf82e97c8a8352658a5791b312d4d249dfd5725eb6692bc58a',1,'__lib_template.c']]],
+  ['eu16_5fled4_5flim',['EU16_LED4_LIM',['../____lib__template_8c.html#a7bfcd27ab65de4cbf82e97c8a8352658ad85956119e21eafc8d9c95ad7ce84a91',1,'__lib_template.c']]]
 ];
