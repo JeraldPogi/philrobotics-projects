@@ -1,6 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$____lib__template_8c.html#a3fef8284d54c3b0fb13d2f0dc5196821" title="Formula can be documented by enclosing it between two \f$ symbol." alt="" coords="201,5,300,32"/>
-<area shape="rect" id="node5" href="$____lib__template_8c.html#a9ecb94bc25fe968f1c7f1d79a314973a" title="Tables must be used to represent truth table, fuzzy logic, or simple decision making logics..." alt="" coords="205,56,296,83"/>
-<area shape="rect" id="node7" href="$____lib__template_8c.html#a8ec1e0b54bdd444f80155352ef5cd86d" title="Flow Charts must be use to show sequential program flow." alt="" coords="192,107,309,133"/>
-<area shape="rect" id="node9" href="$____lib__template_8c.html#a8ae619d688e2b5dba137aeaddcf18b82" title="State Diagrams must be used to show distinct state behavior." alt="" coords="190,157,311,184"/>
-</map>
