@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ku8_5fconstants',['KU8_CONSTANTS',['../____lib__template_8c.html#ac02329c80da184245493ab1db0d0c435',1,'__lib_template.c']]]
+  ['ku16_5fconstants',['KU16_CONSTANTS',['../____lib__template_8c.html#aafcbd12599291b5639d9ed5a9f0ca06b',1,'__lib_template.c']]]
 ];
