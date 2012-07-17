@@ -2,4 +2,4 @@
 
 pause
 
-doxygen_output\html\index.html
+doxygen_output\PhilRobokit Firmware.chm
