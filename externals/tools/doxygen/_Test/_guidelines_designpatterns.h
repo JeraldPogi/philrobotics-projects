@@ -4,11 +4,11 @@
 * phirobotics.core@philrobotics.com
 *
 *---------------------------------------------------------------------------------------------
-* |Filename:      | "[filename].h"                                      |
+* |Filename:      | "_guidelines_designpatterns.h"                      |
 * |:----          |:----                                                |
 * |Description:   | This is a coding standard template header file      |
-* |Revision:      | vxx.xx.xx                                           |
-* |Author:        | [author's name]                                     |
+* |Revision:      | v00.00.01                                           |
+* |Author:        | Efren S. Cruzat II                                  |
 * |               |                                                     |
 * |Dependencies:  |                                                     |
 *
@@ -27,13 +27,13 @@
 *---------------------------------------------------------------------------------------------
 * |FW Version   |Date       |Author             |Description                |
 * |:----        |:----      |:----              |:----                      |
-* |vxx.xx.xx    |YYYYMMDD   |[author's name]    |Library Initial Release    |
+* |v00.00.01    |20120719   |ESCII              |Library Initial Release    |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
 
-#ifndef __PH_[libname]_H__
-#define __PH_[libname]_H__
+#ifndef __PH_GUIDEPATTERNS_H__
+#define __PH_GUIDEPATTERNS_H__
 
 #if defined(HI_TECH_C)
     #include "htc_common.h"
@@ -42,17 +42,25 @@
         #include "htc_16f87xa.h"
     #endif
 #endif
+
 /* Include .h Library Files */
-#include <_guidelines_designpatterns.h>
+#include <_guidelines_commenting.h>
 
 /* Macro and Configuration Definitions */
-    /* none */
-    
+#define __BASICS
+
+#define __BLOCKING_FUNCTION
+
 /* Global Constants */
-#define KU16_GBLCONSTANTS               1023UI        /*!< \brief Constants (Global), same rule applies as with the local scope */
+#define KU16FAULTLIMIT          512UI
+#define KU16VALIDATION_DELAY    30UI        // 30mS
+#define KU16_ALLOWEDFAULTS      8UI
 
 /* Public Function Prototypes */
-void callPublicFunctions();
+uint16_t showFormula(uint8_t  *ui16LocIIRBuffCurr, uint8_t  *ui16LocIIRBuffPrev);
+void showTables(uint16_t ui16Value);
+void showFlowCharts(uint16_t ui16Value);
+void showStateCharts(bool_t	blOnOffCommand);
 
-#endif /* end of [filename].h */
+#endif /* end of _guidelines_designpatterns.h */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
