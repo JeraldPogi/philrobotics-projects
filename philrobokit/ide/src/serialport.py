@@ -24,7 +24,7 @@ def scan_serialports():
             except serial.SerialException:
                 pass
     elif os.name == 'posix':
-        devices = glob.glob('/dev/ttyS*') + glob.glob('/dev/ttyUSB*')
+        devices = glob.glob('/dev/ttyS*') + glob.glob('/dev/ttyUSB*') + glob.glob('/dev/tty.PL*')
         for device in devices:
             try:
                 ser = serial.Serial(device)
@@ -110,6 +110,8 @@ class SerialPortMonitor(QtGui.QDialog):
                 if not self.timerId: # unable to start timer
                     self.closePort()
                     return False
+                self.serialPort.flushInput()
+                self.serialPort.flushOutput()
                 self.setWindowTitle('Serial Port Monitor - ' + portname)        
                 return True
             except:
@@ -155,7 +157,7 @@ class SerialPortMonitor(QtGui.QDialog):
         if self.serialPort:
             bytestoread = self.serialPort.inWaiting()
             if bytestoread:
-                prev = str(self.monitorWindow.toPlainText())
+                prev = self.monitorWindow.toHtml()
                 rcv = self.serialPort.read(bytestoread)
                 if self.hexModeButton.isChecked():
                     self.monitorWindow.setText( prev + rcv.encode('hex') )

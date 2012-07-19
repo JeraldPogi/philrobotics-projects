@@ -31,6 +31,13 @@ class AppMainWindow(QtGui.QMainWindow):
         super(AppMainWindow, self).__init__()
         print "PhilRoboKit IDE started..."
         
+        if False: # todo: set to True is building stand-alone package (cx_Freeze)
+            setpath = os.path.dirname( os.path.realpath( __file__ ) )
+            if os.name == 'nt':
+                os.chdir( setpath[:setpath.rfind('\\')] )
+            else:
+                os.chdir( setpath[:setpath.rfind('/')] )
+        
         self.aboutDlg = AboutDialog(self)
         self.aboutDlg.show()
         

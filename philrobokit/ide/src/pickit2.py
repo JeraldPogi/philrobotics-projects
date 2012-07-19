@@ -12,6 +12,7 @@ from PyQt4 import QtCore
 PK2CMD_DIR = 'tools/pickit2/'
 PK2CMD_WIN32 = PK2CMD_DIR + 'pk2cmd_win32'
 PK2CMD_LINUX = PK2CMD_DIR + 'pk2cmd_linux'
+PK2CMD_OSX   = PK2CMD_DIR + 'pk2cmd_osx'
 
 
 class PICkit2ProgrammerThread(QtCore.QThread):
@@ -30,6 +31,8 @@ class PICkit2ProgrammerThread(QtCore.QThread):
             self.isWin32Platform = True
         elif os.sys.platform == 'linux2':
             self.pickit2 = os.getcwd() + '/' + PK2CMD_LINUX
+        elif os.sys.platform == 'darwin':
+            self.pickit2 = os.getcwd() + '/' + PK2CMD_OSX
         else:
             self.pickit2 = None
             
