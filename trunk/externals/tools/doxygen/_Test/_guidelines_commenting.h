@@ -4,11 +4,11 @@
 * phirobotics.core@philrobotics.com
 *
 *---------------------------------------------------------------------------------------------
-* |Filename:      | "Commenting Guidelines.h"                   |
+* |Filename:      | "_guidelines_commenting.h"                  |
 * |:----          |:----                                        |
 * |Description:   | This serves as a guide on how to place comments on the code for PhilRobotics projects |
-* |Revision:      | vxx.xx.xx                                   |
-* |Author:        | [author's name]                             |
+* |Revision:      | v00.00.01                                   |
+* |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
 * |Dependencies:  |                                             |
 *
@@ -27,7 +27,7 @@
 *---------------------------------------------------------------------------------------------
 * |FW Version   |Date       |Author             |Description                |
 * |:----        |:----      |:----              |:----                      |
-* |vxx.xx.xx    |YYYYMMDD   |[author's name]    |Library Initial Release    |
+* |v00.00.01    |20120719   |ESCII              |Library Initial Release    |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -35,37 +35,60 @@
 #ifndef __PH_COMMENTS_H__
 #define __PH_COMMENTS__H__
 
-// Keywords...
-// must - mandatory
-// shall - requirement
-// should - request
-// can, may - optional
+/*! \brief Keywords
+* 
+* > This document use the following keywords to specify the intent of the convention
+* > <BR><BR>
+* > - **must** 
+* > + if the convetion is mandatory, 
+* > + not following the convention could result to bugs or security vulnerabilities
+* > <BR><BR>
+* > - **shall** 
+* > + if the convetion is a requirement
+* > + main purpose of the convention is to have a consistent style throughout the code
+* > <BR><BR>
+* > - **should** 
+* > + if the convetion is a request or recommendation
+* > + the convention is recommended on a case to case basis
+* > <BR><BR>
+* > - **can, may**
+* > + if the convetion is optional but advisable
+* > + the developer has the freedom whether to follow or not the convention
+*/
+#define __DOC_KEYWORDS
 
-// Laguages...
-// markdown language for text markups
-// dot language for graphical objects
-// tex language for formula
+/*! \brief Language
+* 
+* PhilRobotics uses Doxygen for generating its document from code. The 
+* following languages are used to enhance the output of the Doxygen
+* - [Markdown Language](http://scottboms.com/downloads/documentation/markdown_cheatsheet.pdf) for text formating markups rendered by Doxygen
+* - [Dot Language](http://www.graphviz.org/pdf/dotguide.pdf) for graphical objects rendered by GrapViz
+* - [TeX Langugage](http://www.personal.ceu.hu/tex/cookbook.html#spaceinform) for adding formula rendered by MathJax
+*/
+#define __DOC_LANGUAGE
  
-/*! tab settings shall be 4 characters long and must be represented by spaces */
-#define __TABSIZE
+/*! IDE tab settings shall be 4 characters long and must be represented by spaces */
+#define __DOC_TABSIZE
 
-/*! font shall be courier or any equally spaced font */
-#define __FONT
+/*! IDE font shall be courier or any equally spaced fonts */
+#define __DOC_FONT
 
 
 /*******************************************************************************//**
-* \brief Function Naming Conventions 
+* \brief This is an Example of a function Header. Every function must have a 
+* function header
 *
-* - must be as short as possible (2-4 words long)
-* - function names must follow the format [action][Module][Parameter]
-*       + e.g. getPinValue(Pin)
-* - the [Parameter] may be omitted if there are no parameters to be set or derived
-* on the module
-*       + e.g. setPin(Pin), clrPin(Pin)
-* - the [Module] may be omitted if the [Parameter] is exclusive to the module or 
-* for the purpose of simplicity
-*       + e.g. getMS()
-*
+* > Short description of what a function does should be entered here...
+* > <BR><BR>
+* > **Syntax:**<BR>
+* >     showFunctionHeader()
+* > <BR><BR>
+* > **Parameters:**<BR>
+* >     none
+* > <BR><BR>
+* > **Returns:**<BR>
+* >     none
+* > <BR><BR>
 ***********************************************************************************/
 #define __FUNCTION_HEADERS
 
@@ -95,7 +118,12 @@
     * \brief This is the PhilRobotics standard documented comment block
     *
     */
-    #define __DOC_COMMENT_BLOCK
+    #define __DOC_COMMENT_BLOCK_ONTOP
+    
+    #define __DOC_COMMENT_BLOCK_AFTER       /*!
+                                                    * \brief This is the PhilRobotics standard documented comment block that can be placed after the member
+                                                    *
+                                                    */
 
     /*!
     * \brief Brief description on comment blocks are shown on function summary of the generated document.
@@ -104,6 +132,7 @@
     * After the empty line. A detailed description can follow. 
     */        
     #define __DOC_BRIEF
+        
         
     #define __DOC_PARAGRAPH       
         
@@ -119,4 +148,5 @@
     #define __DOC_BULLETS
     #define __DOC_LINKS
 
-#endif
+#endif/* end of _guidelines_commenting.h */
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
