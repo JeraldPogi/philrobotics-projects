@@ -80,7 +80,7 @@ else:
 if EXE:
     setup( name = "PhiRoboKit IDE",
            description = 'PhiRoboKit Integrated Development Environment',
-           version = '00.04',
+           version = svn_rev,
            author = 'PhilRobotics',
            options = {'build_exe': {
                                     'include_files' : files,
