@@ -34,7 +34,7 @@ from configs import IdeConfig
 from serialport import scan_serialports, SerialPortMonitor
 from pickit2 import PICkit2ProgrammerThread
 from tinypicbld import TinyPICBootloaderThread
-from about import AboutDialog
+from about import AboutDialog, SPLASH_NOTICE
 
 
 class AppMainWindow(QtGui.QMainWindow):
@@ -48,6 +48,7 @@ class AppMainWindow(QtGui.QMainWindow):
         '''
         super(AppMainWindow, self).__init__()
         print "PhilRoboKit IDE started..."
+        print SPLASH_NOTICE
         
         if False: # todo: set to True if building stand-alone package (cx_Freeze)
             setpath = os.path.dirname( os.path.realpath( __file__ ) )
@@ -72,7 +73,7 @@ class AppMainWindow(QtGui.QMainWindow):
         self.pollCompilerTimerID = None
         
         self.serialPortName = None
-        self.serialPortLabel = QtGui.QLabel('<i>(select port)</i>')
+        self.serialPortLabel = QtGui.QLabel('<font color=red><i>(select port)</i></font>')
         self.SerialPortMonitorDialog = SerialPortMonitor(self)
         
         self.PK2Programmer = PICkit2ProgrammerThread(self)
@@ -206,7 +207,7 @@ class AppMainWindow(QtGui.QMainWindow):
             if portname != self.serialPortName:
                 self.serialPortName = portname
                 self.insertLog( 'selected port: ' + self.serialPortName )
-                self.serialPortLabel.setText(self.serialPortName)
+                self.serialPortLabel.setText('<font color=green>%s</font>'%self.serialPortName)
                 if self.SerialPortMonitorDialog.isPortOpen():
                     if not self.SerialPortMonitorDialog.openPort(self.serialPortName):
                         self.SerialPortMonitorDialog.close()

@@ -177,7 +177,7 @@ class SerialPortMonitor(QtGui.QDialog):
         if self.serialPort:
             bytestoread = self.serialPort.inWaiting()
             if bytestoread:
-                prev = self.monitorWindow.toHtml()
+                prev = self.monitorWindow.toPlainText()
                 rcv = self.serialPort.read(bytestoread)
                 if self.hexModeButton.isChecked():
                     self.monitorWindow.setText( prev + rcv.encode('hex') )
