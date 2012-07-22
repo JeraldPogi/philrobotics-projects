@@ -132,9 +132,23 @@ class CppEditor(QsciScintilla):
             QtGui.QMessageBox.warning(self, PROJECT_ALIAS,
                     "Cannot read file %s:\n%s." % (fileName, qfile.errorString()))
             return False
-        instr = QtCore.QTextStream(qfile)
-        self.setText(instr.readAll())
-        return True
+        
+        ret = True
+        try:
+            # workaround for OS X QFile.readAll()
+            f = open(qfile.fileName(), 'r')
+            self.clear()
+            for line in f.readlines():
+                self.append(line)
+        except:
+            QtGui.QMessageBox.warning(self, PROJECT_ALIAS,
+                    "failed to read %s." % fileName )
+            ret = False
+        finally:
+            f.close()
+        
+        qfile.close()        
+        return ret
     
     def saveFile(self, fileName):
         qfile = QtCore.QFile(fileName)
@@ -142,10 +156,16 @@ class CppEditor(QsciScintilla):
             QtGui.QMessageBox.warning(self, PROJECT_ALIAS,
                     "Cannot write file %s:\n%s." % (fileName, qfile.errorString()))
             return None
-
-        outstr = QtCore.QTextStream(qfile)
-        outstr << self.text()
         
+        try:
+            qfile.writeData(self.text())
+        except:
+            QtGui.QMessageBox.warning(self, PROJECT_ALIAS,
+                    "failed to save %s." % fileName )
+            qfile.close()
+            return None
+        
+        qfile.close()        
         self.curFile = fileName
         self.isUntitled = False
         self.isModified = False

@@ -34,6 +34,7 @@ excludes = ['unicodedata', 'bz2' ]
 packages = []
 paths = []
 files = []
+script_exe = True
 EXE = None
 
 ######## Files to include in the distribution ########################
@@ -51,7 +52,7 @@ files += glob.glob('libraries/*')
 files += glob.glob('examples/*')
 
 # pickit2 command line files
-files += glob.glob('tools/pickit2/*')
+files += glob.glob('tools/pickit2/*.dat') + glob.glob('tools/pickit2/*.hex')
 
 # tinybld files
 files += glob.glob('hardware/bootloaders/tinybld/*')
@@ -72,6 +73,8 @@ if os.sys.platform == 'win32':
     packages.append('serial.win32')
     # add tool chain files
     files += glob.glob('tools/picc_win32/*')
+    # add pickit2
+    files += glob.glob('tools/pickit2/*.exe') + glob.glob('tools/pickit2/*PK2CMD.txt')
     EXE = Executable(
         script = 'main.pyw',
         base = 'Win32GUI',
@@ -82,6 +85,8 @@ if os.sys.platform == 'win32':
 elif os.sys.platform == 'linux2':
     # add tool chain files
     files += glob.glob('tools/picc_linux/*')
+    # add pickit2
+    files += glob.glob('tools/pickit2/*linux') + glob.glob('tools/pickit2/*Linux*.txt')
     EXE = Executable(
         script = 'main.pyw',
         targetName = 'PhilRoboKitIDE',
@@ -89,9 +94,13 @@ elif os.sys.platform == 'linux2':
         icon = None,
         )
 
-elif os.sys.platform == 'darwin':
+elif os.sys.platform == 'darwin': # note: use cx_Freeze 4.3 or later
+    # prevent dynamic library loading error on OS X
+    script_exe = False
     # add tool chain files
     files += glob.glob('tools/picc_osx/*')
+    # add pickit2
+    files += glob.glob('tools/pickit2/*osx') + glob.glob('tools/pickit2/*MacOSX.txt')
     EXE = Executable(
         script = 'main.pyw',
         targetName = 'PhilRoboKitIDE',
@@ -104,7 +113,7 @@ else:
 
 ##################### cx_freeze ##################################
 if EXE:
-    setup( name = "PhiRoboKit IDE",
+    setup( name = "PhiRoboKitIDE",
            description = 'PhiRoboKit Integrated Development Environment',
            version = svn_rev,
            author = 'PhilRobotics',
@@ -115,7 +124,7 @@ if EXE:
                                     'packages' : packages,
                                     'path' : paths,
                                     'create_shared_zip' : False,
-                                    'append_script_to_exe' : True,
+                                    'append_script_to_exe' : script_exe,
                                     'include_in_shared_zip' : False,
                                     } },
            executables = [EXE]  )
