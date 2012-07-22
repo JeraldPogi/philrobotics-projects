@@ -75,6 +75,8 @@ if os.sys.platform == 'win32':
     files += glob.glob('tools/picc_win32/*')
     # add pickit2
     files += glob.glob('tools/pickit2/*.exe') + glob.glob('tools/pickit2/*PK2CMD.txt')
+    # add PL2303 usb driver
+    files += glob.glob('drivers/PL2303/windows/*')
     EXE = Executable(
         script = 'main.pyw',
         base = 'Win32GUI',
@@ -101,6 +103,8 @@ elif os.sys.platform == 'darwin': # note: use cx_Freeze 4.3 or later
     files += glob.glob('tools/picc_osx/*')
     # add pickit2
     files += glob.glob('tools/pickit2/*osx') + glob.glob('tools/pickit2/*MacOSX.txt')
+    # add PL2303 usb driver
+    files += glob.glob('drivers/PL2303/macosx/*')
     EXE = Executable(
         script = 'main.pyw',
         targetName = 'PhilRoboKitIDE',
