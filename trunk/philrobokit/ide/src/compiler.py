@@ -109,13 +109,15 @@ class PicCompilerThread(QtCore.QThread):
                             self.LogList.append( "<font color=green>%s</font>" % msg )
             except:
                 print 'got errors in compiler thread!'
-                self.LogList.append( "<font color=red>ERROR: build failed!</font>")
                 self.LogList.append( "<font color=red>%s</font>" % self.PICC)
                 self.CompilerProcess = None
                 bStop = True
                 
         self.CompilerCommands = None
-        print 'compiler thread done.'
+        if bStop:
+            self.LogList.append( "<font size=4 color=red>ERROR: build failed!</font>")
+        else:
+            self.LogList.append( "<font size=4 color=cyan>Done building.</font>")
             
     def getCompilerInfo(self):
         if self.isRunning():
@@ -130,7 +132,7 @@ class PicCompilerThread(QtCore.QThread):
             return None
         else:
             info = ''
-            self.LogList.takeFirst()
+            self.LogList.takeLast()
             for msg in self.LogList:
                 info += msg
             return info
