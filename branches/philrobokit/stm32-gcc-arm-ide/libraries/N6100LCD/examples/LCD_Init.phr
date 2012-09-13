@@ -1,0 +1,15 @@
+#include <platform.h>
+#include <N6100LCD.h>
+
+int main(void)
+{
+	//n6100lcd_init(DAT_PIN, CLK_PIN, CS_PIN, RST_PIN)
+	n6100lcd_init(PA0, PA2, PA3, PA1);
+	
+	n6100lcd_text("hello world!", 10, 20, LCD_RED, LCD_WHITE);
+	
+	while(true)
+	{
+		
+	}
+}
