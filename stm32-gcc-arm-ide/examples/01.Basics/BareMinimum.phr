@@ -1,0 +1,13 @@
+#include <platform.h>
+
+int main(void)
+{
+    /* setup */
+	// put your setup code here, to run once:
+    
+	while(true)
+	{
+	    /* loop */
+		// put your main code here, to run repeatedly:
+	}
+}

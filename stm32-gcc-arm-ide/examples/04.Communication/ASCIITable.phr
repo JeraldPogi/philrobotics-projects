@@ -1,0 +1,23 @@
+#include <platform.h>
+
+int main(void)
+{
+	// first visible ASCIIcharacter '!' is number 33:
+	uint8_t thisByte = 33;
+	
+    Serial_begin(9600);
+	printf("ASCII Table ~ Character Map\n"); 
+    
+	while(true)
+	{
+	    Serial_writebyte(thisByte);
+		Serial_print(", dec: %d", thisByte);
+		Serial_print(", hex: %x", thisByte);
+		Serial_print(", oct: %o", thisByte);
+		Serial_print(", bin: %b\n", thisByte);
+		
+		if(thisByte++ == 126){
+			while(true);
+		}
+	}
+}

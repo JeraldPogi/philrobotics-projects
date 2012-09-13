@@ -1,0 +1,13 @@
+#include <platform.h>
+
+int main(void)
+{
+	pinMode(LED_PIN, OUTPUT);
+	while(1)
+	{
+		setPinHigh(LED_PIN);
+		delay_ms(500);
+		setPinLow(LED_PIN);
+		delay_ms(500);
+	}
+}

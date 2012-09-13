@@ -1,0 +1,28 @@
+#include <platform.h>
+#include <CoOS.h>
+
+#define TASK_STK_SIZE		  128
+OS_STK   led_task_Stk[TASK_STK_SIZE];
+static void led_task( void *pdata );
+
+int main()
+{
+	CoInitOS();	// Initialize CooCox RTOS 
+	CoCreateTask( led_task, (void *)0, 1 ,
+			&led_task_Stk[TASK_STK_SIZE - 1], TASK_STK_SIZE );
+	CoStartOS ();
+	return 0;
+}
+
+void led_task( void *pdata )
+{
+    pinMode(LED_PIN, OUTPUT);
+    for( ;; )
+    {
+        setPinHigh(LED_PIN);
+        CoTickDelay(5);
+        setPinLow(LED_PIN);
+        CoTickDelay(5);
+    }
+}
+
