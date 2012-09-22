@@ -16,6 +16,11 @@
 
 #ifndef _CCRTOS_H
 #define _CCRTOS_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "OsConfig.h"
 /*---------------------------- Type Define  ----------------------------------*/
 typedef signed   char      S8;              
@@ -218,5 +223,8 @@ extern void        CoTickToTime(U32 ticks,U8* hour,U8* minute,U8* sec,U16* mills
 extern void        CoIdleTask(void* pdata);
 extern void        CoStkOverflowHook(OS_TID taskID);
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif

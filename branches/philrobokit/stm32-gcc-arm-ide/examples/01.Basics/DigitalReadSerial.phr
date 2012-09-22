@@ -4,13 +4,13 @@ uint8_t pushButton = PA0; // pin D2
 
 int main(void)
 {
-    Serial_begin(9600);
+    Serial.begin(9600);
 	pinMode(pushButton, INPUT_PULLUP);
     
 	while(true)
 	{
 	    bool buttonState = getPinState(pushButton);
-		Serial_print("%d\n", buttonState);
+		Serial.print("%d\n", buttonState);
 		delay_ms(1);
 	}
 }

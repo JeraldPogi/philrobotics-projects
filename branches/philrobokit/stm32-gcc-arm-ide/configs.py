@@ -55,18 +55,18 @@ DEFAULT_RMCMD_WIN32 = 'tools/msys/bin/rm -rf'
 DEFAULT_RMCMD_LINUX = 'rm'
 DEFAULT_RMCMD_OSX   = 'rm'
 
-# default chip
-DEFAULT_CHIP = 'STM32F10X_MD_VL'
+# compiler defines (used also for header parser)
+DEFAULT_COMPILER_DEFINES = 'USE_STDPERIPH_DRIVER:1;STM32F10X_MD_VL:1'
 
 # default flags
-COMMON_FLAGS = '-mcpu=cortex-m3 -mthumb -march=armv7-m'
-DEFAULT_CFLAGS  = COMMON_FLAGS + ' -Os -c -g -x c -Wall -nostdlib -Wl,--gc-sections'
-DEFAULT_CFLAGS += ' -fno-common -ffunction-sections -fdata-sections -DUSE_STDPERIPH_DRIVER'
-DEFAULT_AFLAGS  = COMMON_FLAGS
-DEFAULT_LFLAGS  = '-nostartfiles -T$(LKR_SCRIPT)'
+COMMON_FLAGS     = '-mcpu=cortex-m3 -mthumb'
+DEFAULT_CFLAGS   = COMMON_FLAGS + ' -Os -c -g -Wall -Wl,--gc-sections -Wno-psabi'
+DEFAULT_CFLAGS  += ' -mfix-cortex-m3-ldrd -fno-common -ffunction-sections -fdata-sections'
+DEFAULT_CXXFLAGS = DEFAULT_CFLAGS + ' -fno-rtti -fno-exceptions'
+DEFAULT_AFLAGS   = COMMON_FLAGS
+DEFAULT_LFLAGS   = '-T$(LKR_SCRIPT) -Wl,-Map=$(MAP_FILE),--cref,--gc-sections'
+DEFAULT_LFLAGS  += ' -lc -lm -lgcc -lstdc++' 
 
-# compiler defines for header parser
-DEFAULT_COMPILER_DEFINES = 'USE_STDPERIPH_DRIVER:1'
 
 class IdeConfig:
     '''
@@ -165,8 +165,9 @@ class CompilerConfig:
         else:
             # todo: other host platform
             self.CC = ""        
-        self.CHIP = self.compilerCfg.value("CHIP", QtCore.QVariant(DEFAULT_CHIP)).toString()
+        
         self.CFLAGS = self.compilerCfg.value("CFLAGS", QtCore.QVariant(DEFAULT_CFLAGS)).toString()
+        self.CXXFLAGS = self.compilerCfg.value("CXXFLAGS", QtCore.QVariant(DEFAULT_CXXFLAGS)).toString()
         self.AFLAGS = self.compilerCfg.value("AFLAGS", QtCore.QVariant(DEFAULT_AFLAGS)).toString()
         self.LFLAGS = self.compilerCfg.value("LFLAGS", QtCore.QVariant(DEFAULT_LFLAGS)).toString()                            
         self.compilerCfg.endGroup()
@@ -198,8 +199,8 @@ class CompilerConfig:
         # todo: add to menu        
         self.compilerCfg.beginGroup("TOOLCHAIN")        
         self.compilerCfg.setValue( "COMPILER", QtCore.QVariant( self.CC ) )
-        self.compilerCfg.setValue( "CHIP", QtCore.QVariant( self.CHIP ) )
         self.compilerCfg.setValue( "CFLAGS", QtCore.QVariant( self.CFLAGS ) )
+        self.compilerCfg.setValue( "CXXFLAGS", QtCore.QVariant( self.CXXFLAGS ) )
         self.compilerCfg.setValue( "AFLAGS", QtCore.QVariant( self.AFLAGS ) )
         self.compilerCfg.setValue( "LFLAGS", QtCore.QVariant( self.LFLAGS ) )        
         self.compilerCfg.endGroup()
@@ -212,11 +213,11 @@ class CompilerConfig:
     def getCompiler(self):
         return str( self.CC )
     
-    def getChip(self):
-        return str( self.CHIP )
-    
     def getCflags(self):
         return str( self.CFLAGS )
+    
+    def getCxxflags(self):
+        return str( self.CXXFLAGS )
         
     def getAflags(self):
         return str( self.AFLAGS )
