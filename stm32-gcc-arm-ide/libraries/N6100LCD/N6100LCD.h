@@ -2,6 +2,10 @@
 #ifndef	__N6100LCD_H
 #define	__N6100LCD_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stm32f10x.h>
 
 // lcd 8-bit colors
@@ -20,18 +24,35 @@
 #define LCD_GRAY		0b11011010
 #define LCD_PINK		0b11100010
 
+
 extern const uint8_t font5x8[][5];
 
-void n6100lcd_init(uint8_t DAT_PIN, uint8_t CLK_PIN, uint8_t CS_PIN, uint8_t RST_PIN);
-void n6100lcd_send(uint8_t cd, uint8_t data);
-void n6100lcd_setArea(uint8_t x1, uint8_t x2, uint8_t y1, uint8_t y2);
-void n6100lcd_rectFill(uint8_t x1, uint8_t x2, uint8_t y1, uint8_t y2, uint8_t color);
-void n6100lcd_text(const char *s, uint8_t x, uint8_t y, uint8_t fontColor, uint8_t bgColor);
+class N6100LCD
+{
+private:
+	// lcd pins
+	uint8_t _dat, _clk, _cs, _rst;
+	
+public:
+	N6100LCD(uint8_t DAT_PIN, uint8_t CLK_PIN, uint8_t CS_PIN, uint8_t RST_PIN);
+	
+	void init(void);
+	void send(uint8_t cd, uint8_t data);
+	void setArea(uint8_t x1, uint8_t x2, uint8_t y1, uint8_t y2);
+	void rectFill(uint8_t x1, uint8_t x2, uint8_t y1, uint8_t y2, uint8_t color);
+	void clear(uint8_t color);
+	
+	void putc(char c, uint8_t fontColor, uint8_t bgColor);
+	void text(const char *s, uint8_t x, uint8_t y, uint8_t fontColor, uint8_t bgColor);
+	
+	void setPixel(uint8_t x, uint8_t y, uint8_t color);
+	void line(int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint8_t color);
+	void Hline(int16_t x1, int16_t x2, int16_t y, uint8_t color);
+};
 
-void n6100lcd_setPixel(uint8_t x, uint8_t y, uint8_t color);
-void n6100lcd_line(int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint8_t color);
-void n6100lcd_Hline(int16_t x1, int16_t x2, int16_t y, uint8_t color);
 
-#define n6100lcd_clearScreen(color)	n6100lcd_rectFill(0, 131, 0, 131, color)
+#ifdef __cplusplus
+}
+#endif
 
 #endif	// __N6100LCD_H

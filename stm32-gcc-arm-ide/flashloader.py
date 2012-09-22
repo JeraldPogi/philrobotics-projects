@@ -250,19 +250,19 @@ class FlashLoaderThread(QtCore.QThread):
             self.LogList.append( "Bootloader Version: %X" % self.cmdGet() )
             self.LogList.append( "Chip ID: %s" % self.cmdGetID().encode('hex').upper() )
             
-            print 'reading %s...'%self.BinFile
+            self.LogList.append( 'Flash load: " %s " ' % self.BinFile )
             data = map(lambda c: ord(c), file(self.BinFile, 'rb').read())
             #print "data to write: ", data
             self.LogList.append( "erasing ....." )
             self.cmdEraseMemory()
-            self.LogList.append( "Erase Memory OK" )
+            self.LogList.append( "... Erase Memory OK" )
             self.LogList.append( "writing ....." )
             self.writeMemory( 0x08000000, data )
-            self.LogList.append( "Write Memory OK" )
+            self.LogList.append( "... Write Memory OK" )
             self.LogList.append( "verifying ....." )
             verify = self.readMemory( 0x08000000, len(data) )
             if(data == verify):
-                self.LogList.append( "Verification OK" )
+                self.LogList.append( "... Verification OK" )
                 self.LogList.append("<font size=4 color=cyan>STM32 Flash Loader finished loading.</font>")
             else:
                 self.LogList.append("<font color=red>error: Verification FAILED !</font>")

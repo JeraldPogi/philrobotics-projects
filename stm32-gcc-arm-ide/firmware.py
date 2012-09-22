@@ -84,6 +84,7 @@ def getCoreSourceFiles(userIncludes = []):
     srcs = []
     required = glob.glob(PRK_BSP_DIR + '/*.s') \
                    + glob.glob(PRK_BSP_DIR + '/*.c') \
+                   + glob.glob(PRK_BSP_DIR + '/*.cpp') \
                    + glob.glob(CM3_CORE_DIR + '/*.c') \
                    + glob.glob(CM3_DEVICE_DIR+ '/*.c')
     required.append(STMLIB_DIR + '/src/misc.c')
@@ -154,6 +155,8 @@ def parseUserCode(userCode=None, outPath=None, toolChain=''):
                     if not (include in includes): # include only once
                         includes.append( include )
                         sources += glob.glob(libpath + '/*.c') # compile all *.c files
+                        sources += glob.glob(libpath + '/*.cpp') # compile all *.cpp files
+                        sources += glob.glob(libpath + '/*.cxx') # compile all *.cxx files
         fin.close()
     except:
         return False, [], []
@@ -167,6 +170,12 @@ def parseUserCode(userCode=None, outPath=None, toolChain=''):
 
 def getLinkerScript():
     return os.path.join( os.getcwd(), LINKER_SCRIPT )
+
+def getCompilerDefines():
+    defines = ''
+    for flag, val in fwconfig.getDefines().items():
+        defines += ' -D' + flag + '=' + val
+    return defines
 
 def getLibraryKeywords(headerFiles=[]):
     if not len(headerFiles):

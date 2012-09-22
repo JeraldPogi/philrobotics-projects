@@ -16,88 +16,137 @@ _Minimum_Stack_Size = 0x400; /* required amount of stack */
 MEMORY
 {
     FLASH (rx)  : ORIGIN = 0x08000000, LENGTH = 64K
-    SRAM (xrw)  : ORIGIN = 0x20000000, LENGTH = 8K
+    RAM (xrw)   : ORIGIN = 0x20000000, LENGTH = 8K
 }
 
 /* Define output sections */
 SECTIONS
 {
-    /* The startup code goes first into FLASH */
-    .isr_vector :
-    {
-        . = ALIGN(4);
-        KEEP(*(.isr_vector)) /* Startup code */
-        . = ALIGN(4);
-    } >FLASH
 
-    /* The program code and other data goes into FLASH */
-    .text :
-    {
-        . = ALIGN(4);
-        *(.text)           /* .text sections (code) */
-        *(.text*)          /* .text* sections (code) */
-        *(.rodata)         /* .rodata sections (constants, strings, etc.) */
-        *(.rodata*)        /* .rodata* sections (constants, strings, etc.) */
-        *(.glue_7)         /* glue arm to thumb code */
-        *(.glue_7t)        /* glue thumb to arm code */
+	/* The program code and other data goes into FLASH */
+	.text :
+	{
+		. = ALIGN(0x80);
+		KEEP(*(.isr_vector))
+		. = ALIGN(4);
+		CREATE_OBJECT_SYMBOLS
+		*(.text .text.* .gnu.linkonce.t.*)
+		*(.plt)
+		*(.gnu.warning)
+		*(.glue_7t) *(.glue_7) *(.vfp11_veneer)
+		*(.ARM.extab* .gnu.linkonce.armextab.*)
+		*(.gcc_except_table)
+	} >FLASH
 
-         KEEP (*(.init))
-         KEEP (*(.fini))
+	/* .ARM.exidx */
+	__exidx_start = .;
+	.ARM.exidx :
+	{
+		*(.ARM.exidx* .gnu.linkonce.armexidx.*)
+	} >FLASH
+	__exidx_end = .;
 
-        . = ALIGN(4);
-         _etext = .;        /* define a global symbols at end of code */
-    } >FLASH
+	.rodata : ALIGN (4)
+	{
+		*(.rodata .rodata.* .gnu.linkonce.r.*)
+		
+		. = ALIGN(4);
+		KEEP(*(.init))
+		
+		. = ALIGN(4);
+		__preinit_array_start = .;
+		KEEP (*(.preinit_array))
+		__preinit_array_end = .;
+		
+		. = ALIGN(4);
+		__init_array_start = .;
+		KEEP (*(SORT(.init_array.*)))
+		KEEP (*(.init_array))
+		__init_array_end = .;
+		
+		. = ALIGN(4);
+		KEEP(*(.fini))
+		
+		. = ALIGN(4);
+		__fini_array_start = .;
+		KEEP (*(.fini_array))
+		KEEP (*(SORT(.fini_array.*)))
+		__fini_array_end = .;
+		
+		. = ALIGN(0x4);
+		KEEP (*crtbegin.o(.ctors))
+		KEEP (*(EXCLUDE_FILE (*crtend.o) .ctors))
+		KEEP (*(SORT(.ctors.*)))
+		KEEP (*crtend.o(.ctors))
+		
+		. = ALIGN(0x4);
+		KEEP (*crtbegin.o(.dtors))
+		KEEP (*(EXCLUDE_FILE (*crtend.o) .dtors))
+		KEEP (*(SORT(.dtors.*)))
+		KEEP (*crtend.o(.dtors))
+		
+		*(.init .init.*)
+		*(.fini .fini.*)
+		
+		PROVIDE_HIDDEN (__preinit_array_start = .);
+		KEEP (*(.preinit_array))
+		PROVIDE_HIDDEN (__preinit_array_end = .);
+		PROVIDE_HIDDEN (__init_array_start = .);
+		KEEP (*(SORT(.init_array.*)))
+		KEEP (*(.init_array))
+		PROVIDE_HIDDEN (__init_array_end = .);
+		PROVIDE_HIDDEN (__fini_array_start = .);
+		KEEP (*(.fini_array))
+		KEEP (*(SORT(.fini_array.*)))
+		PROVIDE_HIDDEN (__fini_array_end = .);
+		
+		. = ALIGN (8);
+		*(.rom)
+		*(.rom.b)
+		_etext = .;
+		_sidata = _etext;
+	} >FLASH
 
-    .ARM.extab   : { *(.ARM.extab* .gnu.linkonce.armextab.*) } >FLASH
-    .ARM : {
-        __exidx_start = .;
-        *(.ARM.exidx*)
-        __exidx_end = .;
-    } >FLASH
+	/* initialized data section  */
+	.data : ALIGN (8)
+	{
+		_sdata = . ;		
+		. = ALIGN(4);
+		KEEP(*(.jcr))
+		*(.got.plt) *(.got)
+		*(.shdata)
+		*(.data .data.* .gnu.linkonce.d.*)
+		. = ALIGN (8);
+		*(.ram)
+		*(.ramfunc*)
+		 . = ALIGN(4);
+		_edata = .;
+	} >RAM AT>FLASH
 
-    .ARM.attributes : { *(.ARM.attributes) } > FLASH
+	/* uninitialized data section */
+	.bss (NOLOAD):
+	{
+		. = ALIGN(4);
+		_sbss = .;
+		*(.shbss)
+		*(.bss .bss.* .gnu.linkonce.b.*)
+		*(COMMON)
+		. = ALIGN (8);
+		*(.ram.b)
+		. = ALIGN(4);
+		 _ebss = . ;
+		_end = .;
+		__end = .;
+	} >RAM AT>FLASH
 
-    /* used by the startup to initialize data */
-    _sidata = .;
-
-    /* Initialized data sections goes into RAM, load LMA copy after code */
-    .data : AT ( _sidata )
-    {
-        . = ALIGN(4);
-        _sdata = .;        /* create a global symbol at data start */
-        *(.data)           /* .data sections */
-        *(.data*)          /* .data* sections */
-
-        . = ALIGN(4);
-        _edata = .;        /* define a global symbol at data end */
-    } >SRAM
-
-    /* Uninitialized data section */
-    . = ALIGN(4);
-    .bss :
-    {
-        /* This is used by the startup in order to initialize the .bss secion */
-        _sbss = .;         /* define a global symbol at bss start */
-        __bss_start__ = _sbss;
-        *(.bss)
-        *(.bss*)
-        *(COMMON)
-
-        . = ALIGN(4);
-        _ebss = .;         /* define a global symbol at bss end */
-        __bss_end__ = _ebss;
-    } >SRAM
-
-    PROVIDE ( end = _ebss );
-    PROVIDE ( _end = _ebss );
-
-    /* This is the user stack section */
-    ._usrstack :
+    /* user stack section */
+    ._usrstack (NOLOAD):
     {
         . = ALIGN(4);
         _susrstack = . ;
         . = . + _Minimum_Stack_Size ;
         . = ALIGN(4);
         _eusrstack = . ;
-    } >SRAM
+    } >RAM
 }
+

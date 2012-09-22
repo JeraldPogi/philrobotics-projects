@@ -27,8 +27,9 @@
 
 import os, subprocess
 from PyQt4 import QtCore
-from firmware import parseUserCode, getLinkerScript
+from firmware import parseUserCode, getLinkerScript, getCompilerDefines
 from configs import CompilerConfig
+from cppeditor import PROJECT_EXT
 
 # output directory 
 OUT_DIR = '.phr_out'
@@ -143,10 +144,9 @@ class PicCompilerThread(QtCore.QThread):
         if not self.LogList.count():
             return None
         else:
+            self.LogList.takeLast()
             info = ''
             for msg in self.LogList:
-                if str(msg).find('This is')>=0:
-                    break
                 info += msg
             return info                        
 
@@ -192,13 +192,16 @@ class PicCompilerThread(QtCore.QThread):
             fout.write( 'OUTPUT_DIR = ' + outPath + '\n' )
             fout.write( 'ELF_FILE = $(OUTPUT_DIR)/$(PROJECT).elf\n' )
             fout.write( 'BIN_FILE = $(OUTPUT_DIR)/$(PROJECT).bin\n' )
+            fout.write( 'MAP_FILE = $(OUTPUT_DIR)/$(PROJECT).map\n' )
             fout.write( 'LKR_SCRIPT = ' + getLinkerScript() + '\n\n')
             fout.write( 'TCHAIN = ' + self.TCHAIN.replace('\\','/') + '\n\n' )
             fout.write( 'INCLUDES =  \\\n' )
             for path in includePaths:
                 fout.write( '\t\t' + path + ' \\\n' )
             fout.write( '\n\n' )
-            fout.write( 'CFLAGS = ' + self.Configs.getCflags() + ' -D' + self.Configs.getChip() + '\n')
+            fout.write( 'DEFINES = ' + getCompilerDefines() + '\n')
+            fout.write( 'CFLAGS = ' + self.Configs.getCflags() + ' $(DEFINES)\n')
+            fout.write( 'CXXFLAGS = ' + self.Configs.getCxxflags() + ' $(DEFINES)\n')
             fout.write( 'AFLAGS = ' + self.Configs.getAflags() + '\n' )
             fout.write( 'LFLAGS = ' + self.Configs.getLflags() + '\n\n\n' )
             fout.write( 'RM = ' + self.Configs.getRmCmd() + '\n\n\n' )
@@ -231,18 +234,31 @@ class PicCompilerThread(QtCore.QThread):
             for src in sourceFiles:
                 src = str(src)
                 fout.write( objects[i] + ' : ' + src + '\n')
-                if src[-1] == 's':
-                    fout.write( '\t@echo [AS] $(<F)\n')
+                src_ext = os.path.splitext(src)[1].lower()
+                if src_ext == PROJECT_EXT:
+                    fout.write( '\t@echo [CXX] $< \n' )
+                    if verbose:
+                        fout.write( '\t$(TCHAIN)gcc $(INCLUDES) $(CXXFLAGS) -x c++ $< -o $@\n\n')
+                    else:
+                        fout.write( '\t@$(TCHAIN)gcc $(INCLUDES) $(CXXFLAGS) -x c++ $< -o $@\n\n')
+                elif src_ext == '.s':
+                    fout.write( '\t@echo [AS] $(<F)\n' )
                     if verbose:
                         fout.write( '\t$(TCHAIN)as $(AFLAGS) $< -o $@\n\n')
                     else:
                         fout.write( '\t@$(TCHAIN)as $(AFLAGS) $< -o $@\n\n')
-                else:
-                    fout.write( '\t@echo [CC] $(<F)\n')
+                elif src_ext == '.c':
+                    fout.write( '\t@echo [CC] $(<F)\n' )
                     if verbose:
                         fout.write( '\t$(TCHAIN)gcc $(INCLUDES) $(CFLAGS) $< -o $@\n\n')
                     else:
                         fout.write( '\t@$(TCHAIN)gcc $(INCLUDES) $(CFLAGS) $< -o $@\n\n')
+                elif src_ext == '.cpp' or src_ext == '.cxx':
+                    fout.write( '\t@echo [CXX] $(<F)\n' )
+                    if verbose:
+                        fout.write( '\t$(TCHAIN)gcc $(INCLUDES) $(CXXFLAGS) $< -o $@\n\n')
+                    else:
+                        fout.write( '\t@$(TCHAIN)gcc $(INCLUDES) $(CXXFLAGS) $< -o $@\n\n')
                 i += 1
             fout.close()
             return True

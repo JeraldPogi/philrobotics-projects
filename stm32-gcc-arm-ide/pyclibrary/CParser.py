@@ -1157,7 +1157,7 @@ if hasPyParsing:
     signModifiers = ['signed', 'unsigned']
     qualifiers = ['const', 'static', 'volatile', 'inline', 'restrict', 'near', 'far']
     msModifiers = ['__based', '__declspec', '__fastcall', '__restrict', '__sptr', '__uptr', '__w64', '__unaligned', '__nullterminated']
-    keywords = ['struct', 'enum', 'union', '__stdcall', '__cdecl'] + qualifiers + baseTypes + sizeModifiers + signModifiers
+    keywords = ['class', 'struct', 'enum', 'union', '__stdcall', '__cdecl'] + qualifiers + baseTypes + sizeModifiers + signModifiers
 
     def kwl(strs):
         """Generate a match-first list of keywords given a list of strings."""

@@ -14,17 +14,17 @@ static void uart_task( void *pdata );
 
 int main()
 {
-	Serial_begin(115200);
+	Serial.begin(115200);
 	
-	printf ("\n+------------------------------------------------+ \n"   );
-	printf ("| CooCox RTOS Demo for Cortex-M3 MCU(STM32F10x). | \n"   );
-	printf ("+------------------------------------------------+ \n\n" );
+	Serial.print ("\n+------------------------------------------------+ \n"   );
+	Serial.print ("| CooCox RTOS Demo for Cortex-M3 MCU(STM32F10x). | \n"   );
+	Serial.print ("+------------------------------------------------+ \n\n" );
 
-	printf ("\r Initial CooCox RTOS...              ");
+	Serial.print ("\r Initial CooCox RTOS...              ");
 	CoInitOS();                               /*!< Initial CooCox RTOS          */
-	printf (" [OK]. \n");
+	Serial.print (" [OK]. \n");
 
-	printf ("\r Create a \"task_init\" task...        ");
+	Serial.print ("\r Create a \"task_init\" task...        ");
 
 	CoCreateTask( led_task, (void *)0, LED_TASK_PRI ,
 			&led_task_Stk[TASK_STK_SIZE - 1], TASK_STK_SIZE );
@@ -32,7 +32,7 @@ int main()
 	CoCreateTask( uart_task, (void *)0, UART_TASK_PRI ,
 			&uart_print_Stk[TASK_STK_SIZE - 1], TASK_STK_SIZE );
 
-	printf ("\r Start multi-task.\n");
+	Serial.print ("\r Start multi-task.\n");
 	CoStartOS ();
 
 	return 0;
@@ -44,10 +44,10 @@ void uart_task( void *pdata )
 
     for( ;; )
     {
-        xprintf("what's your name?: ");
-        xgets(buff, 50);
+        Serial.print("what's your name?: ");
+        Serial.gets(buff, 50);
         if(buff[0])
-            xprintf("hi there, %s!\n", buff);
+            Serial.print("hi there, %s!\n", buff);
     }
 }
 

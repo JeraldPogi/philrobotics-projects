@@ -2,6 +2,10 @@
 #ifndef ARM_MCU_GPIO_H
 #define ARM_MCU_GPIO_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define INPUT_ANALOG		GPIO_Mode_AIN
 #define INPUT_FLOATING		GPIO_Mode_IN_FLOATING
 #define INPUT_PULLDOWN		GPIO_Mode_IPD
@@ -13,6 +17,9 @@
 
 #define INPUT	INPUT_FLOATING
 #define OUTPUT	OUTPUT_PUSHPULL
+
+#define PA9		0xA0+9	// uart1 tx
+#define PA10	0xA0+10	// uart1 rx
 
 #define PB12	0xB0+12	// A0
 #define PB15	0xB0+15	// A1
@@ -42,9 +49,13 @@
 #define LED_PIN		PA5
 
 void pinMode(uint8_t pin, GPIOMode_TypeDef mode);
-inline void setPinHigh(uint8_t pin);
-inline void setPinLow(uint8_t pin);
-inline void togglePin(uint8_t pin);
-inline bool getPinState(uint8_t pin);
+void setPinHigh(uint8_t pin);
+void setPinLow(uint8_t pin);
+void togglePin(uint8_t pin);
+bool getPinState(uint8_t pin);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif	// ARM_MCU_GPIO_H
