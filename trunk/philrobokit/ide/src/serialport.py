@@ -28,31 +28,28 @@
 import serial, os, glob
 from PyQt4 import QtGui, QtCore
 
-MAX_PORT_NUM = 50
 BAUDRATES = [110, 300, 1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200, 230400, 460800, 921600]
 DEFAULT_BAUD_IDX = 5 # 9600
 RXD_UPDATE_PERIOD = 100  #milliseconds
 
 def scan_serialports():
-    ports = []
     if os.name == "nt":
-        for i in range(MAX_PORT_NUM):
+        import _winreg
+        ports = []
+        path = 'HARDWARE\\DEVICEMAP\\SERIALCOMM'
+        try: key = _winreg.OpenKey(_winreg.HKEY_LOCAL_MACHINE, path)
+        except: return ports
+        for i in range(50):
             try:
-                ser = serial.Serial(i)
-                ports.append(ser.name)
-                ser.close()
-            except serial.SerialException:
-                pass
+                val = _winreg.EnumValue(key, i)
+                ports.append(str(val[1]))
+            except:
+                key.Close()
+                return ports
     elif os.name == 'posix':
-        devices = glob.glob('/dev/ttyS*') + glob.glob('/dev/ttyUSB*') + glob.glob('/dev/tty.PL*')
-        for device in devices:
-            try:
-                ser = serial.Serial(device)
-                ports.append(ser.portstr)
-                ser.close()
-            except serial.SerialException:
-                pass
-    return ports
+        #ports = glob.glob('/dev/ttyS*') + glob.glob('/dev/ttyUSB*') + glob.glob('/dev/tty.PL*')
+        return glob.glob('/dev/ttyUSB*') + glob.glob('/dev/tty.PL*')
+
 
 class SerialPortMonitor(QtGui.QDialog):
     ''' Serial Port Monitor Dialog
@@ -71,7 +68,7 @@ class SerialPortMonitor(QtGui.QDialog):
         self.clearButton = QtGui.QPushButton('Clear')
         self.monitorWindow = QtGui.QTextEdit()
         self.monitorWindow.setReadOnly(True)
-        self.monitorWindow.setFontPointSize(10.0)
+        self.monitorWindow.setFont(QtGui.QFont('Courier New', 9))
         # end-of-line options
         self.addCR = QtGui.QCheckBox('+CR')
         self.addCR.setCheckState(QtCore.Qt.Checked)
