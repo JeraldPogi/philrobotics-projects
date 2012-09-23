@@ -1,13 +1,14 @@
 //***********************************************************************************
-// PhilRobotics | Amateur Robotics Club of the Philippines
-// http://philrobotics.com | http://facebook.com/philrobotics
+// PhilRobotics | Philippine Electronics and Robotics Enthusiasts Club
+// http://philrobotics.com | http://philrobotics.com/forum | http://facebook.com/philrobotics
 // phirobotics.core@philrobotics.com
 //
 //----------------------------------------------------------------------------------
 // Filename:	i2c.h - I2C Header File
 // Description:	
-// Revision:    v00.01.00
+// Revision:    v00.00.02
 // Author:      Giancarlo Acelajado
+//				Keith Beja
 //
 // Dependencies:
 //
@@ -24,43 +25,60 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //***********************************************************************************
 // FW Version      Date        Author         Description
-// v00.00.01       201202xx    Giancarlo A.   Library Initial Release
-// 
+// v00.00.01       201202xx    Giancarlo A.   - Library Initial Release
+// v00.00.02	   20120829	   Keith B.		  - Code Cleanup
+//											  - Modified I2C pins to be tri-state instead of output high
+//											  - Added i2c setup feature
 //***********************************************************************************
 
 //Based from Regulus Berdin I2C routines for PIC Microcontroller
 //http://www.electronicslab.ph/forum/index.php?topic=4679.msg76635#msg76635
-
-#ifndef __PH_I2C_H
-#define __PH_I2C_H
-
-#include "PhilRobokit_Macro.h"
+#ifndef __PH_I2C_H__
+#define __PH_I2C_H__
 
 #if defined(HI_TECH_C)
 	#include "htc_common.h"
 	
-	#if defined( _16F873A ) || defined( _16F874A )  || defined( _16F876A ) || defined( _16F877A )  	
-		#include "htc_16f87xa.h"
+	#if defined( _16F873A ) || defined( _16F874A )  || defined( _16F876A ) || defined( _16F877A ) 
+		#ifndef S_SPLINT_S 	// Suppress SPLint Unrecognized ID Errors
+			#include "htc_16f87xa.h"
+		#else
+			#include "htc_16f87xa_SPLint.h"
+		#endif
 	#endif
 #endif
 
-/* I2C Routine */		
-	enum {
-		I2C_NO_ERROR,
-		I2C_ERROR_NO_ACK
-	};
+#include <PhilRoboKit_CoreLib_Macro.h>
+
+/* Macro Functions */
+#define setSCL()	setPinInput(i2c[i2cMod][I2C_SCLPIN])
+#define clrSCL()	setPinLow(i2c[i2cMod][I2C_SCLPIN]); setPinOutput(i2c[i2cMod][I2C_SCLPIN])
+
+#define setSDA()	setPinInput(i2c[i2cMod][I2C_SDAPIN])
+#define clrSDA()	setPinLow(i2c[i2cMod][I2C_SDAPIN]); setPinOutput(i2c[i2cMod][I2C_SDAPIN])
 	
-	//--- Private Functions ------------------------------	
-	void i2cSendAck(unsigned char ucSDAPin, unsigned char ucSCLPin, char blAcknowledge);	
-	//--- End of Private Functions ------------------------------
-	
-	//--- Public Functions ------------------------------	
-	void i2cStart(unsigned char ucSDAPin, unsigned char ucSCLPin);
-	void i2cStop(unsigned char ucSDAPin, unsigned char ucSCLPin);
-	
-	void setupI2C(unsigned char ucSDAPin, unsigned char ucSCLPin);
-	void i2cWrite(unsigned char ucSDAPin, unsigned char ucSCLPin, unsigned char i2cData);
-	unsigned char i2cRead(unsigned char ucSDAPin, unsigned char ucSCLPin, char blAcknowledge);
-	//--- End of Public Functions ------------------------------
-	
-#endif
+enum
+{
+	I2C_NO_ERROR
+	,I2C_ERROR_NO_ACK
+};
+
+enum i2cModules
+{
+	I2C0
+	,I2C1
+	,I2C3
+	,MAXI2CMOD
+};
+
+/* Public Function Prototypes */
+void i2cSetup(enum i2cModules i2cMod, uchar_t ucSDAPin, uchar_t ucSCLPin);
+
+void i2cStart(enum i2cModules i2cMod);
+void i2cStop(enum i2cModules i2cMod);
+
+uchar_t i2cWrite(enum i2cModules i2cMod, uchar_t i2cData);
+uchar_t i2cRead(enum i2cModules i2cMod, bool blAcknowledge);
+
+#endif /* end of i2c.h */
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
