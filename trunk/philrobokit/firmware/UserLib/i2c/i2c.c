@@ -8,7 +8,7 @@
 // Description:	
 // Revision:    v00.00.02
 // Author:      Giancarlo Acelajado
-//				Keith Beja
+//              Keith Beja
 //
 // Dependencies:
 //
@@ -26,9 +26,9 @@
 //***********************************************************************************
 // FW Version      Date        Author         Description
 // v00.00.01       201202xx    Giancarlo A.   - Library Initial Release
-// v00.00.02	   20120829	   Keith B.		  - Code Cleanup
-//											  - Modified I2C pins to be tri-state instead of output high
-//											  - Added i2c setup feature
+// v00.00.02       20120829    Keith B.       - Code Cleanup
+//                                            - Modified I2C pins to be tri-state instead of output high
+//                                            - Added i2c setup feature
 //***********************************************************************************
 
 //Based from Regulus Berdin I2C routines for PIC Microcontroller
@@ -83,7 +83,7 @@ void i2cStop(enum i2cModules i2cMod)
 uchar_t i2cWrite(enum i2cModules i2cMod, uchar_t i2cData)
 {
 	ui8Ctr = 8;	
-	
+
 	clrSCL(); //Set SCL Pin to Low
 
 	do {
@@ -93,7 +93,7 @@ uchar_t i2cWrite(enum i2cModules i2cMod, uchar_t i2cData)
 		else {
 			clrSDA(); //Set SDA Pin to Low
 		}
-	
+
 		//Optional Delay Here
 		setSCL(); //Set SCL Pin to High
 		//Optional Delay Here
@@ -106,7 +106,7 @@ uchar_t i2cWrite(enum i2cModules i2cMod, uchar_t i2cData)
 	setSDA(); //Set SDA Pin to High
 	setSCL(); //Set SCL Pin to High
 	//Optional Delay here
-	
+
 	if (isPinHigh(i2c[i2cMod][I2C_SDAPIN])) {
 		//SDA remains high, not acknowledged
 		//Optional Delay Here
@@ -114,12 +114,12 @@ uchar_t i2cWrite(enum i2cModules i2cMod, uchar_t i2cData)
 		//Optional Delay Here
 		return I2C_ERROR_NO_ACK;
 	}
-	
+
 	//Optional Delay Here
 	clrSCL(); //Set SCL Pin to Low
 	//Optional Delay Here
-	
-	return I2C_NO_ERROR;	
+
+	return I2C_NO_ERROR;
 }
 
 uchar_t i2cRead(enum i2cModules i2cMod, bool blAcknowledge)

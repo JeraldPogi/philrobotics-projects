@@ -8,7 +8,7 @@
 // Description:	
 // Revision:    v00.00.02
 // Author:      Giancarlo Acelajado
-//				Keith Beja
+//              Keith Beja
 //
 // Dependencies:
 //
@@ -26,9 +26,9 @@
 //***********************************************************************************
 // FW Version      Date        Author         Description
 // v00.00.01       201202xx    Giancarlo A.   - Library Initial Release
-// v00.00.02	   20120829	   Keith B.		  - Code Cleanup
-//											  - Modified I2C pins to be tri-state instead of output high
-//											  - Added i2c setup feature
+// v00.00.02       20120829    Keith B.       - Code Cleanup
+//                                            - Modified I2C pins to be tri-state instead of output high
+//                                            - Added i2c setup feature
 //***********************************************************************************
 
 //Based from Regulus Berdin I2C routines for PIC Microcontroller
