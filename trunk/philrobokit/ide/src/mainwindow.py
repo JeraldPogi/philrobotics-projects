@@ -146,6 +146,9 @@ class AppMainWindow(QtGui.QMainWindow):
             self.insertLog("nothing to stop.")
             
     def programChip(self):
+        if not self.serialPortName:
+            self.insertLog('please select first a Serial Port.')
+            return
         if self.Compiler.isRunning():
             self.insertLog('compiler busy... please wait...')
             return
@@ -155,6 +158,33 @@ class AppMainWindow(QtGui.QMainWindow):
             self.insertLog('serial bootloader busy.')
             return
         hexfile = self.Compiler.getExpectedHexFileName( self.Editor.getCurrentFile() )
+        ret, msg = self.tinyBootloader.programDevice( hexfile, self.serialPortName )
+        if ret:
+            self.insertLog("<font color=green>Bootload/Program Device:</font>", True)
+            self.insertLog(msg)
+            self.pollTblTimerID = self.startTimer(0.5) # relatively fast!
+            if not self.pollTblTimerID:
+                self.insertLog("<font color=red>Unable to start Timer.</font>")
+        else:
+            self.insertLog("<font color=red>%s</font>"%msg)
+            
+    def programChipHexFile(self):
+        if not self.serialPortName:
+            self.insertLog('please select first a Serial Port.')
+            return
+        hexfile = QtGui.QFileDialog.getOpenFileName(
+                        self, self.tr("Open Pre-built Hex File"),
+                        "", " Hex file(*.hex);;Text File (*.txt);;All files (*.*)" )
+        if not os.path.isfile(hexfile):
+            return
+        if self.Compiler.isRunning():
+            self.insertLog('compiler busy... please wait...')
+            return
+        if self.SerialPortMonitorDialog.isPortOpen():
+            self.SerialPortMonitorDialog.close() # close first serial port monitor
+        if self.tinyBootloader.isRunning():
+            self.insertLog('serial bootloader busy.')
+            return
         ret, msg = self.tinyBootloader.programDevice( hexfile, self.serialPortName )
         if ret:
             self.insertLog("<font color=green>Bootload/Program Device:</font>", True)
@@ -324,6 +354,9 @@ class AppMainWindow(QtGui.QMainWindow):
         self.boardGroup.addAction(self.boardEpicpicmoAct)
         self.boardAnitoAct.setChecked(True)
         
+        self.programHexAct = QtGui.QAction("Program &HEX File", self,
+                statusTip="Download pre-built *.hex file to board using bootloader",
+                triggered=self.programChipHexFile)
         self.recoverBootloaderAct = QtGui.QAction("Recover TinyPIC", self,
                 statusTip="Recover TinyPIC Bootloader Firmware using PICkit2",
                 triggered=self.recoverBootloader)
@@ -408,6 +441,7 @@ class AppMainWindow(QtGui.QMainWindow):
             for i in range(len(self.serialPortActs)):
                 self.serialPortMenu.addAction(self.serialPortActs[i])
         self.toolsMenu.addSeparator()
+        self.toolsMenu.addAction(self.programHexAct)
         self.toolsMenu.addAction(self.recoverBootloaderAct)
         self.toolsMenu.addAction(self.restoreDefaultsAct) # todo: create settings dialog
         #self.bootloaderMenu = self.toolsMenu.addMenu("&Booloader")
