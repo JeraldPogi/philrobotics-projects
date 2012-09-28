@@ -72,7 +72,7 @@ class AppMainWindow(QtGui.QMainWindow):
         self.Compiler = PicCompilerThread(self)
         self.pollCompilerTimerID = None
         
-        self.serialPortName = None
+        self.serialPortName = ''
         self.serialPortLabel = QtGui.QLabel('<font color=red><i>(select port)</i></font>')
         self.SerialPortMonitorDialog = SerialPortMonitor(self)
         
@@ -82,11 +82,11 @@ class AppMainWindow(QtGui.QMainWindow):
         self.tinyBootloader = TinyPICBootloaderThread(self)
         self.pollTblTimerID = None
         
+        self.createLogWindow()
         self.createActions()
         self.createMenus()
         self.createToolBars()
         self.createStatusBar()
-        self.createLogWindow()
         
         self.aboutDlg.finish(self)
         print "IDE ready."
@@ -232,7 +232,6 @@ class AppMainWindow(QtGui.QMainWindow):
     def selectSerialPort(self):
         act = self.serialPortGroup.checkedAction()
         if act:
-            # todo: remember previously selected port
             portname = str( act.text() )
             if portname != self.serialPortName:
                 self.serialPortName = portname
@@ -336,6 +335,7 @@ class AppMainWindow(QtGui.QMainWindow):
         self.serialPortGroup = QtGui.QActionGroup(self)
         self.serialPortList = scan_serialports()
         self.serialPortActs = []
+        previousSerialPortName = self.Configs.getSerialPortName()
         if len(self.serialPortList):
             for i in range(len(self.serialPortList)):
                 self.serialPortActs.append(
@@ -343,6 +343,9 @@ class AppMainWindow(QtGui.QMainWindow):
                             statusTip="select " + self.serialPortList[i] + " serial port",
                             triggered=self.selectSerialPort) )
                 self.serialPortGroup.addAction( self.serialPortActs[i] )
+                if self.serialPortList[i] == previousSerialPortName:
+                    self.serialPortActs[i].setChecked(True)
+                    self.selectSerialPort()
         
         # todo: board names??
         self.boardAnitoAct = QtGui.QAction("PhilRobokit &Anito",  self,
@@ -523,6 +526,6 @@ class AppMainWindow(QtGui.QMainWindow):
         if not self.Editor.closeAllTabs(): # check for unsaved changes in the project(s)
             event.ignore()
             return
-        self.Configs.saveIdeSettings()
+        self.Configs.saveIdeSettings(self.serialPortName)
         return QtGui.QMainWindow.closeEvent(self, event)
 

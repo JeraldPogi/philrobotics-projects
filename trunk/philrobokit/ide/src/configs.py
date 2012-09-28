@@ -75,10 +75,9 @@ class IdeConfig:
         Constructor
         '''
         self.parent = parent # QMainWindow parent
-        
         self.ideCfg = QtCore.QSettings(IDE_CONFIG, QtCore.QSettings.IniFormat, self.parent)
-        
         self.restoreIdeSettings()
+        self.defaults = False
         
     def restoreIdeSettings( self ):
         # reads settings from previous session
@@ -88,14 +87,26 @@ class IdeConfig:
         self.parent.move( self.ideCfg.value( "position",
                             QtCore.QVariant( QtCore.QPoint(IDE_POS[0],IDE_POS[1]) ) ).toPoint() )
         self.ideCfg.endGroup()
+        
+        self.ideCfg.beginGroup( "SerialPort" )
+        self.serialPortName = self.ideCfg.value("Name", QtCore.QVariant('')).toString()
+        self.ideCfg.endGroup()
+        
         #todo: other IDE settings
         
-    def saveIdeSettings( self ):
+    def saveIdeSettings( self, serialPortName='' ):
+        if self.defaults:
+            return
         # save IDE settings.
         self.ideCfg.beginGroup( "MainWindow" )
         self.ideCfg.setValue( "size", QtCore.QVariant( self.parent.size() ) )
         self.ideCfg.setValue( "position", QtCore.QVariant( self.parent.pos() ) )
         self.ideCfg.endGroup()
+        
+        self.ideCfg.beginGroup( "SerialPort" )
+        self.ideCfg.setValue( "Name", QtCore.QVariant( serialPortName ) )
+        self.ideCfg.endGroup()
+        
         #todo: other IDE settings
         
     def setDefaults(self):
@@ -116,6 +127,10 @@ class IdeConfig:
             except:                
                 pass
         QtGui.QMessageBox.about( self.parent, "Restore Defaults", "Please restart the IDE" )
+        self.defaults = True
+        
+    def getSerialPortName(self):
+        return self.serialPortName
         
     def getVersions(self):
         ide_vsn = ''
