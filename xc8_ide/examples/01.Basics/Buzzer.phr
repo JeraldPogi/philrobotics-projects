@@ -1,0 +1,12 @@
+#include <philrobokit.h>
+
+void main(void)
+{
+	while(1)
+	{
+		buzzer_on();
+		delay_ms(100);
+		buzzer_off();
+		delay_ms(900);
+	}
+}

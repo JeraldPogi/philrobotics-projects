@@ -1,0 +1,22 @@
+#include <philrobokit.h>
+
+uint16_t interval = 500; // interval at which to blink (milliseconds)
+uint16_t previousMillis = 0;
+uint16_t currentMillis;
+
+void main(void)
+{
+	/* setup */
+
+	while(1)
+	{
+		di();
+		currentMillis = millis();
+		if((uint16_t)(currentMillis-previousMillis) > interval)
+		{
+			previousMillis = currentMillis;
+			led1_toggle();
+		}
+		ei();
+	}
+}

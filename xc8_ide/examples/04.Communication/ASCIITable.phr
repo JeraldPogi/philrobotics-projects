@@ -1,0 +1,17 @@
+#include <philrobokit.h>
+
+void main(void)
+{
+	char thisChar = '!';
+	Serial.begin(9600);
+	Serial.print("ASCII Table ~ Character Map\n");
+	
+	while(1)
+	{
+	    Serial.write(thisChar);
+		printf(" = dec: %d", thisChar);
+		printf(", hex: 0x%x\n", thisChar);
+		if(++thisChar == 127)
+			while(1);
+	}
+}

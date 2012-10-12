@@ -1,0 +1,18 @@
+#include <philrobokit.h>
+
+void main(void)
+{
+	
+	while(1)
+	{
+		if(pb1_read())
+			setPinHigh(LED1);
+		else
+			setPinLow(LED1);
+		
+		if(!pb2_read()){
+			led2_toggle();
+			delay_ms(500);
+		}			
+	}
+}
