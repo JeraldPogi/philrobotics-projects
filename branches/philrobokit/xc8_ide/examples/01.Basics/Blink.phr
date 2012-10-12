@@ -1,0 +1,11 @@
+#include <philrobokit.h>
+
+void main(void)
+{
+	while(1)
+	{
+		led1_toggle();
+		delay_ms(500);
+		led2_toggle();
+	}
+}
