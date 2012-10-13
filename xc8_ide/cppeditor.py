@@ -35,7 +35,7 @@ PROJECT_NONAME = 'untitled'
 
 __default_content__ = '''#include <philrobokit.h>
 
-void main(void)
+int main(void)
 {
 	/* setup */
 
