@@ -147,8 +147,8 @@ class PicCompilerThread(QtCore.QThread):
         # output folder - same location with user code
         outpath = os.path.dirname( str(userCode) ) + '/' + OUT_DIR
         
-        Result, Includes, Sources = parseUserCode( userCode, outpath + '/' + LIB_OUT_DIR )
-        # print Result, Includes, Sources
+        Result, Includes, Sources, Defines = parseUserCode( userCode, outpath + '/' + LIB_OUT_DIR )
+        # print Result, Includes, Sources, Defines
         if not Result:
             self.BuildProcess = None
             return False, "file write error"
@@ -180,7 +180,7 @@ class PicCompilerThread(QtCore.QThread):
                     pcodeFiles.append( outpath + '/' + LIB_OUT_DIR + '/' + os.path.basename(src)[:-2] + '.p1' )
             self.CompilerCommands.append(command)
 
-        self.CompilerCommands.append( [ '@echo', '[LD]', os.path.basename(str(userCode))[:-4] + '.hex' ] )
+        self.CompilerCommands.append( [ '@echo', '[LD]', os.path.basename(str(userCode)) + '.hex' ] )
         command = [ self.CC, '--CHIP=' + self.chip ]
         command += ['--OUTDIR=' + outpath]
         command += self.lflags.split(' ')
@@ -221,10 +221,5 @@ class PicCompilerThread(QtCore.QThread):
             return None
         outpath = os.path.dirname( str(userCode) ) + '/' + OUT_DIR
         fname = os.path.basename( str(userCode) )
-        dotpos = fname.rfind('.')
-        if dotpos > 0:
-            hexfile = outpath + '/' + fname[:dotpos] + '.hex'
-        else:
-            hexfile = outpath + '/' + fname + '.hex'
-        return hexfile
+        return outpath + '/' + fname + '.hex'
 

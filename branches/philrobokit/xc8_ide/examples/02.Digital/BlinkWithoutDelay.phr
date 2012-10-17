@@ -4,7 +4,7 @@ uint16_t interval = 500; // interval at which to blink (milliseconds)
 uint16_t previousMillis = 0;
 uint16_t currentMillis;
 
-void main(void)
+int main(void)
 {
 	/* setup */
 
