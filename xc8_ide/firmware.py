@@ -107,19 +107,15 @@ def parseUserCode(userCode=None, outPath=None):
     # initial return values (empty)
     includes = []
     sources = []
+    defines = []
     
     # create temporary (parsed) source file
     parsedUserCode = str(userCode)
     
     # check if extension is not yet *.c
-    if parsedUserCode.lower().rfind('.c') <> len(parsedUserCode) - len('.c'):
-        parsedUserCode = os.path.basename(parsedUserCode)
-        dotpos = parsedUserCode.rfind('.')
-        if dotpos > 0:
-            parsedUserCode = parsedUserCode[:dotpos] + '.c'
-        else:
-            parsedUserCode += '.c'
-        parsedUserCode = outPath + '/' + parsedUserCode
+    if os.path.splitext(parsedUserCode)[1].lower() != '.c':
+        newbasename = os.path.basename(parsedUserCode) + '.c' # just append ".c" (e.g. "mycode.phr.c")
+        parsedUserCode = os.path.join( os.path.dirname(outPath), newbasename )
         sources.append( parsedUserCode ) # must be first on the list to be compiled
         try:
             fin = open(userCode, 'rb')
@@ -138,6 +134,7 @@ def parseUserCode(userCode=None, outPath=None):
                         include = '-I' + libpath
                         if not (include in includes): # include only once
                             includes.append( include )
+                            defines.append( '-DUSE_' + os.path.basename(libpath).upper() + '=1' )
                             sources += glob.glob(libpath + '/*.c') # compile all *.c files
                             # print sources
             fin.close()
@@ -149,7 +146,7 @@ def parseUserCode(userCode=None, outPath=None):
     includes += getIncludeDirs()
     sources += getCoreSourceFiles()
     
-    return True, includes, sources
+    return True, includes, sources, defines
 
 def getLibraryKeywords():
 

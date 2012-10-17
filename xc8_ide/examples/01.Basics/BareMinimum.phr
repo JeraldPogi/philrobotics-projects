@@ -1,6 +1,6 @@
 #include <philrobokit.h>
 
-void main(void)
+int main(void)
 {
 	/* setup */
 
