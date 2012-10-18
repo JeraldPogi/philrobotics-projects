@@ -1,0 +1,12 @@
+#include <philrobokit.h>
+#include <SoftUart.h>
+
+int main(void)
+{
+	SoftUart.begin(9600);
+	
+	while(1)
+	{
+		SoftUart.write( SoftUart.read() );
+	}
+}

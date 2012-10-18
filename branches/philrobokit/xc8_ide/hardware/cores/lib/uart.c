@@ -5,7 +5,7 @@
 
 volatile UartFifo TxFifo, RxFifo;
 
-void uart1_init(uint32_t baud)
+static void uart_init(uint32_t baud)
 {
 	// BAUDRG  = Fosc / (16 * Desired Baudrate) - 1
 #if 0
@@ -41,7 +41,7 @@ void uart1_init(uint32_t baud)
 }
 
 /* Check number of bytes in the Rx FIFO */
-uint8_t uart1_test(void)
+static uint8_t uart_test(void)
 {
 	return RxFifo.cnt;	/* Returns number of bytes in the Rx FIFO */
 }
@@ -75,12 +75,17 @@ void putch(char ch)
 	ei();
 }
 
+static void uart_print(const char *s)
+{
+	while(*s)
+		putch(*s++);
+}
+
 UARTDEVICE Serial = {
-	uart1_init,
-	uart1_test,
-	/* stdio */
+	uart_init,
+	uart_test,
 	getch,
 	putch,
-	printf
+	uart_print
 };
 

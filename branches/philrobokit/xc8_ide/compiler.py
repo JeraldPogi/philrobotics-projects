@@ -159,6 +159,7 @@ class PicCompilerThread(QtCore.QThread):
             src = Sources[i]
             command = [ self.CC, '--CHIP=' + self.chip ]
             command += Includes
+            command += Defines
             command += self.cflags.split(' ')
             if verbose:
                 command += ['-V', '-V'] # 2 V's
