@@ -1,7 +1,7 @@
 #ifndef __UART_H__
 #define __UART_H__
 
-#define UART_BUFF_SIZE		16
+#define UART_BUFF_SIZE		16	//32
 #define UART_BUFF_MASK		(UART_BUFF_SIZE-1)
 
 typedef struct {
@@ -16,7 +16,7 @@ typedef struct _uartdevice {
 	uint8_t	(*test)(void);
 	char	(*read)(void);
 	void	(*write)(char c);
-	int		(*print)(const char *, ...);
+	void	(*print)(const char *s);
 } UARTDEVICE;
 
 extern UARTDEVICE Serial;

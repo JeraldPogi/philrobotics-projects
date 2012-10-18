@@ -1,12 +1,16 @@
 
 #include <philrobokit.h>
 
+#ifdef USE_SOFTUART
+  #include <SoftUart.h>
+#endif
+
 __CONFIG(WDTE_OFF & FOSC_HS & LVP_OFF & PWRTE_ON & BOREN_OFF);
 
 void interrupt isr(void)
 {
 	uint8_t tmp, chr;
-	if(RCIF)
+	if(RCIE && RCIF)
 	{
 		chr = RCREG;	/* Get received data */
 		tmp = (RxFifo.wi+1) & UART_BUFF_MASK;
@@ -17,7 +21,7 @@ void interrupt isr(void)
 		}
 		RCIF = 0;
 	}
-	if(TXIF && TXIE)
+	if(TXIE && TXIF)
 	{
 		TXREG = TxFifo.buff[TxFifo.ri++];
 		TxFifo.cnt--;
@@ -27,7 +31,7 @@ void interrupt isr(void)
 		TXIF = 0;
 	}
 
-	if(TMR1IF)
+	if(TMR1IE && TMR1IF)
 	{
 		g_ms_counter++;
 		TMR1H = TMR1_PRESET_HIGH;
@@ -35,6 +39,11 @@ void interrupt isr(void)
 		TMR1IF = 0;
 
 	}
+	
+#ifdef USE_SOFTUART
+	SoftUartISR();	
+#endif
+
 }
 
 void board_init(void)
