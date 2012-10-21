@@ -3,8 +3,8 @@
 
 #include <common.h>#include <uart.h>
 // user selectable tx pin
-#define SOFTTX_PIN		RC1		// D1
-#define SOFTTX_TRIS		TRISC1
+#define SOFTTX_PIN		RB1		// D1
+#define SOFTTX_TRIS		TRISB1
 // fixed! rx pin
 #define SOFTRX_PIN		RB0		// D8
 #define SOFTRX_TRIS		TRISB0
