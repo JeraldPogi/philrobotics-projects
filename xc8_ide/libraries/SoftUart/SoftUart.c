@@ -55,15 +55,17 @@ inline void SoftUartISR(void)
 		TMR0 = TMR0_START_PRELOAD;
 		TMR0IE = 1; // trigger timer interrupt after 1.5 bits
 		INTE = INTF = 0; // disable external interrupt
-		bit_counter = 7; // bit-7 to bit-0
+		bit_counter = 0; // bit-0 to bit-7
 		rx_byte = 0;
 	}
 	if(TMR0IE && TMR0IF)
 	{
 		TMR0 = TMR0_BAUD_PRELOAD;
-		if(SOFTRX_PIN) // sample data bit
-			rx_byte |= (1<<bit_counter);
-		if(!(bit_counter--)){ // finished 8 bits
+		if(bit_counter<8){
+			if(SOFTRX_PIN==1) // sample data bit
+				rx_byte |= (1<<bit_counter);
+		}
+		else if(bit_counter>8){ // finished 8 bits + stop bit
 			tmp = (SoftRxFifo.wi+1) & UART_BUFF_MASK;
 			if (tmp != SoftRxFifo.ri){	/* Skip if FIFO is full */
 				SoftRxFifo.buff[SoftRxFifo.wi] = rx_byte;	/* Store data into the FIFO */
@@ -74,6 +76,7 @@ inline void SoftUartISR(void)
 			INTF = 0;
 			INTE = 1; // re-enable start bit detector
 		}
+		bit_counter++;
 		TMR0IF = 0; // clear interrupt flag
 	}
 }
@@ -100,18 +103,18 @@ static char	uart_read(void)
 
 static void	uart_write(char ch)
 {
-	uint8_t pos = 7;
-	// bit-bang write (blocking!)
-	SOFTTX_PIN = 0;	// start bit
-	__delay_us(BITDELAY_US);
+	uint8_t d = (uint8_t)ch;
+	uint8_t cnt = 7;
+	SOFTTX_PIN = 0;
+	//__delay_us(BITDELAY_US);
+	__delay_us(BITDELAY_US-4);
 	do{
-		if( ch & (1<<pos) )
-			SOFTTX_PIN = 1;
-		else
-			SOFTTX_PIN= 0;
-		__delay_us(BITDELAY_US);
-	}while(pos--);
-	SOFTTX_PIN = 1;	// stop bit
+		SOFTTX_PIN = (d&0x01);
+		//__delay_us(BITDELAY_US);
+		__delay_us(BITDELAY_US-7);
+		d >>= 1;
+	}while(cnt--);
+	SOFTTX_PIN = 1;
 	__delay_us(BITDELAY_US);
 }
 
@@ -128,3 +131,4 @@ UARTDEVICE SoftUart = {
 	uart_write,
 	uart_print
 };
+
