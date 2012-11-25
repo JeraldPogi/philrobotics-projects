@@ -37,13 +37,4 @@
 
     #define K16_ADC_RESOLUTION      (1024) /* 2^10 */
 	
-	void setupADC(void);
-	void setupADCPinsToDigital(void);
-	void adcSetChannel(uint8_t ui8Channel);
-    void adcStart(void);	
-    uint16_t adcRead(void);
-	uint16_t adcReadOnly(void);
-    uint16_t adcReadOnChannel(uint8_t ui8Channel);
-    bool_t isADCConversionDone(void);
-
 #endif/* end of drv_Anito_adc.h */

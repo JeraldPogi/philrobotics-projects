@@ -26,7 +26,7 @@
 // FW Version      Date        Author         Description
 // v00.01.00       201112xx    Giancarlo A.   Library Initial Release
 // v00.01.01       201201xx    Giancarlo A.   Add serialFlush Routine
-// 
+// v01.00.00       201211xx    Giancarlo A.   Leverage Library to Standard Architecture 
 //***********************************************************************************
 
 #ifndef __ANITO_UART_H__
@@ -36,12 +36,13 @@
 #include "hal_common_uart.h"
 #include "string.h"
 
-	#define BUFFER_SIZE			(32)
+	#define K8_UART_BUFFER_SIZE			(32)
+	#define	K8_UART_BUFFER_MASK			(K8_UART_BUFFER_SIZE-1)
 
 	struct{
-		uint8_t uartBuffer[BUFFER_SIZE];
-		uint8_t uartHead;
-		uint8_t uartTail;
+		uint8_t Buffer[K8_UART_BUFFER_SIZE];
+		uint8_t Head;
+		uint8_t Tail;
 	}uartTXFiFo, uartRXFiFo;
 
 		

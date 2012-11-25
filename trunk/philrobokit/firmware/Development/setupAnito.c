@@ -35,4 +35,7 @@
         setupTimer();	//Hardware Delay        
         setupADC();
         //setupUart();
+        
+        BIT_INTCON_PEIE = 1; //Enable Peripheral Interrupt
+		BIT_INTCON_GIE = 1;	 //Enable Global Interrupt
     }

@@ -24,11 +24,18 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //***********************************************************************************
 // FW Version      	Date        	Author         	Description
-// v00.00.01       	201211xx    	Giancarlo A.   	- Library Initial Release(internal)
+// v01.00.00       	201211xx    	Giancarlo A.   	- Library Initial Release
 // 
 //***********************************************************************************
 
 #include "app_common_timer.h"
+
+	volatile uint16_t ui16TimerUs = 0;
+	volatile uint16_t ui16TimerMs = 0;
+    
+    #ifdef __TIMER_SEC__
+        volatile uint16_t ui16TimerSec = 0;
+    #endif
 
     uint16_t getElapsedMs(uint16_t ui16TimeMs)
 	{	

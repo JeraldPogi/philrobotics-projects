@@ -27,13 +27,13 @@
 // v00.00.01       	201202xx    	Giancarlo A.   	- Library Initial Release(internal)
 // v00.00.02       	201203xx    	Giancarlo A.   	- Fix CONST8_TIMER values(for 20MHz)
 // v00.00.03		20130707	 	ESCII			- Set Overflow to Every 100uS
-// 
+// v01.00.00        2012110xx    Giancarlo A.   Leverage Library to Standard Architecture
 //***********************************************************************************
 #ifndef __ANITO_TIMER_H__
 #define __ANITO_TIMER_H__
 
 #include "PhilRoboKit_CoreLib_Header.h"
-#include "hal_common_timer.h"
+#include "app_common_timer.h"
 
 	#define K16_TIMER_10US				(65530) 	//(65536 - ((0.00001)*PROCESSOR_CLOCK_FREQ)/4*8)
 	#define K16_TIMER_40US				(65511) 	//(65536 - ((0.00004)*PROCESSOR_CLOCK_FREQ)/4*8)

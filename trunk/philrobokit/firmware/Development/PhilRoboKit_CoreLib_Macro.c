@@ -27,6 +27,7 @@
 // v00.01.01       201112xx    Giancarlo A.   Library Initial Release
 // v00.01.02       201202xx    Giancarlo A.   Modify LowLevel Configuration of Pins
 // v00.01.03       20120711    ESCII		  Changed Interrupt Priorities
+// v01.00.00       201210xx    Giancarlo A.   Leverage Library to Standard Architecture
 //***********************************************************************************
 
 #include "PhilRoboKit_CoreLib_Macro.h"
@@ -93,3 +94,4 @@ isr(void)
 
 /* End of PhilRoboKit_CoreLib_Macro.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+	

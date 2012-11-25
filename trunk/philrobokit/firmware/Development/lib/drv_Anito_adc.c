@@ -68,8 +68,6 @@ void setupADC(void)
 	BIT_PIR1_ADIF = 0; //Clear ADC Interrupt Flag
 	BIT_PIE1_ADIE = 0; //Disable ADC Interrupt ByDefault
 		
-	//BIT_INTCON_PEIE = 1; //Enable Peripheral Interrupt
-	//BIT_INTCON_GIE = 1;	 //Enable Global Interrupt
 }	
 
 void setupADCPinsToDigital(void)
@@ -93,7 +91,8 @@ void adcSetChannel(uint8_t ui8Channel)
 		//case 0x06:	BIT_ADCON0_CHS0 = 0; BIT_ADCON0_CHS1 = 1; BIT_ADCON0_CHS2 = 1; break;
 		
 		default:	BIT_ADCON0_CHS0 = 0; BIT_ADCON0_CHS1 = 0; BIT_ADCON0_CHS2 = 0; break;	//Default is AN0
-	}	
+	}		
+	delayUs(10); 
 }	
 
 void adcStart(void)
@@ -103,18 +102,29 @@ void adcStart(void)
 }	
 
 uint16_t adcRead(void)
-{	
+{
+	uint16_t ui16ADCVal;
+	
 	BIT_ADCON0_GO_DONE = 1; //Start Conversion						
 
-	while(BIT_ADCON0_GO_DONE)	//While conversion is on going
-		continue;
-			
-	return	((REGISTER_ADRESH << 8) | REGISTER_ADRESL) & 0x7FF);
+	while(!isADCConversionDone());	//While conversion is on going
+
+	ui16ADCVal = (REGISTER_ADRESH<<8);
+	ui16ADCVal |= REGISTER_ADRESL;
+	ui16ADCVal &= 0x7FF;
+					
+	return ui16ADCVal;
 }	
 
 uint16_t adcReadOnly(void)
-{			
-	return	((REGISTER_ADRESH << 8) | REGISTER_ADRESL) & 0x7FF); 
+{	
+	uint16_t ui16ADCVal;
+			
+	ui16ADCVal = (REGISTER_ADRESH<<8);
+	ui16ADCVal |= REGISTER_ADRESL;
+	ui16ADCVal &= 0x7FF;
+					
+	return ui16ADCVal;
 }	
 
 uint16_t adcReadOnChannel(uint8_t ui8Channel)
@@ -126,7 +136,7 @@ uint16_t adcReadOnChannel(uint8_t ui8Channel)
 
 bool_t isADCConversionDone(void)
 {
-    return (BIT_ADCON0_GO_DONE? 0: 1);
+    return (BIT_ADCON0_GO_DONE?FALSE:TRUE);
 }
 
 /* end of drv_Anito_adc.c */

@@ -24,7 +24,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //***********************************************************************************
 // FW Version      	Date        	Author         	Description
-// v00.00.01       	201202xx    	Giancarlo A.   	- Library Initial Release(internal)
+// v01.00.00       	201211xx    	Giancarlo A.   	- Library Initial Release
 // 
 //***********************************************************************************
 #ifndef __APP_COMMON_TIMER_H__
@@ -32,11 +32,11 @@
 
 #include "PhilRoboKit_CoreLib_DataTypes.h"
 
-    static volatile uint16_t ui16TimerUs = 0;
-	static volatile uint16_t ui16TimerMs = 0;
+    extern volatile uint16_t ui16TimerUs;
+	extern volatile uint16_t ui16TimerMs;
     
     #ifdef __TIMER_SEC__
-        static volatile uint16_t ui16TimerSec = 0;
+        extern volatile uint16_t ui16TimerSec;
     #endif
 
 /* Hardware Delay Routine*/
