@@ -1,10 +1,10 @@
-    //***********************************************************************************
+//***********************************************************************************
 // PhilRobotics | Philippine Electronics and Robotics Enthusiasts Club
 // http://philrobotics.com | http://philrobotics.com/forum | http://facebook.com/philrobotics
 // phirobotics.core@philrobotics.com
 //
 //----------------------------------------------------------------------------------
-// Filename:	hal_common_timer.c - Common Timer Hardware Delay File
+// Filename:	app_common_timer.h - Timer Hardware Delay Header Application Layer File
 // Description:	
 // Revision:    v01.00.00
 // Author:      Giancarlo Acelajado
@@ -24,43 +24,34 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //***********************************************************************************
 // FW Version      	Date        	Author         	Description
-// v00.00.01       	201211xx    	Giancarlo A.   	- Library Initial Release(internal)
+// v00.00.01       	201202xx    	Giancarlo A.   	- Library Initial Release(internal)
 // 
 //***********************************************************************************
+#ifndef __APP_COMMON_TIMER_H__
+#define __APP_COMMON_TIMER_H__
 
-#include "hal_common_timer.h"
+#include "PhilRoboKit_CoreLib_DataTypes.h"
 
-    uint16_t getElapsedMs(uint16_t ui16TimeMs)
-	{	
-		return (ui16TimerMs - ui16TimeMs);
-	}	
-
-	uint16_t getMs(void)
-	{	
-		return ui16TimerMs;
-	}
-
-	uint16_t getElapsedUs(uint16_t ui16TimeUs)
-	{	
-		return (ui16TimerUs - ui16TimeUs);
-	}	
-
-	uint16_t getUs(void)
-	{	
-		return ui16TimerUs;
-	}
+    static volatile uint16_t ui16TimerUs = 0;
+	static volatile uint16_t ui16TimerMs = 0;
     
     #ifdef __TIMER_SEC__
-        uint16_t getElapsedSec(uint16_t ui16TimeSec)
-        {	
-            return (ui16TimerSec - ui16TimeSec);
-        }	
-
-        uint16_t getSec(void)
-        {	
-            return ui16TimerSec;
-        }
+        static volatile uint16_t ui16TimerSec = 0;
     #endif
 
-/* end of hal_common_timer.c */
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------		
+/* Hardware Delay Routine*/
+	
+	void timerInterruptHandler(void);
+
+	void setupTimer(void);
+	uint16_t getElapsedMs(uint16_t ui16TimeMs);
+	uint16_t getMs(void);
+	uint16_t getElapsedUs(uint16_t ui16TimeUs);
+	uint16_t getUs(void);
+    
+    #ifdef __TIMER_SEC__
+        uint16_t getElapsedSec(uint16_t ui16TimeSec);
+        uint16_t getSec(void);
+    #endif
+	
+#endif/* end of app_common_timer.h */
