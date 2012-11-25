@@ -177,7 +177,7 @@ bool_t checkPinState(uint8_t ui8PinName)
 
     void setPinState(uint8_t ui8PinName, bool_t blPinState)
     {
-        if(blDirection){
+        if(blPinState){
             if(ui8PinName<=D7) { 
                 REGISTER_PORTC |= (1UL<<ui8PinName); 
             }else if(ui8PinName>=D8 && ui8PinName<=D13) { 

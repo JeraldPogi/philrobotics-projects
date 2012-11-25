@@ -33,7 +33,7 @@
 
 	void setupSerial(uint16_t ui16Baudrate)
 	{			
-		TXFiFo.iIn = TXFiFo.iOut = RXFiFo.iIn = RXFiFo.iOut = 0;
+		uartTXFiFo.Head = uartTXFiFo.Tail = uartRXFiFo.Head = uartRXFiFo.Tail = 0;
 		
 		BIT_TXSTA_TX9 = 0;	//8-bit
 		BIT_TXSTA_TXEN = 1; //Enable Transmit
@@ -87,7 +87,7 @@
 
 	uint8_t isSerialBufferFull(void)
 	{
-		return (((uartTXFiFo.uartHead+1) & (BUFFER_SIZE-1)) == uartTXFiFo.uartTail);	
+		return (((uartTXFiFo.Head+1) & K8_UART_BUFFER_MASK) == uartTXFiFo.Tail);	
 	}
 
 	void serialSendChar(uint8_t ui8TxData)
@@ -97,9 +97,9 @@
 	
 		BIT_INTCON_GIE = 0; //Disable Interrupt
 		
-		uartTXFiFo.uartBuffer[uartTXFiFo.uartHead++] = ui8TxData;
+		uartTXFiFo.Buffer[uartTXFiFo.Head++] = ui8TxData;
 	
-		uartTXFiFo.uartHead &= (BUFFER_SIZE-1);
+		uartTXFiFo.Head &= K8_UART_BUFFER_MASK;
 		
 	
 		BIT_PIE1_TXIE = 1; //Enable Transmit Interrupt
@@ -122,7 +122,7 @@
 			return 0;
 		}				
 		
-		return (uartRXFiFo.uartHead != uartRXFiFo.uartTail);		
+		return (uartRXFiFo.Head != uartRXFiFo.Tail);		
 	}
 	
 	uint8_t serialRead(void)
@@ -136,9 +136,9 @@
 		if(isSerialDataAvailable()){
 			BIT_INTCON_GIE = 0;			//Disable Global Interrupt.
 	    
-	    	ui8serialData = uartRXFiFo.uartBuffer[uartRXFiFo.uartTail++];	//Get Data from Buffer
+	    	ui8serialData = uartRXFiFo.Buffer[uartRXFiFo.Tail++];	//Get Data from Buffer
 		
-			uartRXFiFo.uartTail &= (BUFFER_SIZE-1);
+			uartRXFiFo.Tail &= K8_UART_BUFFER_MASK;
 	    	
 	    	BIT_INTCON_GIE = 1;		//Enable Global Interrupt
 		
@@ -150,13 +150,13 @@
 	
 	void serialFlushData(void)
     {
-       RXFiFo.iOut = 0;
-       TXFiFo.iOut = 0;
-       RXFiFo.iIn = 0;
-       TXFiFo.iIn = 0;
+       uartRXFiFo.Head = 0;
+       uartTXFiFo.Head = 0;
+       uartRXFiFo.Tail = 0;
+       uartTXFiFo.Tail = 0;
 
-       memset(uartTXFiFo.uartBuffer, NULL, sizeof(uartTXFiFo.uartBuffer));
-       memset(uartRXFiFo.uartBuffer, NULL, sizeof(uartRXFiFo.uartBuffer));
+       memset(uartTXFiFo.Buffer, NULL, sizeof(uartTXFiFo.Buffer));
+       memset(uartRXFiFo.Buffer, NULL, sizeof(uartRXFiFo.Buffer));
     } 		
 	
 	void serialRxInterruptHandler(void)
@@ -165,11 +165,11 @@
 		
 		if (BIT_PIR1_RCIF){
 			
-			uartRXFiFo.uartBuffer[uartRXFiFo.uartHead] = REGISTER_RCREG;
-			ui8TempIn = ((uartRXFiFo.uartHead+1) & (BUFFER_SIZE-1));
+			uartRXFiFo.Buffer[uartRXFiFo.Head] = REGISTER_RCREG;
+			ui8TempIn = ((uartRXFiFo.Head+1) & K8_UART_BUFFER_MASK);
 
-			if (ui8TempIn != uartRXFiFo.uartTail){
-				uartRXFiFo.uartHead = ui8TempIn;
+			if (ui8TempIn != uartRXFiFo.Tail){
+				uartRXFiFo.Head = ui8TempIn;
             }
 				
 			BIT_PIR1_RCIF = 0; //Clear Receive Interrupt Flag
@@ -180,11 +180,11 @@
 	{
 		if (BIT_PIR1_TXIF && BIT_PIE1_TXIE){
 			
-			REGISTER_TXREG = uartTXFiFo.uartBuffer[uartTXFiFo.uartTail++];
+			REGISTER_TXREG = uartTXFiFo.Buffer[uartTXFiFo.Tail++];
 			
-			uartTXFiFo.uartTail &= (BUFFER_SIZE-1);	
+			uartTXFiFo.Tail &= K8_UART_BUFFER_MASK;	
 
-			if (uartTXFiFo.uartTail == uartTXFiFo.uartHead){
+			if (uartTXFiFo.Tail == uartTXFiFo.Head){
 				BIT_PIE1_TXIE = 0;
             }
 				

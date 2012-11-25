@@ -28,7 +28,7 @@
 // v00.00.02       	201203xx    	Giancarlo A.   	- XXXXXX
 // v00.00.03		20130707	  	ESCII			- Fixed Interrupt Handler and Set
 //													- Overflow to Every 100uS
-// 
+// v01.00.00       201211xx    Giancarlo A.   Leverage Library to Standard Architecture
 //***********************************************************************************
 #include "hal_Anito_timer.h"
 

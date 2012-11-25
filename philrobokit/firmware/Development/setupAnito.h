@@ -24,14 +24,14 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //***********************************************************************************
 // FW Version      Date        Author         Description
-// v01.00.0       201209xx    Giancarlo A.   Library Initial Release
+// v01.00.00       201209xx    Giancarlo A.   Library Initial Release
 //***********************************************************************************
 
 #ifndef __SETUP_ANITO__
 #define __SETUP_ANITO__
 
     #include "hal_Anito_gpio.h"
-    #include "drv_Anito_timer.h"
+    #include "hal_Anito_timer.h"
     #include "drv_Anito_uart.h"
     #include "drv_Anito_adc.h"
     //include "hal_Anito_interrupts.h"

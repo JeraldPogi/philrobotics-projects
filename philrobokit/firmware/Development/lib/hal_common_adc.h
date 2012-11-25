@@ -42,6 +42,6 @@
     uint16_t adcRead(void);
 	uint16_t adcReadOnly(void);
     uint16_t adcReadOnChannel(uint8_t ui8Channel);
-    bool isADCConversionDone(void);
+    bool_t isADCConversionDone(void);
 
 #endif/* end of hal_common_adc.h */
