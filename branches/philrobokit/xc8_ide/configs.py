@@ -47,9 +47,6 @@ DEFAULT_CC_WIN32 = 'tools\\xc8_win32\\bin\\xc8'
 DEFAULT_CC_LINUX = 'tools/xc8_linux/bin/xc8'
 DEFAULT_CC_OSX   = 'tools/xc8_osx/bin/xc8'
 
-# default chip
-DEFAULT_CHIP = '16F877A' 
-
 # see compiler manual
 '''   # '--WARN=-1',  # warning level {-9 to 9}
       # '-V', # verbose
@@ -189,7 +186,6 @@ class CompilerConfig:
             # todo: other host platform
             self.CC = ""
         
-        self.CHIP = self.compilerCfg.value("CHIP", QtCore.QVariant(DEFAULT_CHIP)).toString()
         self.CFLAGS = self.compilerCfg.value("CFLAGS", QtCore.QVariant(DEFAULT_CFLAGS)).toString()
         self.LFLAGS = self.compilerCfg.value("LFLAGS", QtCore.QVariant(DEFAULT_LFLAGS)).toString()
                             
@@ -201,7 +197,6 @@ class CompilerConfig:
         self.compilerCfg.beginGroup("TOOLCHAIN")
         
         self.compilerCfg.setValue( "COMPILER", QtCore.QVariant( self.CC ) )
-        self.compilerCfg.setValue( "CHIP", QtCore.QVariant( self.CHIP ) )
         self.compilerCfg.setValue( "CFLAGS", QtCore.QVariant( self.CFLAGS ) )
         self.compilerCfg.setValue( "LFLAGS", QtCore.QVariant( self.LFLAGS ) )
         
@@ -209,9 +204,6 @@ class CompilerConfig:
 
     def getCompiler(self):
         return str( self.CC )
-    
-    def getChip(self):
-        return str( self.CHIP )
     
     def getCflags(self):
         return str( self.CFLAGS )

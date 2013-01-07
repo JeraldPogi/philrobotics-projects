@@ -1,11 +1,13 @@
 
 #include <philrobokit.h>
 
-#ifdef USE_SOFTUART
-  #include <SoftUart.h>
-#endif
-
+#if defined(_16F877A)
 __CONFIG(WDTE_OFF & FOSC_HS & LVP_OFF & PWRTE_ON & BOREN_OFF);
+#elif defined(_18F4520)
+// todo: device configuration
+#else
+#error "board not yet supported"
+#endif
 
 void interrupt isr(void)
 {
@@ -40,10 +42,6 @@ void interrupt isr(void)
 
 	}
 	
-#ifdef USE_SOFTUART
-	SoftUartISR();	
-#endif
-
 }
 
 void board_init(void)
