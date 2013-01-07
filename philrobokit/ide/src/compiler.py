@@ -50,8 +50,7 @@ class PicCompilerThread(QtCore.QThread):
         if os.sys.platform == 'win32':
             self.isWin32Platform = True
             
-        self.PICC = self.Configs.getCompiler()
-        self.chip = self.Configs.getChip()
+        self.CC = self.Configs.getCompiler()
         self.cflags = self.Configs.getCflags()
         self.lflags = self.Configs.getLflags()
             
@@ -61,10 +60,10 @@ class PicCompilerThread(QtCore.QThread):
         self.LogList = QtCore.QStringList()
             
     def run(self):
-        if not self.PICC:
+        if not self.CC:
             print 'no supported compiler!'
             return
-        #print self.PICC
+        #print self.CC
         self.LogList.clear()
         bStop = False
         for command in self.CompilerCommands:
@@ -109,7 +108,7 @@ class PicCompilerThread(QtCore.QThread):
                             self.LogList.append( "<font color=green>%s</font>" % msg )
             except:
                 print 'got errors in compiler thread!'
-                self.LogList.append( "<font color=red>%s</font>" % self.PICC)
+                self.LogList.append( "<font color=red>%s</font>" % self.CC)
                 self.CompilerProcess = None
                 bStop = True
                 
@@ -122,7 +121,7 @@ class PicCompilerThread(QtCore.QThread):
     def getCompilerInfo(self):
         if self.isRunning():
             return None
-        self.CompilerCommands = [[ self.PICC, '--ver' ]] # get version info
+        self.CompilerCommands = [[ self.CC, '--ver' ]] # get version info
         self.start()
         while True:
             self.usleep(1000)
@@ -138,17 +137,24 @@ class PicCompilerThread(QtCore.QThread):
             return info
                         
 
-    def buildProject(self, userCode=None):
+    def buildProject(self, userCode=None, boardName='', verbose=False):
         if self.isRunning():
             return False, "busy"
         if not os.path.isfile(userCode):
             return False, "file not found"
         
+        if boardName == 'Anito-877A':
+            self.chip = '16F877A'
+        elif boardName == 'Anito-4520':
+            self.chip = '18F4520'
+        else:
+            return False, "board not supported"
+        
         # output folder - same location with user code
         outpath = os.path.dirname( str(userCode) ) + '/' + OUT_DIR
         
-        Result, Includes, Sources = parseUserCode( userCode, outpath + '/' + LIB_OUT_DIR )
-        # print Result, Includes, Sources
+        Result, Includes, Sources, Defines = parseUserCode( userCode, outpath + '/' + LIB_OUT_DIR )
+        # print Result, Includes, Sources, Defines
         if not Result:
             self.BuildProcess = None
             return False, "file write error"
@@ -157,21 +163,39 @@ class PicCompilerThread(QtCore.QThread):
         pcodeFiles = []
         for i in range(len(Sources)):
             src = Sources[i]
-            command = [ self.PICC, '--CHIP=' + self.chip ]
+            command = [ self.CC, '--CHIP=' + self.chip ]
             command += Includes
-            command += self.cflags.split(';')
+            command += Defines
+            command += self.cflags.split(' ')
+            if verbose:
+                command += ['-V', '-V'] # 2 V's
+            else:
+                command += ['-Q']
             if i==0: # user code
                 command += ['--OUTDIR=' + outpath, src]
+                self.CompilerCommands.append( [ '@echo', '[CC]', os.path.basename(str(userCode)) ] )
                 pcodeFiles.append( outpath + '/' + os.path.basename(src)[:-2] + '.p1' )
             else: # separate folder for library intermediates
-                command += ['--OUTDIR=' + outpath + '/' + LIB_OUT_DIR, src]
-                pcodeFiles.append( outpath + '/' + LIB_OUT_DIR + '/' + os.path.basename(src)[:-2] + '.p1' )
+                ext = os.path.splitext(src)[1]
+                if ext == '.as':
+                    command += ['--OUTDIR=' + outpath + '/' + LIB_OUT_DIR, src]
+                    self.CompilerCommands.append( [ '@echo', '[AS]', os.path.basename(src) ] )
+                    pcodeFiles.append( outpath + '/' + LIB_OUT_DIR + '/' + os.path.basename(src)[:-3] + '.obj' )
+                else:
+                    command += ['--OUTDIR=' + outpath + '/' + LIB_OUT_DIR, src]
+                    self.CompilerCommands.append( [ '@echo', '[CC]', os.path.basename(src) ] )
+                    pcodeFiles.append( outpath + '/' + LIB_OUT_DIR + '/' + os.path.basename(src)[:-2] + '.p1' )
             self.CompilerCommands.append(command)
 
-        command = [ self.PICC, '--CHIP=' + self.chip ]
+        self.CompilerCommands.append( [ '@echo', '[LD]', os.path.basename(str(userCode)) + '.hex' ] )
+        command = [ self.CC, '--CHIP=' + self.chip ]
         command += ['--OUTDIR=' + outpath]
-        command += self.lflags.split(';')
-        command += pcodeFiles        
+        command += self.lflags.split(' ')
+        if verbose:
+            command += ['-V', '-V', '--TIME'] # 2 V's
+        else:
+            command += ['-Q']
+        command += pcodeFiles
         self.CompilerCommands.append(command)
 
         self.start()
@@ -204,10 +228,5 @@ class PicCompilerThread(QtCore.QThread):
             return None
         outpath = os.path.dirname( str(userCode) ) + '/' + OUT_DIR
         fname = os.path.basename( str(userCode) )
-        dotpos = fname.rfind('.')
-        if dotpos > 0:
-            hexfile = outpath + '/' + fname[:dotpos] + '.hex'
-        else:
-            hexfile = outpath + '/' + fname + '.hex'
-        return hexfile
+        return outpath + '/' + fname + '.hex'
 
