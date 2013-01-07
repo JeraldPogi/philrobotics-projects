@@ -72,7 +72,7 @@ if os.sys.platform == 'win32':
     # add win32 for pyserial
     packages.append('serial.win32')
     # add tool chain files
-    files += glob.glob('tools/picc_win32/*')
+    files += glob.glob('tools/xc8_win32/*')
     # add pickit2
     files += glob.glob('tools/pickit2/*.exe') + glob.glob('tools/pickit2/*PK2CMD.txt')
     # add PL2303 usb driver
@@ -86,7 +86,7 @@ if os.sys.platform == 'win32':
 
 elif os.sys.platform == 'linux2':
     # add tool chain files
-    files += glob.glob('tools/picc_linux/*')
+    files += glob.glob('tools/xc8_linux/*')
     # add pickit2
     files += glob.glob('tools/pickit2/*linux') + glob.glob('tools/pickit2/*Linux*.txt')
     EXE = Executable(
@@ -100,7 +100,7 @@ elif os.sys.platform == 'darwin': # note: use cx_Freeze 4.3 or later
     # prevent dynamic library loading error on OS X
     script_exe = False
     # add tool chain files
-    files += glob.glob('tools/picc_osx/*')
+    files += glob.glob('tools/xc8_osx/*')
     # add pickit2
     files += glob.glob('tools/pickit2/*osx') + glob.glob('tools/pickit2/*MacOSX.txt')
     # add PL2303 usb driver

@@ -73,7 +73,10 @@ def getExampleProjects(libFolders=[]):
 
 def getCoreSourceFiles():
     # scan all *.c files
-    srcs = glob.glob(PRK_CORE_DIR + '/*.c') + glob.glob(PRK_CORELIB_DIR + '/*.c')
+    srcs = glob.glob(PRK_CORE_DIR + '/*.c') + \
+            glob.glob(PRK_CORE_DIR + '/*.as') + \
+            glob.glob(PRK_CORELIB_DIR + '/*.c') + \
+            glob.glob(PRK_CORELIB_DIR + '/*.as')
     #for f in srcs:
     #    print f
     return srcs
@@ -104,24 +107,20 @@ def parseUserCode(userCode=None, outPath=None):
     # initial return values (empty)
     includes = []
     sources = []
+    defines = []
     
     # create temporary (parsed) source file
     parsedUserCode = str(userCode)
     
     # check if extension is not yet *.c
-    if parsedUserCode.lower().rfind('.c') <> len(parsedUserCode) - len('.c'):
-        parsedUserCode = os.path.basename(parsedUserCode)
-        dotpos = parsedUserCode.rfind('.')
-        if dotpos > 0:
-            parsedUserCode = parsedUserCode[:dotpos] + '.c'
-        else:
-            parsedUserCode += '.c'
-        parsedUserCode = outPath + '/' + parsedUserCode
+    if os.path.splitext(parsedUserCode)[1].lower() != '.c':
+        newbasename = os.path.basename(parsedUserCode) + '.c' # just append ".c" (e.g. "mycode.phr.c")
+        parsedUserCode = os.path.join( os.path.dirname(outPath), newbasename )
         sources.append( parsedUserCode ) # must be first on the list to be compiled
         try:
             fin = open(userCode, 'rb')
             fout = open(parsedUserCode, 'wb')
-            fout.writelines( REQUIRED_INCLUDES )
+            # fout.writelines( REQUIRED_INCLUDES )
             for line in fin.readlines():
                 fout.write(line)
                 if line.strip().find('#include') == 0: # found an '#include' directive
@@ -135,6 +134,7 @@ def parseUserCode(userCode=None, outPath=None):
                         include = '-I' + libpath
                         if not (include in includes): # include only once
                             includes.append( include )
+                            defines.append( '-DUSE_' + os.path.basename(libpath).upper() + '=1' )
                             sources += glob.glob(libpath + '/*.c') # compile all *.c files
                             # print sources
             fin.close()
@@ -146,7 +146,7 @@ def parseUserCode(userCode=None, outPath=None):
     includes += getIncludeDirs()
     sources += getCoreSourceFiles()
     
-    return True, includes, sources
+    return True, includes, sources, defines
 
 def getLibraryKeywords():
 

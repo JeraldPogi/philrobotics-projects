@@ -42,13 +42,10 @@ BOARD_CONFIG = CONFIG_DIR + 'board.ini'
 IDE_SIZE = [480, 560]
 IDE_POS = [100, 100]
 
-# default compilers (hi-tech C)
-DEFAULT_CC_WIN32 = 'tools/picc_win32/bin/picc'
-DEFAULT_CC_LINUX = 'tools/picc_linux/bin/picc'
-DEFAULT_CC_OSX   = 'tools/picc_osx/bin/picc'
-
-# default chip
-DEFAULT_CHIP = '16F877A' 
+# default compilers (XC8)
+DEFAULT_CC_WIN32 = 'tools\\xc8_win32\\bin\\xc8'
+DEFAULT_CC_LINUX = 'tools/xc8_linux/bin/xc8'
+DEFAULT_CC_OSX   = 'tools/xc8_osx/bin/xc8'
 
 # see compiler manual
 '''   # '--WARN=-1',  # warning level {-9 to 9}
@@ -59,12 +56,13 @@ DEFAULT_CHIP = '16F877A'
       # '--SUMMARY=psect', # default to 'mem'
 '''
        
-# default flags (separate with semicolon)
-DEFAULT_CFLAGS = '-D_16F877A;-DHI_TECH_C=1;-V;-Q;--pass1'
+# default flags
+#DEFAULT_CFLAGS = '--CCI --OPT=space --RUNTIME=default,+download,+stackcall --pass1'
+DEFAULT_CFLAGS = '--OPT=space --RUNTIME=default,+download,+stackcall --pass1'
 DEFAULT_LFLAGS = '--SUMMARY=mem'
 
 # compiler defines for header parser
-DEFAULT_COMPILER_DEFINES = 'HI_TECH_C:1'
+DEFAULT_COMPILER_DEFINES = ''
 
 class IdeConfig:
     '''
@@ -92,9 +90,13 @@ class IdeConfig:
         self.serialPortName = self.ideCfg.value("Name", QtCore.QVariant('')).toString()
         self.ideCfg.endGroup()
         
+        self.ideCfg.beginGroup( "Board" )
+        self.boardName = self.ideCfg.value("Name", QtCore.QVariant('')).toString()
+        self.ideCfg.endGroup()
+        
         #todo: other IDE settings
         
-    def saveIdeSettings( self, serialPortName='' ):
+    def saveIdeSettings( self, serialPortName='', boardName='' ):
         if self.defaults:
             return
         # save IDE settings.
@@ -105,6 +107,10 @@ class IdeConfig:
         
         self.ideCfg.beginGroup( "SerialPort" )
         self.ideCfg.setValue( "Name", QtCore.QVariant( serialPortName ) )
+        self.ideCfg.endGroup()
+        
+        self.ideCfg.beginGroup( "Board" )
+        self.ideCfg.setValue( "Name", QtCore.QVariant( boardName ) )
         self.ideCfg.endGroup()
         
         #todo: other IDE settings
@@ -131,6 +137,9 @@ class IdeConfig:
         
     def getSerialPortName(self):
         return self.serialPortName
+    
+    def getBoardName(self):
+        return self.boardName
         
     def getVersions(self):
         ide_vsn = ''
@@ -166,18 +175,17 @@ class CompilerConfig:
         
         if os.sys.platform == 'win32':
             self.CC = self.compilerCfg.value("COMPILER",
-                            QtCore.QVariant(os.getcwd() + '/' + DEFAULT_CC_WIN32)).toString()
+                            QtCore.QVariant(DEFAULT_CC_WIN32)).toString()
         elif os.sys.platform == 'linux2':
             self.CC = self.compilerCfg.value("COMPILER",
-                            QtCore.QVariant(os.getcwd() + '/' + DEFAULT_CC_LINUX)).toString()
+                            QtCore.QVariant(DEFAULT_CC_LINUX)).toString()
         elif os.sys.platform == 'darwin':
             self.CC = self.compilerCfg.value("COMPILER",
-                            QtCore.QVariant(os.getcwd() + '/' + DEFAULT_CC_OSX)).toString()
+                            QtCore.QVariant(DEFAULT_CC_OSX)).toString()
         else:
             # todo: other host platform
             self.CC = ""
         
-        self.CHIP = self.compilerCfg.value("CHIP", QtCore.QVariant(DEFAULT_CHIP)).toString()
         self.CFLAGS = self.compilerCfg.value("CFLAGS", QtCore.QVariant(DEFAULT_CFLAGS)).toString()
         self.LFLAGS = self.compilerCfg.value("LFLAGS", QtCore.QVariant(DEFAULT_LFLAGS)).toString()
                             
@@ -189,7 +197,6 @@ class CompilerConfig:
         self.compilerCfg.beginGroup("TOOLCHAIN")
         
         self.compilerCfg.setValue( "COMPILER", QtCore.QVariant( self.CC ) )
-        self.compilerCfg.setValue( "CHIP", QtCore.QVariant( self.CHIP ) )
         self.compilerCfg.setValue( "CFLAGS", QtCore.QVariant( self.CFLAGS ) )
         self.compilerCfg.setValue( "LFLAGS", QtCore.QVariant( self.LFLAGS ) )
         
@@ -197,9 +204,6 @@ class CompilerConfig:
 
     def getCompiler(self):
         return str( self.CC )
-    
-    def getChip(self):
-        return str( self.CHIP )
     
     def getCflags(self):
         return str( self.CFLAGS )
