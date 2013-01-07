@@ -123,7 +123,7 @@ class AppMainWindow(QtGui.QMainWindow):
             return
         self.insertLog("<font color=green>------- Start Project Build. -------</font>", True)
         fn = self.Editor.getCurrentFile()
-        ret, msg = self.Compiler.buildProject( fn, kdbMod == QtCore.Qt.ShiftModifier )
+        ret, msg = self.Compiler.buildProject( fn, self.boardName, kdbMod == QtCore.Qt.ShiftModifier )
         if not ret:
             self.insertLog( "<font color=red>%s</font>"%msg )
             if msg == "file not found":

@@ -51,7 +51,6 @@ class PicCompilerThread(QtCore.QThread):
             self.isWin32Platform = True
             
         self.CC = self.Configs.getCompiler()
-        self.chip = self.Configs.getChip()
         self.cflags = self.Configs.getCflags()
         self.lflags = self.Configs.getLflags()
             
@@ -138,11 +137,18 @@ class PicCompilerThread(QtCore.QThread):
             return info
                         
 
-    def buildProject(self, userCode=None, verbose=False):
+    def buildProject(self, userCode=None, boardName='', verbose=False):
         if self.isRunning():
             return False, "busy"
         if not os.path.isfile(userCode):
             return False, "file not found"
+        
+        if boardName == 'Anito-877A':
+            self.chip = '16F877A'
+        elif boardName == 'Anito-4520':
+            self.chip = '18F4520'
+        else:
+            return False, "board not supported"
         
         # output folder - same location with user code
         outpath = os.path.dirname( str(userCode) ) + '/' + OUT_DIR
