@@ -93,9 +93,13 @@ class IdeConfig:
         self.serialPortName = self.ideCfg.value("Name", QtCore.QVariant('')).toString()
         self.ideCfg.endGroup()
         
+        self.ideCfg.beginGroup( "Board" )
+        self.boardName = self.ideCfg.value("Name", QtCore.QVariant('')).toString()
+        self.ideCfg.endGroup()
+        
         #todo: other IDE settings
         
-    def saveIdeSettings( self, serialPortName='' ):
+    def saveIdeSettings( self, serialPortName='', boardName='' ):
         if self.defaults:
             return
         # save IDE settings.
@@ -106,6 +110,10 @@ class IdeConfig:
         
         self.ideCfg.beginGroup( "SerialPort" )
         self.ideCfg.setValue( "Name", QtCore.QVariant( serialPortName ) )
+        self.ideCfg.endGroup()
+        
+        self.ideCfg.beginGroup( "Board" )
+        self.ideCfg.setValue( "Name", QtCore.QVariant( boardName ) )
         self.ideCfg.endGroup()
         
         #todo: other IDE settings
@@ -132,6 +140,9 @@ class IdeConfig:
         
     def getSerialPortName(self):
         return self.serialPortName
+    
+    def getBoardName(self):
+        return self.boardName
         
     def getVersions(self):
         ide_vsn = ''

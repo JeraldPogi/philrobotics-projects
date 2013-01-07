@@ -72,6 +72,8 @@ class AppMainWindow(QtGui.QMainWindow):
         self.Compiler = PicCompilerThread(self)
         self.pollCompilerTimerID = None
         
+        self.boardName = ''
+        
         self.serialPortName = ''
         self.serialPortLabel = QtGui.QLabel('<font color=red><i>(select port)</i></font>')
         self.SerialPortMonitorDialog = SerialPortMonitor(self)
@@ -233,13 +235,19 @@ class AppMainWindow(QtGui.QMainWindow):
         else:
             self.insertLog("<font color=red>%s</font>"%msg)
         
+    def selectBoard(self):
+        act = self.boardGroup.checkedAction()
+        if act:
+            self.boardName = str( act.text() )
+            self.insertLog( 'selected board: <b><font color=green>%s</font></b>' % self.boardName )
+        
     def selectSerialPort(self):
         act = self.serialPortGroup.checkedAction()
         if act:
             portname = str( act.text() )
             if portname != self.serialPortName:
                 self.serialPortName = portname
-                self.insertLog( 'selected port: ' + self.serialPortName )
+                self.insertLog( 'selected port: <b><font color=green>%s</font></b>' % self.serialPortName )
                 self.serialPortLabel.setText('<font color=green>%s</font>'%self.serialPortName)
                 if self.SerialPortMonitorDialog.isPortOpen():
                     if not self.SerialPortMonitorDialog.openPort(self.serialPortName):
@@ -351,15 +359,22 @@ class AppMainWindow(QtGui.QMainWindow):
                     self.serialPortActs[i].setChecked(True)
                     self.selectSerialPort()
         
-        # todo: board names??
-        self.boardAnitoAct = QtGui.QAction("PhilRobokit &Anito",  self,
-                checkable=True, statusTip="Select PhilRobokit Anito board" )
-        self.boardEpicpicmoAct = QtGui.QAction("eGizmo &ePicPicMo",  self,
-                checkable=True, statusTip="Select eGizmo ePicPicMo board" ) # todo: pic18 support
+        # board names
+        self.boardAnito877aAct = QtGui.QAction("Anito-877A",  self,
+                checkable=True, statusTip="Select PhilRobokit Anito with PIC16F877A", # pic16 support
+                triggered=self.selectBoard )
+        self.boardAnito4520Act = QtGui.QAction("Anito-4520",  self,
+                checkable=True, statusTip="Select PhilRobokit Anito with PIC18F4520", # pic18 support
+                triggered=self.selectBoard )
         self.boardGroup = QtGui.QActionGroup(self)
-        self.boardGroup.addAction(self.boardAnitoAct)
-        self.boardGroup.addAction(self.boardEpicpicmoAct)
-        self.boardAnitoAct.setChecked(True)
+        self.boardGroup.addAction(self.boardAnito877aAct)
+        self.boardGroup.addAction(self.boardAnito4520Act)
+        previousBoardName = self.Configs.getBoardName()
+        if self.boardAnito877aAct.text() == previousBoardName: 
+            self.boardAnito877aAct.setChecked(True)
+        elif self.boardAnito4520Act.text() == previousBoardName: 
+            self.boardAnito4520Act.setChecked(True)
+        self.selectBoard()
         
         self.programHexAct = QtGui.QAction("Program &HEX File", self,
                 statusTip="Download pre-built *.hex file to board using bootloader",
@@ -374,7 +389,7 @@ class AppMainWindow(QtGui.QMainWindow):
         self.aboutAct = QtGui.QAction("&About", self, shortcut=QtGui.QKeySequence("F1"),
                 statusTip="About the IDE", triggered=self.about)        
         self.aboutCompilerAct = QtGui.QAction("About &Compiler", self,
-                statusTip="About PICC tool", triggered=self.aboutCompiler)
+                statusTip="About XC8 tool", triggered=self.aboutCompiler)
         self.aboutQtAct = QtGui.QAction("About &Qt", self,
                 statusTip="Show the Qt library's About box", triggered=QtGui.qApp.aboutQt)
         self.visitSiteAct = QtGui.QAction("Visit &PhilRobotics", self,
@@ -441,8 +456,8 @@ class AppMainWindow(QtGui.QMainWindow):
         self.toolsMenu.addAction(self.serialMonitorAct)
         self.toolsMenu.addSeparator()
         self.boardMenu = self.toolsMenu.addMenu("&Board")
-        self.boardMenu.addAction(self.boardAnitoAct)
-        self.boardMenu.addAction(self.boardEpicpicmoAct)
+        self.boardMenu.addAction(self.boardAnito877aAct)
+        self.boardMenu.addAction(self.boardAnito4520Act)
         self.serialPortMenu = self.toolsMenu.addMenu("&Serial Port")
         if len(self.serialPortActs):
             for i in range(len(self.serialPortActs)):
@@ -530,6 +545,6 @@ class AppMainWindow(QtGui.QMainWindow):
         if not self.Editor.closeAllTabs(): # check for unsaved changes in the project(s)
             event.ignore()
             return
-        self.Configs.saveIdeSettings(self.serialPortName)
+        self.Configs.saveIdeSettings(self.serialPortName, self.boardName)
         return QtGui.QMainWindow.closeEvent(self, event)
 
