@@ -8,7 +8,7 @@
     http://philrobotics.com | http://philrobotics.com/forum | http://facebook.com/philrobotics
     phirobotics.core@philrobotics.com
 
-    Copyright (C) 2012  Julius Constante
+    Copyright (C) 2013  Julius Constante
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@ import os, functools
 from PyQt4 import QtGui, QtCore
 from editor import MultipleCppEditor
 from firmware import scanFirmwareLibs, getExampleProjects
-from compiler import PicCompilerThread
+from compiler import PicCompilerThread, COMPILER_NOTICE
 from configs import IdeConfig
 from serialport import scan_serialports, SerialPortMonitor
 from pickit2 import PICkit2ProgrammerThread
@@ -95,9 +95,10 @@ class AppMainWindow(QtGui.QMainWindow):
         
     def about(self):
         self.aboutDlg.show()
-        # todo: other informations
-        self.aboutDlg.showMessage("PhilRobokit [ %s ]" % self.Configs.getVersions(),
-                           QtCore.Qt.AlignLeft | QtCore.Qt.AlignBottom, QtGui.QColor("#eecc77"));
+        version = "  PhilRobokit [ %s ]" % self.Configs.getVersions()
+        msg_about = SPLASH_NOTICE + COMPILER_NOTICE + version
+        self.aboutDlg.showMessage(msg_about, QtCore.Qt.AlignLeft | QtCore.Qt.AlignBottom, QtGui.QColor("#eecc77"))
+        
     def openPhilRoboticsSite(self):
         # todo: change to .ORG
         QtGui.QDesktopServices.openUrl( QtCore.QUrl("http://www.philrobotics.com/") )
