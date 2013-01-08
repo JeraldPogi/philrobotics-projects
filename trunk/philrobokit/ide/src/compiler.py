@@ -8,7 +8,7 @@
     http://philrobotics.com | http://philrobotics.com/forum | http://facebook.com/philrobotics
     phirobotics.core@philrobotics.com
 
-    Copyright (C) 2012  Julius Constante
+    Copyright (C) 2013  Julius Constante
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -29,6 +29,20 @@ import os, subprocess
 from PyQt4 import QtCore
 from firmware import parseUserCode
 from configs import CompilerConfig
+
+COMPILER_NOTICE = '''
+    MPLAB XC8 Compiler is reproduced and distributed by PhilRobotics Hackerspace
+    under license from Microchip Technology Inc. All rights reserved by Microchip
+    Technology Inc. MICROCHIP SOFTWARE OR FIRMWARE IS PROVIDED "AS IS,"
+    WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+    NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+    MICROCHIP BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY
+    ARISING OUT OF OR IN CONNECTION WITH THE SOFTWARE OR FIRMWARE OR
+    THE USE OF OTHER DEALINGS IN THE SOFTWARE OR FIRMWARE.
+
+
+'''
 
 # output directory 
 OUT_DIR = '.phr_out'

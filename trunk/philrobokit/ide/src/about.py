@@ -8,7 +8,7 @@
     http://philrobotics.com | http://philrobotics.com/forum | http://facebook.com/philrobotics
     phirobotics.core@philrobotics.com
 
-    Copyright (C) 2012  Julius Constante
+    Copyright (C) 2013  Julius Constante
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -30,13 +30,11 @@ from PyQt4 import QtGui, QtCore
 SPLASH_IMAGE = 'images/about.png'
 
 SPLASH_NOTICE = '''
-  PhilRoboKit IDE  Copyright (C) 2012  PhilRobotics
-  This program comes with ABSOLUTELY NO WARRANTY.
-  This is free software, and you are welcome
-  to redistribute it under certain conditions.
-
+     PhilRoboKit IDE  Copyright (C) 2013  PhilRobotics
+     This program comes with ABSOLUTELY NO WARRANTY.
+     This is free software, and you are welcome
+     to redistribute it under certain conditions.
   
-
 '''
 
 class AboutDialog(QtGui.QSplashScreen):
@@ -47,7 +45,7 @@ class AboutDialog(QtGui.QSplashScreen):
         self.setPixmap(self.pix)
         self.setMask( self.pix.mask() )
         
-        self.showMessage( SPLASH_NOTICE + '    loading modules . . .',
+        self.showMessage( SPLASH_NOTICE + '\n\n    loading modules . . .',
             QtCore.Qt.AlignLeft | QtCore.Qt.AlignBottom, QtGui.QColor("#eecc77"));
         
     def mousePressEvent(self, *args, **kwargs):
