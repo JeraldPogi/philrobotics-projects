@@ -42,6 +42,8 @@ BOARD_CONFIG = CONFIG_DIR + 'board.ini'
 IDE_SIZE = [480, 560]
 IDE_POS = [100, 100]
 
+DEFAULT_BOARD = 'Anito-877A'
+
 # default compilers (XC8)
 DEFAULT_CC_WIN32 = 'tools\\xc8_win32\\bin\\xc8'
 DEFAULT_CC_LINUX = 'tools/xc8_linux/bin/xc8'
@@ -91,7 +93,7 @@ class IdeConfig:
         self.ideCfg.endGroup()
         
         self.ideCfg.beginGroup( "Board" )
-        self.boardName = self.ideCfg.value("Name", QtCore.QVariant('')).toString()
+        self.boardName = self.ideCfg.value("Name", QtCore.QVariant(DEFAULT_BOARD)).toString()
         self.ideCfg.endGroup()
         
         #todo: other IDE settings
@@ -105,13 +107,17 @@ class IdeConfig:
         self.ideCfg.setValue( "position", QtCore.QVariant( self.parent.pos() ) )
         self.ideCfg.endGroup()
         
-        self.ideCfg.beginGroup( "SerialPort" )
-        self.ideCfg.setValue( "Name", QtCore.QVariant( serialPortName ) )
-        self.ideCfg.endGroup()
+        if serialPortName:
+            self.ideCfg.beginGroup( "SerialPort" )
+            self.ideCfg.setValue( "Name", QtCore.QVariant( serialPortName ) )
+            self.serialPortName = serialPortName
+            self.ideCfg.endGroup()
         
-        self.ideCfg.beginGroup( "Board" )
-        self.ideCfg.setValue( "Name", QtCore.QVariant( boardName ) )
-        self.ideCfg.endGroup()
+        if boardName:
+            self.ideCfg.beginGroup( "Board" )
+            self.ideCfg.setValue( "Name", QtCore.QVariant( boardName ) )
+            self.boardName = boardName
+            self.ideCfg.endGroup()
         
         #todo: other IDE settings
         
