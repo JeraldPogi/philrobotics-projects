@@ -248,12 +248,40 @@ class AppMainWindow(QtGui.QMainWindow):
             portname = str( act.text() )
             if portname != self.serialPortName:
                 self.serialPortName = portname
+                self.Configs.saveIdeSettings( self.serialPortName )
                 self.insertLog( 'selected port: <b><font color=green>%s</font></b>' % self.serialPortName )
                 self.serialPortLabel.setText('<font color=green>%s</font>'%self.serialPortName)
                 if self.SerialPortMonitorDialog.isPortOpen():
                     if not self.SerialPortMonitorDialog.openPort(self.serialPortName):
                         self.SerialPortMonitorDialog.close()
-                        self.insertLog( "<font color=red>unable to open %s</font>"%self.serialPortName)                                        
+                        self.insertLog( "<font color=red>unable to open %s</font>"%self.serialPortName)
+    
+    def updateSerialPortList(self):
+        # clear previous actions list
+        self.serialPortMenu.clear()
+        for act in self.serialPortGroup.actions():
+            self.serialPortGroup.removeAction(act)
+            del act
+        
+        # scan existing ports
+        portList = scan_serialports() # serialport.py
+        previousPortName = self.Configs.getSerialPortName()
+        
+        # create new actions & update serial port menu
+        if len(portList):
+            for i in range(len(portList)):
+                act = QtGui.QAction(portList[i],  self, checkable=True,
+                            statusTip="select " + portList[i] + " serial port",
+                            triggered=self.selectSerialPort)
+                self.serialPortGroup.addAction( act )
+                self.serialPortMenu.addAction( act )
+                if portList[i] == previousPortName:
+                    act.setChecked(True)
+                    act.trigger()
+                    
+        if not self.serialPortGroup.checkedAction():
+            self.serialPortName = ''
+            self.insertLog( '<i><font color=gray>( please select a serial port. )</font></i>' )
             
     def importFirmwareLib(self, action=None):
         if action:
@@ -345,20 +373,6 @@ class AppMainWindow(QtGui.QMainWindow):
         self.serialMonitorAct = QtGui.QAction(QtGui.QIcon("./images/serial.png"), "Serial &Monitor",
                 self, shortcut=QtGui.QKeySequence("Ctrl+Shift+M"),
                 statusTip="Launch Serial Monitor Dialog", triggered=self.openSerialPortMonitorDialog)
-        self.serialPortGroup = QtGui.QActionGroup(self)
-        self.serialPortList = scan_serialports()
-        self.serialPortActs = []
-        previousSerialPortName = self.Configs.getSerialPortName()
-        if len(self.serialPortList):
-            for i in range(len(self.serialPortList)):
-                self.serialPortActs.append(
-                        QtGui.QAction(self.serialPortList[i],  self, checkable=True,
-                            statusTip="select " + self.serialPortList[i] + " serial port",
-                            triggered=self.selectSerialPort) )
-                self.serialPortGroup.addAction( self.serialPortActs[i] )
-                if self.serialPortList[i] == previousSerialPortName:
-                    self.serialPortActs[i].setChecked(True)
-                    self.selectSerialPort()
         
         # board names
         self.boardAnito877aAct = QtGui.QAction("Anito-877A",  self,
@@ -460,9 +474,10 @@ class AppMainWindow(QtGui.QMainWindow):
         self.boardMenu.addAction(self.boardAnito877aAct)
         self.boardMenu.addAction(self.boardAnito4520Act)
         self.serialPortMenu = self.toolsMenu.addMenu("&Serial Port")
-        if len(self.serialPortActs):
-            for i in range(len(self.serialPortActs)):
-                self.serialPortMenu.addAction(self.serialPortActs[i])
+        self.serialPortGroup = QtGui.QActionGroup(self)
+        self.connect(self.serialPortMenu, QtCore.SIGNAL("aboutToShow ()"), self.updateSerialPortList )
+        self.updateSerialPortList()
+        
         self.toolsMenu.addSeparator()
         self.toolsMenu.addAction(self.programHexAct)
         self.toolsMenu.addAction(self.recoverBootloaderAct)
