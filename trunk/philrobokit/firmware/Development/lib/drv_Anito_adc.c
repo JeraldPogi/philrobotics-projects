@@ -77,6 +77,9 @@ void setupADCPinsToDigital(void)
 	
 	REGISTER_TRISA = 0x3F;
 	REGISTER_PORTA = 0x3F;
+
+	REGISTER_TRISE = 0x07;
+	REGISTER_PORTE = 0x07;
 }
 
 void adcSetChannel(uint8_t ui8Channel)
