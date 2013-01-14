@@ -120,7 +120,7 @@ def parseUserCode(userCode=None, outPath=None):
         try:
             fin = open(userCode, 'rb')
             fout = open(parsedUserCode, 'wb')
-            # fout.writelines( REQUIRED_INCLUDES )
+            fout.writelines( REQUIRED_INCLUDES )
             for line in fin.readlines():
                 fout.write(line)
                 if line.strip().find('#include') == 0: # found an '#include' directive
