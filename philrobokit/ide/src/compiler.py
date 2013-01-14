@@ -115,7 +115,8 @@ class PicCompilerThread(QtCore.QThread):
                                 or msg_lowered.find("exit status = 1") >= 0 \
                                 or msg_lowered.find("^ (") >= 0 \
                                 or msg_lowered.find("defined") >= 0 \
-                                or msg_lowered.find("conflicts with") >= 0:                    
+                                or msg_lowered.find("conflicts with") >= 0 \
+                                or msg_lowered.find("cannot find the path specified") >= 0 :
                             self.LogList.append( "<font color=red>%s</font>" % msg )
                             bStop = True
                         else:
