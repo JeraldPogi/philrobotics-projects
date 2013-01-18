@@ -42,6 +42,7 @@
 	void setupSerial(uint16_t ui16Baudrate);
 	void serialSendChar(uint8_t ui8TxData);
 	void serialSendString(uint8_t *pui8StrTxData);
+	void serialSendBlock(uint8_t *pui8StrTxData, uint16_t ui16Size);
 	uint8_t serialRead(void);
 	bool isSerialDataAvailable(void);
 	void serialFlushData(void);
