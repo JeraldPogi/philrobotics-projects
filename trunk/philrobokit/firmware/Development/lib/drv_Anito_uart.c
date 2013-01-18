@@ -112,6 +112,13 @@
 			serialSendChar(*pui8StrTxData++);		
 		}	
 	}	
+
+	void serialSendBlock(uint8_t *pui8StrTxData, uint16_t ui16Size)
+	{
+		while(ui16Size--){
+			serialSendChar(*pui8StrTxData++);		
+		}	
+	}
 	
 	bool isSerialDataAvailable(void)
 	{	
