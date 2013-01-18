@@ -114,7 +114,7 @@ uint16_t adcRead(void)
 
 	ui16ADCVal = (REGISTER_ADRESH<<8);
 	ui16ADCVal |= REGISTER_ADRESL;
-	ui16ADCVal &= 0x7FF;
+	ui16ADCVal &= 0x3FF;
 					
 	return ui16ADCVal;
 }	
@@ -125,7 +125,7 @@ uint16_t adcReadOnly(void)
 			
 	ui16ADCVal = (REGISTER_ADRESH<<8);
 	ui16ADCVal |= REGISTER_ADRESL;
-	ui16ADCVal &= 0x7FF;
+	ui16ADCVal &= 0x3FF;
 					
 	return ui16ADCVal;
 }	
