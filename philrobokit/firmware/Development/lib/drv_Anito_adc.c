@@ -91,7 +91,7 @@ void adcSetChannel(uint8_t ui8Channel)
 		case 0x03:	BIT_ADCON0_CHS0 = 0; BIT_ADCON0_CHS1 = 0; BIT_ADCON0_CHS2 = 1; break;
 		case 0x04:	BIT_ADCON0_CHS0 = 1; BIT_ADCON0_CHS1 = 0; BIT_ADCON0_CHS2 = 1; break;
 		case 0x05:	BIT_ADCON0_CHS0 = 0; BIT_ADCON0_CHS1 = 1; BIT_ADCON0_CHS2 = 1; break;
-		//case 0x06:	BIT_ADCON0_CHS0 = 0; BIT_ADCON0_CHS1 = 1; BIT_ADCON0_CHS2 = 1; break;
+		case 0x06:	BIT_ADCON0_CHS0 = 1; BIT_ADCON0_CHS1 = 1; BIT_ADCON0_CHS2 = 1; break;
 		
 		default:	BIT_ADCON0_CHS0 = 0; BIT_ADCON0_CHS1 = 0; BIT_ADCON0_CHS2 = 0; break;	//Default is AN0
 	}		
