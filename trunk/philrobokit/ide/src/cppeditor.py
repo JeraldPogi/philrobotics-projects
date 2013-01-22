@@ -25,6 +25,7 @@
 
 '''
 
+import os
 from PyQt4 import QtGui, QtCore
 from PyQt4.Qsci import QsciScintilla, QsciLexerCPP
 
@@ -49,12 +50,13 @@ class CppEditor(QsciScintilla):
     '''
     classdocs
     '''
-    def __init__(self, parent=None, fileName=None):
+    def __init__(self, parent=None, fileName=None, readOnlyFiles=[]):
         '''
         Constructor
         '''
         super(CppEditor, self).__init__(parent)
         self.parent = parent
+        self.roFiles = readOnlyFiles
         
         self.setAcceptDrops(False) # drag&drop is on its parent
         
@@ -180,6 +182,16 @@ class CppEditor(QsciScintilla):
         return self.saveFile(fileName)
     
     def save(self):
+        f1 = os.path.abspath(self.curFile)
+        for fname in self.roFiles:
+            if f1 == os.path.abspath(fname): # same file
+                if QtGui.QMessageBox.question(self.parent, "Project is read-only",
+                         "This project is marked as \"read-only\".\n" + \
+                         "Please click \"Cancel\" and save this to another location.\n\n" + \
+                         "Continue saving the current project anyway?", "OK", "Cancel"):
+                    return None
+                #return self.saveAs()
+                return self.saveFile(self.curFile)
         if self.isUntitled:
             return self.saveAs()
         else:

@@ -30,7 +30,7 @@ from PyQt4 import QtGui, QtCore
 from PyQt4.Qsci import QsciAPIs, QsciLexerCPP
 from cppeditor import CppEditor, PROJECT_ALIAS, PROJECT_EXT, PROJECT_NONAME
 from finddialog import FindDialog
-from firmware import getLibraryKeywords
+from firmware import getLibraryKeywords, scanFirmwareLibs, getExampleProjects
 
 class MultipleCppEditor(QtGui.QTabWidget):
     '''
@@ -55,11 +55,20 @@ class MultipleCppEditor(QtGui.QTabWidget):
         
         self.connect(self, QtCore.SIGNAL('tabCloseRequested(int)'), self.closeFile)
         
+        self.sampleProjects = []
+        try:
+            for group in getExampleProjects(scanFirmwareLibs()):
+                for fname in group[1]:
+                    self.sampleProjects.append(fname)
+            # print self.sampleProjects
+        except:
+            pass
+        
         if self.count()==0:
             self.newFile()
         
     def newFile(self):
-        child = CppEditor(self)
+        child = CppEditor(self, None, self.sampleProjects)
         self.addTab(child, PROJECT_NONAME + " * ")
         self.setCurrentIndex(self.count()-1)
         self.setTabToolTip(self.currentIndex(), child.currentFile())
@@ -78,7 +87,7 @@ class MultipleCppEditor(QtGui.QTabWidget):
             if fileName == child.currentFile(): # file already opened
                 self.setCurrentIndex(i)
                 return True
-        child = CppEditor(self, fileName)
+        child = CppEditor(self, fileName, self.sampleProjects)
         tabtext = os.path.basename( str(fileName) )
         if tabtext.lower().find(PROJECT_EXT) == len(tabtext) - len(PROJECT_EXT):
             tabtext = tabtext[:tabtext.lower().find(PROJECT_EXT)]
@@ -142,6 +151,12 @@ class MultipleCppEditor(QtGui.QTabWidget):
         if child:
             return child.currentFile()
         return None
+    
+    def isCurrentFileModified(self):
+        child = self.currentWidget()
+        if child:
+            return child.modified()
+        return False
     
     def editUndo(self):
         child = self.currentWidget()
