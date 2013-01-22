@@ -44,6 +44,9 @@ COMPILER_NOTICE = '''
 
 '''
 
+# cromwell.exe bug(?)
+PROJECT_PATHLENTH_MAX = 114
+
 # output directory 
 OUT_DIR = '.phr_out'
 LIB_OUT_DIR = 'lib'

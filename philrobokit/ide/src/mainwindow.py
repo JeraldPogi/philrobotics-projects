@@ -29,7 +29,7 @@ import os, functools
 from PyQt4 import QtGui, QtCore
 from editor import MultipleCppEditor
 from firmware import scanFirmwareLibs, getExampleProjects
-from compiler import PicCompilerThread, COMPILER_NOTICE
+from compiler import PicCompilerThread, COMPILER_NOTICE, PROJECT_PATHLENTH_MAX
 from configs import IdeConfig
 from serialport import scan_serialports, SerialPortMonitor
 from pickit2 import PICkit2ProgrammerThread
@@ -122,8 +122,15 @@ class AppMainWindow(QtGui.QMainWindow):
         elif ret == None:
             self.insertLog("nothing to build.")
             return
-        self.insertLog("<font color=green>------- Start Project Build. -------</font>", True)
+        
         fn = self.Editor.getCurrentFile()
+        if( len(fn) > PROJECT_PATHLENTH_MAX ):
+            self.insertLog( "<font color=orange>path length(\"%s\") = %d</font>"%(fn, len(fn)) )
+            QtGui.QMessageBox.warning( self, "Build Abort", "Path length exceeds maximum.\n" + \
+                                             "Please save the project to another location." )
+            return
+        
+        self.insertLog("<font color=green>------- Start Project Build. -------</font>", True)
         ret, msg = self.Compiler.buildProject( fn, self.boardName, kdbMod == QtCore.Qt.ShiftModifier )
         if not ret:
             self.insertLog( "<font color=red>%s</font>"%msg )
@@ -150,6 +157,9 @@ class AppMainWindow(QtGui.QMainWindow):
             self.insertLog("nothing to stop.")
             
     def programChip(self):
+        if self.Editor.isCurrentFileModified():
+            self.insertLog('\nProject was modified. Please re-build the project.')
+            return
         if not self.serialPortName:
             self.insertLog('please select first a Serial Port.')
             return
