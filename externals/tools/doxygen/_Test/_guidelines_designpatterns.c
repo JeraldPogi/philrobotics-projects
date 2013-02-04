@@ -7,7 +7,7 @@
 * |Filename:      | "_guidelines_designpatterns.c"              |
 * |:----          |:----                                        |
 * |Description:   | This is a coding standard template file for documenting common patterns in FW design |
-* |Revision:      | v00.00.01                                   |
+* |Revision:      | v00.00.02                                   |
 * |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -28,8 +28,9 @@
 * |FW Version   |Date       |Author             |Description                |
 * |:----        |:----      |:----              |:----                      |
 * |v00.00.01    |20120719   |ESCII              |Library Initial Release    |
+* |v00.00.02    |201207xx   |ESCII              |Modified Function Headers  |
 *********************************************************************************************/
-#define __SHOW_MODULE_HEADER__ /*!< \brief This section includes Module Header on the documentation */
+#define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
 
 #include "_guidelines_designpatterns.h"
@@ -77,8 +78,7 @@ static bool_t	blBooted;                        /*!< \brief Local Variables (vari
                                                         |bool_t     |bl         |blTempVar      |
                                                         */
 
-/*! \brief Enumeration */
-enum    valid_states_e                           //!< + enumeration identifier must have a *suffix of _e* to distinguish that it is an enumeration id                             
+enum    valid_states_e                                                        
 {                                                       
     E_INIT                              
     ,E_OFF                              
@@ -87,7 +87,8 @@ enum    valid_states_e                           //!< + enumeration identifier m
     ,E_FAULTED                             
 };                                          
 
-enum    led_limits_e
+/*! \brief Enumeration */
+enum    led_limits_e                             //!< + enumeration identifier must have a *suffix of _e* to distinguish that it is an enumeration id
 {
     EU16_LED4_LIM   = 1024UI                     //!< + if one of the list entry has its value defined, all the others must also be defined             
     ,EU16_LED3_LIM  = 768UI                      //!< + must have a **prefix of E[unsigned][num_of_bits]_**             
@@ -103,7 +104,8 @@ enum    led_limits_e
 * \brief Formula can be documented by enclosing it between two \\f$ symbols
 *
 * > This is an example of a function that performs a basic IIR filtering
-* > <BR><BR>
+*
+* > <BR>
 * > **Syntax:**<BR>
 * >     showFormula(&CurrentBuff,&PrevBuff)
 * > <BR><BR>
@@ -151,7 +153,8 @@ uint16_t showFormula(uint8_t  *ui16LocIIRBuffCurr, uint8_t  *ui16LocIIRBuffPrev)
 *
 * > This is an example of a function that lit an LED depending on the level of the
 * > ADC Input
-* > <BR><BR>
+*
+* > <BR>
 * > **Syntax:**<BR>
 * >     showTables(Input)
 * > <BR><BR>
@@ -202,7 +205,8 @@ void showTables(uint16_t ui16Value)
 * > This is an example of a function for checking faults. It sets or clears a flag,
 * > with some validation delay, if the level is above or below the limit respectively.
 * > Improvement can be made by allowing hysteresis on the recover conditions.
-* > <BR><BR>
+*
+* > <BR>
 * > **Syntax:**<BR>
 * >     showFlowCharts(Input)
 * > <BR><BR>
@@ -273,7 +277,7 @@ void showFlowCharts(uint16_t ui16Value)
             node4[shape=point];
         }
     \enddot
-    * < when comparing to protection upper limits, the operator must be ">" 
+    * < when comparing to protection upper limits, the operator must be ">" <BR>
     * < there shall be no magic numbers (all constants must be defined on the .h file)
     */
     if(ui16Value > KU16FAULTLIMIT)                   
@@ -298,7 +302,8 @@ void showFlowCharts(uint16_t ui16Value)
 * \brief State Diagrams shall be used to show distinct state behavior
 *
 * > This is an example of a generic system state machine
-* > <BR><BR>
+*
+* > <BR>
 * > **Syntax:**<BR>
 * >     showStateCharts(onState)
 * > <BR><BR>

@@ -7,7 +7,7 @@
 * |Filename:      | "_guidelines_commenting.h"                  |
 * |:----          |:----                                        |
 * |Description:   | This serves as a guide on how to place comments on the code for PhilRobotics projects |
-* |Revision:      | v00.00.01                                   |
+* |Revision:      | v00.00.02                                   |
 * |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -28,8 +28,9 @@
 * |FW Version   |Date       |Author             |Description                |
 * |:----        |:----      |:----              |:----                      |
 * |v00.00.01    |20120719   |ESCII              |Library Initial Release    |
+* |v00.00.02    |201207xx   |ESCII              |Modified Function Headers, added paragraphs  |
 *********************************************************************************************/
-#define __SHOW_MODULE_HEADER__ /*!< \brief This section includes Module Header on the documentation */
+#define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
 
 #ifndef __PH_COMMENTS_H__
@@ -37,23 +38,23 @@
 
 /*! \brief Keywords
 * 
-* > This document use the following keywords to specify the intent of the convention
-* > <BR><BR>
-* > - **must** 
-* > + if the convetion is mandatory, 
-* > + not following the convention could result to bugs or security vulnerabilities
-* > <BR><BR>
-* > - **shall** 
-* > + if the convetion is a requirement
-* > + main purpose of the convention is to have a consistent style throughout the code
-* > <BR><BR>
-* > - **should** 
-* > + if the convetion is a request or recommendation
-* > + the convention is recommended on a case to case basis
-* > <BR><BR>
-* > - **can, may**
-* > + if the convetion is optional but advisable
-* > + the developer has the freedom whether to follow or not the convention
+* > This document use the following keywords to specify the intent of the convention rules
+*
+* > **must** 
+* > - if the convetion is mandatory, 
+* > - not following the convention could result to bugs or security vulnerabilities
+*
+* > **shall** 
+* > - if the convetion is a requirement
+* > - main purpose of the convention is to have a consistent style throughout the code
+*
+* > **should** 
+* > - if the convetion is a request or recommendation
+* > - the convention is followed depending on the situation
+*
+* > **can, may**
+* > - if the convetion is optional but advisable
+* > - the developer has the freedom whether to follow or not the convention
 */
 #define __DOC_KEYWORDS
 
@@ -67,10 +68,10 @@
 */
 #define __DOC_LANGUAGE
  
-/*! IDE tab settings shall be 4 characters long and must be represented by spaces */
+/*! \brief IDE tab settings shall be 4 characters long and must be represented by spaces */
 #define __DOC_TABSIZE
 
-/*! IDE font shall be courier or any equally spaced fonts */
+/*! \brief IDE font shall be courier or any equally spaced fonts */
 #define __DOC_FONT
 
 
@@ -79,7 +80,8 @@
 * function header
 *
 * > Short description of what a function does should be entered here...
-* > <BR><BR>
+*
+* > <BR>
 * > **Syntax:**<BR>
 * >     showFunctionHeader()
 * > <BR><BR>
@@ -120,7 +122,7 @@
     */
     #define __DOC_COMMENT_BLOCK_ONTOP
     
-    #define __DOC_COMMENT_BLOCK_AFTER       /*!
+    #define __DOC_COMMENT_BLOCK_AFTER       /*!<
                                                     * \brief This is the PhilRobotics standard documented comment block that can be placed after the member
                                                     *
                                                     */
@@ -133,19 +135,40 @@
     */        
     #define __DOC_BRIEF
         
-        
+    /*!
+    * \brief This is the **1st Paragraph**
+    * 
+    * This is the **2nd paragraph** which is separated from the 1st by one or more empty lines
+    */        
     #define __DOC_PARAGRAPH       
         
     /*!
-    * > Comment blocks can have a <BR>
-    * > qoute emphasis
+    * \brief Comment blocks can have a qoute emphasis by marking<BR>
+    * 
+    * > the start of the line with a '\>' sign
     */
     #define __DOC_QOUTES
 
+    /*!
+    * \brief A word can be emphasized by enclosing it between  1 or 2 \_ or \* symbol<BR>
+    *
+    * *emphasized*<BR>
+    * **emphasized**<BR>
+    * _emphasized_<BR>
+    * __emphasized__<BR>
+    */
     #define __DOC_EMPHASIZED
         
-
+    /*! \brief Bulleted List can be made by starting a line with \- sign
+    *
+    * - item 1
+    * - item 2
+    * + deeper layer of bullets can be achieved by using the symbol \+
+    * + numbered list can also be made by starting a line with numbers instead of the \- sign
+    */
     #define __DOC_BULLETS
+    
+    /*! \brief This is a link to [Google](www.google.com.ph) */
     #define __DOC_LINKS
 
 #endif/* end of _guidelines_commenting.h */

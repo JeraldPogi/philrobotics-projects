@@ -29,7 +29,7 @@
 * |:----        |:----      |:----              |:----                      |
 * |vxx.xx.xx    |YYYYMMDD   |[author's name]    |Library Initial Release    |
 *********************************************************************************************/
-#define __SHOW_MODULE_HEADER__ /*!< \brief This section includes Module Header on the documentation */
+#define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
 
 /* Include .h File */
@@ -94,7 +94,8 @@ static void callPrivateFunctions(void);
 * >  - if a function has no parameter and can be called from the .phr file, 
 * >  the **"void" type may be omitted** in order to prevent compiler warnings 
 * >  (specifically for the Hi-Tech C)
-* > <BR><BR>
+*
+* > <BR>
 * > **Syntax:**<BR>
 * >     callPublicFunctions()
 * > <BR><BR>
@@ -122,7 +123,8 @@ void callPublicFunctions(void)
 *
 * > A detailed description can start after the empty line. Entries entered on the 
 * > detailed description are not shown on the "Functions Summary View"
-* > <BR><BR>
+*
+* > <BR>
 * > **Syntax:**<BR>
 * >     main()
 * > <BR><BR>
@@ -159,7 +161,8 @@ void main(void)
 * >     + e.g. getMS()
 * > it must follow camelCase naming convention where the first letter of each word, 
 * > except for the first word, must be capitalized
-* > <BR><BR>
+*
+* > <BR>
 * > **Syntax:**<BR>
 * >     createFunctionNames()
 * > <BR><BR>
@@ -183,8 +186,9 @@ void createFunctionNames(void)
 * within the module
 *
 * > - it must always be declared as static 
-* > - prototypes must be declared on the ".c file" where the function is located
-* > <BR><BR>
+* > - prototypes must be declared on the ".c file" where the function is located 
+* 
+* > <BR>
 * > **Syntax:**<BR>
 * >     callPrivateFunctions()
 * > <BR><BR>
