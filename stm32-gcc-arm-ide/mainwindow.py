@@ -80,11 +80,11 @@ class AppMainWindow(QtGui.QMainWindow):
         self.flashLoader = FlashLoaderThread(self)
         self.pollTblTimerID = None
         
+        self.createLogWindow()
         self.createActions()
         self.createMenus()
         self.createToolBars()
         self.createStatusBar()
-        self.createLogWindow()
         
         self.aboutDlg.finish(self)
         print "IDE ready."
@@ -171,16 +171,43 @@ class AppMainWindow(QtGui.QMainWindow):
     def selectSerialPort(self):
         act = self.serialPortGroup.checkedAction()
         if act:
-            # todo: remember previously selected port
             portname = str( act.text() )
             if portname != self.serialPortName:
                 self.serialPortName = portname
-                self.insertLog( 'selected port: ' + self.serialPortName )
+                self.Configs.saveIdeSettings( self.serialPortName )
+                self.insertLog( 'selected port: <b><font color=green>%s</font></b>' % self.serialPortName )
                 self.serialPortLabel.setText('<font color=green>%s</font>'%self.serialPortName)
                 if self.SerialPortMonitorDialog.isPortOpen():
                     if not self.SerialPortMonitorDialog.openPort(self.serialPortName):
                         self.SerialPortMonitorDialog.close()
-                        self.insertLog( "<font color=red>unable to open %s</font>"%self.serialPortName)                                        
+                        self.insertLog( "<font color=red>unable to open %s</font>"%self.serialPortName)
+                        
+    def updateSerialPortList(self):
+        # clear previous actions list
+        self.serialPortMenu.clear()
+        for act in self.serialPortGroup.actions():
+            self.serialPortGroup.removeAction(act)
+            del act
+        
+        # scan existing ports
+        portList = scan_serialports() # serialport.py
+        previousPortName = self.Configs.getSerialPortName()
+        
+        # create new actions & update serial port menu
+        if len(portList):
+            for i in range(len(portList)):
+                act = QtGui.QAction(portList[i],  self, checkable=True,
+                            statusTip="select " + portList[i] + " serial port",
+                            triggered=self.selectSerialPort)
+                self.serialPortGroup.addAction( act )
+                self.serialPortMenu.addAction( act )
+                if portList[i] == previousPortName:
+                    act.setChecked(True)
+                    act.trigger()
+                    
+        if not self.serialPortGroup.checkedAction():
+            self.serialPortName = ''
+            self.insertLog( '<i><font color=gray>( please select a serial port. )</font></i>' )
             
     def importFirmwareLib(self, action=None):
         if action:
@@ -366,9 +393,9 @@ class AppMainWindow(QtGui.QMainWindow):
         #self.boardMenu.addAction(self.boardAnitoAct)
         self.boardMenu.addAction(self.boardEpicpicmoAct)
         self.serialPortMenu = self.toolsMenu.addMenu("&Serial Port")
-        if len(self.serialPortActs):
-            for i in range(len(self.serialPortActs)):
-                self.serialPortMenu.addAction(self.serialPortActs[i])
+        self.serialPortGroup = QtGui.QActionGroup(self)
+        self.connect(self.serialPortMenu, QtCore.SIGNAL("aboutToShow ()"), self.updateSerialPortList )
+        self.updateSerialPortList()
         self.toolsMenu.addSeparator()
         self.toolsMenu.addAction(self.restoreDefaultsAct) # todo: create settings dialog
         #self.bootloaderMenu = self.toolsMenu.addMenu("&Booloader")
@@ -449,6 +476,6 @@ class AppMainWindow(QtGui.QMainWindow):
         if not self.Editor.closeAllTabs(): # check for unsaved changes in the project(s)
             event.ignore()
             return
-        self.Configs.saveIdeSettings()
+        self.Configs.saveIdeSettings(self.serialPortName)
         return QtGui.QMainWindow.closeEvent(self, event)
 
