@@ -6,7 +6,7 @@
 *---------------------------------------------------------------------------------------------
 * |Filename:      | "corelib_pwm.c"                             |
 * |:----          |:----                                        |
-* |Description:   | This is a |
+* |Description:   | This is a library for using the PWM functions |
 * |Revision:      | v00.01.00                                   |
 * |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
@@ -28,48 +28,95 @@
 * |FW Version   |Date       |Author             |Description                |
 * |:----        |:----      |:----              |:----                      |
 * |v00.00.01    |20120710   |ESCII              |Library Initial Release    |
-* |v00.01.00    |20130204   |ESCII              |Modified For Layered Architecture    |
+* |v00.01.00    |20130205   |ESCII              |Modified For Layered Architecture    |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
 
 #include "corelib_pwm.h"
 
+/* Local Constants */
+    /* none */
+
+/* Local Variables */
 static	uint8_t		mui8PreScaler=1, mui8PreScalerVal=1, mui8PR2plus1=0;
 
-//***********************************************************************************
-// @20Mhz -> TOSC = 50nS
-// PWM Period = [(PR2) + 1] * 4 * TOSC * Prescaler
-// Period(uS)  = [PR2+1]  * 200nS * Prescaler
-// 1.22kHz - 200kHz
-// Prescaler 1	
-// 19.53Khz		-> 51.20uS
-// 200Khz		-> 5.00uS
-//	
-// Prescaler 4	
-// 4.88Khz		-> 204.92uS
-// 19.53Khz		-> 51.20uS
-//	
-// Prescaler 16	
-// 1.22Khz		-> 819.67uS
-// 4.88kHz		-> 204.92uS
-//
-// ui16Frequency: in 10Hz/Bit Resolution (e.g. 1kHz/10Hz = 100)
-//***********************************************************************************
+/* Private Function Prototypes */
+    /* none */
+    
+/* Public Functions */
 /*******************************************************************************//**
-* \brief Setup the 8Bit Timer Peripheral to count every 10uS
+* \brief Setup the PWM peripheral frequency and default duty cycle
 *
-* > This initializes the 8Bit timer peripheral prescaler and poscaler 
-* > to count every 10uS. The time to interrupt is set by the "setTimerValue"
-* > function.
+* > This function is called to initialize the PWM peripheral frequency and default
+* > duty cycle. The frequency can be set between 1.22kHz and 200kHz with 10Hz resolution,
+* > while the duty cycle has a 0.1% resolution
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >      setup8BitTimerDef(module, &callback)
+* >      setupPWM(module, frequency, dutycycle)
 * > <BR><BR>
 * > **Parameters:**<BR>
-* >     module - timer module assignment, TIMER2, TIMER4, TIMER6
-* >     callback - function address timer ISR callback
+* >     module - PWM module assignment, PWM0, PWM1
+* >     frequency - the required PWM frequency in 10Hz resolution
+* >     dutycycle - the required PWM duty cycle in 0.1% resolution
+* > <BR><BR>
+* > **Returns:**<BR>
+* >     none
+* > <BR><BR>
+***********************************************************************************/
+void setupPWM(enum ePWMModules ePWM_Module, uint16_t ui16Frequency, uint16_t ui16DutyCycle)
+{
+    /* Set the PWM period */
+    setPWMFrequency(ui16Frequency);				    // Common for CCP1 and CCP2
+    
+    /* Load the default PWM duty value */
+	setPWMDuty(ePWM_Module,ui16DutyCycle);
+
+    /* Configure Timer */
+        /* Select Source */
+        //mc_PWMClk_Source(CCP_PWM_CLOCK);			    // not for PIC16F877A
+        
+        /* Clear TMRxIF */
+        //hal_clrPWMTmrIntFlag() ;                  	    // not critical
+        
+        /* Configure Prescaler value */
+        hal_initPWMTimer(mui8PreScalerVal);		    // Common for CCP1 and CCP2
+
+    /* Configure CCP to PWM mode */
+	if(PWM0 == ePWM_Module)
+	{
+		hal_configCCP1Mode(CCP_PWM_MODE);
+		makeOutput(D2);
+	}
+	else if(PWM1 == ePWM_Module)
+	{
+		hal_configCCP2Mode(CCP_PWM_MODE);
+		makeOutput(D1);
+	}
+	else
+	{
+		/* Invalid PWM Module */
+		/* Do Nothing */
+	}	
+            
+    /* Enable Timer */
+    hal_enablePWMTmr();                        	    // Common for CCP1 and CCP2
+} 
+
+/*******************************************************************************//**
+* \brief Set the PWM frequency
+*
+* > This function is called for setting the PWM frequency for both PWM0 and PWM1.
+* > The frequency can be set between 1.22kHz and 200kHz with 10Hz resolution
+* > (e.g. 1kHz/10Hz = 100).
+*
+* > <BR>
+* > **Syntax:**<BR>
+* >      setPWMFrequency(frequency)
+* > <BR><BR>
+* > **Parameters:**<BR>
+* >     frequency - the required PWM frequency in 10Hz resolution
 * > <BR><BR>
 * > **Returns:**<BR>
 * >     none
@@ -78,16 +125,16 @@ static	uint8_t		mui8PreScaler=1, mui8PreScalerVal=1, mui8PR2plus1=0;
 void setPWMFrequency(uint16_t ui16Frequency)
 {
 	uint16_t	ui16TempVar;
-	uint24_t	ui24Period;						// 0.01uS/Bit Resolution	
+	uint24_t	ui24Period;						    // 0.01uS/Bit Resolution	
 	
 	/* Check Frequency Range */
-	if(ui16Frequency > 20000)					// > 200kHz
+	if(ui16Frequency > K_MAX_FREQ_RANGE)			// > 200kHz
 	{
-		ui16Frequency = 20000;
+		ui16Frequency = K_MAX_FREQ_RANGE;
 	}
-	else if(ui16Frequency < 122)				// < 1.22kHz
+	else if(ui16Frequency < K_MIN_FREQ_RANGE)		// < 1.22kHz
 	{
-		ui16Frequency  = 122;
+		ui16Frequency  = K_MIN_FREQ_RANGE;
 	}
 	else
 	{
@@ -96,21 +143,26 @@ void setPWMFrequency(uint16_t ui16Frequency)
 	}
 	
 	/* Check Prescaler Range */
-	if(ui16Frequency >= 1953)					// 19.53kHz - 200kHz
+	if(ui16Frequency >= K_PRESCALE0_FREQ_LIM)       // 19.53kHz - 200kHz
 	{
-		mui8PreScalerVal = 0;					// div by 1
+		mui8PreScalerVal = PRESCALE0_VAL;			// div by 1
 	}
-	else if(ui16Frequency >= 488)				// 4.88kHz - 19.53kHz
+	else if(ui16Frequency >= K_PRESCALE1_FREQ_LIM)	// 4.88kHz - 19.53kHz
 	{
-		mui8PreScalerVal = 1;					// div by 4
+		mui8PreScalerVal = PRESCALE1_VAL;			// div by 4
 	}
-	else										// 1.22kHz - 4.88kHz
+    else if(ui16Frequency >= K_PRESCALE2_FREQ_LIM)	// 1.22kHz - 4.88kHz
+	{
+		mui8PreScalerVal = PRESCALE2_VAL;			// div by 16
+	}
+	else										    // default
 	{	
-		mui8PreScalerVal = 2;					// div by 16
+		mui8PreScalerVal = PRESCALE2_VAL;			// div by 16
 	}
 	
+    /* Prescaler to Period Parsing */
 	mui8PreScaler = mui8PreScalerVal << 1;
-	mui8PreScaler = (uint8_t)1 << mui8PreScaler;// secret :p
+	mui8PreScaler = (uint8_t)1 << mui8PreScaler;    // secret :p
 	
 	ui24Period = (uint24_t)(10000000UL / ui16Frequency);
 	
@@ -118,40 +170,31 @@ void setPWMFrequency(uint16_t ui16Frequency)
 	ui24Period = ui24Period/ui16TempVar;
 	
 	/* Check Saturation */
-	if(ui24Period > 255)
+	if(ui24Period > K_PERIOD_SAT_LIM)
 	{
-		mui8PR2plus1 = 255;
+		mui8PR2plus1 = K_PERIOD_SAT_LIM;
 	}
 	else
 	{
 		mui8PR2plus1 = (uint8_t)ui24Period;
 	}
 	
-	mc_setPWMPeriod(mui8PR2plus1);
+	hal_setPWMPeriod(mui8PR2plus1);
 }
 
-
-//***********************************************************************************
-// @20Mhz -> TOSC = 50nS
-// Pulse Width =(CCPR1L:CCP1CON<5:4>) * TOSC *Prescaler
-//  Pulse Width  = CCP1CON  * 50nS * Prescaler
-//
-// ui16DutyCycle: 0.1%/Bit Resolution (e.g. 50% /0.1% = 500)
-//***********************************************************************************
 /*******************************************************************************//**
-* \brief Setup the 8Bit Timer Peripheral to count every 10uS
+* \brief Set the PWM duty cycle
 *
-* > This initializes the 8Bit timer peripheral prescaler and poscaler 
-* > to count every 10uS. The time to interrupt is set by the "setTimerValue"
-* > function.
+* > This function is called for setting the PWM duty cycle.
+* > The duty cycle value has a 0.1% resolution (e.g. 50% / 0.1% = 500).
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >      setup8BitTimerDef(module, &callback)
+* >      setPWMDuty(module, dutycycle)
 * > <BR><BR>
 * > **Parameters:**<BR>
-* >     module - timer module assignment, TIMER2, TIMER4, TIMER6
-* >     callback - function address timer ISR callback
+* >     module - PWM module assignment, PWM0, PWM1
+* >     dutycycle - the required PWM duty cycle in 0.1% resolution
 * > <BR><BR>
 * > **Returns:**<BR>
 * >     none
@@ -162,9 +205,9 @@ void setPWMDuty(enum ePWMModules ePWM_Module, uint16_t ui16DutyCycle)
 	uint16_t	ui16TempVar;
 	
 	/* Maximum of 100% Only */
-	if(ui16DutyCycle > 1000)
+	if(ui16DutyCycle > K_DUTY_SAT_LIM)
 	{
-		ui16DutyCycle = 1000;
+		ui16DutyCycle = K_DUTY_SAT_LIM;
 	}
 	
 	ui16TempVar = (uint16_t)mui8PR2plus1 << 2;									// secret :p
@@ -172,11 +215,11 @@ void setPWMDuty(enum ePWMModules ePWM_Module, uint16_t ui16DutyCycle)
 	
 	if(PWM0 == ePWM_Module)
 	{
-		mc_setPWM0Ton(ui16TempVar);
+		hal_setPWM0Ton(ui16TempVar);
 	}
 	else if(PWM1 == ePWM_Module)
 	{
-		mc_setPWM1Ton(ui16TempVar);
+		hal_setPWM1Ton(ui16TempVar);
 	}
 	else
 	{
@@ -186,77 +229,16 @@ void setPWMDuty(enum ePWMModules ePWM_Module, uint16_t ui16DutyCycle)
 }
 
 /*******************************************************************************//**
-* \brief Setup the 8Bit Timer Peripheral to count every 10uS
+* \brief Remove the PWM module
 *
-* > This initializes the 8Bit timer peripheral prescaler and poscaler 
-* > to count every 10uS. The time to interrupt is set by the "setTimerValue"
-* > function.
+* > This function is called for disabling the PWM module
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >      setup8BitTimerDef(module, &callback)
+* >      removePWM(module)
 * > <BR><BR>
 * > **Parameters:**<BR>
-* >     module - timer module assignment, TIMER2, TIMER4, TIMER6
-* >     callback - function address timer ISR callback
-* > <BR><BR>
-* > **Returns:**<BR>
-* >     none
-* > <BR><BR>
-***********************************************************************************/
-void setupPWM(enum ePWMModules ePWM_Module, uint16_t ui16Frequency, uint16_t ui16DutyCycle)
-{
-    /* Set the PWM period */
-    setPWMFrequency(ui16Frequency);				// Common for CCP1 and CCP2
-    
-    /* Load the default PWM duty value */
-	setPWMDuty(ePWM_Module,ui16DutyCycle);
-
-    /* Configure Timer */
-        /* Select Source */
-        //mc_PWMClk_Source(CCP_PWM_CLOCK);			// not for PIC16F877A
-        
-        /* Clear TMRxIF */
-        //mc_PWMTimerIFClr() ;                  	    // not critical
-        
-        /* Configure Prescaler value */
-        mc_PWMTimer_Init(mui8PreScalerVal);		// Common for CCP1 and CCP2
-
-    /* Configure CCP to PWM mode */
-	if(PWM0 == ePWM_Module)
-	{
-		mc_configCCP1Mode(CCP_PWM_MODE);
-		setPinOutput(D2);
-	}
-	else if(PWM1 == ePWM_Module)
-	{
-		mc_configCCP2Mode(CCP_PWM_MODE);
-		setPinOutput(D1);
-	}
-	else
-	{
-		/* Invalid PWM Module */
-		/* Do Nothing */
-	}	
-            
-    /* Enable Timer */
-    mc_EnablePWMTmr();                        	// Common for CCP1 and CCP2
-} 
-
-/*******************************************************************************//**
-* \brief Setup the 8Bit Timer Peripheral to count every 10uS
-*
-* > This initializes the 8Bit timer peripheral prescaler and poscaler 
-* > to count every 10uS. The time to interrupt is set by the "setTimerValue"
-* > function.
-*
-* > <BR>
-* > **Syntax:**<BR>
-* >      setup8BitTimerDef(module, &callback)
-* > <BR><BR>
-* > **Parameters:**<BR>
-* >     module - timer module assignment, TIMER2, TIMER4, TIMER6
-* >     callback - function address timer ISR callback
+* >     module - PWM module assignment, PWM0, PWM1
 * > <BR><BR>
 * > **Returns:**<BR>
 * >     none
@@ -266,11 +248,11 @@ void removePWM(enum ePWMModules ePWM_Module)
 {
 	if(PWM0 == ePWM_Module)
 	{
-		mc_setPWM0_Off();
+		hal_setPWM0_Off();
 	}
 	else if(PWM1 == ePWM_Module)
 	{
-		mc_setPWM1_Off();
+		hal_setPWM1_Off();
 	}	
 	else
 	{
@@ -279,5 +261,8 @@ void removePWM(enum ePWMModules ePWM_Module)
 	}
 }
 
+/* Private Functions */
+    /* none */
+    
 /* end of corelib_pwm.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	

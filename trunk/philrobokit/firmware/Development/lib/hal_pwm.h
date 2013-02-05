@@ -6,7 +6,7 @@
 *---------------------------------------------------------------------------------------------
 * |Filename:      | "hal_pwm.h"                                 |
 * |:----          |:----                                        |
-* |Description:   | This is the header file the driver for micrcochip 8bit timer (TMR2, TMR4, TMR6) |
+* |Description:   | This is a header file of the driver for micrcochip capture compare peripheral used for PWM  |
 * |Revision:      | v00.01.00                                   |
 * |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
@@ -28,7 +28,7 @@
 * |FW Version   |Date       |Author             |Description                        |
 * |:----        |:----      |:----              |:----                              |
 * |v00.00.01    |20120620   |ESCII              |Library Initial Release            |
-* |v00.01.00    |20121127   |ESCII              |Modified For Layered Architecture  |
+* |v00.01.00    |20130205   |ESCII              |Modified For Layered Architecture  |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -54,8 +54,10 @@
 
 /* Include .h Library Files */
 #include <PhilRoboKit_CoreLib_Macro.h>
+#include "hal_8bit_timer.h"
 
-/* CCP_PWM Mode */
+/* Global Constants */
+    /* CCP_PWM Mode */
 enum ePWMModes
 {
 	PWM_OFF             				= 0x00
@@ -72,6 +74,51 @@ enum ePWMModes
                          
 #define CCP_PWM_MODE        PWM_MODE
 
+//***********************************************************************************
+// @20Mhz -> TOSC = 50nS
+// PWM Period = [(PR2) + 1] * 4 * TOSC * Prescaler
+// Period(uS)  = [PR2+1]  * 200nS * Prescaler
+// 1.22kHz - 200kHz
+// Prescaler 1	
+// 19.53Khz		-> 51.20uS
+// 200Khz		-> 5.00uS
+//	
+// Prescaler 4	
+// 4.88Khz		-> 204.92uS
+// 19.53Khz		-> 51.20uS
+//	
+// Prescaler 16	
+// 1.22Khz		-> 819.67uS
+// 4.88kHz		-> 204.92uS
+//
+// ui16Frequency: in 10Hz/Bit Resolution (e.g. 1kHz/10Hz = 100)
+//***********************************************************************************
+#define K_MAX_FREQ_RANGE                20000       // 200kH @ 10Hz resolution
+#define K_MIN_FREQ_RANGE                122         // 1.22kHz @ 10Hz resolution
+
+#define K_PERIOD_SAT_LIM                255         
+
+#define K_PRESCALE0_FREQ_LIM            1953        // >19.53kHz, div by 1
+#define K_PRESCALE1_FREQ_LIM            488         // >4.88kHz, div by 4
+#define K_PRESCALE2_FREQ_LIM            122         // >1.22kHz, div by 16
+
+enum ePWMPrescaler
+{
+    PRESCALE0_VAL       = 0
+    ,PRESCALE1_VAL      = 1
+    ,PRESCALE2_VAL      = 2
+};
+
+//***********************************************************************************
+// @20Mhz -> TOSC = 50nS
+// Pulse Width =(CCPR1L:CCP1CON<5:4>) * TOSC *Prescaler
+//  Pulse Width  = CCP1CON  * 50nS * Prescaler
+//
+// ui16DutyCycle: 0.1%/Bit Resolution (e.g. 50% /0.1% = 500)
+//***********************************************************************************
+#define K_DUTY_SAT_LIM                  1000        // 100% duty cycle @ 0.1% resolution
+
+/* Macro and Configuration Definitions */
 #if 0 	// not for PIC16F877A
 	/* Configure PWM to use TMR4 Module */
 	#define TMR2_CLOCK          0x00
@@ -85,55 +132,63 @@ enum ePWMModes
 	    REG_CCPTMRS |= a&C1_TIMERSEL_MASK   // semi-collon intentionally omitted
 #endif
 
-#define mc_PWMTimerIntEn()            	mc_timer2IntEn()
-#define mc_PWMTimerIntDis()           	mc_timer2IntDis() 
-#define mc_PWMTimerIFClr()            	mc_timer2IFClr()
+/*@notfunction@*/
+#define hal_enablePWMTmrInt()           hal_enableTMR2Int()
+/*@notfunction@*/
+#define hal_disablePWMTmrInt()          hal_disableTMR2Int() 
+/*@notfunction@*/
+#define hal_clrPWMTmrIntFlag()          hal_clrTMR2IntFlag()
 
-#define mc_EnablePWMTmr()           	mc_enableTMR2()
-#define mc_DisablePWMTmr()          	mc_disableTMR2()
+/*@notfunction@*/
+#define hal_enablePWMTmr()           	hal_enableTMR2()
+/*@notfunction@*/
+#define hal_disablePWMTmr()          	hal_disableTMR2()
 
-#define mc_configCCP1Mode(a)            \
+/*@notfunction@*/
+#define hal_configCCP1Mode(a)           \
 REGISTER_CCP1CON = a&CCP_MODE_MASK      // semi-collon intentionally omitted
 
-#define mc_configCCP2Mode(a)            \
+/*@notfunction@*/
+#define hal_configCCP2Mode(a)           \
 REGISTER_CCP2CON = a&CCP_MODE_MASK      // semi-collon intentionally omitted
 
-#define mc_setPWM0_On()                 \
-mc_configCCP1Mode(PWM_MODE);            // semi-collon intentionally omitted
-//mc_EnablePWMTmr() 
+/*@notfunction@*/
+#define hal_setPWM0_On()                \
+hal_configCCP1Mode(PWM_MODE)            // semi-collon intentionally omitted
+//hal_enablePWMTmr() 
 
-#define mc_setPWM0_Off()                \
-mc_configCCP1Mode(PWM_OFF);             // semi-collon intentionally omitted
-//mc_DisablePWMTmr() 
+/*@notfunction@*/
+#define hal_setPWM0_Off()               \
+hal_configCCP1Mode(PWM_OFF)             // semi-collon intentionally omitted
+//hal_disablePWMTmr() 
 
-#define mc_setPWM1_On()                 \
-mc_configCCP2Mode(PWM_MODE);            // semi-collon intentionally omitted
-//mc_EnablePWMTmr()
+/*@notfunction@*/
+#define hal_setPWM1_On()                \
+hal_configCCP2Mode(PWM_MODE)            // semi-collon intentionally omitted
+//hal_enablePWMTmr()
 
-#define mc_setPWM1_Off()                \
-mc_configCCP2Mode(PWM_OFF);             // semi-collon intentionally omitted
-//mc_DisablePWMTmr() 
+#define hal_setPWM1_Off()               \
+hal_configCCP2Mode(PWM_OFF)             // semi-collon intentionally omitted
+//hal_disablePWMTmr() 
 
-#define mc_PWMTimer_Init(a)       		setup8BitTimer(TIMER2,a,0)
+/*@notfunction@*/
+#define hal_initPWMTimer(a)       		setup8BitTimer(TIMER2,a,0)
 
-#define mc_setPWMPeriod(a)        			setTimerValue(TIMER2,a)
-#define mc_setPWM0Ton(a)                	\
+/*@notfunction@*/
+#define hal_setPWMPeriod(a)        		setTimerValue(TIMER2,a)
+
+/*@notfunction@*/
+#define hal_setPWM0Ton(a)                	\
     REGISTER_CCP1CON &= ~PWM_DC_LSB_MASK;   \
     REGISTER_CCP1CON |= (a&0x0003)<<4;      \
     REGISTER_CCPR1L = (a&0x03FC)>>2         // semi-collon intentionally omitted
-#define mc_setPWM1Ton(a)                	\
+    
+/*@notfunction@*/    
+#define hal_setPWM1Ton(a)                	\
     REGISTER_CCP2CON &= ~PWM_DC_LSB_MASK;   \
     REGISTER_CCP2CON |= (a&0x0003)<<4;      \
     REGISTER_CCPR2L = (a&0x03FC)>>2         // semi-collon intentionally omitted
-    
-/* Macro and Configuration Definitions */
-    /* CoreLib Functions */
-
-    /* ISR */
-
-/* Global Constants */
-    /* none */
-    
+  
 /* Public Function Prototypes */
     /* none */
 
