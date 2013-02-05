@@ -6,7 +6,7 @@
 *---------------------------------------------------------------------------------------------
 * |Filename:      | "corelib_dac.c"                             |
 * |:----          |:----                                        |
-* |Description:   | This is a |
+* |Description:   | This is a library for using the DAC functions |
 * |Revision:      | v00.00.01                                   |
 * |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
@@ -27,65 +27,73 @@
 *---------------------------------------------------------------------------------------------
 * |FW Version   |Date       |Author             |Description                |
 * |:----        |:----      |:----              |:----                      |
-* |v00.01.00    |20130204   |ESCII              |Library Initial Release    |
+* |v00.00.01    |20130205   |ESCII              |Library Initial Release    |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
 
 #include "corelib_dac.h"
 
+/* Local Constants */
+    /* none */
+
+/* Local Variables */
+    /* none */
+
+/* Private Function Prototypes */
+    /* none */
+    
+/* Public Functions */
 /*******************************************************************************//**
-* \brief Setup the 8Bit Timer Peripheral to count every 10uS
+* \brief Set DAC value
 *
-* > This initializes the 8Bit timer peripheral prescaler and poscaler 
-* > to count every 10uS. The time to interrupt is set by the "setTimerValue"
-* > function.
+* > This function is called for setting the DAC value.
+* > The DAC value can be set between 0 to 1023.
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >      setup8BitTimerDef(module, &callback)
+* >      setDAC(module, value) 
 * > <BR><BR>
 * > **Parameters:**<BR>
-* >     module - timer module assignment, TIMER2, TIMER4, TIMER6
-* >     callback - function address timer ISR callback
+* >     module - DAC module assignment, DAC0, DAC1
+* >     value - a value between 0 to 1023
 * > <BR><BR>
 * > **Returns:**<BR>
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setAnalogOut(enum ePWMModules eDAC_Module, uint16_t ui16Value) 
+void setDAC(enum ePWMModules eDAC_Module, uint16_t ui16Value) 
 {
 	uint16_t ui16DutyCycle;
 	
 	/* 0 - 1023 : 0 - 1000  */
 	ui16DutyCycle = (uint16_t)(((uint24_t)976 * ui16Value) / 1000);
 	
-	setupPWM(eDAC_Module, 122, ui16DutyCycle);	// 1.22kHz Default Frequency
+	setupPWM(eDAC_Module, K_DAC_DEFAULT_FREQ, ui16DutyCycle);	
 }
 
 /*******************************************************************************//**
-* \brief Setup the 8Bit Timer Peripheral to count every 10uS
+* \brief Remove the DAC module
 *
-* > This initializes the 8Bit timer peripheral prescaler and poscaler 
-* > to count every 10uS. The time to interrupt is set by the "setTimerValue"
-* > function.
+* > This function is called for disabling the DAC module
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >      setup8BitTimerDef(module, &callback)
+* >      removeDAC(module)
 * > <BR><BR>
 * > **Parameters:**<BR>
-* >     module - timer module assignment, TIMER2, TIMER4, TIMER6
-* >     callback - function address timer ISR callback
+* >     module - PWM module assignment, DAC0, DAC1
 * > <BR><BR>
 * > **Returns:**<BR>
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void removeAnalogOut(enum ePWMModules eDAC_Module)
+void removeDAC(enum ePWMModules eDAC_Module)
 {
 	removePWM(eDAC_Module);
 }
-
+/* Private Functions */
+    /* none */
+    
 /* end of corelib_dac.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

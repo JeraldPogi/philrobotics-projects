@@ -6,7 +6,7 @@
 *---------------------------------------------------------------------------------------------
 * |Filename:      | "hal_pwm.c"                                 |
 * |:----          |:----                                        |
-* |Description:   | This is a driver for micrcochip 8bit timer (TMR2, TMR4, TMR6) |
+* |Description:   | This is a driver for micrcochip capture compare peripheral used for PWM |
 * |Revision:      | v00.01.00                                   |
 * |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
@@ -28,7 +28,7 @@
 * |FW Version   |Date       |Author             |Description                        |
 * |:----        |:----      |:----              |:----                              |
 * |v00.00.01    |20120620   |ESCII              |Library Initial Release            |
-* |v00.01.00    |20121127   |ESCII              |Modified For Layered Architecture  |
+* |v00.01.00    |20130205   |ESCII              |Modified For Layered Architecture  |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -46,3 +46,6 @@
 /* Public Functions */
 
 /* Private Functions */
+
+/* end of hal_pwm.c */
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	

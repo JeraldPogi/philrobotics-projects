@@ -28,7 +28,7 @@
 * |FW Version   |Date       |Author             |Description                        |
 * |:----        |:----      |:----              |:----                              |
 * |v00.00.01    |20120620   |ESCII              |Library Initial Release            |
-* |v00.01.00    |20121127   |ESCII              |Modified For Layered Architecture  |
+* |v00.01.00    |20130205   |ESCII              |Modified For Layered Architecture  |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -55,37 +55,45 @@
 /* Include .h Library Files */
 #include <PhilRoboKit_CoreLib_Macro.h>
 
-/* Macro and Configuration Definitions */
-#if(TIMER_8BIT_ENABLED == TRUE)
-    /* TMR2 */
-	/*@notfunction@*/
-	#define mc_timer2IntEn()           				(BIT_PIE1_TMR2IE = 1)
-	/*@notfunction@*/
-	#define mc_timer2IntDis()          				(BIT_PIE1_TMR2IE = 0)
-	/*@notfunction@*/
-	#define mc_timer2IntFlagClr()         			(BIT_PIR1_TMR2IF = 0)
-
-	/*@notfunction@*/
-	#define mc_enableTMR2()                 		(BIT_T2CON_TMR2ON = 1)
-	/*@notfunction@*/
-	#define mc_disableTMR2()                		(BIT_T2CON_TMR2ON = 0)
-
-	/*@notfunction@*/
-	#define mc_setTMR2Prescaler(a)          		\
-	REGISTER_T2CON &=~TMR_PRESCALE_MASK;         	\
-	REGISTER_T2CON |= a&TMR_PRESCALE_MASK        	// semi-collon intentionally omitted 
-
-	/*@notfunction@*/
-	#define mc_setTMR2Postscaler(a)         		\
-	REGISTER_T2CON &=~TMR_POSTSCALE_MASK;        	\
-	REGISTER_T2CON |= (a<<3)&TMR_POSTSCALE_MASK  	// semi-collon intentionally omitted 
-#endif
-
 /* User Configuration Definitions */
 #define TIMER_8BIT_ENABLED	TRUE
 	#define TIMER2_ENABLED	TRUE
 	//#define TIMER4_ENABLED	TRUE
 	//#define TIMER6_ENABLED	TRUE
+    
+/* Macro and Configuration Definitions */
+#if(TIMER_8BIT_ENABLED == TRUE)
+    /* TMR2 */
+	/*@notfunction@*/
+	#define hal_enableTMR2Int()           			(BIT_PIE1_TMR2IE = 1)
+	/*@notfunction@*/
+	#define hal_disableTMR2Int()          			(BIT_PIE1_TMR2IE = 0)
+    /*@notfunction@*/
+    #define hal_getTMR2IntEnableStatus()           	((BIT_PIE1_TMR2IE) ? true : false)
+    
+	/*@notfunction@*/
+	#define hal_clrTMR2IntFlag()         			(BIT_PIR1_TMR2IF = 0)
+    /*@notfunction@*/
+    #define hal_getTMR2IntFlag()                    ((BIT_PIR1_TMR2IF) ? true : false)
+
+	/*@notfunction@*/
+	#define hal_enableTMR2()                 		(BIT_T2CON_TMR2ON = 1)
+	/*@notfunction@*/
+	#define hal_disableTMR2()                		(BIT_T2CON_TMR2ON = 0)
+
+	/*@notfunction@*/
+	#define hal_setTMR2Prescaler(a)          		\
+	REGISTER_T2CON &=~TMR_PRESCALE_MASK;         	\
+	REGISTER_T2CON |= a&TMR_PRESCALE_MASK        	// semi-collon intentionally omitted 
+
+	/*@notfunction@*/
+	#define hal_setTMR2Postscaler(a)         		\
+	REGISTER_T2CON &=~TMR_POSTSCALE_MASK;        	\
+	REGISTER_T2CON |= (a<<3)&TMR_POSTSCALE_MASK  	// semi-collon intentionally omitted 
+    
+    /*@notfunction@*/
+    #define hal_setTMR2Value(a)                     (REGISTER_PR2 = a-1)
+#endif
 
 /* Global Constants */    
     /* Timers */
@@ -123,11 +131,8 @@ enum eTmrModules
 #define K_10US_POSTSCALE            2
 
 /* Public Function Prototypes */	
-	void timer8bitInterruptHandler(void);
-	
 #if(TIMER_8BIT_ENABLED == TRUE)
 	void setup8BitTimer(enum eTmrModules tmrModule, void(*callback)(), uint8_t ui8Prescaler, uint8_t ui8Postscaler);
-	void setTimerValue(enum eTmrModules tmrModule, uint8_t ui8Value);
 #endif
 
 #endif /* end of hal_8bit_timer.h */

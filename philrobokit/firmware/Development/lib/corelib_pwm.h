@@ -6,8 +6,8 @@
 *---------------------------------------------------------------------------------------------
 * |Filename:      | "corelib_pwm.h"                             |
 * |:----          |:----                                        |
-* |Description:   | This is a |
-* |Revision:      | v00.00.01                                   |
+* |Description:   | This is a header file for the PWM library   |
+* |Revision:      | v00.01.00                                   |
 * |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -28,7 +28,7 @@
 * |FW Version   |Date       |Author             |Description                |
 * |:----        |:----      |:----              |:----                      |
 * |v00.00.01    |20120710   |ESCII              |Library Initial Release    |
-* |v00.01.00    |20130204   |ESCII              |Modified For Layered Architecture    |
+* |v00.01.00    |20130205   |ESCII              |Modified For Layered Architecture    |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -54,21 +54,29 @@
 
 #include <PhilRoboKit_CoreLib_Macro.h>
 
+/* Include .h Library Files */
+#include <PhilRoboKit_CoreLib_Macro.h>
+#include "hal_pwm.h"
+
 /* User Configuration Definitions */
-/* PWMs */
+    /* none */
+    
+/* Global Constants */
+    /* PWMs */
 enum ePWMModules
 {
 	PWM0
 	,PWM1
 };
+    
+/* Macro and Configuration Definitions */
+    /* none */
 
 /* Public Function Prototypes */
 void setupPWM(enum ePWMModules ePWM_Module, uint16_t ui16Frequency, uint16_t ui16DutyCycle);
 void setPWMFrequency(uint16_t ui16Frequency);
 void setPWMDuty(enum ePWMModules ePWM_Module, uint16_t ui16DutyCycle);
 void removePWM(enum ePWMModules ePWM_Module);
-
-
 
 #endif/* end of corelib_pwm.h */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	

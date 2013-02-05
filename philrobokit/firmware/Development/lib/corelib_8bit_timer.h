@@ -6,8 +6,8 @@
 *---------------------------------------------------------------------------------------------
 * |Filename:      | "corelib_8bit_timer.h"                      |
 * |:----          |:----                                        |
-* |Description:   | This is a  |
-* |Revision:      | v00.00.01                                   |
+* |Description:   | This is a header file of the 8 bit timer library |
+* |Revision:      | v00.01.00                                   |
 * |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -25,9 +25,10 @@
 * > along with this program. If not, see http://www.gnu.org/licenses/
 * <BR>
 *---------------------------------------------------------------------------------------------
-* |FW Version   |Date       |Author             |Description                |
-* |:----        |:----      |:----              |:----                      |
-* |v00.00.01    |20121127   |ESCII              |Library Initial Release    |
+* |FW Version   |Date       |Author             |Description                        |
+* |:----        |:----      |:----              |:----                              |
+* |v00.00.01    |20120620   |ESCII              |Library Initial Release            |
+* |v00.01.00    |20130205   |ESCII              |Modified For Layered Architecture  |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER_
@@ -55,20 +56,19 @@
 #include <PhilRoboKit_CoreLib_Macro.h>
 #include "hal_8bit_timer.h"
 
-/* Macro and Configuration Definitions */
-    /* CoreLib Functions */
-    /*@notfunction@*/
-#define setTimer(module, value)                 setTimerValue(module, value)
-
-    /* ISR */
-    /*@notfunction@*/
-#define timer8bitISR()                          timer8bitInterruptHandler()
-
+/* User Configuration Definitions */
+    /* none */
+    
 /* Global Constants */
+    /* none */
+    
+/* Macro and Configuration Definitions */
     /* none */
     
 /* Public Function Prototypes */
 	void setupTimer(enum eTmrModules tmrModule, void(*callback)());
-
+    void timer8bitISR(void);
+	void setTimer(enum eTmrModules tmrModule, uint8_t ui8Value);
+    
 #endif /* end of corelib_8bit_timer.h */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	

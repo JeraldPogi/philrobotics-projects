@@ -28,7 +28,7 @@
 * |FW Version   |Date       |Author             |Description                        |
 * |:----        |:----      |:----              |:----                              |
 * |v00.00.01    |20120620   |ESCII              |Library Initial Release            |
-* |v00.01.00    |20121127   |ESCII              |Modified For Layered Architecture  |
+* |v00.01.00    |20130205   |ESCII              |Modified For Layered Architecture  |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -45,9 +45,9 @@
 static	void nullTMRFunction();
 
 #if(TIMER_8BIT_ENABLED == TRUE)
-	void (*pt2TMR2)() = &nullTMRFunction;		// interrupt function pointer
-	//void (*pt2TMR4)(void) = &nullTMRFunction;		// interrupt function pointer
-	//void (*pt2TMR6)(void) = &nullTMRFunction;		// interrupt function pointer
+	void (*pt2TMR2ISR)() = &nullTMRFunction;		// interrupt function pointer
+	//void (*pt2TMR4ISR)(void) = &nullTMRFunction;		// interrupt function pointer
+	//void (*pt2TMR6ISR)(void) = &nullTMRFunction;		// interrupt function pointer
 #endif
 
 /* Public Functions */
@@ -73,19 +73,19 @@ static	void nullTMRFunction();
 ***********************************************************************************/
 void setup8BitTimer(enum eTmrModules tmrModule, void(*callback)(), uint8_t ui8Prescaler, uint8_t ui8Postscaler)
 {
-/* Default */
+    /* Default */
 	if(TIMER2 == tmrModule)
 	{
-	    mc_setTMR2Prescaler(ui8Prescaler);
-    	mc_setTMR2Postscaler(ui8Postscaler); 
-        pt2TMR2 = function;
+	    hal_setTMR2Prescaler(ui8Prescaler);
+    	hal_setTMR2Postscaler(ui8Postscaler); 
+        pt2TMR2ISR = function;
 	}
 	#if(TIMER4_ENABLED == TRUE)	
 	else if(TIMER4 == tmrModule)
 	{
 		mc_setTMR4Prescaler(ui8Prescaler);
     	mc_setTMR4Postscaler(ui8Postscaler); 
-        pt2TMR4 = function;
+        pt2TMR4ISR = function;
 	}
 	#endif
 	#if(TIMER6_ENABLED == TRUE)	
@@ -93,59 +93,7 @@ void setup8BitTimer(enum eTmrModules tmrModule, void(*callback)(), uint8_t ui8Pr
 	{
 		mc_setTMR6Prescaler(ui8Prescaler);
     	mc_setTMR6Postscaler(ui8Postscaler); 
-        pt2TMR6 = function;
-	}
-	#endif
-	else
-	{
-		/* do nothing */
-	}
-}
-
-/*******************************************************************************//**
-* \brief Set the 8bit count value
-*
-* > This function is called to set the timer count value
-*
-* > <BR>
-* > **Syntax:**<BR>
-* >     setTimerValue(module, value)
-* > <BR><BR>
-* > **Parameters:**<BR>
-* >     module - timer module assignment, TIMER2, TIMER4, TIMER6
-* >     value - (value x resolution) is the time it takes before timer interrupt occur
-* > <BR><BR>
-* > **Returns:**<BR>
-* >     none
-* > <BR><BR>
-***********************************************************************************/
-void setTimerValue(enum eTmrModules tmrModule, uint8_t ui8Value)
-{
-/* Default */
-	if(TIMER2 == tmrModule)
-	{
-		REGISTER_PR2 = ui8Value - 1;
-		
-		/* turn-on timer module */
-		mc_enableTMR2();
-		/* enable TMR2 interrupt */
-		BIT_PIE1_TMR2IE = 1;
-
-	}
-	#if(TIMER4_ENABLED == TRUE)	
-	else if(TIMER4 == tmrModule)
-	{
-		REGISTER_PR4 = ui8Value - 1;
-		/* turn-on timer module */
-		/* enable TMR4 interrupt */
-	}
-	#endif
-	#if(TIMER6_ENABLED == TRUE)	
-	else if(TIMER6 == tmrModule)
-	{
-		REGISTER_PR6 = ui8Value - 1;
-		/* turn-on timer module */
-		/* enable TMR6 interrupt */
+        pt2TMR6ISR = function;
 	}
 	#endif
 	else
@@ -154,56 +102,6 @@ void setTimerValue(enum eTmrModules tmrModule, uint8_t ui8Value)
 	}
 }
 #endif
-
-/*******************************************************************************//**
-* \brief 8 bit timer interrupt service routine
-*
-* > This is an interrupt handler called when the 8 Bit timer value expires
-*
-* > <BR>
-* > **Syntax:**<BR>
-* >     timer8bitInterruptHandler() , ISR
-* > <BR><BR>
-* > **Parameters:**<BR>
-* >     none
-* > <BR><BR>
-* > **Returns:**<BR>
-* >     none
-* > <BR><BR>
-***********************************************************************************/
-void timer8bitInterruptHandler(void)
-{
-#if(TIMER_8BIT_ENABLED == TRUE)
-	if(BIT_PIR1_TMR2IF&&BIT_PIE1_TMR2IE)
-	{
-		/* disable TMR2 Module */
-		BIT_PIR1_TMR2IF = 0;
-		BIT_PIE1_TMR2IE = 0;					
-		mc_disableTMR2();
-		/* call user ISR */
-		pt2TMR2();
-	}
-	#if(TIMER4_ENABLED == TRUE)	
-	if()
-	{
-		/* disable TMR4 Module */
-		mc_disableTMR4();
-		/* call user ISR */
-		pt2TMR4();	
-	}
-	#endif
-	
-	#if(TIMER6_ENABLED == TRUE)	
-	if()
-	{
-		/* disable TMR6 Module */
-		mc_disableTMR6();
-		/* call user ISR */
-		pt2TMR6();	
-	}
-	#endif
-#endif
-}
 
 /* Private Functions */
 /*******************************************************************************//**
