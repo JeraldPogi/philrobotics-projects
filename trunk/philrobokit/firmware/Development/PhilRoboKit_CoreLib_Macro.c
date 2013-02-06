@@ -84,10 +84,9 @@ interrupt
 #endif
 isr(void)
 {
-	timerInterruptHandler();
+    timer8BitISR();
 	serialRxInterruptHandler();
-	//userInterruptHandler();
-	//timer8bitInterruptHandler();
+    //user interrupt handler
 	serialTxInterruptHandler();
 	//adcInterruptHandler();
 }

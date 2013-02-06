@@ -42,13 +42,7 @@
     /* none */
 
 /* Private Function Prototypes */
-static	void nullTMRFunction();
-
-#if(TIMER_8BIT_ENABLED == TRUE)
-	void (*pt2TMR2ISR)() = &nullTMRFunction;		// interrupt function pointer
-	//void (*pt2TMR4ISR)(void) = &nullTMRFunction;		// interrupt function pointer
-	//void (*pt2TMR6ISR)(void) = &nullTMRFunction;		// interrupt function pointer
-#endif
+    /* none */
 
 /* Public Functions */
 #if(TIMER_8BIT_ENABLED == TRUE)
@@ -59,7 +53,7 @@ static	void nullTMRFunction();
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >      setup8BitTimer(module, &callback, prescaler, postscaler)
+* >      setup8BitTimerFull(module, &callback, prescaler, postscaler)
 * > <BR><BR>
 * > **Parameters:**<BR>
 * >     module - timer module assignment, TIMER2, TIMER4, TIMER6
@@ -71,21 +65,21 @@ static	void nullTMRFunction();
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setup8BitTimer(enum eTmrModules tmrModule, void(*callback)(), uint8_t ui8Prescaler, uint8_t ui8Postscaler)
+void setup8BitTimerFull(enum eTmrModules tmrModule, void(*callback)(), uint8_t ui8Prescaler, uint8_t ui8Postscaler)
 {
     /* Default */
 	if(TIMER2 == tmrModule)
 	{
 	    hal_setTMR2Prescaler(ui8Prescaler);
     	hal_setTMR2Postscaler(ui8Postscaler); 
-        pt2TMR2ISR = function;
+        pt2TMR2ISR = callback;
 	}
 	#if(TIMER4_ENABLED == TRUE)	
 	else if(TIMER4 == tmrModule)
 	{
 		mc_setTMR4Prescaler(ui8Prescaler);
     	mc_setTMR4Postscaler(ui8Postscaler); 
-        pt2TMR4ISR = function;
+        pt2TMR4ISR = callback;
 	}
 	#endif
 	#if(TIMER6_ENABLED == TRUE)	
@@ -93,7 +87,7 @@ void setup8BitTimer(enum eTmrModules tmrModule, void(*callback)(), uint8_t ui8Pr
 	{
 		mc_setTMR6Prescaler(ui8Prescaler);
     	mc_setTMR6Postscaler(ui8Postscaler); 
-        pt2TMR6ISR = function;
+        pt2TMR6ISR = callback;
 	}
 	#endif
 	else
@@ -121,7 +115,7 @@ void setup8BitTimer(enum eTmrModules tmrModule, void(*callback)(), uint8_t ui8Pr
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-static void nullTMRFunction()
+void nullTMRFunction()
 {
 	;/* NULL */
 }

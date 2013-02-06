@@ -60,41 +60,7 @@
 	#define TIMER2_ENABLED	TRUE
 	//#define TIMER4_ENABLED	TRUE
 	//#define TIMER6_ENABLED	TRUE
-    
-/* Macro and Configuration Definitions */
-#if(TIMER_8BIT_ENABLED == TRUE)
-    /* TMR2 */
-	/*@notfunction@*/
-	#define hal_enableTMR2Int()           			(BIT_PIE1_TMR2IE = 1)
-	/*@notfunction@*/
-	#define hal_disableTMR2Int()          			(BIT_PIE1_TMR2IE = 0)
-    /*@notfunction@*/
-    #define hal_getTMR2IntEnableStatus()           	((BIT_PIE1_TMR2IE) ? true : false)
-    
-	/*@notfunction@*/
-	#define hal_clrTMR2IntFlag()         			(BIT_PIR1_TMR2IF = 0)
-    /*@notfunction@*/
-    #define hal_getTMR2IntFlag()                    ((BIT_PIR1_TMR2IF) ? true : false)
-
-	/*@notfunction@*/
-	#define hal_enableTMR2()                 		(BIT_T2CON_TMR2ON = 1)
-	/*@notfunction@*/
-	#define hal_disableTMR2()                		(BIT_T2CON_TMR2ON = 0)
-
-	/*@notfunction@*/
-	#define hal_setTMR2Prescaler(a)          		\
-	REGISTER_T2CON &=~TMR_PRESCALE_MASK;         	\
-	REGISTER_T2CON |= a&TMR_PRESCALE_MASK        	// semi-collon intentionally omitted 
-
-	/*@notfunction@*/
-	#define hal_setTMR2Postscaler(a)         		\
-	REGISTER_T2CON &=~TMR_POSTSCALE_MASK;        	\
-	REGISTER_T2CON |= (a<<3)&TMR_POSTSCALE_MASK  	// semi-collon intentionally omitted 
-    
-    /*@notfunction@*/
-    #define hal_setTMR2Value(a)                     (REGISTER_PR2 = a-1)
-#endif
-
+   
 /* Global Constants */    
     /* Timers */
 enum eTmrModules
@@ -129,10 +95,49 @@ enum eTmrModules
 //*********************************************************************************** 
 #define K_10US_PRESCALE             2
 #define K_10US_POSTSCALE            2
+   
+/* Macro and Configuration Definitions */
+#if(TIMER_8BIT_ENABLED == TRUE)
+    /* TMR2 */
+	/*@notfunction@*/
+	#define hal_enableTMR2Int()           			(BIT_PIE1_TMR2IE = 1)
+	/*@notfunction@*/
+	#define hal_disableTMR2Int()          			(BIT_PIE1_TMR2IE = 0)
+    /*@notfunction@*/
+    #define hal_getTMR2IntEnableStatus()           	((BIT_PIE1_TMR2IE) ? true : false)
+    
+	/*@notfunction@*/
+	#define hal_clrTMR2IntFlag()         			(BIT_PIR1_TMR2IF = 0)
+    /*@notfunction@*/
+    #define hal_getTMR2IntFlag()                    ((BIT_PIR1_TMR2IF) ? true : false)
+
+	/*@notfunction@*/
+	#define hal_enableTMR2()                 		(BIT_T2CON_TMR2ON = 1)
+	/*@notfunction@*/
+	#define hal_disableTMR2()                		(BIT_T2CON_TMR2ON = 0)
+
+	/*@notfunction@*/
+	#define hal_setTMR2Prescaler(a)          		\
+	REGISTER_T2CON &=~TMR_PRESCALE_MASK;         	\
+	REGISTER_T2CON |= a&TMR_PRESCALE_MASK        	// semi-collon intentionally omitted 
+
+	/*@notfunction@*/
+	#define hal_setTMR2Postscaler(a)         		\
+	REGISTER_T2CON &=~TMR_POSTSCALE_MASK;        	\
+	REGISTER_T2CON |= (a<<3)&TMR_POSTSCALE_MASK  	// semi-collon intentionally omitted 
+    
+    /*@notfunction@*/
+    #define hal_setTMR2Value(a)                     (REGISTER_PR2 = (a-1))
+#endif
 
 /* Public Function Prototypes */	
 #if(TIMER_8BIT_ENABLED == TRUE)
-	void setup8BitTimer(enum eTmrModules tmrModule, void(*callback)(), uint8_t ui8Prescaler, uint8_t ui8Postscaler);
+	void setup8BitTimerFull(enum eTmrModules tmrModule, void(*callback)(), uint8_t ui8Prescaler, uint8_t ui8Postscaler);
+    void nullTMRFunction();
+    
+    void (*pt2TMR2ISR)() = &nullTMRFunction;		// interrupt function pointer
+	//void (*pt2TMR4ISR)(void) = &nullTMRFunction;		// interrupt function pointer
+	//void (*pt2TMR6ISR)(void) = &nullTMRFunction;		// interrupt function pointer
 #endif
 
 #endif /* end of hal_8bit_timer.h */

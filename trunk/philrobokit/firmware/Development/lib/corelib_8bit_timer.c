@@ -55,7 +55,7 @@
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >      setupTimer(module, &callback)
+* >      setup8BitTimer(module, &callback)
 * > <BR><BR>
 * > **Parameters:**<BR>
 * >     module - timer module assignment, TIMER2, TIMER4, TIMER6
@@ -65,9 +65,9 @@
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setupTimer(enum eTmrModules tmrModule, void(*callback)())
+void setup8BitTimer(/*enum eTmrModules*/uint8_t tmrModule, void(*callback)())
 {
-    setup8BitTimer(tmrModule, callback, K_10US_PRESCALE, K_10US_PRESCALE);
+    setup8BitTimerFull(tmrModule, callback, K_10US_PRESCALE, K_10US_PRESCALE);
 }
 
 /*******************************************************************************//**
@@ -88,7 +88,7 @@ void setupTimer(enum eTmrModules tmrModule, void(*callback)())
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setTimer(enum eTmrModules tmrModule, uint8_t ui8Value)
+void setTimer(/*enum eTmrModules*/uint8_t tmrModule, uint8_t ui8Value)
 {
 /* Default */
 	if(TIMER2 == tmrModule)
@@ -131,11 +131,11 @@ void setTimer(enum eTmrModules tmrModule, uint8_t ui8Value)
 /*******************************************************************************//**
 * \brief 8 bit timer interrupt service routine
 *
-* > This is an interrupt handler called when the 8 Bit timer value expires
+* > This is an interrupt handler called when the 8 bit timer value expires
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >     timer8bitInterruptHandler() , ISR
+* >     timer8BitISR() , ISR
 * > <BR><BR>
 * > **Parameters:**<BR>
 * >     none
@@ -144,7 +144,7 @@ void setTimer(enum eTmrModules tmrModule, uint8_t ui8Value)
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void timer8bitISR(void)
+void timer8BitISR(void)
 {
 #if(TIMER_8BIT_ENABLED == TRUE)
 	if(hal_getTMR2IntFlag() && hal_getTMR2IntEnableStatus())
