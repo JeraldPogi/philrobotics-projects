@@ -62,7 +62,7 @@
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setDAC(enum ePWMModules eDAC_Module, uint16_t ui16Value) 
+void setDAC(/*enum ePWMModules*/uint8_t eDAC_Module, uint16_t ui16Value) 
 {
 	uint16_t ui16DutyCycle;
 	
@@ -88,7 +88,7 @@ void setDAC(enum ePWMModules eDAC_Module, uint16_t ui16Value)
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void removeDAC(enum ePWMModules eDAC_Module)
+void removeDAC(/*enum ePWMModules*/uint8_t eDAC_Module)
 {
 	removePWM(eDAC_Module);
 }

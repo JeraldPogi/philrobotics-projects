@@ -127,6 +127,7 @@ enum ePWMPrescaler
 
 	#define CCP_PWM_CLOCK       TMR2_CLOCK
 
+    /*@notfunction@*/
 	#define mc_PWMClk_Source(a)             \
 	    REG_CCPTMRS &= ~C1_TIMERSEL_MASK;   \
 	    REG_CCPTMRS |= a&C1_TIMERSEL_MASK   // semi-collon intentionally omitted
@@ -167,15 +168,16 @@ hal_configCCP1Mode(PWM_OFF)             // semi-collon intentionally omitted
 hal_configCCP2Mode(PWM_MODE)            // semi-collon intentionally omitted
 //hal_enablePWMTmr()
 
+/*@notfunction@*/
 #define hal_setPWM1_Off()               \
 hal_configCCP2Mode(PWM_OFF)             // semi-collon intentionally omitted
 //hal_disablePWMTmr() 
 
 /*@notfunction@*/
-#define hal_initPWMTimer(a)       		setup8BitTimer(TIMER2,a,0)
+#define hal_initPWMTimer(a)       		setup8BitTimerFull(TIMER2,nullTMRFunction,a,0)
 
 /*@notfunction@*/
-#define hal_setPWMPeriod(a)        		setTimerValue(TIMER2,a)
+#define hal_setPWMPeriod(a)        		setTimer(TIMER2,a)
 
 /*@notfunction@*/
 #define hal_setPWM0Ton(a)                	\
