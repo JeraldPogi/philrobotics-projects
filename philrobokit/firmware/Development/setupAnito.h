@@ -34,13 +34,14 @@
     #include "hal_Anito_timer.h"
     #include "drv_Anito_uart.h"
     #include "drv_Anito_adc.h"
-    //include "hal_Anito_interrupts.h"
     
-    #include "corelib_8bit_timer.h"
-    #include "hal_8bit_timer.h"
-    #include "corelib_pwm.h"
-    #include "hal_pwm.h"
     #include "corelib_dac.h"
+    #include "corelib_pwm.h"
+    #include "corelib_8bit_timer.h"
+    #include "corelib_user_interrupt.h"
+    #include "hal_pwm.h"    
+    #include "hal_8bit_timer.h"
+    #include "hal_user_interrupt.h"
 
     /* Pin Default Initialization */
     #define	K8_DEFAULT_CONFIG_PORTA	(0b11111)

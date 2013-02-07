@@ -45,6 +45,28 @@
     /* none */
 
 /* Public Functions */
+/*******************************************************************************//**
+* \brief Initialize 8bit timer interrupt function pointer with null function
+*
+* > This function basically does nothing and is used to initialize 8bit timer 
+* > interrupt function pointer.
+*
+* > <BR>
+* > **Syntax:**<BR>
+* >     nullTMRFunction()
+* > <BR><BR>
+* > **Parameters:**<BR>
+* >     none
+* > <BR><BR>
+* > **Returns:**<BR>
+* >     none
+* > <BR><BR>
+***********************************************************************************/
+void nullTMRFunction()
+{
+	;/* NULL */
+}
+
 #if(TIMER_8BIT_ENABLED == TRUE)
 /*******************************************************************************//**
 * \brief Setup the 8bit timer count resolution
@@ -98,27 +120,7 @@ void setup8BitTimerFull(enum eTmrModules tmrModule, void(*callback)(), uint8_t u
 #endif
 
 /* Private Functions */
-/*******************************************************************************//**
-* \brief Initialize 8bit timer interrupt function pointer with null function
-*
-* > This function basically does nothing and is used to initialize 8bit timer 
-* > interrupt function pointer.
-*
-* > <BR>
-* > **Syntax:**<BR>
-* >     nullTMRFunction()
-* > <BR><BR>
-* > **Parameters:**<BR>
-* >     none
-* > <BR><BR>
-* > **Returns:**<BR>
-* >     none
-* > <BR><BR>
-***********************************************************************************/
-void nullTMRFunction()
-{
-	;/* NULL */
-}
+    /* none */
 
 /* end of hal_8bit_timer.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
