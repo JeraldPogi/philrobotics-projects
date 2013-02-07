@@ -8,11 +8,11 @@ void pinToggle()
 
 void init()
 {
-	setupUserInterrupt(INT0, pinToggle, CHANGE);
-	setPinLow(LED1);
-	setPinLow(LED2);
-	setPinLow(LED3);
-	setPinLow(LED4);
+	setupUserInt(INT0, pinToggle, CHANGE);
+	clrPin(LED1);
+	clrPin(LED2);
+	clrPin(LED3);
+	clrPin(LED4);
 }
 
 void program()

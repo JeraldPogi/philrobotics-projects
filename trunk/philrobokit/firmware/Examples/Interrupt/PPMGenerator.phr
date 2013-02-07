@@ -39,8 +39,8 @@ void PPMGenerator()
 	{
 		case SEND_PULSE:
 		{
-			setPinLow(D13);
-			setTimerValue(TIMER2,PULSE_PERIOD);
+			clrPin(D13);
+			setTimer(TIMER2,PULSE_PERIOD);
 			
 			if(channel_ctr < (NUM_OF_CHANNELS-1))
 			{
@@ -57,15 +57,15 @@ void PPMGenerator()
 		}
 		case SEND_CHANNEL_PERIOD:
 		{
-			setPinHigh(D13);			
-			setTimerValue(TIMER2,(ChannelPeriods[channel_ctr] - PULSE_PERIOD));
+			setPin(D13);			
+			setTimer(TIMER2,(ChannelPeriods[channel_ctr] - PULSE_PERIOD));
 			SumOfPeriods += ChannelPeriods[channel_ctr];
 			PPM_State = SEND_PULSE;
 			break;
 		}
 		case WAIT_END_OF_CYCLE:
 		{
-			setPinHigh(D13);
+			setPin(D13);
 			
 			if(0 == BlankTimeSet)
 			{
@@ -75,13 +75,13 @@ void PPMGenerator()
 
 			if(FrameBlankTime > TMR2_MAX_COUNT)
 			{
-				setTimerValue(TIMER2,TMR2_MAX_COUNT);
+				setTimer(TIMER2,TMR2_MAX_COUNT);
 				FrameBlankTime -= TMR2_MAX_COUNT;
 				PPM_State = WAIT_END_OF_CYCLE;
 			}
 			else
 			{
-				setTimerValue(TIMER2,(unsigned char)FrameBlankTime);
+				setTimer(TIMER2,(unsigned char)FrameBlankTime);
 				PPM_State = SEND_PULSE;
 				SumOfPeriods = 0;
 			}
@@ -105,7 +105,7 @@ unsigned int convertADC2Period(unsigned int ADCValue)
 
 void init()
 {
-	setup8BitTimerDef(TIMER2,PPMGenerator);
+	setup8BitTimer(TIMER2,PPMGenerator);
 	
 	for(tempvar = 0; tempvar<NUM_OF_CHANNELS; tempvar++)
 	{
@@ -113,9 +113,9 @@ void init()
 	}
 	
 	/* Start with Channel 1 */
-	setPinOutput(D13);
-	setPinLow(D13);
-	setTimerValue(TMR2,PULSE_PERIOD);	
+	makeOutput(D13);
+	clrPin(D13);
+	setTimer(TMR2,PULSE_PERIOD);	
 	PPM_State = SEND_CHANNEL_PERIOD;
 	channel_ctr = 0;
 	

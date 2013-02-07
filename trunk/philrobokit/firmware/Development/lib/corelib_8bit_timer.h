@@ -31,7 +31,7 @@
 * |v00.01.00    |20130205   |ESCII              |Modified For Layered Architecture  |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
-#undef  __SHOW_MODULE_HEADER_
+#undef  __SHOW_MODULE_HEADER__
 
 #ifndef __PH_8BIT_TIMER_H__
 #define __PH_8BIT_TIMER_H__
