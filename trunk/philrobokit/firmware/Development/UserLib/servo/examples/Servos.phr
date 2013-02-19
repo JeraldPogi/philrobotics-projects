@@ -2,7 +2,7 @@
 
 void init()
 {
-	setupServoDef(SERV0,SERVO,-90);
+	setupServo(SERV0,SERVO,-90);
 }
 
 void program()
