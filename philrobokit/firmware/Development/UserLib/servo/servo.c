@@ -36,20 +36,16 @@
 #include "servo.h"
 
 /* Local Constants */
-enum servoStates
+static enum servoStates
 {
 	SERVO_PULSEON
 	,SERVO_PULSEOFF
 };
 
-enum servoInfo
+static enum servoInfo
 {
 	SERVO_PIN
 	,SERVO_PULSE
-//	,SERVO_MINPULSE
-//	,SERVO_MAXPULSE
-//	,SERVO_MINANGLE
-//	,SERVO_MAXANGLE
 	,SERVO_SLOPE
 	,NUMBEROFINFO
 };
@@ -61,153 +57,161 @@ static uint8_t sequenceCounter = 8;
 static uint8_t servoState = SERVO_PULSEOFF;
 static 
 #ifndef S_SPLINT_S // Suppress SPLint Parse Errors
-bit_t 
+bool_t 
 #else
 uint8_t
 #endif
-kickStarted = 0;
+kickStarted = false;
 
 /* Private Function Prototypes */
 static void servoController();
 
 /* Public Functions */
 /*******************************************************************************//**
-* \brief 8 bit timer interrupt service routine
+* \brief Initialize any pin for driving a servo (Full Module Configuration)
 *
-* > This is an interrupt handler called when the 8 bit timer value expires
+* > This is a function called for full initialisation of any digital pin 
+* > to be used for driving a Servo.
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >     timer8BitISR() , ISR
+* >     setupServoFull(module, pin, angle, min_pulse, max_pulse, min_angle, max_angle) 
 * > <BR><BR>
 * > **Parameters:**<BR>
-* >     none
+* >     module - servo module assignment, SERV0, SERV1, SERV2, SERV3, SERV4, SERV5, SERV6, SERV7
+* >     pin - Anito pin number assignment
+* >     angle - desired default angle in 1 degree resolution
+* >     min_pulse - min servo input pulse in 10mS resolution
+* >     max_pulse - max servo input pulse in 10mS resolution
+* >     min_angle - min servo angle in 1 degree resolution, center position is 0degree
+* >     max_angle - min servo angle in 1 degree resolution, center position is 0degree
 * > <BR><BR>
 * > **Returns:**<BR>
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setupServo(/*enum servoModules*/uint8_t ServoMod, uchar_t ServoPin, char_t DefaultAngle, uchar_t MinPulseWidth, uchar_t MaxPulseWidth, char_t MinAngle, char_t MaxAngle)
+void setupServoFull(/*enum servoModules*/uint8_t ServoMod, uint8_t ServoPin, int8_t DefaultAngle, uint8_t MinPulseWidth, uint8_t MaxPulseWidth, int8_t MinAngle, int8_t MaxAngle)
 {
-	unsigned long TempBuffer;
+	uint32_t TempBuffer;
 	
 	/* Initilize Parameters */
 	servo[ServoMod][SERVO_PIN]		= ServoPin;
-//	servo[ServoMod][SERVO_MINPULSE] = MinPulseWidth;
-//	servo[ServoMod][SERVO_MAXPULSE] = MaxPulseWidth;
-//	servo[ServoMod][SERVO_MINANGLE] = MinAngle;
-//	servo[ServoMod][SERVO_MAXANGLE] = MaxAngle;
 
 	/* Compute Servo Slope */
-	TempBuffer = (((signed long)MaxPulseWidth - MinPulseWidth)*128);
-	TempBuffer /= ((signed int)MaxAngle - MinAngle);
-	servo[ServoMod][SERVO_SLOPE] = (uchar_t)TempBuffer;
+	TempBuffer = (((int32_t)MaxPulseWidth - MinPulseWidth)*128);
+	TempBuffer /= ((int8_t)MaxAngle - MinAngle);
+	servo[ServoMod][SERVO_SLOPE] = (uint8_t)TempBuffer;
 	
 	/* Compute Servo Pulse Width */
-	servo[ServoMod][SERVO_PULSE] = (uchar_t)(((signed long)DefaultAngle*servo[ServoMod][SERVO_SLOPE]) / 128 + SERVO_PULSE_OFFSET);
+	servo[ServoMod][SERVO_PULSE] = (uint8_t)(((int32_t)DefaultAngle*servo[ServoMod][SERVO_SLOPE]) / 128 + SERVO_PULSE_OFFSET);
 	
 	/* Initialize TMR2 for Servo Control */
-	if(0 == kickStarted)
+	if(false == kickStarted)
 	{
-		setup8BitTimer(TIMER2,servoController);
-		setTimer(TIMER2,SERVO_MAX_PULSEWIDTH);									// set pulse on period (kickstart)
-		kickStarted = 1;
+		setup8BitTimer(SERVO_TIMER, servoController);
+		setTimer(SERVO_TIMER, SERVO_MAX_PULSEWIDTH);								// set pulse on period (kickstart)
+		kickStarted = true;
 	}	
 }
 
 /*******************************************************************************//**
-* \brief 8 bit timer interrupt service routine
+* \brief Initialize any pin for driving a servo
 *
-* > This is an interrupt handler called when the 8 bit timer value expires
+* > This is a function called for initializing any digital pin to be used for 
+* > driving a Servo.
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >     timer8BitISR() , ISR
+* >     setupServoDef(module, pin, angle) 
 * > <BR><BR>
 * > **Parameters:**<BR>
-* >     none
+* >     module - servo module assignment, SERV0, SERV1, SERV2, SERV3, SERV4, SERV5, SERV6, SERV7
+* >     pin - Anito pin number assignment
+* >     angle - desired "default" angle in 1 degree resolution, center position is 0degree
 * > <BR><BR>
 * > **Returns:**<BR>
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setupServoDef(/*enum servoModules*/uint8_t ServoMod, uchar_t ServoPin, char_t DefaultAngle)
+void setupServo(/*enum servoModules*/uint8_t ServoMod, uint8_t ServoPin, int8_t DefaultAngle)
 {
-	setupServo(ServoMod, ServoPin, DefaultAngle, SERVO_MIN_PULSEWIDTH, SERVO_MAX_PULSEWIDTH, SERVO_MIN_ANGLEPOSITION, SERVO_MAX_ANGLEPOSITION);
+	setupServoFull(ServoMod, ServoPin, DefaultAngle, SERVO_MIN_PULSEWIDTH, SERVO_MAX_PULSEWIDTH, SERVO_MIN_ANGLEPOSITION, SERVO_MAX_ANGLEPOSITION);
 }
 
 /*******************************************************************************//**
-* \brief 8 bit timer interrupt service routine
+* \brief Initialize the Servo (Ready to Fly Port) with a default angle
 *
-* > This is an interrupt handler called when the 8 bit timer value expires
+* > This is a function called for initializing the Servo Port
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >     timer8BitISR() , ISR
+* >     setupServoPort(angle) 
 * > <BR><BR>
 * > **Parameters:**<BR>
-* >     none
+* >     angle - desired "default" angle in 1 degree resolution, center position is 0degree
 * > <BR><BR>
 * > **Returns:**<BR>
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setupServoPort(char_t DefaultAngle)
+void setupServoPort(int8_t DefaultAngle)
 {
-	setupServo(SERV0,SERVO,DefaultAngle, SERVO_MIN_PULSEWIDTH, SERVO_MAX_PULSEWIDTH, SERVO_MIN_ANGLEPOSITION, SERVO_MAX_ANGLEPOSITION);
+	setupServoFull(SERV0,SERVO,DefaultAngle, SERVO_MIN_PULSEWIDTH, SERVO_MAX_PULSEWIDTH, SERVO_MIN_ANGLEPOSITION, SERVO_MAX_ANGLEPOSITION);
 }
 
 /*******************************************************************************//**
-* \brief 8 bit timer interrupt service routine
+* \brief Set the servo module angle
 *
-* > This is an interrupt handler called when the 8 bit timer value expires
+* > This function is called to change the angle of a servo module assigned to a pin
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >     timer8BitISR() , ISR
+* >     setServoAngle(module, angle) 
 * > <BR><BR>
 * > **Parameters:**<BR>
-* >     none
+* >     module - servo module assignment, SERV0, SERV1, SERV2, SERV3, SERV4, SERV5, SERV6, SERV7
+* >     angle - desired angle in 1 degree resolution, center position is 0degree
 * > <BR><BR>
 * > **Returns:**<BR>
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setServoAngle(/*enum servoModules*/uint8_t ServoMod, char_t servoAngle)
+void setServoAngle(/*enum servoModules*/uint8_t ServoMod, int8_t servoAngle)
 {
-	servo[ServoMod][SERVO_PULSE] = (uchar_t)(((signed long)servoAngle*servo[ServoMod][SERVO_SLOPE]) / 128 + SERVO_PULSE_OFFSET);
+	servo[ServoMod][SERVO_PULSE] = (uint8_t)(((int32_t)servoAngle*servo[ServoMod][SERVO_SLOPE]) / 128 + SERVO_PULSE_OFFSET);
 }
 
 /*******************************************************************************//**
-* \brief 8 bit timer interrupt service routine
+* \brief Set the servo port angle
 *
-* > This is an interrupt handler called when the 8 bit timer value expires
+* > This function is called to change the servo port angle
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >     timer8BitISR() , ISR
+* >     setServoPortAngle(angle) 
 * > <BR><BR>
 * > **Parameters:**<BR>
-* >     none
+* >     angle - desired angle in 1 degree resolution, center position is 0degree
 * > <BR><BR>
 * > **Returns:**<BR>
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setServoPortAngle(char_t servoAngle)
+void setServoPortAngle(int8_t servoAngle)
 {
 	setServoAngle(SERV0,servoAngle);
 }
 
 /* Private Functions */
 /*******************************************************************************//**
-* \brief 8 bit timer interrupt service routine
+* \brief Servo Control Mechanism
 *
-* > This is an interrupt handler called when the 8 bit timer value expires
+* > This is an interrupt callback function which handles the sequencing of servo 
+* > pulses. It uses the 8bit timer module (TMR2) as timebase.
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >     timer8BitISR() , ISR
+* >     servoController()
 * > <BR><BR>
 * > **Parameters:**<BR>
 * >     none
@@ -223,7 +227,7 @@ static void servoController()
 	{
 		case SERVO_PULSEON:
 		{
-			setTimer(TIMER2,SERVO_MAX_PULSEWIDTH-servo[sequenceCounter][SERVO_PULSE]);	// set pulse off period
+			setTimer(SERVO_TIMER, (SERVO_MAX_PULSEWIDTH-servo[sequenceCounter][SERVO_PULSE]));  // set pulse off period
 			clrPin(servo[sequenceCounter][SERVO_PIN]);
 			servoState = SERVO_PULSEOFF;
 			break;
@@ -245,13 +249,13 @@ static void servoController()
 			{
 				/* skip servo module */
 				servo[sequenceCounter][SERVO_PULSE] = 0;
-				setTimer(TIMER2,SERVO_MAX_PULSEWIDTH);								// low for 2.5mS
+				setTimer(SERVO_TIMER, SERVO_MAX_PULSEWIDTH);							        // low for 2.5mS
 				clrPin(servo[sequenceCounter][SERVO_PIN]);
 				servoState = SERVO_PULSEOFF;
 			}
 			else
 			{
-				setTimer(TIMER2,servo[sequenceCounter][SERVO_PULSE]);				// set pulse on period	
+				setTimer(SERVO_TIMER, servo[sequenceCounter][SERVO_PULSE]);				        // set pulse on period	
 				setPin(servo[sequenceCounter][SERVO_PIN]);				
 				servoState = SERVO_PULSEON;
 			}
@@ -259,7 +263,7 @@ static void servoController()
 		}
 		default:	/* must not be reached */
 		{
-			setTimer(TIMER2,SERVO_MAX_PULSEWIDTH);									// low for 2.5mS
+			setTimer(SERVO_TIMER, SERVO_MAX_PULSEWIDTH);								        // low for 2.5mS
 			sequenceCounter = 8;
 			servoState = SERVO_PULSEOFF;
 			break; 

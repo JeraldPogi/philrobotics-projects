@@ -60,6 +60,7 @@
 #include <PhilRoboKit_CoreLib_Macro.h>
 
 /* User Configuration Definitions */
+#define SERVO_TIMER                 TIMER2
 #define SERVO_IDLE_PERIOD			2000	// 20mS
 
     /* Configuration for Generic Servo */
@@ -90,11 +91,11 @@ enum servoModules
     /* none */
     
 /* Public Function Prototypes */
-void setupServo(/*enum servoModules*/uint8_t ServoMod, uchar_t ServoPin, char_t DefaultAngle, uchar_t MinPulseWidth, uchar_t MaxPulseWidth, char_t MinAngle, char_t MaxAngle);
-void setupServoDef(/*enum servoModules*/uint8_t ServoMod, uchar_t ServoPin, char_t DefaultAngle);
-void setupServoPort(char_t DefaultAngle);
-void setServoAngle(/*enum servoModules*/uint8_t ServoMod, char_t servoAngle);
-void setServoPortAngle(char_t servoAngle);
+void setupServo(/*enum servoModules*/uint8_t ServoMod, uint8_t ServoPin, int8_t DefaultAngle);
+void setupServoPort(int8_t DefaultAngle);
+void setupServoFull(/*enum servoModules*/uint8_t ServoMod, uint8_t ServoPin, int8_t DefaultAngle, uint8_t MinPulseWidth, uint8_t MaxPulseWidth, int8_t MinAngle, int8_t MaxAngle);
+void setServoAngle(/*enum servoModules*/uint8_t ServoMod, int8_t servoAngle);
+void setServoPortAngle(int8_t servoAngle);
 	
 #endif /* end of servo.h */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
