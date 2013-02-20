@@ -1,18 +1,14 @@
 //***********************************************************************************
-// PhilRobotics | Amateur Robotics Club of the Philippines
-// http://philrobotics.com | http://facebook.com/philrobotics
+// PhilRobotics | Philippine Electronics and Robotics Enthusiasts Club
+// http://philrobotics.com | http://philrobotics.com/forum 
+// http://facebook.com/philrobotics
 // phirobotics.core@philrobotics.com
 //
 //----------------------------------------------------------------------------------
 // Filename:	PhilRoboKit_CoreLib_Macro.h - PhilRobokit Macro File
 // Description:	
-// Revision:    v00.01.05
+// Revision:    v01.00.00
 // Author:      Giancarlo Acelajado
-//             	
-// Vendor:      Microchip Technology
-// Family:      PIC16F8X7A
-// Processor:   PIC16F877A
-// Compiler:    Hitech C 9.82
 //
 //
 // This program is free software: you can redistribute it and/or modify
@@ -41,90 +37,42 @@
 #include "PhilRoboKit_CoreLib_Header.h"
 #include "PhilRoboKit_CoreLib_DataTypes.h"
 
-/* PhilRobokit Library */
-#include "lib\corelib_uart.h"
-#include "lib\corelib_adc.h"
-#include "lib\corelib_timer.h"
-#include "lib\corelib_8bit_timer.h"
-#include "lib\corelib_user_interrupt.h"
-#include "lib\corelib_pwm.h"
-
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 /* PhilRobokit Specific Prototypes */
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 /* Global PhilRobokit Definitions */
 
-#define	IN						1
-#define	OUT						0
+/* see hal_Anito_gpio.h */
+/* consider hal_common_gpio.h */
+//#define	makeInput(x)			configPin(x, INPUT)
+//#define	makeOutput(x)			configPin(x, OUTPUT)
 
-#define	INPUT					IN
-#define	OUTPUT					OUT
-#define	ANALOG					1
-
-#define	HIGH					1
-#define	LOW						0
-
-#define	TRUE					1
-#define	FALSE					0
-
-#define	setPin(x,y)				configPin(x,y)
-#define	setPinInput(x)			configPin(x, IN)
-#define	setPinOutput(x)			configPin(x, OUT)
-
-#define	setPinHigh(x) { \
-	if(x<=7) { \
-		REGISTER_PORTC |= (1UL<<x); \
-	}else if(x>=8 && x<=13) { \
-		REGISTER_PORTB |= (1UL<<(x-8)); \
-	}else if(x>=21 && x<=28) { \
-		REGISTER_PORTD |= (1UL<<(x-21)); \
-	} \
-}
-#define	setPinLow(x) { \
-	if(x<=7) { \
-		REGISTER_PORTC &= ~(1UL<<x); \
-	}else if(x>=8 && x<=13) { \
-		REGISTER_PORTB &= ~(1UL<<(x-8)); \
-	}else if(x>=21 && x<=28) { \
-		REGISTER_PORTD &= ~(1UL<<(x-21)); \
-	} \
-}
-#define	togglePin(x) { \
-	if(x<=7) { \
-		REGISTER_PORTC ^= (1UL<<x); \
-	}else if (x>=8 && x<=13) { \
-		REGISTER_PORTB ^= (1UL<<(x-8)); \
-	}else if(x>=21 && x<=28) { \
-		REGISTER_PORTD ^= (1UL<<(x-21)); \
-	} \
-}
-
-#define	isPinHigh(x)			checkPinState(x,HIGH)
-#define	isPinLow(x)				checkPinState(x,LOW)
+//#define	setPin(x)   			setPinState(x,HIGH)
+//#define	clrPin(x)			    setPinState(x,LOW)
+//#define	togglePin(x)			togglePin(x)
+//#define   getPinState(x)			checkPinState(x)
 
 /* End of Global PhilRobokit Definitions */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------		
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
-/* Global PhilRobokit Functions */
-void configPin(unsigned char ucPinName, char bDirection);
-unsigned char checkPinState(unsigned char ucPinName, char bCheckState);
-/* End of Global PhilRobokit Functionss */
+/* Global PhilRobokit Structures */
+
+/* End of Global PhilRobokit Structures */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------		
 
 // ==========================================================================================================================================
 // Function Prototypes
 // ==========================================================================================================================================
-void timerInterruptHandler(void);
-void userInterruptHandler(void);
+
 
 void init(void);
 void program(void);
 
 void philrobokit_init(void);
 
+
 /* End of PhilRoboKit_CoreLib_Macro.h */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
-
 #endif

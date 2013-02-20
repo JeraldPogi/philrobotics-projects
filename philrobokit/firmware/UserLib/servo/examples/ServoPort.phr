@@ -7,7 +7,7 @@ void init()
 
 void program()
 {
-	signed char i;
+	char_t i;
 	
 	/* increment angle */
 	for(i=-90;i<=90;i++)
