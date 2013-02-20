@@ -4,9 +4,9 @@
 // phirobotics.core@philrobotics.com
 //
 //----------------------------------------------------------------------------------
-// Filename:	corelib_uart.c - UART File
+// Filename:	drv_Anito_uart.c - UART File
 // Description:	
-// Revision:    v00.01.01
+// Revision:    v01.00.00
 // Author:      Giancarlo Acelajado
 //
 // Dependencies:
@@ -26,16 +26,14 @@
 // FW Version      Date        Author         Description
 // v00.01.00       201112xx    Giancarlo A.   Library Initial Release
 // v00.01.01       201201xx    Giancarlo A.   Add serialFlush Routine
+// v01.00.00       201210xx    Giancarlo A.   Leverage Library to Standard Architecture
 // 
 //***********************************************************************************
-#include "corelib_uart.h"
-#include "string.h"
+#include "hal_uart.h"
 
-	void setupSerial(unsigned int iBaudrate)
-	{
-		//UART_REGISTER |= UART_RX_MASK; UART_REGISTER &= ~UART_TX_MASK;
-			
-		TXFiFo.iIn = TXFiFo.iOut = RXFiFo.iIn = RXFiFo.iOut = 0;
+	void setupSerial(uint16_t ui16Baudrate)
+	{			
+		uartTXFiFo.Head = uartTXFiFo.Tail = uartRXFiFo.Head = uartRXFiFo.Tail = 0;
 		
 		BIT_TXSTA_TX9 = 0;	//8-bit
 		BIT_TXSTA_TXEN = 1; //Enable Transmit
@@ -43,10 +41,10 @@
 		//BIT_TXSTA_TRMT = 1; //TSR is empty
 		
 		BIT_TXSTA_BRGH = 1; //High Speed Asyncronous // SPBRG = FOSC/(16*baud) - 1
-		if(iBaudrate < 4883) // @20MHz clk
+		if(ui16Baudrate < 4883) // @20MHz clk
 			BIT_TXSTA_BRGH = 0; // Low Speed Asyncronous // SPBRG = FOSC/(64*baud) - 1
 		
-		switch(iBaudrate){ // FOSC = 20MHz
+		switch(ui16Baudrate){ // FOSC = 20MHz
 		case 1200:
 			REGISTER_SPBRG = 255 /*259*/; // 1220.7
 			break;
@@ -85,38 +83,44 @@
 		
 		BIT_INTCON_PEIE = 1; //Enable Peripheral Interrupt
 		BIT_INTCON_GIE = 1;  //Enable Global Interrupt
+    }
 
-	}
-
-	unsigned char isSerialBufferFull(void)
+	uint8_t isSerialBufferFull(void)
 	{
-		return (((TXFiFo.iIn+1) & (BUFFER_SIZE-1)) == TXFiFo.iOut);	
+		return (((uartTXFiFo.Head+1) & K8_UART_BUFFER_MASK) == uartTXFiFo.Tail);	
 	}
 
-	void serialSendChar(unsigned char ucTxData)
+	void serialSendChar(uint8_t ui8TxData)
 	{
 		while (isSerialBufferFull())
 			continue;
 	
 		BIT_INTCON_GIE = 0; //Disable Interrupt
 		
-		TXFiFo.ucBuffer[TXFiFo.iIn++] = ucTxData;
+		uartTXFiFo.Buffer[uartTXFiFo.Head++] = ui8TxData;
 	
-		TXFiFo.iIn &= (BUFFER_SIZE-1);
+		uartTXFiFo.Head &= K8_UART_BUFFER_MASK;
 		
 	
 		BIT_PIE1_TXIE = 1; //Enable Transmit Interrupt
 		BIT_INTCON_GIE = 1; //Enable Global Interrupt	
 	}			
 
-	void serialSendString(unsigned char *ucStrTxData)
+	void serialSendString(uint8_t *pui8StrTxData)
 	{
-		while(*ucStrTxData){
-			serialSendChar(*ucStrTxData++);		
+		while(*pui8StrTxData){
+			serialSendChar(*pui8StrTxData++);		
 		}	
 	}	
+
+	void serialSendBlock(uint8_t *pui8StrTxData, uint16_t ui16Size)
+	{
+		while(ui16Size--){
+			serialSendChar(*pui8StrTxData++);		
+		}	
+	}
 	
-	unsigned char isSerialDataAvailable(void)
+	bool isSerialDataAvailable(void)
 	{	
 		if(BIT_RCSTA_OERR){		//Error in Reception
 			BIT_RCSTA_CREN = 0;	//Restart Continuous Reception
@@ -125,12 +129,12 @@
 			return 0;
 		}				
 		
-		return (RXFiFo.iIn != RXFiFo.iOut);		
+		return (uartRXFiFo.Head != uartRXFiFo.Tail);		
 	}
 	
-	unsigned char serialRead(void)
+	uint8_t serialRead(void)
 	{
-		unsigned char serialData;
+		uint8_t ui8serialData;
 		//int timeout = 7500; //1.5ms @20Mhz
 				
 		while(!isSerialDataAvailable()/* && (--timeout)*/)
@@ -139,13 +143,13 @@
 		if(isSerialDataAvailable()){
 			BIT_INTCON_GIE = 0;			//Disable Global Interrupt.
 	    
-	    	serialData = RXFiFo.ucBuffer[RXFiFo.iOut++];	//Get Data from Buffer
+	    	ui8serialData = uartRXFiFo.Buffer[uartRXFiFo.Tail++];	//Get Data from Buffer
 		
-			RXFiFo.iOut &= (BUFFER_SIZE-1);
+			uartRXFiFo.Tail &= K8_UART_BUFFER_MASK;
 	    	
 	    	BIT_INTCON_GIE = 1;		//Enable Global Interrupt
 		
-	    	return serialData;	
+	    	return ui8serialData;	
 	 	}   
 	 	
 	 	return NULL;
@@ -153,26 +157,27 @@
 	
 	void serialFlushData(void)
     {
-       RXFiFo.iOut = 0;
-       TXFiFo.iOut = 0;
-       RXFiFo.iIn = 0;
-       TXFiFo.iIn = 0;
+       uartRXFiFo.Head = 0;
+       uartTXFiFo.Head = 0;
+       uartRXFiFo.Tail = 0;
+       uartTXFiFo.Tail = 0;
 
-       memset(TXFiFo.ucBuffer, '\0', sizeof(TXFiFo.ucBuffer));
-       memset(RXFiFo.ucBuffer, '\0', sizeof(RXFiFo.ucBuffer));
+       memset(uartTXFiFo.Buffer, NULL, sizeof(uartTXFiFo.Buffer));
+       memset(uartRXFiFo.Buffer, NULL, sizeof(uartRXFiFo.Buffer));
     } 		
 	
 	void serialRxInterruptHandler(void)
 	{
-		int iTempIn;
+		uint8_t ui8TempIn;
 		
 		if (BIT_PIR1_RCIF){
 			
-			RXFiFo.ucBuffer[RXFiFo.iIn] = REGISTER_RCREG;
-			iTempIn = ((RXFiFo.iIn+1) & (BUFFER_SIZE-1));
+			uartRXFiFo.Buffer[uartRXFiFo.Head] = REGISTER_RCREG;
+			ui8TempIn = ((uartRXFiFo.Head+1) & K8_UART_BUFFER_MASK);
 
-			if (iTempIn != RXFiFo.iOut)
-				RXFiFo.iIn = iTempIn;
+			if (ui8TempIn != uartRXFiFo.Tail){
+				uartRXFiFo.Head = ui8TempIn;
+            }
 				
 			BIT_PIR1_RCIF = 0; //Clear Receive Interrupt Flag
 		}
@@ -182,16 +187,17 @@
 	{
 		if (BIT_PIR1_TXIF && BIT_PIE1_TXIE){
 			
-			REGISTER_TXREG = TXFiFo.ucBuffer[TXFiFo.iOut++];
+			REGISTER_TXREG = uartTXFiFo.Buffer[uartTXFiFo.Tail++];
 			
-			TXFiFo.iOut &= (BUFFER_SIZE-1);	
+			uartTXFiFo.Tail &= K8_UART_BUFFER_MASK;	
 
-			if (TXFiFo.iOut == TXFiFo.iIn)
+			if (uartTXFiFo.Tail == uartTXFiFo.Head){
 				BIT_PIE1_TXIE = 0;
+            }
 				
 			BIT_PIR1_TXIF = 0; //Clear Transmit Interrupt Flag
 		}
 	}
 	
-/* end of corelib_uart.c */
+/* end of drv_Anito_uart.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------		

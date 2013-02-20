@@ -32,8 +32,7 @@
 #ifndef __ANITO_TIMER_H__
 #define __ANITO_TIMER_H__
 
-#include "PhilRoboKit_CoreLib_Header.h"
-#include "app_common_timer.h"
+#include <PhilRoboKit_CoreLib_Header.h>
 
 	#define K16_TIMER_10US				(65530) 	//(65536 - ((0.00001)*PROCESSOR_CLOCK_FREQ)/4*8)
 	#define K16_TIMER_40US				(65511) 	//(65536 - ((0.00004)*PROCESSOR_CLOCK_FREQ)/4*8)

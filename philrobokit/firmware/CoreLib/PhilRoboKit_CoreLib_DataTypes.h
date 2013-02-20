@@ -1,37 +1,45 @@
-//***********************************************************************************
-// PhilRobotics | Philippine Electronics and Robotics Enthusiasts Club
-// http://philrobotics.com | http://philrobotics.com/forum | http://facebook.com/philrobotics
-// phirobotics.core@philrobotics.com
-//
-//----------------------------------------------------------------------------------
-// Filename:	PhilRoboKit_CoreLib_DataTypes.h - PhilRobokit Standard Datatypes
-// Description:	
-// Revision:    	v00.00.01
-// Author:      	Efren S. Cruzat II
-//
-// Dependencies:
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
-//***********************************************************************************
-// FW Version      	Date        	Author         	Description
-// v00.00.01	20120713	ESCII		- Library Initial Release
-//***********************************************************************************
+/*****************************************************************************************//**
+* # PhilRobotics | Philippine Electronics and Robotics Enthusiasts Club #
+* http://philrobotics.com | http://philrobotics.com/forum | http://facebook.com/philrobotics
+* phirobotics.core@philrobotics.com
+*
+*---------------------------------------------------------------------------------------------
+* |Filename:      | "PhilRoboKit_CoreLib_DataTypes.h"           |
+* |:----          |:----                                        |
+* |Description:   | PhilRobokit Standard Data Types Definition  |
+* |Revision:      | v00.00.01                                   |
+* |Author:        | Efren S. Cruzat II                          |
+* |               |                                             |
+* |Dependencies:  |                                             |
+*
+* > This program is free software: you can redistribute it and/or modify
+* > it under the terms of the GNU General Public License as published by
+* > the Free Software Foundation, either version 3 of the License, or
+* > (at your option) any later version.
+* > This program is distributed in the hope that it will be useful,
+* > but WITHOUT ANY WARRANTY; without even the implied warranty of
+* > MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* > GNU General Public License for more details.
+* > <BR><BR>
+* > You should have received a copy of the GNU General Public License
+* > along with this program. If not, see http://www.gnu.org/licenses/
+* <BR>
+*---------------------------------------------------------------------------------------------
+* |FW Version   |Date       |Author             |Description                        |
+* |:----        |:----      |:----              |:----                              |
+* |v00.00.01    |20120713   |ESCII              |Library Initial Release            |
+*********************************************************************************************/
+#define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
+#undef  __SHOW_MODULE_HEADER__
+
 #ifndef __PH_DATATYPES_H__
 #define __PH_DATATYPES_H__
 
+/* Include .h Library Files */
 #include <stdbool.h>
 #include <stdint.h>
 
+/* User Configuration Definitions */
 	/* Hi-Tech C Datatypes Mapped to PhilRobokit Standard Datatypes */
 	#if defined(HI_TECH_C)
 	/*bit */
@@ -111,4 +119,14 @@
 		/* none */
 	#endif
 
-#endif/* end of DataTypes.h */
+/* Global Constants */
+    /* none */
+    
+/* Macro and Configuration Definitions */
+    /* none */
+
+/* Public Function Prototypes */ 
+    /* none */
+    
+#endif/* end of PhilRoboKit_CoreLib_DataTypes.h */
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	

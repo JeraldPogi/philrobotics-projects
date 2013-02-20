@@ -4,10 +4,10 @@
 * phirobotics.core@philrobotics.com
 *
 *---------------------------------------------------------------------------------------------
-* |Filename:      | "PhilRoboKit_CoreLib_GlobalDefs.c"          |
+* |Filename:      | "hal_8bit_timer.c"                          |
 * |:----          |:----                                        |
-* |Description:   | Global Variable Definitions                 |
-* |Revision:      | v00.00.01                                   |
+* |Description:   | This is a driver for micrcochip 8bit timer (TMR2, TMR4, TMR6) |
+* |Revision:      | v00.01.00                                   |
 * |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -27,68 +27,100 @@
 *---------------------------------------------------------------------------------------------
 * |FW Version   |Date       |Author             |Description                        |
 * |:----        |:----      |:----              |:----                              |
-* |v00.00.01    |20120713   |ESCII              |Library Initial Release            |
+* |v00.00.01    |20120620   |ESCII              |Library Initial Release            |
+* |v00.01.00    |20130205   |ESCII              |Modified For Layered Architecture  |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
 
-#if 0
+#include "hal_8bit_timer.h"
+
 /* Local Constants */
     /* none */
 
-/* Global Variables */
-static volatile	uint8_t		gui8SampleGlobal;
+/* Local Variables */
+    /* none */
 
 /* Private Function Prototypes */
-void setSampleGlobalValue(uint8_t ui8Value);
-uint8_t getSampleGlobalValue(void);
+    /* none */
 
 /* Public Functions */
 /*******************************************************************************//**
-* \brief Set the value of a global variable
+* \brief Initialize 8bit timer interrupt function pointer with null function
 *
-* > This function is called to set the value of a global variable
+* > This function basically does nothing and is used to initialize 8bit timer 
+* > interrupt function pointer.
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >      setSampleGlobalValue(value
+* >     nullTMRFunction()
 * > <BR><BR>
 * > **Parameters:**<BR>
-* >     value - the value to be stored on a global variable
+* >     none
 * > <BR><BR>
 * > **Returns:**<BR>
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setSampleGlobalValue(uint8_t ui8Value)
+void nullTMRFunction()
 {
-	gui8SampleGlobal = ui8Value
+	;/* NULL */
 }
 
+#if(TIMER_8BIT_ENABLED == TRUE)
 /*******************************************************************************//**
-* \brief Get the value of a global variable
+* \brief Setup the 8bit timer count resolution
 *
-* > This function is called to get the value of a global variable
+* > This function is called to setup the 8bit timer peripheral count resolution
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >      register = getSampleGlobalValue()
+* >      setup8BitTimerFull(module, &callback, prescaler, postscaler)
 * > <BR><BR>
 * > **Parameters:**<BR>
-* >     none
+* >     module - timer module assignment, TIMER2, TIMER4, TIMER6
+* >     callback - function address of the timer ISR 
+* >     prescaler - 
+* >     postcaler - 
 * > <BR><BR>
 * > **Returns:**<BR>
-* >     value - value of the global variable
+* >     none
 * > <BR><BR>
 ***********************************************************************************/
-uint8_t getSampleGlobalValue(void)
+void setup8BitTimerFull(enum eTmrModules tmrModule, void(*callback)(), uint8_t ui8Prescaler, uint8_t ui8Postscaler)
 {
-	return gui8SampleGlobal;
+    /* Default */
+	if(TIMER2 == tmrModule)
+	{
+	    hal_setTMR2Prescaler(ui8Prescaler);
+    	hal_setTMR2Postscaler(ui8Postscaler); 
+        pt2TMR2ISR = callback;
+	}
+	#if(TIMER4_ENABLED == TRUE)	
+	else if(TIMER4 == tmrModule)
+	{
+		mc_setTMR4Prescaler(ui8Prescaler);
+    	mc_setTMR4Postscaler(ui8Postscaler); 
+        pt2TMR4ISR = callback;
+	}
+	#endif
+	#if(TIMER6_ENABLED == TRUE)	
+	else if(TIMER6 == tmrModule)
+	{
+		mc_setTMR6Prescaler(ui8Prescaler);
+    	mc_setTMR6Postscaler(ui8Postscaler); 
+        pt2TMR6ISR = callback;
+	}
+	#endif
+	else
+	{
+		/* do nothing */
+	}
 }
+#endif
 
 /* Private Functions */
     /* none */
-    
-#endif
-/* end of PhilRoboKit_CoreLib_GlobalDefs.c */
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+/* end of hal_8bit_timer.c */
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	

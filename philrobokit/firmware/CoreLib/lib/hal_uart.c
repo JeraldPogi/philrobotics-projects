@@ -29,7 +29,7 @@
 // v01.00.00       201210xx    Giancarlo A.   Leverage Library to Standard Architecture
 // 
 //***********************************************************************************
-#include "drv_Anito_uart.h"
+#include "hal_uart.h"
 
 	void setupSerial(uint16_t ui16Baudrate)
 	{			

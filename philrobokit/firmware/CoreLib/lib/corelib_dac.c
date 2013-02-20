@@ -4,9 +4,9 @@
 * phirobotics.core@philrobotics.com
 *
 *---------------------------------------------------------------------------------------------
-* |Filename:      | "PhilRoboKit_CoreLib_GlobalDefs.c"          |
+* |Filename:      | "corelib_dac.c"                             |
 * |:----          |:----                                        |
-* |Description:   | Global Variable Definitions                 |
+* |Description:   | This is a library for using the DAC functions |
 * |Revision:      | v00.00.01                                   |
 * |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
@@ -25,70 +25,75 @@
 * > along with this program. If not, see http://www.gnu.org/licenses/
 * <BR>
 *---------------------------------------------------------------------------------------------
-* |FW Version   |Date       |Author             |Description                        |
-* |:----        |:----      |:----              |:----                              |
-* |v00.00.01    |20120713   |ESCII              |Library Initial Release            |
+* |FW Version   |Date       |Author             |Description                |
+* |:----        |:----      |:----              |:----                      |
+* |v00.00.01    |20130205   |ESCII              |Library Initial Release    |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
 
-#if 0
+#include "corelib_dac.h"
+
 /* Local Constants */
     /* none */
 
-/* Global Variables */
-static volatile	uint8_t		gui8SampleGlobal;
+/* Local Variables */
+    /* none */
 
 /* Private Function Prototypes */
-void setSampleGlobalValue(uint8_t ui8Value);
-uint8_t getSampleGlobalValue(void);
-
+    /* none */
+    
 /* Public Functions */
 /*******************************************************************************//**
-* \brief Set the value of a global variable
+* \brief Set DAC value
 *
-* > This function is called to set the value of a global variable
+* > This function is called for setting the DAC value.
+* > The DAC value can be set between 0 to 1023.
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >      setSampleGlobalValue(value
+* >      setDAC(module, value) 
 * > <BR><BR>
 * > **Parameters:**<BR>
-* >     value - the value to be stored on a global variable
+* >     module - DAC module assignment, DAC0, DAC1
+* >     value - a value between 0 to 1023
 * > <BR><BR>
 * > **Returns:**<BR>
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setSampleGlobalValue(uint8_t ui8Value)
+void setDAC(/*enum ePWMModules*/uint8_t eDAC_Module, uint16_t ui16Value) 
 {
-	gui8SampleGlobal = ui8Value
+	uint16_t ui16DutyCycle;
+	
+	/* 0 - 1023 : 0 - 1000  */
+	ui16DutyCycle = (uint16_t)(((uint24_t)976 * ui16Value) / 1000);
+	
+	setupPWM(eDAC_Module, K_DAC_DEFAULT_FREQ, ui16DutyCycle);	
 }
 
 /*******************************************************************************//**
-* \brief Get the value of a global variable
+* \brief Remove the DAC module
 *
-* > This function is called to get the value of a global variable
+* > This function is called for disabling the DAC module
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >      register = getSampleGlobalValue()
+* >      removeDAC(module)
 * > <BR><BR>
 * > **Parameters:**<BR>
-* >     none
+* >     module - PWM module assignment, DAC0, DAC1
 * > <BR><BR>
 * > **Returns:**<BR>
-* >     value - value of the global variable
+* >     none
 * > <BR><BR>
 ***********************************************************************************/
-uint8_t getSampleGlobalValue(void)
+void removeDAC(/*enum ePWMModules*/uint8_t eDAC_Module)
 {
-	return gui8SampleGlobal;
+	removePWM(eDAC_Module);
 }
-
 /* Private Functions */
     /* none */
     
-#endif
-/* end of PhilRoboKit_CoreLib_GlobalDefs.c */
+/* end of corelib_dac.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

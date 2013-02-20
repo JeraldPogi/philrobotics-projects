@@ -42,22 +42,6 @@
 #ifndef __PH_EXT_INTERRUPT_H__
 #define __PH_EXT_INTERRUPT_H__
 
-#if defined(HI_TECH_C)
-	#ifndef S_SPLINT_S 	// Suppress SPLint Unrecognized ID Errors
-		#include "htc_common.h"
-	#else
-		#include "htc_common_SPLint.h"
-	#endif
-	
-	#if defined( _16F873A ) || defined( _16F874A )  || defined( _16F876A ) || defined( _16F877A )  	
-		#ifndef S_SPLINT_S 	// Suppress SPLint Unrecognized ID Errors
-			#include "htc_16f87xa.h"
-		#else
-			#include "htc_16f87xa_SPLint.h"
-		#endif
-	#endif
-#endif
-
 /* Include .h Library Files */
 #include <PhilRoboKit_CoreLib_Macro.h>
 #include "hal_user_interrupt.h"

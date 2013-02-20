@@ -4,7 +4,7 @@
 // phirobotics.core@philrobotics.com
 //
 //----------------------------------------------------------------------------------
-// Filename:	corelib_adc.c - ADC File
+// Filename:	drv_Anito_adc.c - ADC File
 // Description:	
 // Revision:    v00.01.00
 // Author:      Giancarlo Acelajado
@@ -28,21 +28,14 @@
 // v00.01.01       201203xx    Giancarlo A.   Fix Bugs, add setupADCPinsToDigital
 // 
 //***********************************************************************************
-#include "corelib_adc.h"
+#include "hal_adc.h"
 	
-//--- Private Variables -----------------------------------------------------------------
-	static float ADCVref = 5.00;
 
-/*
 void adcInterruptHandler(void)
 {	
-	if(BIT_PIR1_ADIF){
-		
-		BIT_PIE1_ADIE = 0; //Disable ADC Interrupt
-		BIT_PIR1_ADIF = 0; //Clear ADC Interrupt Flag
-	}
+	/* Do Nothing */
 }	
-*/
+
 void setupADC(void)
 {	
 	REGISTER_TRISA = 0x3F;
@@ -63,7 +56,7 @@ void setupADC(void)
 
 	//if(FOSC_FREQ == 20000000)	//if FOSC is @20MHz
 	{
-		BIT_ADCON0_ADCS0 = 0; //64Tosc @20MHz   11*TAD for 10bit, TAD = 20MHz/64
+		BIT_ADCON0_ADCS0 = 0; //64Tosc @20MHz   12*TAD for 10bit, TAD = 20MHz/64 3 --- 8.4uS
 		BIT_ADCON0_ADCS1 = 1;
 		BIT_ADCON1_ADCS2 = 1;
 	}
@@ -75,8 +68,6 @@ void setupADC(void)
 	BIT_PIR1_ADIF = 0; //Clear ADC Interrupt Flag
 	BIT_PIE1_ADIE = 0; //Disable ADC Interrupt ByDefault
 		
-	BIT_INTCON_PEIE = 1; //Enable Peripheral Interrupt
-	BIT_INTCON_GIE = 1;	 //Enable Global Interrupt
 }	
 
 void setupADCPinsToDigital(void)
@@ -84,65 +75,72 @@ void setupADCPinsToDigital(void)
 	REGISTER_ADCON1 |= 0x07; //Set ADC Pins to Digital IO
 	BIT_ADCON0_ADON = 0; //Turn off ADC Module
 	
-	REGISTER_TRISA = 0x3F;
-	REGISTER_PORTA = 0x3F;
+	REGISTER_TRISA = 0x3F/*K8_DEFAULT_CONFIG_PORTA*/;	
+	REGISTER_PORTA = 0x3F/*K8_DEFAULT_CONFIG_PORTA*/;	
+
+	REGISTER_TRISE = 0x07/*K8_DEFAULT_CONFIG_PORTE*/;
+	REGISTER_PORTE = 0x07/*K8_DEFAULT_CONFIG_PORTE*/;
 }
 
-void adcSetChannel(unsigned char ucChannel)
+void adcSetChannel(uint8_t ui8Channel)
 {	
-	switch(ucChannel){
+	switch(ui8Channel){
 		case 0x00:	BIT_ADCON0_CHS0 = 0; BIT_ADCON0_CHS1 = 0; BIT_ADCON0_CHS2 = 0; break;
 		case 0x01:	BIT_ADCON0_CHS0 = 1; BIT_ADCON0_CHS1 = 0; BIT_ADCON0_CHS2 = 0; break;
 		case 0x02:	BIT_ADCON0_CHS0 = 0; BIT_ADCON0_CHS1 = 1; BIT_ADCON0_CHS2 = 0; break;
 		case 0x03:	BIT_ADCON0_CHS0 = 0; BIT_ADCON0_CHS1 = 0; BIT_ADCON0_CHS2 = 1; break;
 		case 0x04:	BIT_ADCON0_CHS0 = 1; BIT_ADCON0_CHS1 = 0; BIT_ADCON0_CHS2 = 1; break;
 		case 0x05:	BIT_ADCON0_CHS0 = 0; BIT_ADCON0_CHS1 = 1; BIT_ADCON0_CHS2 = 1; break;
-		//case 0x06:	BIT_ADCON0_CHS0 = 0; BIT_ADCON0_CHS1 = 1; BIT_ADCON0_CHS2 = 1; break;
+		case 0x06:	BIT_ADCON0_CHS0 = 1; BIT_ADCON0_CHS1 = 1; BIT_ADCON0_CHS2 = 1; break;
 		
 		default:	BIT_ADCON0_CHS0 = 0; BIT_ADCON0_CHS1 = 0; BIT_ADCON0_CHS2 = 0; break;	//Default is AN0
-	}	
-}	
-
-//float adcRead(void)
-//{	
-//	BIT_ADCON0_GO_DONE = 1; //Start Conversion						
-//		
-//	while(/*BIT_PIE1_ADIE || */BIT_ADCON0_GO_DONE)	//While conversion is on going
-//		continue;
-//	
-//	BIT_PIE1_ADIE = 1; //Enable ADC Interrupt
-//	BIT_PIR1_ADIF = 0; //Clear ADC Interrupt Flag
-//		
-//	return	((((REGISTER_ADRESH << 8) | REGISTER_ADRESL) * ADCVref)/1023.00); // VREF * (ADCValue)/(2^n)-1, where n is the bit resolution
-//}	
-
-float adcReadOnly(void)
-{	
-	//while(BIT_ADCON0_GO_DONE);	//While conversion is on going		
-		//continue;
-		
-	return	((((REGISTER_ADRESH << 8) | REGISTER_ADRESL) * ADCVref)/K16_ADC_RESOLUTION); // VREF * (ADCValue)/(2^n)-1, where n is the bit resolution
+	}		
+	delayUs(10); 
 }	
 
 void adcStart(void)
-{
-	/*
-	BIT_PIE1_ADIE = 0; //Disable ADC Interrupt
-	BIT_PIR1_ADIF = 0; //Clear ADC Interrupt Flag
-	*/
+{	
 	BIT_ADCON0_ADON  = 1; //AD Converter is enable
 	BIT_ADCON0_GO_DONE = 1; //Start Conversion	
 }	
 
-void adcSetVref(float Vref)
+uint16_t adcRead(void)
 {
-	BIT_ADCON1_PCFG0 = 1; //AN3 is VREF
-	BIT_ADCON1_PCFG1 = 0;
-	BIT_ADCON1_PCFG2 = 0;
-	BIT_ADCON1_PCFG3 = 0;	
+	uint16_t ui16ADCVal;
 	
-	ADCVref	= Vref;
+	BIT_ADCON0_GO_DONE = 1; //Start Conversion						
+
+	while(!isADCConversionDone());	//While conversion is on going
+
+	ui16ADCVal = (REGISTER_ADRESH<<8);
+	ui16ADCVal |= REGISTER_ADRESL;
+	ui16ADCVal &= 0x3FF;
+					
+	return ui16ADCVal;
 }	
 
-/* end of corelib_adc.c */
+uint16_t adcReadOnly(void)
+{	
+	uint16_t ui16ADCVal;
+			
+	ui16ADCVal = (REGISTER_ADRESH<<8);
+	ui16ADCVal |= REGISTER_ADRESL;
+	ui16ADCVal &= 0x3FF;
+					
+	return ui16ADCVal;
+}	
+
+uint16_t adcReadOnChannel(uint8_t ui8Channel)
+{
+    adcSetChannel(ui8Channel);
+    
+    return adcRead();
+}
+
+bool_t isADCConversionDone(void)
+{
+    return (BIT_ADCON0_GO_DONE?FALSE:TRUE);
+}
+
+/* end of drv_Anito_adc.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	

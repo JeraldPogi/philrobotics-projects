@@ -4,10 +4,10 @@
 * phirobotics.core@philrobotics.com
 *
 *---------------------------------------------------------------------------------------------
-* |Filename:      | "PhilRoboKit_CoreLib_GlobalDefs.c"          |
+* |Filename:      | "hal_pwm.c"                                 |
 * |:----          |:----                                        |
-* |Description:   | Global Variable Definitions                 |
-* |Revision:      | v00.00.01                                   |
+* |Description:   | This is a driver for micrcochip capture compare peripheral used for PWM |
+* |Revision:      | v00.01.00                                   |
 * |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -27,68 +27,25 @@
 *---------------------------------------------------------------------------------------------
 * |FW Version   |Date       |Author             |Description                        |
 * |:----        |:----      |:----              |:----                              |
-* |v00.00.01    |20120713   |ESCII              |Library Initial Release            |
+* |v00.00.01    |20120620   |ESCII              |Library Initial Release            |
+* |v00.01.00    |20130205   |ESCII              |Modified For Layered Architecture  |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
 
-#if 0
+#include "hal_pwm.h"
+
 /* Local Constants */
     /* none */
 
-/* Global Variables */
-static volatile	uint8_t		gui8SampleGlobal;
+/* Local Variables */
+    /* none */
 
 /* Private Function Prototypes */
-void setSampleGlobalValue(uint8_t ui8Value);
-uint8_t getSampleGlobalValue(void);
 
 /* Public Functions */
-/*******************************************************************************//**
-* \brief Set the value of a global variable
-*
-* > This function is called to set the value of a global variable
-*
-* > <BR>
-* > **Syntax:**<BR>
-* >      setSampleGlobalValue(value
-* > <BR><BR>
-* > **Parameters:**<BR>
-* >     value - the value to be stored on a global variable
-* > <BR><BR>
-* > **Returns:**<BR>
-* >     none
-* > <BR><BR>
-***********************************************************************************/
-void setSampleGlobalValue(uint8_t ui8Value)
-{
-	gui8SampleGlobal = ui8Value
-}
-
-/*******************************************************************************//**
-* \brief Get the value of a global variable
-*
-* > This function is called to get the value of a global variable
-*
-* > <BR>
-* > **Syntax:**<BR>
-* >      register = getSampleGlobalValue()
-* > <BR><BR>
-* > **Parameters:**<BR>
-* >     none
-* > <BR><BR>
-* > **Returns:**<BR>
-* >     value - value of the global variable
-* > <BR><BR>
-***********************************************************************************/
-uint8_t getSampleGlobalValue(void)
-{
-	return gui8SampleGlobal;
-}
 
 /* Private Functions */
-    /* none */
-    
-#endif
-/* end of PhilRoboKit_CoreLib_GlobalDefs.c */
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+/* end of hal_pwm.c */
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
