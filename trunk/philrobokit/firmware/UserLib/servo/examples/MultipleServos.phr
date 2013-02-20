@@ -2,19 +2,19 @@
 
 void init()
 {
-	setupServoDef(SERV0,0,-90);
-	setupServoDef(SERV1,1,-90);
-	setupServoDef(SERV2,2,-90);
-	setupServoDef(SERV3,3,-90);
-	setupServoDef(SERV4,4,-90);
-	setupServoDef(SERV5,5,-90);
-	setupServoDef(SERV6,6,-90);
-	setupServoDef(SERV7,7,-90);
+	setupServo(SERV0,0,-90);
+	setupServo(SERV1,1,-90);
+	setupServo(SERV2,2,-90);
+	setupServo(SERV3,3,-90);
+	setupServo(SERV4,4,-90);
+	setupServo(SERV5,5,-90);
+	setupServo(SERV6,6,-90);
+	setupServo(SERV7,7,-90);
 }
 
 void program()
 {
-	signed char i;
+	char_t i;
 	
 	/* increment angle */
 	for(i=-90;i<=90;i++)

@@ -32,10 +32,10 @@
     void setupAnito(void)
     {
         setupGpio();
-        setupTimer();	//Hardware Delay        
+        setupTimer();	        // Hardware Delay        
         setupADC();
-        //setupUart();
+        //setupSerial();
         
-        BIT_INTCON_PEIE = 1; //Enable Peripheral Interrupt
-		BIT_INTCON_GIE = 1;	 //Enable Global Interrupt
+        BIT_INTCON_PEIE = 1;    // Enable Peripheral Interrupt
+		BIT_INTCON_GIE = 1;	    // Enable Global Interrupt
     }

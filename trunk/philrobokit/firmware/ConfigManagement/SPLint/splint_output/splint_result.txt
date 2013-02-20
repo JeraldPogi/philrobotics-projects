@@ -1,201 +1,137 @@
 ********************************************************************************** 	
 ****************************   Checking CoreLib....   ****************************		
 ********************************************************************************** 	
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c: (in function configPin)
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(48,5):
-    Operands of <= have incompatible types (unsigned char, int): ucPinName <= 7
-  To make char and int types equivalent, use +charint.
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(50,6):
-    Test expression for if not boolean, type char: bDirection
-  Test expression type is not boolean. (Use -predboolothers to inhibit warning)
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(51,4): Unrecognized identifier:
-                                                    REGISTER_TRISC
-  Identifier used in code has not been declared. (Use -unrecog to inhibit
-  warning)
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(57,10):
-    Operands of >= have incompatible types (unsigned char, int): ucPinName >= 8
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(57,28):
-    Operands of <= have incompatible types (unsigned char, int):
-    ucPinName <= 13
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(59,3):
-    Incompatible types for -= (unsigned char, int): ucPinName -= 8
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(61,6):
-    Test expression for if not boolean, type char: bDirection
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(62,4): Unrecognized identifier:
-                                                    REGISTER_TRISB
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(68,10):
-    Operands of >= have incompatible types (unsigned char, int):
-    ucPinName >= 14
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(68,29):
-    Operands of <= have incompatible types (unsigned char, int):
-    ucPinName <= 20
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(69,3):
-    Incompatible types for -= (unsigned char, int): ucPinName -= 14
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(70,6):
-    Test expression for if not boolean, type char: bDirection
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(71,7):
-    Operands of <= have incompatible types (unsigned char, int): ucPinName <= 2
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(72,5): Unrecognized identifier:
-                                                    REGISTER_TRISA
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(74,12):
-    Operands of == have incompatible types (unsigned char, int): ucPinName == 3
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(75,28):
-    Incompatible types for + (unsigned char, int): ucPinName + 2
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(77,12):
-    Operands of >= have incompatible types (unsigned char, int): ucPinName >= 4
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(77,30):
-    Operands of <= have incompatible types (unsigned char, int): ucPinName <= 6
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(78,5):
-    Incompatible types for -= (unsigned char, int): ucPinName -= 4
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(79,5): Unrecognized identifier:
-                                                    REGISTER_TRISE
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(83,7):
-    Operands of <= have incompatible types (unsigned char, int): ucPinName <= 2
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(86,12):
-    Operands of == have incompatible types (unsigned char, int): ucPinName == 3
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(87,29):
-    Incompatible types for + (unsigned char, int): ucPinName + 2
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(89,12):
-    Operands of <= have incompatible types (unsigned char, int): ucPinName <= 4
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(89,30):
-    Operands of <= have incompatible types (unsigned char, int): ucPinName <= 6
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(90,5):
-    Incompatible types for -= (unsigned char, int): ucPinName -= 4
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(95,10):
-    Operands of >= have incompatible types (unsigned char, int):
-    ucPinName >= 21
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(95,29):
-    Operands of <= have incompatible types (unsigned char, int):
-    ucPinName <= 28
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(96,3):
-    Incompatible types for -= (unsigned char, int): ucPinName -= 21
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(98,6):
-    Test expression for if not boolean, type char: bDirection
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(99,4): Unrecognized identifier:
-                                                    REGISTER_TRISD
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c: (in function checkPinState)
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(109,5):
-    Operands of <= have incompatible types (unsigned char, int): ucPinName <= 7
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(110,6): Unrecognized identifier:
-                                                     REGISTER_PORTC
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(111,7):
-    Test expression for if not boolean, type char: bCheckState
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(112,12):
-    Return value type int does not match declared type unsigned char: 1
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(115,12):
-    Return value type int does not match declared type unsigned char: 0
-  Types are incompatible. (Use -type to inhibit warning)
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(119,7):
-    Test expression for if not boolean, type char: bCheckState
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(120,12):
-    Return value type int does not match declared type unsigned char: 0
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(123,12):
-    Return value type int does not match declared type unsigned char: 1
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(127,10):
-    Operands of >= have incompatible types (unsigned char, int): ucPinName >= 8
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(127,28):
-    Operands of <= have incompatible types (unsigned char, int):
-    ucPinName <= 13
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(128,3):
-    Incompatible types for -= (unsigned char, int): ucPinName -= 8
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(129,6): Unrecognized identifier:
-                                                     REGISTER_PORTB
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(130,7):
-    Test expression for if not boolean, type char: bCheckState
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(131,12):
-    Return value type int does not match declared type unsigned char: 1
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(134,12):
-    Return value type int does not match declared type unsigned char: 0
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(138,7):
-    Test expression for if not boolean, type char: bCheckState
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(139,12):
-    Return value type int does not match declared type unsigned char: 0
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(142,12):
-    Return value type int does not match declared type unsigned char: 1
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(146,10):
-    Operands of >= have incompatible types (unsigned char, int):
-    ucPinName >= 14
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(146,29):
-    Operands of <= have incompatible types (unsigned char, int):
-    ucPinName <= 20
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(147,3):
-    Incompatible types for -= (unsigned char, int): ucPinName -= 14
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(148,6):
-    Operands of <= have incompatible types (unsigned char, int): ucPinName <= 2
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(149,7): Unrecognized identifier:
-                                                     REGISTER_PORTA
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(150,8):
-    Test expression for if not boolean, type char: bCheckState
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(151,13):
-    Return value type int does not match declared type unsigned char: 1
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(154,13):
-    Return value type int does not match declared type unsigned char: 0
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(158,11):
-    Operands of == have incompatible types (unsigned char, int): ucPinName == 3
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(159,26):
-    Incompatible types for + (unsigned char, int): ucPinName + 2
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(160,8):
-    Test expression for if not boolean, type char: bCheckState
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(161,13):
-    Return value type int does not match declared type unsigned char: 1
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(164,13):
-    Return value type int does not match declared type unsigned char: 0
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(168,11):
-    Operands of >= have incompatible types (unsigned char, int): ucPinName >= 4
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(168,29):
-    Operands of <= have incompatible types (unsigned char, int): ucPinName <= 6
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(169,4):
-    Incompatible types for -= (unsigned char, int): ucPinName -= 4
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(171,7): Unrecognized identifier:
-                                                     REGISTER_PORTE
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(171,26):
-    Incompatible types for + (unsigned char, int): ucPinName + 2
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(172,8):
-    Test expression for if not boolean, type char: bCheckState
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(173,13):
-    Return value type int does not match declared type unsigned char: 1
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(176,13):
-    Return value type int does not match declared type unsigned char: 0
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(181,10):
-    Operands of >= have incompatible types (unsigned char, int):
-    ucPinName >= 21
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(181,29):
-    Operands of <= have incompatible types (unsigned char, int):
-    ucPinName <= 28
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(182,3):
-    Incompatible types for -= (unsigned char, int): ucPinName -= 21
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(184,6): Unrecognized identifier:
-                                                     REGISTER_PORTD
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(185,7):
-    Test expression for if not boolean, type char: bCheckState
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(186,12):
-    Return value type int does not match declared type unsigned char: 1
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(189,12):
-    Return value type int does not match declared type unsigned char: 0
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(193,7):
-    Test expression for if not boolean, type char: bCheckState
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(194,12):
-    Return value type int does not match declared type unsigned char: 0
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(197,12):
-    Return value type int does not match declared type unsigned char: 1
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(202,9):
-    Return value type int does not match declared type unsigned char: 0
 ..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c: (in function main)
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(229,8):
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(71,8):
     Test expression for while not boolean, type int: 1
   Test expression type is not boolean or int. (Use -predboolint to inhibit
   warning)
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(233,9): Unreachable code: return 0
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(75,9): Unreachable code: return 0
   This code will never be reached on any possible execution. (Use -unreachable
   to inhibit warning)
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.h(125,6):
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c: (in function isr)
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(87,5): Unrecognized identifier:
+                                                    timer8BitISR
+  Identifier used in code has not been declared. (Use -unrecog to inhibit
+  warning)
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(88,2): Unrecognized identifier:
+                                                    serialRxInterruptHandler
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(89,5): Unrecognized identifier:
+                                                    userIntISR
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(90,2): Unrecognized identifier:
+                                                    serialTxInterruptHandler
+..\..\CoreLib\setupAnito.c: (in function setupAnito)
+..\..\CoreLib\setupAnito.c(34,9): Unrecognized identifier: setupGpio
+..\..\CoreLib\setupAnito.c(35,9): Unrecognized identifier: setupTimer
+..\..\CoreLib\setupAnito.c(36,9): Unrecognized identifier: setupADC
+..\..\CoreLib\setupAnito.c(39,9): Unrecognized identifier: BIT_INTCON_PEIE
+..\..\CoreLib\setupAnito.c(40,3): Unrecognized identifier: BIT_INTCON_GIE
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.h(73,6):
     Function exported but not used outside PhilRoboKit_CoreLib_Macro:
     philrobokit_init
   A declaration is exported, but not used outside this module. Declaration can
   use static qualifier. (Use -exportlocal to inhibit warning)
-   ..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(219,2):
+   ..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(62,2):
    Definition of philrobokit_init
 
+----------------------------------- 	    
+*** Checking Compiler Options.... ***		
+----------------------------------- 	    
+
+----------------------------------- 	    
+*** Checking Variants.... ***		        
+----------------------------------- 	    
+
+----------------------------------- 	    
+*** Checking Libraries.... ***		        
+----------------------------------- 	    
+..\..\CoreLib\lib\corelib_8bit_timer.c: (in function setTimer)
+..\..\CoreLib\lib\corelib_8bit_timer.c(96,4): Unrecognized identifier:
+                                                 REGISTER_PR2
+  Identifier used in code has not been declared. (Use -unrecog to inhibit
+  warning)
+..\..\CoreLib\lib\corelib_8bit_timer.c(99,4): Unrecognized identifier:
+                                                 BIT_T2CON_TMR2ON
+..\..\CoreLib\lib\corelib_8bit_timer.c(101,4): Unrecognized identifier:
+                                                  BIT_PIE1_TMR2IE
+..\..\CoreLib\lib\corelib_8bit_timer.c(106,3): Unrecognized identifier:
+                                                  hal_setTMR4Value
+..\..\CoreLib\lib\corelib_8bit_timer.c(109,3): Unrecognized identifier:
+                                                  hal_enableTMR4
+..\..\CoreLib\lib\corelib_8bit_timer.c(111,3): Unrecognized identifier:
+                                                  hal_enableTMR4Int
+..\..\CoreLib\lib\corelib_8bit_timer.c(117,3): Unrecognized identifier:
+                                                  hal_setTMR6Value
+..\..\CoreLib\lib\corelib_8bit_timer.c(120,3): Unrecognized identifier:
+                                                  hal_enableTMR6
+..\..\CoreLib\lib\corelib_8bit_timer.c(122,3): Unrecognized identifier:
+                                                  hal_enableTMR6Int
+..\..\CoreLib\lib\corelib_8bit_timer.c: (in function timer8BitISR)
+..\..\CoreLib\lib\corelib_8bit_timer.c(150,7): Unrecognized identifier:
+                                                  BIT_PIR1_TMR2IF
+..\..\CoreLib\lib\corelib_8bit_timer.c(162,5): Unrecognized identifier:
+                                                  hal_getTMR4IntFlag
+..\..\CoreLib\lib\corelib_8bit_timer.c(162,29): Unrecognized identifier:
+                                                   hal_getTMR4IntEnableStatus
+..\..\CoreLib\lib\corelib_8bit_timer.c(165,3): Unrecognized identifier:
+                                                  hal_clrTMR4IntFlag
+..\..\CoreLib\lib\corelib_8bit_timer.c(166,3): Unrecognized identifier:
+                                                  hal_disableTMR4Int
+..\..\CoreLib\lib\corelib_8bit_timer.c(167,3): Unrecognized identifier:
+                                                  hal_disableTMR4
+..\..\CoreLib\lib\corelib_8bit_timer.c(170,3): Unrecognized identifier:
+                                                  pt2TMR4ISR
+..\..\CoreLib\lib\corelib_8bit_timer.c(175,5): Unrecognized identifier:
+                                                  hal_getTMR6IntFlag
+..\..\CoreLib\lib\corelib_8bit_timer.c(175,29): Unrecognized identifier:
+                                                   hal_getTMR6IntEnableStatus
+..\..\CoreLib\lib\corelib_8bit_timer.c(178,3): Unrecognized identifier:
+                                                  hal_clrTMR6IntFlag
+..\..\CoreLib\lib\corelib_8bit_timer.c(179,3): Unrecognized identifier:
+                                                  hal_disableTMR6Int
+..\..\CoreLib\lib\corelib_8bit_timer.c(180,3): Unrecognized identifier:
+                                                  hal_disableTMR6
+..\..\CoreLib\lib\corelib_8bit_timer.c(183,3): Unrecognized identifier:
+                                                  pt2TMR6ISR
+..\..\CoreLib\lib\corelib_adc.c: (in function setupADC)
+..\..\CoreLib\lib\corelib_adc.c(48,2): Unrecognized identifier: REGISTER_TRISA
+..\..\CoreLib\lib\corelib_adc.c(49,2): Unrecognized identifier: REGISTER_TRISE
+..\..\CoreLib\lib\corelib_adc.c(51,2): Unrecognized identifier: BIT_ADCON0_ADON
+..\..\CoreLib\lib\corelib_adc.c(53,2): Unrecognized identifier:
+                                          BIT_ADCON1_PCFG0
+..\..\CoreLib\lib\corelib_adc.c(54,2): Unrecognized identifier:
+                                          BIT_ADCON1_PCFG1
+..\..\CoreLib\lib\corelib_adc.c(55,2): Unrecognized identifier:
+                                          BIT_ADCON1_PCFG2
+..\..\CoreLib\lib\corelib_adc.c(56,2): Unrecognized identifier:
+                                          BIT_ADCON1_PCFG3
+..\..\CoreLib\lib\corelib_adc.c(58,2): Unrecognized identifier: BIT_ADCON0_CHS0
+..\..\CoreLib\lib\corelib_adc.c(59,2): Unrecognized identifier: BIT_ADCON0_CHS1
+..\..\CoreLib\lib\corelib_adc.c(60,2): Unrecognized identifier: BIT_ADCON0_CHS2
+..\..\CoreLib\lib\corelib_adc.c(62,2): Unrecognized identifier: BIT_ADCON1_ADFM
+..\..\CoreLib\lib\corelib_adc.c(66,3): Unrecognized identifier:
+                                          BIT_ADCON0_ADCS0
+..\..\CoreLib\lib\corelib_adc.c(67,3): Unrecognized identifier:
+                                          BIT_ADCON0_ADCS1
+..\..\CoreLib\lib\corelib_adc.c(68,3): Unrecognized identifier:
+                                          BIT_ADCON1_ADCS2
+..\..\CoreLib\lib\corelib_adc.c(75,2): Unrecognized identifier: BIT_PIR1_ADIF
+..\..\CoreLib\lib\corelib_adc.c(76,2): Unrecognized identifier: BIT_PIE1_ADIE
+..\..\CoreLib\lib\corelib_adc.c(78,2): Unrecognized identifier: BIT_INTCON_PEIE
+..\..\CoreLib\lib\corelib_adc.c(79,2): Unrecognized identifier: BIT_INTCON_GIE
+..\..\CoreLib\lib\corelib_adc.c: (in function setupADCPinsToDigital)
+..\..\CoreLib\lib\corelib_adc.c(84,2): Unrecognized identifier: REGISTER_ADCON1
+..\..\CoreLib\lib\corelib_adc.c(88,2): Unrecognized identifier: REGISTER_PORTA
+..\..\CoreLib\lib\corelib_adc.c: (in function adcReadOnly)
+..\..\CoreLib\lib\corelib_adc.c(124,13): Unrecognized identifier:
+                                            REGISTER_ADRESH
+..\..\CoreLib\lib\corelib_adc.c(124,37): Unrecognized identifier:
+                                            REGISTER_ADRESL
+..\..\CoreLib\lib\corelib_adc.c: (in function adcStart)
+..\..\CoreLib\lib\corelib_adc.c(134,2): Unrecognized identifier:
+                                           BIT_ADCON0_GO_DONE
+..\..\CoreLib\lib\corelib_dac.c: (in function setDAC)
+..\..\CoreLib\lib\corelib_dac.c(70,31): Unrecognized identifier: uint24_t
 ********************************************************************************** 	
 ****************************   Checking UserLib....   ****************************		
 ********************************************************************************** 	

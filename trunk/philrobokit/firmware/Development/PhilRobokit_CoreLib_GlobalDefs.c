@@ -26,7 +26,7 @@
 // FW Version      	Date        	Author         	Description
 // v00.00.01	20120713	ESCII		- Library Initial Release
 //***********************************************************************************
-#include <PhilRoboKit_CoreLib_Macro.h>
+//#include <PhilRoboKit_CoreLib_Macro.h>
 
 /* template */
 #if 0		

@@ -29,20 +29,43 @@
 
 #ifndef __SETUP_ANITO__
 #define __SETUP_ANITO__
-
-    #include "hal_Anito_gpio.h"
-    #include "hal_Anito_timer.h"
-    #include "drv_Anito_uart.h"
-    #include "drv_Anito_adc.h"
+/*
+    #include "..\lib\hal_Anito_gpio.h"
+    #include "..\lib\hal_Anito_timer.h"
+    #include "..\lib\drv_Anito_uart.h"
+    #include "..\lib\drv_Anito_adc.h"
+    
+    #include "..\lib\corelib_user_interrupt.h"
+    #include "..\lib\hal_user_interrupt.h"
+    
+    #include "..\lib\corelib_8bit_timer.h"
+    #include "..\lib\hal_8bit_timer.h"
+ 
+    #include "..\lib\corelib_pwm.h"
+    #include "..\lib\hal_pwm.h" 
+    
+    #include "..\lib\corelib_dac.h"
+ */
+    #include "hal_gpio.h"
+    
+    #include "corelib_basetimer.h"
+    #include "hal_timer.h"
+    
+    #include "hal_uart.h"
+    
+    #include "hal_adc.h"
+    
+    #include "corelib_user_interrupt.h"
+    #include "hal_user_interrupt.h"
+    
+    #include "corelib_8bit_timer.h"
+    #include "hal_8bit_timer.h"
+ 
+    #include "corelib_pwm.h"
+    #include "hal_pwm.h" 
     
     #include "corelib_dac.h"
-    #include "corelib_pwm.h"
-    #include "corelib_8bit_timer.h"
-    #include "corelib_user_interrupt.h"
-    #include "hal_pwm.h"    
-    #include "hal_8bit_timer.h"
-    #include "hal_user_interrupt.h"
-
+    
     /* Pin Default Initialization */
     #define	K8_DEFAULT_CONFIG_PORTA	(0b11111)
     #define	K8_DEFAULT_CONFIG_PORTB	(0b00000000)

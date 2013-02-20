@@ -2,12 +2,12 @@
 
 void init()
 {
-	setupServoDef(SERV0,SERVO,-90);
+	setupServo(SERV0,SERVO,-90);
 }
 
 void program()
 {
-	signed char i;
+	char_t i;
 	
 	/* increment angle */
 	for(i=-90;i<=90;i++)
