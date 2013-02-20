@@ -4,9 +4,9 @@
 // phirobotics.core@philrobotics.com
 //
 //----------------------------------------------------------------------------------
-// Filename:	corelib_timer.c - Timer Hardware Delay File
+// Filename:	drv_Anito_Timer.c - Anito Timer Hardware Delay File
 // Description:	
-// Revision:    v00.00.03
+// Revision:    v01.00.00
 // Author:      Giancarlo Acelajado
 //
 // Dependencies:
@@ -28,39 +28,50 @@
 // v00.00.02       	201203xx    	Giancarlo A.   	- XXXXXX
 // v00.00.03		20130707	  	ESCII			- Fixed Interrupt Handler and Set
 //													- Overflow to Every 100uS
-// 
+// v01.00.00       201211xx    Giancarlo A.   Leverage Library to Standard Architecture
 //***********************************************************************************
-#include "corelib_timer.h"
-
-	static volatile unsigned int uiTimerUs = 0;
-	static volatile unsigned int uiTimerMs = 0;
+#include "hal_timer.h"
 
 /* Timer Routine */
 	void timerInterruptHandler(void)
 	{
-		static int iMsCounter = 0;
+		static uint16_t ui16MsCounter = 0;
+        
+        #ifdef __TIMER_SEC__
+            static uint16_t ui16SecCounter = 0;
+        #endif
 
 		if(BIT_PIR1_TMR1IF&&BIT_PIE1_TMR1IE)
 		{
 			BIT_PIR1_TMR1IF = 0; 	// Clear Timer1 Interrupt Flag
 			
 			/* Increment US Timer */
-			uiTimerUs += CONST16_TIMER_INCREMENT;
+			ui16TimerUs += K16_TIMER_INCREMENT;
 
 			/* Increment MS Timer */
-			iMsCounter += CONST16_TIMER_INCREMENT;
-			if(iMsCounter >= 1000)
+			ui16MsCounter += K16_TIMER_INCREMENT;
+			if(ui16MsCounter >= 1000)
 			{
-				iMsCounter = 0;
-				uiTimerMs++;			
+				ui16MsCounter = 0;
+				ui16TimerMs++;		
+
+                #ifdef __TIMER_SEC__
+                    ui16SecCounter++; /* Increment Sec Timer */
+                    
+                    if(ui16SecCounter >= 1000)
+                    {
+                        ui16SecCounter = 0;
+                        ui16TimerSec++;
+                    }
+                #endif
 			}
 			
-			REGISTER_TMR1L = (CONST16_TIMER);
-			REGISTER_TMR1H = (CONST16_TIMER >> 8);
+			REGISTER_TMR1L = (K16_TIMER);
+			REGISTER_TMR1H = (K16_TIMER >> 8);
 		}
 	}	
 
-	void timerInit(void)
+	void setupTimer(void)
 	{
 		BIT_T1CON_T1CKPS1 = 1; 		// Prescaler is 8
 		BIT_T1CON_T1CKPS0 = 1; 
@@ -68,8 +79,8 @@
 		BIT_T1CON_T1SYNC = 1; 		// Timer1 External Clock Input Synchronization Control
 		BIT_T1CON_TMR1CS = 0; 		// Timer1 Clock Source Select, Internal Clock (FOSC/4)
 			
-		REGISTER_TMR1L = (CONST16_TIMER);
-		REGISTER_TMR1H = (CONST16_TIMER >> 8);
+		REGISTER_TMR1L = (K16_TIMER);
+		REGISTER_TMR1H = (K16_TIMER >> 8);
 	
 		BIT_T1CON_TMR1ON = 1; 		// Timer1 is ON
 	
@@ -79,26 +90,6 @@
 		BIT_INTCON_PEIE = 1; 		// Enable Peripheral Interrupt
 		BIT_INTCON_GIE = 1;	 		// Enable Global Interrupt
 	}	
-
-	unsigned int getElapsedTimeMs(unsigned int uiTimeMs)
-	{	
-		return (uiTimerMs - uiTimeMs);
-	}	
-
-	unsigned int getTimeMs(void)
-	{	
-		return uiTimerMs;
-	}
-
-	unsigned int getElapsedTimeUs(unsigned int uiTimeUs)
-	{	
-		return (uiTimerUs - uiTimeUs);
-	}	
-
-	unsigned int getTimeUs(void)
-	{	
-		return uiTimerUs;
-	}
-	
-/* end of corelib_timer.c */
+    
+/* end of drv_Anito_timer.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------		

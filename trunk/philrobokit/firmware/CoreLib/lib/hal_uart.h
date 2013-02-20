@@ -4,9 +4,9 @@
 // phirobotics.core@philrobotics.com
 //
 //----------------------------------------------------------------------------------
-// Filename:	corelib_adc.h - ADC Header File
+// Filename:	drv_Anito_uart.h - UART Header File
 // Description:	
-// Revision:    v00.01.00
+// Revision:    v01.00.00
 // Author:      Giancarlo Acelajado
 //
 // Dependencies:
@@ -24,39 +24,26 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //***********************************************************************************
 // FW Version      Date        Author         Description
-// v00.01.00       20110xxx    Giancarlo A.   Library Initial Release
-// v00.01.01       201203xx    Giancarlo A.   Fix Bugs, add setupADCPinsToDigital
-// 
+// v00.01.00       201112xx    Giancarlo A.   Library Initial Release
+// v00.01.01       201201xx    Giancarlo A.   Add serialFlush Routine
+// v01.00.00       201211xx    Giancarlo A.   Leverage Library to Standard Architecture 
 //***********************************************************************************
 
-#ifndef __PH_ADC_H
-#define __PH_ADC_H
+#ifndef __ANITO_UART_H__
+#define __ANITO_UART_H__
 
-#if defined(HI_TECH_C)
-	#ifndef S_SPLINT_S 	// Suppress SPLint Unrecognized ID Errors
-		#include "htc_common.h"
-	#else
-		#include "htc_common_SPLint.h"
-	#endif
-	
-	#if defined( _16F873A ) || defined( _16F874A )  || defined( _16F876A ) || defined( _16F877A )  	
-		#ifndef S_SPLINT_S 	// Suppress SPLint Unrecognized ID Errors
-			#include "htc_16f87xa.h"
-		#else
-			#include "htc_16f87xa_SPLint.h"
-		#endif
-		#define K16_ADC_RESOLUTION	(1023.00)
-	#endif
-#endif
+#include <PhilRoboKit_CoreLib_Header.h>
+#include "hal_common_uart.h"
+#include "string.h"
 
-/* ADCRoutine */
-	#define	isADCConversionDone()	(BIT_ADCON0_GO_DONE? 0: 1)
-	
-	void setupADC(void);
-	void setupADCPinsToDigital(void);
-	void adcStart(void);
-	void adcSetChannel(unsigned char ucChannel);
-	float adcReadOnly(void);
-	void adcSetVref(float Vref);
+	#define K8_UART_BUFFER_SIZE			(32)
+	#define	K8_UART_BUFFER_MASK			(K8_UART_BUFFER_SIZE-1)
 
-#endif/* end of corelib_adc.h */
+	struct{
+		uint8_t Buffer[K8_UART_BUFFER_SIZE];
+		uint8_t Head;
+		uint8_t Tail;
+	}uartTXFiFo, uartRXFiFo;
+
+		
+#endif/* end of drv_Anito_uart.h */

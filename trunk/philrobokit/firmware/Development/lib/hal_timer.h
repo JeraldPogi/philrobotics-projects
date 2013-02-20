@@ -4,7 +4,7 @@
 // phirobotics.core@philrobotics.com
 //
 //----------------------------------------------------------------------------------
-// Filename:	app_common_timer.h - Timer Hardware Delay Header Application Layer File
+// Filename:	hal_Anito_timer.h - Timer Hardware Delay Header File
 // Description:	
 // Revision:    v01.00.00
 // Author:      Giancarlo Acelajado
@@ -24,34 +24,31 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //***********************************************************************************
 // FW Version      	Date        	Author         	Description
-// v01.00.00       	201211xx    	Giancarlo A.   	- Library Initial Release
-// 
+// v00.00.01       	201202xx    	Giancarlo A.   	- Library Initial Release(internal)
+// v00.00.02       	201203xx    	Giancarlo A.   	- Fix CONST8_TIMER values(for 20MHz)
+// v00.00.03		20130707	 	ESCII			- Set Overflow to Every 100uS
+// v01.00.00        2012110xx    Giancarlo A.   Leverage Library to Standard Architecture
 //***********************************************************************************
-#ifndef __APP_COMMON_TIMER_H__
-#define __APP_COMMON_TIMER_H__
+#ifndef __ANITO_TIMER_H__
+#define __ANITO_TIMER_H__
 
-#include "PhilRoboKit_CoreLib_DataTypes.h"
+#include <PhilRoboKit_CoreLib_Header.h>
 
-    extern volatile uint16_t ui16TimerUs;
-	extern volatile uint16_t ui16TimerMs;
-    
-    #ifdef __TIMER_SEC__
-        extern volatile uint16_t ui16TimerSec;
-    #endif
+	#define K16_TIMER_10US				(65530) 	//(65536 - ((0.00001)*PROCESSOR_CLOCK_FREQ)/4*8)
+	#define K16_TIMER_40US				(65511) 	//(65536 - ((0.00004)*PROCESSOR_CLOCK_FREQ)/4*8)
+	#define K16_TIMER_100US				(65473) 	//(65536 - ((0.0001)*PROCESSOR_CLOCK_FREQ)/4*8)
+	#define K16_TIMER_1000US			(64911) 	//(65536 - ((0.001)*PROCESSOR_CLOCK_FREQ)/4*8)
 
-/* Hardware Delay Routine*/
+	#define	K16_TIMER	                K16_TIMER_40US 
 	
-	void timerInterruptHandler(void);
-
-	void setupTimer(void);
-	uint16_t getElapsedMs(uint16_t ui16TimeMs);
-	uint16_t getMs(void);
-	uint16_t getElapsedUs(uint16_t ui16TimeUs);
-	uint16_t getUs(void);
-    
-    #ifdef __TIMER_SEC__
-        uint16_t getElapsedSec(uint16_t ui16TimeSec);
-        uint16_t getSec(void);
-    #endif
+	#if (K16_TIMER == K16_TIMER_10US) 
+		#define K16_TIMER_INCREMENT		(10)
+	#elif (K16_TIMER == K16_TIMER_40US) 
+		#define K16_TIMER_INCREMENT		(40)
+	#elif (K16_TIMER == K16_TIMER_100US) 
+		#define K16_TIMER_INCREMENT		(100)
+	#elif (K16_TIMER == K16_TIMER_1000US) 
+		#define K16_TIMER_INCREMENT		(1000)	
+	#endif
 	
-#endif/* end of app_common_timer.h */
+#endif/* end of hal_Anito_timer.h */

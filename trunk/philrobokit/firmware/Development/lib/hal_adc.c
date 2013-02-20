@@ -28,7 +28,7 @@
 // v00.01.01       201203xx    Giancarlo A.   Fix Bugs, add setupADCPinsToDigital
 // 
 //***********************************************************************************
-#include "drv_Anito_adc.h"
+#include "hal_adc.h"
 	
 
 void adcInterruptHandler(void)

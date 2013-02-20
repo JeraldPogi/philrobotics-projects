@@ -4,7 +4,7 @@
 // phirobotics.core@philrobotics.com
 //
 //----------------------------------------------------------------------------------
-// Filename:	drv_Anito_uart.h - UART Header File
+// Filename:	hal_common_adc.h - ADC Header File
 // Description:	
 // Revision:    v01.00.00
 // Author:      Giancarlo Acelajado
@@ -24,26 +24,24 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //***********************************************************************************
 // FW Version      Date        Author         Description
-// v00.01.00       201112xx    Giancarlo A.   Library Initial Release
-// v00.01.01       201201xx    Giancarlo A.   Add serialFlush Routine
-// v01.00.00       201211xx    Giancarlo A.   Leverage Library to Standard Architecture 
+// v00.01.00       20110xxx    Giancarlo A.   Library Initial Release
+// v00.01.01       201203xx    Giancarlo A.   Fix Bugs, add setupADCPinsToDigital
+// v01.00.00       201210xx    Giancarlo A.   Leverage Library to Standard Architecture
+// 
 //***********************************************************************************
 
-#ifndef __ANITO_UART_H__
-#define __ANITO_UART_H__
+#ifndef __HAL_COMMON_ADC_H__
+#define __HAL_COMMON_ADC_H__
 
-#include "PhilRoboKit_CoreLib_Header.h"
-#include "hal_common_uart.h"
-#include "string.h"
+#include "PhilRoboKit_CoreLib_DataTypes.h"
+	
+	void setupADC(void);
+	void setupADCPinsToDigital(void);
+	void adcSetChannel(uint8_t ui8Channel);
+    void adcStart(void);	
+    uint16_t adcRead(void);
+	uint16_t adcReadOnly(void);
+    uint16_t adcReadOnChannel(uint8_t ui8Channel);
+    bool_t isADCConversionDone(void);
 
-	#define K8_UART_BUFFER_SIZE			(32)
-	#define	K8_UART_BUFFER_MASK			(K8_UART_BUFFER_SIZE-1)
-
-	struct{
-		uint8_t Buffer[K8_UART_BUFFER_SIZE];
-		uint8_t Head;
-		uint8_t Tail;
-	}uartTXFiFo, uartRXFiFo;
-
-		
-#endif/* end of drv_Anito_uart.h */
+#endif/* end of hal_common_adc.h */

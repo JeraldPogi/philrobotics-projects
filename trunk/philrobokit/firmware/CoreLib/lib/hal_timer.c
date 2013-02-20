@@ -30,7 +30,7 @@
 //													- Overflow to Every 100uS
 // v01.00.00       201211xx    Giancarlo A.   Leverage Library to Standard Architecture
 //***********************************************************************************
-#include "hal_Anito_timer.h"
+#include "hal_timer.h"
 
 /* Timer Routine */
 	void timerInterruptHandler(void)

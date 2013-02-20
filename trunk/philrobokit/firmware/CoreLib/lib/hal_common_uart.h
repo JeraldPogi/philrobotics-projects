@@ -4,7 +4,7 @@
 // phirobotics.core@philrobotics.com
 //
 //----------------------------------------------------------------------------------
-// Filename:	app_common_timer.c - Common Timer Hardware Delay Application Layer File
+// Filename:	hal_common_uart.h - UART Common Header File
 // Description:	
 // Revision:    v01.00.00
 // Author:      Giancarlo Acelajado
@@ -23,51 +23,30 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //***********************************************************************************
-// FW Version      	Date        	Author         	Description
-// v01.00.00       	201211xx    	Giancarlo A.   	- Library Initial Release
+// FW Version      Date        Author         Description
+// v00.01.00       201112xx    Giancarlo A.   Library Initial Release
+// v00.01.01       201201xx    Giancarlo A.   Add serialFlush Routine
+// v01.00.00       201210xx    Giancarlo A.   Leverage Library to Standard Architecture
 // 
 //***********************************************************************************
 
-#include "app_common_timer.h"
+#ifndef __HAL_COMMON_UART_H__
+#define __HAL_COMMON_UART_H__
 
-	volatile uint16_t ui16TimerUs = 0;
-	volatile uint16_t ui16TimerMs = 0;
-    
-    #ifdef __TIMER_SEC__
-        volatile uint16_t ui16TimerSec = 0;
-    #endif
+#include "PhilRoboKit_CoreLib_DataTypes.h"
 
-    uint16_t getElapsedMs(uint16_t ui16TimeMs)
-	{	
-		return (ui16TimerMs - ui16TimeMs);
-	}	
+#ifndef NULL
+    #define NULL				'\0'
+#endif
 
-	uint16_t getMs(void)
-	{	
-		return ui16TimerMs;
-	}
-
-	uint16_t getElapsedUs(uint16_t ui16TimeUs)
-	{	
-		return (ui16TimerUs - ui16TimeUs);
-	}	
-
-	uint16_t getUs(void)
-	{	
-		return ui16TimerUs;
-	}
-    
-    #ifdef __TIMER_SEC__
-        uint16_t getElapsedSec(uint16_t ui16TimeSec)
-        {	
-            return (ui16TimerSec - ui16TimeSec);
-        }	
-
-        uint16_t getSec(void)
-        {	
-            return ui16TimerSec;
-        }
-    #endif
-
-/* end of hal_common_timer.c */
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------		
+	void setupSerial(uint16_t ui16Baudrate);
+	void serialSendChar(uint8_t ui8TxData);
+	void serialSendString(uint8_t *pui8StrTxData);
+	void serialSendBlock(uint8_t *pui8StrTxData, uint16_t ui16Size);
+	uint8_t serialRead(void);
+	bool isSerialDataAvailable(void);
+	void serialFlushData(void);
+	void serialRxInterruptHandler(void);	
+	void serialTxInterruptHandler(void);
+	
+#endif/* end of hal_common_uart.h */
