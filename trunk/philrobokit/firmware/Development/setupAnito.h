@@ -37,40 +37,39 @@
 
 /* Include .h Library Files */
 /*
-    #include "..\lib\hal_Anito_gpio.h"
-    #include "..\lib\hal_Anito_timer.h"
-    #include "..\lib\drv_Anito_uart.h"
-    #include "..\lib\drv_Anito_adc.h"
+    #include <../../cores/lib/hal_timer.h>
+    #include <../../cores/lib/corelib_basetimer.h>
     
-    #include "..\lib\corelib_user_interrupt.h"
-    #include "..\lib\hal_user_interrupt.h"
-    
-    #include "..\lib\corelib_8bit_timer.h"
-    #include "..\lib\hal_8bit_timer.h"
+    #include <../../cores/lib/hal_gpio.h>
+    #include <../../cores/lib/hal_adc.h>   
+    #include <../../cores/lib/hal_uart.h>
  
-    #include "..\lib\corelib_pwm.h"
-    #include "..\lib\hal_pwm.h" 
-    
-    #include "..\lib\corelib_dac.h"
- */
-    #include "hal_gpio.h"
-    
-    #include "corelib_basetimer.h"
+    #include <../../cores/lib/hal_user_interrupt.h>
+    #include <../../cores/lib/corelib_user_interrupt.h>
+
+    #include <../../cores/lib/hal_8bit_timer.h> 
+    #include <../../cores/lib/corelib_8bit_timer.h>
+
+    #include <../../cores/lib/hal_pwm.h>
+    #include <../../cores/lib/corelib_pwm.h>
+    #include <../../cores/lib/corelib_dac.h>
+ */   
+
     #include "hal_timer.h"
+    #include "corelib_basetimer.h"
     
-    #include "hal_uart.h"
-    
+    #include "hal_gpio.h"
     #include "hal_adc.h"
-    
-    #include "corelib_user_interrupt.h"
-    #include "hal_user_interrupt.h"
-    
-    #include "corelib_8bit_timer.h"
-    #include "hal_8bit_timer.h"
+    #include "hal_uart.h"
  
+    #include "hal_user_interrupt.h"
+    #include "corelib_user_interrupt.h"
+
+    #include "hal_8bit_timer.h"
+    #include "corelib_8bit_timer.h"
+
+    #include "hal_pwm.h"
     #include "corelib_pwm.h"
-    #include "hal_pwm.h" 
-    
     #include "corelib_dac.h"
     
 /* User Configuration Definitions */

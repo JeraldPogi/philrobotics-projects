@@ -1,36 +1,47 @@
-//***********************************************************************************
-// PhilRobotics | Amateur Robotics Club of the Philippines
-// http://philrobotics.com | http://facebook.com/philrobotics
-// phirobotics.core@philrobotics.com
-//
-//----------------------------------------------------------------------------------
-// Filename:	htc_16f87xa.h - Hitech C PIC16F87XA Header File
-// Description:	
-// Revision:    v00.01.01
-// Author:      Giancarlo Acelajado
-//
-// Dependencies:
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
-//***********************************************************************************
-// FW Version      Date        Author         Description
-// v00.01.00       201112xx    Giancarlo A.   Library Initial Release
-// v00.01.01       20120711    ESCII		  Added defines for PWM and Timers
-//***********************************************************************************
-	
+/*****************************************************************************************//**
+* # PhilRobotics | Philippine Electronics and Robotics Enthusiasts Club #
+* http://philrobotics.com | http://philrobotics.com/forum | http://facebook.com/philrobotics
+* phirobotics.core@philrobotics.com
+*
+*---------------------------------------------------------------------------------------------
+* |Filename:      | "htc_16f87xa.h"                             |
+* |:----          |:----                                        |
+* |Description:   | Hi-Tech C PIC16F877A Register Definitions   |
+* |Revision:      | v00.00.01                                   |
+* |Author:        | Giancarlo Acelajado                         |
+* |               |                                             |
+* |Dependencies:  |                                             |
+*
+* > This program is free software: you can redistribute it and/or modify
+* > it under the terms of the GNU General Public License as published by
+* > the Free Software Foundation, either version 3 of the License, or
+* > (at your option) any later version.
+* > This program is distributed in the hope that it will be useful,
+* > but WITHOUT ANY WARRANTY; without even the implied warranty of
+* > MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* > GNU General Public License for more details.
+* > <BR><BR>
+* > You should have received a copy of the GNU General Public License
+* > along with this program. If not, see http://www.gnu.org/licenses/
+* <BR>
+*---------------------------------------------------------------------------------------------
+* |FW Version   |Date       |Author             |Description                        |
+* |:----        |:----      |:----              |:----                              |
+* |v00.01.00    |201112xx   |Giancarlo A.       |Library Initial Release            |
+* |v00.01.01    |20120711   |ESCII              |Added defines for PWM and Timers   |
+*********************************************************************************************/
+#define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
+#undef  __SHOW_MODULE_HEADER__
+
 #ifndef __HTC_16F87XA_H
 #define __HTC_16F87XA_H
-
+/* Include .h Library Files */
+    /* none */
+    
+/* User Configuration Definitions */
+    /* none */
+    
+/* Global Constants */
 	#define	REGISTER_TXSTA		TXSTA
 		#define	BIT_TXSTA_CSRC		CSRC
 		#define	BIT_TXSTA_TX9		TX9
@@ -172,4 +183,12 @@
 		#define C2_TIMERSEL_MASK 	0x0C		// Bit 2 to 3
 		#define C1_TIMERSEL_MASK 	0x03		// Bit 0 to 1
 	#endif	
-#endif
+    
+/* Macro and Configuration Definitions */
+    /* none */
+
+/* Public Function Prototypes */ 
+    /* none */
+	    
+#endif/* end of htc_16f87xa.h */
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
