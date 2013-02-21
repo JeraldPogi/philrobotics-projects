@@ -108,6 +108,8 @@ interrupt
 #endif
 isr(void)
 {
+    timerISR();
+    
     timer8BitISR();
 	serialRxInterruptHandler();
     userIntISR();

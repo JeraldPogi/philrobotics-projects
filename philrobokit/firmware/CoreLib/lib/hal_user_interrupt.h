@@ -99,6 +99,7 @@ enum etInterruptModes
 /* Public Function Prototypes */
     /* Todo: Define at Global.. */
     int PORTB_BUFFER,PORTB_DIR;
+    
 #if(EXTINTENABLED == TRUE)
     enum etInterruptModes mode0;
 #endif
