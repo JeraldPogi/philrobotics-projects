@@ -6,7 +6,7 @@
 *---------------------------------------------------------------------------------------------
 * |Filename:      | "soft_dac.c"                                |
 * |:----          |:----                                        |
-* |Description:   | This is a library for using the Software Implemented DAC functions |
+* |Description:   | This is a library for Software Implemented Digital to Analog Converter function. |
 * |Revision:      | v00.00.01                                   |
 * |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
@@ -27,7 +27,7 @@
 *---------------------------------------------------------------------------------------------
 * |FW Version   |Date       |Author             |Description                |
 * |:----        |:----      |:----              |:----                      |
-* |v00.00.01    |20130221   |ESCII              |Library Initial Release    |
+* |v00.00.01    |20130225   |ESCII              |Library Initial Release    |
 *********************************************************************************************/
 #define __SHOW_SCHED_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_SCHED_HEADER__
@@ -63,18 +63,19 @@ void bubbleSortDAC(uint8_t ui8MaxCount);
     
 /* Public Functions */
 /*******************************************************************************//**
-* \brief Set DAC value
+* \brief Setup the Software DAC module
 *
-* > This function is called for setting the DAC value.
-* > The DAC value can be set between 0 to 1023.
+* > This function is called for setting up the Software DAC Module 
+* > pin and default value.
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >      setupSoftDAC(module, value) 
+* >      setupSoftDAC(module, pin, value) 
 * > <BR><BR>
 * > **Parameters:**<BR>
-* >     module - DAC module assignment, DAC0, DAC1
-* >     value - a value between 0 to 256
+* >     module - DAC module assignment, SDAC0, SDAC1, SDAC2, SDAC3          <BR>
+* >     pin - DAC module assignment, DAC0, DAC1                             <BR>
+* >     value - a value between 0 to 255
 * > <BR><BR>
 * > **Returns:**<BR>
 * >     none
@@ -86,13 +87,13 @@ void setupSoftDAC(uint8_t ui8SDACModule, uint8_t ui8Pin, uint8_t ui8Value)
     bool_t  blScheduled = false;
     
     /* Use 8Bit Timer Peripheral */
-    setup8BitTimer(TIMER2,softDACEngine);                   // esc.comment, add TIMER2 with configuration
+    setup8BitTimer(K_DAC_TIMER,softDACEngine);
 
     /* Setup Output Pin */
     makeOutput(ui8Pin);                                     // make pin output
     clrPin(ui8Pin);                                         // set pin low until the next period starts
     
-    /* Run Through the scheduler to check if already scheduled */
+    /* Run through the schedule table to check if already scheduled */
     for(ui8Counter = 0; ui8Counter < ui8DACScheduleTail; ui8Counter++)
     {
         if(stDACModuleSchedule[ui8Counter].ui8Module == ui8SDACModule)
@@ -113,28 +114,24 @@ void setupSoftDAC(uint8_t ui8SDACModule, uint8_t ui8Pin, uint8_t ui8Value)
         stDACModuleSchedule[ui8DACScheduleTail].ui8Value    = ui8Value;
         ui8DACScheduleTail++;
     }
-    else
-    {
-        /* Must not be reached */
-    }
     
-    /* Sort schedule from shortest to greatest pulse width */
+    /* Sort schedule from shortest to longest pulse width */
     bubbleSortDAC(ui8DACScheduleTail);
 }
 
 /*******************************************************************************//**
-* \brief Set DAC value
+* \brief Set Software DAC module value
 *
-* > This function is called for setting the DAC value.
-* > The DAC value can be set between 0 to 1023.
+* > This function is called for setting the Software DAC value.
+* > The Software DAC value can be set between 0 to 255.
 *
 * > <BR>
 * > **Syntax:**<BR>
 * >      setSoftDAC(module, value) 
 * > <BR><BR>
 * > **Parameters:**<BR>
-* >     module - DAC module assignment, DAC0, DAC1
-* >     value - a value between 0 to 1023
+* >     module - DAC module assignment, SDAC0, SDAC1, SDAC2, SDAC3          <BR>
+* >     value - a value between 0 to 255
 * > <BR><BR>
 * > **Returns:**<BR>
 * >     none
@@ -166,21 +163,21 @@ void setSoftDAC(uint8_t ui8SDACModule, uint8_t ui8Value)
         }
     }
     
-    /* Sort schedule from shortest to greatest pulse width */
+    /* Sort schedule from shortest to longest pulse width */
     bubbleSortDAC(ui8DACScheduleTail);
 }
 
 /*******************************************************************************//**
-* \brief Remove the DAC module
+* \brief Remove a DAC module
 *
-* > This function is called for disabling the DAC module
+* > This function is called for disabling the a DAC module
 *
 * > <BR>
 * > **Syntax:**<BR>
 * >      removeSoftDAC(module)
 * > <BR><BR>
 * > **Parameters:**<BR>
-* >     module - PWM module assignment, DAC0, DAC1
+* >     module - DAC module assignment, SDAC0, SDAC1, SDAC2, SDAC3
 * > <BR><BR>
 * > **Returns:**<BR>
 * >     none
@@ -208,24 +205,22 @@ void removeSoftDAC(uint8_t ui8SDACModule)
         }
     }
 
-    /* Sort schedule from shortest to greatest pulse width */
+    /* Sort schedule from shortest to longest pulse width */
     bubbleSortDAC(ui8DACScheduleTail);
 }
 
 /* Private Functions */
 /*******************************************************************************//**
-* \brief Set DAC value
+* \brief Sort the Software DAC schedule
 *
-* > This function is called for setting the DAC value.
-* > The DAC value can be set between 0 to 1023.
+* > This function sorts the Software DAC schedule from shortest to longest pulse width
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >      setupSoftDAC(module, value) 
+* >      bubbleSortDAC(num_of_elements)
 * > <BR><BR>
 * > **Parameters:**<BR>
-* >     module - DAC module assignment, DAC0, DAC1
-* >     value - a value between 0 to 256
+* >     num_of_elements - maximum number of elements of the table to be sorted
 * > <BR><BR>
 * > **Returns:**<BR>
 * >     none
@@ -233,9 +228,8 @@ void removeSoftDAC(uint8_t ui8SDACModule)
 ***********************************************************************************/
 void bubbleSortDAC(uint8_t ui8MaxCount)
 {
-    bool_t blOnGoing = true;
-    uint8_t ui8Counter1 = 0;
-    uint8_t ui8Counter, ui8TempBuff;
+    bool_t  blOnGoing = true;
+    uint8_t ui8Counter, ui8TempBuff, ui8Counter1 = 0;
     
     while(blOnGoing) 
     {
@@ -246,6 +240,11 @@ void bubbleSortDAC(uint8_t ui8MaxCount)
         {
             if (stDACModuleSchedule[ui8Counter].ui8Value > stDACModuleSchedule[ui8Counter+1].ui8Value) 
             {
+                /* Swap Module Assignment */
+                ui8TempBuff = stDACModuleSchedule[ui8Counter].ui8Module;
+                stDACModuleSchedule[ui8Counter].ui8Module = stDACModuleSchedule[ui8Counter+1].ui8Module;
+                stDACModuleSchedule[ui8Counter+1].ui8Module = ui8TempBuff;
+                
                 /* Swap Value */
                 ui8TempBuff = stDACModuleSchedule[ui8Counter].ui8Value;
                 stDACModuleSchedule[ui8Counter].ui8Value = stDACModuleSchedule[ui8Counter+1].ui8Value;
@@ -255,12 +254,7 @@ void bubbleSortDAC(uint8_t ui8MaxCount)
                 ui8TempBuff = stDACModuleSchedule[ui8Counter].ui8Pin;
                 stDACModuleSchedule[ui8Counter].ui8Pin = stDACModuleSchedule[ui8Counter+1].ui8Pin;
                 stDACModuleSchedule[ui8Counter+1].ui8Pin = ui8TempBuff;
-                
-                /* Swap Module Assignment */
-                ui8TempBuff = stDACModuleSchedule[ui8Counter].ui8Module;
-                stDACModuleSchedule[ui8Counter].ui8Module = stDACModuleSchedule[ui8Counter+1].ui8Module;
-                stDACModuleSchedule[ui8Counter+1].ui8Module = ui8TempBuff;
-                
+                               
                 blOnGoing = true;
             }
         }
@@ -268,16 +262,16 @@ void bubbleSortDAC(uint8_t ui8MaxCount)
 }
 
 /*******************************************************************************//**
-* \brief Remove the DAC module
+* \brief Main Software DAC engine
 *
-* > This function is called for disabling the DAC module
+* > This function is called on every timer interrupt. 
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >      removeSoftDAC(module)
+* >      softDACEngine(), ISR
 * > <BR><BR>
 * > **Parameters:**<BR>
-* >     module - PWM module assignment, DAC0, DAC1
+* >     none
 * > <BR><BR>
 * > **Returns:**<BR>
 * >     none
@@ -291,7 +285,7 @@ void softDACEngine()
     
     blScheduleCleared = false;                  // always false at entry point
     
-    while(false == blScheduleCleared)
+    while((false == blScheduleCleared) && (ui8DACScheduleTail > 0))
     {
         switch(ui8DACEngineStates)
         {
@@ -350,8 +344,17 @@ void softDACEngine()
             ui8DACEngineStates = SCHED0;
             
             /* Set next timeout */
-            setTimer(TIMER2, stDACModuleSchedule[SCHED0].ui8Value);
-            ui8PrevValue = stDACModuleSchedule[SCHED0].ui8Value; 
+            if(stDACModuleSchedule[SCHED0].ui8Value < K_SOFT_DAC_PERIOD)
+            {
+                setTimer(K_DAC_TIMER, stDACModuleSchedule[SCHED0].ui8Value);
+                ui8PrevValue = stDACModuleSchedule[SCHED0].ui8Value;            
+            }
+            else
+            {
+                setTimer(K_DAC_TIMER, (K_SOFT_DAC_PERIOD - ui8PrevValue));
+                ui8PrevValue = 0;
+                ui8DACEngineStates = PERIOD_START;            
+            }
         }
         else
         {
@@ -362,20 +365,21 @@ void softDACEngine()
                 && (stDACModuleSchedule[ui8DACEngineStates].ui8Value < K_SOFT_DAC_PERIOD)
             )
             {
+                /* check if previous and current have same values */
                 if(ui8PrevValue != stDACModuleSchedule[ui8DACEngineStates].ui8Value)
                 {
-                    setTimer(TIMER2, (stDACModuleSchedule[ui8DACEngineStates].ui8Value - ui8PrevValue));
+                    setTimer(K_DAC_TIMER, (stDACModuleSchedule[ui8DACEngineStates].ui8Value - ui8PrevValue));
                     ui8PrevValue = stDACModuleSchedule[ui8DACEngineStates].ui8Value; 
                 }
                 else
                 {
-                    /* If previous and current have same value, don't set interrupt and loop back */
+                    /* If previous and current have same values, don't set interrupt and loop back */
                     blScheduleCleared = false;
                 }
             }
             else
             {
-                setTimer(TIMER2, (K_SOFT_DAC_PERIOD - ui8PrevValue));
+                setTimer(K_DAC_TIMER, (K_SOFT_DAC_PERIOD - ui8PrevValue));
                 ui8PrevValue = 0;
                 ui8DACEngineStates = PERIOD_START;
             }
