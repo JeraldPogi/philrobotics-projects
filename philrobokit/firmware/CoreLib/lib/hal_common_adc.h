@@ -34,6 +34,10 @@
 #define __HAL_COMMON_ADC_H__
 
 #include "PhilRoboKit_CoreLib_DataTypes.h"
+
+    #ifdef S_SPLINT_S                               // Suppress SPLint Parse Errors 
+        #define bool_t  bool
+    #endif 
 	
 	void setupADC(void);
 	void setupADCPinsToDigital(void);

@@ -56,22 +56,22 @@
 * \brief Setup the external pin interrupt
 *
 * > This function is called to initialize the external pin interrupt peripheral  
-* > to interrupt on either, rising or falling edge, or change in pin states
+* > to interrupt on either, rising or falling edge, or change on pin states
 *
 * > <BR>
 * > **Syntax:**<BR>
 * >      setupUserInt(source, &callback, mode)
 * > <BR><BR>
 * > **Parameters:**<BR>
-* >     source - external pin interrupt source, INT0, INT1, INT2, INT3, INT4
-* >     callback - function address of the external pin ISR callback
+* >     source - external pin interrupt source, INT0, INT1, INT2, INT3, INT4    <BR>
+* >     callback - function address of the external pin ISR callback            <BR>
 * >     mode - defines how the interrupt should be triggered, CHANGE, RISING, FALLING
 * > <BR><BR>
 * > **Returns:**<BR>
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setupUserInt(/*enum etInterruptSources*/uint8_t eIntSource, void(*callback)(), /*enum etInterruptModes*/uint8_t eIntMode) 
+void setupUserInt(enum etInterruptSources eIntSource, void(*callback)(), /*enum etInterruptModes*/uint8_t eIntMode) 
 {
 	/* External Interrupt */
 	if(INT0 == eIntSource)
@@ -174,7 +174,7 @@ void setupUserInt(/*enum etInterruptSources*/uint8_t eIntSource, void(*callback)
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >      userIntISR() , ISR
+* >      userIntISR(), ISR
 * > <BR><BR>
 * > **Parameters:**<BR>
 * >     none

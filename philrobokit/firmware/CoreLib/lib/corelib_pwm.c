@@ -57,8 +57,8 @@ static	uint8_t		mui8PreScaler=1, mui8PreScalerVal=1, mui8PR2plus1=0;
 * >      setupPWM(module, frequency, dutycycle)
 * > <BR><BR>
 * > **Parameters:**<BR>
-* >     module - PWM module assignment, PWM0, PWM1
-* >     frequency - the required PWM frequency in 10Hz resolution
+* >     module - PWM module assignment, PWM0, PWM1                          <BR>
+* >     frequency - the required PWM frequency in 10Hz resolution           <BR>
 * >     dutycycle - the required PWM duty cycle in 0.1% resolution
 * > <BR><BR>
 * > **Returns:**<BR>
@@ -107,13 +107,13 @@ void setupPWM(enum ePWMModules ePWM_Module, uint16_t ui16Frequency, uint16_t ui1
 /*******************************************************************************//**
 * \brief Set the PWM frequency
 *
-* > This function is called for setting the PWM frequency for both PWM0 and PWM1.
-* > The frequency can be set between 1.22kHz and 200kHz with 10Hz resolution
-* > (e.g. 1kHz/10Hz = 100).
+* > This function is called for setting the PWM frequency which affects both 
+* > PWM0 and PWM1. The frequency can be set between 1.22kHz and 200kHz w
+* > ith 10Hz resolution (e.g. 1kHz/10Hz = 100).
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >      setPWMFrequency(frequency)
+* >     setPWMFrequency(frequency)
 * > <BR><BR>
 * > **Parameters:**<BR>
 * >     frequency - the required PWM frequency in 10Hz resolution
@@ -125,6 +125,9 @@ void setupPWM(enum ePWMModules ePWM_Module, uint16_t ui16Frequency, uint16_t ui1
 void setPWMFrequency(uint16_t ui16Frequency)
 {
 	uint16_t	ui16TempVar;
+    #ifdef S_SPLINT_S                               // Suppress SPLint Parse Errors 
+        #define uint24_t  uint32_t                  // esc.comment: use with caution
+    #endif     
 	uint24_t	ui24Period;						    // 0.01uS/Bit Resolution	
 	
 	/* Check Frequency Range */
@@ -193,7 +196,7 @@ void setPWMFrequency(uint16_t ui16Frequency)
 * >      setPWMDuty(module, dutycycle)
 * > <BR><BR>
 * > **Parameters:**<BR>
-* >     module - PWM module assignment, PWM0, PWM1
+* >     module - PWM module assignment, PWM0, PWM1                          <BR>
 * >     dutycycle - the required PWM duty cycle in 0.1% resolution
 * > <BR><BR>
 * > **Returns:**<BR>

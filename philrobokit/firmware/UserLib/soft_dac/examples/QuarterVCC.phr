@@ -1,0 +1,14 @@
+#include <soft_dac.h>
+
+#define MAX_VALUE			(255)
+#define ONE_FOURTH_OF_VCC	(MAX_VALUE/4)
+
+void init()
+{
+	setupSoftDAC(SDAC0, D0, ONE_FOURTH_OF_VCC);
+}
+
+void program()
+{
+
+}

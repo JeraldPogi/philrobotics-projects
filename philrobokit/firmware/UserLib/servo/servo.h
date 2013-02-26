@@ -6,7 +6,7 @@
 *---------------------------------------------------------------------------------------------
 * |Filename:      | "servo.h"                                   |
 * |:----          |:----                                        |
-* |Description:   | This is a header file of the 8 bit timer library |
+* |Description:   | This is a header file of the servo driver   |
 * |Revision:      | v00.01.00                                   |
 * |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
@@ -77,10 +77,10 @@ enum servoModules
     /* none */
     
 /* Public Function Prototypes */
-void setupServo(/*enum servoModules*/uint8_t ServoMod, uint8_t ServoPin, int8_t DefaultAngle);
+void setupServo(enum servoModules ServoMod, uint8_t ServoPin, int8_t DefaultAngle);
 void setupServoPort(int8_t DefaultAngle);
-void setupServoFull(/*enum servoModules*/uint8_t ServoMod, uint8_t ServoPin, int8_t DefaultAngle, uint8_t MinPulseWidth, uint8_t MaxPulseWidth, int8_t MinAngle, int8_t MaxAngle);
-void setServoAngle(/*enum servoModules*/uint8_t ServoMod, int8_t servoAngle);
+void setupServoFull(enum servoModules ServoMod, uint8_t ServoPin, int8_t DefaultAngle, uint8_t MinPulseWidth, uint8_t MaxPulseWidth, int8_t MinAngle, int8_t MaxAngle);
+void setServoAngle(enum servoModules ServoMod, int8_t servoAngle);
 void setServoPortAngle(int8_t servoAngle);
 	
 #endif /* end of servo.h */

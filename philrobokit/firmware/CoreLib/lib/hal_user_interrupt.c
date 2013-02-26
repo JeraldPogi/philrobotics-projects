@@ -73,7 +73,7 @@ void nullIntFunction(void)
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >      extIntISR() , ISR
+* >      extIntISR(), ISR
 * > <BR><BR>
 * > **Parameters:**<BR>
 * >     none
@@ -103,7 +103,7 @@ void extIntISR()
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >      rbIntISR() , ISR
+* >      rbIntISR(), ISR
 * > <BR><BR>
 * > **Parameters:**<BR>
 * >     none

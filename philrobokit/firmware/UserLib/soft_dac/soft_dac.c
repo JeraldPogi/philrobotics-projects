@@ -84,6 +84,9 @@ static void bubbleSortDAC(uint8_t ui8MaxCount);
 void setupSoftDAC(enum etSoftDACModules ui8SDACModule, uint8_t ui8Pin, uint8_t ui8Value) 
 {
     uint8_t ui8Counter;
+    #ifdef S_SPLINT_S // Suppress SPLint Parse Errors 
+        #define bool_t  bool
+    #endif   
     bool_t  blScheduled = false;
     
     /* Use 8Bit Timer Peripheral */
