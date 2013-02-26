@@ -354,10 +354,10 @@ class AppMainWindow(QtGui.QMainWindow):
                 statusTip="Build the current project", triggered=self.startBuild)
         self.stopAct = QtGui.QAction(QtGui.QIcon("./images/stop.png"), "S&top",
                 self, statusTip="Cancel the build process", triggered=self.stopBuild)
-        self.programAct = QtGui.QAction(QtGui.QIcon("./images/load.png"), "&Bootloader",
-                self, statusTip="Download program to the board", triggered=self.programChip)
+        self.programAct = QtGui.QAction(QtGui.QIcon("./images/load.png"), "&Load",
+                self, statusTip="Write program to the board", triggered=self.programChip)
         self.pickit2ProgramAct = QtGui.QAction(QtGui.QIcon("./images/pickit2.png"), "PIC&kit2",
-                self, statusTip="Download program to the board using PICkit2 programmer",
+                self, statusTip="Write program to the board using PICkit2 programmer",
                 triggered=self.pickit2ProgramChip)
         
         self.firmwareLibList = scanFirmwareLibs()
