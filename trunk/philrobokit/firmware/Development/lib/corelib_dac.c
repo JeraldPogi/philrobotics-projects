@@ -55,7 +55,7 @@
 * >      setDAC(module, value) 
 * > <BR><BR>
 * > **Parameters:**<BR>
-* >     module - DAC module assignment, DAC0, DAC1
+* >     module - DAC module assignment, DAC0, DAC1                          <BR>
 * >     value - a value between 0 to 1023
 * > <BR><BR>
 * > **Returns:**<BR>

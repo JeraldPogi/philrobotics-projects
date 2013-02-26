@@ -3,7 +3,7 @@ echo ***************************************************************************
 echo ****************************   Checking CoreLib....   ****************************		>> splint_output\splint_result.txt
 echo ********************************************************************************** 	>> splint_output\splint_result.txt
 
-..\..\..\..\externals\tools\splint\bin\splint.exe -nestcomment -preproc ..\..\CoreLib\*.c >> splint_output\splint_result.txt
+..\..\..\..\externals\tools\splint\bin\splint.exe -nestcomment -preproc -unreachable ..\..\CoreLib\*.c >> splint_output\splint_result.txt
 
 echo ----------------------------------- 	    >> splint_output\splint_result.txt
 echo *** Checking Compiler Options.... ***		>> splint_output\splint_result.txt
@@ -30,10 +30,16 @@ echo ****************************   Checking UserLib....   *********************
 echo ********************************************************************************** 	>> splint_output\splint_result.txt
 
 echo ----------------------------------- 	>> splint_output\splint_result.txt
-echo *** Checking ServoLib.... ***			>> splint_output\splint_result.txt
+echo *** Checking Servo Lib.... ***			>> splint_output\splint_result.txt
 echo ----------------------------------- 	>> splint_output\splint_result.txt
 
-..\..\..\..\externals\tools\splint\bin\splint.exe -nestcomment -preproc ..\..\UserLib\servo\*.c >> splint_output\splint_result.txt
+..\..\..\..\externals\tools\splint\bin\splint.exe -nestcomment -preproc -nullassign ..\..\UserLib\servo\*.c >> splint_output\splint_result.txt
+
+echo ----------------------------------- 	>> splint_output\splint_result.txt
+echo *** Checking SoftDAC Lib.... ***		>> splint_output\splint_result.txt
+echo ----------------------------------- 	>> splint_output\splint_result.txt
+
+..\..\..\..\externals\tools\splint\bin\splint.exe -nestcomment -preproc ..\..\UserLib\soft_dac\*.c >> splint_output\splint_result.txt
 
 
 echo ********************************************************************************** 	>> splint_output\splint_result.txt

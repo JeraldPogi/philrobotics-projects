@@ -67,58 +67,6 @@ void nullTMRFunction()
 	;/* NULL */
 }
 
-#if(TIMER_8BIT_ENABLED == TRUE)
-/*******************************************************************************//**
-* \brief Setup the 8bit timer count resolution
-*
-* > This function is called to setup the 8bit timer peripheral count resolution
-*
-* > <BR>
-* > **Syntax:**<BR>
-* >      setup8BitTimerFull(module, &callback, prescaler, postscaler)
-* > <BR><BR>
-* > **Parameters:**<BR>
-* >     module - timer module assignment, TIMER2, TIMER4, TIMER6
-* >     callback - function address of the timer ISR 
-* >     prescaler - 
-* >     postcaler - 
-* > <BR><BR>
-* > **Returns:**<BR>
-* >     none
-* > <BR><BR>
-***********************************************************************************/
-void setup8BitTimerFull(enum eTmrModules tmrModule, void(*callback)(), uint8_t ui8Prescaler, uint8_t ui8Postscaler)
-{
-    /* Default */
-	if(TIMER2 == tmrModule)
-	{
-	    hal_setTMR2Prescaler(ui8Prescaler);
-    	hal_setTMR2Postscaler(ui8Postscaler); 
-        pt2TMR2ISR = callback;
-	}
-	#if(TIMER4_ENABLED == TRUE)	
-	else if(TIMER4 == tmrModule)
-	{
-		mc_setTMR4Prescaler(ui8Prescaler);
-    	mc_setTMR4Postscaler(ui8Postscaler); 
-        pt2TMR4ISR = callback;
-	}
-	#endif
-	#if(TIMER6_ENABLED == TRUE)	
-	else if(TIMER6 == tmrModule)
-	{
-		mc_setTMR6Prescaler(ui8Prescaler);
-    	mc_setTMR6Postscaler(ui8Postscaler); 
-        pt2TMR6ISR = callback;
-	}
-	#endif
-	else
-	{
-		/* do nothing */
-	}
-}
-#endif
-
 /* Private Functions */
     /* none */
 

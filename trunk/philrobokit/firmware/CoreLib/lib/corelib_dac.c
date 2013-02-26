@@ -55,7 +55,7 @@
 * >      setDAC(module, value) 
 * > <BR><BR>
 * > **Parameters:**<BR>
-* >     module - DAC module assignment, DAC0, DAC1
+* >     module - DAC module assignment, DAC0, DAC1                          <BR>
 * >     value - a value between 0 to 1023
 * > <BR><BR>
 * > **Returns:**<BR>
@@ -64,6 +64,9 @@
 ***********************************************************************************/
 void setDAC(/*enum ePWMModules*/uint8_t eDAC_Module, uint16_t ui16Value) 
 {
+    #ifdef S_SPLINT_S                   // Suppress SPLint Parse Errors 
+        #define uint24_t  uint32_t      // esc.comment: use with caution
+    #endif  
 	uint16_t ui16DutyCycle;
 	
 	/* 0 - 1023 : 0 - 1000  */

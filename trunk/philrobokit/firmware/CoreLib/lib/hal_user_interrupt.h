@@ -43,16 +43,6 @@
 #define RBINTENABLED 		TRUE
     
 /* Global Constants */
-	/* Interrupts Sources */
-enum etInterruptSources
-{
-	INT0                    // INT0 - D8: External Interrupt (RB0)
-	,INT1                   // INT1 - D12: Interrupt on Pin Change (RB4)
-	,INT2                   // INT2 - D13: Interrupt on Pin Change (RB5)
-	,INT3                   // INT3 - PGC: Interrupt on Pin Change (RB6)
-	,INT4                   // INT4 - PGD: Interrupt on Pin Change (RB7)
-};
-
 	/* Interrupt Modes */
 enum etInterruptModes
 {

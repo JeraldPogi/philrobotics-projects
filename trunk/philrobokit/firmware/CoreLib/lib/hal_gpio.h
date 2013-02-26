@@ -45,6 +45,11 @@
 #if (__DEBUG__==__FUNC__)
     #define setPin(x)           setPinState(x,HIGH)
     #define clrPin(x)           setPinState(x,LOW)
+    
+    #ifdef S_SPLINT_S                               // Suppress SPLint Parse Errors 
+        #define bool_t  bool
+    #endif    
+    
     void togglePin(uint8_t ui8PinName);
     void setPinState(uint8_t ui8PinName, bool_t blPinState);
 #endif

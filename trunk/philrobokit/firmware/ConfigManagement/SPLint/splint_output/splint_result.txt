@@ -1,38 +1,25 @@
 ********************************************************************************** 	
 ****************************   Checking CoreLib....   ****************************		
 ********************************************************************************** 	
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c: (in function main)
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(71,8):
-    Test expression for while not boolean, type int: 1
-  Test expression type is not boolean or int. (Use -predboolint to inhibit
-  warning)
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(75,9): Unreachable code: return 0
-  This code will never be reached on any possible execution. (Use -unreachable
-  to inhibit warning)
 ..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c: (in function isr)
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(87,5): Unrecognized identifier:
-                                                    timer8BitISR
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(111,5): Unrecognized identifier:
+                                                     timerISR
   Identifier used in code has not been declared. (Use -unrecog to inhibit
   warning)
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(88,2): Unrecognized identifier:
-                                                    serialRxInterruptHandler
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(89,5): Unrecognized identifier:
-                                                    userIntISR
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(90,2): Unrecognized identifier:
-                                                    serialTxInterruptHandler
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(113,5): Unrecognized identifier:
+                                                     timer8BitISR
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(114,2): Unrecognized identifier:
+                                                     serialRxInterruptHandler
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(115,5): Unrecognized identifier:
+                                                     userIntISR
+..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(116,2): Unrecognized identifier:
+                                                     serialTxInterruptHandler
 ..\..\CoreLib\setupAnito.c: (in function setupAnito)
-..\..\CoreLib\setupAnito.c(34,9): Unrecognized identifier: setupGpio
-..\..\CoreLib\setupAnito.c(35,9): Unrecognized identifier: setupTimer
-..\..\CoreLib\setupAnito.c(36,9): Unrecognized identifier: setupADC
-..\..\CoreLib\setupAnito.c(39,9): Unrecognized identifier: BIT_INTCON_PEIE
-..\..\CoreLib\setupAnito.c(40,3): Unrecognized identifier: BIT_INTCON_GIE
-..\..\CoreLib\PhilRoboKit_CoreLib_Macro.h(73,6):
-    Function exported but not used outside PhilRoboKit_CoreLib_Macro:
-    philrobokit_init
-  A declaration is exported, but not used outside this module. Declaration can
-  use static qualifier. (Use -exportlocal to inhibit warning)
-   ..\..\CoreLib\PhilRoboKit_CoreLib_Macro.c(62,2):
-   Definition of philrobokit_init
+..\..\CoreLib\setupAnito.c(65,5): Unrecognized identifier: setupGpio
+..\..\CoreLib\setupAnito.c(66,5): Unrecognized identifier: setupTimer
+..\..\CoreLib\setupAnito.c(67,5): Unrecognized identifier: setupADC
+..\..\CoreLib\setupAnito.c(70,5): Unrecognized identifier: BIT_INTCON_PEIE
+..\..\CoreLib\setupAnito.c(71,5): Unrecognized identifier: BIT_INTCON_GIE
 
 ----------------------------------- 	    
 *** Checking Compiler Options.... ***		
@@ -45,156 +32,273 @@
 ----------------------------------- 	    
 *** Checking Libraries.... ***		        
 ----------------------------------- 	    
-..\..\CoreLib\lib\corelib_8bit_timer.c: (in function setTimer)
-..\..\CoreLib\lib\corelib_8bit_timer.c(96,4): Unrecognized identifier:
-                                                 REGISTER_PR2
+..\..\CoreLib\lib\corelib_8bit_timer.c: (in function setup8BitTimerFull)
+..\..\CoreLib\lib\corelib_8bit_timer.c(73,6): Unrecognized identifier:
+                                                 REGISTER_T2CON
   Identifier used in code has not been declared. (Use -unrecog to inhibit
   warning)
-..\..\CoreLib\lib\corelib_8bit_timer.c(99,4): Unrecognized identifier:
-                                                 BIT_T2CON_TMR2ON
-..\..\CoreLib\lib\corelib_8bit_timer.c(101,4): Unrecognized identifier:
+..\..\CoreLib\lib\corelib_8bit_timer.c(73,24): Unrecognized identifier:
+                                                  TMR_PRESCALE_MASK
+..\..\CoreLib\lib\corelib_8bit_timer.c(74,24): Unrecognized identifier:
+                                                  TMR_POSTSCALE_MASK
+..\..\CoreLib\lib\corelib_8bit_timer.c(80,3): Unrecognized identifier:
+                                                 mc_setTMR4Prescaler
+..\..\CoreLib\lib\corelib_8bit_timer.c(81,6): Unrecognized identifier:
+                                                 mc_setTMR4Postscaler
+..\..\CoreLib\lib\corelib_8bit_timer.c(82,9): Unrecognized identifier:
+                                                 pt2TMR4ISR
+..\..\CoreLib\lib\corelib_8bit_timer.c(88,3): Unrecognized identifier:
+                                                 mc_setTMR6Prescaler
+..\..\CoreLib\lib\corelib_8bit_timer.c(89,6): Unrecognized identifier:
+                                                 mc_setTMR6Postscaler
+..\..\CoreLib\lib\corelib_8bit_timer.c(90,9): Unrecognized identifier:
+                                                 pt2TMR6ISR
+..\..\CoreLib\lib\corelib_8bit_timer.c: (in function setTimer)
+..\..\CoreLib\lib\corelib_8bit_timer.c(148,4): Unrecognized identifier:
+                                                  REGISTER_PR2
+..\..\CoreLib\lib\corelib_8bit_timer.c(151,4): Unrecognized identifier:
+                                                  BIT_T2CON_TMR2ON
+..\..\CoreLib\lib\corelib_8bit_timer.c(153,4): Unrecognized identifier:
                                                   BIT_PIE1_TMR2IE
-..\..\CoreLib\lib\corelib_8bit_timer.c(106,3): Unrecognized identifier:
+..\..\CoreLib\lib\corelib_8bit_timer.c(158,3): Unrecognized identifier:
                                                   hal_setTMR4Value
-..\..\CoreLib\lib\corelib_8bit_timer.c(109,3): Unrecognized identifier:
+..\..\CoreLib\lib\corelib_8bit_timer.c(161,3): Unrecognized identifier:
                                                   hal_enableTMR4
-..\..\CoreLib\lib\corelib_8bit_timer.c(111,3): Unrecognized identifier:
+..\..\CoreLib\lib\corelib_8bit_timer.c(163,3): Unrecognized identifier:
                                                   hal_enableTMR4Int
-..\..\CoreLib\lib\corelib_8bit_timer.c(117,3): Unrecognized identifier:
+..\..\CoreLib\lib\corelib_8bit_timer.c(169,3): Unrecognized identifier:
                                                   hal_setTMR6Value
-..\..\CoreLib\lib\corelib_8bit_timer.c(120,3): Unrecognized identifier:
+..\..\CoreLib\lib\corelib_8bit_timer.c(172,3): Unrecognized identifier:
                                                   hal_enableTMR6
-..\..\CoreLib\lib\corelib_8bit_timer.c(122,3): Unrecognized identifier:
+..\..\CoreLib\lib\corelib_8bit_timer.c(174,3): Unrecognized identifier:
                                                   hal_enableTMR6Int
 ..\..\CoreLib\lib\corelib_8bit_timer.c: (in function timer8BitISR)
-..\..\CoreLib\lib\corelib_8bit_timer.c(150,7): Unrecognized identifier:
+..\..\CoreLib\lib\corelib_8bit_timer.c(202,7): Unrecognized identifier:
                                                   BIT_PIR1_TMR2IF
-..\..\CoreLib\lib\corelib_8bit_timer.c(162,5): Unrecognized identifier:
+..\..\CoreLib\lib\corelib_8bit_timer.c(214,5): Unrecognized identifier:
                                                   hal_getTMR4IntFlag
-..\..\CoreLib\lib\corelib_8bit_timer.c(162,29): Unrecognized identifier:
+..\..\CoreLib\lib\corelib_8bit_timer.c(214,29): Unrecognized identifier:
                                                    hal_getTMR4IntEnableStatus
-..\..\CoreLib\lib\corelib_8bit_timer.c(165,3): Unrecognized identifier:
+..\..\CoreLib\lib\corelib_8bit_timer.c(217,3): Unrecognized identifier:
                                                   hal_clrTMR4IntFlag
-..\..\CoreLib\lib\corelib_8bit_timer.c(166,3): Unrecognized identifier:
+..\..\CoreLib\lib\corelib_8bit_timer.c(218,3): Unrecognized identifier:
                                                   hal_disableTMR4Int
-..\..\CoreLib\lib\corelib_8bit_timer.c(167,3): Unrecognized identifier:
+..\..\CoreLib\lib\corelib_8bit_timer.c(219,3): Unrecognized identifier:
                                                   hal_disableTMR4
-..\..\CoreLib\lib\corelib_8bit_timer.c(170,3): Unrecognized identifier:
-                                                  pt2TMR4ISR
-..\..\CoreLib\lib\corelib_8bit_timer.c(175,5): Unrecognized identifier:
+..\..\CoreLib\lib\corelib_8bit_timer.c(227,5): Unrecognized identifier:
                                                   hal_getTMR6IntFlag
-..\..\CoreLib\lib\corelib_8bit_timer.c(175,29): Unrecognized identifier:
+..\..\CoreLib\lib\corelib_8bit_timer.c(227,29): Unrecognized identifier:
                                                    hal_getTMR6IntEnableStatus
-..\..\CoreLib\lib\corelib_8bit_timer.c(178,3): Unrecognized identifier:
+..\..\CoreLib\lib\corelib_8bit_timer.c(230,3): Unrecognized identifier:
                                                   hal_clrTMR6IntFlag
-..\..\CoreLib\lib\corelib_8bit_timer.c(179,3): Unrecognized identifier:
+..\..\CoreLib\lib\corelib_8bit_timer.c(231,3): Unrecognized identifier:
                                                   hal_disableTMR6Int
-..\..\CoreLib\lib\corelib_8bit_timer.c(180,3): Unrecognized identifier:
+..\..\CoreLib\lib\corelib_8bit_timer.c(232,3): Unrecognized identifier:
                                                   hal_disableTMR6
-..\..\CoreLib\lib\corelib_8bit_timer.c(183,3): Unrecognized identifier:
-                                                  pt2TMR6ISR
-..\..\CoreLib\lib\corelib_adc.c: (in function setupADC)
-..\..\CoreLib\lib\corelib_adc.c(48,2): Unrecognized identifier: REGISTER_TRISA
-..\..\CoreLib\lib\corelib_adc.c(49,2): Unrecognized identifier: REGISTER_TRISE
-..\..\CoreLib\lib\corelib_adc.c(51,2): Unrecognized identifier: BIT_ADCON0_ADON
-..\..\CoreLib\lib\corelib_adc.c(53,2): Unrecognized identifier:
-                                          BIT_ADCON1_PCFG0
-..\..\CoreLib\lib\corelib_adc.c(54,2): Unrecognized identifier:
-                                          BIT_ADCON1_PCFG1
-..\..\CoreLib\lib\corelib_adc.c(55,2): Unrecognized identifier:
-                                          BIT_ADCON1_PCFG2
-..\..\CoreLib\lib\corelib_adc.c(56,2): Unrecognized identifier:
-                                          BIT_ADCON1_PCFG3
-..\..\CoreLib\lib\corelib_adc.c(58,2): Unrecognized identifier: BIT_ADCON0_CHS0
-..\..\CoreLib\lib\corelib_adc.c(59,2): Unrecognized identifier: BIT_ADCON0_CHS1
-..\..\CoreLib\lib\corelib_adc.c(60,2): Unrecognized identifier: BIT_ADCON0_CHS2
-..\..\CoreLib\lib\corelib_adc.c(62,2): Unrecognized identifier: BIT_ADCON1_ADFM
-..\..\CoreLib\lib\corelib_adc.c(66,3): Unrecognized identifier:
-                                          BIT_ADCON0_ADCS0
-..\..\CoreLib\lib\corelib_adc.c(67,3): Unrecognized identifier:
-                                          BIT_ADCON0_ADCS1
-..\..\CoreLib\lib\corelib_adc.c(68,3): Unrecognized identifier:
-                                          BIT_ADCON1_ADCS2
-..\..\CoreLib\lib\corelib_adc.c(75,2): Unrecognized identifier: BIT_PIR1_ADIF
-..\..\CoreLib\lib\corelib_adc.c(76,2): Unrecognized identifier: BIT_PIE1_ADIE
-..\..\CoreLib\lib\corelib_adc.c(78,2): Unrecognized identifier: BIT_INTCON_PEIE
-..\..\CoreLib\lib\corelib_adc.c(79,2): Unrecognized identifier: BIT_INTCON_GIE
-..\..\CoreLib\lib\corelib_adc.c: (in function setupADCPinsToDigital)
-..\..\CoreLib\lib\corelib_adc.c(84,2): Unrecognized identifier: REGISTER_ADCON1
-..\..\CoreLib\lib\corelib_adc.c(88,2): Unrecognized identifier: REGISTER_PORTA
-..\..\CoreLib\lib\corelib_adc.c: (in function adcReadOnly)
-..\..\CoreLib\lib\corelib_adc.c(124,13): Unrecognized identifier:
-                                            REGISTER_ADRESH
-..\..\CoreLib\lib\corelib_adc.c(124,37): Unrecognized identifier:
-                                            REGISTER_ADRESL
-..\..\CoreLib\lib\corelib_adc.c: (in function adcStart)
-..\..\CoreLib\lib\corelib_adc.c(134,2): Unrecognized identifier:
-                                           BIT_ADCON0_GO_DONE
-..\..\CoreLib\lib\corelib_dac.c: (in function setDAC)
-..\..\CoreLib\lib\corelib_dac.c(70,31): Unrecognized identifier: uint24_t
+..\..\CoreLib\lib\corelib_pwm.c: (in function setupPWM)
+..\..\CoreLib\lib\corelib_pwm.c(89,3): Unrecognized identifier:
+                                          REGISTER_CCP1CON
+..\..\CoreLib\lib\corelib_pwm.c(89,31): Unrecognized identifier: CCP_MODE_MASK
+..\..\CoreLib\lib\corelib_pwm.c(90,14): Unrecognized identifier: D2
+..\..\CoreLib\lib\corelib_pwm.c(94,3): Unrecognized identifier:
+                                          REGISTER_CCP2CON
+..\..\CoreLib\lib\corelib_pwm.c(95,14): Unrecognized identifier: D1
+..\..\CoreLib\lib\corelib_pwm.c: (in function setPWMDuty)
+..\..\CoreLib\lib\corelib_pwm.c(221,24): Unrecognized identifier:
+                                            PWM_DC_LSB_MASK
+..\..\CoreLib\lib\corelib_pwm.c(221,101): Unrecognized identifier:
+                                             REGISTER_CCPR1L
+..\..\CoreLib\lib\corelib_pwm.c(225,101): Unrecognized identifier:
+                                             REGISTER_CCPR2L
+..\..\CoreLib\lib\corelib_user_interrupt.c: (in function setupUserInt)
+..\..\CoreLib\lib\corelib_user_interrupt.c(81,13): Unrecognized identifier: D8
+..\..\CoreLib\lib\corelib_user_interrupt.c(85,5): Unrecognized identifier:
+                                                     INTEDG
+..\..\CoreLib\lib\corelib_user_interrupt.c(94,7): Unrecognized identifier: HIGH
+..\..\CoreLib\lib\corelib_user_interrupt.c(110,4): Unrecognized identifier:
+                                                      BIT_INTCON_INTF
+..\..\CoreLib\lib\corelib_user_interrupt.c(111,4): Unrecognized identifier:
+                                                      BIT_INTCON_INTE
+..\..\CoreLib\lib\corelib_user_interrupt.c(124,17): Unrecognized identifier:
+                                                       D12
+..\..\CoreLib\lib\corelib_user_interrupt.c(133,17): Unrecognized identifier:
+                                                       D13
+..\..\CoreLib\lib\corelib_user_interrupt.c(142,7): Unrecognized identifier:
+                                                      REGISTER_TRISB
+..\..\CoreLib\lib\corelib_user_interrupt.c(162,19): Unrecognized identifier:
+                                                       REGISTER_PORTB
+..\..\CoreLib\lib\corelib_user_interrupt.c(164,4): Unrecognized identifier:
+                                                      BIT_INTCON_RBIF
+..\..\CoreLib\lib\corelib_user_interrupt.c(165,4): Unrecognized identifier:
+                                                      BIT_INTCON_RBIE
+..\..\CoreLib\lib\hal_adc.c: (in function setupADC)
+..\..\CoreLib\lib\hal_adc.c(41,2): Unrecognized identifier: REGISTER_TRISA
+..\..\CoreLib\lib\hal_adc.c(42,2): Unrecognized identifier: REGISTER_TRISE
+..\..\CoreLib\lib\hal_adc.c(44,2): Unrecognized identifier: BIT_ADCON0_ADON
+..\..\CoreLib\lib\hal_adc.c(46,2): Unrecognized identifier: BIT_ADCON1_PCFG0
+..\..\CoreLib\lib\hal_adc.c(47,2): Unrecognized identifier: BIT_ADCON1_PCFG1
+..\..\CoreLib\lib\hal_adc.c(48,2): Unrecognized identifier: BIT_ADCON1_PCFG2
+..\..\CoreLib\lib\hal_adc.c(49,2): Unrecognized identifier: BIT_ADCON1_PCFG3
+..\..\CoreLib\lib\hal_adc.c(51,2): Unrecognized identifier: BIT_ADCON0_CHS0
+..\..\CoreLib\lib\hal_adc.c(52,2): Unrecognized identifier: BIT_ADCON0_CHS1
+..\..\CoreLib\lib\hal_adc.c(53,2): Unrecognized identifier: BIT_ADCON0_CHS2
+..\..\CoreLib\lib\hal_adc.c(55,2): Unrecognized identifier: BIT_ADCON1_ADFM
+..\..\CoreLib\lib\hal_adc.c(59,3): Unrecognized identifier: BIT_ADCON0_ADCS0
+..\..\CoreLib\lib\hal_adc.c(60,3): Unrecognized identifier: BIT_ADCON0_ADCS1
+..\..\CoreLib\lib\hal_adc.c(61,3): Unrecognized identifier: BIT_ADCON1_ADCS2
+..\..\CoreLib\lib\hal_adc.c(68,2): Unrecognized identifier: BIT_PIR1_ADIF
+..\..\CoreLib\lib\hal_adc.c(69,2): Unrecognized identifier: BIT_PIE1_ADIE
+..\..\CoreLib\lib\hal_adc.c: (in function setupADCPinsToDigital)
+..\..\CoreLib\lib\hal_adc.c(75,2): Unrecognized identifier: REGISTER_ADCON1
+..\..\CoreLib\lib\hal_adc.c(79,2): Unrecognized identifier: REGISTER_PORTA
+..\..\CoreLib\lib\hal_adc.c(82,2): Unrecognized identifier: REGISTER_PORTE
+..\..\CoreLib\lib\hal_adc.c: (in function adcSetChannel)
+..\..\CoreLib\lib\hal_adc.c(98,2): Unrecognized identifier: delayUs
+..\..\CoreLib\lib\hal_adc.c: (in function adcStart)
+..\..\CoreLib\lib\hal_adc.c(104,2): Unrecognized identifier: BIT_ADCON0_GO_DONE
+..\..\CoreLib\lib\hal_adc.c: (in function adcRead)
+..\..\CoreLib\lib\hal_adc.c(115,16): Unrecognized identifier: REGISTER_ADRESH
+..\..\CoreLib\lib\hal_adc.c(116,16): Unrecognized identifier: REGISTER_ADRESL
+..\..\CoreLib\lib\hal_adc.c: (in function isADCConversionDone)
+..\..\CoreLib\lib\hal_adc.c(142,32): Unrecognized identifier: FALSE
+..\..\CoreLib\lib\hal_adc.c(142,38): Unrecognized identifier: TRUE
+..\..\CoreLib\lib\hal_gpio.c: (in function setupGpio)
+..\..\CoreLib\lib\hal_gpio.c(35,39): Unrecognized identifier:
+                                        K8_DEFAULT_CONFIG_PORTA
+..\..\CoreLib\lib\hal_gpio.c(36,39): Unrecognized identifier:
+                                        K8_DEFAULT_CONFIG_PORTB
+..\..\CoreLib\lib\hal_gpio.c(37,5): Unrecognized identifier: REGISTER_TRISC
+..\..\CoreLib\lib\hal_gpio.c(37,22): Unrecognized identifier: REGISTER_PORTC
+..\..\CoreLib\lib\hal_gpio.c(37,39): Unrecognized identifier:
+                                        K8_DEFAULT_CONFIG_PORTC
+..\..\CoreLib\lib\hal_gpio.c(38,5): Unrecognized identifier: REGISTER_TRISD
+..\..\CoreLib\lib\hal_gpio.c(38,22): Unrecognized identifier: REGISTER_PORTD
+..\..\CoreLib\lib\hal_gpio.c(38,39): Unrecognized identifier:
+                                        K8_DEFAULT_CONFIG_PORTD
+..\..\CoreLib\lib\hal_gpio.c(39,39): Unrecognized identifier:
+                                        K8_DEFAULT_CONFIG_PORTE
+..\..\CoreLib\lib\hal_gpio.c: (in function configPin)
+..\..\CoreLib\lib\hal_gpio.c(44,19): Unrecognized identifier: D7
+..\..\CoreLib\lib\hal_gpio.c(64,24): Unrecognized identifier: D14
+..\..\CoreLib\lib\hal_gpio.c(64,45): Unrecognized identifier: D20
+..\..\CoreLib\lib\hal_gpio.c(74,19): Unrecognized identifier: D4
+..\..\CoreLib\lib\hal_gpio.c(91,24): Unrecognized identifier: SERVO
+..\..\CoreLib\lib\hal_gpio.c(91,47): Unrecognized identifier: LED1
+..\..\CoreLib\lib\hal_timer.c: (in function setupTimer)
+..\..\CoreLib\lib\hal_timer.c(69,5): Unrecognized identifier: BIT_T1CON_T1CKPS1
+..\..\CoreLib\lib\hal_timer.c(70,5): Unrecognized identifier: BIT_T1CON_T1CKPS0
+..\..\CoreLib\lib\hal_timer.c(71,5): Unrecognized identifier: BIT_T1CON_T1OSCEN
+..\..\CoreLib\lib\hal_timer.c(72,5): Unrecognized identifier: BIT_T1CON_T1SYNC
+..\..\CoreLib\lib\hal_timer.c(73,5): Unrecognized identifier: BIT_T1CON_TMR1CS
+..\..\CoreLib\lib\hal_timer.c(75,5): Unrecognized identifier: REGISTER_TMR1L
+..\..\CoreLib\lib\hal_timer.c(76,5): Unrecognized identifier: REGISTER_TMR1H
+..\..\CoreLib\lib\hal_timer.c(78,5): Unrecognized identifier: BIT_T1CON_TMR1ON
+..\..\CoreLib\lib\hal_timer.c(80,5): Unrecognized identifier: BIT_PIE1_TMR1IE
+..\..\CoreLib\lib\hal_timer.c(81,5): Unrecognized identifier: BIT_PIR1_TMR1IF
+..\..\CoreLib\lib\hal_timer.c(83,5): Unrecognized identifier: BIT_INTCON_PEIE
+..\..\CoreLib\lib\hal_timer.c(84,5): Unrecognized identifier: BIT_INTCON_GIE
+..\..\CoreLib\lib\hal_uart.c: (in function setupSerial)
+..\..\CoreLib\lib\hal_uart.c(38,3): Unrecognized identifier: BIT_TXSTA_TX9
+..\..\CoreLib\lib\hal_uart.c(39,3): Unrecognized identifier: BIT_TXSTA_TXEN
+..\..\CoreLib\lib\hal_uart.c(40,3): Unrecognized identifier: BIT_TXSTA_SYNC
+..\..\CoreLib\lib\hal_uart.c(43,3): Unrecognized identifier: BIT_TXSTA_BRGH
+..\..\CoreLib\lib\hal_uart.c(49,4): Unrecognized identifier: REGISTER_SPBRG
+..\..\CoreLib\lib\hal_uart.c(74,3): Unrecognized identifier: BIT_RCSTA_SPEN
+..\..\CoreLib\lib\hal_uart.c(75,3): Unrecognized identifier: BIT_RCSTA_RX9
+..\..\CoreLib\lib\hal_uart.c(76,3): Unrecognized identifier: BIT_RCSTA_CREN
+..\..\CoreLib\lib\hal_uart.c(78,3): Unrecognized identifier: BIT_PIE1_TXIE
+..\..\CoreLib\lib\hal_uart.c(79,3): Unrecognized identifier: BIT_PIR1_TXIF
+..\..\CoreLib\lib\hal_uart.c(81,3): Unrecognized identifier: BIT_PIE1_RCIE
+..\..\CoreLib\lib\hal_uart.c(82,3): Unrecognized identifier: BIT_PIR1_RCIF
+..\..\CoreLib\lib\hal_uart.c: (in function isSerialBufferFull)
+..\..\CoreLib\lib\hal_uart.c(90,10): Return value type boolean does not match
+    declared type uint8_t: (((uartTXFiFo.Head + 1) & ((32) - 1)) ==
+    uartTXFiFo.Tail)
+  Types are incompatible. (Use -type to inhibit warning)
+..\..\CoreLib\lib\hal_uart.c: (in function serialSendChar)
+..\..\CoreLib\lib\hal_uart.c(95,10): Test expression for while not boolean,
+                                        type uint8_t: isSerialBufferFull()
+  Test expression type is not boolean or int. (Use -predboolint to inhibit
+  warning)
+..\..\CoreLib\lib\hal_uart.c: (in function serialSendString)
+..\..\CoreLib\lib\hal_uart.c(111,9): Test expression for while not boolean,
+                                        type uint8_t: *pui8StrTxData
+..\..\CoreLib\lib\hal_uart.c: (in function serialSendBlock)
+..\..\CoreLib\lib\hal_uart.c(118,17):
+    Test expression for while not boolean, type uint16_t: ui16Size--
+..\..\CoreLib\lib\hal_uart.c: (in function isSerialDataAvailable)
+..\..\CoreLib\lib\hal_uart.c(125,6): Unrecognized identifier: BIT_RCSTA_OERR
+..\..\CoreLib\lib\hal_uart.c: (in function serialRxInterruptHandler)
+..\..\CoreLib\lib\hal_uart.c(175,41): Unrecognized identifier: REGISTER_RCREG
+..\..\CoreLib\lib\hal_uart.c: (in function serialTxInterruptHandler)
+..\..\CoreLib\lib\hal_uart.c(190,4): Unrecognized identifier: REGISTER_TXREG
+..\..\CoreLib\lib\hal_user_interrupt.c: (in function rbIntISR)
+..\..\CoreLib\lib\hal_user_interrupt.c(125,28): Unrecognized identifier: LOW
+..\..\CoreLib\lib\corelib_pwm.h(59,6):
+    Function exported but not used outside corelib_pwm: setPWMFrequency
+  A declaration is exported, but not used outside this module. Declaration can
+  use static qualifier. (Use -exportlocal to inhibit warning)
+   ..\..\CoreLib\lib\corelib_pwm.c(186,1): Definition of setPWMFrequency
+..\..\CoreLib\lib\corelib_pwm.h(60,6):
+    Function exported but not used outside corelib_pwm: setPWMDuty
+   ..\..\CoreLib\lib\corelib_pwm.c(232,1): Definition of setPWMDuty
+..\..\CoreLib\lib\hal_user_interrupt.h(101,10):
+    Function exported but not used outside hal_user_interrupt: nullIntFunction
+   ..\..\CoreLib\lib\hal_user_interrupt.c(67,1): Definition of nullIntFunction
+..\..\CoreLib\lib\hal_uart.h(46,3): Variable exported but not used outside
+                                       hal_uart: uartTXFiFo
+..\..\CoreLib\lib\hal_uart.h(46,15): Variable exported but not used outside
+                                        hal_uart: uartRXFiFo
+..\..\CoreLib\lib\hal_uart.c(88,10): Function exported but not used outside
+                                        hal_uart: isSerialBufferFull
+   ..\..\CoreLib\lib\hal_uart.c(91,2): Definition of isSerialBufferFull
+
 ********************************************************************************** 	
 ****************************   Checking UserLib....   ****************************		
 ********************************************************************************** 	
 ----------------------------------- 	
-*** Checking ServoLib.... ***			
+*** Checking Servo Lib.... ***			
 ----------------------------------- 	
-..\..\UserLib\servo\servo.c(53,56): Static servo[0] initialized to null value:
-                                       servo[0] = 0
-  A reference with no null annotation is assigned or initialized to NULL.  Use
-  /*@null@*/ to declare the reference as a possibly null pointer. (Use
-  -nullassign to inhibit warning)
-..\..\UserLib\servo\servo.c: (in function setupServo)
-..\..\UserLib\servo\servo.c(74,2): Assignment of unsigned char to uint8_t:
-                                      servo[ServoMod][SERVO_PIN] = ServoPin
-  Types are incompatible. (Use -type to inhibit warning)
-..\..\UserLib\servo\servo.c(81,17): Incompatible types for - (long int,
-    unsigned char): (long int)MaxPulseWidth - MinPulseWidth
-  To make char and int types equivalent, use +charint.
-..\..\UserLib\servo\servo.c(82,17): Incompatible types for - (int, char):
-                                       (int)MaxAngle - MinAngle
-..\..\UserLib\servo\servo.c(83,2): Assignment of unsigned char to uint8_t:
-    servo[ServoMod][SERVO_SLOPE] = (unsigned char)TempBuffer
-..\..\UserLib\servo\servo.c(86,2): Assignment of unsigned char to uint8_t:
-    servo[ServoMod][SERVO_PULSE] = (unsigned char)(((long int)DefaultAngle *
-    servo[ServoMod][SERVO_SLOPE]) / 128 + 150)
-..\..\UserLib\servo\servo.c(91,3): Unrecognized identifier: setup8BitTimerDef
+..\..\UserLib\servo\servo.c: (in function setupServoFull)
+..\..\UserLib\servo\servo.c(108,3): Unrecognized identifier: setup8BitTimer
   Identifier used in code has not been declared. (Use -unrecog to inhibit
   warning)
-..\..\UserLib\servo\servo.c(91,21): Unrecognized identifier: TIMER2
-..\..\UserLib\servo\servo.c(92,3): Unrecognized identifier: setTimerValue
-..\..\UserLib\servo\servo.c: (in function setupServoDef)
-..\..\UserLib\servo\servo.c(99,47): Function setupServo expects arg 4 to be
-                                       unsigned char gets int: 50
-..\..\UserLib\servo\servo.c(99,51): Function setupServo expects arg 5 to be
-                                       unsigned char gets int: 250
-..\..\UserLib\servo\servo.c(99,56): Function setupServo expects arg 6 to be
-                                       char gets int: (-90)
-..\..\UserLib\servo\servo.c(99,63): Function setupServo expects arg 7 to be
-                                       char gets int: (+90)
+..\..\UserLib\servo\servo.c(108,18): Unrecognized identifier: TIMER2
+..\..\UserLib\servo\servo.c(109,3): Unrecognized identifier: setTimer
 ..\..\UserLib\servo\servo.c: (in function setupServoPort)
-..\..\UserLib\servo\servo.c(104,19): Unrecognized identifier: SERVO
-..\..\UserLib\servo\servo.c(104,39): Function setupServo expects arg 4 to be
-                                        unsigned char gets int: 50
-..\..\UserLib\servo\servo.c(104,43): Function setupServo expects arg 5 to be
-                                        unsigned char gets int: 250
-..\..\UserLib\servo\servo.c(104,48): Function setupServo expects arg 6 to be
-                                        char gets int: (-90)
-..\..\UserLib\servo\servo.c(104,55): Function setupServo expects arg 7 to be
-                                        char gets int: (+90)
-..\..\UserLib\servo\servo.c: (in function setServoAngle)
-..\..\UserLib\servo\servo.c(109,2): Assignment of unsigned char to uint8_t:
-    servo[ServoMod][SERVO_PULSE] = (unsigned char)(((long int)servoAngle *
-    servo[ServoMod][SERVO_SLOPE]) / 128 + 150)
+..\..\UserLib\servo\servo.c(156,23): Unrecognized identifier: SERVO
 ..\..\UserLib\servo\servo.c: (in function servoController)
-..\..\UserLib\servo\servo.c(126,4): Unrecognized identifier: setPinLow
-..\..\UserLib\servo\servo.c(154,5): Unrecognized identifier: setPinHigh
-..\..\UserLib\servo\servo.h(75,6): Function exported but not used outside
-                                      servo: setupServo
+..\..\UserLib\servo\servo.c(228,4): Unrecognized identifier: clrPin
+..\..\UserLib\servo\servo.c(256,5): Unrecognized identifier: setPin
+..\..\UserLib\servo\servo.h(82,6): Function exported but not used outside
+                                      servo: setupServoFull
   A declaration is exported, but not used outside this module. Declaration can
   use static qualifier. (Use -exportlocal to inhibit warning)
-   ..\..\UserLib\servo\servo.c(95,1): Definition of setupServo
-..\..\UserLib\servo\servo.h(78,6): Function exported but not used outside
+   ..\..\UserLib\servo\servo.c(112,1): Definition of setupServoFull
+..\..\UserLib\servo\servo.h(83,6): Function exported but not used outside
                                       servo: setServoAngle
-   ..\..\UserLib\servo\servo.c(110,1): Definition of setServoAngle
+   ..\..\UserLib\servo\servo.c(179,1): Definition of setServoAngle
+
+----------------------------------- 	
+*** Checking SoftDAC Lib.... ***		
+----------------------------------- 	
+..\..\UserLib\soft_dac\soft_dac.c: (in function setupSoftDAC)
+..\..\UserLib\soft_dac\soft_dac.c(93,5): Unrecognized identifier:
+                                            setup8BitTimer
+  Identifier used in code has not been declared. (Use -unrecog to inhibit
+  warning)
+..\..\UserLib\soft_dac\soft_dac.c(93,20): Unrecognized identifier: TIMER2
+..\..\UserLib\soft_dac\soft_dac.c(96,5): Unrecognized identifier: makeOutput
+..\..\UserLib\soft_dac\soft_dac.c(97,5): Unrecognized identifier: clrPin
+..\..\UserLib\soft_dac\soft_dac.c: (in function setSoftDAC)
+..\..\UserLib\soft_dac\soft_dac.c(160,17): Unrecognized identifier: setPin
+..\..\UserLib\soft_dac\soft_dac.c: (in function removeSoftDAC)
+..\..\UserLib\soft_dac\soft_dac.c(199,13): Unrecognized identifier: makeInput
+..\..\UserLib\soft_dac\soft_dac.c: (in function softDACController)
+..\..\UserLib\soft_dac\soft_dac.c(352,17): Unrecognized identifier: setTimer
+..\..\UserLib\soft_dac\soft_dac.c(55,62):
+    Variable exported but not used outside soft_dac: stDACModuleSchedule
+  A declaration is exported, but not used outside this module. Declaration can
+  use static qualifier. (Use -exportlocal to inhibit warning)
 
 ********************************************************************************** 	

@@ -46,14 +46,6 @@
 	//#define TIMER6_ENABLED	TRUE
    
 /* Global Constants */    
-    /* Timers */
-enum eTmrModules
-{
-	TIMER2		= 2
-	,TIMER4		= 4
-	,TIMER6		= 6
-};
-
 //***********************************************************************************
 // TMR Prescaler Value
 //      0  - 1
@@ -116,7 +108,6 @@ enum eTmrModules
 
 /* Public Function Prototypes */	
 #if(TIMER_8BIT_ENABLED == TRUE)
-	void setup8BitTimerFull(enum eTmrModules tmrModule, void(*callback)(), uint8_t ui8Prescaler, uint8_t ui8Postscaler);
     void nullTMRFunction();
     
     void (*pt2TMR2ISR)() = &nullTMRFunction;		// interrupt function pointer

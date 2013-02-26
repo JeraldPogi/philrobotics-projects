@@ -6,7 +6,7 @@
 *---------------------------------------------------------------------------------------------
 * |Filename:      | "servo.h"                                   |
 * |:----          |:----                                        |
-* |Description:   | This is a header file of the 8 bit timer library |
+* |Description:   | This is a header file of the servo driver   |
 * |Revision:      | v00.01.00                                   |
 * |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
@@ -40,24 +40,10 @@
 #ifndef __PH_SERVO_H__
 #define __PH_SERVO_H__
 
-#if defined(HI_TECH_C)
-	#ifndef S_SPLINT_S 	        // Suppress SPLint Unrecognized ID Errors
-		#include "htc_common.h"
-	#else
-		#include "htc_common_SPLint.h"
-	#endif
-	
-	#if defined( _16F873A ) || defined( _16F874A )  || defined( _16F876A ) || defined( _16F877A )  	
-		#ifndef S_SPLINT_S 	    // Suppress SPLint Unrecognized ID Errors
-			#include "htc_16f87xa.h"
-		#else
-			#include "htc_16f87xa_SPLint.h"
-		#endif
-	#endif
-#endif
-
 /* Include .h Library Files */
 #include <PhilRoboKit_CoreLib_Macro.h>
+#include <corelib_8bit_timer.h>
+#include <hal_8bit_timer.h>
 
 /* User Configuration Definitions */
 #define SERVO_TIMER                 TIMER2
@@ -91,10 +77,10 @@ enum servoModules
     /* none */
     
 /* Public Function Prototypes */
-void setupServo(/*enum servoModules*/uint8_t ServoMod, uint8_t ServoPin, int8_t DefaultAngle);
+void setupServo(enum servoModules ServoMod, uint8_t ServoPin, int8_t DefaultAngle);
 void setupServoPort(int8_t DefaultAngle);
-void setupServoFull(/*enum servoModules*/uint8_t ServoMod, uint8_t ServoPin, int8_t DefaultAngle, uint8_t MinPulseWidth, uint8_t MaxPulseWidth, int8_t MinAngle, int8_t MaxAngle);
-void setServoAngle(/*enum servoModules*/uint8_t ServoMod, int8_t servoAngle);
+void setupServoFull(enum servoModules ServoMod, uint8_t ServoPin, int8_t DefaultAngle, uint8_t MinPulseWidth, uint8_t MaxPulseWidth, int8_t MinAngle, int8_t MaxAngle);
+void setServoAngle(enum servoModules ServoMod, int8_t servoAngle);
 void setServoPortAngle(int8_t servoAngle);
 	
 #endif /* end of servo.h */

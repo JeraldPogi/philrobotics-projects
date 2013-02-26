@@ -6,7 +6,7 @@
 *---------------------------------------------------------------------------------------------
 * |Filename:      | "servo.c"                                   |
 * |:----          |:----                                        |
-* |Description:   | This is a library for using the 8 bit timer functions |
+* |Description:   | This is a library for driving servo motors  |
 * |Revision:      | v00.01.00                                   |
 * |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
@@ -51,7 +51,7 @@ static enum servoInfo
 };
 
 /* Local Variables */
-static uint8_t servo[NUMBEROFMODULES][NUMBEROFINFO] = {0};
+static uint8_t servo[NUMBEROFMODULES][NUMBEROFINFO] = {0};/*@null@*/
 	
 static uint8_t sequenceCounter = 8;
 static uint8_t servoState = SERVO_PULSEOFF;
@@ -78,19 +78,19 @@ static void servoController();
 * >     setupServoFull(module, pin, angle, min_pulse, max_pulse, min_angle, max_angle) 
 * > <BR><BR>
 * > **Parameters:**<BR>
-* >     module - servo module assignment, SERV0, SERV1, SERV2, SERV3, SERV4, SERV5, SERV6, SERV7
-* >     pin - Anito pin number assignment
-* >     angle - desired default angle in 1 degree resolution
-* >     min_pulse - min servo input pulse in 10mS resolution
-* >     max_pulse - max servo input pulse in 10mS resolution
-* >     min_angle - min servo angle in 1 degree resolution, center position is 0degree
+* >     module - servo module assignment, SERV0, SERV1, SERV2, SERV3, SERV4, SERV5, SERV6, SERV7    <BR>
+* >     pin - Anito pin number assignment                                                           <BR>
+* >     angle - desired default angle in 1 degree resolution                                        <BR>
+* >     min_pulse - min servo input pulse in 10mS resolution                                        <BR>
+* >     max_pulse - max servo input pulse in 10mS resolution                                        <BR>
+* >     min_angle - min servo angle in 1 degree resolution, center position is 0degree              <BR>
 * >     max_angle - min servo angle in 1 degree resolution, center position is 0degree
 * > <BR><BR>
 * > **Returns:**<BR>
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setupServoFull(/*enum servoModules*/uint8_t ServoMod, uint8_t ServoPin, int8_t DefaultAngle, uint8_t MinPulseWidth, uint8_t MaxPulseWidth, int8_t MinAngle, int8_t MaxAngle)
+void setupServoFull(enum servoModules ServoMod, uint8_t ServoPin, int8_t DefaultAngle, uint8_t MinPulseWidth, uint8_t MaxPulseWidth, int8_t MinAngle, int8_t MaxAngle)
 {
 	uint32_t TempBuffer;
 	
@@ -98,7 +98,7 @@ void setupServoFull(/*enum servoModules*/uint8_t ServoMod, uint8_t ServoPin, int
 	servo[ServoMod][SERVO_PIN]		= ServoPin;
 
 	/* Compute Servo Slope */
-	TempBuffer = (((int32_t)MaxPulseWidth - MinPulseWidth)*128);
+	TempBuffer = (((uint32_t)MaxPulseWidth - MinPulseWidth)*128);
 	TempBuffer /= ((int8_t)MaxAngle - MinAngle);
 	servo[ServoMod][SERVO_SLOPE] = (uint8_t)TempBuffer;
 	
@@ -125,15 +125,15 @@ void setupServoFull(/*enum servoModules*/uint8_t ServoMod, uint8_t ServoPin, int
 * >     setupServoDef(module, pin, angle) 
 * > <BR><BR>
 * > **Parameters:**<BR>
-* >     module - servo module assignment, SERV0, SERV1, SERV2, SERV3, SERV4, SERV5, SERV6, SERV7
-* >     pin - Anito pin number assignment
+* >     module - servo module assignment, SERV0, SERV1, SERV2, SERV3, SERV4, SERV5, SERV6, SERV7    <BR>
+* >     pin - Anito pin number assignment                                                           <BR>
 * >     angle - desired "default" angle in 1 degree resolution, center position is 0degree
 * > <BR><BR>
 * > **Returns:**<BR>
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setupServo(/*enum servoModules*/uint8_t ServoMod, uint8_t ServoPin, int8_t DefaultAngle)
+void setupServo(enum servoModules ServoMod, uint8_t ServoPin, int8_t DefaultAngle)
 {
 	setupServoFull(ServoMod, ServoPin, DefaultAngle, SERVO_MIN_PULSEWIDTH, SERVO_MAX_PULSEWIDTH, SERVO_MIN_ANGLEPOSITION, SERVO_MAX_ANGLEPOSITION);
 }
@@ -176,7 +176,7 @@ void setupServoPort(int8_t DefaultAngle)
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setServoAngle(/*enum servoModules*/uint8_t ServoMod, int8_t servoAngle)
+void setServoAngle(enum servoModules ServoMod, int8_t servoAngle)
 {
 	servo[ServoMod][SERVO_PULSE] = (uint8_t)(((int32_t)servoAngle*servo[ServoMod][SERVO_SLOPE]) / 128 + SERVO_PULSE_OFFSET);
 }

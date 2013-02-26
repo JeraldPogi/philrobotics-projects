@@ -61,20 +61,20 @@
 		#endif
 		
 	/* unsigned int 8 */
-		/* int8_t */
+		/* uint8_t */
 		/* Same as stdbool.h */
 		typedef bool bool_t;
 		
 	/* unsigned int 16 */
-		/* int16_t */
+		/* uint16_t */
 		/* Same as stdint.h */
 
 	/* unsigned int 24 */
-		/* int24_t */
+		/* uint24_t */
 		/* Same as stdint.h */
 
 	/* unsigned int 32 */
-		/* int32_t */
+		/* uint32_t */
 		/* Same as stdint.h */
 		
 	/* signed char */	
