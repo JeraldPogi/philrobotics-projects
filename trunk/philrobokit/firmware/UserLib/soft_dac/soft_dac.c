@@ -35,7 +35,7 @@
 #include "soft_dac.h"
 
 /* Local Constants */
-enum eDACStates
+static enum DACStates_e
 {
     SCHED0
     ,SCHED1
@@ -45,14 +45,18 @@ enum eDACStates
 };
 
 /* Local Variables */
-struct st_DAC_Module
+#ifdef S_SPLINT_S // Suppress SPLint Parse Errors 
+    #define bool_t  bool
+#endif  
+    
+static struct DAC_Module_s
 {
     uint8_t ui8Module;
     uint8_t ui8Pin;
     uint8_t ui8Value;
 };
 
-struct st_DAC_Module    stDACModuleSchedule[MAX_NUM_OF_SDAC];
+static struct DAC_Module_s    astDACModuleSchedule[MAX_NUM_OF_SDAC];
 
 static uint8_t          ui8DACEngineStates = PERIOD_START;
 static uint8_t          ui8DACScheduleTail = 0;
@@ -81,12 +85,9 @@ static void bubbleSortDAC(uint8_t ui8MaxCount);
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setupSoftDAC(enum etSoftDACModules ui8SDACModule, uint8_t ui8Pin, uint8_t ui8Value) 
+void setupSoftDAC(enum SoftDACModules_e eSDACModule, uint8_t ui8Pin, uint8_t ui8Value) 
 {
     uint8_t ui8Counter;
-    #ifdef S_SPLINT_S // Suppress SPLint Parse Errors 
-        #define bool_t  bool
-    #endif   
     bool_t  blScheduled = false;
     
     /* Use 8Bit Timer Peripheral */
@@ -99,11 +100,11 @@ void setupSoftDAC(enum etSoftDACModules ui8SDACModule, uint8_t ui8Pin, uint8_t u
     /* Run through the schedule table to check if already scheduled */
     for(ui8Counter = 0; ui8Counter < ui8DACScheduleTail; ui8Counter++)
     {
-        if(stDACModuleSchedule[ui8Counter].ui8Module == ui8SDACModule)
+        if(astDACModuleSchedule[ui8Counter].ui8Module == eSDACModule)
         {
             /* Just update the values if already scheduled */
-            stDACModuleSchedule[ui8Counter].ui8Pin      = ui8Pin;
-            stDACModuleSchedule[ui8Counter].ui8Value    = ui8Value;
+            astDACModuleSchedule[ui8Counter].ui8Pin      = ui8Pin;
+            astDACModuleSchedule[ui8Counter].ui8Value    = ui8Value;
             
             blScheduled = true;
         }
@@ -112,9 +113,9 @@ void setupSoftDAC(enum etSoftDACModules ui8SDACModule, uint8_t ui8Pin, uint8_t u
     /* Store at the tail if not yet scheduled */
     if(false == blScheduled)
     {
-        stDACModuleSchedule[ui8DACScheduleTail].ui8Module   = ui8SDACModule;
-        stDACModuleSchedule[ui8DACScheduleTail].ui8Pin      = ui8Pin;
-        stDACModuleSchedule[ui8DACScheduleTail].ui8Value    = ui8Value;
+        astDACModuleSchedule[ui8DACScheduleTail].ui8Module   = eSDACModule;
+        astDACModuleSchedule[ui8DACScheduleTail].ui8Pin      = ui8Pin;
+        astDACModuleSchedule[ui8DACScheduleTail].ui8Value    = ui8Value;
         ui8DACScheduleTail++;
     }
     
@@ -140,24 +141,24 @@ void setupSoftDAC(enum etSoftDACModules ui8SDACModule, uint8_t ui8Pin, uint8_t u
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setSoftDAC(enum etSoftDACModules ui8SDACModule, uint8_t ui8Value) 
+void setSoftDAC(enum SoftDACModules_e eSDACModule, uint8_t ui8Value) 
 {
     uint8_t ui8Counter;
     
     /* Run through the scheduler and update the module value */
     for(ui8Counter = 0; ui8Counter < ui8DACScheduleTail; ui8Counter++)
     {
-        if(stDACModuleSchedule[ui8Counter].ui8Module == ui8SDACModule)
+        if(astDACModuleSchedule[ui8Counter].ui8Module == eSDACModule)
         {
-            stDACModuleSchedule[ui8Counter].ui8Value = ui8Value;
+            astDACModuleSchedule[ui8Counter].ui8Value = ui8Value;
             
             if(0 == ui8Value)
             {
-                clrPin(stDACModuleSchedule[ui8Counter].ui8Pin);         // set pin low until the next period starts
+                clrPin(astDACModuleSchedule[ui8Counter].ui8Pin);         // set pin low until the next period starts
             }
             else if(255 == ui8Value)
             {
-                setPin(stDACModuleSchedule[ui8Counter].ui8Pin);         // set pin low until the next period starts
+                setPin(astDACModuleSchedule[ui8Counter].ui8Pin);         // set pin low until the next period starts
             }
             else
             {
@@ -186,22 +187,22 @@ void setSoftDAC(enum etSoftDACModules ui8SDACModule, uint8_t ui8Value)
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void removeSoftDAC(enum etSoftDACModules ui8SDACModule)
+void removeSoftDAC(enum SoftDACModules_e eSDACModule)
 {
     uint8_t ui8Counter;
     
     /* Run through the scheduler and update the module value */
     for(ui8Counter = 0; ui8Counter < ui8DACScheduleTail; ui8Counter++)
     {
-        if(stDACModuleSchedule[ui8Counter].ui8Module == ui8SDACModule)
+        if(astDACModuleSchedule[ui8Counter].ui8Module == eSDACModule)
         {
             /* Make Pin Input */
-            makeInput(stDACModuleSchedule[ui8Counter].ui8Pin);  
+            makeInput(astDACModuleSchedule[ui8Counter].ui8Pin);  
 
             /* Swap the tail to current module */
-            stDACModuleSchedule[ui8Counter].ui8Module   = stDACModuleSchedule[ui8DACScheduleTail].ui8Module;
-            stDACModuleSchedule[ui8Counter].ui8Pin      = stDACModuleSchedule[ui8DACScheduleTail].ui8Pin;
-            stDACModuleSchedule[ui8Counter].ui8Value    = stDACModuleSchedule[ui8DACScheduleTail].ui8Value;
+            astDACModuleSchedule[ui8Counter].ui8Module   = astDACModuleSchedule[ui8DACScheduleTail].ui8Module;
+            astDACModuleSchedule[ui8Counter].ui8Pin      = astDACModuleSchedule[ui8DACScheduleTail].ui8Pin;
+            astDACModuleSchedule[ui8Counter].ui8Value    = astDACModuleSchedule[ui8DACScheduleTail].ui8Value;
             
             /* Decrease the tail */
             ui8DACScheduleTail--;            
@@ -241,22 +242,22 @@ static void bubbleSortDAC(uint8_t ui8MaxCount)
 
         for (ui8Counter = 0; ui8Counter < (ui8MaxCount - ui8Counter1); ui8Counter++) 
         {
-            if (stDACModuleSchedule[ui8Counter].ui8Value > stDACModuleSchedule[ui8Counter+1].ui8Value) 
+            if (astDACModuleSchedule[ui8Counter].ui8Value > astDACModuleSchedule[ui8Counter+1].ui8Value) 
             {
                 /* Swap Module Assignment */
-                ui8TempBuff = stDACModuleSchedule[ui8Counter].ui8Module;
-                stDACModuleSchedule[ui8Counter].ui8Module = stDACModuleSchedule[ui8Counter+1].ui8Module;
-                stDACModuleSchedule[ui8Counter+1].ui8Module = ui8TempBuff;
+                ui8TempBuff = astDACModuleSchedule[ui8Counter].ui8Module;
+                astDACModuleSchedule[ui8Counter].ui8Module = astDACModuleSchedule[ui8Counter+1].ui8Module;
+                astDACModuleSchedule[ui8Counter+1].ui8Module = ui8TempBuff;
                 
                 /* Swap Value */
-                ui8TempBuff = stDACModuleSchedule[ui8Counter].ui8Value;
-                stDACModuleSchedule[ui8Counter].ui8Value = stDACModuleSchedule[ui8Counter+1].ui8Value;
-                stDACModuleSchedule[ui8Counter+1].ui8Value = ui8TempBuff;
+                ui8TempBuff = astDACModuleSchedule[ui8Counter].ui8Value;
+                astDACModuleSchedule[ui8Counter].ui8Value = astDACModuleSchedule[ui8Counter+1].ui8Value;
+                astDACModuleSchedule[ui8Counter+1].ui8Value = ui8TempBuff;
 
                 /* Swap Pin */
-                ui8TempBuff = stDACModuleSchedule[ui8Counter].ui8Pin;
-                stDACModuleSchedule[ui8Counter].ui8Pin = stDACModuleSchedule[ui8Counter+1].ui8Pin;
-                stDACModuleSchedule[ui8Counter+1].ui8Pin = ui8TempBuff;
+                ui8TempBuff = astDACModuleSchedule[ui8Counter].ui8Pin;
+                astDACModuleSchedule[ui8Counter].ui8Pin = astDACModuleSchedule[ui8Counter+1].ui8Pin;
+                astDACModuleSchedule[ui8Counter+1].ui8Pin = ui8TempBuff;
                                
                 blOnGoing = true;
             }
@@ -297,13 +298,13 @@ static void softDACController()
                 /* Set all pins to high except those with 0 value */
                 for(ui8Counter=0; ui8Counter < ui8DACScheduleTail; ui8Counter++)
                 {
-                    if(0 != stDACModuleSchedule[ui8Counter].ui8Value)
+                    if(0 != astDACModuleSchedule[ui8Counter].ui8Value)
                     {
-                        setPin(stDACModuleSchedule[ui8Counter].ui8Pin);
+                        setPin(astDACModuleSchedule[ui8Counter].ui8Pin);
                     }
                     else
                     {
-                        clrPin(stDACModuleSchedule[ui8Counter].ui8Pin);
+                        clrPin(astDACModuleSchedule[ui8Counter].ui8Pin);
                     }
                 }
                 break;
@@ -311,25 +312,25 @@ static void softDACController()
             case SCHED0:
             {
                 /* Schedule 0 Pin set to Low */
-                clrPin(stDACModuleSchedule[SCHED0].ui8Pin);
+                clrPin(astDACModuleSchedule[SCHED0].ui8Pin);
                 break;
             }
             case SCHED1:
             {
                 /* Schedule 1 Pin set to Low */
-                clrPin(stDACModuleSchedule[SCHED1].ui8Pin);
+                clrPin(astDACModuleSchedule[SCHED1].ui8Pin);
                 break;
             }
             case SCHED2:
             {
                 /* Schedule 2 Pin set to Low */
-                clrPin(stDACModuleSchedule[SCHED2].ui8Pin);
+                clrPin(astDACModuleSchedule[SCHED2].ui8Pin);
                 break;
             }
             case SCHED3:
             {
                 /* Schedule 3 Pin set to Low */
-                clrPin(stDACModuleSchedule[SCHED3].ui8Pin);
+                clrPin(astDACModuleSchedule[SCHED3].ui8Pin);
                 break;
             }        
             default:
@@ -347,10 +348,10 @@ static void softDACController()
             ui8DACEngineStates = SCHED0;
             
             /* Set next timeout */
-            if(stDACModuleSchedule[SCHED0].ui8Value < K_SOFT_DAC_PERIOD)
+            if(astDACModuleSchedule[SCHED0].ui8Value < K_SOFT_DAC_PERIOD)
             {
-                setTimer(K_DAC_TIMER, stDACModuleSchedule[SCHED0].ui8Value);
-                ui8PrevValue = stDACModuleSchedule[SCHED0].ui8Value;            
+                setTimer(K_DAC_TIMER, astDACModuleSchedule[SCHED0].ui8Value);
+                ui8PrevValue = astDACModuleSchedule[SCHED0].ui8Value;            
             }
             else
             {
@@ -365,14 +366,14 @@ static void softDACController()
             ui8DACEngineStates++;
             
             if((ui8DACEngineStates < ui8DACScheduleTail)
-                && (stDACModuleSchedule[ui8DACEngineStates].ui8Value < K_SOFT_DAC_PERIOD)
+                && (astDACModuleSchedule[ui8DACEngineStates].ui8Value < K_SOFT_DAC_PERIOD)
             )
             {
                 /* check if previous and current have same values */
-                if(ui8PrevValue != stDACModuleSchedule[ui8DACEngineStates].ui8Value)
+                if(ui8PrevValue != astDACModuleSchedule[ui8DACEngineStates].ui8Value)
                 {
-                    setTimer(K_DAC_TIMER, (stDACModuleSchedule[ui8DACEngineStates].ui8Value - ui8PrevValue));
-                    ui8PrevValue = stDACModuleSchedule[ui8DACEngineStates].ui8Value; 
+                    setTimer(K_DAC_TIMER, (astDACModuleSchedule[ui8DACEngineStates].ui8Value - ui8PrevValue));
+                    ui8PrevValue = astDACModuleSchedule[ui8DACEngineStates].ui8Value; 
                 }
                 else
                 {

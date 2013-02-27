@@ -65,17 +65,17 @@
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setup8BitTimerFull(enum eTmrModules tmrModule, void(*callback)(), uint8_t ui8Prescaler, uint8_t ui8Postscaler)
+void setup8BitTimerFull(enum tmrModules_e eTmrModule, void(*callback)(), uint8_t ui8Prescaler, uint8_t ui8Postscaler)
 {
     /* Default */
-	if(TIMER2 == tmrModule)
+	if(TIMER2 == eTmrModule)
 	{
 	    hal_setTMR2Prescaler(ui8Prescaler);
     	hal_setTMR2Postscaler(ui8Postscaler); 
         pt2TMR2ISR = callback;
 	}
 	#if(TIMER4_ENABLED == TRUE)	
-	else if(TIMER4 == tmrModule)
+	else if(TIMER4 == eTmrModule)
 	{
 		mc_setTMR4Prescaler(ui8Prescaler);
     	mc_setTMR4Postscaler(ui8Postscaler); 
@@ -83,7 +83,7 @@ void setup8BitTimerFull(enum eTmrModules tmrModule, void(*callback)(), uint8_t u
 	}
 	#endif
 	#if(TIMER6_ENABLED == TRUE)	
-	else if(TIMER6 == tmrModule)
+	else if(TIMER6 == eTmrModule)
 	{
 		mc_setTMR6Prescaler(ui8Prescaler);
     	mc_setTMR6Postscaler(ui8Postscaler); 
@@ -117,9 +117,9 @@ void setup8BitTimerFull(enum eTmrModules tmrModule, void(*callback)(), uint8_t u
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setup8BitTimer(enum eTmrModules tmrModule, void(*callback)())
+void setup8BitTimer(enum tmrModules_e eTmrModule, void(*callback)())
 {
-    setup8BitTimerFull(tmrModule, callback, K_10US_PRESCALE, K_10US_PRESCALE);
+    setup8BitTimerFull(eTmrModule, callback, K_10US_PRESCALE, K_10US_PRESCALE);
 }
 
 /*******************************************************************************//**
@@ -140,10 +140,10 @@ void setup8BitTimer(enum eTmrModules tmrModule, void(*callback)())
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setTimer(enum eTmrModules tmrModule, uint8_t ui8Value)
+void setTimer(enum tmrModules_e eTmrModule, uint8_t ui8Value)
 {
 /* Default */
-	if(TIMER2 == tmrModule)
+	if(TIMER2 == eTmrModule)
 	{
 		hal_setTMR2Value(ui8Value);
 		
@@ -153,7 +153,7 @@ void setTimer(enum eTmrModules tmrModule, uint8_t ui8Value)
 		hal_enableTMR2Int();
 	}
 	#if(TIMER4_ENABLED == TRUE)	
-	else if(TIMER4 == tmrModule)
+	else if(TIMER4 == eTmrModule)
 	{
 		hal_setTMR4Value(ui8Value);
 
@@ -164,7 +164,7 @@ void setTimer(enum eTmrModules tmrModule, uint8_t ui8Value)
 	}
 	#endif
 	#if(TIMER6_ENABLED == TRUE)	
-	else if(TIMER6 == tmrModule)
+	else if(TIMER6 == eTmrModule)
 	{
 		hal_setTMR6Value(ui8Value);
 

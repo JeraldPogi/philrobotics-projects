@@ -1,30 +1,36 @@
-#define NUM_OF_CHANNELS		6
-
-#define TMR2_MAX_COUNT		255
+/*****************************************************************************************//**
+* # PhilRobotics | Philippine Electronics and Robotics Enthusiasts Club #
+* http://philrobotics.com | http://philrobotics.com/forum | http://facebook.com/philrobotics
+* phirobotics.core@philrobotics.com
+*
+*---------------------------------------------------------------------------------------------
+* |Filename:      	| "PPMGenerator.phr"                                                      		|
+* |:----          	|:----                                                                    			|
+* |Description:   | Generates PPM Signal for RC radio applications.<BR>
+*                   	  An example of the use of the 8bit timer library.                        	|
+* |Author:        	| Efren S. Cruzat II                                                      		|
+* |               	|                                                                         			|
+* |Dependencies: |                                                                         			|
+*
+* > This program is free software under GNU General Public License.
+*********************************************************************************************/
+/* PPM Output Pin */
+#define PPM_OUT             D13
 
 /* Packet Description */
 #define PULSE_PERIOD		15		// 100uS
 #define CYCLE_PERIOD		2500	// 25mS
+#define TMR2_MAX_COUNT		255
 
 /* Channel Description */
+#define NUM_OF_CHANNELS		6       // 6 servo channels
 #define MAX_POSITION		250		// 2.5mS
-#define DEF_POSITION		150		// 1.5mS
+#define DEF_POSITION		150		// 1.5mS (neutral position)
 #define MIN_POSITION		50		// 0.5mS
 
-/* ADC to PPM */
+/* ADC to PPM Signal Scaling */
 #define ADC2PPM_SLOPE		((250-50)*256/(1023))
 #define ADC2PPM_OFFSET		DEF_POSITION
-
-unsigned char	ChannelPeriods[NUM_OF_CHANNELS], PPM_State, tempvar;
-signed char 	channel_ctr;
-unsigned long	FrameBlankTime,SumOfPeriods;
-
-#ifndef S_SPLINT_S // Suppress SPLint Parse Errors
-bit_t 
-#else
-uint8_t
-#endif			
-SendPulse, BlankTimeSet;
 
 enum PPMGenStates
 {
@@ -32,14 +38,24 @@ enum PPMGenStates
 	,SEND_CHANNEL_PERIOD
 	,WAIT_END_OF_CYCLE
 };
-	
+
+uchar_t	    ChannelPeriods[NUM_OF_CHANNELS], PPM_State, tempvar;
+char_t 	    channel_ctr;
+uint32_t    FrameBlankTime, SumOfPeriods;
+
+#ifdef S_SPLINT_S // Suppress SPLint Parse Errors
+    bool SendPulse, BlankTimeSet;
+#else
+    bool_t SendPulse, BlankTimeSet;
+#endif			
+
 void PPMGenerator()
 {
 	switch(PPM_State)
 	{
 		case SEND_PULSE:
 		{
-			clrPin(D13);
+			clrPin(PPM_OUT);
 			setTimer(TIMER2,PULSE_PERIOD);
 			
 			if(channel_ctr < (NUM_OF_CHANNELS-1))
@@ -57,7 +73,7 @@ void PPMGenerator()
 		}
 		case SEND_CHANNEL_PERIOD:
 		{
-			setPin(D13);			
+			setPin(PPM_OUT);			
 			setTimer(TIMER2,(ChannelPeriods[channel_ctr] - PULSE_PERIOD));
 			SumOfPeriods += ChannelPeriods[channel_ctr];
 			PPM_State = SEND_PULSE;
@@ -65,7 +81,7 @@ void PPMGenerator()
 		}
 		case WAIT_END_OF_CYCLE:
 		{
-			setPin(D13);
+			setPin(PPM_OUT);
 			
 			if(0 == BlankTimeSet)
 			{
@@ -81,7 +97,7 @@ void PPMGenerator()
 			}
 			else
 			{
-				setTimer(TIMER2,(unsigned char)FrameBlankTime);
+				setTimer(TIMER2,(uchar_t)FrameBlankTime);
 				PPM_State = SEND_PULSE;
 				SumOfPeriods = 0;
 			}
@@ -94,73 +110,77 @@ void PPMGenerator()
 	}
 }
 
-unsigned int convertADC2Period(unsigned int ADCValue)
+uint16_t convertADC2Period(uint16_t ADCValue)
 {
-	unsigned long PPMValue;
+	uint32_t PPMValue;
 	
-	PPMValue = ((unsigned long)ADCValue * ADC2PPM_SLOPE)/256 + ADC2PPM_OFFSET;
+	PPMValue = ((uint32_t)ADCValue * ADC2PPM_SLOPE)/256 + ADC2PPM_OFFSET;
 	
-	return (unsigned int)PPMValue;
+	return (uint16_t)PPMValue;
 }
 
 void init()
 {
-	setup8BitTimer(TIMER2,PPMGenerator);
+	setup8BitTimer(TIMER2,PPMGenerator);                    // setup 8 bit timer interrupt as a PPM Generator Engine
 	
 	for(tempvar = 0; tempvar<NUM_OF_CHANNELS; tempvar++)
 	{
-		ChannelPeriods[tempvar] = MIN_POSITION;
+		ChannelPeriods[tempvar] = MIN_POSITION;             // set channel periods to minimum position
 	}
 	
-	/* Start with Channel 1 */
-	makeOutput(D13);
-	clrPin(D13);
+	/* Configure PPM Output Pin */
+	makeOutput(PPM_OUT);
+	clrPin(PPM_OUT);
+    
+    /* PPM Engine Kickstart (Start with Channel 1) */
 	setTimer(TMR2,PULSE_PERIOD);	
 	PPM_State = SEND_CHANNEL_PERIOD;
 	channel_ctr = 0;
-	
 }
 
 void program()
 {
-	#if 0 
+	uint16_t i;
+	
+    /*********************************************************//**
+    /* > read stick ADC input and convert to channel periods
+    **************************************************************/
+    #if 0 
 	/* Convert ADC to Channel Period */
 	for(tempvar = 0; tempvar<NUM_OF_CHANNELS; tempvar++)
 	{
 		ChannelPeriods[tempvar] = convertADC2Period(1);
 	}
 	#endif
-		unsigned int i;
-	
+
+    /*********************************************************//**
+    * > else emulate a signal of increasing and decreasing value
+    **************************************************************/
 	/* increment angle */
-	for(i=0;i<=1023;i++)
+	for(i=0; i<=1023; i++)
 	{
 		for(tempvar = 0; tempvar<NUM_OF_CHANNELS; tempvar++)
 		{
 			ChannelPeriods[tempvar] = convertADC2Period(i);
 		}
-		//delayMS(5);
-		__delay_ms(10);
+
+		delayMs(10);
 	}
 	
-	//delayMS(200);
-	//delayMS(200);
-	__delay_ms(200);
-	__delay_ms(200);	
+	delayMs(200);
+	delayMs(200);	
 	
 	/* decrement angle */
-	for(i=1023;i>0;i--)
+	for(i=1023; i>0; i--)
 	{
 		for(tempvar = 0; tempvar<NUM_OF_CHANNELS; tempvar++)
 		{
 			ChannelPeriods[tempvar] = convertADC2Period(i);
 		}
-		//delayMS(5);
-		__delay_ms(10);
+
+		delayMs(10);
 	}
 	
-	//delayMS(200);
-	//delayMS(200);
-	__delay_ms(200);
-	__delay_ms(200);
+	delayMs(200);
+	delayMs(200);
 }

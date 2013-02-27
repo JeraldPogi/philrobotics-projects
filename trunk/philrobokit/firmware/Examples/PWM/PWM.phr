@@ -1,11 +1,28 @@
-// Frequency Adjustable between 1.22kHz - 200kHz
+/*****************************************************************************************//**
+* # PhilRobotics | Philippine Electronics and Robotics Enthusiasts Club #
+* http://philrobotics.com | http://philrobotics.com/forum | http://facebook.com/philrobotics
+* phirobotics.core@philrobotics.com
+*
+*---------------------------------------------------------------------------------------------
+* |Filename:      	| "PWM.phr"                                                               		|
+* |:----          	|:----                                                                    			|
+* |Description:   | Set PWM0(D2) and PWM1(D1) with fixed frequency and duty. 
+*                   	  An example of the use of the PWM peripheral library.                   	|
+* |Author:        	| Efren S. Cruzat II                                                      		|
+* |               	|                                                                         			|
+* |Dependencies: |                                                                         			|
+*
+* > This program is free software under GNU General Public License.
+*********************************************************************************************/
 void init()
 {
-	setupPWM(PWM0,200,500);		// 2kHz 50%
-	setupPWM(PWM1,200,750);		// 2kHz 75%
+    /* Frequency Adjustable between 1.22kHz - 200kHz. */
+    /* Note that all PWM modules cannot have different frequencies. The last written frequency will supersede the previous */
+	setupPWM(PWM0,200,500);		// 2kHz @ 10Hz per bit resolution, 50% @ 0.1% per bit resolution
+	setupPWM(PWM1,200,750);		// 2kHz @ 10Hz per bit resolution, 75% @ 0.1% per bit resolution
 }
 
 void program()
 {
-	
+	/* do nothing */
 }

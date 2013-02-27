@@ -71,7 +71,7 @@
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setupUserInt(enum etInterruptSources eIntSource, void(*callback)(), /*enum etInterruptModes*/uint8_t eIntMode) 
+void setupUserInt(enum InterruptSources_e eIntSource, void(*callback)(), /*enum InterruptModes_e*/uint8_t eIntMode) 
 {
 	/* External Interrupt */
 	if(INT0 == eIntSource)
@@ -105,7 +105,7 @@ void setupUserInt(enum etInterruptSources eIntSource, void(*callback)(), /*enum 
 			/* Do Nothing */
 		}
 
-		mode0 = eIntMode;
+		eMod0_Mode = eIntMode;
 		pt2INT0 = callback;							// assign INT0 Function Pointer
 		hal_clrEXTIntFlag();
 		hal_enableEXTInt();
@@ -123,7 +123,7 @@ void setupUserInt(enum etInterruptSources eIntSource, void(*callback)(), /*enum 
 			/* Set Int Pin to Input */
 		    makeInput(D12);
 			PORTB_DIR |= RB4_MASK;
-			mode1 = eIntMode;
+			eMod1_Mode = eIntMode;
 			pt2INT1 = callback;						// assign INT1 Function Pointer
 		}
 		/* RB5 Interrupt on Change */
@@ -132,7 +132,7 @@ void setupUserInt(enum etInterruptSources eIntSource, void(*callback)(), /*enum 
 			/* Set Int Pin to Input */
 		    makeInput(D13);
 			PORTB_DIR |= RB5_MASK;
-			mode2 = eIntMode;
+			eMod2_Mode = eIntMode;
 			pt2INT2 = callback;						// assign INT2 Function Pointer			
 		}
 		/* RB6 Interrupt on Change */
@@ -141,7 +141,7 @@ void setupUserInt(enum etInterruptSources eIntSource, void(*callback)(), /*enum 
 			/* Set Int Pin to Input */
 		    REGISTER_TRISB |= RB6_MASK;
 			PORTB_DIR |= RB6_MASK;
-			mode3 = eIntMode;
+			eMod3_Mode = eIntMode;
 			pt2INT3 = callback;						// assign INT3 Function Pointer			
 		}		
 		/* RB7 Interrupt on Change */
@@ -150,7 +150,7 @@ void setupUserInt(enum etInterruptSources eIntSource, void(*callback)(), /*enum 
 			/* Set Int Pin to Input */
 		    REGISTER_TRISB |= RB7_MASK;
 			PORTB_DIR |= RB7_MASK;
-			mode4 = eIntMode;
+			eMod4_Mode = eIntMode;
 			pt2INT4 = callback;						// assign INT4 Function Pointer			
 		}
 		else

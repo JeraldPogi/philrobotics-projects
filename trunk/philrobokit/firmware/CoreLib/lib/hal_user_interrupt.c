@@ -85,7 +85,7 @@ void nullIntFunction(void)
 #if(EXTINTENABLED == TRUE)	
 void extIntISR()
 {
-	if(CHANGE == mode0)
+	if(CHANGE == eMod0_Mode)
 	{
 		K_INT_EDGE_BIT = ~K_INT_EDGE_BIT;   // toggle Int0 edge to trigger on next interrupt edge
 	}
@@ -122,15 +122,15 @@ void rbIntISR(void)
 	
 	if(RB4_MASK == (PORTCHANGE_BUFFER&RB4_MASK))
 	{
-		if((RISING == mode1) && (LOW == getPinState(D12)))
+		if((RISING == eMod1_Mode) && (LOW == getPinState(D12)))
 		{
 			/* Ignore and wait for the next interrupt */
 		}	
-		else if((FALLING == mode1) && (HIGH == getPinState(D12)))
+		else if((FALLING == eMod1_Mode) && (HIGH == getPinState(D12)))
 		{
 			/* Ignore and wait for the next interrupt */
 		}
-		else // CHANGE == mode1 or coincide of correct mode and pin state
+		else // CHANGE == eMod1_Mode or coincide of correct mode and pin state
 		{
 			/* Call User Function */
 			pt2INT1();
@@ -141,15 +141,15 @@ void rbIntISR(void)
 	
 	if(RB5_MASK == (PORTCHANGE_BUFFER&RB5_MASK))
 	{
-		if((RISING == mode2) && (LOW == getPinState(D13)))
+		if((RISING == eMod2_Mode) && (LOW == getPinState(D13)))
 		{
 			/* Ignore and wait for the next interrupt */
 		}	
-		else if((FALLING == mode3) && (HIGH == getPinState(D13)))
+		else if((FALLING == eMod2_Mode) && (HIGH == getPinState(D13)))
 		{
 			/* Ignore and wait for the next interrupt */
 		}
-		else // CHANGE == mode1 or coincide of correct mode and pin state
+		else // CHANGE == eMod2_Mode or coincide of correct mode and pin state
 		{
 			/* Call User Function */
 			pt2INT2();
@@ -160,15 +160,15 @@ void rbIntISR(void)
 	
 	if(RB6_MASK == (PORTCHANGE_BUFFER&RB6_MASK))
 	{
-		if((RISING == mode3) && !(REGISTER_PORTB & RB6_MASK))
+		if((RISING == eMod3_Mode) && !(REGISTER_PORTB & RB6_MASK))
 		{
 			/* Ignore and wait for the next interrupt */
 		}	
-		else if((FALLING == mode3) && (REGISTER_PORTB & RB6_MASK))
+		else if((FALLING == eMod3_Mode) && (REGISTER_PORTB & RB6_MASK))
 		{
 			/* Ignore and wait for the next interrupt */
 		}
-		else // CHANGE == mode1 or coincide of correct mode and pin state
+		else // CHANGE == eMod3_Mode or coincide of correct mode and pin state
 		{
 			/* Call User Function */
 			pt2INT3();
@@ -179,15 +179,15 @@ void rbIntISR(void)
 	
 	if(RB7_MASK == (PORTCHANGE_BUFFER&RB7_MASK))
 	{
-		if((RISING == mode4) && !(REGISTER_PORTB & RB7_MASK))
+		if((RISING == eMod4_Mode) && !(REGISTER_PORTB & RB7_MASK))
 		{
 			/* Ignore and wait for the next interrupt */
 		}	
-		else if((FALLING == mode4) && (REGISTER_PORTB & RB7_MASK))
+		else if((FALLING == eMod4_Mode) && (REGISTER_PORTB & RB7_MASK))
 		{
 			/* Ignore and wait for the next interrupt */
 		}
-		else // CHANGE == mode1 or coincide of correct mode and pin state
+		else // CHANGE == eMod4_Mode or coincide of correct mode and pin state
 		{
 			/* Call User Function */
 			pt2INT4();

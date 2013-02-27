@@ -42,7 +42,7 @@
 
 /* Global Constants */
     /* CCP_PWM Mode */
-enum ePWMModes
+enum PWMModes_e
 {
 	PWM_OFF             				= 0x00
 	,COMP_TOGGLE_CCPO    				= 0x02

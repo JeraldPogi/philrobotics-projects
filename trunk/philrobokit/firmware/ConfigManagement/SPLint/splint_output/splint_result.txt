@@ -233,7 +233,7 @@
 ..\..\CoreLib\lib\hal_uart.c: (in function serialTxInterruptHandler)
 ..\..\CoreLib\lib\hal_uart.c(190,4): Unrecognized identifier: REGISTER_TXREG
 ..\..\CoreLib\lib\hal_user_interrupt.c: (in function rbIntISR)
-..\..\CoreLib\lib\hal_user_interrupt.c(125,28): Unrecognized identifier: LOW
+..\..\CoreLib\lib\hal_user_interrupt.c(125,33): Unrecognized identifier: LOW
 ..\..\CoreLib\lib\corelib_pwm.h(59,6):
     Function exported but not used outside corelib_pwm: setPWMFrequency
   A declaration is exported, but not used outside this module. Declaration can
@@ -283,22 +283,18 @@
 *** Checking SoftDAC Lib.... ***		
 ----------------------------------- 	
 ..\..\UserLib\soft_dac\soft_dac.c: (in function setupSoftDAC)
-..\..\UserLib\soft_dac\soft_dac.c(93,5): Unrecognized identifier:
+..\..\UserLib\soft_dac\soft_dac.c(94,5): Unrecognized identifier:
                                             setup8BitTimer
   Identifier used in code has not been declared. (Use -unrecog to inhibit
   warning)
-..\..\UserLib\soft_dac\soft_dac.c(93,20): Unrecognized identifier: TIMER2
-..\..\UserLib\soft_dac\soft_dac.c(96,5): Unrecognized identifier: makeOutput
-..\..\UserLib\soft_dac\soft_dac.c(97,5): Unrecognized identifier: clrPin
+..\..\UserLib\soft_dac\soft_dac.c(94,20): Unrecognized identifier: TIMER2
+..\..\UserLib\soft_dac\soft_dac.c(97,5): Unrecognized identifier: makeOutput
+..\..\UserLib\soft_dac\soft_dac.c(98,5): Unrecognized identifier: clrPin
 ..\..\UserLib\soft_dac\soft_dac.c: (in function setSoftDAC)
-..\..\UserLib\soft_dac\soft_dac.c(160,17): Unrecognized identifier: setPin
+..\..\UserLib\soft_dac\soft_dac.c(161,17): Unrecognized identifier: setPin
 ..\..\UserLib\soft_dac\soft_dac.c: (in function removeSoftDAC)
-..\..\UserLib\soft_dac\soft_dac.c(199,13): Unrecognized identifier: makeInput
+..\..\UserLib\soft_dac\soft_dac.c(200,13): Unrecognized identifier: makeInput
 ..\..\UserLib\soft_dac\soft_dac.c: (in function softDACController)
-..\..\UserLib\soft_dac\soft_dac.c(352,17): Unrecognized identifier: setTimer
-..\..\UserLib\soft_dac\soft_dac.c(55,62):
-    Variable exported but not used outside soft_dac: stDACModuleSchedule
-  A declaration is exported, but not used outside this module. Declaration can
-  use static qualifier. (Use -exportlocal to inhibit warning)
+..\..\UserLib\soft_dac\soft_dac.c(353,17): Unrecognized identifier: setTimer
 
 ********************************************************************************** 	

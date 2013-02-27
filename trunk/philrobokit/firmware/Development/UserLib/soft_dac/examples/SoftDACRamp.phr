@@ -4,42 +4,43 @@
 * phirobotics.core@philrobotics.com
 *
 *---------------------------------------------------------------------------------------------
-* |Filename:      	| "AnalogOutput.phr"                                                      		|
+* |Filename:      	| "SoftDACRamp.phr"                                                        		|
 * |:----          	|:----                                                                    			|
-* |Description:   | Outputs a ramp signal on DAC0(D2) output
-*                   	  An example of the use of the peripheral DAC library.                    	|
+* |Description:   | Setup any pin as DAC output to output a ramp signal.<BR>
+*                   	  An example of the use of the software DAC driver library.             |
 * |Author:        	| Efren S. Cruzat II                                                      		|
 * |               	|                                                                         			|
-* |Dependencies: |                                                                         			|
+* |Dependencies: | soft_dac.c, soft_dac.h                                                  		|
 *
 * > This program is free software under GNU General Public License.
 *********************************************************************************************/
+#include <soft_dac.h>
+
 static volatile uint16_t LoopTimer;
+                uint8_t  ADCOutValue = 0;
 
 void init()
 {
-	LoopTimer = getMs();                            // get time stamp
+	setupSoftDAC(SDAC0, D0, ADCOutValue);
+    LoopTimer = getMs();                            // get time stamp
 }
 
 void program()
 {
-	static uint16_t ADCOutValue = 0;
-	
 	/* New Value Every 1mS */
 	if(getElapsedMs(LoopTimer)>= 1)                 // check if 1mS has elapsed
 	{
 		LoopTimer = getMs();                        // get another stamp for the next cycle
         
-		setDAC(DAC0, ADCOutValue);                  // update DAC0(D2) value (value can be between 0 and 1023)
+		setSoftDAC(SDAC0, ADCOutValue);             // update SDAC0 value (value can be between 0 and 255)
 		
-		if(ADCOutValue >= 1023)
+		if(ADCOutValue >= 255)
 		{	
 			ADCOutValue = 0;                        // roll over to 0 if maximum is reached
 		}	
 		else
 		{
-			ADCOutValue+=10;                        // increment DAC value every 1mS
+			ADCOutValue+=1;                         // increment DAC value every 1mS
 		}
 	}
 }
-

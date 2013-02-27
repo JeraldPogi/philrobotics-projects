@@ -52,8 +52,8 @@
     /* none */
     
 /* Public Function Prototypes */
-void setDAC(/*enum ePWMModules*/uint8_t eDAC_Module, uint16_t ui16Value);
-void removeDAC(/*enum ePWMModules*/uint8_t eDAC_Module);
+void setDAC(uint8_t ui8DAC_Module, uint16_t ui16Value);
+void removeDAC(uint8_t ui8DAC_Module);
 
 #endif /* end of corelib_dac.h */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	

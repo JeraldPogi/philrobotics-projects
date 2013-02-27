@@ -51,7 +51,7 @@
     
 /* Global Constants */
 	/* Interrupts Sources */
-enum etInterruptSources
+enum InterruptSources_e
 {
 	INT0                    // INT0 - D8: External Interrupt (RB0)
 	,INT1                   // INT1 - D12: Interrupt on Pin Change (RB4)
@@ -64,7 +64,7 @@ enum etInterruptSources
     /* none */
     
 /* Public Function Prototypes */
-void setupUserInt(enum etInterruptSources eIntSource, void(*callback)(), /*enum etInterruptModes*/uint8_t eIntMode);
+void setupUserInt(enum InterruptSources_e eIntSource, void(*callback)(), /*enum InterruptModes_e*/uint8_t eIntMode);
 void userIntISR(void);
 
 #endif/* end of corelib_user_interrupt.h */

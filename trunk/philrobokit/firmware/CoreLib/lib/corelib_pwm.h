@@ -45,7 +45,7 @@
     
 /* Global Constants */
     /* PWMs */
-enum ePWMModules
+enum PWMModules_e
 {
 	PWM0
 	,PWM1
@@ -55,10 +55,10 @@ enum ePWMModules
     /* none */
 
 /* Public Function Prototypes */
-void setupPWM(enum ePWMModules ePWM_Module, uint16_t ui16Frequency, uint16_t ui16DutyCycle);
+void setupPWM(enum PWMModules_e ePWM_Module, uint16_t ui16Frequency, uint16_t ui16DutyCycle);
 void setPWMFrequency(uint16_t ui16Frequency);
-void setPWMDuty(enum ePWMModules ePWM_Module, uint16_t ui16DutyCycle);
-void removePWM(enum ePWMModules ePWM_Module);
+void setPWMDuty(enum PWMModules_e ePWM_Module, uint16_t ui16DutyCycle);
+void removePWM(enum PWMModules_e ePWM_Module);
 
 #endif/* end of corelib_pwm.h */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	

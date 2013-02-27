@@ -36,13 +36,13 @@
 #include "servo.h"
 
 /* Local Constants */
-static enum servoStates
+static enum ServoStates_e
 {
 	SERVO_PULSEON
 	,SERVO_PULSEOFF
 };
 
-static enum servoInfo
+static enum ServoInfo_e
 {
 	SERVO_PIN
 	,SERVO_PULSE
@@ -51,14 +51,14 @@ static enum servoInfo
 };
 
 /* Local Variables */
-static uint8_t servo[NUMBEROFMODULES][NUMBEROFINFO] = {0};/*@null@*/
+static uint8_t aui8Servo[NUMBEROFMODULES][NUMBEROFINFO] = {0};/*@null@*/
 	
-static uint8_t sequenceCounter = 8;
-static uint8_t servoState = SERVO_PULSEOFF;
+static uint8_t ui8SequenceCounter = 8;
+static uint8_t ui8ServoState = SERVO_PULSEOFF;
 #ifdef S_SPLINT_S // Suppress SPLint Parse Errors 
     #define bool_t  bool
 #endif  
-static bool_t kickStarted = false;
+static bool_t blKickStarted = false;
 
 /* Private Function Prototypes */
 static void servoController();
@@ -87,27 +87,27 @@ static void servoController();
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setupServoFull(enum servoModules ServoMod, uint8_t ServoPin, int8_t DefaultAngle, uint8_t MinPulseWidth, uint8_t MaxPulseWidth, int8_t MinAngle, int8_t MaxAngle)
+void setupServoFull(enum ServoModules_e eServoMod, uint8_t ui8ServoPin, int8_t i8DefaultAngle, uint8_t ui8MinPulseWidth, uint8_t ui8MaxPulseWidth, int8_t i8MinAngle, int8_t i8MaxAngle)
 {
-	uint32_t TempBuffer;
+	uint32_t ui32TempBuffer;
 	
 	/* Initilize Parameters */
-	servo[ServoMod][SERVO_PIN]		= ServoPin;
+	aui8Servo[eServoMod][SERVO_PIN]		= ui8ServoPin;
 
 	/* Compute Servo Slope */
-	TempBuffer = (((uint32_t)MaxPulseWidth - MinPulseWidth)*128);
-	TempBuffer /= ((int8_t)MaxAngle - MinAngle);
-	servo[ServoMod][SERVO_SLOPE] = (uint8_t)TempBuffer;
+	ui32TempBuffer = (((uint32_t)ui8MaxPulseWidth - ui8MinPulseWidth)*128);
+	ui32TempBuffer /= ((int8_t)i8MaxAngle - i8MinAngle);
+	aui8Servo[eServoMod][SERVO_SLOPE] = (uint8_t)ui32TempBuffer;
 	
 	/* Compute Servo Pulse Width */
-	servo[ServoMod][SERVO_PULSE] = (uint8_t)(((int32_t)DefaultAngle*servo[ServoMod][SERVO_SLOPE]) / 128 + SERVO_PULSE_OFFSET);
+	aui8Servo[eServoMod][SERVO_PULSE] = (uint8_t)(((int32_t)i8DefaultAngle*aui8Servo[eServoMod][SERVO_SLOPE]) / 128 + SERVO_PULSE_OFFSET);
 	
 	/* Initialize TMR2 for Servo Control */
-	if(false == kickStarted)
+	if(false == blKickStarted)
 	{
 		setup8BitTimer(SERVO_TIMER, servoController);
 		setTimer(SERVO_TIMER, SERVO_MAX_PULSEWIDTH);								// set pulse on period (kickstart)
-		kickStarted = true;
+		blKickStarted = true;
 	}	
 }
 
@@ -130,9 +130,9 @@ void setupServoFull(enum servoModules ServoMod, uint8_t ServoPin, int8_t Default
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setupServo(enum servoModules ServoMod, uint8_t ServoPin, int8_t DefaultAngle)
+void setupServo(enum ServoModules_e eServoMod, uint8_t ui8ServoPin, int8_t i8DefaultAngle)
 {
-	setupServoFull(ServoMod, ServoPin, DefaultAngle, SERVO_MIN_PULSEWIDTH, SERVO_MAX_PULSEWIDTH, SERVO_MIN_ANGLEPOSITION, SERVO_MAX_ANGLEPOSITION);
+	setupServoFull(eServoMod, ui8ServoPin, i8DefaultAngle, SERVO_MIN_PULSEWIDTH, SERVO_MAX_PULSEWIDTH, SERVO_MIN_ANGLEPOSITION, SERVO_MAX_ANGLEPOSITION);
 }
 
 /*******************************************************************************//**
@@ -151,9 +151,9 @@ void setupServo(enum servoModules ServoMod, uint8_t ServoPin, int8_t DefaultAngl
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setupServoPort(int8_t DefaultAngle)
+void setupServoPort(int8_t i8DefaultAngle)
 {
-	setupServoFull(SERV0,SERVO,DefaultAngle, SERVO_MIN_PULSEWIDTH, SERVO_MAX_PULSEWIDTH, SERVO_MIN_ANGLEPOSITION, SERVO_MAX_ANGLEPOSITION);
+	setupServoFull(SERV0,SERVO,i8DefaultAngle, SERVO_MIN_PULSEWIDTH, SERVO_MAX_PULSEWIDTH, SERVO_MIN_ANGLEPOSITION, SERVO_MAX_ANGLEPOSITION);
 }
 
 /*******************************************************************************//**
@@ -173,9 +173,9 @@ void setupServoPort(int8_t DefaultAngle)
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setServoAngle(enum servoModules ServoMod, int8_t servoAngle)
+void setServoAngle(enum ServoModules_e eServoMod, int8_t i8ServoAngle)
 {
-	servo[ServoMod][SERVO_PULSE] = (uint8_t)(((int32_t)servoAngle*servo[ServoMod][SERVO_SLOPE]) / 128 + SERVO_PULSE_OFFSET);
+	aui8Servo[eServoMod][SERVO_PULSE] = (uint8_t)(((int32_t)i8ServoAngle*aui8Servo[eServoMod][SERVO_SLOPE]) / 128 + SERVO_PULSE_OFFSET);
 }
 
 /*******************************************************************************//**
@@ -194,9 +194,9 @@ void setServoAngle(enum servoModules ServoMod, int8_t servoAngle)
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setServoPortAngle(int8_t servoAngle)
+void setServoPortAngle(int8_t i8ServoAngle)
 {
-	setServoAngle(SERV0,servoAngle);
+	setServoAngle(SERV0,i8ServoAngle);
 }
 
 /* Private Functions */
@@ -220,49 +220,49 @@ void setServoPortAngle(int8_t servoAngle)
 static void servoController()
 {
 	/* Servo State Machine */
-	switch(servoState)
+	switch(ui8ServoState)
 	{
 		case SERVO_PULSEON:
 		{
-			setTimer(SERVO_TIMER, (SERVO_MAX_PULSEWIDTH-servo[sequenceCounter][SERVO_PULSE]));  // set pulse off period
-			clrPin(servo[sequenceCounter][SERVO_PIN]);
-			servoState = SERVO_PULSEOFF;
+			setTimer(SERVO_TIMER, (SERVO_MAX_PULSEWIDTH-aui8Servo[ui8SequenceCounter][SERVO_PULSE]));  // set pulse off period
+			clrPin(aui8Servo[ui8SequenceCounter][SERVO_PIN]);
+			ui8ServoState = SERVO_PULSEOFF;
 			break;
 		}
 		case SERVO_PULSEOFF:
 		{
 			/* Check Next Servo */
-			if(sequenceCounter < 8)
+			if(ui8SequenceCounter < 8)
 			{
-				sequenceCounter++;
+				ui8SequenceCounter++;
 			}
 			else
 			{
-				sequenceCounter = 0;
+				ui8SequenceCounter = 0;
 			}			
 			
 			/* Check if Angle is pulse < min */
-			if(servo[sequenceCounter][SERVO_PULSE] < SERVO_MIN_PULSEWIDTH)
+			if(aui8Servo[ui8SequenceCounter][SERVO_PULSE] < SERVO_MIN_PULSEWIDTH)
 			{
-				/* skip servo module */
-				servo[sequenceCounter][SERVO_PULSE] = 0;
+				/* skip aui8Servo module */
+				aui8Servo[ui8SequenceCounter][SERVO_PULSE] = 0;
 				setTimer(SERVO_TIMER, SERVO_MAX_PULSEWIDTH);							        // low for 2.5mS
-				clrPin(servo[sequenceCounter][SERVO_PIN]);
-				servoState = SERVO_PULSEOFF;
+				clrPin(aui8Servo[ui8SequenceCounter][SERVO_PIN]);
+				ui8ServoState = SERVO_PULSEOFF;
 			}
 			else
 			{
-				setTimer(SERVO_TIMER, servo[sequenceCounter][SERVO_PULSE]);				        // set pulse on period	
-				setPin(servo[sequenceCounter][SERVO_PIN]);				
-				servoState = SERVO_PULSEON;
+				setTimer(SERVO_TIMER, aui8Servo[ui8SequenceCounter][SERVO_PULSE]);				        // set pulse on period	
+				setPin(aui8Servo[ui8SequenceCounter][SERVO_PIN]);				
+				ui8ServoState = SERVO_PULSEON;
 			}
 			break;
 		}
 		default:	/* must not be reached */
 		{
 			setTimer(SERVO_TIMER, SERVO_MAX_PULSEWIDTH);								        // low for 2.5mS
-			sequenceCounter = 8;
-			servoState = SERVO_PULSEOFF;
+			ui8SequenceCounter = 8;
+			ui8ServoState = SERVO_PULSEOFF;
 			break; 
 		}
 	}

@@ -43,7 +43,9 @@
 #define K_DAC_TIMER             TIMER2
     
 /* Global Constants */
-enum etSoftDACModules
+#define K_SOFT_DAC_PERIOD       255       // 390.625Hz (2.56mS)
+
+enum SoftDACModules_e
 {
     SDAC0
     ,SDAC1
@@ -52,15 +54,13 @@ enum etSoftDACModules
     ,MAX_NUM_OF_SDAC
 };
 
-#define K_SOFT_DAC_PERIOD       255       // 390.625Hz (2.56mS)
-
 /* Macro and Configuration Definitions */
     /* none */
     
 /* Public Function Prototypes */
-void setupSoftDAC(enum etSoftDACModules ui8SDACModule, uint8_t ui8Pin, uint8_t ui8Value);
-void setSoftDAC(enum etSoftDACModules ui8SDACModule, uint8_t ui8Value);
-void removeSoftDAC(enum etSoftDACModules ui8SDACModule);
+void setupSoftDAC(enum SoftDACModules_e eSDACModule, uint8_t ui8Pin, uint8_t ui8Value);
+void setSoftDAC(enum SoftDACModules_e eSDACModule, uint8_t ui8Value);
+void removeSoftDAC(enum SoftDACModules_e eSDACModule);
 
 #endif /* end of soft_dac.h */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
