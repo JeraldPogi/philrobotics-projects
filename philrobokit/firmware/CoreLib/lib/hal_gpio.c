@@ -142,7 +142,7 @@ bool_t checkPinState(uint8_t ui8PinName)
 		else if(ui8PinName >= 4 && ui8PinName <= 6){ //RE0 to RE2
 			ui8PinName -= 4;	
             
-			if(REGISTER_PORTE&(1UL<<ui8PinName)){
+			if(REGISTER_PORTE&(1UL<<ui8PinName+2)){
 				return TRUE; 
 			}
 			else{
@@ -168,24 +168,9 @@ bool_t checkPinState(uint8_t ui8PinName)
     {
         if(ui8PinName<=D7) { 
             REGISTER_PORTC ^= (1UL<<ui8PinName); 
-        }
-        else if(ui8PinName>=D8 && ui8PinName<=D13) { 
+        }else if(ui8PinName>=D8 && ui8PinName<=D13) { 
             REGISTER_PORTB ^= (1UL<<(ui8PinName-D8)); 
-        }        
-        else if(ui8PinName>=D14 && ui8PinName>=D20){
-            ui8PinName -= D14;
-            if(ui8PinName <= 2){//RA0 to RA2
-                REGISTER_PORTA ^= (1UL<<(ui8PinName-SERVO));
-            }
-            else if(ui8PinName == 3){//RA5
-                REGISTER_PORTA ^= (1UL<<ui8PinName+2);
-            }
-            else if(ui8PinName >= 4 && ui8PinName <= 6){ //RE0 to RE2
-                ui8PinName -= 4;	            
-                REGISTER_PORTE ^= (1UL<<ui8PinName);
-            }
-        }
-        else if(ui8PinName>=SERVO && ui8PinName<=LED1) { 
+        }else if(ui8PinName>=SERVO && ui8PinName<=LED1) { 
             REGISTER_PORTD ^= (1UL<<(ui8PinName-SERVO)); 
         } 
     }
@@ -195,48 +180,18 @@ bool_t checkPinState(uint8_t ui8PinName)
         if(blPinState){
             if(ui8PinName<=D7) { 
                 REGISTER_PORTC |= (1UL<<ui8PinName); 
-            }
-            else if(ui8PinName>=D8 && ui8PinName<=D13) { 
+            }else if(ui8PinName>=D8 && ui8PinName<=D13) { 
                 REGISTER_PORTB |= (1UL<<(ui8PinName-D8)); 
-            }  
-            else if(ui8PinName>=D14 && ui8PinName>=D20){
-                ui8PinName -= D14;
-                if(ui8PinName <= 2){//RA0 to RA2
-                    REGISTER_PORTA |= (1UL<<(ui8PinName-SERVO));
-                }
-                else if(ui8PinName == 3){//RA5
-                    REGISTER_PORTA |= (1UL<<ui8PinName+2);
-                }
-                else if(ui8PinName >= 4 && ui8PinName <= 6){ //RE0 to RE2
-                    ui8PinName -= 4;	            
-                    REGISTER_PORTE |= (1UL<<ui8PinName);
-                }
-            }
-            else if(ui8PinName>=SERVO && ui8PinName<=LED1) { 
+            }else if(ui8PinName>=SERVO && ui8PinName<=LED1) { 
                 REGISTER_PORTD |= (1UL<<(ui8PinName-SERVO)); 
-            } 
+            }   
         }
         else{
             if(ui8PinName<=D7) { 
                 REGISTER_PORTC &= ~(1UL<<ui8PinName); 
-            }
-            else if(ui8PinName>=D8 && ui8PinName<=D13) { 
+            }else if(ui8PinName>=D8 && ui8PinName<=D13) { 
                 REGISTER_PORTB &= ~(1UL<<(ui8PinName-D8)); 
-            }
-            else if(ui8PinName>=D14 && ui8PinName>=D20){
-                ui8PinName -= D14;
-                if(ui8PinName <= 2){//RA0 to RA2
-                    REGISTER_PORTA &= ~(1UL<<(ui8PinName-SERVO));
-                }
-                else if(ui8PinName == 3){//RA5
-                    REGISTER_PORTA &= ~(1UL<<ui8PinName+2);
-                }
-                else if(ui8PinName >= 4 && ui8PinName <= 6){ //RE0 to RE2
-                    ui8PinName -= 4;	            
-                    REGISTER_PORTE &= ~(1UL<<ui8PinName);
-                }
-            }
-            else if(ui8PinName>=SERVO && ui8PinName<=LED1) { 
+            }else if(ui8PinName>=SERVO && ui8PinName<=LED1) { 
                 REGISTER_PORTD &= ~(1UL<<(ui8PinName-SERVO)); 
             } 
         }
