@@ -62,14 +62,16 @@
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setDAC(/*enum ePWMModules*/uint8_t eDAC_Module, uint16_t ui16Value) 
+void setDAC(uint8_t ui8DAC_Module, uint16_t ui16Value) 
 {
 	uint16_t ui16DutyCycle;
-	
+    #ifdef S_SPLINT_S 			        // Suppress SPLint Unrecognized ID Errors
+        #define uint24_t uint32_t       // esc.comment: use with caution
+    #endif
 	/* 0 - 1023 : 0 - 1000  */
 	ui16DutyCycle = (uint16_t)(((uint24_t)976 * ui16Value) / 1000);
 	
-	setupPWM(eDAC_Module, K_DAC_DEFAULT_FREQ, ui16DutyCycle);	
+	setupPWM(ui8DAC_Module, K_DAC_DEFAULT_FREQ, ui16DutyCycle);	
 }
 
 /*******************************************************************************//**
@@ -88,9 +90,9 @@ void setDAC(/*enum ePWMModules*/uint8_t eDAC_Module, uint16_t ui16Value)
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void removeDAC(/*enum ePWMModules*/uint8_t eDAC_Module)
+void removeDAC(uint8_t ui8DAC_Module)
 {
-	removePWM(eDAC_Module);
+	removePWM(ui8DAC_Module);
 }
 /* Private Functions */
     /* none */

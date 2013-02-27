@@ -39,7 +39,7 @@
     /* none */
 
 /* Local Variables */
-static	uint8_t		mui8PreScaler=1, mui8PreScalerVal=1, mui8PR2plus1=0;
+static	uint8_t		ui8PreScaler=1, ui8PreScalerVal=1, ui8PR2plus1=0;
 
 /* Private Function Prototypes */
     /* none */
@@ -65,7 +65,7 @@ static	uint8_t		mui8PreScaler=1, mui8PreScalerVal=1, mui8PR2plus1=0;
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setupPWM(enum ePWMModules ePWM_Module, uint16_t ui16Frequency, uint16_t ui16DutyCycle)
+void setupPWM(enum PWMModules_e ePWM_Module, uint16_t ui16Frequency, uint16_t ui16DutyCycle)
 {
     /* Set the PWM period */
     setPWMFrequency(ui16Frequency);				    // Common for CCP1 and CCP2
@@ -81,7 +81,7 @@ void setupPWM(enum ePWMModules ePWM_Module, uint16_t ui16Frequency, uint16_t ui1
         //hal_clrPWMTmrIntFlag() ;                  	    // not critical
         
         /* Configure Prescaler value */
-        hal_initPWMTimer(mui8PreScalerVal);		    // Common for CCP1 and CCP2
+        hal_initPWMTimer(ui8PreScalerVal);		    // Common for CCP1 and CCP2
 
     /* Configure CCP to PWM mode */
 	if(PWM0 == ePWM_Module)
@@ -125,6 +125,9 @@ void setupPWM(enum ePWMModules ePWM_Module, uint16_t ui16Frequency, uint16_t ui1
 void setPWMFrequency(uint16_t ui16Frequency)
 {
 	uint16_t	ui16TempVar;
+    #ifdef S_SPLINT_S                               // Suppress SPLint Parse Errors 
+        #define uint24_t  uint32_t                  // esc.comment: use with caution
+    #endif     
 	uint24_t	ui24Period;						    // 0.01uS/Bit Resolution	
 	
 	/* Check Frequency Range */
@@ -145,41 +148,41 @@ void setPWMFrequency(uint16_t ui16Frequency)
 	/* Check Prescaler Range */
 	if(ui16Frequency >= K_PRESCALE0_FREQ_LIM)       // 19.53kHz - 200kHz
 	{
-		mui8PreScalerVal = PRESCALE0_VAL;			// div by 1
+		ui8PreScalerVal = PRESCALE0_VAL;			// div by 1
 	}
 	else if(ui16Frequency >= K_PRESCALE1_FREQ_LIM)	// 4.88kHz - 19.53kHz
 	{
-		mui8PreScalerVal = PRESCALE1_VAL;			// div by 4
+		ui8PreScalerVal = PRESCALE1_VAL;			// div by 4
 	}
     else if(ui16Frequency >= K_PRESCALE2_FREQ_LIM)	// 1.22kHz - 4.88kHz
 	{
-		mui8PreScalerVal = PRESCALE2_VAL;			// div by 16
+		ui8PreScalerVal = PRESCALE2_VAL;			// div by 16
 	}
 	else										    // default
 	{	
-		mui8PreScalerVal = PRESCALE2_VAL;			// div by 16
+		ui8PreScalerVal = PRESCALE2_VAL;			// div by 16
 	}
 	
     /* Prescaler to Period Parsing */
-	mui8PreScaler = mui8PreScalerVal << 1;
-	mui8PreScaler = (uint8_t)1 << mui8PreScaler;    // secret :p
+	ui8PreScaler = ui8PreScalerVal << 1;
+	ui8PreScaler = (uint8_t)1 << ui8PreScaler;    // secret :p
 	
 	ui24Period = (uint24_t)(10000000UL / ui16Frequency);
 	
-	ui16TempVar = (uint16_t)20 * mui8PreScaler;
+	ui16TempVar = (uint16_t)20 * ui8PreScaler;
 	ui24Period = ui24Period/ui16TempVar;
 	
 	/* Check Saturation */
 	if(ui24Period > K_PERIOD_SAT_LIM)
 	{
-		mui8PR2plus1 = K_PERIOD_SAT_LIM;
+		ui8PR2plus1 = K_PERIOD_SAT_LIM;
 	}
 	else
 	{
-		mui8PR2plus1 = (uint8_t)ui24Period;
+		ui8PR2plus1 = (uint8_t)ui24Period;
 	}
 	
-	hal_setPWMPeriod(mui8PR2plus1);
+	hal_setPWMPeriod(ui8PR2plus1);
 }
 
 /*******************************************************************************//**
@@ -200,7 +203,7 @@ void setPWMFrequency(uint16_t ui16Frequency)
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setPWMDuty(enum ePWMModules ePWM_Module, uint16_t ui16DutyCycle)
+void setPWMDuty(enum PWMModules_e ePWM_Module, uint16_t ui16DutyCycle)
 {
 	uint16_t	ui16TempVar;
 	
@@ -210,7 +213,7 @@ void setPWMDuty(enum ePWMModules ePWM_Module, uint16_t ui16DutyCycle)
 		ui16DutyCycle = K_DUTY_SAT_LIM;
 	}
 	
-	ui16TempVar = (uint16_t)mui8PR2plus1 << 2;									// secret :p
+	ui16TempVar = (uint16_t)ui8PR2plus1 << 2;									// secret :p
 	ui16TempVar = (uint16_t)(((uint32_t)ui16TempVar * ui16DutyCycle) / 1000);	
 	
 	if(PWM0 == ePWM_Module)
@@ -244,7 +247,7 @@ void setPWMDuty(enum ePWMModules ePWM_Module, uint16_t ui16DutyCycle)
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void removePWM(enum ePWMModules ePWM_Module)
+void removePWM(enum PWMModules_e ePWM_Module)
 {
 	if(PWM0 == ePWM_Module)
 	{

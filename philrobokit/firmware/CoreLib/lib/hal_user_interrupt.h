@@ -44,7 +44,7 @@
     
 /* Global Constants */
 	/* Interrupt Modes */
-enum etInterruptModes
+enum InterruptModes_e
 {
 	LOWSTATE				// Trigger if Int Pin is Low (Currently Not Supported)
 	,CHANGE                 // Trigger if there is a change on interrupt pin state
@@ -91,11 +91,11 @@ enum etInterruptModes
     int PORTB_BUFFER,PORTB_DIR;
     
 #if(EXTINTENABLED == TRUE)
-    enum etInterruptModes mode0;
+    enum InterruptModes_e eMod0_Mode;
 #endif
 	
 #if(RBINTENABLED == TRUE)
-    enum etInterruptModes mode1, mode2, mode3, mode4, mode5;
+    enum InterruptModes_e eMod1_Mode, eMod2_Mode, eMod3_Mode, eMod4_Mode;
 #endif
 
     void nullIntFunction();

@@ -1,3 +1,19 @@
+/*****************************************************************************************//**
+* # PhilRobotics | Philippine Electronics and Robotics Enthusiasts Club #
+* http://philrobotics.com | http://philrobotics.com/forum | http://facebook.com/philrobotics
+* phirobotics.core@philrobotics.com
+*
+*---------------------------------------------------------------------------------------------
+* |Filename:      	| "ServoPort.phr"                                                         		|
+* |:----          	|:----                                                                    			|
+* |Description:   | Setup servo port for driving a servo which pans from left to right and vice versa.<BR>
+*                   	  An example of the use of the servo driver library.                      	|
+* |Author:        	| Efren S. Cruzat II                                                      		|
+* |               	|                                                                         			|
+* |Dependencies: | servo.c, servo.h                                                        		|
+*
+* > This program is free software under GNU General Public License.
+*********************************************************************************************/
 #include <servo.h>
 
 void init()
@@ -7,7 +23,7 @@ void init()
 
 void program()
 {
-	char_t i;
+	int8_t i;
 	
 	/* increment angle */
 	for(i=-90;i<=90;i++)

@@ -1,3 +1,19 @@
+/*****************************************************************************************//**
+* # PhilRobotics | Philippine Electronics and Robotics Enthusiasts Club #
+* http://philrobotics.com | http://philrobotics.com/forum | http://facebook.com/philrobotics
+* phirobotics.core@philrobotics.com
+*
+*---------------------------------------------------------------------------------------------
+* |Filename:      	| "QuarterVcc.phr"                                                        		|
+* |:----          	|:----                                                                    			|
+* |Description:   | Setup any pin as DAC output to output 1/4 of the VCC voltage.<BR>
+*                   	  An example of the use of the software DAC driver library.             |
+* |Author:        	| Efren S. Cruzat II                                                      		|
+* |               	|                                                                         			|
+* |Dependencies: | soft_dac.c, soft_dac.h                                                  		|
+*
+* > This program is free software under GNU General Public License.
+*********************************************************************************************/
 #include <soft_dac.h>
 
 #define MAX_VALUE			(255)

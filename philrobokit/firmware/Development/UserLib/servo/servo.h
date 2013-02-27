@@ -60,7 +60,7 @@
 #define SERVO_PULSE_OFFSET			SERVO_DEFAULT_PULSEWIDTH
 
 /* Global Constants */
-enum servoModules
+enum ServoModules_e
 {
 	SERV0
 	,SERV1
@@ -77,11 +77,11 @@ enum servoModules
     /* none */
     
 /* Public Function Prototypes */
-void setupServo(enum servoModules ServoMod, uint8_t ServoPin, int8_t DefaultAngle);
-void setupServoPort(int8_t DefaultAngle);
-void setupServoFull(enum servoModules ServoMod, uint8_t ServoPin, int8_t DefaultAngle, uint8_t MinPulseWidth, uint8_t MaxPulseWidth, int8_t MinAngle, int8_t MaxAngle);
-void setServoAngle(enum servoModules ServoMod, int8_t servoAngle);
-void setServoPortAngle(int8_t servoAngle);
+void setupServo(enum ServoModules_e eServoMod, uint8_t ui8ServoPin, int8_t i8DefaultAngle);
+void setupServoPort(int8_t i8DefaultAngle);
+void setupServoFull(enum ServoModules_e eServoMod, uint8_t ui8ServoPin, int8_t i8DefaultAngle, uint8_t ui8MinPulseWidth, uint8_t ui8MaxPulseWidth, int8_t i8MinAngle, int8_t i8MaxAngle);
+void setServoAngle(enum ServoModules_e eServoMod, int8_t i8ServoAngle);
+void setServoPortAngle(int8_t i8ServoAngle);
 	
 #endif /* end of servo.h */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
