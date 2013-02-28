@@ -242,7 +242,8 @@ static void bubbleSortDAC(uint8_t ui8MaxCount)
 
         for (ui8Counter = 0; ui8Counter < (ui8MaxCount - ui8Counter1); ui8Counter++) 
         {
-            if (astDACModuleSchedule[ui8Counter].ui8Value > astDACModuleSchedule[ui8Counter+1].ui8Value) 
+            ui8TempBuff = astDACModuleSchedule[ui8Counter+1].ui8Value;                  // XC8 BUG, cannot generate code if directly plugged onto if expression
+            if (astDACModuleSchedule[ui8Counter].ui8Value > ui8TempBuff) 
             {
                 /* Swap Module Assignment */
                 ui8TempBuff = astDACModuleSchedule[ui8Counter].ui8Module;
