@@ -4,7 +4,7 @@
 * phirobotics.core@philrobotics.com
 *
 *---------------------------------------------------------------------------------------------
-* |Filename:      | "hal_uart.h"                                |
+* |Filename:      | "corelib_uart.h"                            |
 * |:----          |:----                                        |
 * |Description:   | This is a header file of the serial/uart library |
 * |Revision:      | v01.00.01                                   |
@@ -35,78 +35,39 @@
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
 
-#ifndef __HAL_UART_H__
-#define __HAL_UART_H__
+#ifndef __PH_UART_H__
+#define __PH_UART_H__
 
 /* Include .h Library Files */
 #include <PhilRoboKit_CoreLib_Macro.h>
+#include "string.h"
+#include "hal_uart.h"
 
 /* User Configuration Definitions */
-    /* none */
+#define K8_UART_BUFFER_SIZE			(32)
     
 /* Global Constants */
+#ifndef NULL
+    #define NULL				'\0'
+#endif
+
+/* Macro and Configuration Definitions */
     /* none */
     
-/* Macro and Configuration Definitions */
-    /* TX Macro */
-/*@notfunction@*/
-#define hal_enableUARTTXInt()           		(BIT_PIE1_TXIE = 1)
-/*@notfunction@*/
-#define hal_disableUARTTXInt()          		(BIT_PIE1_TXIE = 0)
-/*@notfunction@*/
-#define hal_getUARTTXIntEnableStatus()          ((BIT_PIE1_TXIE) ? true : false)
-
-/*@notfunction@*/
-#define hal_clrUARTTXIntFlag()         			(BIT_PIR1_TXIF = 0)
-/*@notfunction@*/
-#define hal_getUARTTXIntFlag()                  ((BIT_PIR1_TXIF) ? true : false)
-
-#define K_TXREG_BUFF                            (REGISTER_TXREG)
-
-    /* RX Macro */
-/*@notfunction@*/
-#define hal_enableUARTRXInt()           		(BIT_PIE1_RCIE = 1)
-/*@notfunction@*/
-#define hal_disableUARTRXInt()          		(BIT_PIE1_RCIE = 0)
-/*@notfunction@*/
-#define hal_getUARTRXIntEnableStatus()          ((BIT_PIE1_RCIE) ? true : false)
-
-/*@notfunction@*/
-#define hal_clrUARTRXIntFlag()         			(BIT_PIR1_RCIF = 0)
-/*@notfunction@*/
-#define hal_getUARTRXIntFlag()                  ((BIT_PIR1_RCIF) ? true : false)
-
-#define K_RXREG_BUFF                            (REGISTER_RCREG)
-
-    /* Serial Config */
-    // 8-Bit
-    // Assynchronous Mode    
-/*@notfunction@*/
-#define hal_enableSerialTX()                    \
-BIT_TXSTA_TX9 = 0;                              \
-BIT_TXSTA_SYNC = 0;                             \
-BIT_TXSTA_TXEN = 1                              // semi-collon intentionally omitted 
-
-/*@notfunction@*/
-#define hal_disableSerialTX()                   \
-BIT_TXSTA_TXEN = 0                              // semi-collon intentionally omitted 
-// makePinInput();                                      esc.comment: UART TX Pin to be set as input
-
-    // 8-Bit
-    // Continous Rx
-/*@notfunction@*/
-#define hal_enableSerialRX()                    \
-BIT_RCSTA_RX9 = 0;                              \
-BIT_RCSTA_CREN = 1;                             \
-BIT_RCSTA_SPEN = 1                              // semi-collon intentionally omitted 
-
-/*@notfunction@*/
-#define hal_disableSerialRX()                   \
-BIT_RCSTA_SPEN = 0                              // semi-collon intentionally omitted 
-// makePinInput();                                      esc.comment: UART RX Pin to be set as input
-    
 /* Public Function Prototypes */
-void hal_setSerialBAUD(uint16_t ui16Baudrate);
-		
-#endif /* end of hal_uart.h */
+void setupSerial(uint16_t ui16Baudrate);
+
+void serialWrite(uint8_t ui8TxData);
+void serialWriteString(uint8_t *pui8StrTxData);
+void serialWriteBlock(uint8_t *pui8StrTxData, uint16_t ui16Size);
+
+uint8_t serialDataCount(void);
+uint8_t serialRead(void);
+
+void serialFlush(void);
+
+void serialRxISR(void);	
+void serialTxISR(void);
+	
+#endif /* end of corelib_uart.h */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
