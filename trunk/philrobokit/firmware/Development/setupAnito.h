@@ -60,7 +60,9 @@
     
     #include "hal_gpio.h"
     #include "hal_adc.h"
+    
     #include "hal_uart.h"
+    #include "corelib_uart.h"
  
     #include "hal_user_interrupt.h"
     #include "corelib_user_interrupt.h"

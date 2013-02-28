@@ -111,9 +111,9 @@ isr(void)
     timerISR();
     
     timer8BitISR();
-	serialRxInterruptHandler();
+	serialRxISR();
     userIntISR();
-	serialTxInterruptHandler();
+	serialTxISR();
 	//adcInterruptHandler();
 }
 
