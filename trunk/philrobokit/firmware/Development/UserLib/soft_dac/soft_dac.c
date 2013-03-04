@@ -94,11 +94,11 @@ void setupSoftDAC(enum SoftDACModules_e eSDACModule, uint8_t ui8Pin, uint8_t ui8
     
     /* can accurately set only between 7 and 250 */
     /* a problem possibly caused by mcu speed limitation(or bug on 8bit timer) that when set to low value the ton and the period are extended */
-    if(ui8Value < 7)
+    if(ui8Value < 9)
     {
-        ui8Value = 7;
+        ui8Value = 9;
     }
-    else if(ui8Value > 250)
+    else if(ui8Value > 247)
     {
         ui8Value = 255;
     }
@@ -419,7 +419,7 @@ static void softDACController()
             )
             {
                 /* check if previous and current have same values */
-                if(ui8PrevValue != astDACModuleSchedule[ui8DACEngineStates].ui8Value)
+                if((ui8PrevValue+5) < astDACModuleSchedule[ui8DACEngineStates].ui8Value)
                 {
                     setTimer(K_DAC_TIMER, (astDACModuleSchedule[ui8DACEngineStates].ui8Value - ui8PrevValue));
                     ui8PrevValue = astDACModuleSchedule[ui8DACEngineStates].ui8Value; 
