@@ -7,7 +7,7 @@
 * |Filename:      | "PhilRoboKit_CoreLib_Macro.c"               |
 * |:----          |:----                                        |
 * |Description:   | PhilRobokit Main Macro File                 |
-* |Revision:      | v01.00.00                                   |
+* |Revision:      | v01.00.01                                   |
 * |Author:        | Giancarlo Acelajado                         |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -31,6 +31,7 @@
 * |v00.01.02    |201202xx   |Giancarlo A.       |Modify LowLevel Configuration of Pins      |
 * |v00.01.03    |20120711   |ESCII              |Changed Interrupt Priorities               |
 * |v01.00.00    |201210xx   |Giancarlo A.       |Leverage Library to Standard Architecture  |
+* |v01.00.01    |20130307   |ESCII              |philrobokit_init moved to setupAnito.c to save 1 stack level|
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -54,7 +55,7 @@
     /* none */
 
 /* Private Function Prototypes */
-static void philrobokit_init(void);
+    /* none */
     
 /* Public Functions */
 /*******************************************************************************//**
@@ -81,6 +82,7 @@ int main(void)
 	
 	while(true){
 		program();	
+        adcCycle();
 	}	
 	
 	return 0;
@@ -114,34 +116,11 @@ isr(void)
 	serialRxISR();
     userIntISR();
 	serialTxISR();
-	//adcInterruptHandler();
+	adcISR();
 }
 
 /* Private Functions */
-/*******************************************************************************//**
-* \brief Variant Initialization Routine
-*
-* > This function is calls the variant specific peripheral initializations
-*
-* > <BR>
-* > **Syntax:**<BR>
-* >      setupAnito()
-* > <BR><BR>
-* > **Parameters:**<BR>
-* >     none
-* > <BR><BR>
-* > **Returns:**<BR>
-* >     none
-* > <BR><BR>
-***********************************************************************************/
-static void philrobokit_init(void)
-{
-#ifndef S_SPLINT_S // Suppress SPLint Parse Errors
-    #if (__PHR_BOARD__==__HW_PHR_ANITO__)                   /* Anito Board */
-        setupAnito();        
-    #endif
-#endif
-}	
+    /* none */
 
 /* end of PhilRoboKit_CoreLib_Macro.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

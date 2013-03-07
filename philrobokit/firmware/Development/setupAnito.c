@@ -7,7 +7,7 @@
 * |Filename:      | "setupAnito.c"                              |
 * |:----          |:----                                        |
 * |Description:   | Anito setup routines                        |
-* |Revision:      | v00.00.01                                   |
+* |Revision:      | v00.00.02                                   |
 * |Author:        | Giancarlo Acelajado                         |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -28,6 +28,8 @@
 * |FW Version   |Date       |Author             |Description                        |
 * |:----        |:----      |:----              |:----                              |
 * |v00.00.01    |201209xx   |Giancarlo A.       |Library Initial Release            |
+* |v00.00.02    |20130307   |ESCII              |Renamed setupAnito to philrobokit_init to save 1 stack level <BR>
+*                                                Added call to ADC setup and cyclic functions |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -45,13 +47,13 @@
     
 /* Public Functions */
 /*******************************************************************************//**
-* \brief Setup Anito Peripherals
+* \brief Setup Philrobokit Variant Specific Peripherals
 *
 * > This function is called to initialize anito specific peripherals 
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >      setupAnito()
+* >      philrobokit_init()
 * > <BR><BR>
 * > **Parameters:**<BR>
 * >     none
@@ -60,15 +62,13 @@
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setupAnito(void)
+void philrobokit_init(void)
 {
     setupGpio();
     setupTimer();	        // Hardware Delay        
-    setupADC();
-    //setupSerial();
+    setupADC(VDD);          // Vref at Vdd by default
     
-    BIT_INTCON_PEIE = 1;    // Enable Peripheral Interrupt  (esc.comment: to be updated)
-    BIT_INTCON_GIE = 1;	    // Enable Global Interrupt      (esc.comment: to be updated)
+    enableGlobalInt();      // global and peripheral interrupts enabled
 }
 
 /* Private Functions */
