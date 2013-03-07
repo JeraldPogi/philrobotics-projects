@@ -4,10 +4,10 @@
 * phirobotics.core@philrobotics.com
 *
 *---------------------------------------------------------------------------------------------
-* |Filename:      | "setupAnito.h"                              |
+* |Filename:      | "corelib_adc.h"                             |
 * |:----          |:----                                        |
-* |Description:   | Header for Anito setup routines             |
-* |Revision:      | v00.00.02                                   |
+* |Description:   | This is a header file for the ADC library   |
+* |Revision:      | v01.00.01                                   |
 * |Author:        | Giancarlo Acelajado                         |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -27,64 +27,46 @@
 *---------------------------------------------------------------------------------------------
 * |FW Version   |Date       |Author             |Description                        |
 * |:----        |:----      |:----              |:----                              |
-* |v00.00.01    |201209xx   |Giancarlo A.       |Library Initial Release            |
-* |v00.00.02    |20130307   |ESCII              |Renamed setupAnito to philrobokit_init to save 1 stack level|
+* |v00.01.00    |20110xxx   |Giancarlo A.       |Library Initial Release            |
+* |v00.01.01    |201203xx   |Giancarlo A.       |Fix Bugs, add removeADC            |
+* |v01.00.00    |201210xx   |Giancarlo A.       |Leverage Library to Standard Architecture|
+* |v01.00.01    |20130307   |ESC II             |Organized functions into HAL and CoreLib|
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
 
-#ifndef __SETUP_ANITO__
-#define __SETUP_ANITO__
+#ifndef __PH_ADC_H__
+#define __PH_ADC_H__
 
 /* Include .h Library Files */
-#include "hal_timer.h"
-#include "corelib_basetimer.h"
-
-#include "hal_gpio.h"
-//#include "corelib_gpio.h" <not existing>
-
+#include <PhilRoboKit_CoreLib_Macro.h>
 #include "hal_adc.h"
-#include "corelib_adc.h"
 
-#include "hal_uart.h"
-#include "corelib_uart.h"
-
-#include "hal_user_interrupt.h"
-#include "corelib_user_interrupt.h"
-
-#include "hal_8bit_timer.h"
-#include "corelib_8bit_timer.h"
-
-#include "hal_pwm.h"
-#include "corelib_pwm.h"
-#include "corelib_dac.h"
-    
 /* User Configuration Definitions */
-    /* Pin Default Initialization */
-#define	K8_DEFAULT_CONFIG_PORTA	(0b00011111)
-#define	K8_DEFAULT_CONFIG_PORTB	(0b00000000)
-#define	K8_DEFAULT_CONFIG_PORTC	(0b10000000)
-#define	K8_DEFAULT_CONFIG_PORTE	(0b00000111)
-#define	K8_DEFAULT_CONFIG_PORTD	(0b00001100)
+#ifdef S_SPLINT_S                                       // Suppress SPLint Parse Errors 
+    #define bool_t  bool
+#endif 
 
-/* Global Constants */    
-    /* Pin Definitions */
-extern enum etDigitalPins{
-    D0,	D1,	D2,	D3,	D4,	D5,	D6,	                        /* PORTC */
-    D7,	D8,	D9,	D10, D11, D12, D13,                     /* PORTB */
-    D14, D15, D16, D17, D18, D19, D20,                  /* PORTA and PORTE (Analog Pins Configured as Digital Pins */
-    SERVO, BUZZER, SW2, SW1, LED4, LED3, LED2, LED1	    /* PORTD, Builtin Components */
-};	
+#define ADC_CYCLE_TIMEOUT                       5       // in mS  
 
-extern enum etAnalogPins{
-    AN0, AN1, AN2, AN3,	AN4, AN5, AN6
+/* Global Constants */
+enum ADCVrefSource_e
+{
+    VDD
+    ,EXT
+    ,INT                                                // not used on Anito
 };
-
+    
 /* Macro and Configuration Definitions */
     /* none */
+    
+/* Public Function Prototypes */
+void adcISR(void);
+void adcCycle(void);
 
-/* Public Function Prototypes */    
-void philrobokit_init(void);
+void setupADC(enum ADCVrefSource_e eVrefSource);
+uint16_t adcRead(uint8_t ui8Channel);
+void removeADC(void);
 
-#endif/* end of setupAnito.h */
+#endif /* end of corelib_adc.h */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
