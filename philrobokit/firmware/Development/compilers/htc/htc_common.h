@@ -101,9 +101,13 @@
 	#define	REGISTER_TXREG		TXREG
 	#define	REGISTER_RCREG		RCREG
 	#define	REGISTER_SPBRG		SPBRG
-	
+
+#if defined( _16F873A ) || defined( _16F874A ) || defined( _16F876A ) || defined( _16F877A ) 
+    #define	REGISTER_TMR0L		TMR0
+#else	
 	#define	REGISTER_TMR0H		TMR0H	
 	#define	REGISTER_TMR0L		TMR0L
+#endif
 	
 	#define	REGISTER_TMR1H		TMR1H	
 	#define	REGISTER_TMR1L		TMR1L

@@ -32,6 +32,7 @@
 * |v00.00.03    |20130707   |ESCII              |Fixed Interrupt Handler                    |
 * |             |           |                   |Set to Overflow every 100uS                |
 * |v01.00.00    |201211xx   |Giancarlo A.       |Leverage Library to Standard Architecture  |
+* |v01.00.01    |20130320   |ESCII              |Move Timebase to TMR0 freerunning timer    |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -42,7 +43,12 @@
     /* none */
 
 /* Local Variables */
-    /* none */
+extern volatile uint8_t ui8TimerUsMSB;
+extern volatile uint16_t ui16TimerMs;
+
+#ifdef __TIMER_SEC__
+extern volatile uint16_t ui16TimerSec;
+#endif
 
 /* Private Function Prototypes */
     /* none */
@@ -51,7 +57,8 @@
 /*******************************************************************************//**
 * \brief Setup Base Timer
 *
-* > This function is called to initialize the base timer to interrupt periodically
+* > This function is called to initialize the base timer as freerunning timer which 
+* > interrupts on overflow to increment timebases
 *
 * > <BR>
 * > **Syntax:**<BR>
@@ -66,22 +73,23 @@
 ***********************************************************************************/
 void setupTimer(void)
 {
-    BIT_T1CON_T1CKPS1 = 1; 		// Prescaler is 8
-    BIT_T1CON_T1CKPS0 = 1; 
-    BIT_T1CON_T1OSCEN = 0; 		// Timer1 Oscillator Enable Control
-    BIT_T1CON_T1SYNC = 1; 		// Timer1 External Clock Input Synchronization Control
-    BIT_T1CON_TMR1CS = 0; 		// Timer1 Clock Source Select, Internal Clock (FOSC/4)
-        
-    REGISTER_TMR1L = (K16_TIMER);
-    REGISTER_TMR1H = (K16_TIMER >> 8);
-
-    BIT_T1CON_TMR1ON = 1; 		// Timer1 is ON
-
-    BIT_PIE1_TMR1IE = 1; 		// Enable Timer1 Interrupt
-    BIT_PIR1_TMR1IF = 0; 		// Clear Timer1 Interrupt Flag
+	/* Set Prescaler */
+    hal_setTMR0Prescaler(TMR0_PRESCALE); 
     
-    BIT_INTCON_PEIE = 1; 		// Enable Peripheral Interrupt
-    BIT_INTCON_GIE = 1;	 		// Enable Global Interrupt
+    /* Timer Peripheral Init */
+    hal_TMR0_Init();
+
+    /* Additional Configuration for PIC 18 */
+#if defined( _18F2420 ) || defined( _18F2520 ) || defined( _18F4420 ) || defined( _18F4520 ) || defined( _18F4620 )	
+    hal_use8BitTMR0();
+    
+    /* Enable Timer Module */
+    hal_enableBaseTimer();
+#endif
+    
+	/* Enable Interrupt */
+	hal_clrBaseTimerIntFlag();
+	hal_enableBaseTimerInt();
 }	
 
 /*******************************************************************************//**
@@ -102,39 +110,35 @@ void setupTimer(void)
 ***********************************************************************************/
 void timerISR(void)
 {
-    static uint16_t ui16MsCounter = 0;
-    
+    static uint16_t ui16UsCounter = 0;
     #ifdef __TIMER_SEC__
-        static uint16_t ui16SecCounter = 0;
+    static uint16_t ui16MsCounter = 0;
     #endif
-
-    if(BIT_PIR1_TMR1IF&&BIT_PIE1_TMR1IE)
+    
+    if(hal_getBaseTimerIntFlag() && hal_getBaseTimerIntEnableStatus())
     {
-        BIT_PIR1_TMR1IF = 0; 	                    // Clear Timer1 Interrupt Flag
+    	hal_clrBaseTimerIntFlag();
+   
+        ui8TimerUsMSB++;                        // increment uS Timer High Byte
+    	ui16UsCounter += TMR0_US_INCREMENT;             
         
-        /* Increment US Timer */
-        ui16TimerUs += K16_TIMER_INCREMENT;
+    	if(ui16UsCounter >= 1000)
+    	{
+    		ui16TimerMs++;
+    		ui16UsCounter -= 1000;
+            
+            #ifdef __TIMER_SEC__
+            ui16MsCounter++;
+            #endif
+    	}	
 
-        /* Increment MS Timer */
-        ui16MsCounter += K16_TIMER_INCREMENT;
+        #ifdef __TIMER_SEC__
         if(ui16MsCounter >= 1000)
         {
+            ui16TimerSec++;
             ui16MsCounter = 0;
-            ui16TimerMs++;		
-
-            #ifdef __TIMER_SEC__
-                ui16SecCounter++;                   // Increment Sec Timer
-                
-                if(ui16SecCounter >= 1000)
-                {
-                    ui16SecCounter = 0;
-                    ui16TimerSec++;
-                }
-            #endif
         }
-        
-        REGISTER_TMR1L = (K16_TIMER);
-        REGISTER_TMR1H = (K16_TIMER >> 8);
+        #endif
     }
 }	
 
