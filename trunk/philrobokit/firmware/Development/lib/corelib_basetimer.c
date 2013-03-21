@@ -7,7 +7,7 @@
 * |Filename:      | "corelib_basetimer.c"                       |
 * |:----          |:----                                        |
 * |Description:   | Anito Base Timer Application                |
-* |Revision:      | v01.00.00                                   |
+* |Revision:      | v01.00.01                                   |
 * |Author:        | Giancarlo Acelajado                         |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -28,6 +28,7 @@
 * |FW Version   |Date       |Author             |Description                                |
 * |:----        |:----      |:----              |:----                                      |
 * |v00.00.01    |201211xx   |Giancarlo A.       |Library Initial Release                    |
+* |v01.00.01    |20130321   |ESC II             |Modified uS time computation to use TMR0   |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -38,12 +39,11 @@
     /* none */
 
 /* Local Variables */
-    /* esc.comment: to be moved to "PhilRobokit_CoreLib_GlobalDefs.c" */
-volatile uint16_t ui16TimerUs = 0;
+volatile uint8_t ui8TimerUsMSB = 0;
 volatile uint16_t ui16TimerMs = 0;
 
 #ifdef __TIMER_SEC__
-    volatile uint16_t ui16TimerSec = 0;
+volatile uint16_t ui16TimerSec = 0;
 #endif
 
 /* Private Function Prototypes */
@@ -70,7 +70,7 @@ volatile uint16_t ui16TimerMs = 0;
 ***********************************************************************************/  
 uint16_t getUs(void)
 {	
-    return ui16TimerUs;
+    return hal_getBaseTimerValue();
 }
 
 /*******************************************************************************//**
@@ -92,7 +92,15 @@ uint16_t getUs(void)
 ***********************************************************************************/
 uint16_t getElapsedUs(uint16_t ui16TimeUs)
 {	
-    return (ui16TimerUs - ui16TimeUs);
+    uint16_t ui16TempReg;
+    
+    ui16TempReg = hal_getBaseTimerValue() - ui16TimeUs;
+    
+#if (_XTAL_FREQ == 20000000)
+    ui16TempReg = (ui16TempReg - (ui16TempReg >> 2)) + (ui16TempReg >> 4);         // delta' = delta * 0.8, (0.8125 = 1 - 0.25 + 0.0625)
+#endif
+
+    return (ui16TempReg);
 }	
 
 /*******************************************************************************//**

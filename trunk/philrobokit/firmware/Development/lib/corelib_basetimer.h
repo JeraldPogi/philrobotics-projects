@@ -27,7 +27,7 @@
 *---------------------------------------------------------------------------------------------
 * |FW Version   |Date       |Author             |Description                                |
 * |:----        |:----      |:----              |:----                                      |
-* |v00.00.01    |201211xx   |Giancarlo A.       |Library Initial Release                    |
+* |v01.00.00    |201211xx   |Giancarlo A.       |Library Initial Release                    |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -39,15 +39,7 @@
 #include <PhilRoboKit_CoreLib_Macro.h>
 #include <PhilRoboKit_CoreLib_DataTypes.h>
 #include "hal_timer.h"
-
-    /* esc.comment: to be moved to "PhilRobokit_CoreLib_GlobalDefs.c" */
-    extern volatile uint16_t ui16TimerUs;
-	extern volatile uint16_t ui16TimerMs;
-    
-    #ifdef __TIMER_SEC__
-        extern volatile uint16_t ui16TimerSec;
-    #endif
-    
+   
 /* User Configuration Definitions */
     /* none */
     
@@ -58,16 +50,16 @@
     /* none */
 
 /* Public Function Prototypes */	
-    uint16_t getUs(void);
-	uint16_t getElapsedUs(uint16_t ui16TimeUs);
-    
-	uint16_t getMs(void);
-	uint16_t getElapsedMs(uint16_t ui16TimeMs);
+uint16_t getUs(void);
+uint16_t getElapsedUs(uint16_t ui16TimeUs);
 
-    #ifdef __TIMER_SEC__
-        uint16_t getSec(void);
-        uint16_t getElapsedSec(uint16_t ui16TimeSec);
-    #endif
+uint16_t getMs(void);
+uint16_t getElapsedMs(uint16_t ui16TimeMs);
+
+#ifdef __TIMER_SEC__
+uint16_t getSec(void);
+uint16_t getElapsedSec(uint16_t ui16TimeSec);
+#endif
 	
 #endif/* end of corelib_basetimer.h */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	

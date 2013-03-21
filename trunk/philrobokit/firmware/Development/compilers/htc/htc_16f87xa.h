@@ -7,7 +7,7 @@
 * |Filename:      | "htc_16f87xa.h"                             |
 * |:----          |:----                                        |
 * |Description:   | Hi-Tech C PIC16F877A Register Definitions   |
-* |Revision:      | v00.01.02                                   |
+* |Revision:      | v00.01.03                                   |
 * |Author:        | Giancarlo Acelajado                         |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -30,6 +30,7 @@
 * |v00.01.00    |201112xx   |Giancarlo A.       |Library Initial Release            |
 * |v00.01.01    |20120711   |ESCII              |Added defines for PWM and Timers   |
 * |v00.01.02    |20130307   |ESCII              |Added macro for enabling and disabling global interrupts |
+* |v00.01.03    |20130320   |ESCII              |Added definitions for TMR0 registers, delay macro moved here |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -80,7 +81,7 @@
     #define	BIT_TXSTA_TX9		TX9
     #define	BIT_TXSTA_TXEN		TXEN
     #define	BIT_TXSTA_SYNC		SYNC
-    //#define	BIT_TXSTA_RESERVED		TXSTA.3
+    //#define BIT_TXSTA_RESERVED	TXSTA.3
     #define	BIT_TXSTA_BRGH		BRGH
     #define	BIT_TXSTA_TRMT		TRMT
     #define	BIT_TXSTA_TX9D		TX9D
@@ -95,6 +96,20 @@
     #define	BIT_RCSTA_OERR		OERR
     #define	BIT_RCSTA_RX9D		RX9D		
 	
+    /* TMR0 - 8/16Bit Timer Peripheral */
+#define REGISTER_T0CON      OPTION_REG
+//#define REGISTER_T0CON        T0CON
+    //#define BIT_T0CON_TMR0ON 	     TMR0ON
+    //#define BIT_T0CON_T08BIT 	     T08BIT
+    #define BIT_T0CON_T0CS 	    T0CS
+    #define BIT_T0CON_T0SE 	    T0SE
+    #define BIT_T0CON_PSA 	    PSA
+    #define BIT_T0CON_PS2 	    PS2
+    #define BIT_T0CON_PS1 	    PS1
+    #define BIT_T0CON_PS0 	    PS0
+        
+#define TMR0_PRESCALE_MASK  0x07                // Bit 0 to Bit 2
+    
     /* TMR1 - 16Bit Timer Peripheral */
 #define	REGISTER_T1CON		T1CON
     //#define BIT_T1CON_RESERVED	T1CON.7
@@ -135,13 +150,13 @@
     /* TMRx - 8Bit Timer Peripheral */
 #define REGISTER_PR2        PR2
 //define REGISTER_PR4          	PR4
-//#define REGISTER_PR6          	PR6
+//#define REGISTER_PR6          PR6
 
 #define REGISTER_T2CON      T2CON     
-//#define REGISTER_T4CON          T4CON 
-//#define REGISTER_T6CON          T6CON 
+//#define REGISTER_T4CON        T4CON 
+//#define REGISTER_T6CON        T6CON 
 
-    //#define BIT_TxCON_RESERVED		T2CON.7	
+    //#define BIT_TxCON_RESERVED	T2CON.7	
     #define BIT_T2CON_TOUTPS3 	TOUTPS3
     #define BIT_T2CON_TOUTPS2   TOUTPS2
     #define BIT_T2CON_TOUTPS1   TOUTPS1
@@ -195,6 +210,7 @@
 #endif	
     
 /* Macro and Configuration Definitions */
+    /* Global Interrupts Disable/Enable */
 	/*@notfunction@*/
 	#define enableGlobalInt()               \
     BIT_INTCON_GIE = 1;                     \
@@ -207,7 +223,20 @@
     
     /*@notfunction@*/
     #define getGlobalIntEnableStatus()      ((BIT_INTCON_GIE) ? true : false)
+
+    /* Timer Delay Functions, Note: These are blocking Functions!!! */
+    /*@notfunction@*/
+    #define delayUs(x)		                \
+    disableGlobalInt();                     \
+    __delay_us(x);                          \
+    enableGlobalInt()                       // semi-collon intentionally omitted
     
+    /*@notfunction@*/
+    #define delayMs(x)		                \
+    disableGlobalInt();                     \
+    __delay_ms(x);                          \
+    enableGlobalInt()                       // semi-collon intentionally omitted
+  
 /* Public Function Prototypes */ 
     /* none */
 	    

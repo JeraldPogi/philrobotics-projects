@@ -7,7 +7,7 @@
 * |Filename:      | "PhilRoboKit_CoreLib_Macro.c"               |
 * |:----          |:----                                        |
 * |Description:   | PhilRobokit Main Macro File                 |
-* |Revision:      | v01.00.01                                   |
+* |Revision:      | v01.00.02                                   |
 * |Author:        | Giancarlo Acelajado                         |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -32,6 +32,7 @@
 * |v00.01.03    |20120711   |ESCII              |Changed Interrupt Priorities               |
 * |v01.00.00    |201210xx   |Giancarlo A.       |Leverage Library to Standard Architecture  |
 * |v01.00.01    |20130307   |ESCII              |philrobokit_init moved to setupAnito.c to save 1 stack level|
+* |v01.00.02    |20130321   |ESCII              |Disabled global interrupt on ISR and reenable before return|
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -39,13 +40,24 @@
 #include "PhilRoboKit_CoreLib_Macro.h"
 
 /* Controller Setting */
+#ifndef S_SPLINT_S                              /* Suppress SPLint Parse Errors */  
 #if (__PHR_CONTROLLER__==__MCU_PIC__)
     /* device configuration settings */
     #if defined(HI_TECH_C)
-        #ifndef S_SPLINT_S // Suppress SPLint Parse Errors    
+        /* Anito Rev0 */
+        #if defined( _16F873A ) || defined( _16F874A ) || defined( _16F876A ) || defined( _16F877A )         
             __CONFIG(WDTE_OFF & FOSC_HS & LVP_OFF & PWRTE_ON & BOREN_OFF);
+        /* Anito Rev1 */
+        #elif defined( _18F2420 ) || defined( _18F2520 ) || defined( _18F4420 ) || defined( _18F4520 )  
+        
+        /* Glutnix Variant */  
+        #elif defined( _18F4620 ) 
+        
+        #else
+        /* Warning: no defined fuses!!! */
         #endif
     #endif
+#endif
 #endif
 
 /* Local Constants */
@@ -110,6 +122,8 @@ interrupt
 #endif
 isr(void)
 {
+    disableGlobalInt();
+    
     timerISR();
     
     timer8BitISR();
@@ -117,6 +131,8 @@ isr(void)
     userIntISR();
 	serialTxISR();
 	adcISR();
+    
+    enableGlobalInt();
 }
 
 /* Private Functions */
