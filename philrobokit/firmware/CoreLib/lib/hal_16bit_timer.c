@@ -4,11 +4,11 @@
 * phirobotics.core@philrobotics.com
 *
 *---------------------------------------------------------------------------------------------
-* |Filename:      | "setupAnito.c"                              |
+* |Filename:      | "hal_8bit_timer.c"                          |
 * |:----          |:----                                        |
-* |Description:   | Anito setup routines                        |
-* |Revision:      | v00.00.02                                   |
-* |Author:        | Giancarlo Acelajado                         |
+* |Description:   | This is a driver for micrcochip 8bit timer (TMR1, TMR4, TMR6) |
+* |Revision:      | v00.01.00                                   |
+* |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
 * |Dependencies:  |                                             |
 *
@@ -27,14 +27,13 @@
 *---------------------------------------------------------------------------------------------
 * |FW Version   |Date       |Author             |Description                        |
 * |:----        |:----      |:----              |:----                              |
-* |v00.00.01    |201209xx   |Giancarlo A.       |Library Initial Release            |
-* |v00.00.02    |20130307   |ESCII              |Renamed setupAnito to philrobokit_init to save 1 stack level <BR>
-*                                                Added call to ADC setup and cyclic functions |
+* |v00.00.01    |20120620   |ESCII              |Library Initial Release            |
+* |v00.01.00    |20130205   |ESCII              |Modified For Layered Architecture  |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
 
-#include  "setupAnito.h"
+#include "hal_16bit_timer.h"
 
 /* Local Constants */
     /* none */
@@ -43,17 +42,18 @@
     /* none */
 
 /* Private Function Prototypes */
-void criticalTaskISR();
-    
+    /* none */
+
 /* Public Functions */
 /*******************************************************************************//**
-* \brief Setup Philrobokit Variant Specific Peripherals
+* \brief Initialize 8bit timer interrupt function pointer with null function
 *
-* > This function is called to initialize anito specific peripherals 
+* > This function basically does nothing and is used to initialize 8bit timer 
+* > interrupt function pointer.
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >      philrobokit_init()
+* >     nullTMRFunction()
 * > <BR><BR>
 * > **Parameters:**<BR>
 * >     none
@@ -62,31 +62,13 @@ void criticalTaskISR();
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void philrobokit_init(void)
+void null16BitTMRFunction()
 {
-    /* Initialize GPIO default and direction */
-    setupGpio();
-    
-    /* System Timebase */
-    setupTimer();	        
-    
-    /* Use Timer 1 for ADC Polling */
-    setup16BitTimer(TIMER1, criticalTaskISR);
-    set16BitTimer(TIMER1, K16_CRITICALTASK_PERIOD);    
-    
-    /* Vref at Vdd by default */
-    setupADC(VDD);          
-    
-    /* global and peripheral interrupts enabled */
-    enableGlobalInt();      
+	;/* NULL */
 }
 
 /* Private Functions */
-void criticalTaskISR()
-{
-    set16BitTimer(TIMER1, K16_CRITICALTASK_PERIOD);
-    adcCycle();
-}
-    
-/* end of setupAnito.c */
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    /* none */
+
+/* end of hal_8bit_timer.c */
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	

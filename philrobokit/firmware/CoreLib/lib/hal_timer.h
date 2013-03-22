@@ -41,7 +41,7 @@
 #define __ANITO_TIMER_H__
 
 /* Include .h Library Files */
-#include <PhilRoboKit_CoreLib_Header.h>
+#include <PhilRoboKit_CoreLib_Macro.h>
 
 /* Global Constants */	
 enum baseTmrPreScale_e
@@ -57,14 +57,14 @@ enum baseTmrPreScale_e
 };
 
 /* User Configuration Definitions */
-#if (_XTAL_FREQ == 20000000)  
+#if (_XTAL_FREQ == 20000000)
     #define TMR0_PRESCALE                           (TMR0_PRE_DIV4)
     #define TMR0_US_INCREMENT                       (205)               // 0.8uS per increment * 256 increments = 204.8uS
-#elif (_XTAL_FREQ == 8000000) 
+#elif (_XTAL_FREQ == 8000000)
     #define TMR0_PRESCALE                           (TMR0_PRE_DIV2)
     #define TMR0_US_INCREMENT                       (256)               // 1uS per increment
 #else
-    /* Warning Undefined Crystal Frequency */
+    #warning Clock Frequency Not Defined
 #endif
 
 /* Macro and Configuration Definitions */

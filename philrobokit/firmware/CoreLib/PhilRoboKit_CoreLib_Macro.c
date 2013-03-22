@@ -94,7 +94,6 @@ int main(void)
 	
 	while(true){
 		program();	
-        adcCycle();
 	}	
 	
 	return 0;
@@ -125,6 +124,7 @@ isr(void)
     disableGlobalInt();
     
     timerISR();
+    timer16BitISR();
     
     timer8BitISR();
 	serialRxISR();

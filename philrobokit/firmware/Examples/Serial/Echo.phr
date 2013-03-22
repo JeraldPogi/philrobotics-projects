@@ -4,28 +4,24 @@
 * phirobotics.core@philrobotics.com
 *
 *---------------------------------------------------------------------------------------------
-* |Filename:      	| "BlinkWithoutDelay.phr"                                                 				|
+* |Filename:      	| "Echo.phr"                                                 						|
 * |:----          	|:----                                                                    					|
-* |Description:   | Turns on LED1 on for one second, then off for another second, repeatedly.	|
+* |Description:   | Echo the recieved serial data back to serial monitor.					|
 * |Author:        	| Efren S. Cruzat II                                                      				|
 * |               	|                                                                         					|
 * |Dependencies: |                                                                         					|
 *
 * > This program is free software under GNU General Public License.
 *********************************************************************************************/
-uint16_t Timer;
-
 void init()
 {
-    clrPin(LED1);
-	Timer = getMs();                                        // get time stamp
+	setupSerial(9600);						// 9600 bits per second
 }
 
 void program()
 {
-	if(getElapsedMs(Timer) >= 1000)                         // check if 1000mS has elapsed
+	while(serialDataCount() > 0)            // check if serial data is available
 	{
-		Timer = getMs();                                    // get another stamp for the next cycle
-		togglePin(LED1);		                            // toggle the LED on/off
-	}
+		serialWrite(serialRead());          // read serial character and send it back to serial
+    }
 }
