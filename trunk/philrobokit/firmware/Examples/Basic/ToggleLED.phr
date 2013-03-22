@@ -4,28 +4,35 @@
 * phirobotics.core@philrobotics.com
 *
 *---------------------------------------------------------------------------------------------
-* |Filename:      	| "BlinkWithoutDelay.phr"                                                 				|
+* |Filename:      	| "ToggleLED.phr"                                                 					|
 * |:----          	|:----                                                                    					|
-* |Description:   | Turns on LED1 on for one second, then off for another second, repeatedly.	|
+* |Description:   | Toggles the state of LED1 everytime SW1 is pressed.					|
 * |Author:        	| Efren S. Cruzat II                                                      				|
 * |               	|                                                                         					|
 * |Dependencies: |                                                                         					|
 *
 * > This program is free software under GNU General Public License.
 *********************************************************************************************/
-uint16_t Timer;
+bool_t CurrentState, PreviousState;
 
 void init()
 {
-    clrPin(LED1);
-	Timer = getMs();                                        // get time stamp
+	clrPin(LED1);
 }
 
 void program()
 {
-	if(getElapsedMs(Timer) >= 1000)                         // check if 1000mS has elapsed
+	CurrentState = getPinState(SW1);
+	
+	if((PreviousState == HIGH) && (CurrentState == LOW))		// edge triggered: check HIGH to LOW edge
 	{
-		Timer = getMs();                                    // get another stamp for the next cycle
-		togglePin(LED1);		                            // toggle the LED on/off
+        delayUs(20);                                            // debounce delay
+        
+		if(CurrentState == getPinState(SW1))					// not perfect, but the simplest debounce algorithm is to read the pin again after some delays
+		{
+			togglePin(LED1);
+		}
 	}
+	
+	PreviousState = CurrentState;                               // store current value as next cycle previous
 }

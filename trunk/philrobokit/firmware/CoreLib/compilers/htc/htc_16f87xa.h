@@ -108,7 +108,7 @@
     #define BIT_T0CON_PS1 	    PS1
     #define BIT_T0CON_PS0 	    PS0
         
-#define TMR0_PRESCALE_MASK  0x07                // Bit 0 to Bit 2
+#define TMR0_PRESCALE_MASK  0x07            // Bit 0 to Bit 2
     
     /* TMR1 - 16Bit Timer Peripheral */
 #define	REGISTER_T1CON		T1CON
@@ -120,7 +120,9 @@
     #define BIT_T1CON_T1SYNC	T1SYNC
     #define BIT_T1CON_TMR1CS	TMR1CS
     #define BIT_T1CON_TMR1ON	TMR1ON
-		
+
+#define TMR1_PRESCALE_MASK  0x30            // Bit 4 to Bit 5
+    
     /* ADC - Analog to Digital Converter Peripheral */		
 #define	REGISTER_ADCON0		ADCON0
     #define BIT_ADCON0_ADCS1	ADCS1

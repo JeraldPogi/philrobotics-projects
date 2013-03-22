@@ -43,7 +43,7 @@
     /* none */
 
 /* Private Function Prototypes */
-    /* none */
+void criticalTaskISR();
     
 /* Public Functions */
 /*******************************************************************************//**
@@ -64,15 +64,29 @@
 ***********************************************************************************/
 void philrobokit_init(void)
 {
+    /* Initialize GPIO default and direction */
     setupGpio();
-    setupTimer();	        // Hardware Delay        
-    setupADC(VDD);          // Vref at Vdd by default
     
-    enableGlobalInt();      // global and peripheral interrupts enabled
+    /* System Timebase */
+    setupTimer();	        
+    
+    /* Use Timer 1 for ADC Polling */
+    setup16BitTimer(TIMER1, criticalTaskISR);
+    set16BitTimer(TIMER1, K16_CRITICALTASK_PERIOD);    
+    
+    /* Vref at Vdd by default */
+    setupADC(VDD);          
+    
+    /* global and peripheral interrupts enabled */
+    enableGlobalInt();      
 }
 
 /* Private Functions */
-    /* none */
+void criticalTaskISR()
+{
+    set16BitTimer(TIMER1, K16_CRITICALTASK_PERIOD);
+    adcCycle();
+}
     
 /* end of setupAnito.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

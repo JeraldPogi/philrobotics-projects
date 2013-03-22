@@ -1,0 +1,73 @@
+/*****************************************************************************************//**
+* # PhilRobotics | Philippine Electronics and Robotics Enthusiasts Club #
+* http://philrobotics.com | http://philrobotics.com/forum | http://facebook.com/philrobotics
+* phirobotics.core@philrobotics.com
+*
+*---------------------------------------------------------------------------------------------
+* |Filename:      	| "ADCtoLED.phr"                                                 							|
+* |:----          	|:----                                                                    							|
+* |Description:   | Read the value of AN0 and display the range it is in using LEDs similar to a VU meter.	|
+* |Author:        	| Efren S. Cruzat II                                                      						|
+* |               	|                                                                         							|
+* |Dependencies: |                                                                         							|
+*
+* > This program is free software under GNU General Public License.
+*********************************************************************************************/
+#define K16_LEVEL1			(1*(1024/5))
+#define K16_LEVEL2			(2*(1024/5))
+#define K16_LEVEL3			(3*(1024/5))
+#define K16_LEVEL4			(4*(1024/5))
+#define K16_LEVEL5			(5*(1024/5))
+
+void init()
+{
+	/* initialize all LEDs to off */
+	clrPin(LED1);
+	clrPin(LED2);
+	clrPin(LED3);
+	clrPin(LED4);
+}
+
+void program()
+{
+	uint16_t ADCValue;
+	
+	ADCValue = adcRead(AN0);
+	
+	/* check lowest to highest range */
+	if(ADCValue < K16_LEVEL1)
+	{
+		clrPin(LED1);
+		clrPin(LED2);
+		clrPin(LED3);
+		clrPin(LED4);		
+	}
+	else if(ADCValue < K16_LEVEL2)
+	{
+		setPin(LED1);
+		clrPin(LED2);
+		clrPin(LED3);
+		clrPin(LED4);			
+	}
+	else if(ADCValue < K16_LEVEL3)
+	{
+		setPin(LED1);
+		setPin(LED2);
+		clrPin(LED3);
+		clrPin(LED4);			
+	}
+	else if(ADCValue < K16_LEVEL4)
+	{
+		setPin(LED1);
+		setPin(LED2);
+		setPin(LED3);
+		clrPin(LED4);				
+	}
+	else
+	{
+		setPin(LED1);
+		setPin(LED2);
+		setPin(LED3);
+		setPin(LED4);		
+	}
+}

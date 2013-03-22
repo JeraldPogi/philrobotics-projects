@@ -4,28 +4,28 @@
 * phirobotics.core@philrobotics.com
 *
 *---------------------------------------------------------------------------------------------
-* |Filename:      	| "BlinkWithoutDelay.phr"                                                 				|
+* |Filename:      	| "DigitalInput.phr"                                                 					|
 * |:----          	|:----                                                                    					|
-* |Description:   | Turns on LED1 on for one second, then off for another second, repeatedly.	|
+* |Description:   | Check if SW1 is pressed to turn on the LED1.						|
 * |Author:        	| Efren S. Cruzat II                                                      				|
 * |               	|                                                                         					|
 * |Dependencies: |                                                                         					|
 *
 * > This program is free software under GNU General Public License.
 *********************************************************************************************/
-uint16_t Timer;
-
 void init()
 {
-    clrPin(LED1);
-	Timer = getMs();                                        // get time stamp
+	clrPin(LED1);
 }
 
 void program()
 {
-	if(getElapsedMs(Timer) >= 1000)                         // check if 1000mS has elapsed
+	if(getPinState(SW1) == LOW)			// SW1 is active low (pressed is LOW)
 	{
-		Timer = getMs();                                    // get another stamp for the next cycle
-		togglePin(LED1);		                            // toggle the LED on/off
+		setPin(LED1);
+	}
+	else
+	{
+		clrPin(LED1);
 	}
 }

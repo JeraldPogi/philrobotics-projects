@@ -42,10 +42,6 @@
 /* Include .h Library Files */    
 #include "PhiRoboKit_HW_Config.h"
 
-#if (__PHR_BOARD__==__HW_PHR_ANITO__)
-    #include "setupAnito.h"
-#endif
-
 #if defined(HI_TECH_C)  
     #ifndef S_SPLINT_S 	                        /* Suppress SPLint Unrecognized ID Errors */
         #include "compilers\htc\htc_common.h"
@@ -79,8 +75,15 @@
                 #define _XTAL_FREQ 8000000	    /* 8MHz Internal Crystal */
             #endif 
         #else
+            #warning Clock Frequency Not Defined
         #endif
+    #else
+
     #endif
+#endif
+
+#if (__PHR_BOARD__==__HW_PHR_ANITO__)
+    #include "setupAnito.h"
 #endif
 
 /* Global Constants */
