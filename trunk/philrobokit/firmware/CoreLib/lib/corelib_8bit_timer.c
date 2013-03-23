@@ -148,22 +148,22 @@ void setTimer(enum tmrModules_e eTmrModule, uint8_t ui8Value)
 	{
 		hal_setTMR2Value(ui8Value);
 		
-		/* turn-on timer module */
-		hal_enableTMR2();
 		/* enable TMR2 interrupt */
 		hal_clrTMR2IntFlag();						// important at first run after initialization		
 		hal_enableTMR2Int();
+		/* turn-on timer module */
+		hal_enableTMR2();		
 	}
 	#if(TIMER4_ENABLED == TRUE)	
 	else if(TIMER4 == eTmrModule)
 	{
 		hal_setTMR4Value(ui8Value);
 
-        /* turn-on timer module */
-		hal_enableTMR4();
 		/* enable TMR4 interrupt */
 		hal_clrTMR4IntFlag();						// important at first run after initialization
 		hal_enableTMR4Int();
+        /* turn-on timer module */
+		hal_enableTMR4();		
 	}
 	#endif
 	#if(TIMER6_ENABLED == TRUE)	
@@ -171,11 +171,11 @@ void setTimer(enum tmrModules_e eTmrModule, uint8_t ui8Value)
 	{
 		hal_setTMR6Value(ui8Value);
 
-        /* turn-on timer module */
-		hal_enableTMR6();
 		/* enable TMR6 interrupt */
 		hal_clrTMR6IntFlag();						// important at first run after initialization
 		hal_enableTMR6Int();
+        /* turn-on timer module */
+		hal_enableTMR6();		
 	}
 	#endif
 	else

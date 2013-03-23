@@ -130,7 +130,7 @@ void timerISR(void)
             #ifdef __TIMER_SEC__
             ui16MsCounter++;
             #endif
-			adcCycle();							// esc.comment, temporarily placed here
+			adcCycle();							// esc.test, temporarily placed here
     	}	
 
         #ifdef __TIMER_SEC__

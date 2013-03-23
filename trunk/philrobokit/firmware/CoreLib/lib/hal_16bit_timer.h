@@ -99,9 +99,9 @@ enum Tmr1PreScale_e
         
     /*@notfunction@*/
     #define hal_setTMR1Value(a)                     \
-    REGISTER_TMR1L = (uint8_t)(65535-a);            \
-    REGISTER_TMR1H = (uint8_t)((65535-a)>>8)        // semi-collon intentionally omitted 
-    
+	a = 65535-a;									\
+    REGISTER_TMR1L = (uint8_t)(a);            		\
+    REGISTER_TMR1H = (uint8_t)(a>>8)       			// semi-collon intentionally omitted   
 #endif
 
 /* Public Function Prototypes */	

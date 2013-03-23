@@ -47,7 +47,7 @@
 /*******************************************************************************//**
 * \brief Initialize 16bit timer interrupt function pointer with null function
 *
-* > This function basically does nothing and is used to initialize 8bit timer 
+* > This function basically does nothing and is used to initialize 16bit timer 
 * > interrupt function pointer.
 *
 * > <BR>
