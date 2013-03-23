@@ -4,10 +4,10 @@
 * phirobotics.core@philrobotics.com
 *
 *---------------------------------------------------------------------------------------------
-* |Filename:      | "corelib_8bit_timer.h"                      |
+* |Filename:      | "corelib_16bit_timer.h"                     |
 * |:----          |:----                                        |
-* |Description:   | This is a header file of the 8 bit timer library |
-* |Revision:      | v00.01.00                                   |
+* |Description:   | This is a header file of the 16bit timer library |
+* |Revision:      | v00.00.01                                   |
 * |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -27,8 +27,7 @@
 *---------------------------------------------------------------------------------------------
 * |FW Version   |Date       |Author             |Description                        |
 * |:----        |:----      |:----              |:----                              |
-* |v00.00.01    |20120620   |ESCII              |Library Initial Release            |
-* |v00.01.00    |20130205   |ESCII              |Modified For Layered Architecture  |
+* |v00.00.01    |20130323   |ESCII              |Library Initial Release            |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -41,7 +40,14 @@
 #include "hal_16bit_timer.h"
 
 /* User Configuration Definitions */
-    /* none */
+// 1/(3*9600) = 34.72222uS, UART bit is sampled 3x
+#if (_XTAL_FREQ == 20000000)
+    #define K16_CRITICALTASK_PERIOD                     174 // 0.2uS resolution @ 20Mhz
+#elif (_XTAL_FREQ == 8000000)
+    #define K16_CRITICALTASK_PERIOD                     69  // 0.5uS resolution @ 8Mhz
+#else
+    #warning Clock Frequency Not Defined
+#endif
     
 /* Global Constants */
     /* Timers */
@@ -56,7 +62,7 @@ enum tmr16BitModules_e
 /* Public Function Prototypes */
     void setup16BitTimerFull(enum tmr16BitModules_e eTmrModule, void(*callback)(), uint8_t ui8Prescaler, uint8_t ui8Postscaler);
 	void setup16BitTimer(enum tmr16BitModules_e eTmrModule, void(*callback)());
-	void set16BitTimer(enum tmr16BitModules_e eTmrModule, uint8_t ui8Value);
+	void set16BitTimer(enum tmr16BitModules_e eTmrModule, uint16_t ui16Value);
     void timer16BitISR(void);
     
 #endif /* end of corelib_8bit_timer.h */

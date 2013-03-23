@@ -70,15 +70,6 @@
 #define	K8_DEFAULT_CONFIG_PORTE	(0b00000111)
 #define	K8_DEFAULT_CONFIG_PORTD	(0b00001100)
 
-// 1/(3*9600) = 34.72222uS, UART bit is sampled 3x
-#if (_XTAL_FREQ == 20000000)
-    #define K16_CRITICALTASK_PERIOD                     174 // 0.2uS resolution @ 20Mhz
-#elif (_XTAL_FREQ == 8000000)
-    #define K16_CRITICALTASK_PERIOD                     69  // 0.5uS resolution @ 8Mhz
-#else
-    #warning Clock Frequency Not Defined
-#endif
-
 /* Global Constants */    
     /* Pin Definitions */
 extern enum etDigitalPins{

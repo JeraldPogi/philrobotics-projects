@@ -4,10 +4,10 @@
 * phirobotics.core@philrobotics.com
 *
 *---------------------------------------------------------------------------------------------
-* |Filename:      | "corelib_8bit_timer.c"                      |
+* |Filename:      | "corelib_16bit_timer.c"                     |
 * |:----          |:----                                        |
-* |Description:   | This is a library for using the 8 bit timer functions |
-* |Revision:      | v00.01.00                                   |
+* |Description:   | This is a library for using the 16bit timer functions |
+* |Revision:      | v00.00.01                                   |
 * |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -27,8 +27,7 @@
 *---------------------------------------------------------------------------------------------
 * |FW Version   |Date       |Author             |Description                        |
 * |:----        |:----      |:----              |:----                              |
-* |v00.00.01    |20120620   |ESCII              |Library Initial Release            |
-* |v00.01.00    |20130205   |ESCII              |Modified For Layered Architecture  |
+* |v00.00.01    |20130323   |ESCII              |Library Initial Release            |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -74,6 +73,8 @@ void setup16BitTimerFull(enum tmr16BitModules_e eTmrModule, void(*callback)(), u
     
 	    hal_setTMR1Prescaler(ui8Prescaler);
     	//hal_setTMR1Postscaler(ui8Postscaler); 
+		
+		pt2TMR1ISR = callback;
 	}
 	else
 	{
@@ -103,7 +104,18 @@ void setup16BitTimerFull(enum tmr16BitModules_e eTmrModule, void(*callback)(), u
 ***********************************************************************************/
 void setup16BitTimer(enum tmr16BitModules_e eTmrModule, void(*callback)())
 {
-    setup16BitTimerFull(eTmrModule, callback, TMR1_PRESCALE, 0);
+    //setup16BitTimerFull(eTmrModule, callback, TMR1_PRESCALE, 0);			// disabled to save stack				
+	if(TIMER1 == eTmrModule)
+	{
+		hal_initTMR1();
+		hal_setTMR1Prescaler(TMR1_PRESCALE);
+
+		pt2TMR1ISR = callback;
+	}
+	else
+	{
+		/* do nothing */
+	}
 }
 
 /*******************************************************************************//**
@@ -124,16 +136,17 @@ void setup16BitTimer(enum tmr16BitModules_e eTmrModule, void(*callback)())
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void set16BitTimer(enum tmr16BitModules_e eTmrModule, uint8_t ui8Value)
+void set16BitTimer(enum tmr16BitModules_e eTmrModule, uint16_t ui16Value)
 {
     /* Default */
 	if(TIMER1 == eTmrModule)
 	{
-		hal_setTMR1Value(ui8Value);
+		hal_setTMR1Value(ui16Value);
 		
 		/* turn-on timer module */
 		hal_enableTMR1();
 		/* enable TMR1 interrupt */
+		hal_clrTMR1IntFlag();						// important at first run after initialization
 		hal_enableTMR1Int();
 	}
 	else
@@ -166,11 +179,15 @@ void timer16BitISR(void)
 	{
 		/* disable TMR1 Module */
 		hal_clrTMR1IntFlag();
-		hal_disableTMR1Int();					
+		hal_disableTMR1Int();
 		hal_disableTMR1();
-        
+
 		/* call user ISR */
 		pt2TMR1ISR();
+		
+		/* Critical Task */
+		//set16BitTimer(TIMER1, K16_CRITICALTASK_PERIOD); 		// cyclic
+		adcCycle();
 	}
 #endif
 }

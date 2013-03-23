@@ -70,12 +70,12 @@ void philrobokit_init(void)
     /* System Timebase */
     setupTimer();	        
     
+	/* Vref at Vdd by default */
+    setupADC(VDD);  
+	
     /* Use Timer 1 for ADC Polling */
     setup16BitTimer(TIMER1, criticalTaskISR);
     set16BitTimer(TIMER1, K16_CRITICALTASK_PERIOD);    
-    
-    /* Vref at Vdd by default */
-    setupADC(VDD);          
     
     /* global and peripheral interrupts enabled */
     enableGlobalInt();      
@@ -84,8 +84,7 @@ void philrobokit_init(void)
 /* Private Functions */
 void criticalTaskISR()
 {
-    set16BitTimer(TIMER1, K16_CRITICALTASK_PERIOD);
-    adcCycle();
+	;/* task moved to TMR1 module to save stack */
 }
     
 /* end of setupAnito.c */
