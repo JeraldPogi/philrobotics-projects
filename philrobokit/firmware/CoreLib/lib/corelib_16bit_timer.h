@@ -42,7 +42,7 @@
 /* User Configuration Definitions */
 // 1/(3*9600) = 34.72222uS, UART bit is sampled 3x
 #if (_XTAL_FREQ == 20000000)
-    #define K16_CRITICALTASK_PERIOD                     174 // 0.2uS resolution @ 20Mhz
+    #define K16_CRITICALTASK_PERIOD                     5000//esc.test:1mS interval			174 // 0.2uS resolution @ 20Mhz
 #elif (_XTAL_FREQ == 8000000)
     #define K16_CRITICALTASK_PERIOD                     69  // 0.5uS resolution @ 8Mhz
 #else

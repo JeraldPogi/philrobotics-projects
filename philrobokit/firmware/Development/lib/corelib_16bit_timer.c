@@ -46,16 +46,16 @@
 /* Public Functions */
 #if(TIMER_16BIT_ENABLED == TRUE)
 /*******************************************************************************//**
-* \brief Setup the 8bit timer peripheral count resolution
+* \brief Setup the 16bit timer peripheral count resolution
 *
-* > This function is called to setup the 8bit timer peripheral count resolution
+* > This function is called to setup the 16bit timer peripheral count resolution
 *
 * > <BR>
 * > **Syntax:**<BR>
 * >      setup16BitTimerFull(module, &callback, prescaler, postscaler)
 * > <BR><BR>
 * > **Parameters:**<BR>
-* >     module - timer module assignment, TIMER2, TIMER4, TIMER6            <BR>
+* >     module - timer module assignment, TIMER1				            <BR>
 * >     callback - function address of the timer ISR                        <BR>
 * >     prescaler - prescaler value(MCU chip dependent)                     <BR>
 * >     postcaler - postscaler value(MCU chip dependent)
@@ -72,7 +72,7 @@ void setup16BitTimerFull(enum tmr16BitModules_e eTmrModule, void(*callback)(), u
         hal_initTMR1();
     
 	    hal_setTMR1Prescaler(ui8Prescaler);
-    	//hal_setTMR1Postscaler(ui8Postscaler); 
+    	//hal_setTMR1Postscaler(ui8Postscaler); 			// not nedded on TMR1
 		
 		pt2TMR1ISR = callback;
 	}
@@ -83,10 +83,10 @@ void setup16BitTimerFull(enum tmr16BitModules_e eTmrModule, void(*callback)(), u
 }
 
 /*******************************************************************************//**
-* \brief Setup the 8Bit timer peripheral to count every 10uS
+* \brief Setup the 16Bit timer peripheral to count every 0.2uS @ 20Mhz Xtal
 *
-* > This function is called to initialize the 8Bit timer peripheral,  
-* > prescaler and poscaler values were predefined to count every 10uS. 
+* > This function is called to initialize the 16Bit timer peripheral,  
+* > prescaler and poscaler values were predefined to count every 0.2uS @ 20Mhz Xtal. 
 * >
 * > The time to interrupt is set by the "set16BitTimer" function.
 *
@@ -95,7 +95,7 @@ void setup16BitTimerFull(enum tmr16BitModules_e eTmrModule, void(*callback)(), u
 * >      setup16BitTimer(module, &callback)
 * > <BR><BR>
 * > **Parameters:**<BR>
-* >     module - timer module assignment, TIMER2, TIMER4, TIMER6            <BR>
+* >     module - timer module assignment, TIMER1            	<BR>
 * >     callback - function address of the timer ISR callback
 * > <BR><BR>
 * > **Returns:**<BR>
@@ -119,7 +119,7 @@ void setup16BitTimer(enum tmr16BitModules_e eTmrModule, void(*callback)())
 }
 
 /*******************************************************************************//**
-* \brief Set the 8bit count value
+* \brief Set the 16bit count value
 *
 * > This function is called to set the timer count value. Once the count expires
 * > the interrupt service routine will be called.
@@ -129,7 +129,7 @@ void setup16BitTimer(enum tmr16BitModules_e eTmrModule, void(*callback)())
 * >     set16BitTimer(module, value)
 * > <BR><BR>
 * > **Parameters:**<BR>
-* >     module - timer module assignment, TIMER2, TIMER4, TIMER6            <BR>
+* >     module - timer module assignment, TIMER1            					<BR>
 * >     value - (value x resolution) is the time it takes before timer interrupt occur
 * > <BR><BR>
 * > **Returns:**<BR>
@@ -143,11 +143,11 @@ void set16BitTimer(enum tmr16BitModules_e eTmrModule, uint16_t ui16Value)
 	{
 		hal_setTMR1Value(ui16Value);
 		
-		/* turn-on timer module */
-		hal_enableTMR1();
 		/* enable TMR1 interrupt */
 		hal_clrTMR1IntFlag();						// important at first run after initialization
 		hal_enableTMR1Int();
+		/* turn-on timer module */
+		//hal_enableTMR1();							// esc.test TMR1 still buggy, cannot enable because experiencing intermittent behavior of a reset
 	}
 	else
 	{
@@ -157,9 +157,9 @@ void set16BitTimer(enum tmr16BitModules_e eTmrModule, uint16_t ui16Value)
 #endif
 
 /*******************************************************************************//**
-* \brief 8 bit timer interrupt service routine
+* \brief 16bit timer interrupt service routine
 *
-* > This is an interrupt handler called when the 8 bit timer value expires
+* > This is an interrupt handler called when the 16bit timer value expires
 *
 * > <BR>
 * > **Syntax:**<BR>
@@ -174,6 +174,7 @@ void set16BitTimer(enum tmr16BitModules_e eTmrModule, uint16_t ui16Value)
 ***********************************************************************************/
 void timer16BitISR(void)
 {
+	static uint16_t Counter=0;//esc.test
 #if(TIMER_16BIT_ENABLED == TRUE)
 	if(hal_getTMR1IntFlag() && hal_getTMR1IntEnableStatus())
 	{
@@ -183,17 +184,25 @@ void timer16BitISR(void)
 		hal_disableTMR1();
 
 		/* call user ISR */
-		pt2TMR1ISR();
+		//pt2TMR1ISR();											esc.test disabled
 		
 		/* Critical Task */
-		//set16BitTimer(TIMER1, K16_CRITICALTASK_PERIOD); 		// cyclic
-		adcCycle();
+		set16BitTimer(TIMER1, K16_CRITICALTASK_PERIOD); 		// cyclic
+		
+		//adcCycle();											// moved here to save stack
+		// esc.test: supposedly to toggle LED every half a second
+		Counter++;
+		if(Counter>=500)
+		{
+			Counter = 0;
+			togglePin(LED4);
+		}
 	}
-#endif
+#endif 
 }
 
 /* Private Functions */
     /* none */
     
-/* end of corelib_8bit_timer.c */
+/* end of corelib_16bit_timer.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
