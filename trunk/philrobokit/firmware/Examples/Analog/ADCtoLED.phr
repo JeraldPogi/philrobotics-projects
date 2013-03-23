@@ -31,7 +31,7 @@ void init()
 void program()
 {
 	uint16_t ADCValue;
-	
+
 	ADCValue = adcRead(AN0);
 	
 	/* check lowest to highest range */

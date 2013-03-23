@@ -24,7 +24,7 @@ void init()
 void program()
 {
 	uint16_t ADCValue;
-	
+
 	if(getElapsedMs(Timer) >= 1000)                         // read and send ADC value every 1Sec
 	{
 		ADCValue = adcRead(AN0);

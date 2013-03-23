@@ -7,7 +7,7 @@
 * |Filename:      | "corelib_8bit_timer.c"                      |
 * |:----          |:----                                        |
 * |Description:   | This is a library for using the 8 bit timer functions |
-* |Revision:      | v00.01.00                                   |
+* |Revision:      | v00.01.01                                   |
 * |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -29,6 +29,7 @@
 * |:----        |:----      |:----              |:----                              |
 * |v00.00.01    |20120620   |ESCII              |Library Initial Release            |
 * |v00.01.00    |20130205   |ESCII              |Modified For Layered Architecture  |
+* |v00.01.01    |20130323   |ESCII              |Clear IF when setting timer value  |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -150,6 +151,7 @@ void setTimer(enum tmrModules_e eTmrModule, uint8_t ui8Value)
 		/* turn-on timer module */
 		hal_enableTMR2();
 		/* enable TMR2 interrupt */
+		hal_clrTMR2IntFlag();						// important at first run after initialization		
 		hal_enableTMR2Int();
 	}
 	#if(TIMER4_ENABLED == TRUE)	
@@ -159,7 +161,8 @@ void setTimer(enum tmrModules_e eTmrModule, uint8_t ui8Value)
 
         /* turn-on timer module */
 		hal_enableTMR4();
-		/* enable TMR2 interrupt */
+		/* enable TMR4 interrupt */
+		hal_clrTMR4IntFlag();						// important at first run after initialization
 		hal_enableTMR4Int();
 	}
 	#endif
@@ -170,7 +173,8 @@ void setTimer(enum tmrModules_e eTmrModule, uint8_t ui8Value)
 
         /* turn-on timer module */
 		hal_enableTMR6();
-		/* enable TMR2 interrupt */
+		/* enable TMR6 interrupt */
+		hal_clrTMR6IntFlag();						// important at first run after initialization
 		hal_enableTMR6Int();
 	}
 	#endif

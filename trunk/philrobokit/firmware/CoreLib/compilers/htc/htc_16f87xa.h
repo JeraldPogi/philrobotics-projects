@@ -38,7 +38,7 @@
 #ifndef __HTC_16F87XA_H
 #define __HTC_16F87XA_H
 /* Include .h Library Files */
-    /* none */
+#include <htc.h>
     
 /* User Configuration Definitions */
     /* none */

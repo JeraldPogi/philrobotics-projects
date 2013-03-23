@@ -4,10 +4,10 @@
 * phirobotics.core@philrobotics.com
 *
 *---------------------------------------------------------------------------------------------
-* |Filename:      | "hal_8bit_timer.h"                          |
+* |Filename:      | "hal_16bit_timer.h"                         |
 * |:----          |:----                                        |
-* |Description:   | This is a header file of the driver for micrcochip 8bit timer (TMR1, TMR4, TMR6) |
-* |Revision:      | v00.01.00                                   |
+* |Description:   | This is a header file of the driver for micrcochip 16bit timer (TMR1) |
+* |Revision:      | v00.00.01                                   |
 * |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -27,8 +27,7 @@
 *---------------------------------------------------------------------------------------------
 * |FW Version   |Date       |Author             |Description                        |
 * |:----        |:----      |:----              |:----                              |
-* |v00.00.01    |20120620   |ESCII              |Library Initial Release            |
-* |v00.01.00    |20130205   |ESCII              |Modified For Layered Architecture  |
+* |v00.00.01    |20130323   |ESCII              |Library Initial Release            |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -100,8 +99,8 @@ enum Tmr1PreScale_e
         
     /*@notfunction@*/
     #define hal_setTMR1Value(a)                     \
-    REGISTER_TMR1L = (65536 - a);                   \
-    REGISTER_TMR1H = ((65536-a)>>8)                 // semi-collon intentionally omitted 
+    REGISTER_TMR1L = (uint8_t)(65535-a);            \
+    REGISTER_TMR1H = (uint8_t)((65535-a)>>8)        // semi-collon intentionally omitted 
     
 #endif
 

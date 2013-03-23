@@ -7,7 +7,7 @@
 * |Filename:      | "corelib_adc.c"                             |
 * |:----          |:----                                        |
 * |Description:   | This is a library for the ADC peripheral    |
-* |Revision:      | v01.00.01                                   |
+* |Revision:      | v01.00.02                                   |
 * |Author:        | Giancarlo Acelajado                         |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -31,6 +31,7 @@
 * |v00.01.01    |201203xx   |Giancarlo A.       |Fix Bugs, add setupADCPinsToDigital|
 * |v01.00.00    |201210xx   |Giancarlo A.       |Leverage Library to Standard Architecture|
 * |v01.00.01    |20130307   |ESC II             |Organized functions into HAL and CoreLib|
+* |v01.00.02    |20130323   |ESC II             |Get ADCCycle timestamp regardless of ADC EOC status|
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -47,6 +48,7 @@ static enum adcModules_e
     ,ADC4                   // AN3
     ,ADC5                   // AN5
     ,ADC6                   // AN6
+	,ADC7                   // AN7
     ,MAX_ADC_CHANNELS
 };
 
@@ -86,7 +88,11 @@ void adcISR(void)
         hal_clrADCIntFlag();
         
         /* parse effective channel */
-        if(eCurrentChannel > ADC3)
+		if(ADC3 == eCurrentChannel)
+		{
+			/* must not be reached */
+		}
+        else if(eCurrentChannel > ADC3)
         {
             eEffectiveChannel = eCurrentChannel - 1;
         }
@@ -95,10 +101,10 @@ void adcISR(void)
             eEffectiveChannel = eCurrentChannel;
         }
         
-        /* Store Results */
+        /* store results */
         ui16ADCBuff[eEffectiveChannel] = readADCResult();
         
-        /* Increment channel */
+        /* Increment Channel */
         if(eCurrentChannel < (MAX_ADC_CHANNELS-1))
         {
             eCurrentChannel++;
@@ -140,12 +146,12 @@ void adcCycle(void)
     /* Check cycle timeout */
     if(getElapsedMs(ui16ADCCycleTimer) >= ADC_CYCLE_TIMEOUT)
     {
+		/* get new time stamp */
+		ui16ADCCycleTimer = getMs();
+		
         /* Check end of conversion */
         if(true == hal_checkADCEndofConversion())
         {
-            /* get new time stamp */
-            ui16ADCCycleTimer = getMs();
-            
             /* start new conversion */
             hal_startADCConversion();
         }
