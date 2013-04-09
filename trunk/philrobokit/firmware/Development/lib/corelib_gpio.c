@@ -4,11 +4,11 @@
 * phirobotics.core@philrobotics.com
 *
 *---------------------------------------------------------------------------------------------
-* |Filename:      | "hal_16bit_timer.c"                         |
+* |Filename:      | "corelib_gpio.c"                            |
 * |:----          |:----                                        |
-* |Description:   | This is a driver for micrcochip 16bit timer (TMR1) |
-* |Revision:      | v00.00.01                                   |
-* |Author:        | Efren S. Cruzat II                          |
+* |Description:   | General Purpose Input/Output Hardware Abstraction Layer Header File for PIC |
+* |Revision:      | v01.00.01                                   |
+* |Author:        | Giancarlo Acelajado                         |
 * |               |                                             |
 * |Dependencies:  |                                             |
 *
@@ -27,32 +27,32 @@
 *---------------------------------------------------------------------------------------------
 * |FW Version   |Date       |Author             |Description                        |
 * |:----        |:----      |:----              |:----                              |
-* |v00.00.01    |20130323   |ESCII              |Library Initial Release            |
+* |v01.00.00    |201209xx   |Giancarlo A.       |Leverage Library to Standard Architecture|
+* |v01.00.01    |20130405   |ESCII              |Separated module to HAL and Corelib|
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
 
-#include "hal_16bit_timer.h"
+#include "corelib_gpio.h"
 
 /* Local Constants */
     /* none */
-
+    
 /* Local Variables */
     /* none */
 
 /* Private Function Prototypes */
     /* none */
-
+    
 /* Public Functions */
 /*******************************************************************************//**
-* \brief Initialize 16bit timer interrupt function pointer with null function
+* \brief Initialize Pin default state and data direction
 *
-* > This function basically does nothing and is used to initialize 16bit timer 
-* > interrupt function pointer.
+* > This function is called to initialize pin default state and data direction
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >     nullTMRFunction()
+* >      setupGpio()
 * > <BR><BR>
 * > **Parameters:**<BR>
 * >     none
@@ -61,21 +61,37 @@
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void null16BitTMRFunction()
+void setupGpio(void)
 {
-#if (__TEST_MODE__==__STACK_TEST__)
-	incrementStack(70);
+    /* Port Value and Direction */
+#ifdef PORTA_ACTIVE
+	PORTA_OUT = PORTA_OUT_DEF;			
+	PORTA_DIR = PORTA_DIR_DEF;	
 #endif
 
-	;/* NULL */
-    
-#if (__TEST_MODE__==__STACK_TEST__)
-	decrementStack();
+#ifdef PORTB_ACTIVE
+	PORTB_OUT = PORTB_OUT_DEF;				
+	PORTB_DIR = PORTB_DIR_DEF;	
+#endif
+
+#ifdef PORTC_ACTIVE	
+	PORTC_OUT = PORTC_OUT_DEF;				
+	PORTC_DIR = PORTC_DIR_DEF; 
+#endif
+
+#ifdef PORTD_ACTIVE	
+	PORTD_OUT = PORTD_OUT_DEF;				
+	PORTD_DIR = PORTD_DIR_DEF;
+#endif
+
+#ifdef PORTE_ACTIVE	
+	PORTE_OUT = PORTE_OUT_DEF;				
+	PORTE_DIR = PORTE_DIR_DEF;	
 #endif
 }
 
 /* Private Functions */
     /* none */
-
-/* end of hal_8bit_timer.c */
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+    
+/* end of corelib_gpio.c */
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

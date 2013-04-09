@@ -32,63 +32,46 @@
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
 
-#if 0
+#include "PhilRoboKit_CoreLib_GlobalDefs.h"
+
 /* Local Constants */
     /* none */
 
 /* Global Variables */
-static volatile	uint8_t		gui8SampleGlobal;
+static volatile	bool_t	    gblInitialized = false;
 
-/* Private Function Prototypes */
-void setSampleGlobalValue(uint8_t ui8Value);
-uint8_t getSampleGlobalValue(void);
+/* Function Prototypes */
+    /* none */
 
 /* Public Functions */
-/*******************************************************************************//**
-* \brief Set the value of a global variable
-*
-* > This function is called to set the value of a global variable
-*
-* > <BR>
-* > **Syntax:**<BR>
-* >      setSampleGlobalValue(value
-* > <BR><BR>
-* > **Parameters:**<BR>
-* >     value - the value to be stored on a global variable
-* > <BR><BR>
-* > **Returns:**<BR>
-* >     none
-* > <BR><BR>
-***********************************************************************************/
-void setSampleGlobalValue(uint8_t ui8Value)
+    /* A flag to indicate low level initialization has commenced and the global interrupts are alread enabled */
+void set_gblInitialized_FlagValue(void)
 {
-	gui8SampleGlobal = ui8Value
+#if (__TEST_MODE__==__STACK_TEST__)
+	incrementStack(4);
+#endif
+
+	gblInitialized = true;
+    
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif    
 }
 
-/*******************************************************************************//**
-* \brief Get the value of a global variable
-*
-* > This function is called to get the value of a global variable
-*
-* > <BR>
-* > **Syntax:**<BR>
-* >      register = getSampleGlobalValue()
-* > <BR><BR>
-* > **Parameters:**<BR>
-* >     none
-* > <BR><BR>
-* > **Returns:**<BR>
-* >     value - value of the global variable
-* > <BR><BR>
-***********************************************************************************/
-uint8_t getSampleGlobalValue(void)
+bool_t get_gblInitialized_FlagValue(void)
 {
-	return gui8SampleGlobal;
+#if (__TEST_MODE__==__STACK_TEST__)
+	incrementStack(5);
+#endif
+
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif      
+    return gblInitialized;  
 }
 
 /* Private Functions */
     /* none */
     
-#endif
 /* end of PhilRoboKit_CoreLib_GlobalDefs.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

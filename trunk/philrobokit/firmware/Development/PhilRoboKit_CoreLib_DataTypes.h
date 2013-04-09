@@ -7,7 +7,7 @@
 * |Filename:      | "PhilRoboKit_CoreLib_DataTypes.h"           |
 * |:----          |:----                                        |
 * |Description:   | PhilRobokit Standard Data Types Definition  |
-* |Revision:      | v00.00.01                                   |
+* |Revision:      | v00.01.00                                   |
 * |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -28,6 +28,7 @@
 * |FW Version   |Date       |Author             |Description                        |
 * |:----        |:----      |:----              |:----                              |
 * |v00.00.01    |20120713   |ESCII              |Library Initial Release            |
+* |v00.01.00    |20130408   |ESCII              |Move location of bool type definition|
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -51,7 +52,7 @@
 	#endif
 		
 	/* bool */
-		/* Same as stdbool.h */
+		typedef bool bool_t;
 
 	/* unsigned char */	
 		#ifndef uchar_t
@@ -62,8 +63,7 @@
 		
 	/* unsigned int 8 */
 		/* uint8_t */
-		/* Same as stdbool.h */
-		typedef bool bool_t;
+		/* Same as stdint.h */
 		
 	/* unsigned int 16 */
 		/* uint16_t */

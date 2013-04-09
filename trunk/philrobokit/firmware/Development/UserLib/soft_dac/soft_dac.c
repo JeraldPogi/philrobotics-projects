@@ -7,7 +7,7 @@
 * |Filename:      | "soft_dac.c"                                |
 * |:----          |:----                                        |
 * |Description:   | This is a library for Software Implemented Digital to Analog Converter function. |
-* |Revision:      | v00.00.01                                   |
+* |Revision:      | v00.00.02                                   |
 * |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -28,6 +28,7 @@
 * |FW Version   |Date       |Author             |Description                |
 * |:----        |:----      |:----              |:----                      |
 * |v00.00.01    |20130225   |ESCII              |Library Initial Release    |
+* |v00.00.02    |20130402   |ESCII              |softDACController local variables made static because it is accessed from interrupt|
 *********************************************************************************************/
 #define __SHOW_SCHED_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_SCHED_HEADER__
@@ -94,11 +95,11 @@ void setupSoftDAC(enum SoftDACModules_e eSDACModule, uint8_t ui8Pin, uint8_t ui8
     
     /* can accurately set only between 7 and 250 */
     /* a problem possibly caused by mcu speed limitation(or bug on 8bit timer) that when set to low value the ton and the period are extended */
-    if(ui8Value < 9)
+    if(ui8Value < 7)
     {
-        ui8Value = 9;
+        ui8Value = 7;
     }
-    else if(ui8Value > 247)
+    else if(ui8Value > 250)
     {
         ui8Value = 255;
     }
@@ -281,8 +282,11 @@ void removeSoftDAC(enum SoftDACModules_e eSDACModule)
 ***********************************************************************************/
 static void bubbleSortDAC(uint8_t ui8MaxCount)
 {
-    bool_t  blOnGoing = true;
-    uint8_t ui8Counter, ui8TempBuff, ui8Counter1 = 0;
+    static bool_t  blOnGoing = true;
+    static uint8_t ui8Counter, ui8TempBuff, ui8Counter1 = 0;
+    
+    blOnGoing = true;
+    ui8Counter1 = 0;
     
     while(blOnGoing) 
     {
@@ -333,8 +337,8 @@ static void bubbleSortDAC(uint8_t ui8MaxCount)
 ***********************************************************************************/
 static void softDACController()
 {   
-    uint8_t ui8Counter;
-    bool_t  blScheduleCleared;
+    static uint8_t ui8Counter = 0;
+    static bool_t  blScheduleCleared = false;
     
     blScheduleCleared = false;                  // always false at entry point
     
@@ -419,7 +423,7 @@ static void softDACController()
             )
             {
                 /* check if previous and current have same values */
-                if((ui8PrevValue+5) < astDACModuleSchedule[ui8DACEngineStates].ui8Value)
+                if(ui8PrevValue != astDACModuleSchedule[ui8DACEngineStates].ui8Value)
                 {
                     setTimer(K_DAC_TIMER, (astDACModuleSchedule[ui8DACEngineStates].ui8Value - ui8PrevValue));
                     ui8PrevValue = astDACModuleSchedule[ui8DACEngineStates].ui8Value; 

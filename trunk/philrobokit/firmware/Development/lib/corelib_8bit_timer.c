@@ -46,6 +46,72 @@
     /* none */
     
 /* Public Functions */
+/*******************************************************************************//**
+* \brief 8 bit timer interrupt service routine
+*
+* > This is an interrupt handler called when the 8 bit timer value expires
+*
+* > <BR>
+* > **Syntax:**<BR>
+* >     timer8BitISR() , ISR
+* > <BR><BR>
+* > **Parameters:**<BR>
+* >     none
+* > <BR><BR>
+* > **Returns:**<BR>
+* >     none
+* > <BR><BR>
+***********************************************************************************/
+void timer8BitISR(void)
+{
+#if (__TEST_MODE__==__STACK_TEST__)
+	incrementStack(51);
+#endif
+
+#if(TIMER_8BIT_ENABLED == TRUE)
+	if(hal_getTMR2IntFlag() && hal_getTMR2IntEnableStatus())
+	{
+		/* disable TMR2 Module */
+		hal_clrTMR2IntFlag();
+		hal_disableTMR2Int();					
+		hal_disableTMR2();
+        
+		/* call user ISR */
+		pt2TMR2ISR();
+	}
+    
+	#if(TIMER4_ENABLED == TRUE)	
+	if(hal_getTMR4IntFlag() && hal_getTMR4IntEnableStatus())
+	{
+		/* disable TMR2 Module */
+		hal_clrTMR4IntFlag();
+		hal_disableTMR4Int();					
+		hal_disableTMR4();
+        
+		/* call user ISR */
+		pt2TMR4ISR();
+	}
+	#endif
+	
+	#if(TIMER6_ENABLED == TRUE)	
+	if(hal_getTMR6IntFlag() && hal_getTMR6IntEnableStatus())
+	{
+		/* disable TMR2 Module */
+		hal_clrTMR6IntFlag();
+		hal_disableTMR6Int();					
+		hal_disableTMR6();
+        
+		/* call user ISR */
+		pt2TMR6ISR();
+	}
+	#endif
+#endif
+
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif
+}
+
 #if(TIMER_8BIT_ENABLED == TRUE)
 /*******************************************************************************//**
 * \brief Setup the 8bit timer peripheral count resolution
@@ -66,8 +132,12 @@
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setup8BitTimerFull(enum tmrModules_e eTmrModule, void(*callback)(), uint8_t ui8Prescaler, uint8_t ui8Postscaler)
+void setup8BitTimerFull(enum tmrModules_et eTmrModule, void(*callback)(), uint8_t ui8Prescaler, uint8_t ui8Postscaler)
 {
+#if (__TEST_MODE__==__STACK_TEST__)
+	incrementStack(52);
+#endif
+
     /* Default */
 	if(TIMER2 == eTmrModule)
 	{
@@ -95,6 +165,10 @@ void setup8BitTimerFull(enum tmrModules_e eTmrModule, void(*callback)(), uint8_t
 	{
 		/* do nothing */
 	}
+    
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif
 }
 #endif
 
@@ -118,9 +192,44 @@ void setup8BitTimerFull(enum tmrModules_e eTmrModule, void(*callback)(), uint8_t
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setup8BitTimer(enum tmrModules_e eTmrModule, void(*callback)())
+void setup8BitTimer(enum tmrModules_et eTmrModule, void(*callback)())
 {
-    setup8BitTimerFull(eTmrModule, callback, K_10US_PRESCALE, K_10US_PRESCALE);
+#if (__TEST_MODE__==__STACK_TEST__)
+	incrementStack(53);
+#endif
+
+    //setup8BitTimerFull(eTmrModule, callback, K_10US_PRESCALE, K_10US_POSTSCALE);			// disabled to save stack
+    /* Default */
+	if(TIMER2 == eTmrModule)
+	{
+	    hal_setTMR2Prescaler(K_10US_PRESCALE);
+    	hal_setTMR2Postscaler(K_10US_POSTSCALE); 
+        pt2TMR2ISR = callback;
+	}
+	#if(TIMER4_ENABLED == TRUE)	
+	else if(TIMER4 == eTmrModule)
+	{
+		mc_setTMR4Prescaler(K_10US_PRESCALE);
+    	mc_setTMR4Postscaler(K_10US_POSTSCALE); 
+        pt2TMR4ISR = callback;
+	}
+	#endif
+	#if(TIMER6_ENABLED == TRUE)	
+	else if(TIMER6 == eTmrModule)
+	{
+		mc_setTMR6Prescaler(K_10US_PRESCALE);
+    	mc_setTMR6Postscaler(K_10US_POSTSCALE); 
+        pt2TMR6ISR = callback;
+	}
+	#endif
+	else
+	{
+		/* do nothing */
+	}    
+    
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif
 }
 
 /*******************************************************************************//**
@@ -141,9 +250,13 @@ void setup8BitTimer(enum tmrModules_e eTmrModule, void(*callback)())
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setTimer(enum tmrModules_e eTmrModule, uint8_t ui8Value)
+void setTimer(enum tmrModules_et eTmrModule, uint8_t ui8Value)
 {
-/* Default */
+#if (__TEST_MODE__==__STACK_TEST__)
+	incrementStack(54);
+#endif
+
+    /* Default */
 	if(TIMER2 == eTmrModule)
 	{
 		hal_setTMR2Value(ui8Value);
@@ -182,63 +295,9 @@ void setTimer(enum tmrModules_e eTmrModule, uint8_t ui8Value)
 	{
 		/* do nothing */
 	}
-}
-
-/*******************************************************************************//**
-* \brief 8 bit timer interrupt service routine
-*
-* > This is an interrupt handler called when the 8 bit timer value expires
-*
-* > <BR>
-* > **Syntax:**<BR>
-* >     timer8BitISR() , ISR
-* > <BR><BR>
-* > **Parameters:**<BR>
-* >     none
-* > <BR><BR>
-* > **Returns:**<BR>
-* >     none
-* > <BR><BR>
-***********************************************************************************/
-void timer8BitISR(void)
-{
-#if(TIMER_8BIT_ENABLED == TRUE)
-	if(hal_getTMR2IntFlag() && hal_getTMR2IntEnableStatus())
-	{
-		/* disable TMR2 Module */
-		hal_clrTMR2IntFlag();
-		hal_disableTMR2Int();					
-		hal_disableTMR2();
-        
-		/* call user ISR */
-		pt2TMR2ISR();
-	}
     
-	#if(TIMER4_ENABLED == TRUE)	
-	if(hal_getTMR4IntFlag() && hal_getTMR4IntEnableStatus())
-	{
-		/* disable TMR2 Module */
-		hal_clrTMR4IntFlag();
-		hal_disableTMR4Int();					
-		hal_disableTMR4();
-        
-		/* call user ISR */
-		pt2TMR4ISR();
-	}
-	#endif
-	
-	#if(TIMER6_ENABLED == TRUE)	
-	if(hal_getTMR6IntFlag() && hal_getTMR6IntEnableStatus())
-	{
-		/* disable TMR2 Module */
-		hal_clrTMR6IntFlag();
-		hal_disableTMR6Int();					
-		hal_disableTMR6();
-        
-		/* call user ISR */
-		pt2TMR6ISR();
-	}
-	#endif
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
 #endif
 }
 

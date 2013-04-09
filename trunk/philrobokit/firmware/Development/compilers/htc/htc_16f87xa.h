@@ -39,6 +39,7 @@
 #define __HTC_16F87XA_H
 /* Include .h Library Files */
 #include <htc.h>
+#include "PhilRoboKit_CoreLib_GlobalDefs.h"
     
 /* User Configuration Definitions */
     /* none */
@@ -210,34 +211,76 @@
     #define C2_TIMERSEL_MASK 	0x0C		// Bit 2 to 3
     #define C1_TIMERSEL_MASK 	0x03		// Bit 0 to 1
 #endif	
-    
+ 
+#define	REGISTER_TRISA		TRISA		
+#define	REGISTER_TRISB		TRISB
+#define	REGISTER_TRISC		TRISC
+#define	REGISTER_TRISD		TRISD
+#define	REGISTER_TRISE		TRISE
+
+#define	REGISTER_PORTA		PORTA
+#define	REGISTER_PORTB		PORTB
+#define	REGISTER_PORTC		PORTC
+#define	REGISTER_PORTD		PORTD
+#define	REGISTER_PORTE		PORTE
+
+#if 0 
+    #define	REGISTER_LATA       LATA
+    #define	REGISTER_LATB       LATB
+    #define	REGISTER_LATC       LATC
+    #define	REGISTER_LATD       LATD
+    #define	REGISTER_LATE       LATE
+#endif
+
+#define	REGISTER_TXREG		TXREG
+#define	REGISTER_RCREG		RCREG
+#define	REGISTER_SPBRG		SPBRG
+
+#if defined( _16F873A ) || defined( _16F874A ) || defined( _16F876A ) || defined( _16F877A ) 
+    #define	REGISTER_TMR0L		TMR0
+#else	
+	#define	REGISTER_TMR0H		TMR0H	
+	#define	REGISTER_TMR0L		TMR0L
+#endif
+	
+#define	REGISTER_TMR1H		TMR1H	
+#define	REGISTER_TMR1L		TMR1L
+
+#define	REGISTER_TMR2H		TMR2H	
+#define	REGISTER_TMR2L		TMR2L
+
+#define	REGISTER_ADRESH		ADRESH
+#define	REGISTER_ADRESL		ADRESL 
+
 /* Macro and Configuration Definitions */
     /* Global Interrupts Disable/Enable */
-	/*@notfunction@*/
-	#define enableGlobalInt()               \
-    BIT_INTCON_GIE = 1;                     \
-    BIT_INTCON_PEIE = 1                     // semi-collon intentionally omitted 
-    
-	/*@notfunction@*/
-	#define disableGlobalInt()              \
-    BIT_INTCON_GIE = 0;                     \
-    BIT_INTCON_PEIE = 0                     // semi-collon intentionally omitted 
-    
-    /*@notfunction@*/
-    #define getGlobalIntEnableStatus()      ((BIT_INTCON_GIE) ? true : false)
+/*@notfunction@*/
+#define enableGlobalInt()                       \
+BIT_INTCON_GIE = 1;                             \
+BIT_INTCON_PEIE = 1                             // semi-collon intentionally omitted 
 
-    /* Timer Delay Functions, Note: These are blocking Functions!!! */
-    /*@notfunction@*/
-    #define delayUs(x)		                \
-    disableGlobalInt();                     \
-    __delay_us(x);                          \
-    enableGlobalInt()                       // semi-collon intentionally omitted
-    
-    /*@notfunction@*/
-    #define delayMs(x)		                \
-    disableGlobalInt();                     \
-    __delay_ms(x);                          \
-    enableGlobalInt()                       // semi-collon intentionally omitted
+/*@notfunction@*/
+#define disableGlobalInt()                      \
+BIT_INTCON_GIE = 0;                             \
+BIT_INTCON_PEIE = 0                             // semi-collon intentionally omitted
+
+/*@notfunction@*/
+#define getGlobalIntEnableStatus()              ((BIT_INTCON_GIE) ? true : false)
+
+    /* Timer Delay Functions, Note: These are blocking functions, do not call inside ISR!!! */
+/*@notfunction@*/
+#define delayUs(x)		                        \
+while((false == getGlobalIntEnableStatus()) && (true == get_gblInitialized_FlagValue())){};   \
+disableGlobalInt();                             \
+__delay_us(x);                                  \
+enableGlobalInt()                               // semi-collon intentionally omitted
+
+/*@notfunction@*/
+#define delayMs(x)		                        \
+while((false == getGlobalIntEnableStatus()) && (true == get_gblInitialized_FlagValue())){};   \
+disableGlobalInt();                             \
+__delay_ms(x);                                  \
+enableGlobalInt()                               // semi-collon intentionally omitted
   
 /* Public Function Prototypes */ 
     /* none */

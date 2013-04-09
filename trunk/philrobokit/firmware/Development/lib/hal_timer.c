@@ -73,6 +73,10 @@ extern volatile uint16_t ui16TimerSec;
 ***********************************************************************************/
 void setupTimer(void)
 {
+#if (__TEST_MODE__==__STACK_TEST__)
+	incrementStack(10);
+#endif
+
 	/* Set Prescaler */
     hal_setTMR0Prescaler(TMR0_PRESCALE); 
     
@@ -80,7 +84,7 @@ void setupTimer(void)
     hal_TMR0_Init();
 
     /* Additional Configuration for PIC 18 */
-#if defined( _18F2420 ) || defined( _18F2520 ) || defined( _18F4420 ) || defined( _18F4520 ) || defined( _18F4620 )	
+#if (__PHR_CONTROLLER__==__MCU_PIC18__) 
     hal_use8BitTMR0();
     
     /* Enable Timer Module */
@@ -90,6 +94,10 @@ void setupTimer(void)
 	/* Enable Interrupt */
 	hal_clrBaseTimerIntFlag();
 	hal_enableBaseTimerInt();
+    
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif  
 }	
 
 /*******************************************************************************//**
@@ -115,14 +123,18 @@ void timerISR(void)
     static uint16_t ui16MsCounter = 0;
     #endif
     
+#if (__TEST_MODE__==__STACK_TEST__)
+	incrementStack(11);
+#endif
+
     if(hal_getBaseTimerIntFlag() && hal_getBaseTimerIntEnableStatus())
     {
     	hal_clrBaseTimerIntFlag();
-   
+
         ui8TimerUsMSB++;                        // increment uS Timer High Byte
     	ui16UsCounter += TMR0_US_INCREMENT;             
         
-    	if(ui16UsCounter >= 1000)
+    	while(ui16UsCounter >= 1000)
     	{
     		ui16TimerMs++;
     		ui16UsCounter -= 1000;
@@ -130,7 +142,6 @@ void timerISR(void)
             #ifdef __TIMER_SEC__
             ui16MsCounter++;
             #endif
-			adcCycle();							// esc.test, temporarily placed here
     	}	
 
         #ifdef __TIMER_SEC__
@@ -141,6 +152,10 @@ void timerISR(void)
         }
         #endif
     }
+
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif        
 }	
 
 /* Private Functions */

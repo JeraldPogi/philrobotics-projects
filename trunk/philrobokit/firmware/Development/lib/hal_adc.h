@@ -46,61 +46,60 @@
     
 /* Global Constants */
     /* PIC16F877A Specific */
-enum adcModuleCfg_e
+enum adcModuleCfg_et
 {
-    CFG_ALLANALOG   = 0x00
-    ,CFG_ALLDIGITAL = 0x07
-    ,CFG_EXTVREF    = 0x01
+    CFG_ALLANALOG                                       = 0x00
+    ,CFG_ALLDIGITAL                                     = 0x07
+    ,CFG_EXTVREF                                        = 0x01
 };
 
 /* Macro and Configuration Definitions */
-	/*@notfunction@*/
-	#define hal_enableADCInt()           			(BIT_PIE1_ADIE = 1)
-	/*@notfunction@*/
-	#define hal_disableADCInt()          			(BIT_PIE1_ADIE = 0)
-    /*@notfunction@*/
-    #define hal_getADCIntEnableStatus()           	((BIT_PIE1_ADIE) ? true : false)
-    
-	/*@notfunction@*/
-	#define hal_clrADCIntFlag()         			(BIT_PIR1_ADIF = 0)
-    /*@notfunction@*/
-    #define hal_getADCIntFlag()                     ((BIT_PIR1_ADIF) ? true : false)
+/*@notfunction@*/
+#define hal_enableADCInt()           			        (BIT_PIE1_ADIE = 1)
+/*@notfunction@*/
+#define hal_disableADCInt()          			        (BIT_PIE1_ADIE = 0)
+/*@notfunction@*/
+#define hal_getADCIntEnableStatus()           	        ((BIT_PIE1_ADIE) ? true : false)
 
-	/*@notfunction@*/
-	#define hal_enableADC()                 		(BIT_ADCON0_ADON = 1)
-	/*@notfunction@*/
-	#define hal_disableADC()                		(BIT_ADCON0_ADON = 0)
+/*@notfunction@*/
+#define hal_clrADCIntFlag()         			        (BIT_PIR1_ADIF = 0)
+/*@notfunction@*/
+#define hal_getADCIntFlag()                             ((BIT_PIR1_ADIF) ? true : false)
 
-	/*@notfunction@*/
-    #define hal_startADCConversion()                (BIT_ADCON0_GO_DONE = 1)
-    /*@notfunction@*/
-    #define hal_checkADCEndofConversion()           ((BIT_ADCON0_GO_DONE) ? false : true)
+/*@notfunction@*/
+#define hal_enableADC()                 		        (BIT_ADCON0_ADON = 1)
+/*@notfunction@*/
+#define hal_disableADC()                		        (BIT_ADCON0_ADON = 0)
 
-    /*@notfunction@*/
-    #define hal_configADCPins(config)               (REGISTER_ADCON1 |= (config&ADC_CONFIG_MASK)) 
+/*@notfunction@*/
+#define hal_startADCConversion()                        (BIT_ADCON0_GO_DONE = 1)
+/*@notfunction@*/
+#define hal_checkADCEndofConversion()                   ((BIT_ADCON0_GO_DONE) ? false : true)
 
-    /*@notfunction@*/
-    #define hal_leftAligned()                       (BIT_ADCON1_ADFM = 0)
-    /*@notfunction@*/
-    #define hal_rightAligned()                      (BIT_ADCON1_ADFM = 1)
-    
-    /*@notfunction@*/
-    #define hal_setADCChannel(channel)                  \
+/*@notfunction@*/
+#define hal_configADCPins(config)                       (REGISTER_ADCON1 |= (config&ADC_CONFIG_MASK)) 
+
+/*@notfunction@*/
+#define hal_leftAligned()                               (BIT_ADCON1_ADFM = 0)
+/*@notfunction@*/
+#define hal_rightAligned()                              (BIT_ADCON1_ADFM = 1)
+
+/*@notfunction@*/
+#define hal_setADCChannel(channel)                      \
     REGISTER_ADCON0 &=~ADC_CHANSEL_MASK;        	    \
     REGISTER_ADCON0 |= (channel<<3)&ADC_CHANSEL_MASK    // semi-collon intentionally omitted 
-     
-    /*@notfunction@*/
-    #define hal_configADCPinsClock(config)              \
+ 
+/*@notfunction@*/
+#define hal_configADCPinsClock(config)                  \
     REGISTER_ADCON0 &=~ADC_CONVCLOCK_MASK;        	    \
     REGISTER_ADCON0 |= (config<<6)&ADC_CONVCLOCK_MASK;  \
     BIT_ADCON1_ADCS2 = (((config&0x04)>0) ? 1 : 0)      // semi-collon intentionally omitted 
-    
-    /*@notfunction@*/
-    #define readADCResult()                         ((((uint16_t)REGISTER_ADRESH<<8) + REGISTER_ADRESL) & 0x03FF)
+
+/*@notfunction@*/
+#define readADCResult()                                 ((((uint16_t)REGISTER_ADRESH<<8) + REGISTER_ADRESL) & 0x03FF)
     
 /* Public Function Prototypes */
 void configLowLvlADC(void);
-void makeADCPinsInput(void);
 	
 #endif /* end of hal_adc.h */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	

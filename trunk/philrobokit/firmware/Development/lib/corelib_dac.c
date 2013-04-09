@@ -68,10 +68,19 @@ void setDAC(uint8_t ui8DAC_Module, uint16_t ui16Value)
     #ifdef S_SPLINT_S 			        // Suppress SPLint Unrecognized ID Errors
         #define uint24_t uint32_t       // esc.comment: use with caution
     #endif
+    
+#if (__TEST_MODE__==__STACK_TEST__)
+	incrementStack(64);
+#endif
+
 	/* 0 - 1023 : 0 - 1000  */
 	ui16DutyCycle = (uint16_t)(((uint24_t)976 * ui16Value) / 1000);
 	
 	setupPWM(ui8DAC_Module, K_DAC_DEFAULT_FREQ, ui16DutyCycle);	
+    
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif
 }
 
 /*******************************************************************************//**
@@ -92,10 +101,19 @@ void setDAC(uint8_t ui8DAC_Module, uint16_t ui16Value)
 ***********************************************************************************/
 void removeDAC(uint8_t ui8DAC_Module)
 {
+#if (__TEST_MODE__==__STACK_TEST__)
+	incrementStack(65);
+#endif
+
 	removePWM(ui8DAC_Module);
+    
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif
 }
+
 /* Private Functions */
     /* none */
-    
+
 /* end of corelib_dac.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

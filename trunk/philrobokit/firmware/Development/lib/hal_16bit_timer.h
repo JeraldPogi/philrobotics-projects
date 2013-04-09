@@ -39,7 +39,7 @@
 #include <PhilRoboKit_CoreLib_Macro.h>
    
 /* Global Constants */    
-enum Tmr1PreScale_e
+enum Tmr1PreScale_et
 {
     TMR1_PRE_DIV1
     ,TMR1_PRE_DIV2
@@ -48,8 +48,8 @@ enum Tmr1PreScale_e
 };
 
 /* User Configuration Definitions */
-#define TIMER_16BIT_ENABLED	TRUE
-	#define TIMER1_ENABLED	TRUE
+#define TIMER_16BIT_ENABLED	                        TRUE
+	#define TIMER1_ENABLED	                        TRUE
     
 #if (_XTAL_FREQ == 20000000)
     #define TMR1_PRESCALE                           TMR1_PRE_DIV1           // 0.2uS resolution @ 20Mhz
@@ -81,27 +81,26 @@ enum Tmr1PreScale_e
 
 	/*@notfunction@*/
 	#define hal_setTMR1Prescaler(a)          		\
-	REGISTER_T1CON &=~TMR1_PRESCALE_MASK;         	\
-	REGISTER_T1CON |= (a<<4)&TMR1_PRESCALE_MASK     // semi-collon intentionally omitted 
+    	REGISTER_T1CON &=~TMR1_PRESCALE_MASK;       \
+    	REGISTER_T1CON |= (a<<4)&TMR1_PRESCALE_MASK // semi-collon intentionally omitted 
 
 	/*@notfunction@*/
-	#define hal_setTMR1Postscaler(a)         		\
-	asm("nop")                                      // semi-collon intentionally omitted 
+	#define hal_setTMR1Postscaler(a)         		asm("nop")
     
     // Timer1 oscillator disabled
     // Timer1 external clock do not synchronize
     // Timer1 clock source select, internal clock (FOSC/4)
     /*@notfunction@*/
     #define hal_initTMR1()                          \
-    BIT_T1CON_T1OSCEN = 0; 		                    \
-    BIT_T1CON_T1SYNC = 1; 	                        \
-    BIT_T1CON_TMR1CS = 0                            // semi-collon intentionally omitted 		
+        BIT_T1CON_T1OSCEN = 0; 		                \
+        BIT_T1CON_T1SYNC = 1; 	                    \
+        BIT_T1CON_TMR1CS = 0                        // semi-collon intentionally omitted 		
         
     /*@notfunction@*/
     #define hal_setTMR1Value(a)                     \
-	a = 65535-a;									\
-    REGISTER_TMR1L = (uint8_t)(a);            		\
-    REGISTER_TMR1H = (uint8_t)(a>>8)       			// semi-collon intentionally omitted   
+    	a = 65535-a;							    \
+        REGISTER_TMR1L = (uint8_t)(a);            	\
+        REGISTER_TMR1H = (uint8_t)(a>>8)       		// semi-collon intentionally omitted   
 #endif
 
 /* Public Function Prototypes */	

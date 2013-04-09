@@ -7,7 +7,7 @@
 * |Filename:      | "corelib_16bit_timer.c"                     |
 * |:----          |:----                                        |
 * |Description:   | This is a library for using the 16bit timer functions |
-* |Revision:      | v00.00.01                                   |
+* |Revision:      | v00.01.00                                   |
 * |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -28,6 +28,7 @@
 * |FW Version   |Date       |Author             |Description                        |
 * |:----        |:----      |:----              |:----                              |
 * |v00.00.01    |20130323   |ESCII              |Library Initial Release            |
+* |v00.01.00    |20130408   |ESCII              |Function made independent from ADC |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -44,6 +45,46 @@
     /* none */
     
 /* Public Functions */
+/*******************************************************************************//**
+* \brief 16bit timer interrupt service routine
+*
+* > This is an interrupt handler called when the 16bit timer value expires
+*
+* > <BR>
+* > **Syntax:**<BR>
+* >     timer16BitISR() , ISR
+* > <BR><BR>
+* > **Parameters:**<BR>
+* >     none
+* > <BR><BR>
+* > **Returns:**<BR>
+* >     none
+* > <BR><BR>
+***********************************************************************************/
+void timer16BitISR(void)
+{
+#if (__TEST_MODE__==__STACK_TEST__)
+	incrementStack(71);
+#endif
+
+#if(TIMER_16BIT_ENABLED == TRUE)
+	if(hal_getTMR1IntFlag() && hal_getTMR1IntEnableStatus())
+	{
+		/* disable TMR1 Module */
+		hal_clrTMR1IntFlag();
+		hal_disableTMR1Int();
+		hal_disableTMR1();
+
+		/* call user ISR */
+		pt2TMR1ISR();
+	}
+#endif 
+
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif
+}
+
 #if(TIMER_16BIT_ENABLED == TRUE)
 /*******************************************************************************//**
 * \brief Setup the 16bit timer peripheral count resolution
@@ -64,15 +105,19 @@
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setup16BitTimerFull(enum tmr16BitModules_e eTmrModule, void(*callback)(), uint8_t ui8Prescaler, uint8_t ui8Postscaler)
+void setup16BitTimerFull(enum tmr16BitModules_et eTmrModule, void(*callback)(), uint8_t ui8Prescaler, uint8_t ui8Postscaler)
 {
+#if (__TEST_MODE__==__STACK_TEST__)
+	incrementStack(72);
+#endif
+
     /* Default */
 	if(TIMER1 == eTmrModule)
 	{
         hal_initTMR1();
     
 	    hal_setTMR1Prescaler(ui8Prescaler);
-    	//hal_setTMR1Postscaler(ui8Postscaler); 			// not nedded on TMR1
+    	//hal_setTMR1Postscaler(ui8Postscaler); 			              // not nedded on PIC TMR1
 		
 		pt2TMR1ISR = callback;
 	}
@@ -80,6 +125,10 @@ void setup16BitTimerFull(enum tmr16BitModules_e eTmrModule, void(*callback)(), u
 	{
 		/* do nothing */
 	}
+    
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif
 }
 
 /*******************************************************************************//**
@@ -102,9 +151,13 @@ void setup16BitTimerFull(enum tmr16BitModules_e eTmrModule, void(*callback)(), u
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setup16BitTimer(enum tmr16BitModules_e eTmrModule, void(*callback)())
+void setup16BitTimer(enum tmr16BitModules_et eTmrModule, void(*callback)())
 {
-    //setup16BitTimerFull(eTmrModule, callback, TMR1_PRESCALE, 0);			// disabled to save stack				
+#if (__TEST_MODE__==__STACK_TEST__)
+	incrementStack(73);
+#endif
+
+    //setup16BitTimerFull(eTmrModule, callback, TMR1_PRESCALE, 0);			// disabled to save stack
 	if(TIMER1 == eTmrModule)
 	{
 		hal_initTMR1();
@@ -116,6 +169,10 @@ void setup16BitTimer(enum tmr16BitModules_e eTmrModule, void(*callback)())
 	{
 		/* do nothing */
 	}
+    
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif
 }
 
 /*******************************************************************************//**
@@ -136,8 +193,12 @@ void setup16BitTimer(enum tmr16BitModules_e eTmrModule, void(*callback)())
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void set16BitTimer(enum tmr16BitModules_e eTmrModule, uint16_t ui16Value)
+void set16BitTimer(enum tmr16BitModules_et eTmrModule, uint16_t ui16Value)
 {
+#if (__TEST_MODE__==__STACK_TEST__)
+	incrementStack(74);
+#endif
+
     /* Default */
 	if(TIMER1 == eTmrModule)
 	{
@@ -147,59 +208,18 @@ void set16BitTimer(enum tmr16BitModules_e eTmrModule, uint16_t ui16Value)
 		hal_clrTMR1IntFlag();						// important at first run after initialization
 		hal_enableTMR1Int();
 		/* turn-on timer module */
-		//hal_enableTMR1();							// esc.test TMR1 still buggy, cannot enable because experiencing intermittent behavior of a reset
+		hal_enableTMR1();
 	}
 	else
 	{
 		/* do nothing */
 	}
+    
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif
 }
 #endif
-
-/*******************************************************************************//**
-* \brief 16bit timer interrupt service routine
-*
-* > This is an interrupt handler called when the 16bit timer value expires
-*
-* > <BR>
-* > **Syntax:**<BR>
-* >     timer16BitISR() , ISR
-* > <BR><BR>
-* > **Parameters:**<BR>
-* >     none
-* > <BR><BR>
-* > **Returns:**<BR>
-* >     none
-* > <BR><BR>
-***********************************************************************************/
-void timer16BitISR(void)
-{
-	static uint16_t Counter=0;//esc.test
-#if(TIMER_16BIT_ENABLED == TRUE)
-	if(hal_getTMR1IntFlag() && hal_getTMR1IntEnableStatus())
-	{
-		/* disable TMR1 Module */
-		hal_clrTMR1IntFlag();
-		hal_disableTMR1Int();
-		hal_disableTMR1();
-
-		/* call user ISR */
-		//pt2TMR1ISR();											esc.test disabled
-		
-		/* Critical Task */
-		set16BitTimer(TIMER1, K16_CRITICALTASK_PERIOD); 		// cyclic
-		
-		//adcCycle();											// moved here to save stack
-		// esc.test: supposedly to toggle LED every half a second
-		Counter++;
-		if(Counter>=500)
-		{
-			Counter = 0;
-			togglePin(LED4);
-		}
-	}
-#endif 
-}
 
 /* Private Functions */
     /* none */

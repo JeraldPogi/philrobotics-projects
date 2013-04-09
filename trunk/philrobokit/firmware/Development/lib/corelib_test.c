@@ -4,11 +4,11 @@
 * phirobotics.core@philrobotics.com
 *
 *---------------------------------------------------------------------------------------------
-* |Filename:      | "setupAnito.c"                              |
+* |Filename:      | "corelib_test.c"                            |
 * |:----          |:----                                        |
-* |Description:   | Anito setup routines                        |
-* |Revision:      | v00.00.02                                   |
-* |Author:        | Giancarlo Acelajado                         |
+* |Description:   | PhilRobokit Test Library Header             |
+* |Revision:      | v00.00.01                                   |
+* |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
 * |Dependencies:  |                                             |
 *
@@ -27,14 +27,12 @@
 *---------------------------------------------------------------------------------------------
 * |FW Version   |Date       |Author             |Description                        |
 * |:----        |:----      |:----              |:----                              |
-* |v00.00.01    |201209xx   |Giancarlo A.       |Library Initial Release            |
-* |v00.00.02    |20130307   |ESCII              |Renamed setupAnito to philrobokit_init to save 1 stack level <BR>
-*                                                Added call to ADC setup and cyclic functions |
+* |v00.00.01    |20130408   |ESC II             |Library Initial Release            |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
 
-#include  "setupAnito.h"
+#include "corelib_test.h"
 
 /* Local Constants */
     /* none */
@@ -43,49 +41,13 @@
     /* none */
 
 /* Private Function Prototypes */
-void criticalTaskISR();
+    /* none */
     
 /* Public Functions */
-/*******************************************************************************//**
-* \brief Setup Philrobokit Variant Specific Peripherals
-*
-* > This function is called to initialize anito specific peripherals 
-*
-* > <BR>
-* > **Syntax:**<BR>
-* >      philrobokit_init()
-* > <BR><BR>
-* > **Parameters:**<BR>
-* >     none
-* > <BR><BR>
-* > **Returns:**<BR>
-* >     none
-* > <BR><BR>
-***********************************************************************************/
-void philrobokit_init(void)
-{
-    /* Initialize GPIO default and direction */
-    setupGpio();
+    /* none */
     
-    /* System Timebase */
-    setupTimer();	        
-    
-	/* Vref at Vdd by default */
-    setupADC(VDD);  
-	
-    /* Use Timer 1 for ADC Polling */
-    setup16BitTimer(TIMER1, criticalTaskISR);
-    set16BitTimer(TIMER1, K16_CRITICALTASK_PERIOD);    
-    
-    /* global and peripheral interrupts enabled */
-    enableGlobalInt();      
-}
-
 /* Private Functions */
-void criticalTaskISR()
-{
-	;/* task moved to TMR1 module to save stack */
-}
+    /* none */
     
-/* end of setupAnito.c */
+/* end of corelib_test.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

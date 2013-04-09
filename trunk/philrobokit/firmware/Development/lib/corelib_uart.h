@@ -7,7 +7,7 @@
 * |Filename:      | "corelib_uart.h"                            |
 * |:----          |:----                                        |
 * |Description:   | This is a header file of the serial/uart library |
-* |Revision:      | v01.00.01                                   |
+* |Revision:      | v01.00.02                                   |
 * |Author:        | Giancarlo Acelajado                         |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -31,6 +31,7 @@
 * |v00.01.01    |201201xx   |Giancarlo A.       |Add serialFlush Routine            |
 * |v01.00.00    |201210xx   |Giancarlo A.       |Leverage Library to Standard Architecture|
 * |v01.00.01    |20130228   |ESCII              |Separated module to HAL and Corelib|
+* |v01.00.02    |20130405   |ESCII              |Changed block lenght datatype from u16 to ui8|
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -44,11 +45,11 @@
 #include "hal_uart.h"
 
 /* User Configuration Definitions */
-#define K8_UART_BUFFER_SIZE			(32)
+#define K8_UART_BUFFER_SIZE			                (32)
     
 /* Global Constants */
 #ifndef NULL
-    #define NULL				'\0'
+    #define NULL				                    '\0'
 #endif
 
 /* Macro and Configuration Definitions */
@@ -59,7 +60,7 @@ void setupSerial(uint16_t ui16Baudrate);
 
 void serialWrite(uint8_t ui8TxData);
 void serialWriteString(uint8_t *pui8StrTxData);
-void serialWriteBlock(uint8_t *pui8StrTxData, uint16_t ui16Size);
+void serialWriteBlock(uint8_t *pui8StrTxData, uint8_t ui8Size);
 
 uint8_t serialDataCount(void);
 uint8_t serialRead(void);

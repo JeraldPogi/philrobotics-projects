@@ -51,21 +51,21 @@
     
 /* Global Constants */
 	/* Interrupts Sources */
-enum InterruptSources_e
+enum InterruptSources_et
 {
-	INT0                    // INT0 - D8: External Interrupt (RB0)
-	,INT1                   // INT1 - D12: Interrupt on Pin Change (RB4)
-	,INT2                   // INT2 - D13: Interrupt on Pin Change (RB5)
-	,INT3                   // INT3 - PGC: Interrupt on Pin Change (RB6)
-	,INT4                   // INT4 - PGD: Interrupt on Pin Change (RB7)
+	INT0                                        // INT0 - D8: External Interrupt (RB0)
+	,INT1                                       // INT1 - D12: Interrupt on Pin Change (RB4)
+	,INT2                                       // INT2 - D13: Interrupt on Pin Change (RB5)
+	,INT3                                       // INT3 - PGC: Interrupt on Pin Change (RB6)
+	,INT4                                       // INT4 - PGD: Interrupt on Pin Change (RB7)
 };
 
 /* Macro and Configuration Definitions */
     /* none */
     
 /* Public Function Prototypes */
-void setupUserInt(enum InterruptSources_e eIntSource, void(*callback)(), /*enum InterruptModes_e*/uint8_t eIntMode);
 void userIntISR(void);
+void setupUserInt(enum InterruptSources_et eIntSource, void(*callback)(), /*enum InterruptModes_e*/uint8_t eIntMode);
 
 #endif/* end of corelib_user_interrupt.h */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	

@@ -94,13 +94,13 @@
 
 	/*@notfunction@*/
 	#define hal_setTMR2Prescaler(a)          		\
-	REGISTER_T2CON &=~TMR_PRESCALE_MASK;         	\
-	REGISTER_T2CON |= a&TMR_PRESCALE_MASK        	// semi-collon intentionally omitted 
+    	REGISTER_T2CON &=~TMR_PRESCALE_MASK;        \
+    	REGISTER_T2CON |= a&TMR_PRESCALE_MASK       // semi-collon intentionally omitted 
 
 	/*@notfunction@*/
 	#define hal_setTMR2Postscaler(a)         		\
-	REGISTER_T2CON &=~TMR_POSTSCALE_MASK;        	\
-	REGISTER_T2CON |= (a<<3)&TMR_POSTSCALE_MASK  	// semi-collon intentionally omitted 
+    	REGISTER_T2CON &=~TMR_POSTSCALE_MASK;       \
+    	REGISTER_T2CON |= (a<<3)&TMR_POSTSCALE_MASK // semi-collon intentionally omitted 
     
     /*@notfunction@*/
     #define hal_setTMR2Value(a)                     (REGISTER_PR2 = (a-1))
