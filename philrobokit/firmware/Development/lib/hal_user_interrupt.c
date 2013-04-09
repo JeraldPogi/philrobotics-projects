@@ -7,7 +7,7 @@
 * |Filename:      | "hal_user_interrupt.c"                      |
 * |:----          |:----                                        |
 * |Description:   | This is a driver for using the external pin interrupt |
-* |Revision:      | v00.00.01                                   |
+* |Revision:      | v00.00.02                                   |
 * |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -28,6 +28,7 @@
 * |FW Version   |Date       |Author             |Description                        |
 * |:----        |:----      |:----              |:----                              |
 * |v00.00.01    |20130207   |ESCII              |Library Initial Release            |
+* |v00.00.02    |20130402   |ESCII              |Changed PORTCHANGE_BUFFER type from int to uint8_t  and made static|
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -38,7 +39,7 @@
     /* none */
 
 /* Local Variables */
-    /* none */
+extern volatile uint8_t PORTB_BUFFER,PORTB_DIRECTION;
 
 /* Private Function Prototypes */
     /* none */
@@ -63,7 +64,15 @@
 ***********************************************************************************/
 void nullIntFunction(void)
 {
+#if (__TEST_MODE__==__STACK_TEST__)
+	incrementStack(40);
+#endif
+
 	;/* NULL */
+    
+#if (__TEST_MODE__==__STACK_TEST__)
+    decrementStack();
+#endif
 }
 
 /*******************************************************************************//**
@@ -85,6 +94,10 @@ void nullIntFunction(void)
 #if(EXTINTENABLED == TRUE)	
 void extIntISR()
 {
+#if (__TEST_MODE__==__STACK_TEST__)
+	incrementStack(41);
+#endif
+
 	if(CHANGE == eMod0_Mode)
 	{
 		K_INT_EDGE_BIT = ~K_INT_EDGE_BIT;   // toggle Int0 edge to trigger on next interrupt edge
@@ -92,6 +105,11 @@ void extIntISR()
 	
 	/* Call User Function */
 	pt2INT0();
+
+
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif    
 }
 #endif	
 
@@ -115,18 +133,21 @@ void extIntISR()
 #if(RBINTENABLED == TRUE)	
 void rbIntISR(void)
 {
-	int PORTCHANGE_BUFFER; 
+	static uint8_t PORTCHANGE_BUFFER; 
+#if (__TEST_MODE__==__STACK_TEST__)
+	incrementStack(42);
+#endif
 
 	/* Capture Pin Changes */
-	PORTCHANGE_BUFFER = PORTB_BUFFER ^ (REGISTER_PORTB & PORTB_DIR);	// Ignore Outputs
+	PORTCHANGE_BUFFER = PORTB_BUFFER ^ (PORTB_VAL & PORTB_DIR);	// Ignore Outputs
 	
-	if(RB4_MASK == (PORTCHANGE_BUFFER&RB4_MASK))
+	if(k8_D12_MASK == (PORTCHANGE_BUFFER&k8_D12_MASK))
 	{
-		if((RISING == eMod1_Mode) && (LOW == getPinState(D12)))
+		if((RISING == eMod1_Mode) && (LOW == mc_getPinState(D12)))
 		{
 			/* Ignore and wait for the next interrupt */
 		}	
-		else if((FALLING == eMod1_Mode) && (HIGH == getPinState(D12)))
+		else if((FALLING == eMod1_Mode) && (HIGH == mc_getPinState(D12)))
 		{
 			/* Ignore and wait for the next interrupt */
 		}
@@ -135,17 +156,17 @@ void rbIntISR(void)
 			/* Call User Function */
 			pt2INT1();
 		}
-		PORTB_BUFFER &= ~RB4_MASK;					// clear buffered RB4
-		PORTB_BUFFER |= REGISTER_PORTB & RB4_MASK;	// store new RB4
+		PORTB_BUFFER &= ~k8_D12_MASK;					// clear buffered RB4
+		PORTB_BUFFER |= PORTB_VAL & k8_D12_MASK;	// store new RB4
 	}
 	
-	if(RB5_MASK == (PORTCHANGE_BUFFER&RB5_MASK))
+	if(k8_D13_MASK == (PORTCHANGE_BUFFER&k8_D13_MASK))
 	{
-		if((RISING == eMod2_Mode) && (LOW == getPinState(D13)))
+		if((RISING == eMod2_Mode) && (LOW == mc_getPinState(D13)))
 		{
 			/* Ignore and wait for the next interrupt */
 		}	
-		else if((FALLING == eMod2_Mode) && (HIGH == getPinState(D13)))
+		else if((FALLING == eMod2_Mode) && (HIGH == mc_getPinState(D13)))
 		{
 			/* Ignore and wait for the next interrupt */
 		}
@@ -154,17 +175,17 @@ void rbIntISR(void)
 			/* Call User Function */
 			pt2INT2();
 		}
-		PORTB_BUFFER &= ~RB5_MASK;					// clear buffered RB5
-		PORTB_BUFFER |= REGISTER_PORTB & RB5_MASK;	// store new RB5	
+		PORTB_BUFFER &= ~k8_D13_MASK;					// clear buffered RB5
+		PORTB_BUFFER |= PORTB_VAL & k8_D13_MASK;	// store new RB5	
 	}
 	
 	if(RB6_MASK == (PORTCHANGE_BUFFER&RB6_MASK))
 	{
-		if((RISING == eMod3_Mode) && !(REGISTER_PORTB & RB6_MASK))
+		if((RISING == eMod3_Mode) && !(PORTB_VAL & RB6_MASK))
 		{
 			/* Ignore and wait for the next interrupt */
 		}	
-		else if((FALLING == eMod3_Mode) && (REGISTER_PORTB & RB6_MASK))
+		else if((FALLING == eMod3_Mode) && (PORTB_VAL & RB6_MASK))
 		{
 			/* Ignore and wait for the next interrupt */
 		}
@@ -174,16 +195,16 @@ void rbIntISR(void)
 			pt2INT3();
 		}
 		PORTB_BUFFER &= ~RB6_MASK;					// clear buffered RB6
-		PORTB_BUFFER |= REGISTER_PORTB & RB6_MASK;	// store new RB6
+		PORTB_BUFFER |= PORTB_VAL & RB6_MASK;	// store new RB6
 	}
 	
 	if(RB7_MASK == (PORTCHANGE_BUFFER&RB7_MASK))
 	{
-		if((RISING == eMod4_Mode) && !(REGISTER_PORTB & RB7_MASK))
+		if((RISING == eMod4_Mode) && !(PORTB_VAL & RB7_MASK))
 		{
 			/* Ignore and wait for the next interrupt */
 		}	
-		else if((FALLING == eMod4_Mode) && (REGISTER_PORTB & RB7_MASK))
+		else if((FALLING == eMod4_Mode) && (PORTB_VAL & RB7_MASK))
 		{
 			/* Ignore and wait for the next interrupt */
 		}
@@ -193,10 +214,15 @@ void rbIntISR(void)
 			pt2INT4();
 		}
 		PORTB_BUFFER &= ~RB7_MASK;					// clear buffered RB7
-		PORTB_BUFFER |= REGISTER_PORTB & RB7_MASK;	// store new RB7	
+		PORTB_BUFFER |= PORTB_VAL & RB7_MASK;	// store new RB7	
 	}
 	
 	PORTB_BUFFER &= PORTB_DIR; 						// Ensure only inputs are stored
+    
+    
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif
 }
 #endif	
 

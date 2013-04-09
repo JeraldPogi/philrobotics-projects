@@ -73,7 +73,15 @@ static bool_t isSerialBufferFull(void);
 * > <BR><BR>
 ***********************************************************************************/
 void setupSerial(uint16_t ui16Baudrate)
-{			
+{	
+#if (__TEST_MODE__==__STACK_TEST__)
+        gui8StackLevelCounter++; 
+        if(gui8StackLevelCounter>gui8MaxStackLevel)
+        {
+            gui8MaxStackLevel = gui8StackLevelCounter;
+        }
+#endif
+
     /* Clear TX and RX Buffers */
     stUARTTXFiFo.ui8Head = 0;
     stUARTTXFiFo.ui8Tail = 0;
@@ -94,6 +102,10 @@ void setupSerial(uint16_t ui16Baudrate)
     /* Enable RX Interrupt */
     hal_enableUARTRXInt();
     hal_clrUARTRXIntFlag();
+    
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif	
 }
 
 /*******************************************************************************//**
@@ -114,20 +126,29 @@ void setupSerial(uint16_t ui16Baudrate)
 ***********************************************************************************/
 void serialWrite(uint8_t ui8TxData)
 {
+#if 0 //defined STACK_TEST
+    gui8StackLevelCounter++; 
+    if(gui8StackLevelCounter>gui8MaxStackLevel)
+    {
+        gui8MaxStackLevel = gui8StackLevelCounter;
+    }
+#endif
+
     while (isSerialBufferFull())
     {
         continue;
     }
-
-    BIT_INTCON_GIE = 0; //Disable Interrupt         (esc.comment: to be modified for HAL)
     
+	hal_disableUARTTXInt();
+	
     stUARTTXFiFo.aui8Buffer[stUARTTXFiFo.ui8Head++] = ui8TxData;
-
     stUARTTXFiFo.ui8Head &= K8_UART_BUFFER_MASK;
-    
 
     hal_enableUARTTXInt();
-    BIT_INTCON_GIE = 1; //Enable Global Interrupt	 (esc.comment: to be modified for HAL)
+    
+#if (__TEST_MODE__==__STACK_TEST__)
+//	decrementStack();
+#endif
 }			
 
 /*******************************************************************************//**
@@ -148,10 +169,18 @@ void serialWrite(uint8_t ui8TxData)
 ***********************************************************************************/
 void serialWriteString(uint8_t *pui8StrTxData)
 {
+#if (__TEST_MODE__==__STACK_TEST__)
+	incrementStack(80);
+#endif
+
     while(NULL != *pui8StrTxData)
     {
         serialWrite(*pui8StrTxData++);		
     }	
+    
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif	
 }	
 
 /*******************************************************************************//**
@@ -172,12 +201,20 @@ void serialWriteString(uint8_t *pui8StrTxData)
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void serialWriteBlock(uint8_t *pui8StrTxData, uint16_t ui16Size)
+void serialWriteBlock(uint8_t *pui8StrTxData, uint8_t ui8Size)
 {
-    while(ui16Size--)
+#if (__TEST_MODE__==__STACK_TEST__)
+	incrementStack(81);
+#endif
+
+    while(ui8Size--)
     {
         serialWrite(*pui8StrTxData++);		
-    }	
+    }
+
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif		
 }
 
 /*******************************************************************************//**
@@ -199,12 +236,22 @@ void serialWriteBlock(uint8_t *pui8StrTxData, uint16_t ui16Size)
 ***********************************************************************************/
 uint8_t serialDataCount(void)
 {
+#if (__TEST_MODE__==__STACK_TEST__)
+	incrementStack(82);
+#endif
+
     if(true == isSerialDataAvailable())
-    {
+    {  
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif	    
         return (stUARTRXFiFo.ui8Head - stUARTRXFiFo.ui8Tail);
     }
     else
     {
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif	    
         return 0;
     }
 }
@@ -230,6 +277,9 @@ uint8_t serialRead(void)
 {
     uint8_t ui8serialData;
     //int timeout = 7500; //1.5ms @20Mhz
+#if (__TEST_MODE__==__STACK_TEST__)
+	incrementStack(83);
+#endif
             
     while(!isSerialDataAvailable()/* && (--timeout)*/)
     {
@@ -238,17 +288,22 @@ uint8_t serialRead(void)
         
     if(isSerialDataAvailable())
     {
-        BIT_INTCON_GIE = 0;			//Disable Global Interrupt  (esc.comment: to be modified for HAL)
+        hal_disableUARTRXInt();
     
         ui8serialData = stUARTRXFiFo.aui8Buffer[stUARTRXFiFo.ui8Tail++];	//Get Data from aui8Buffer
-    
         stUARTRXFiFo.ui8Tail &= K8_UART_BUFFER_MASK;
         
-        BIT_INTCON_GIE = 1;		    //Enable Global Interrupt   (esc.comment: to be modified for HAL)
-    
+        hal_enableUARTRXInt();
+
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif	    
         return ui8serialData;	
     }   
-    
+
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif	    
     return NULL;
 }	
 
@@ -270,6 +325,10 @@ uint8_t serialRead(void)
 ***********************************************************************************/
 void serialFlush(void)
 {
+#if (__TEST_MODE__==__STACK_TEST__)
+	incrementStack(84);
+#endif
+
    stUARTRXFiFo.ui8Head = 0;
    stUARTTXFiFo.ui8Head = 0;
    stUARTRXFiFo.ui8Tail = 0;
@@ -277,6 +336,10 @@ void serialFlush(void)
 
    memset(stUARTTXFiFo.aui8Buffer, NULL, sizeof(stUARTTXFiFo.aui8Buffer));
    memset(stUARTRXFiFo.aui8Buffer, NULL, sizeof(stUARTRXFiFo.aui8Buffer));
+   
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif	
 } 		
 
 /*******************************************************************************//**
@@ -297,10 +360,15 @@ void serialFlush(void)
 ***********************************************************************************/
 void serialRxISR(void)
 {
-    uint8_t ui8TempIn;
+    static uint8_t ui8TempIn;												// variables inside ISR must be static
+#if (__TEST_MODE__==__STACK_TEST__)
+	incrementStack(85);
+#endif
     
-    if (hal_getUARTRXIntEnableStatus() && hal_getUARTRXIntFlag())
+    if (hal_getUARTRXIntFlag() && hal_getUARTRXIntEnableStatus())
     {
+		hal_clrUARTRXIntFlag();
+		
         stUARTRXFiFo.aui8Buffer[stUARTRXFiFo.ui8Head] = K_RXREG_BUFF;
         ui8TempIn = ((stUARTRXFiFo.ui8Head+1) & K8_UART_BUFFER_MASK);
 
@@ -308,13 +376,15 @@ void serialRxISR(void)
         {
             stUARTRXFiFo.ui8Head = ui8TempIn;
         }
-            
-        hal_clrUARTRXIntFlag();
     }
+    
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif	
 }	
 
 /*******************************************************************************//**
-* \brief External pin interrupt service routine
+* \brief UART transmit interrupt service routine
 *
 * >  This is an interrupt handler called when a byte is transmitted by the UART peripheral
 *
@@ -331,8 +401,18 @@ void serialRxISR(void)
 ***********************************************************************************/
 void serialTxISR(void)
 {
-    if (hal_getUARTTXIntEnableStatus() && hal_getUARTTXIntFlag())
+#if 0 //defined STACK_TEST
+    gui8StackLevelCounter++; 
+    if(gui8StackLevelCounter>gui8MaxStackLevel)
     {
+        gui8MaxStackLevel = gui8StackLevelCounter;
+    }
+#endif
+
+    if (hal_getUARTTXIntFlag() && hal_getUARTTXIntEnableStatus())
+    {
+		hal_clrUARTTXIntFlag();
+		
         K_TXREG_BUFF = stUARTTXFiFo.aui8Buffer[stUARTTXFiFo.ui8Tail++];
         
         stUARTTXFiFo.ui8Tail &= K8_UART_BUFFER_MASK;	
@@ -340,9 +420,11 @@ void serialTxISR(void)
         if (stUARTTXFiFo.ui8Tail == stUARTTXFiFo.ui8Head){
             hal_disableUARTTXInt();
         }
-            
-        hal_clrUARTTXIntFlag();
     }
+    
+#if (__TEST_MODE__==__STACK_TEST__)
+    decrementStack();
+#endif	
 }
 	
 /* Private Functions */
@@ -364,6 +446,17 @@ void serialTxISR(void)
 ***********************************************************************************/
 static bool_t isSerialBufferFull(void)
 {
+#if 0 //defined STACK_TEST
+    gui8StackLevelCounter++; 
+    if(gui8StackLevelCounter>gui8MaxStackLevel)
+    {
+        gui8MaxStackLevel = gui8StackLevelCounter;
+    }
+#endif
+
+#if (__TEST_MODE__==__STACK_TEST__)
+//	decrementStack();
+#endif	
     return (((stUARTTXFiFo.ui8Head+1) & K8_UART_BUFFER_MASK) == stUARTTXFiFo.ui8Tail);	
 }
 
@@ -385,15 +478,22 @@ static bool_t isSerialBufferFull(void)
 ***********************************************************************************/
 static bool_t isSerialDataAvailable(void)
 {	
+#if (__TEST_MODE__==__STACK_TEST__)
+	incrementStack(87);
+#endif
+
     /* esc.comment: move to HAL */
-    if(BIT_RCSTA_OERR)          //Error in Reception
+    if(BIT_RCSTA_OERR)          // Error in Reception
     {		
-        BIT_RCSTA_CREN = 0;	    //Restart Continuous Reception
+        BIT_RCSTA_CREN = 0;	    // Restart Continuous Reception
         BIT_RCSTA_CREN = 1;
         
         return 0;
     }				
-    
+
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif	    
     return (stUARTRXFiFo.ui8Head != stUARTRXFiFo.ui8Tail);		
 }
 /* end of corelib_uart.c */

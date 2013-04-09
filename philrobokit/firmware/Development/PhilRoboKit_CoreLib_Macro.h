@@ -43,6 +43,7 @@
 /* Include .h Library Files */
 #include "PhilRoboKit_CoreLib_Header.h"
 #include "PhilRoboKit_CoreLib_DataTypes.h"
+#include "PhilRoboKit_CoreLib_GlobalDefs.h"
 
 /* User Configuration Definitions */
     /* none */

@@ -65,8 +65,12 @@ static	uint8_t		ui8PreScaler=1, ui8PreScalerVal=1, ui8PR2plus1=0;
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setupPWM(enum PWMModules_e ePWM_Module, uint16_t ui16Frequency, uint16_t ui16DutyCycle)
+void setupPWM(enum PWMModules_et ePWM_Module, uint16_t ui16Frequency, uint16_t ui16DutyCycle)
 {
+#if (__TEST_MODE__==__STACK_TEST__)
+	incrementStack(60);
+#endif
+
     /* Set the PWM period */
     setPWMFrequency(ui16Frequency);				    // Common for CCP1 and CCP2
     
@@ -87,12 +91,12 @@ void setupPWM(enum PWMModules_e ePWM_Module, uint16_t ui16Frequency, uint16_t ui
 	if(PWM0 == ePWM_Module)
 	{
 		hal_configCCP1Mode(CCP_PWM_MODE);
-		makeOutput(D2);
+		mc_makeOutput(D2);
 	}
 	else if(PWM1 == ePWM_Module)
 	{
 		hal_configCCP2Mode(CCP_PWM_MODE);
-		makeOutput(D1);
+		mc_makeOutput(D1);
 	}
 	else
 	{
@@ -102,6 +106,10 @@ void setupPWM(enum PWMModules_e ePWM_Module, uint16_t ui16Frequency, uint16_t ui
             
     /* Enable Timer */
     hal_enablePWMTmr();                        	    // Common for CCP1 and CCP2
+    
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif
 } 
 
 /*******************************************************************************//**
@@ -129,6 +137,10 @@ void setPWMFrequency(uint16_t ui16Frequency)
         #define uint24_t  uint32_t                  // esc.comment: use with caution
     #endif     
 	uint24_t	ui24Period;						    // 0.01uS/Bit Resolution	
+
+#if (__TEST_MODE__==__STACK_TEST__)
+	incrementStack(61);
+#endif
 	
 	/* Check Frequency Range */
 	if(ui16Frequency > K_MAX_FREQ_RANGE)			// > 200kHz
@@ -165,7 +177,7 @@ void setPWMFrequency(uint16_t ui16Frequency)
 	
     /* Prescaler to Period Parsing */
 	ui8PreScaler = ui8PreScalerVal << 1;
-	ui8PreScaler = (uint8_t)1 << ui8PreScaler;    // secret :p
+	ui8PreScaler = (uint8_t)1 << ui8PreScaler;      // secret :p
 	
 	ui24Period = (uint24_t)(10000000UL / ui16Frequency);
 	
@@ -183,6 +195,10 @@ void setPWMFrequency(uint16_t ui16Frequency)
 	}
 	
 	hal_setPWMPeriod(ui8PR2plus1);
+    
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif
 }
 
 /*******************************************************************************//**
@@ -203,17 +219,21 @@ void setPWMFrequency(uint16_t ui16Frequency)
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setPWMDuty(enum PWMModules_e ePWM_Module, uint16_t ui16DutyCycle)
+void setPWMDuty(enum PWMModules_et ePWM_Module, uint16_t ui16DutyCycle)
 {
 	uint16_t	ui16TempVar;
-	
+
+#if (__TEST_MODE__==__STACK_TEST__)
+	incrementStack(62);
+#endif
+
 	/* Maximum of 100% Only */
 	if(ui16DutyCycle > K_DUTY_SAT_LIM)
 	{
 		ui16DutyCycle = K_DUTY_SAT_LIM;
 	}
 	
-	ui16TempVar = (uint16_t)ui8PR2plus1 << 2;									// secret :p
+	ui16TempVar = (uint16_t)ui8PR2plus1 << 2;	    // secret :p
 	ui16TempVar = (uint16_t)(((uint32_t)ui16TempVar * ui16DutyCycle) / 1000);	
 	
 	if(PWM0 == ePWM_Module)
@@ -229,6 +249,10 @@ void setPWMDuty(enum PWMModules_e ePWM_Module, uint16_t ui16DutyCycle)
 		/* Invalid PWM Module */
 		/* Do Nothing */
 	}
+    
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif	
 }
 
 /*******************************************************************************//**
@@ -247,8 +271,12 @@ void setPWMDuty(enum PWMModules_e ePWM_Module, uint16_t ui16DutyCycle)
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void removePWM(enum PWMModules_e ePWM_Module)
+void removePWM(enum PWMModules_et ePWM_Module)
 {
+#if (__TEST_MODE__==__STACK_TEST__)
+	incrementStack(63);
+#endif
+
 	if(PWM0 == ePWM_Module)
 	{
 		hal_setPWM0_Off();
@@ -262,6 +290,10 @@ void removePWM(enum PWMModules_e ePWM_Module)
 		/* Invalid PWM Module */
 		/* Do Nothing */	
 	}
+    
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif
 }
 
 /* Private Functions */

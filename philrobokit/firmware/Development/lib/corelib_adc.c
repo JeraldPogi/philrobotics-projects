@@ -7,7 +7,7 @@
 * |Filename:      | "corelib_adc.c"                             |
 * |:----          |:----                                        |
 * |Description:   | This is a library for the ADC peripheral    |
-* |Revision:      | v01.00.02                                   |
+* |Revision:      | v01.01.00                                   |
 * |Author:        | Giancarlo Acelajado                         |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -32,6 +32,7 @@
 * |v01.00.00    |201210xx   |Giancarlo A.       |Leverage Library to Standard Architecture|
 * |v01.00.01    |20130307   |ESC II             |Organized functions into HAL and CoreLib|
 * |v01.00.02    |20130323   |ESC II             |Get ADCCycle timestamp regardless of ADC EOC status|
+* |v01.01.00    |20130408   |ESC II             |Defined option for timer or counter delay|
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -39,7 +40,7 @@
 #include "corelib_adc.h"
 
 /* Local Constants */
-static enum adcModules_e
+static enum adcModules_et
 {
 	ADC0                    // AN0
 	,ADC1                   // AN1
@@ -53,7 +54,7 @@ static enum adcModules_e
 };
 
 /* Local Variables */
-static enum adcModules_e    eCurrentChannel = 0;
+static enum adcModules_et   eCurrentChannel = 0;
 static      uint16_t        ui16ADCBuff[MAX_ADC_CHANNELS-1] = {'\0'};
 static      uint16_t        ui16ADCCycleTimer;
 
@@ -80,9 +81,12 @@ static      uint16_t        ui16ADCCycleTimer;
 ***********************************************************************************/
 void adcISR(void)
 {	
-    static enum adcModules_e    eEffectiveChannel;
-                uint16_t        ui16ADCVal;
-	
+    static enum adcModules_et    eEffectiveChannel;
+    static      uint16_t        ui16ADCVal;
+#if (__TEST_MODE__==__STACK_TEST__)
+	incrementStack(32);
+#endif
+
     if(hal_getADCIntFlag() && hal_getADCIntEnableStatus())
     {
         hal_clrADCIntFlag();
@@ -123,6 +127,10 @@ void adcISR(void)
         /* Set ADC Channel */
         hal_setADCChannel(eCurrentChannel);
     }
+
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif	    
 }
 
 /*******************************************************************************//**
@@ -143,11 +151,26 @@ void adcISR(void)
 ***********************************************************************************/
 void adcCycle(void)
 {
+	static uint16_t ui16Counter = 0;
+#if (__TEST_MODE__==__STACK_TEST__)
+	incrementStack(33);
+#endif
+
+	ui16Counter++;
+
     /* Check cycle timeout */
+#if (__POLLING_DELAY__ == __USE_TIMER__)   
     if(getElapsedMs(ui16ADCCycleTimer) >= ADC_CYCLE_TIMEOUT)
+#else 
+	if(ui16Counter >= ADC_CYCLE_COUNTER_TIMEOUT)
+#endif    
     {
 		/* get new time stamp */
+#if (__POLLING_DELAY__ == __USE_TIMER__)         
 		ui16ADCCycleTimer = getMs();
+#else       
+		ui16Counter = 0;
+#endif
 		
         /* Check end of conversion */
         if(true == hal_checkADCEndofConversion())
@@ -156,6 +179,10 @@ void adcCycle(void)
             hal_startADCConversion();
         }
     }
+
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif	    
 }
 
 /*******************************************************************************//**
@@ -167,22 +194,32 @@ void adcCycle(void)
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >      setupADC(VrefSource)
+* >      setupADC(vref_source)
 * > <BR><BR>
 * > **Parameters:**<BR>
-* >     VrefSource - positive voltage reference source, VDD, EXT, INT          
+* >     vref_source - positive voltage reference source, VDD, EXT, INT          
 * > <BR><BR>
 * > **Returns:**<BR>
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setupADC(enum ADCVrefSource_e eVrefSource)
+void setupADC(enum ADCVrefSource_et eVrefSource)
 {	
+#if (__TEST_MODE__==__STACK_TEST__)
+	incrementStack(34);
+#endif
+
     /* Ensure ADC Peripheral is Disabled */
 	hal_disableADC();
     
     /* Configure GPIO as inputs */
-    makeADCPinsInput();
+    mc_makeInput(D14);      		// AN0
+    mc_makeInput(D15);             	// AN1
+    mc_makeInput(D16);             	// AN2
+    mc_makeInput(D17);             	// AN3
+    mc_makeInput(D18);             	// AN4
+    mc_makeInput(D19);             	// AN5
+    mc_makeInput(D20);             	// AN6
 
     if(EXT == eVrefSource)
     {
@@ -212,6 +249,10 @@ void setupADC(enum ADCVrefSource_e eVrefSource)
     /* ADC Conversion Kickstart */
     ui16ADCCycleTimer = getMs();
     hal_startADCConversion(); 
+    
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif	
 }	
 
 /*******************************************************************************//**
@@ -221,10 +262,10 @@ void setupADC(enum ADCVrefSource_e eVrefSource)
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >      value = adcRead(ui8Channel)
+* >      value = adcRead(channel)
 * > <BR><BR>
 * > **Parameters:**<BR>
-* >     ui8Channel - ADC channel to be read, AN0, AN1, AN2, AN3, AN4, AN5, AN6
+* >     channel - ADC channel to be read, AN0, AN1, AN2, AN3, AN4, AN5, AN6
 * > <BR><BR>
 * > **Returns:**<BR>
 * >     uint16_t value - the read ADC value from the requested channel
@@ -232,6 +273,13 @@ void setupADC(enum ADCVrefSource_e eVrefSource)
 ***********************************************************************************/
 uint16_t adcRead(uint8_t ui8Channel)
 {
+#if (__TEST_MODE__==__STACK_TEST__)
+	incrementStack(35);
+#endif
+
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif	
 	return ui16ADCBuff[ui8Channel];
 }
 
@@ -254,6 +302,10 @@ uint16_t adcRead(uint8_t ui8Channel)
 ***********************************************************************************/
 void removeADC(void)
 {
+#if (__TEST_MODE__==__STACK_TEST__)
+	incrementStack(36);
+#endif
+
     /* Configure ADC Pins to Digital */
 	hal_configADCPins(CFG_ALLDIGITAL);
     
@@ -261,7 +313,17 @@ void removeADC(void)
 	hal_disableADC();
 	
     /* Configure GPIO as inputs */
-    makeADCPinsInput();
+    mc_makeInput(D14);      		// AN0
+    mc_makeInput(D15);             	// AN1
+    mc_makeInput(D16);             	// AN2
+    mc_makeInput(D17);             	// AN3
+    mc_makeInput(D18);             	// AN4
+    mc_makeInput(D19);             	// AN5
+    mc_makeInput(D20);             	// AN6
+    
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif	
 }
 
 /* Private Functions */

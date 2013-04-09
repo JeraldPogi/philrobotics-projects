@@ -39,7 +39,7 @@
 
 /* Local Constants */
     /* PIC16F877A Specific */
-static enum adcClockCfg_e
+static enum adcClockCfg_et
 {
     FOSC_DIV2
     ,FOSC_DIV8
@@ -76,41 +76,19 @@ static enum adcClockCfg_e
 ***********************************************************************************/
 void configLowLvlADC(void)
 {
+#if (__TEST_MODE__==__STACK_TEST__)
+	incrementStack(30);
+#endif
+
     /* 20Mhz Clock: Anito PIC16F877A Specific */
     hal_configADCPinsClock(FOSC_DIV64);     // 64Tosc @20MHz   12*TAD for 10bit, TAD = 20MHz/64 3 --- 8.4uS
     
     /* Right Justified */
 	hal_rightAligned();
-}
-
-/*******************************************************************************//**
-* \brief Configure the ADC pin IO direction as inputs/hi-z
-*
-* > This function is called to configure the ADC pin IO direction as inputs/hi-z
-* > for the ADC to function properly.
-*
-* > <BR>
-* > **Syntax:**<BR>
-* >     makeADCPinsInput()
-* > <BR><BR>
-* > **Parameters:**<BR>
-* >     none
-* > <BR><BR>
-* > **Returns:**<BR>
-* >     none
-* > <BR><BR>
-***********************************************************************************/
-void makeADCPinsInput(void)
-{
-    /* Anito Specific */
-    /* Configure GPIO as inputs */
-    makeInput(D14);             // AN0
-    makeInput(D15);             // AN1
-    makeInput(D16);             // AN2
-    makeInput(D17);             // AN3
-    makeInput(D18);             // AN4
-    makeInput(D19);             // AN5
-    makeInput(D20);             // AN6
+    
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif
 }
 
 /* Private Functions */

@@ -64,7 +64,15 @@
 ***********************************************************************************/
 void nullTMRFunction()
 {
+#if (__TEST_MODE__==__STACK_TEST__)
+	incrementStack(50);
+#endif
+
 	;/* NULL */
+    
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif
 }
 
 /* Private Functions */

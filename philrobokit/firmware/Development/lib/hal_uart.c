@@ -65,6 +65,14 @@
 ***********************************************************************************/
 void hal_setSerialBAUD(uint16_t ui16Baudrate)
 {
+#if (__TEST_MODE__==__STACK_TEST__)
+        gui8StackLevelCounter++; 
+        if(gui8StackLevelCounter>gui8MaxStackLevel)
+        {
+            gui8MaxStackLevel = gui8StackLevelCounter;
+        }
+#endif
+
     BIT_TXSTA_BRGH = 1;                     // High Speed Asyncronous [SPBRG = FOSC/(16*baud) - 1]
     
     if(ui16Baudrate < 4883)                 // @20MHz clk
@@ -112,7 +120,11 @@ void hal_setSerialBAUD(uint16_t ui16Baudrate)
             REGISTER_SPBRG = 129;           // 2403.8 or 9615.4
             break;
         }
-    }
+    } 
+
+#if (__TEST_MODE__==__STACK_TEST__)
+	decrementStack();
+#endif    
 }
     
 /* Private Functions */

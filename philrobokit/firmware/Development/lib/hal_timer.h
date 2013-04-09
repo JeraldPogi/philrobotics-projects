@@ -44,7 +44,7 @@
 #include <PhilRoboKit_CoreLib_Macro.h>
 
 /* Global Constants */	
-enum baseTmrPreScale_e
+enum baseTmrPreScale_et
 {
     TMR0_PRE_DIV2
     ,TMR0_PRE_DIV4
@@ -68,43 +68,43 @@ enum baseTmrPreScale_e
 #endif
 
 /* Macro and Configuration Definitions */
-	/*@notfunction@*/
-	#define hal_enableBaseTimerInt()           		(BIT_INTCON_TMR0IE = 1)
-	/*@notfunction@*/
-	#define hal_disableBaseTimerInt()          	    (BIT_INTCON_TMR0IE = 0)
-    /*@notfunction@*/
-    #define hal_getBaseTimerIntEnableStatus()       ((BIT_INTCON_TMR0IE) ? true : false)
-    
-	/*@notfunction@*/
-	#define hal_clrBaseTimerIntFlag()         		(BIT_INTCON_TMR0IF = 0)
-    /*@notfunction@*/
-    #define hal_getBaseTimerIntFlag()               ((BIT_INTCON_TMR0IF) ? true : false)
+/*@notfunction@*/
+#define hal_enableBaseTimerInt()           		    (BIT_INTCON_TMR0IE = 1)
+/*@notfunction@*/
+#define hal_disableBaseTimerInt()          	        (BIT_INTCON_TMR0IE = 0)
+/*@notfunction@*/
+#define hal_getBaseTimerIntEnableStatus()           ((BIT_INTCON_TMR0IE) ? true : false)
 
-#if defined( _18F2420 ) || defined( _18F2520 ) || defined( _18F4420 ) || defined( _18F4520 ) || defined( _18F4620 )
-	/*@notfunction@*/
-	#define hal_enableBaseTimer()                 	(BIT_T0CON_TMR0ON = 1)
-	/*@notfunction@*/
-	#define hal_disableBaseTimer()                	(BIT_T0CON_TMR0ON = 0)
-    /*@notfunction@*/
-    #define hal_use8BitTMR0()                       (BIT_T0CON_T08BIT = 1)
-    /*@notfunction@*/
-    #define hal_use16BitTMR0()                      (BIT_T0CON_T08BIT = 0)
+/*@notfunction@*/
+#define hal_clrBaseTimerIntFlag()         		    (BIT_INTCON_TMR0IF = 0)
+/*@notfunction@*/
+#define hal_getBaseTimerIntFlag()                   ((BIT_INTCON_TMR0IF) ? true : false)
+
+#if (__PHR_CONTROLLER__==__MCU_PIC18__) 
+/*@notfunction@*/
+#define hal_enableBaseTimer()                 	    (BIT_T0CON_TMR0ON = 1)
+/*@notfunction@*/
+#define hal_disableBaseTimer()                	    (BIT_T0CON_TMR0ON = 0)
+/*@notfunction@*/
+#define hal_use8BitTMR0()                           (BIT_T0CON_T08BIT = 1)
+/*@notfunction@*/
+#define hal_use16BitTMR0()                          (BIT_T0CON_T08BIT = 0)
 #endif
     
     /* Timer0 Peripheral Init */
-    /*@notfunction@*/
-    #define hal_TMR0_Init()                         \
+/*@notfunction@*/
+#define hal_TMR0_Init()                             \
     BIT_T0CON_T0CS 	= 0; 					        \
     BIT_T0CON_PSA	= 0;				            \
     REGISTER_TMR0L  = 0                             // semi-collon intentionally omitted
 
     /* TMR0 Prescaler Value */
-    /*@notfunction@*/
-    #define hal_setTMR0Prescaler(a)                 \
+/*@notfunction@*/
+#define hal_setTMR0Prescaler(a)                     \
     REGISTER_T0CON &=~TMR0_PRESCALE_MASK;           \
     REGISTER_T0CON |= (a&TMR0_PRESCALE_MASK)        // semi-collon intentionally omitted 
 
-    #define hal_getBaseTimerValue()                 (((uint16_t)ui8TimerUsMSB<<8) + REGISTER_TMR0L)
+#define hal_getBaseTimerValue()               	    (((uint16_t)ui8TimerUsMSB<<8) + REGISTER_TMR0L) 
 
 /* Public Function Prototypes */
 void setupTimer(void);

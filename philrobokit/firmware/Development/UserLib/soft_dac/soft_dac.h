@@ -38,6 +38,7 @@
 /* Include .h Library Files */
 #include <PhilRoboKit_CoreLib_Macro.h>
 #include "corelib_8bit_timer.h"
+#include "corelib_gpio.h"
 
 /* User Configuration Definitions */
 #define K_DAC_TIMER             TIMER2

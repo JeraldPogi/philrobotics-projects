@@ -45,7 +45,7 @@
     
 /* Global Constants */
     /* Timers */
-enum tmrModules_e
+enum tmrModules_et
 {
 	TIMER2		= 2
 	,TIMER4		= 4
@@ -56,10 +56,10 @@ enum tmrModules_e
     /* none */
     
 /* Public Function Prototypes */
-    void setup8BitTimerFull(enum tmrModules_e eTmrModule, void(*callback)(), uint8_t ui8Prescaler, uint8_t ui8Postscaler);
-	void setup8BitTimer(enum tmrModules_e eTmrModule, void(*callback)());
-	void setTimer(enum tmrModules_e eTmrModule, uint8_t ui8Value);
     void timer8BitISR(void);
+    void setup8BitTimerFull(enum tmrModules_et eTmrModule, void(*callback)(), uint8_t ui8Prescaler, uint8_t ui8Postscaler);
+	void setup8BitTimer(enum tmrModules_et eTmrModule, void(*callback)());
+	void setTimer(enum tmrModules_et eTmrModule, uint8_t ui8Value);
     
 #endif /* end of corelib_8bit_timer.h */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	

@@ -40,88 +40,100 @@
 #define __PHILROBOKIT_HEADER_H__
 
 /* Include .h Library Files */    
-#include "PhiRoboKit_HW_Config.h"
-
-#if defined(HI_TECH_C)  
-    #ifndef S_SPLINT_S 	                        /* Suppress SPLint Unrecognized ID Errors */
-        #include "compilers\htc\htc_common.h"
-    #else
-        #include "compilers\htc\htc_pic_SPLint.h"
-    #endif
-#endif
+#include "PhilRoboKit_HW_Config.h"
 
 /* User Configuration Definitions */  
-#if (__PHR_CONTROLLER__==__MCU_PIC__)   
-    #if defined(HI_TECH_C)  
-        /* Anito Rev0 */
-        #if defined( _16F873A ) || defined( _16F874A ) || defined( _16F876A ) || defined( _16F877A )  	
-            #include "compilers\htc\htc_16f87xa.h"
-                    
-            #ifndef _XTAL_FREQ
-                #define _XTAL_FREQ 20000000	    /* 20MHz Crystal */
+#ifndef S_SPLINT_S 	                                /* Suppress SPLint Unrecognized ID Errors */
+    #if defined(HI_TECH_C) 
+        #if (__PHR_CONTROLLER__==__MCU_PIC16__)
+            /* Anito Rev0 */
+            #if defined( _16F873A ) || defined( _16F874A ) || defined( _16F876A ) || defined( _16F877A )  	
+                #include "compilers\htc\htc_16f87xa.h"
+                        
+                #ifndef _XTAL_FREQ
+                    #define _XTAL_FREQ 20000000	    /* 20MHz Crystal */
+                #endif
+            #else
+                #error Device not yet supported!!!
             #endif
-        /* Anito Rev1 */
-        #elif defined( _18F2420 ) || defined( _18F2520 ) || defined( _18F4420 ) || defined( _18F4520 )  		
-            #include "compilers\htc\htc_18fxx20.h"
-            
-            #ifndef _XTAL_FREQ
-                #define _XTAL_FREQ 8000000	    /* 8MHz Internal Crystal */
+        #elif (__PHR_CONTROLLER__==__MCU_PIC18__)
+            /* Anito Rev1 */
+            #if defined( _18F2420 ) || defined( _18F2520 ) || defined( _18F4420 ) || defined( _18F4520 )  		
+                #include "compilers\htc\htc_18fxx20.h"
+                
+                #ifndef _XTAL_FREQ
+                    #define _XTAL_FREQ 8000000	    /* 8MHz Internal Crystal */
+                #endif
+            /* Glutnix Variant */    
+            #elif defined( _18F4620 )               
+                #include "compilers\htc\htc_18fxx20.h"
+                
+                #ifndef _XTAL_FREQ
+                    #define _XTAL_FREQ 8000000	    /* 8MHz Internal Crystal */
+                #endif 
+            #else
+                #error Device not yet supported!!!
             #endif
-        /* Glutnix Variant */    
-        #elif defined( _18F4620 )               
-            #include "compilers\htc\htc_18fxx20.h"
-            
-            #ifndef _XTAL_FREQ
-                #define _XTAL_FREQ 8000000	    /* 8MHz Internal Crystal */
-            #endif 
         #else
-            #warning Clock Frequency Not Defined
+            #error Device not yet supported!!!
         #endif
     #else
-
+        #error Compiler not yet supported!!!    
     #endif
+#else
+    #include "compilers\htc\htc_pic_SPLint.h"
 #endif
 
 #if (__PHR_BOARD__==__HW_PHR_ANITO__)
-    #include "setupAnito.h"
+    #include "corelib_masterlib.h"
+
+    #include "hal_timer.h"
+    #include "corelib_basetimer.h"
+
+    #include "hal_gpio.h"
+    #include "corelib_gpio.h"
+
+    #include "hal_adc.h"
+    #include "corelib_adc.h"
+
+    #include "hal_uart.h"
+    #include "corelib_uart.h"
+
+    #include "hal_user_interrupt.h"
+    #include "corelib_user_interrupt.h"
+
+    #include "hal_8bit_timer.h"
+    #include "corelib_8bit_timer.h"
+
+    #include "hal_pwm.h"
+    #include "corelib_pwm.h"
+    #include "corelib_dac.h"
+
+    #include "hal_16bit_timer.h"
+    #include "corelib_16bit_timer.h"
+#else
+    #error Board not yet supported!!!  
 #endif
 
 /* Global Constants */
-#define	INPUT					(1)
-#define	OUTPUT					(0)
-#define	ANALOG					(1)
+#define	INPUT					                (1)
+#define	OUTPUT					                (0)
+#define	ANALOG					                (1)
 
-#define	HIGH					(1)
-#define	LOW						(0)
+#define	HIGH					                (1)
+#define	LOW						                (0)
 
 #ifndef TRUE
-    #define	TRUE				(1)
-    #define	FALSE				(0)
+    #define	TRUE				                (1)
+    #define	FALSE				                (0)
 #endif
 
 #ifndef NULL
-    #define NULL                ('\0')
+    #define NULL                                ('\0')
 #endif
     
 /* Macro and Configuration Definitions */
-#if 0 
-
-#define setRegVal(Register, Value)                  (Register = Value)
-#define getRegVal(Register)                         (Register)
-#define setMaskedReg(Register, Value, Mask, Shift)  \
-Register &= ~Mask;                                  \
-Register |= (Value << Shift) & Mask                 // semi-collon intentionally omitted
-#define getMaskedReg(Register, Mask, Shift)         ((Register & Mask) >> Shift)
-
-#define setBit(Register, Bit)                       (Register |= (1 << Bit))
-#define clrBit(Register, Bit)                       (Register &= ~(1 << Bit))
-#define toggleBit(Register, Bit)                    (Register ^= (1 << Bit))
-#define getBitStatus(Register, Bit)                 ((Register & (1 << Bit) > 0) ? true : false)
-
-#define setRegBits(Register, Mask)                  (Register |= Mask)
-#define clrRegBits(Register, Mask)                  (Register &= ~Mask)
-
-#endif
+    /* none */ 
 
 /* Public Function Prototypes */ 
     /* none */ 

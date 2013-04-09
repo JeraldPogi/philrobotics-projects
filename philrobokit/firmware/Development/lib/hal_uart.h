@@ -83,27 +83,27 @@
     // Assynchronous Mode    
 /*@notfunction@*/
 #define hal_enableSerialTX()                    \
-BIT_TXSTA_TX9 = 0;                              \
-BIT_TXSTA_SYNC = 0;                             \
-BIT_TXSTA_TXEN = 1                              // semi-collon intentionally omitted 
+    BIT_TXSTA_TX9 = 0;                          \
+    BIT_TXSTA_SYNC = 0;                         \
+    BIT_TXSTA_TXEN = 1                          // semi-collon intentionally omitted 
 
 /*@notfunction@*/
 #define hal_disableSerialTX()                   \
-BIT_TXSTA_TXEN = 0                              // semi-collon intentionally omitted 
-// makePinInput();                                      esc.comment: UART TX Pin to be set as input
+    BIT_TXSTA_TXEN = 0                          // semi-collon intentionally omitted 
+    // makePinInput();                                esc.comment: UART TX Pin to be set as input
 
     // 8-Bit
     // Continous Rx
 /*@notfunction@*/
 #define hal_enableSerialRX()                    \
-BIT_RCSTA_RX9 = 0;                              \
-BIT_RCSTA_CREN = 1;                             \
-BIT_RCSTA_SPEN = 1                              // semi-collon intentionally omitted 
+    BIT_RCSTA_RX9 = 0;                          \
+    BIT_RCSTA_CREN = 1;                         \
+    BIT_RCSTA_SPEN = 1                          // semi-collon intentionally omitted 
 
 /*@notfunction@*/
 #define hal_disableSerialRX()                   \
-BIT_RCSTA_SPEN = 0                              // semi-collon intentionally omitted 
-// makePinInput();                                      esc.comment: UART RX Pin to be set as input
+    BIT_RCSTA_SPEN = 0                          // semi-collon intentionally omitted 
+    // makeInput();                                   esc.comment: UART RX Pin to be set as input
     
 /* Public Function Prototypes */
 void hal_setSerialBAUD(uint16_t ui16Baudrate);

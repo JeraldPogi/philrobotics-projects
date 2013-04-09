@@ -4,9 +4,9 @@
 * phirobotics.core@philrobotics.com
 *
 *---------------------------------------------------------------------------------------------
-* |Filename:      | "hal_16bit_timer.c"                         |
+* |Filename:      | "corelib_masterlib.h"                       |
 * |:----          |:----                                        |
-* |Description:   | This is a driver for micrcochip 16bit timer (TMR1) |
+* |Description:   | PhilRobokit Master Library Header           |
 * |Revision:      | v00.00.01                                   |
 * |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
@@ -27,55 +27,43 @@
 *---------------------------------------------------------------------------------------------
 * |FW Version   |Date       |Author             |Description                        |
 * |:----        |:----      |:----              |:----                              |
-* |v00.00.01    |20130323   |ESCII              |Library Initial Release            |
+* |v00.00.01    |20130408   |ESC II             |Library Initial Release            |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
 
-#include "hal_16bit_timer.h"
+#ifndef __PHILROBOKIT_MASTERLIB_H__
+#define __PHILROBOKIT_MASTERLIB_H__
 
-/* Local Constants */
+/* Include .h Library Files */
+#include <PhilRoboKit_CoreLib_Macro.h>
+
+/* Global Constants */      
     /* none */
 
-/* Local Variables */
+/* User Configuration Definitions */
     /* none */
-
-/* Private Function Prototypes */
-    /* none */
-
-/* Public Functions */
-/*******************************************************************************//**
-* \brief Initialize 16bit timer interrupt function pointer with null function
-*
-* > This function basically does nothing and is used to initialize 16bit timer 
-* > interrupt function pointer.
-*
-* > <BR>
-* > **Syntax:**<BR>
-* >     nullTMRFunction()
-* > <BR><BR>
-* > **Parameters:**<BR>
-* >     none
-* > <BR><BR>
-* > **Returns:**<BR>
-* >     none
-* > <BR><BR>
-***********************************************************************************/
-void null16BitTMRFunction()
-{
-#if (__TEST_MODE__==__STACK_TEST__)
-	incrementStack(70);
-#endif
-
-	;/* NULL */
     
-#if (__TEST_MODE__==__STACK_TEST__)
-	decrementStack();
-#endif
-}
+/* Macro and Configuration Definitions */
+    /* Register Manipulation Macro */
+#define setRegVal(Register, Value)                      (Register = Value)
+#define getRegVal(Register)                             (Register)
+#define setMaskedReg(Register, Value, Mask, Shift)      \
+    Register &= ~Mask;                                  \
+    Register |= (Value << Shift) & Mask                 // semi-collon intentionally omitted
+#define getMaskedReg(Register, Mask, Shift)             ((Register & Mask) >> Shift)
 
-/* Private Functions */
+#define setBit(Register, Bit)                           (Register |= (1 << Bit))
+#define clrBit(Register, Bit)                           (Register &= ~(1 << Bit))
+#define toggleBit(Register, Bit)                        (Register ^= (1 << Bit))
+#define getBitStatus(Register, Bit)                     ((Register & (1 << Bit) > 0) ? true : false)
+
+#define setRegBits(Register, Mask)                      (Register |= Mask)
+#define clrRegBits(Register, Mask)                      (Register &= ~Mask)
+#define toggleRegBits(Register, Mask)                   (Register ^= Mask)
+
+/* Public Function Prototypes */ 
     /* none */
-
-/* end of hal_8bit_timer.c */
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+    
+#endif/* end of corelib_masterlib.h */
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
