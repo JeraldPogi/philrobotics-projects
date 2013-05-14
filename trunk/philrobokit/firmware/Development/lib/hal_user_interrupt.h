@@ -7,7 +7,7 @@
 * |Filename:      | "hal_user_interrupt.h"                      |
 * |:----          |:----                                        |
 * |Description:   | This is a header file of the external pin interrupt driver |
-* |Revision:      | v00.00.02                                   |
+* |Revision:      | v00.01.00                                   |
 * |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -29,6 +29,7 @@
 * |:----        |:----      |:----              |:----                              |
 * |v00.00.01    |20130207   |ESCII              |Library Initial Release            |
 * |v00.00.02    |20130402   |ESCII              |Changed PORTB_BUFFER,PORTB_DIR type from int to uint8_t |
+* |v00.01.00    |20130514   |ESCII              |Code Formatted, Fixed SPLINT warning|
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -37,79 +38,73 @@
 #define __HAL_EXT_INTERRUPT_H__
 
 /* Include .h Library Files */
+#ifdef UNIT_TEST                                    // autodefined at unit testing script
+#include "hal_user_interrupt_test_stub.h"
+#else
 #include <PhilRoboKit_CoreLib_Macro.h>
 #include "hal_gpio.h"
+#endif
 
 /* User Configuration Definitions */
-#define EXTINTENABLED		TRUE
-#define RBINTENABLED 		TRUE
-    
+#define EXTINTENABLED       TRUE
+#define RBINTENABLED        TRUE
+
 /* Global Constants */
-	/* Interrupt Modes */
+/* Interrupt Modes */
 enum InterruptModes_et
 {
-	LOWSTATE				                    // Trigger if Int Pin is Low (Currently Not Supported)
-	,CHANGE                                     // Trigger if there is a change on interrupt pin state
-	,RISING                                     // Trigger on rising edge
-	,FALLING                                    // Trigger on falling edge
+    LOWSTATE,                                   // Trigger if Int Pin is Low (Currently Not Supported)
+    CHANGE,                                     // Trigger if there is a change on interrupt pin state
+    RISING,                                     // Trigger on rising edge
+    FALLING                                     // Trigger on falling edge
 };
 
-	/* PORTB  Pinmask */
-#define RB6_MASK	                            0x40
-#define RB7_MASK	                            0x80
-  
-/* Macro and Configuration Definitions */
-/*@notfunction@*/
-#define hal_enableEXTInt()           			(BIT_INTCON_INTE = 1)
-/*@notfunction@*/
-#define hal_disableEXTInt()          			(BIT_INTCON_INTE = 0)
-/*@notfunction@*/
-#define hal_getEXTIntEnableStatus()           	((BIT_INTCON_INTE) ? true : false)
+/* PORTB  Pinmask */
+#define RB6_MASK                                0x40
+#define RB7_MASK                                0x80
 
-/*@notfunction@*/
-#define hal_clrEXTIntFlag()         			(BIT_INTCON_INTF = 0)
-/*@notfunction@*/
+/* Macro and Configuration Definitions */
+#define hal_enableEXTInt()                      (BIT_INTCON_INTE = 1)
+#define hal_disableEXTInt()                     (BIT_INTCON_INTE = 0)
+#define hal_getEXTIntEnableStatus()             ((BIT_INTCON_INTE) ? true : false)
+
+#define hal_clrEXTIntFlag()                     (BIT_INTCON_INTF = 0)
 #define hal_getEXTIntFlag()                     ((BIT_INTCON_INTF) ? true : false)
 
-/*@notfunction@*/
-#define hal_enableRBInt()           			(BIT_INTCON_RBIE = 1)
-/*@notfunction@*/
-#define hal_disableRBInt()          			(BIT_INTCON_RBIE = 0)
-/*@notfunction@*/
-#define hal_getRBIntEnableStatus()           	((BIT_INTCON_RBIE) ? true : false)
+#define hal_enableRBInt()                       (BIT_INTCON_RBIE = 1)
+#define hal_disableRBInt()                      (BIT_INTCON_RBIE = 0)
+#define hal_getRBIntEnableStatus()              ((BIT_INTCON_RBIE) ? true : false)
 
-/*@notfunction@*/
-#define hal_clrRBIntFlag()         			    (BIT_INTCON_RBIF = 0)
-/*@notfunction@*/
+#define hal_clrRBIntFlag()                      (BIT_INTCON_RBIF = 0)
 #define hal_getRBIntFlag()                      ((BIT_INTCON_RBIF) ? true : false)
 
 #define K_INT_PORT_REG                          (REGISTER_PORTB)
 #define K_INT_EDGE_BIT                          (INTEDG)
-    
+
 /* Public Function Prototypes */
-   
-#if(EXTINTENABLED == TRUE)
-    enum InterruptModes_et eMod0_Mode;
-#endif
-	
-#if(RBINTENABLED == TRUE)
-    enum InterruptModes_et eMod1_Mode, eMod2_Mode, eMod3_Mode, eMod4_Mode;
-#endif
 
-    void nullIntFunction();
-    
 #if(EXTINTENABLED == TRUE)
-    void extIntISR(void);
-    void (*pt2INT0)() = &nullIntFunction;  	    // interrupt function pointer	
+enum InterruptModes_et eMod0_Mode;
 #endif
 
 #if(RBINTENABLED == TRUE)
-    void rbIntISR(void);
-    void (*pt2INT1)() = &nullIntFunction;  	    // interrupt function pointer
-    void (*pt2INT2)() = &nullIntFunction;  	    // interrupt function pointer
-    void (*pt2INT3)() = &nullIntFunction;  	    // interrupt function pointer
-    void (*pt2INT4)() = &nullIntFunction;  	    // interrupt function pointer
+enum InterruptModes_et eMod1_Mode, eMod2_Mode, eMod3_Mode, eMod4_Mode;
+#endif
+
+void nullIntFunction();
+
+#if(EXTINTENABLED == TRUE)
+void extIntISR(void);
+void (*pt2INT0)() = &nullIntFunction;       // interrupt function pointer
+#endif
+
+#if(RBINTENABLED == TRUE)
+void rbIntISR(void);
+void (*pt2INT1)() = &nullIntFunction;       // interrupt function pointer
+void (*pt2INT2)() = &nullIntFunction;       // interrupt function pointer
+void (*pt2INT3)() = &nullIntFunction;       // interrupt function pointer
+void (*pt2INT4)() = &nullIntFunction;       // interrupt function pointer
 #endif
 
 #endif /* end of hal_user_interrupt.h */
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

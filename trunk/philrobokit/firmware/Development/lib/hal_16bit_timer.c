@@ -7,7 +7,7 @@
 * |Filename:      | "hal_16bit_timer.c"                         |
 * |:----          |:----                                        |
 * |Description:   | This is a driver for micrcochip 16bit timer (TMR1) |
-* |Revision:      | v00.00.01                                   |
+* |Revision:      | v00.01.00                                   |
 * |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -28,6 +28,7 @@
 * |FW Version   |Date       |Author             |Description                        |
 * |:----        |:----      |:----              |:----                              |
 * |v00.00.01    |20130323   |ESCII              |Library Initial Release            |
+* |v00.01.00    |20130514   |ESCII              |Code Formatted						|
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -35,24 +36,24 @@
 #include "hal_16bit_timer.h"
 
 /* Local Constants */
-    /* none */
+/* none */
 
 /* Local Variables */
-    /* none */
+/* none */
 
 /* Private Function Prototypes */
-    /* none */
+/* none */
 
 /* Public Functions */
 /*******************************************************************************//**
 * \brief Initialize 16bit timer interrupt function pointer with null function
 *
-* > This function basically does nothing and is used to initialize 16bit timer 
+* > This function basically does nothing and is used to initialize 16bit timer
 * > interrupt function pointer.
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >     nullTMRFunction()
+* >     null16BitTMRFunction()
 * > <BR><BR>
 * > **Parameters:**<BR>
 * >     none
@@ -63,19 +64,11 @@
 ***********************************************************************************/
 void null16BitTMRFunction()
 {
-#if (__TEST_MODE__==__STACK_TEST__)
-	incrementStack(70);
-#endif
-
-	;/* NULL */
-    
-#if (__TEST_MODE__==__STACK_TEST__)
-	decrementStack();
-#endif
+    ;/* NULL */
 }
 
 /* Private Functions */
-    /* none */
+/* none */
 
 /* end of hal_8bit_timer.c */
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

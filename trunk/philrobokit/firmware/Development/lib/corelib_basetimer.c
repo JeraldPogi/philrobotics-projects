@@ -7,7 +7,7 @@
 * |Filename:      | "corelib_basetimer.c"                       |
 * |:----          |:----                                        |
 * |Description:   | Anito Base Timer Application                |
-* |Revision:      | v01.00.01                                   |
+* |Revision:      | v01.01.00                                   |
 * |Author:        | Giancarlo Acelajado                         |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -29,6 +29,7 @@
 * |:----        |:----      |:----              |:----                                      |
 * |v00.00.01    |201211xx   |Giancarlo A.       |Library Initial Release                    |
 * |v01.00.01    |20130321   |ESC II             |Modified uS time computation to use TMR0   |
+* |v01.01.00    |20130514   |ESCII              |Code Formatted								|
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -36,28 +37,21 @@
 #include "corelib_basetimer.h"
 
 /* Local Constants */
-    /* none */
+/* none */
 
 /* Local Variables */
-volatile uint8_t ui8TimerUsMSB = 0;
-volatile uint16_t ui16TimerMs = 0;
-
-#ifdef __TIMER_SEC__
-volatile uint16_t ui16TimerSec = 0;
-#endif
-
 static uint16_t ui16TempBuff = 0;
 static bool_t   blGlobalEnLocked = false;
-    
+
 /* Private Function Prototypes */
-    /* none */
-    
+/* none */
+
 /* Public Functions */
 /*******************************************************************************//**
 * \brief Microsecond Time Stamp
 *
 * > This function returns the value of a freerunning counter which increments every
-* > 1uS. The stamp is used to measure the elapsed time from the time a stamp is 
+* > 1uS. The stamp is used to measure the elapsed time from the time a stamp is
 * > acquired until the getElapsedUs() function is called.
 *
 * > <BR>
@@ -70,41 +64,35 @@ static bool_t   blGlobalEnLocked = false;
 * > **Returns:**<BR>
 * >     uint16_t stamp - the current value of the freerunning uS counter
 * > <BR><BR>
-***********************************************************************************/  
+***********************************************************************************/
 uint16_t getUs(void)
-{	
-#if (__TEST_MODE__==__STACK_TEST__)
-	incrementStack(12);
-#endif
-
-    /* Sort of Mutex checking and locking */    
+{
+    /* Sort of Mutex checking and locking */
     blGlobalEnLocked = false;                           // initialize
-	if(false == getGlobalIntEnableStatus())             // mutex locked by interrupt
+
+    if(false == getGlobalIntEnableStatus())             // mutex locked by interrupt
     {
         blGlobalEnLocked = true;
-    }	
+    }
     else
     {
         disableGlobalInt();
     }
-    
+
     ui16TempBuff = hal_getBaseTimerValue();
-    
+
     if(false == blGlobalEnLocked)
     {
         enableGlobalInt();
     }
 
-#if (__TEST_MODE__==__STACK_TEST__)
-	decrementStack();
-#endif    
     return ui16TempBuff;
 }
 
 /*******************************************************************************//**
 * \brief  Microsecond Elapsed Time Measurement
 *
-* > This function returns the difference between the current value of the freerunning  
+* > This function returns the difference between the current value of the freerunning
 * > uS counter and the previous timestamp.
 *
 * > <BR>
@@ -120,43 +108,37 @@ uint16_t getUs(void)
 ***********************************************************************************/
 uint16_t getElapsedUs(uint16_t ui16TimeUs)
 {
-#if (__TEST_MODE__==__STACK_TEST__)
-	incrementStack(13);
-#endif
+    /* Sort of Mutex checking and locking */
+    blGlobalEnLocked = false;                           // initialize
 
-    /* Sort of Mutex checking and locking */   
-    blGlobalEnLocked = false;                           // initialize    
-	if(false == getGlobalIntEnableStatus())             // mutex locked by interrupt
+    if(false == getGlobalIntEnableStatus())             // mutex locked by interrupt
     {
         blGlobalEnLocked = true;
-    }	
+    }
     else
     {
         disableGlobalInt();
     }
-    
-    ui16TempBuff = hal_getBaseTimerValue() - ui16TimeUs;                            // delta
+
+    ui16TempBuff = hal_getBaseTimerValue() - ui16TimeUs;// delta
 
     if(false == blGlobalEnLocked)
     {
         enableGlobalInt();
     }
-    
-#if (_XTAL_FREQ == 20000000)
-    ui16TempBuff = (ui16TempBuff - (ui16TempBuff >> 2)) + (ui16TempBuff >> 4);      // delta' = delta * 0.8, (0.8125 = 1 - 0.25 + 0.0625)
-#endif
 
-#if (__TEST_MODE__==__STACK_TEST__)
-	decrementStack();
-#endif	
+#if (_XTAL_FREQ == 20000000)                            // 20Mhz normalization: timer interrupt slowed a little bit for slow clock so interrupt is less frequent
+    ui16TempBuff = (ui16TempBuff - (ui16TempBuff >> 2)) + (ui16TempBuff >> 4);  // delta' = delta * 0.8, (0.8125 = 1 - 0.25 + 0.0625)
+    ui16TempBuff <<= SHIFT_MULT;
+#endif
     return ui16TempBuff;
-}	
+}
 
 /*******************************************************************************//**
 * \brief Millisecond Time Stamp
 *
 * > This function returns the value of a freerunning counter which increments every
-* > 1mS. The stamp is used to measure the elapsed time from the time a stamp is 
+* > 1mS. The stamp is used to measure the elapsed time from the time a stamp is
 * > acquired until the getElapsedMs() function is called.
 *
 * > <BR>
@@ -169,41 +151,35 @@ uint16_t getElapsedUs(uint16_t ui16TimeUs)
 * > **Returns:**<BR>
 * >     uint16_t stamp - the current value of the freerunning mS counter
 * > <BR><BR>
-***********************************************************************************/    
+***********************************************************************************/
 uint16_t getMs(void)
-{	
-#if (__TEST_MODE__==__STACK_TEST__)
-	incrementStack(14);
-#endif
+{
+    /* Sort of Mutex checking and locking */
+    blGlobalEnLocked = false;                           // initialize
 
-    /* Sort of Mutex checking and locking */ 
-    blGlobalEnLocked = false;                           // initialize    
-	if(false == getGlobalIntEnableStatus())             // mutex locked by interrupt
+    if(false == getGlobalIntEnableStatus())             // mutex locked by interrupt
     {
         blGlobalEnLocked = true;
-    }	
+    }
     else
     {
         disableGlobalInt();
     }
-    
-    ui16TempBuff = ui16TimerMs;
+
+    ui16TempBuff = get_gui16TimerMs_Value();
 
     if(false == blGlobalEnLocked)
     {
         enableGlobalInt();
     }
- 
-#if (__TEST_MODE__==__STACK_TEST__)
-	decrementStack();
-#endif 
+
     return ui16TempBuff;
 }
 
 /*******************************************************************************//**
 * \brief  Millisecond Elapsed Time Measurement
 *
-* > This function returns the difference between the current value of the freerunning  
+* > This function returns the difference between the current value of the freerunning
 * > mS counter and the previous timestamp.
 *
 * > <BR>
@@ -218,41 +194,38 @@ uint16_t getMs(void)
 * > <BR><BR>
 ***********************************************************************************/
 uint16_t getElapsedMs(uint16_t ui16TimeMs)
-{	
-#if (__TEST_MODE__==__STACK_TEST__)
-	incrementStack(15);
-#endif
-
-    /* Sort of Mutex checking and locking */    
+{
+    /* Sort of Mutex checking and locking */
     blGlobalEnLocked = false;                           // initialize
-	if(false == getGlobalIntEnableStatus())             // mutex locked by interrupt
+
+    if(false == getGlobalIntEnableStatus())             // mutex locked by interrupt
     {
         blGlobalEnLocked = true;
-    }	
+    }
     else
     {
         disableGlobalInt();
     }
-    
-    ui16TempBuff = (ui16TimerMs - ui16TimeMs);
+
+    ui16TempBuff = get_gui16TimerMs_Value() - ui16TimeMs;
 
     if(false == blGlobalEnLocked)
     {
         enableGlobalInt();
     }
 
-#if (__TEST_MODE__==__STACK_TEST__)
-	decrementStack();
-#endif    
+#if (_XTAL_FREQ == 20000000)                            // 20Mhz normalization: timer interrupt slowed a little bit for slow clock so interrupt is less frequent
+    ui16TempBuff <<= SHIFT_MULT;
+#endif
     return ui16TempBuff;
-}	
-  
+}
+
 #ifdef __TIMER_SEC__
 /*******************************************************************************//**
 * \brief Seconds Time Stamp
 *
 * > This function returns the value of a freerunning counter which increments every
-* > 1Sec. The stamp is used to measure the elapsed time from the time a stamp is 
+* > 1Sec. The stamp is used to measure the elapsed time from the time a stamp is
 * > acquired until the getElapsedSec() function is called.
 *
 * > <BR>
@@ -265,41 +238,35 @@ uint16_t getElapsedMs(uint16_t ui16TimeMs)
 * > **Returns:**<BR>
 * >     uint16_t stamp - the current value of the freerunning Sec counter
 * > <BR><BR>
-***********************************************************************************/     
+***********************************************************************************/
 uint16_t getSec(void)
-{	
-#if (__TEST_MODE__==__STACK_TEST__)
-	incrementStack(16);
-#endif
-
-    /* Sort of Mutex checking and locking */    
+{
+    /* Sort of Mutex checking and locking */
     blGlobalEnLocked = false;                           // initialize
-	if(false == getGlobalIntEnableStatus())             // mutex locked by interrupt
+
+    if(false == getGlobalIntEnableStatus())             // mutex locked by interrupt
     {
         blGlobalEnLocked = true;
-    }	
+    }
     else
     {
         disableGlobalInt();
     }
-    
-    ui16TempBuff = ui16TimerSec;
+
+    ui16TempBuff = get_gui16TimerSec_Value();
 
     if(false == blGlobalEnLocked)
     {
         enableGlobalInt();
     }
 
-#if (__TEST_MODE__==__STACK_TEST__)
-	decrementStack();
-#endif     
     return ui16TempBuff;
 }
 
 /*******************************************************************************//**
 * \brief  Seconds Elapsed Time Measurement
 *
-* > This function returns the difference between the current value of the freerunning  
+* > This function returns the difference between the current value of the freerunning
 * > Sec counter and the previous timestamp.
 *
 * > <BR>
@@ -314,38 +281,32 @@ uint16_t getSec(void)
 * > <BR><BR>
 ***********************************************************************************/
 uint16_t getElapsedSec(uint16_t ui16TimeSec)
-{	
-#if (__TEST_MODE__==__STACK_TEST__)
-	incrementStack(17);
-#endif
-
-    /* Sort of Mutex checking and locking */    
+{
+    /* Sort of Mutex checking and locking */
     blGlobalEnLocked = false;                           // initialize
-	if(false == getGlobalIntEnableStatus())             // mutex locked by interrupt
+
+    if(false == getGlobalIntEnableStatus())             // mutex locked by interrupt
     {
         blGlobalEnLocked = true;
-    }	
+    }
     else
     {
         disableGlobalInt();
     }
-    
-    ui16TempBuff = ui16TimerSec - ui16TimeSec;
+
+    ui16TempBuff = get_gui16TimerSec_Value() - ui16TimeSec;
 
     if(false == blGlobalEnLocked)
     {
         enableGlobalInt();
     }
 
-#if (__TEST_MODE__==__STACK_TEST__)
-	decrementStack();
-#endif 
     return ui16TempBuff;
-}	
+}
 #endif
 
 /* Private Functions */
-    /* none */
-    
+/* none */
+
 /* end of corelib_basetimer.c */
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------		
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

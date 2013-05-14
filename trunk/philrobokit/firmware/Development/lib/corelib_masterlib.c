@@ -35,19 +35,19 @@
 #include "corelib_masterlib.h"
 
 /* Local Constants */
-    /* none */
+/* none */
 
 /* Local Variables */
-    /* none */
+/* none */
 
 /* Private Function Prototypes */
-    /* none */
-    
+/* none */
+
 /* Public Functions */
-    /* none */
-    
+/* none */
+
 /* Private Functions */
-    /* none */
-    
+/* none */
+
 /* end of corelib_masterlib.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

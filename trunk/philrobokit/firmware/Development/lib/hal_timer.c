@@ -7,7 +7,7 @@
 * |Filename:      | "hal_timer.c"                               |
 * |:----          |:----                                        |
 * |Description:   | Anito Base Timer Low Level                  |
-* |Revision:      | v01.00.00                                   |
+* |Revision:      | v01.01.00                                   |
 * |Author:        | Giancarlo Acelajado                         |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -33,6 +33,7 @@
 * |             |           |                   |Set to Overflow every 100uS                |
 * |v01.00.00    |201211xx   |Giancarlo A.       |Leverage Library to Standard Architecture  |
 * |v01.00.01    |20130320   |ESCII              |Move Timebase to TMR0 freerunning timer    |
+* |v01.01.00    |20130514   |ESCII              |Code Formatted								|
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -40,24 +41,19 @@
 #include "hal_timer.h"
 
 /* Local Constants */
-    /* none */
+/* none */
 
 /* Local Variables */
-extern volatile uint8_t ui8TimerUsMSB;
-extern volatile uint16_t ui16TimerMs;
-
-#ifdef __TIMER_SEC__
-extern volatile uint16_t ui16TimerSec;
-#endif
+/* none */
 
 /* Private Function Prototypes */
-    /* none */
-    
+/* none */
+
 /* Public Functions */
 /*******************************************************************************//**
 * \brief Setup Base Timer
 *
-* > This function is called to initialize the base timer as freerunning timer which 
+* > This function is called to initialize the base timer as freerunning timer which
 * > interrupts on overflow to increment timebases
 *
 * > <BR>
@@ -73,32 +69,20 @@ extern volatile uint16_t ui16TimerSec;
 ***********************************************************************************/
 void setupTimer(void)
 {
-#if (__TEST_MODE__==__STACK_TEST__)
-	incrementStack(10);
-#endif
-
-	/* Set Prescaler */
-    hal_setTMR0Prescaler(TMR0_PRESCALE); 
-    
+    /* Set Prescaler */
+    hal_setTMR0Prescaler(TMR0_PRESCALE);
     /* Timer Peripheral Init */
     hal_TMR0_Init();
-
     /* Additional Configuration for PIC 18 */
-#if (__PHR_CONTROLLER__==__MCU_PIC18__) 
+#if (__PHR_CONTROLLER__==__MCU_PIC18__)
     hal_use8BitTMR0();
-    
     /* Enable Timer Module */
     hal_enableBaseTimer();
 #endif
-    
-	/* Enable Interrupt */
-	hal_clrBaseTimerIntFlag();
-	hal_enableBaseTimerInt();
-    
-#if (__TEST_MODE__==__STACK_TEST__)
-	decrementStack();
-#endif  
-}	
+    /* Enable Interrupt */
+    hal_clrBaseTimerIntFlag();
+    hal_enableBaseTimerInt();
+}
 
 /*******************************************************************************//**
 * \brief Timebase Interrupt Service Routine
@@ -119,47 +103,39 @@ void setupTimer(void)
 void timerISR(void)
 {
     static uint16_t ui16UsCounter = 0;
-    #ifdef __TIMER_SEC__
+#ifdef __TIMER_SEC__
     static uint16_t ui16MsCounter = 0;
-    #endif
-    
-#if (__TEST_MODE__==__STACK_TEST__)
-	incrementStack(11);
 #endif
 
     if(hal_getBaseTimerIntFlag() && hal_getBaseTimerIntEnableStatus())
     {
-    	hal_clrBaseTimerIntFlag();
+        hal_clrBaseTimerIntFlag();
+        inc_gui16TimerUsMSB_Value(256);                     // increment uS Timer High Byte
+        ui16UsCounter += TMR0_US_INCREMENT;
 
-        ui8TimerUsMSB++;                        // increment uS Timer High Byte
-    	ui16UsCounter += TMR0_US_INCREMENT;             
-        
-    	while(ui16UsCounter >= 1000)
-    	{
-    		ui16TimerMs++;
-    		ui16UsCounter -= 1000;
-            
-            #ifdef __TIMER_SEC__
+        while(ui16UsCounter >= 1000)
+        {
+            inc_gui16TimerMs_Value();
+            ui16UsCounter -= 1000;
+#ifdef __TIMER_SEC__
             ui16MsCounter++;
-            #endif
-    	}	
+#endif
+        }
 
-        #ifdef __TIMER_SEC__
+#ifdef __TIMER_SEC__
+
         if(ui16MsCounter >= 1000)
         {
-            ui16TimerSec++;
+            inc_gui16TimerSec_Value();
             ui16MsCounter = 0;
         }
-        #endif
-    }
 
-#if (__TEST_MODE__==__STACK_TEST__)
-	decrementStack();
-#endif        
-}	
+#endif
+    }
+}
 
 /* Private Functions */
-    /* none */
-    
+/* none */
+
 /* end of hal_timer.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

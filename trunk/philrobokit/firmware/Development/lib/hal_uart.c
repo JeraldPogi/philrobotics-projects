@@ -7,7 +7,7 @@
 * |Filename:      | "hal_uart.c"                                |
 * |:----          |:----                                        |
 * |Description:   | This is a library for using the serial/uart functions |
-* |Revision:      | v01.00.01                                   |
+* |Revision:      | v01.01.00                                   |
 * |Author:        | Giancarlo Acelajado                         |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -31,6 +31,7 @@
 * |v00.01.01    |201201xx   |Giancarlo A.       |Add serialFlush Routine            |
 * |v01.00.00    |201210xx   |Giancarlo A.       |Leverage Library to Standard Architecture|
 * |v01.00.01    |20130228   |ESCII              |Separated module to HAL and Corelib|
+* |v01.01.00    |20130514   |ESCII              |Code Formatted						|
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -38,14 +39,14 @@
 #include "hal_uart.h"
 
 /* Local Constants */
-    /* none */
+/* none */
 
 /* Local Variables */
-    /* none */
+/* none */
 
 /* Private Function Prototypes */
-    /* none */
-    
+/* none */
+
 /* Public Functions */
 /*******************************************************************************//**
 * \brief Set UART peripheral baudrate
@@ -54,7 +55,7 @@
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >     hal_setSerialBAUD(baudrate) 
+* >     hal_setSerialBAUD(baudrate)
 * > <BR><BR>
 * > **Parameters:**<BR>
 * >     baudrate - desired UART baudrate (supports only standard baudrates)
@@ -65,70 +66,64 @@
 ***********************************************************************************/
 void hal_setSerialBAUD(uint16_t ui16Baudrate)
 {
-#if (__TEST_MODE__==__STACK_TEST__)
-        gui8StackLevelCounter++; 
-        if(gui8StackLevelCounter>gui8MaxStackLevel)
-        {
-            gui8MaxStackLevel = gui8StackLevelCounter;
-        }
-#endif
-
     BIT_TXSTA_BRGH = 1;                     // High Speed Asyncronous [SPBRG = FOSC/(16*baud) - 1]
-    
+
     if(ui16Baudrate < 4883)                 // @20MHz clk
     {
         BIT_TXSTA_BRGH = 0;                 // Low Speed Asyncronous  [SPBRG = FOSC/(64*baud) - 1]
     }
-    
+
     switch(ui16Baudrate)                    // FOSC = 20MHz
-    { 
+    {
         case 1200:
         {
             REGISTER_SPBRG = 255;           // 1220.7
             break;
         }
-        case 4800:                          // intentional fallthrough 
+
+        case 4800:                          // intentional fallthrough
         case 19200:
         {
             REGISTER_SPBRG = 64;            // 4807.7 or 19230.8
             break;
         }
+
         case 38400:
         {
             REGISTER_SPBRG = 32;            // 39062.5
             break;
         }
+
         case 57600:
         {
             REGISTER_SPBRG = 21;            // 56818.2
             break;
         }
+
         case 115200:
         {
             REGISTER_SPBRG = 10;            // 113636.4
             break;
         }
+
         case 230400:
         {
             REGISTER_SPBRG = 4;             // 250000.0 (8.5% error!)
             break;
         }
-        case 2400:                          // intentional fallthrough 
+
+        case 2400:                          // intentional fallthrough
         case 9600:                          // intentional fallthrough (default)
         default:
         {
             REGISTER_SPBRG = 129;           // 2403.8 or 9615.4
             break;
         }
-    } 
-
-#if (__TEST_MODE__==__STACK_TEST__)
-	decrementStack();
-#endif    
+    }
 }
-    
+
 /* Private Functions */
-    /* none */
-    
+/* none */
+
 /* end of hal_uart.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

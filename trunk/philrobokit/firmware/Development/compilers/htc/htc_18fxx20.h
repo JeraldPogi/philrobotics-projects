@@ -7,7 +7,7 @@
 * |Filename:      | "htc_16f87xa.h"                             |
 * |:----          |:----                                        |
 * |Description:   | Hi-Tech C PIC16F877A Register Definitions   |
-* |Revision:      | v00.02.00                                   |
+* |Revision:      | v00.01.03                                   |
 * |Author:        | Giancarlo Acelajado                         |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -31,13 +31,12 @@
 * |v00.01.01    |20120711   |ESCII              |Added defines for PWM and Timers   |
 * |v00.01.02    |20130307   |ESCII              |Added macro for enabling and disabling global interrupts |
 * |v00.01.03    |20130320   |ESCII              |Added definitions for TMR0 registers, delay macro moved here |
-* |v00.02.00    |20130514   |ESCII              |Code Formatted						|
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
 
-#ifndef __HTC_16F87XA_H
-#define __HTC_16F87XA_H
+#ifndef __HTC_18Fxx20_H
+#define __HTC_18Fxx20_H
 /* Include .h Library Files */
 #include <htc.h>
 #include "PhilRoboKit_CoreLib_GlobalDefs.h"
@@ -51,11 +50,18 @@
 #define BIT_INTCON_GIE      GIE
 #define BIT_INTCON_PEIE     PEIE
 #define BIT_INTCON_TMR0IE   TMR0IE
-#define BIT_INTCON_INTE     INTE
+//#define BIT_INTCON_INTE       INT0IE
 #define BIT_INTCON_RBIE     RBIE
 #define BIT_INTCON_TMR0IF   TMR0IF
-#define BIT_INTCON_INTF     INTF
+//#define BIT_INTCON_INTF       INT0IF
 #define BIT_INTCON_RBIF     RBIF
+
+#define REGISTER_INTCON2    INTCON2
+#define INTEDG              INTEDG0
+
+#define REGISTER_INTCON3    INTCON3
+#define BIT_INTCON_INTE     INT0IE
+#define BIT_INTCON_INTF     INT0IF
 
 #define REGISTER_PIR1       PIR1
 #define BIT_PIR1_PSPIF      PSPIF
@@ -99,10 +105,10 @@
 #define BIT_RCSTA_RX9D      RX9D
 
 /* TMR0 - 8/16Bit Timer Peripheral */
-#define REGISTER_T0CON      OPTION_REG
-//#define REGISTER_T0CON        T0CON
-//#define BIT_T0CON_TMR0ON       TMR0ON
-//#define BIT_T0CON_T08BIT       T08BIT
+//#define REGISTER_T0CON      OPTION_REG
+#define REGISTER_T0CON      T0CON
+#define BIT_T0CON_TMR0ON    TMR0ON
+#define BIT_T0CON_T08BIT    T08BIT
 #define BIT_T0CON_T0CS      T0CS
 #define BIT_T0CON_T0SE      T0SE
 #define BIT_T0CON_PSA       PSA
@@ -225,13 +231,11 @@
 #define REGISTER_PORTD      PORTD
 #define REGISTER_PORTE      PORTE
 
-#if 0
 #define REGISTER_LATA       LATA
 #define REGISTER_LATB       LATB
 #define REGISTER_LATC       LATC
 #define REGISTER_LATD       LATD
 #define REGISTER_LATE       LATE
-#endif
 
 #define REGISTER_TXREG      TXREG
 #define REGISTER_RCREG      RCREG
@@ -255,28 +259,23 @@
 
 /* Macro and Configuration Definitions */
 /* Global Interrupts Disable/Enable */
-/*@notfunction@*/
 #define enableGlobalInt()                           \
     BIT_INTCON_GIE = 1;                             \
     BIT_INTCON_PEIE = 1                             // semi-collon intentionally omitted
 
-/*@notfunction@*/
 #define disableGlobalInt()                          \
     BIT_INTCON_GIE = 0;                             \
     BIT_INTCON_PEIE = 0                             // semi-collon intentionally omitted
 
-/*@notfunction@*/
-#define getGlobalIntEnableStatus()                  ((BIT_INTCON_GIE) ? true : false)
+#define getGlobalIntEnableStatus()              ((BIT_INTCON_GIE) ? true : false)
 
 /* Timer Delay Functions, Note: These are blocking functions, do not call inside ISR!!! */
-/*@notfunction@*/
 #define delayUs(x)                                  \
     while((false == getGlobalIntEnableStatus()) && (true == get_gblInitialized_FlagValue())){};   \
     disableGlobalInt();                             \
     __delay_us(x);                                  \
     enableGlobalInt()                               // semi-collon intentionally omitted
 
-/*@notfunction@*/
 #define delayMs(x)                                  \
     while((false == getGlobalIntEnableStatus()) && (true == get_gblInitialized_FlagValue())){};   \
     disableGlobalInt();                             \

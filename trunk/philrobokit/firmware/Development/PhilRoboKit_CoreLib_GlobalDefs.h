@@ -7,7 +7,7 @@
 * |Filename:      | "PhilRoboKit_CoreLib_GlobalDefs.h"          |
 * |:----          |:----                                        |
 * |Description:   | Global Variable Definitions                 |
-* |Revision:      | v00.00.01                                   |
+* |Revision:      | v00.01.00                                   |
 * |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -28,6 +28,7 @@
 * |FW Version   |Date       |Author             |Description                        |
 * |:----        |:----      |:----              |:----                              |
 * |v00.00.01    |20120713   |ESCII              |Library Initial Release            |
+* |v00.01.00    |20130514   |ESCII              |Code Formatted						|
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -36,21 +37,38 @@
 #define __ANITO_GLOBALS_C__
 
 /* Include .h Library Files */
+#include "PhilRoboKit_CoreLib_Header.h"
 #include "PhilRoboKit_CoreLib_DataTypes.h"
-#include "corelib_test.h"
+
+//#ifdef S_SPLINT_S                               // Suppress SPLint Parse Errors
+
+//#ifndef bool_t
+//#define bool_t  bool
+//#endif
+
+//#endif
 
 /* User Configuration Definitions */
-    /* none */
+/* none */
 
-/* Global Constants */ 
-    /* none */
+/* Global Constants */
+/* none */
 
-/* Macro and Configuration Definitions */  
-    /* none */
+/* Macro and Configuration Definitions */
+/* none */
 
-/* Public Function Prototypes */ 
+/* Public Function Prototypes */
 void set_gblInitialized_FlagValue(void);
 bool_t get_gblInitialized_FlagValue(void);
+
+void inc_gui16TimerUsMSB_Value(uint16_t ui16Value);
+uint16_t get_gui16TimerUsMSB_Value(void);
+
+void inc_gui16TimerMs_Value(void);
+uint16_t get_gui16TimerMs_Value(void);
+
+void inc_gui16TimerSec_Value(void);
+uint16_t get_gui16TimerSec_Value(void);
 
 #endif/* end of PhilRoboKit_CoreLib_GlobalDefs.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

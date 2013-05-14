@@ -7,7 +7,7 @@
 * |Filename:      | "corelib_16bit_timer.c"                     |
 * |:----          |:----                                        |
 * |Description:   | This is a library for using the 16bit timer functions |
-* |Revision:      | v00.01.00                                   |
+* |Revision:      | v00.02.00                                   |
 * |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -29,6 +29,7 @@
 * |:----        |:----      |:----              |:----                              |
 * |v00.00.01    |20130323   |ESCII              |Library Initial Release            |
 * |v00.01.00    |20130408   |ESCII              |Function made independent from ADC |
+* |v00.02.00    |20130514   |ESCII              |Code Formatted						|
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -36,14 +37,14 @@
 #include "corelib_16bit_timer.h"
 
 /* Local Constants */
-    /* none */
+/* none */
 
 /* Local Variables */
-    /* none */
+/* none */
 
 /* Private Function Prototypes */
-    /* none */
-    
+/* none */
+
 /* Public Functions */
 /*******************************************************************************//**
 * \brief 16bit timer interrupt service routine
@@ -63,25 +64,18 @@
 ***********************************************************************************/
 void timer16BitISR(void)
 {
-#if (__TEST_MODE__==__STACK_TEST__)
-	incrementStack(71);
-#endif
-
 #if(TIMER_16BIT_ENABLED == TRUE)
-	if(hal_getTMR1IntFlag() && hal_getTMR1IntEnableStatus())
-	{
-		/* disable TMR1 Module */
-		hal_clrTMR1IntFlag();
-		hal_disableTMR1Int();
-		hal_disableTMR1();
 
-		/* call user ISR */
-		pt2TMR1ISR();
-	}
-#endif 
+    if(hal_getTMR1IntFlag() && hal_getTMR1IntEnableStatus())
+    {
+        /* disable TMR1 Module */
+        hal_clrTMR1IntFlag();
+        hal_disableTMR1Int();
+        hal_disableTMR1();
+        /* call user ISR */
+        pt2TMR1ISR();
+    }
 
-#if (__TEST_MODE__==__STACK_TEST__)
-	decrementStack();
 #endif
 }
 
@@ -96,7 +90,7 @@ void timer16BitISR(void)
 * >      setup16BitTimerFull(module, &callback, prescaler, postscaler)
 * > <BR><BR>
 * > **Parameters:**<BR>
-* >     module - timer module assignment, TIMER1				            <BR>
+* >     module - timer module assignment, TIMER1                            <BR>
 * >     callback - function address of the timer ISR                        <BR>
 * >     prescaler - prescaler value(MCU chip dependent)                     <BR>
 * >     postcaler - postscaler value(MCU chip dependent)
@@ -105,37 +99,27 @@ void timer16BitISR(void)
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setup16BitTimerFull(enum tmr16BitModules_et eTmrModule, void(*callback)(), uint8_t ui8Prescaler, uint8_t ui8Postscaler)
+void setup16BitTimerFull(enum tmr16BitModules_et eTmrModule, void(*callback)(), uint8_t ui8Prescaler, uint8_t /*@unused@*/ui8Postscaler)
 {
-#if (__TEST_MODE__==__STACK_TEST__)
-	incrementStack(72);
-#endif
-
     /* Default */
-	if(TIMER1 == eTmrModule)
-	{
+    if(TIMER1 == eTmrModule)
+    {
         hal_initTMR1();
-    
-	    hal_setTMR1Prescaler(ui8Prescaler);
-    	//hal_setTMR1Postscaler(ui8Postscaler); 			              // not nedded on PIC TMR1
-		
-		pt2TMR1ISR = callback;
-	}
-	else
-	{
-		/* do nothing */
-	}
-    
-#if (__TEST_MODE__==__STACK_TEST__)
-	decrementStack();
-#endif
+        hal_setTMR1Prescaler(ui8Prescaler);
+        //hal_setTMR1Postscaler(ui8Postscaler);                           // not nedded on PIC TMR1
+        pt2TMR1ISR = callback;
+    }
+    else
+    {
+        /* do nothing */
+    }
 }
 
 /*******************************************************************************//**
 * \brief Setup the 16Bit timer peripheral to count every 0.2uS @ 20Mhz Xtal
 *
-* > This function is called to initialize the 16Bit timer peripheral,  
-* > prescaler and poscaler values were predefined to count every 0.2uS @ 20Mhz Xtal. 
+* > This function is called to initialize the 16Bit timer peripheral,
+* > prescaler and poscaler values were predefined to count every 0.2uS @ 20Mhz Xtal.
 * >
 * > The time to interrupt is set by the "set16BitTimer" function.
 *
@@ -144,7 +128,7 @@ void setup16BitTimerFull(enum tmr16BitModules_et eTmrModule, void(*callback)(), 
 * >      setup16BitTimer(module, &callback)
 * > <BR><BR>
 * > **Parameters:**<BR>
-* >     module - timer module assignment, TIMER1            	<BR>
+* >     module - timer module assignment, TIMER1                <BR>
 * >     callback - function address of the timer ISR callback
 * > <BR><BR>
 * > **Returns:**<BR>
@@ -153,26 +137,17 @@ void setup16BitTimerFull(enum tmr16BitModules_et eTmrModule, void(*callback)(), 
 ***********************************************************************************/
 void setup16BitTimer(enum tmr16BitModules_et eTmrModule, void(*callback)())
 {
-#if (__TEST_MODE__==__STACK_TEST__)
-	incrementStack(73);
-#endif
-
-    //setup16BitTimerFull(eTmrModule, callback, TMR1_PRESCALE, 0);			// disabled to save stack
-	if(TIMER1 == eTmrModule)
-	{
-		hal_initTMR1();
-		hal_setTMR1Prescaler(TMR1_PRESCALE);
-
-		pt2TMR1ISR = callback;
-	}
-	else
-	{
-		/* do nothing */
-	}
-    
-#if (__TEST_MODE__==__STACK_TEST__)
-	decrementStack();
-#endif
+    //setup16BitTimerFull(eTmrModule, callback, TMR1_PRESCALE, 0);          // disabled to save stack
+    if(TIMER1 == eTmrModule)
+    {
+        hal_initTMR1();
+        hal_setTMR1Prescaler(TMR1_PRESCALE);
+        pt2TMR1ISR = callback;
+    }
+    else
+    {
+        /* do nothing */
+    }
 }
 
 /*******************************************************************************//**
@@ -186,7 +161,7 @@ void setup16BitTimer(enum tmr16BitModules_et eTmrModule, void(*callback)())
 * >     set16BitTimer(module, value)
 * > <BR><BR>
 * > **Parameters:**<BR>
-* >     module - timer module assignment, TIMER1            					<BR>
+* >     module - timer module assignment, TIMER1                                <BR>
 * >     value - (value x resolution) is the time it takes before timer interrupt occur
 * > <BR><BR>
 * > **Returns:**<BR>
@@ -195,34 +170,25 @@ void setup16BitTimer(enum tmr16BitModules_et eTmrModule, void(*callback)())
 ***********************************************************************************/
 void set16BitTimer(enum tmr16BitModules_et eTmrModule, uint16_t ui16Value)
 {
-#if (__TEST_MODE__==__STACK_TEST__)
-	incrementStack(74);
-#endif
-
     /* Default */
-	if(TIMER1 == eTmrModule)
-	{
-		hal_setTMR1Value(ui16Value);
-		
-		/* enable TMR1 interrupt */
-		hal_clrTMR1IntFlag();						// important at first run after initialization
-		hal_enableTMR1Int();
-		/* turn-on timer module */
-		hal_enableTMR1();
-	}
-	else
-	{
-		/* do nothing */
-	}
-    
-#if (__TEST_MODE__==__STACK_TEST__)
-	decrementStack();
-#endif
+    if(TIMER1 == eTmrModule)
+    {
+        hal_setTMR1Value(ui16Value);
+        /* enable TMR1 interrupt */
+        hal_clrTMR1IntFlag();                       // important at first run after initialization
+        hal_enableTMR1Int();
+        /* turn-on timer module */
+        hal_enableTMR1();
+    }
+    else
+    {
+        /* do nothing */
+    }
 }
 #endif
 
 /* Private Functions */
-    /* none */
-    
+/* none */
+
 /* end of corelib_16bit_timer.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
