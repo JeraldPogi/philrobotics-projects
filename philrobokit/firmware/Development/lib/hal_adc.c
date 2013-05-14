@@ -7,7 +7,7 @@
 * |Filename:      | "hal_adc.c"                                 |
 * |:----          |:----                                        |
 * |Description:   | This is a driver for ADC peripheral configuration |
-* |Revision:      | v01.00.01                                   |
+* |Revision:      | v01.01.00                                   |
 * |Author:        | Giancarlo Acelajado                         |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -31,6 +31,7 @@
 * |v00.01.01    |201203xx   |Giancarlo A.       |Fix Bugs, add setupADCPinsToDigital|
 * |v01.00.00    |201210xx   |Giancarlo A.       |Leverage Library to Standard Architecture|
 * |v01.00.01    |20130307   |ESC II             |Organized functions into HAL and CoreLib|
+* |v01.01.00    |20130514   |ESCII              |Code Formatted, Fixed SPLINT warning|
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -38,25 +39,25 @@
 #include "hal_adc.h"
 
 /* Local Constants */
-    /* PIC16F877A Specific */
+/* PIC16F877A Specific */
 static enum adcClockCfg_et
 {
-    FOSC_DIV2
-    ,FOSC_DIV8
-    ,FOSC_DIV32
-    ,FOSC_INTRC0
-    ,FOSC_DIV4
-    ,FOSC_DIV16
-    ,FOSC_DIV64 
-    ,FOSC_INTRC1 
+    FOSC_DIV2,
+    FOSC_DIV8,
+    FOSC_DIV32,
+    FOSC_INTRC0,
+    FOSC_DIV4,
+    FOSC_DIV16,
+    FOSC_DIV64,
+    FOSC_INTRC1
 };
 
 /* Local Variables */
-    /* none */
+/* none */
 
 /* Private Function Prototypes */
-    /* none */
-    
+/* none */
+
 /* Public Functions */
 /*******************************************************************************//**
 * \brief MCU Level configuration of ADC perpheral
@@ -74,25 +75,18 @@ static enum adcClockCfg_et
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
+/*@ignore@*/                                // esc.comment SPLINT warns a function configLowLvlADC overshadows outer declaration, this line is not a declaration but a definition, must be a bug on SPLINT
 void configLowLvlADC(void)
 {
-#if (__TEST_MODE__==__STACK_TEST__)
-	incrementStack(30);
-#endif
-
     /* 20Mhz Clock: Anito PIC16F877A Specific */
     hal_configADCPinsClock(FOSC_DIV64);     // 64Tosc @20MHz   12*TAD for 10bit, TAD = 20MHz/64 3 --- 8.4uS
-    
     /* Right Justified */
-	hal_rightAligned();
-    
-#if (__TEST_MODE__==__STACK_TEST__)
-	decrementStack();
-#endif
+    hal_rightAligned();
 }
+/*@end@*/
 
 /* Private Functions */
-    /* none */
-    
+/* none */
+
 /* end of hal_adc.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

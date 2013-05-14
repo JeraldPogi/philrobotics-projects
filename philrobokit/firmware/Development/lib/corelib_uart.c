@@ -7,7 +7,7 @@
 * |Filename:      | "corelib_uart.c"                            |
 * |:----          |:----                                        |
 * |Description:   | This is a library for using the serial/uart functions |
-* |Revision:      | v01.00.01                                   |
+* |Revision:      | v01.01.00                                   |
 * |Author:        | Giancarlo Acelajado                         |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -31,6 +31,7 @@
 * |v00.01.01    |201201xx   |Giancarlo A.       |Add serialFlush Routine            |
 * |v01.00.00    |201210xx   |Giancarlo A.       |Leverage Library to Standard Architecture|
 * |v01.00.01    |20130228   |ESCII              |Separated module to HAL and Corelib|
+* |v01.01.00    |20130514   |ESCII              |Code Formatted						|
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -38,7 +39,7 @@
 #include "corelib_uart.h"
 
 /* Local Constants */
-#define	K8_UART_BUFFER_MASK			(K8_UART_BUFFER_SIZE-1)
+#define K8_UART_BUFFER_MASK         (K8_UART_BUFFER_SIZE-1)
 
 /* Local Variables */
 static struct UARTBuff_s
@@ -53,17 +54,17 @@ static struct UARTBuff_s   stUARTTXFiFo, stUARTRXFiFo;
 /* Private Function Prototypes */
 static bool_t isSerialDataAvailable(void);
 static bool_t isSerialBufferFull(void);
-    
+
 /* Public Functions */
 /*******************************************************************************//**
 * \brief Setup the Software DAC module
 *
-* > This function is called for setting up the Software DAC Module 
+* > This function is called for setting up the Software DAC Module
 * > pin and default value.
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >     setupSerial(baudrate) 
+* >     setupSerial(baudrate)
 * > <BR><BR>
 * > **Parameters:**<BR>
 * >     baudrate - desired UART baudrate (supports only standard baudrates)
@@ -73,39 +74,23 @@ static bool_t isSerialBufferFull(void);
 * > <BR><BR>
 ***********************************************************************************/
 void setupSerial(uint16_t ui16Baudrate)
-{	
-#if (__TEST_MODE__==__STACK_TEST__)
-        gui8StackLevelCounter++; 
-        if(gui8StackLevelCounter>gui8MaxStackLevel)
-        {
-            gui8MaxStackLevel = gui8StackLevelCounter;
-        }
-#endif
-
+{
     /* Clear TX and RX Buffers */
     stUARTTXFiFo.ui8Head = 0;
     stUARTTXFiFo.ui8Tail = 0;
     stUARTRXFiFo.ui8Head = 0;
     stUARTRXFiFo.ui8Tail = 0;
-    
     /* Set Baudrate */
     hal_setSerialBAUD(ui16Baudrate);
-
     /* Enable Serial Peripheral */
     hal_enableSerialTX();
     hal_enableSerialRX();
-    
     /* Disable TX Interrupt */
     hal_disableUARTTXInt();
     hal_clrUARTTXIntFlag();
-    
     /* Enable RX Interrupt */
     hal_enableUARTRXInt();
     hal_clrUARTRXIntFlag();
-    
-#if (__TEST_MODE__==__STACK_TEST__)
-	decrementStack();
-#endif	
 }
 
 /*******************************************************************************//**
@@ -115,7 +100,7 @@ void setupSerial(uint16_t ui16Baudrate)
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >      serialWrite(data) 
+* >      serialWrite(data)
 * > <BR><BR>
 * > **Parameters:**<BR>
 * >     data - the byte to be transmitted
@@ -127,29 +112,25 @@ void setupSerial(uint16_t ui16Baudrate)
 void serialWrite(uint8_t ui8TxData)
 {
 #if 0 //defined STACK_TEST
-    gui8StackLevelCounter++; 
+    gui8StackLevelCounter++;
+
     if(gui8StackLevelCounter>gui8MaxStackLevel)
     {
         gui8MaxStackLevel = gui8StackLevelCounter;
     }
+
 #endif
 
     while (isSerialBufferFull())
     {
         continue;
     }
-    
-	hal_disableUARTTXInt();
-	
+
+    hal_disableUARTTXInt();
     stUARTTXFiFo.aui8Buffer[stUARTTXFiFo.ui8Head++] = ui8TxData;
     stUARTTXFiFo.ui8Head &= K8_UART_BUFFER_MASK;
-
     hal_enableUARTTXInt();
-    
-#if (__TEST_MODE__==__STACK_TEST__)
-//	decrementStack();
-#endif
-}			
+}
 
 /*******************************************************************************//**
 * \brief Writes a string to the UART transmit buffer
@@ -167,26 +148,18 @@ void serialWrite(uint8_t ui8TxData)
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void serialWriteString(uint8_t *pui8StrTxData)
+void serialWriteString(uint8_t* pui8StrTxData)
 {
-#if (__TEST_MODE__==__STACK_TEST__)
-	incrementStack(80);
-#endif
-
     while(NULL != *pui8StrTxData)
     {
-        serialWrite(*pui8StrTxData++);		
-    }	
-    
-#if (__TEST_MODE__==__STACK_TEST__)
-	decrementStack();
-#endif	
-}	
+        serialWrite(*pui8StrTxData++);
+    }
+}
 
 /*******************************************************************************//**
 * \brief Setup the Software DAC module
 *
-* > This function is called for setting up the Software DAC Module 
+* > This function is called for setting up the Software DAC Module
 * > pin and default value.
 *
 * > <BR>
@@ -201,26 +174,18 @@ void serialWriteString(uint8_t *pui8StrTxData)
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void serialWriteBlock(uint8_t *pui8StrTxData, uint8_t ui8Size)
+void serialWriteBlock(uint8_t* pui8StrTxData, uint8_t ui8Size)
 {
-#if (__TEST_MODE__==__STACK_TEST__)
-	incrementStack(81);
-#endif
-
-    while(ui8Size--)
+    while(0 != ui8Size--) // esc.comment unsafe code, no arithmetic operation shall be performed on condition comparison
     {
-        serialWrite(*pui8StrTxData++);		
+        serialWrite(*pui8StrTxData++);
     }
-
-#if (__TEST_MODE__==__STACK_TEST__)
-	decrementStack();
-#endif		
 }
 
 /*******************************************************************************//**
 * \brief Returns the number of recieved data bytes
 *
-* > This function is called for setting up the Software DAC Module 
+* > This function is called for setting up the Software DAC Module
 * > pin and default value.
 *
 * > <BR>
@@ -236,22 +201,12 @@ void serialWriteBlock(uint8_t *pui8StrTxData, uint8_t ui8Size)
 ***********************************************************************************/
 uint8_t serialDataCount(void)
 {
-#if (__TEST_MODE__==__STACK_TEST__)
-	incrementStack(82);
-#endif
-
     if(true == isSerialDataAvailable())
-    {  
-#if (__TEST_MODE__==__STACK_TEST__)
-	decrementStack();
-#endif	    
+    {
         return (stUARTRXFiFo.ui8Head - stUARTRXFiFo.ui8Tail);
     }
     else
     {
-#if (__TEST_MODE__==__STACK_TEST__)
-	decrementStack();
-#endif	    
         return 0;
     }
 }
@@ -277,35 +232,23 @@ uint8_t serialRead(void)
 {
     uint8_t ui8serialData;
     //int timeout = 7500; //1.5ms @20Mhz
-#if (__TEST_MODE__==__STACK_TEST__)
-	incrementStack(83);
-#endif
-            
+
     while(!isSerialDataAvailable()/* && (--timeout)*/)
     {
         continue;
     }
-        
+
     if(isSerialDataAvailable())
     {
         hal_disableUARTRXInt();
-    
-        ui8serialData = stUARTRXFiFo.aui8Buffer[stUARTRXFiFo.ui8Tail++];	//Get Data from aui8Buffer
+        ui8serialData = stUARTRXFiFo.aui8Buffer[stUARTRXFiFo.ui8Tail++];    //Get Data from aui8Buffer
         stUARTRXFiFo.ui8Tail &= K8_UART_BUFFER_MASK;
-        
         hal_enableUARTRXInt();
+        return ui8serialData;
+    }
 
-#if (__TEST_MODE__==__STACK_TEST__)
-	decrementStack();
-#endif	    
-        return ui8serialData;	
-    }   
-
-#if (__TEST_MODE__==__STACK_TEST__)
-	decrementStack();
-#endif	    
     return NULL;
-}	
+}
 
 /*******************************************************************************//**
 * \brief Flush/Clears the RX and TX registers
@@ -314,7 +257,7 @@ uint8_t serialRead(void)
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >      serialFlush(none) 
+* >      serialFlush(none)
 * > <BR><BR>
 * > **Parameters:**<BR>
 * >     none
@@ -325,22 +268,13 @@ uint8_t serialRead(void)
 ***********************************************************************************/
 void serialFlush(void)
 {
-#if (__TEST_MODE__==__STACK_TEST__)
-	incrementStack(84);
-#endif
-
-   stUARTRXFiFo.ui8Head = 0;
-   stUARTTXFiFo.ui8Head = 0;
-   stUARTRXFiFo.ui8Tail = 0;
-   stUARTTXFiFo.ui8Tail = 0;
-
-   memset(stUARTTXFiFo.aui8Buffer, NULL, sizeof(stUARTTXFiFo.aui8Buffer));
-   memset(stUARTRXFiFo.aui8Buffer, NULL, sizeof(stUARTRXFiFo.aui8Buffer));
-   
-#if (__TEST_MODE__==__STACK_TEST__)
-	decrementStack();
-#endif	
-} 		
+    stUARTRXFiFo.ui8Head = 0;
+    stUARTTXFiFo.ui8Head = 0;
+    stUARTRXFiFo.ui8Tail = 0;
+    stUARTTXFiFo.ui8Tail = 0;
+    memset(stUARTTXFiFo.aui8Buffer, NULL, sizeof(stUARTTXFiFo.aui8Buffer));
+    memset(stUARTRXFiFo.aui8Buffer, NULL, sizeof(stUARTRXFiFo.aui8Buffer));
+}
 
 /*******************************************************************************//**
 * \brief UART recieve interrupt service routine
@@ -360,15 +294,11 @@ void serialFlush(void)
 ***********************************************************************************/
 void serialRxISR(void)
 {
-    static uint8_t ui8TempIn;												// variables inside ISR must be static
-#if (__TEST_MODE__==__STACK_TEST__)
-	incrementStack(85);
-#endif
-    
+    static uint8_t ui8TempIn;                                               // variables inside ISR must be static
+
     if (hal_getUARTRXIntFlag() && hal_getUARTRXIntEnableStatus())
     {
-		hal_clrUARTRXIntFlag();
-		
+        hal_clrUARTRXIntFlag();
         stUARTRXFiFo.aui8Buffer[stUARTRXFiFo.ui8Head] = K_RXREG_BUFF;
         ui8TempIn = ((stUARTRXFiFo.ui8Head+1) & K8_UART_BUFFER_MASK);
 
@@ -377,11 +307,7 @@ void serialRxISR(void)
             stUARTRXFiFo.ui8Head = ui8TempIn;
         }
     }
-    
-#if (__TEST_MODE__==__STACK_TEST__)
-	decrementStack();
-#endif	
-}	
+}
 
 /*******************************************************************************//**
 * \brief UART transmit interrupt service routine
@@ -402,31 +328,28 @@ void serialRxISR(void)
 void serialTxISR(void)
 {
 #if 0 //defined STACK_TEST
-    gui8StackLevelCounter++; 
+    gui8StackLevelCounter++;
+
     if(gui8StackLevelCounter>gui8MaxStackLevel)
     {
         gui8MaxStackLevel = gui8StackLevelCounter;
     }
+
 #endif
 
     if (hal_getUARTTXIntFlag() && hal_getUARTTXIntEnableStatus())
     {
-		hal_clrUARTTXIntFlag();
-		
+        hal_clrUARTTXIntFlag();
         K_TXREG_BUFF = stUARTTXFiFo.aui8Buffer[stUARTTXFiFo.ui8Tail++];
-        
-        stUARTTXFiFo.ui8Tail &= K8_UART_BUFFER_MASK;	
+        stUARTTXFiFo.ui8Tail &= K8_UART_BUFFER_MASK;
 
-        if (stUARTTXFiFo.ui8Tail == stUARTTXFiFo.ui8Head){
+        if (stUARTTXFiFo.ui8Tail == stUARTTXFiFo.ui8Head)
+        {
             hal_disableUARTTXInt();
         }
     }
-    
-#if (__TEST_MODE__==__STACK_TEST__)
-    decrementStack();
-#endif	
 }
-	
+
 /* Private Functions */
 /*******************************************************************************//**
 * \brief Returns the status of the buffer content
@@ -447,17 +370,15 @@ void serialTxISR(void)
 static bool_t isSerialBufferFull(void)
 {
 #if 0 //defined STACK_TEST
-    gui8StackLevelCounter++; 
+    gui8StackLevelCounter++;
+
     if(gui8StackLevelCounter>gui8MaxStackLevel)
     {
         gui8MaxStackLevel = gui8StackLevelCounter;
     }
-#endif
 
-#if (__TEST_MODE__==__STACK_TEST__)
-//	decrementStack();
-#endif	
-    return (((stUARTTXFiFo.ui8Head+1) & K8_UART_BUFFER_MASK) == stUARTTXFiFo.ui8Tail);	
+#endif
+    return (((stUARTTXFiFo.ui8Head+1) & K8_UART_BUFFER_MASK) == stUARTTXFiFo.ui8Tail);
 }
 
 /*******************************************************************************//**
@@ -477,24 +398,16 @@ static bool_t isSerialBufferFull(void)
 * > <BR><BR>
 ***********************************************************************************/
 static bool_t isSerialDataAvailable(void)
-{	
-#if (__TEST_MODE__==__STACK_TEST__)
-	incrementStack(87);
-#endif
-
+{
     /* esc.comment: move to HAL */
     if(BIT_RCSTA_OERR)          // Error in Reception
-    {		
-        BIT_RCSTA_CREN = 0;	    // Restart Continuous Reception
+    {
+        BIT_RCSTA_CREN = 0;     // Restart Continuous Reception
         BIT_RCSTA_CREN = 1;
-        
         return 0;
-    }				
+    }
 
-#if (__TEST_MODE__==__STACK_TEST__)
-	decrementStack();
-#endif	    
-    return (stUARTRXFiFo.ui8Head != stUARTRXFiFo.ui8Tail);		
+    return (stUARTRXFiFo.ui8Head != stUARTRXFiFo.ui8Tail);
 }
 /* end of corelib_uart.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

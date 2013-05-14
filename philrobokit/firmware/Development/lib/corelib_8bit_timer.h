@@ -7,7 +7,7 @@
 * |Filename:      | "corelib_8bit_timer.h"                      |
 * |:----          |:----                                        |
 * |Description:   | This is a header file of the 8 bit timer library |
-* |Revision:      | v00.01.00                                   |
+* |Revision:      | v00.02.00                                   |
 * |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -29,6 +29,7 @@
 * |:----        |:----      |:----              |:----                              |
 * |v00.00.01    |20120620   |ESCII              |Library Initial Release            |
 * |v00.01.00    |20130205   |ESCII              |Modified For Layered Architecture  |
+* |v00.02.00    |20130514   |ESCII              |Code Formatted, included unit test stub|
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -37,29 +38,33 @@
 #define __PH_8BIT_TIMER_H__
 
 /* Include .h Library Files */
+#ifdef UNIT_TEST                                    // autodefined at unit testing script
+#include "corelib_8bit_timer_test_stub.h"
+#else
 #include <PhilRoboKit_CoreLib_Macro.h>
 #include "hal_8bit_timer.h"
+#endif
 
 /* User Configuration Definitions */
-    /* none */
-    
+/* none */
+
 /* Global Constants */
-    /* Timers */
+/* Timers */
 enum tmrModules_et
 {
-	TIMER2		= 2
-	,TIMER4		= 4
-	,TIMER6		= 6
+    TIMER2      = 2,
+    TIMER4      = 4,
+    TIMER6      = 6
 };
-    
+
 /* Macro and Configuration Definitions */
-    /* none */
-    
+/* none */
+
 /* Public Function Prototypes */
-    void timer8BitISR(void);
-    void setup8BitTimerFull(enum tmrModules_et eTmrModule, void(*callback)(), uint8_t ui8Prescaler, uint8_t ui8Postscaler);
-	void setup8BitTimer(enum tmrModules_et eTmrModule, void(*callback)());
-	void setTimer(enum tmrModules_et eTmrModule, uint8_t ui8Value);
-    
+void timer8BitISR(void);
+void setup8BitTimerFull(enum tmrModules_et eTmrModule, void(*callback)(), uint8_t ui8Prescaler, uint8_t ui8Postscaler);
+void setup8BitTimer(enum tmrModules_et eTmrModule, void(*callback)());
+void setTimer(enum tmrModules_et eTmrModule, uint8_t ui8Value);
+
 #endif /* end of corelib_8bit_timer.h */
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -7,7 +7,7 @@
 * |Filename:      | "hal_8bit_timer.c"                          |
 * |:----          |:----                                        |
 * |Description:   | This is a driver for micrcochip 8bit timer (TMR2, TMR4, TMR6) |
-* |Revision:      | v00.01.00                                   |
+* |Revision:      | v00.02.00                                   |
 * |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -29,6 +29,7 @@
 * |:----        |:----      |:----              |:----                              |
 * |v00.00.01    |20120620   |ESCII              |Library Initial Release            |
 * |v00.01.00    |20130205   |ESCII              |Modified For Layered Architecture  |
+* |v00.02.00    |20130514   |ESCII              |Code Formatted						|
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -36,19 +37,19 @@
 #include "hal_8bit_timer.h"
 
 /* Local Constants */
-    /* none */
+/* none */
 
 /* Local Variables */
-    /* none */
+/* none */
 
 /* Private Function Prototypes */
-    /* none */
+/* none */
 
 /* Public Functions */
 /*******************************************************************************//**
 * \brief Initialize 8bit timer interrupt function pointer with null function
 *
-* > This function basically does nothing and is used to initialize 8bit timer 
+* > This function basically does nothing and is used to initialize 8bit timer
 * > interrupt function pointer.
 *
 * > <BR>
@@ -64,19 +65,11 @@
 ***********************************************************************************/
 void nullTMRFunction()
 {
-#if (__TEST_MODE__==__STACK_TEST__)
-	incrementStack(50);
-#endif
-
-	;/* NULL */
-    
-#if (__TEST_MODE__==__STACK_TEST__)
-	decrementStack();
-#endif
+    ;/* NULL */
 }
 
 /* Private Functions */
-    /* none */
+/* none */
 
 /* end of hal_8bit_timer.c */
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

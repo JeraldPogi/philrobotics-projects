@@ -7,7 +7,7 @@
 * |Filename:      | "corelib_masterlib.h"                       |
 * |:----          |:----                                        |
 * |Description:   | PhilRobokit Master Library Header           |
-* |Revision:      | v00.00.01                                   |
+* |Revision:      | v00.01.00                                   |
 * |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -28,6 +28,7 @@
 * |FW Version   |Date       |Author             |Description                        |
 * |:----        |:----      |:----              |:----                              |
 * |v00.00.01    |20130408   |ESC II             |Library Initial Release            |
+* |v00.01.00    |20130514   |ESCII              |Code Formatted						|
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -38,14 +39,14 @@
 /* Include .h Library Files */
 #include <PhilRoboKit_CoreLib_Macro.h>
 
-/* Global Constants */      
-    /* none */
+/* Global Constants */
+/* none */
 
 /* User Configuration Definitions */
-    /* none */
-    
+/* none */
+
 /* Macro and Configuration Definitions */
-    /* Register Manipulation Macro */
+/* Register Manipulation Macro */
 #define setRegVal(Register, Value)                      (Register = Value)
 #define getRegVal(Register)                             (Register)
 #define setMaskedReg(Register, Value, Mask, Shift)      \
@@ -62,8 +63,8 @@
 #define clrRegBits(Register, Mask)                      (Register &= ~Mask)
 #define toggleRegBits(Register, Mask)                   (Register ^= Mask)
 
-/* Public Function Prototypes */ 
-    /* none */
-    
+/* Public Function Prototypes */
+/* none */
+
 #endif/* end of corelib_masterlib.h */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

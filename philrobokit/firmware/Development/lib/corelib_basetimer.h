@@ -7,7 +7,7 @@
 * |Filename:      | "corelib_basetimer.h"                       |
 * |:----          |:----                                        |
 * |Description:   | Anito Base Timer Application                |
-* |Revision:      | v01.00.00                                   |
+* |Revision:      | v01.01.00                                   |
 * |Author:        | Giancarlo Acelajado                         |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -25,9 +25,10 @@
 * > along with this program. If not, see http://www.gnu.org/licenses/
 * <BR>
 *---------------------------------------------------------------------------------------------
-* |FW Version   |Date       |Author             |Description                                |
-* |:----        |:----      |:----              |:----                                      |
-* |v01.00.00    |201211xx   |Giancarlo A.       |Library Initial Release                    |
+* |FW Version   |Date       |Author             |Description                        |
+* |:----        |:----      |:----              |:----                              |
+* |v01.00.00    |201211xx   |Giancarlo A.       |Library Initial Release            |
+* |v01.01.00    |20130514   |ESCII              |Code Formatted, included unit test stub|
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -36,20 +37,24 @@
 #define __APP_COMMON_TIMER_H__
 
 /* Include .h Library Files */
+#ifdef UNIT_TEST                                    // autodefined at unit testing script
+#include "corelib_basetimer_test_stub.h"
+#else
 #include <PhilRoboKit_CoreLib_Macro.h>
 #include <PhilRoboKit_CoreLib_DataTypes.h>
 #include "hal_timer.h"
-   
+#endif
+
 /* User Configuration Definitions */
-    /* none */
-    
-/* Global Constants */	
-    /* none */
+/* none */
+
+/* Global Constants */
+/* none */
 
 /* Macro and Configuration Definitions */
-    /* none */
+/* none */
 
-/* Public Function Prototypes */	
+/* Public Function Prototypes */
 uint16_t getUs(void);
 uint16_t getElapsedUs(uint16_t ui16TimeUs);
 
@@ -60,6 +65,6 @@ uint16_t getElapsedMs(uint16_t ui16TimeMs);
 uint16_t getSec(void);
 uint16_t getElapsedSec(uint16_t ui16TimeSec);
 #endif
-	
+
 #endif/* end of corelib_basetimer.h */
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

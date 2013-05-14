@@ -7,7 +7,7 @@
 * |Filename:      | "hal_pwm.h"                                 |
 * |:----          |:----                                        |
 * |Description:   | This is a header file of the driver for micrcochip capture compare peripheral used for PWM  |
-* |Revision:      | v00.01.00                                   |
+* |Revision:      | v00.02.00                                   |
 * |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -29,6 +29,7 @@
 * |:----        |:----      |:----              |:----                              |
 * |v00.00.01    |20120620   |ESCII              |Library Initial Release            |
 * |v00.01.00    |20130205   |ESCII              |Modified For Layered Architecture  |
+* |v00.02.00    |20130514   |ESCII              |Code Formatted, Fixed SPLINT warning, included unit test stub|
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -37,25 +38,29 @@
 #define __HAL_PWM_H__
 
 /* Include .h Library Files */
+#ifdef UNIT_TEST                                    // autodefined at unit testing script
+#include "hal_pwm_test_stub.h"
+#else
 #include <PhilRoboKit_CoreLib_Macro.h>
 #include "hal_8bit_timer.h"
+#endif
 
 /* Global Constants */
-    /* CCP_PWM Mode */
+/* CCP_PWM Mode */
 enum PWMModes_et
 {
-	PWM_OFF             				    = 0x00
-	,COMP_TOGGLE_CCPO    				    = 0x02
-	,CAPTURE_FALL        				    = 0x04
-	,CAPTURE_RISE        				    = 0x05
-	,CAPTURE_4TH_FALL    				    = 0x06
-	,CAPTURE_16TH_RISE   				    = 0x07
-	,PWM_MODE            				    = 0x0C
-                                                // 0x0D
-                                                // 0x0E
-                                                // 0x0F
+    PWM_OFF                                 = 0x00,
+    COMP_TOGGLE_CCPO                        = 0x02,
+    CAPTURE_FALL                            = 0x04,
+    CAPTURE_RISE                            = 0x05,
+    CAPTURE_4TH_FALL                        = 0x06,
+    CAPTURE_16TH_RISE                       = 0x07,
+    PWM_MODE                                = 0x0C
+            // 0x0D
+            // 0x0E
+            // 0x0F
 };
-                         
+
 #define CCP_PWM_MODE                        PWM_MODE
 
 //***********************************************************************************
@@ -63,34 +68,34 @@ enum PWMModes_et
 // PWM Period = [(PR2) + 1] * 4 * TOSC * Prescaler
 // Period(uS)  = [PR2+1]  * 200nS * Prescaler
 // 1.22kHz - 200kHz
-// Prescaler 1	
-// 19.53Khz		-> 51.20uS
-// 200Khz		-> 5.00uS
-//	
-// Prescaler 4	
-// 4.88Khz		-> 204.92uS
-// 19.53Khz		-> 51.20uS
-//	
-// Prescaler 16	
-// 1.22Khz		-> 819.67uS
-// 4.88kHz		-> 204.92uS
+// Prescaler 1
+// 19.53Khz     -> 51.20uS
+// 200Khz       -> 5.00uS
+//
+// Prescaler 4
+// 4.88Khz      -> 204.92uS
+// 19.53Khz     -> 51.20uS
+//
+// Prescaler 16
+// 1.22Khz      -> 819.67uS
+// 4.88kHz      -> 204.92uS
 //
 // ui16Frequency: in 10Hz/Bit Resolution (e.g. 1kHz/10Hz = 100)
 //***********************************************************************************
 #define K_MAX_FREQ_RANGE                    20000       // 200kH @ 10Hz resolution
 #define K_MIN_FREQ_RANGE                    122         // 1.22kHz @ 10Hz resolution
 
-#define K_PERIOD_SAT_LIM                    255         
+#define K_PERIOD_SAT_LIM                    255
 
 #define K_PRESCALE0_FREQ_LIM                1953        // >19.53kHz, div by 1
 #define K_PRESCALE1_FREQ_LIM                488         // >4.88kHz, div by 4
 #define K_PRESCALE2_FREQ_LIM                122         // >1.22kHz, div by 16
 
-enum ePWMPrescaler
+enum PWMPrescaler_et
 {
-    PRESCALE0_VAL                           = 0
-    ,PRESCALE1_VAL                          = 1
-    ,PRESCALE2_VAL                          = 2
+    PRESCALE0_VAL                           = 0,
+    PRESCALE1_VAL                           = 1,
+    PRESCALE2_VAL                           = 2
 };
 
 //***********************************************************************************
@@ -103,80 +108,65 @@ enum ePWMPrescaler
 #define K_DUTY_SAT_LIM                      1000        // 100% duty cycle @ 0.1% resolution
 
 /* Macro and Configuration Definitions */
-#if 0 	// not for PIC16F877A
-    /* Configure PWM to use TMR4 Module */
+#if 0   // not for PIC16F877A
+/* Configure PWM to use TMR4 Module */
 #define TMR2_CLOCK                          0x00
 #define TMR4_CLOCK                          0x01
 #define TMR6_CLOCK                          0x02
 
 #define CCP_PWM_CLOCK                       TMR2_CLOCK
 
-/*@notfunction@*/
+
 #define mc_PWMClk_Source(a)                 \
     REG_CCPTMRS &= ~C1_TIMERSEL_MASK;       \
     REG_CCPTMRS |= a&C1_TIMERSEL_MASK       // semi-collon intentionally omitted
 #endif
 
-/*@notfunction@*/
 #define hal_enablePWMTmrInt()               hal_enableTMR2Int()
-/*@notfunction@*/
-#define hal_disablePWMTmrInt()              hal_disableTMR2Int() 
-/*@notfunction@*/
+#define hal_disablePWMTmrInt()              hal_disableTMR2Int()
 #define hal_clrPWMTmrIntFlag()              hal_clrTMR2IntFlag()
 
-/*@notfunction@*/
-#define hal_enablePWMTmr()           	    hal_enableTMR2()
-/*@notfunction@*/
-#define hal_disablePWMTmr()          	    hal_disableTMR2()
+#define hal_enablePWMTmr()                  hal_enableTMR2()
+#define hal_disablePWMTmr()                 hal_disableTMR2()
 
-/*@notfunction@*/
 #define hal_configCCP1Mode(a)               \
-REGISTER_CCP1CON = a&CCP_MODE_MASK          // semi-collon intentionally omitted
+    REGISTER_CCP1CON = a&CCP_MODE_MASK          // semi-collon intentionally omitted
 
-/*@notfunction@*/
 #define hal_configCCP2Mode(a)               \
-REGISTER_CCP2CON = a&CCP_MODE_MASK          // semi-collon intentionally omitted
+    REGISTER_CCP2CON = a&CCP_MODE_MASK          // semi-collon intentionally omitted
 
-/*@notfunction@*/
 #define hal_setPWM0_On()                    \
-hal_configCCP1Mode(PWM_MODE)                // semi-collon intentionally omitted
-//hal_enablePWMTmr() 
-
-/*@notfunction@*/
-#define hal_setPWM0_Off()                   \
-hal_configCCP1Mode(PWM_OFF)                 // semi-collon intentionally omitted
-//hal_disablePWMTmr() 
-
-/*@notfunction@*/
-#define hal_setPWM1_On()                    \
-hal_configCCP2Mode(PWM_MODE)                // semi-collon intentionally omitted
+    hal_configCCP1Mode(PWM_MODE)                // semi-collon intentionally omitted
 //hal_enablePWMTmr()
 
-/*@notfunction@*/
+#define hal_setPWM0_Off()                   \
+    hal_configCCP1Mode(PWM_OFF)                 // semi-collon intentionally omitted
+//hal_disablePWMTmr()
+
+#define hal_setPWM1_On()                    \
+    hal_configCCP2Mode(PWM_MODE)                // semi-collon intentionally omitted
+//hal_enablePWMTmr()
+
 #define hal_setPWM1_Off()                   \
-hal_configCCP2Mode(PWM_OFF)                 // semi-collon intentionally omitted
-//hal_disablePWMTmr() 
+    hal_configCCP2Mode(PWM_OFF)                 // semi-collon intentionally omitted
+//hal_disablePWMTmr()
 
-/*@notfunction@*/
-#define hal_initPWMTimer(a)       		    setup8BitTimerFull(TIMER2,nullTMRFunction,a,0)
+#define hal_initPWMTimer(a)                 setup8BitTimerFull(TIMER2,nullTMRFunction,a,0)
 
-/*@notfunction@*/
 #define hal_setPWMPeriod(period)            setTimer(TIMER2,period)
 
-/*@notfunction@*/
-#define hal_setPWM0Ton(a)                	\
+#define hal_setPWM0Ton(a)                   \
     REGISTER_CCP1CON &= ~PWM_DC_LSB_MASK;   \
     REGISTER_CCP1CON |= (a&0x0003)<<4;      \
     REGISTER_CCPR1L = (a&0x03FC)>>2         // semi-collon intentionally omitted
-    
-/*@notfunction@*/    
-#define hal_setPWM1Ton(a)                	\
+
+#define hal_setPWM1Ton(a)                   \
     REGISTER_CCP2CON &= ~PWM_DC_LSB_MASK;   \
     REGISTER_CCP2CON |= (a&0x0003)<<4;      \
     REGISTER_CCPR2L = (a&0x03FC)>>2         // semi-collon intentionally omitted
-  
+
 /* Public Function Prototypes */
-    /* none */
+/* none */
 
 #endif  /* end of hal_pwm.h */
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

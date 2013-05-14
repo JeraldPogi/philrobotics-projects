@@ -1,0 +1,26 @@
+Init of hardware finished.
+
+**********************************************************************
+Name:     -hal_adc- Module Testing
+Compiled: May 14 2013
+Time:     12:58:14
+Version:  uCUnit v1.0
+**********************************************************************
+======================================
+configLowLvlADC: Initialization
+======================================
+../../Output/unity_output/temp/hal_adc_test_stub.c:45: passed:IsBitClear(REGISTER_ADCON0,BITPOS_ADCON0_ADCS0)
+../../Output/unity_output/temp/hal_adc_test_stub.c:46: passed:IsBitSet(REGISTER_ADCON0,BITPOS_ADCON0_ADCS1)
+../../Output/unity_output/temp/hal_adc_test_stub.c:47: passed:IsBitSet(REGISTER_ADCON1,BITPOS_ADCON1_ADCS2)
+../../Output/unity_output/temp/hal_adc_test_stub.c:49: passed:IsBitSet(REGISTER_ADCON1,BITPOS_ADCON1_ADFM)
+======================================
+Testcase passed.
+======================================
+
+**************************************
+Testcases: failed: 0
+           passed: 1
+Checks:    failed: 0
+           passed: 4
+**************************************
+System safe state.
