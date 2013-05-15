@@ -7,7 +7,7 @@
 * |Filename:      | "hal_timer.c"                               |
 * |:----          |:----                                        |
 * |Description:   | Anito Base Timer Low Level                  |
-* |Revision:      | v01.01.00                                   |
+* |Revision:      | v01.01.01                                   |
 * |Author:        | Giancarlo Acelajado                         |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -34,6 +34,7 @@
 * |v01.00.00    |201211xx   |Giancarlo A.       |Leverage Library to Standard Architecture  |
 * |v01.00.01    |20130320   |ESCII              |Move Timebase to TMR0 freerunning timer    |
 * |v01.01.00    |20130514   |ESCII              |Code Formatted                             |
+* |v01.01.01    |20130515   |ESCII              |Added unit test tracepoints                |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -120,6 +121,9 @@ void timerISR(void)
 #ifdef __TIMER_SEC__
             ui16MsCounter++;
 #endif
+#ifdef UNIT_TEST
+            UCUNIT_Tracepoint(0);
+#endif
         }
 
 #ifdef __TIMER_SEC__
@@ -128,6 +132,9 @@ void timerISR(void)
         {
             inc_gui16TimerSec_Value();
             ui16MsCounter = 0;
+#ifdef UNIT_TEST
+            UCUNIT_Tracepoint(1);
+#endif
         }
 
 #endif
