@@ -33,7 +33,7 @@
 * |             |           |                   |Set to Overflow every 100uS                |
 * |v01.00.00    |201211xx   |Giancarlo A.       |Leverage Library to Standard Architecture  |
 * |v01.00.01    |20130320   |ESCII              |Move Timebase to TMR0 freerunning timer    |
-* |v01.01.00    |20130514   |ESCII              |Code Formatted								|
+* |v01.01.00    |20130514   |ESCII              |Code Formatted                             |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__

@@ -1,0 +1,242 @@
+Init of hardware finished.
+
+**********************************************************************
+Name:     -hal_gpio- Module Testing
+Compiled: May 15 2013
+Time:     11:14:54
+Version:  v1.0
+**********************************************************************
+======================================
+configPin: Configure All GPIO Pins as Inputs
+======================================
+../../Output/unity_output/temp/hal_gpio_test_stub.c:162: passed:IsEqual(REGISTER_TRISA,0x00)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:163: passed:IsEqual(REGISTER_TRISB,0x00)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:164: passed:IsEqual(REGISTER_TRISC,0x00)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:165: passed:IsEqual(REGISTER_TRISD,0x00)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:166: passed:IsEqual(REGISTER_TRISE,0x00)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:200: passed:IsEqual(REGISTER_TRISA,0x27)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:201: passed:IsEqual(REGISTER_TRISB,0x3F)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:202: passed:IsEqual(REGISTER_TRISC,0xFF)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:203: passed:IsEqual(REGISTER_TRISD,0xFF)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:204: passed:IsEqual(REGISTER_TRISE,0x07)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:207: passed:TracepointCoverage(0)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:208: passed:TracepointCoverage(1)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:209: passed:TracepointCoverage(2)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:210: passed:TracepointCoverage(3)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:211: passed:TracepointCoverage(4)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:212: passed:TracepointNonCoverage(5)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:213: passed:TracepointCoverage(6)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:214: passed:TracepointNonCoverage(7)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:215: passed:TracepointCoverage(8)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:216: passed:TracepointNonCoverage(9)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:217: passed:TracepointNonCoverage(10)
+======================================
+Testcase passed.
+======================================
+
+======================================
+configPin: Configure All GPIO Pins as Outputs
+======================================
+../../Output/unity_output/temp/hal_gpio_test_stub.c:259: passed:IsEqual(REGISTER_TRISA,0x00)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:260: passed:IsEqual(REGISTER_TRISB,0x00)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:261: passed:IsEqual(REGISTER_TRISC,0x00)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:262: passed:IsEqual(REGISTER_TRISD,0x00)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:263: passed:IsEqual(REGISTER_TRISE,0x00)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:266: passed:TracepointCoverage(0)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:267: passed:TracepointCoverage(1)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:268: passed:TracepointCoverage(2)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:269: passed:TracepointCoverage(3)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:270: passed:TracepointCoverage(4)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:271: passed:TracepointNonCoverage(5)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:272: passed:TracepointCoverage(6)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:273: passed:TracepointNonCoverage(7)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:274: passed:TracepointNonCoverage(8)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:275: passed:TracepointCoverage(9)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:276: passed:TracepointNonCoverage(10)
+======================================
+Testcase passed.
+======================================
+
+======================================
+changePinState: Configure All Output Pins High
+======================================
+../../Output/unity_output/temp/hal_gpio_test_stub.c:289: passed:IsEqual(REGISTER_PORTA,0x00)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:290: passed:IsEqual(REGISTER_PORTB,0x00)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:291: passed:IsEqual(REGISTER_PORTC,0x00)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:292: passed:IsEqual(REGISTER_PORTD,0x00)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:293: passed:IsEqual(REGISTER_PORTE,0x00)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:327: passed:IsEqual(REGISTER_PORTA,0x27)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:328: passed:IsEqual(REGISTER_PORTB,0x3F)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:329: passed:IsEqual(REGISTER_PORTC,0xFF)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:330: passed:IsEqual(REGISTER_PORTD,0xFF)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:331: passed:IsEqual(REGISTER_PORTE,0x07)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:334: passed:TracepointCoverage(0)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:335: passed:TracepointCoverage(1)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:336: passed:TracepointCoverage(2)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:337: passed:TracepointCoverage(3)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:338: passed:TracepointCoverage(4)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:339: passed:TracepointNonCoverage(5)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:340: passed:TracepointCoverage(6)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:341: passed:TracepointNonCoverage(7)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:342: passed:TracepointCoverage(8)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:343: passed:TracepointNonCoverage(9)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:344: passed:TracepointNonCoverage(10)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:345: passed:TracepointNonCoverage(11)
+======================================
+Testcase passed.
+======================================
+
+======================================
+changePinState: Configure All Output Pins Low
+======================================
+../../Output/unity_output/temp/hal_gpio_test_stub.c:387: passed:IsEqual(REGISTER_PORTA,0x00)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:388: passed:IsEqual(REGISTER_PORTB,0x00)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:389: passed:IsEqual(REGISTER_PORTC,0x00)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:390: passed:IsEqual(REGISTER_PORTD,0x00)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:391: passed:IsEqual(REGISTER_PORTE,0x00)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:394: passed:TracepointCoverage(0)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:395: passed:TracepointCoverage(1)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:396: passed:TracepointCoverage(2)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:397: passed:TracepointCoverage(3)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:398: passed:TracepointCoverage(4)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:399: passed:TracepointNonCoverage(5)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:400: passed:TracepointCoverage(6)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:401: passed:TracepointNonCoverage(7)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:402: passed:TracepointNonCoverage(8)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:403: passed:TracepointCoverage(9)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:404: passed:TracepointNonCoverage(10)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:405: passed:TracepointNonCoverage(11)
+======================================
+Testcase passed.
+======================================
+
+======================================
+changePinState: Toggle Output Pins State
+======================================
+../../Output/unity_output/temp/hal_gpio_test_stub.c:447: passed:IsEqual(REGISTER_PORTA,0x27)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:448: passed:IsEqual(REGISTER_PORTB,0x3F)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:449: passed:IsEqual(REGISTER_PORTC,0xFF)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:450: passed:IsEqual(REGISTER_PORTD,0xFF)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:451: passed:IsEqual(REGISTER_PORTE,0x07)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:485: passed:IsEqual(REGISTER_PORTA,0x00)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:486: passed:IsEqual(REGISTER_PORTB,0x00)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:487: passed:IsEqual(REGISTER_PORTC,0x00)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:488: passed:IsEqual(REGISTER_PORTD,0x00)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:489: passed:IsEqual(REGISTER_PORTE,0x00)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:492: passed:TracepointCoverage(0)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:493: passed:TracepointCoverage(1)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:494: passed:TracepointCoverage(2)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:495: passed:TracepointCoverage(3)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:496: passed:TracepointCoverage(4)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:497: passed:TracepointNonCoverage(5)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:498: passed:TracepointCoverage(6)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:499: passed:TracepointNonCoverage(7)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:500: passed:TracepointNonCoverage(8)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:501: passed:TracepointNonCoverage(9)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:502: passed:TracepointCoverage(10)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:503: passed:TracepointNonCoverage(11)
+======================================
+Testcase passed.
+======================================
+
+======================================
+checkPinState: Check Input Pin's High State
+======================================
+../../Output/unity_output/temp/hal_gpio_test_stub.c:523: passed:IsEqual(checkPinState(D0),HIGH)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:524: passed:IsEqual(checkPinState(D1),HIGH)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:525: passed:IsEqual(checkPinState(D2),HIGH)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:526: passed:IsEqual(checkPinState(D3),HIGH)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:527: passed:IsEqual(checkPinState(D4),HIGH)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:528: passed:IsEqual(checkPinState(D5),HIGH)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:529: passed:IsEqual(checkPinState(D6),HIGH)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:530: passed:IsEqual(checkPinState(D7),HIGH)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:531: passed:IsEqual(checkPinState(D8),HIGH)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:532: passed:IsEqual(checkPinState(D9),HIGH)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:533: passed:IsEqual(checkPinState(D10),HIGH)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:534: passed:IsEqual(checkPinState(D11),HIGH)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:535: passed:IsEqual(checkPinState(D12),HIGH)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:536: passed:IsEqual(checkPinState(D13),HIGH)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:537: passed:IsEqual(checkPinState(D14),HIGH)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:538: passed:IsEqual(checkPinState(D15),HIGH)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:539: passed:IsEqual(checkPinState(D16),HIGH)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:540: passed:IsEqual(checkPinState(D17),HIGH)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:541: passed:IsEqual(checkPinState(D18),HIGH)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:542: passed:IsEqual(checkPinState(D19),HIGH)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:543: passed:IsEqual(checkPinState(D20),HIGH)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:544: passed:IsEqual(checkPinState(D21),HIGH)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:545: passed:IsEqual(checkPinState(D22),HIGH)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:546: passed:IsEqual(checkPinState(D23),HIGH)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:547: passed:IsEqual(checkPinState(D24),HIGH)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:548: passed:IsEqual(checkPinState(D25),HIGH)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:549: passed:IsEqual(checkPinState(D26),HIGH)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:550: passed:IsEqual(checkPinState(D27),HIGH)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:551: passed:IsEqual(checkPinState(D28),HIGH)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:554: passed:TracepointCoverage(0)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:555: passed:TracepointCoverage(1)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:556: passed:TracepointCoverage(2)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:557: passed:TracepointCoverage(3)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:558: passed:TracepointCoverage(4)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:559: passed:TracepointNonCoverage(5)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:560: passed:TracepointCoverage(6)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:561: passed:TracepointNonCoverage(7)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:562: passed:TracepointCoverage(8)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:563: passed:TracepointNonCoverage(9)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:564: passed:TracepointNonCoverage(10)
+======================================
+Testcase passed.
+======================================
+
+======================================
+checkPinState: Check Input Pin's Low State
+======================================
+../../Output/unity_output/temp/hal_gpio_test_stub.c:581: passed:IsEqual(checkPinState(D0),LOW)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:582: passed:IsEqual(checkPinState(D1),LOW)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:583: passed:IsEqual(checkPinState(D2),LOW)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:584: passed:IsEqual(checkPinState(D3),LOW)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:585: passed:IsEqual(checkPinState(D4),LOW)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:586: passed:IsEqual(checkPinState(D5),LOW)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:587: passed:IsEqual(checkPinState(D6),LOW)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:588: passed:IsEqual(checkPinState(D7),LOW)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:589: passed:IsEqual(checkPinState(D8),LOW)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:590: passed:IsEqual(checkPinState(D9),LOW)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:591: passed:IsEqual(checkPinState(D10),LOW)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:592: passed:IsEqual(checkPinState(D11),LOW)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:593: passed:IsEqual(checkPinState(D12),LOW)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:594: passed:IsEqual(checkPinState(D13),LOW)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:595: passed:IsEqual(checkPinState(D14),LOW)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:596: passed:IsEqual(checkPinState(D15),LOW)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:597: passed:IsEqual(checkPinState(D16),LOW)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:598: passed:IsEqual(checkPinState(D17),LOW)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:599: passed:IsEqual(checkPinState(D18),LOW)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:600: passed:IsEqual(checkPinState(D19),LOW)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:601: passed:IsEqual(checkPinState(D20),LOW)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:602: passed:IsEqual(checkPinState(D21),LOW)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:603: passed:IsEqual(checkPinState(D22),LOW)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:604: passed:IsEqual(checkPinState(D23),LOW)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:605: passed:IsEqual(checkPinState(D24),LOW)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:606: passed:IsEqual(checkPinState(D25),LOW)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:607: passed:IsEqual(checkPinState(D26),LOW)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:608: passed:IsEqual(checkPinState(D27),LOW)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:609: passed:IsEqual(checkPinState(D28),LOW)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:612: passed:TracepointCoverage(0)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:613: passed:TracepointCoverage(1)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:614: passed:TracepointCoverage(2)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:615: passed:TracepointCoverage(3)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:616: passed:TracepointCoverage(4)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:617: passed:TracepointNonCoverage(5)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:618: passed:TracepointCoverage(6)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:619: passed:TracepointNonCoverage(7)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:620: passed:TracepointNonCoverage(8)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:621: passed:TracepointCoverage(9)
+../../Output/unity_output/temp/hal_gpio_test_stub.c:622: passed:TracepointNonCoverage(10)
+======================================
+Testcase passed.
+======================================
+
+**************************************
+Testcases: failed: 0
+           passed: 7
+Checks:    failed: 0
+           passed: 178
+**************************************
+System safe state.

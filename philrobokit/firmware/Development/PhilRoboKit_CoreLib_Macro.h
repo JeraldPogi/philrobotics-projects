@@ -33,7 +33,7 @@
 * |v00.01.04    |20120712   |ESCII              |Modified library include links             |
 * |v00.01.05    |20120713   |ESCII              |Added includes for DataTypes.h             |
 * |v01.00.00    |201210xx   |Giancarlo A.       |Leverage Library to Standard Architecture  |
-* |v01.01.00    |20130514   |ESCII              |Code Formatted								|
+* |v01.01.00    |20130514   |ESCII              |Code Formatted                             |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__

@@ -29,7 +29,7 @@
 * |:----        |:----      |:----              |:----                              |
 * |v00.00.01    |201209xx   |Giancarlo A.       |Library Initial Release            |
 * |v00.01.00    |20130408   |ESC II             |enumerations used instead of defines for configurations |
-* |v01.01.00    |20130514   |ESCII              |Code Formatted						|
+* |v01.01.00    |20130514   |ESCII              |Code Formatted                     |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__

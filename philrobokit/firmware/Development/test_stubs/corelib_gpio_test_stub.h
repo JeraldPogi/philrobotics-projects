@@ -1,31 +1,27 @@
-#ifndef __hal_gpio_test_stub__
-#define __hal_gpio_test_stub__
-
+#ifndef __corelib_gpio_test_stub__
+#define __corelib_gpio_test_stub__
 #include "PhilRoboKit_CoreLib_DataTypes.h"
 #include "System.h"
 #include "uCUnit-v1.0.h"
-#include "hal_gpio.h"
-
+#include "corelib_gpio.h"
 /* mock definitions */
 /* MCU Mock Registers */
 struct bit_field
 {
-    uint8_t Bit0                    :1;
-    uint8_t Bit1                    :1;
-    uint8_t Bit2                    :1;
-    uint8_t Bit3                    :1;
-    uint8_t Bit4                    :1;
-    uint8_t Bit5                    :1;
-    uint8_t Bit6                    :1;
-    uint8_t Bit7                    :1;
+    uint8_t Bit0                   :1;
+    uint8_t Bit1                   :1;
+    uint8_t Bit2                   :1;
+    uint8_t Bit3                   :1;
+    uint8_t Bit4                   :1;
+    uint8_t Bit5                   :1;
+    uint8_t Bit6                   :1;
+    uint8_t Bit7                   :1;
 };
-
 union MCU_MockReg
 {
-    uint8_t                         Reg;
-    struct bit_field                Byte;
+    uint8_t                        Reg;
+    struct bit_field               Byte;
 };
-
 /* Controller Configurations */
 #define __MCU_PIC16__               (0)
 #define __MCU_PIC18__               (1)
@@ -87,16 +83,65 @@ extern  union MCU_MockReg           PORTD;
 extern  union MCU_MockReg           PORTE;
 #define REGISTER_PORTE              (PORTE.Reg)
 
+/* Port Value and Direction Defaults (from hal_gpio.h) */
+/* Port A */
+#if (__PHR_CONTROLLER__==__MCU_PIC18__)
+#define PORTA_OUT                       REGISTER_LATA
+#else
+#define PORTA_OUT                       REGISTER_PORTA
+#endif
+#define PORTA_VAL                       REGISTER_PORTA
+#define PORTA_DIR                       REGISTER_TRISA
+
+/* Port B */
+#if (__PHR_CONTROLLER__==__MCU_PIC18__)
+#define PORTB_OUT                       REGISTER_LATB
+#else
+#define PORTB_OUT                       REGISTER_PORTB
+#endif
+#define PORTB_VAL                       REGISTER_PORTB
+#define PORTB_DIR                       REGISTER_TRISB
+
+/* Port C */
+#if (__PHR_CONTROLLER__==__MCU_PIC18__)
+#define PORTC_OUT                       REGISTER_LATC
+#else
+#define PORTC_OUT                       REGISTER_PORTC
+#endif
+#define PORTC_VAL                       REGISTER_PORTC
+#define PORTC_DIR                       REGISTER_TRISC
+
+/* Port D */
+#if (__PHR_CONTROLLER__==__MCU_PIC18__)
+#define PORTD_OUT                       REGISTER_LATD
+#else
+#define PORTD_OUT                       REGISTER_PORTD
+#endif
+#define PORTD_VAL                       REGISTER_PORTD
+#define PORTD_DIR                       REGISTER_TRISD
+
+/* Port E */
+#if (__PHR_CONTROLLER__==__MCU_PIC18__)
+#define PORTE_OUT                       REGISTER_LATE
+#else
+#define PORTE_OUT                       REGISTER_PORTE
+#endif
+#define PORTE_VAL                       REGISTER_PORTE
+#define PORTE_DIR                       REGISTER_TRISE
+
 /* mock functions and macro */
 void callMockFunction(void);
 void setMockFunctionReturnValue(int* reg, int value);
 int getMockFunctionReturn(int* reg);
-
 /* mock functions without return */
 //#define [function_name]()         callMockFunction()
 /* mock functions with return and input parameters */
 //extern int [function_name]_return;
 //extern int [function_name]_param1;
 //#define [function_name](param)        ([function_name]_param1 = param)
+
+void configPin(uint8_t ui8Pin, uint8_t ui8Direction);
+void changePinState(uint8_t ui8Pin, enum PinStateOperation_et eOperation);
+bool_t checkPinState(uint8_t ui8Pin);
 
 #endif

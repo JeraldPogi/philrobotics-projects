@@ -71,9 +71,8 @@ void configPin(uint8_t ui8Pin, uint8_t ui8Direction)
     if(ui8Pin <= 7)
     {
         pui8PortDirReg = (uint8_t*)&PORTC_DIR;
-
 #ifdef UNIT_TEST
-UCUNIT_Tracepoint(0);
+        UCUNIT_Tracepoint(0);
 #endif
     }
     /* Port B */
@@ -81,9 +80,8 @@ UCUNIT_Tracepoint(0);
     {
         ui8Pin -= 8;
         pui8PortDirReg = (uint8_t*)&PORTB_DIR;
-
 #ifdef UNIT_TEST
-UCUNIT_Tracepoint(1);
+        UCUNIT_Tracepoint(1);
 #endif
     }
     /* Port A and E */
@@ -95,9 +93,8 @@ UCUNIT_Tracepoint(1);
         if(ui8Pin <= 2)
         {
             pui8PortDirReg = (uint8_t*)&PORTA_DIR;
-
 #ifdef UNIT_TEST
-UCUNIT_Tracepoint(2);
+            UCUNIT_Tracepoint(2);
 #endif
         }
         /* RA5 */
@@ -105,9 +102,8 @@ UCUNIT_Tracepoint(2);
         {
             ui8Pin += 2;
             pui8PortDirReg = (uint8_t*)&PORTA_DIR;
-
 #ifdef UNIT_TEST
-UCUNIT_Tracepoint(3);
+            UCUNIT_Tracepoint(3);
 #endif
         }
         /* RE0 to RE2 */
@@ -115,17 +111,16 @@ UCUNIT_Tracepoint(3);
         {
             ui8Pin -= 4;
             pui8PortDirReg = (uint8_t*)&PORTE_DIR;
-
 #ifdef UNIT_TEST
-UCUNIT_Tracepoint(4);
+            UCUNIT_Tracepoint(4);
 #endif
         }
         else
         {
-        	/* assert(); */                        			// must not be reached
 #ifdef UNIT_TEST
-UCUNIT_Tracepoint(5);                               		// must not be reached
+            UCUNIT_Tracepoint(5);                                       // must not be reached
 #endif
+            /* assert(); */                                 // must not be reached
         }
     }
     /* Port D */
@@ -133,17 +128,16 @@ UCUNIT_Tracepoint(5);                               		// must not be reached
     {
         ui8Pin -= 21;
         pui8PortDirReg = (uint8_t*)&PORTD_DIR;
-
 #ifdef UNIT_TEST
-UCUNIT_Tracepoint(6);
+        UCUNIT_Tracepoint(6);
 #endif
     }
     else
     {
-        /* assert(); */                                 	// must not be reached
 #ifdef UNIT_TEST
-UCUNIT_Tracepoint(7);
+        UCUNIT_Tracepoint(7);
 #endif
+        /* assert(); */                                     // must not be reached
     }
 
     /* Set Pin Direction */
@@ -152,19 +146,24 @@ UCUNIT_Tracepoint(7);
         if(INPUT == ui8Direction)
         {
             *pui8PortDirReg |= (1<<ui8Pin);                 // set as input
-
 #ifdef UNIT_TEST
-UCUNIT_Tracepoint(8);
+            UCUNIT_Tracepoint(8);
 #endif
         }
         else
         {
             *pui8PortDirReg &= ~(1<<ui8Pin);                // set as output
-
 #ifdef UNIT_TEST
-UCUNIT_Tracepoint(9);
+            UCUNIT_Tracepoint(9);
 #endif
         }
+    }
+    else
+    {
+#ifdef UNIT_TEST
+        UCUNIT_Tracepoint(10);                                      // must not be reached
+#endif
+        /* assert(); */                                     // null pointer
     }
 }
 
@@ -194,9 +193,8 @@ void changePinState(uint8_t ui8Pin, enum PinStateOperation_et eOperation)
     if(ui8Pin <= 7)
     {
         pui8PortReg = (uint8_t*)&PORTC_OUT;
-
 #ifdef UNIT_TEST
-UCUNIT_Tracepoint(0);
+        UCUNIT_Tracepoint(0);
 #endif
     }
     /* Port B */
@@ -204,9 +202,8 @@ UCUNIT_Tracepoint(0);
     {
         ui8Pin -= 8;
         pui8PortReg = (uint8_t*)&PORTB_OUT;
-
 #ifdef UNIT_TEST
-UCUNIT_Tracepoint(1);
+        UCUNIT_Tracepoint(1);
 #endif
     }
     /* Port A and E */
@@ -218,9 +215,8 @@ UCUNIT_Tracepoint(1);
         if(ui8Pin <= 2)
         {
             pui8PortReg = (uint8_t*)&PORTA_OUT;
-
 #ifdef UNIT_TEST
-UCUNIT_Tracepoint(2);
+            UCUNIT_Tracepoint(2);
 #endif
         }
         /* RA5 */
@@ -228,9 +224,8 @@ UCUNIT_Tracepoint(2);
         {
             ui8Pin += 2;
             pui8PortReg = (uint8_t*)&PORTA_OUT;
-
 #ifdef UNIT_TEST
-UCUNIT_Tracepoint(3);
+            UCUNIT_Tracepoint(3);
 #endif
         }
         /* RE0 to RE2 */
@@ -238,17 +233,16 @@ UCUNIT_Tracepoint(3);
         {
             ui8Pin -= 4;
             pui8PortReg = (uint8_t*)&PORTE_OUT;
-
 #ifdef UNIT_TEST
-UCUNIT_Tracepoint(4);
+            UCUNIT_Tracepoint(4);
 #endif
         }
         else
         {
-
 #ifdef UNIT_TEST
-UCUNIT_Tracepoint(5);									// must not be reached
+            UCUNIT_Tracepoint(5);                                   // must not be reached
 #endif
+            /* assert(); */                             // must not be reached
         }
     }
     /* Port D */
@@ -256,18 +250,16 @@ UCUNIT_Tracepoint(5);									// must not be reached
     {
         ui8Pin -= 21;
         pui8PortReg = (uint8_t*)&PORTD_OUT;
-
 #ifdef UNIT_TEST
-UCUNIT_Tracepoint(6);
+        UCUNIT_Tracepoint(6);
 #endif
     }
     else
     {
-        /* assert(); */                                 // must not be reached
-
 #ifdef UNIT_TEST
-UCUNIT_Tracepoint(7);									// must not be reached
+        UCUNIT_Tracepoint(7);                                   // must not be reached
 #endif
+        /* assert(); */                                 // must not be reached
     }
 
     /* Set Pin Direction */
@@ -276,27 +268,31 @@ UCUNIT_Tracepoint(7);									// must not be reached
         if(SET_PIN == eOperation)
         {
             *pui8PortReg |= (1<<ui8Pin);                // set pin
-
 #ifdef UNIT_TEST
-UCUNIT_Tracepoint(8);
+            UCUNIT_Tracepoint(8);
 #endif
         }
         else if(CLR_PIN == eOperation)
         {
             *pui8PortReg &= ~(1<<ui8Pin);               // clear pin
-
 #ifdef UNIT_TEST
-UCUNIT_Tracepoint(9);
+            UCUNIT_Tracepoint(9);
 #endif
         }
         else
         {
             *pui8PortReg ^= (1<<ui8Pin);                // toggle pin
-
 #ifdef UNIT_TEST
-UCUNIT_Tracepoint(10);
+            UCUNIT_Tracepoint(10);
 #endif
         }
+    }
+    else
+    {
+#ifdef UNIT_TEST
+        UCUNIT_Tracepoint(11);                                  // must not be reached
+#endif
+        /* assert(); */                                 // null pointer
     }
 }
 
@@ -325,12 +321,18 @@ bool_t checkPinState(uint8_t ui8Pin)
     if(ui8Pin <= 7)
     {
         pui8PortReg = (uint8_t*)&PORTC_VAL;
+#ifdef UNIT_TEST
+        UCUNIT_Tracepoint(0);
+#endif
     }
     /* Port B */
     else if(ui8Pin <= 13)
     {
         ui8Pin -= 8;
         pui8PortReg = (uint8_t*)&PORTB_VAL;
+#ifdef UNIT_TEST
+        UCUNIT_Tracepoint(1);
+#endif
     }
     /* Port A and E */
     else if(ui8Pin <= 20)
@@ -341,18 +343,34 @@ bool_t checkPinState(uint8_t ui8Pin)
         if(ui8Pin <= 2)
         {
             pui8PortReg = (uint8_t*)&PORTA_VAL;
+#ifdef UNIT_TEST
+            UCUNIT_Tracepoint(2);
+#endif
         }
         /* RA5 */
         else if(ui8Pin == 3)
         {
             ui8Pin += 2;
             pui8PortReg = (uint8_t*)&PORTA_VAL;
+#ifdef UNIT_TEST
+            UCUNIT_Tracepoint(3);
+#endif
         }
         /* RE0 to RE2 */
         else if(ui8Pin <= 6)
         {
             ui8Pin -= 4;
             pui8PortReg = (uint8_t*)&PORTE_VAL;
+#ifdef UNIT_TEST
+            UCUNIT_Tracepoint(4);
+#endif
+        }
+        else
+        {
+#ifdef UNIT_TEST
+            UCUNIT_Tracepoint(5);                                       // must not be reached
+#endif
+            /* assert(); */                                 // must not be reached
         }
     }
     /* Port D */
@@ -360,9 +378,15 @@ bool_t checkPinState(uint8_t ui8Pin)
     {
         ui8Pin -= 21;
         pui8PortReg = (uint8_t*)&PORTD_VAL;
+#ifdef UNIT_TEST
+        UCUNIT_Tracepoint(6);
+#endif
     }
     else
     {
+#ifdef UNIT_TEST
+        UCUNIT_Tracepoint(7);                                       // must not be reached
+#endif
         /* assert(); */                                     // must not be reached
     }
 
@@ -374,15 +398,24 @@ bool_t checkPinState(uint8_t ui8Pin)
 
         if(ui8PinMask == ui8PinStatus)
         {
+#ifdef UNIT_TEST
+            UCUNIT_Tracepoint(8);
+#endif
             return HIGH;
         }
         else
         {
+#ifdef UNIT_TEST
+            UCUNIT_Tracepoint(9);
+#endif
             return LOW;
         }
     }
     else
     {
+#ifdef UNIT_TEST
+        UCUNIT_Tracepoint(10);                                      // must not be reached
+#endif
         /* assert(); */
         return LOW;                                         // must not be reached
     }

@@ -29,7 +29,7 @@
 * |:----        |:----      |:----              |:----                              |
 * |v00.00.01    |20120620   |ESCII              |Library Initial Release            |
 * |v00.01.00    |20130205   |ESCII              |Modified For Layered Architecture  |
-* |v00.02.00    |20130514   |ESCII              |Code Formatted						|
+* |v00.02.00    |20130514   |ESCII              |Code Formatted                     |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__

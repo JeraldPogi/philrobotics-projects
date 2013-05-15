@@ -31,7 +31,7 @@
 * |v00.01.01    |20120711   |ESCII              |Added defines for PWM and Timers   |
 * |v00.01.02    |20130307   |ESCII              |Added macro for enabling and disabling global interrupts |
 * |v00.01.03    |20130320   |ESCII              |Added definitions for TMR0 registers, delay macro moved here |
-* |v00.02.00    |20130514   |ESCII              |Code Formatted						|
+* |v00.02.00    |20130514   |ESCII              |Code Formatted                     |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__

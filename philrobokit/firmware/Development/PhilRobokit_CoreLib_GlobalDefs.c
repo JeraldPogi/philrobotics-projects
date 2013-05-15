@@ -29,7 +29,7 @@
 * |:----        |:----      |:----              |:----                              |
 * |v00.00.01    |20120713   |ESCII              |Library Initial Release            |
 * |v00.00.02    |20130508   |ESCII              |Fixed Mutex Locking on inc timer counters|
-* |v00.01.00    |20130514   |ESCII              |Code Formated						|
+* |v00.01.00    |20130514   |ESCII              |Code Formated                      |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__

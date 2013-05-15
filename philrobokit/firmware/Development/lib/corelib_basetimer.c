@@ -29,7 +29,7 @@
 * |:----        |:----      |:----              |:----                                      |
 * |v00.00.01    |201211xx   |Giancarlo A.       |Library Initial Release                    |
 * |v01.00.01    |20130321   |ESC II             |Modified uS time computation to use TMR0   |
-* |v01.01.00    |20130514   |ESCII              |Code Formatted								|
+* |v01.01.00    |20130514   |ESCII              |Code Formatted                             |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__

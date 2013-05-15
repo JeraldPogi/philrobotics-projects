@@ -32,7 +32,7 @@
 * |v00.00.03    |20120708   |ESCII              |Modified delayUs and delayMs to disable timer 1 peripheral |
 * |v01.00.00    |201209xx   |Giancarlo A.       |Leverage Library to Standard Architecture                  |
 * |v01.00.01    |20130321   |ESC II             |Moved delay macro to compiler specific header              |
-* |v01.01.00    |20130514   |ESCII              |Code Formatted, Fixed SPLINT warning						|
+* |v01.01.00    |20130514   |ESCII              |Code Formatted, Fixed SPLINT warning                       |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
