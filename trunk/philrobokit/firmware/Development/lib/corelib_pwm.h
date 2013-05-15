@@ -25,9 +25,9 @@
 * > along with this program. If not, see http://www.gnu.org/licenses/
 * <BR>
 *---------------------------------------------------------------------------------------------
-* |FW Version   |Date       |Author             |Description                		|
-* |:----        |:----      |:----              |:----                      		|
-* |v00.00.01    |20120710   |ESCII              |Library Initial Release    		|
+* |FW Version   |Date       |Author             |Description                        |
+* |:----        |:----      |:----              |:----                              |
+* |v00.00.01    |20120710   |ESCII              |Library Initial Release            |
 * |v00.01.00    |20130205   |ESCII              |Modified For Layered Architecture  |
 * |v00.02.00    |20130514   |ESCII              |Code Formatted, included unit test stub|
 *********************************************************************************************/

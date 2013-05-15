@@ -1,0 +1,38 @@
+Init of hardware finished.
+
+**********************************************************************
+Name:     -corelib_gpio- Module Testing
+Compiled: May 15 2013
+Time:     12:35:49
+Version:  v1.0
+**********************************************************************
+======================================
+setupGpio: Test GPIO Initialization
+======================================
+../../Output/unity_output/temp/corelib_gpio_test_stub.c:152: passed:IsEqual((REGISTER_TRISA&0x27),0x27)
+../../Output/unity_output/temp/corelib_gpio_test_stub.c:153: passed:IsEqual((REGISTER_TRISE&0x07),0x07)
+../../Output/unity_output/temp/corelib_gpio_test_stub.c:156: passed:IsEqual((REGISTER_TRISD&0x0C),0x0C)
+../../Output/unity_output/temp/corelib_gpio_test_stub.c:159: passed:IsEqual((REGISTER_TRISD&0xF0),0x00)
+../../Output/unity_output/temp/corelib_gpio_test_stub.c:160: passed:IsEqual((REGISTER_PORTD&0xF0),0x00)
+../../Output/unity_output/temp/corelib_gpio_test_stub.c:163: passed:IsEqual((REGISTER_TRISD&0x02),0x00)
+../../Output/unity_output/temp/corelib_gpio_test_stub.c:164: passed:IsEqual((REGISTER_PORTD&0x02),0x00)
+../../Output/unity_output/temp/corelib_gpio_test_stub.c:167: passed:IsEqual((REGISTER_TRISD&0x01),0x00)
+../../Output/unity_output/temp/corelib_gpio_test_stub.c:168: passed:IsEqual((REGISTER_PORTD&0x01),0x00)
+../../Output/unity_output/temp/corelib_gpio_test_stub.c:171: passed:IsEqual((REGISTER_TRISC&0x80),0x80)
+../../Output/unity_output/temp/corelib_gpio_test_stub.c:174: passed:IsEqual((REGISTER_TRISC&0x40),0x00)
+../../Output/unity_output/temp/corelib_gpio_test_stub.c:175: passed:IsEqual((REGISTER_PORTC&0x40),0x40)
+../../Output/unity_output/temp/corelib_gpio_test_stub.c:178: passed:IsEqual(REGISTER_TRISB,0x00)
+../../Output/unity_output/temp/corelib_gpio_test_stub.c:179: passed:IsEqual(REGISTER_PORTB,0x00)
+../../Output/unity_output/temp/corelib_gpio_test_stub.c:181: passed:IsEqual((REGISTER_TRISC&0x3F),0x00)
+../../Output/unity_output/temp/corelib_gpio_test_stub.c:182: passed:IsEqual((REGISTER_PORTC&0x3F),0x00)
+======================================
+Testcase passed.
+======================================
+
+**************************************
+Testcases: failed: 0
+           passed: 1
+Checks:    failed: 0
+           passed: 16
+**************************************
+System safe state.

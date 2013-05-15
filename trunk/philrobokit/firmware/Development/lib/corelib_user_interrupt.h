@@ -48,7 +48,7 @@
 #include "corelib_user_interrupt_test_stub.h"
 #else
 #include <PhilRoboKit_CoreLib_Macro.h>
-#include "hal_user_interrupt.h">
+#include "hal_user_interrupt.h"
 #endif
 
 /* User Configuration Definitions */
