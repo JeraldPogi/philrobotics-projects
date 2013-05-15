@@ -7,7 +7,7 @@
 * |Filename:      | "corelib_uart.c"                            |
 * |:----          |:----                                        |
 * |Description:   | This is a library for using the serial/uart functions |
-* |Revision:      | v01.01.00                                   |
+* |Revision:      | v01.01.01                                   |
 * |Author:        | Giancarlo Acelajado                         |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -32,6 +32,7 @@
 * |v01.00.00    |201210xx   |Giancarlo A.       |Leverage Library to Standard Architecture|
 * |v01.00.01    |20130228   |ESCII              |Separated module to HAL and Corelib|
 * |v01.01.00    |20130514   |ESCII              |Code Formatted                     |
+* |v01.01.01    |20130515   |ESCII              |Fixed SPLINT errors                |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -367,6 +368,7 @@ void serialTxISR(void)
 * >     bool_t status - returns the status of the buffer content
 * > <BR><BR>
 ***********************************************************************************/
+/*@unused@*/
 static bool_t isSerialBufferFull(void)
 {
 #if 0 //defined STACK_TEST
@@ -397,6 +399,7 @@ static bool_t isSerialBufferFull(void)
 * >     bool_t status - returns the status of the available data
 * > <BR><BR>
 ***********************************************************************************/
+/*@unused@*/
 static bool_t isSerialDataAvailable(void)
 {
     /* esc.comment: move to HAL */
@@ -404,7 +407,7 @@ static bool_t isSerialDataAvailable(void)
     {
         BIT_RCSTA_CREN = 0;     // Restart Continuous Reception
         BIT_RCSTA_CREN = 1;
-        return 0;
+        return FALSE;
     }
 
     return (stUARTRXFiFo.ui8Head != stUARTRXFiFo.ui8Tail);

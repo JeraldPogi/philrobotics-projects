@@ -58,11 +58,11 @@
 /* Interrupts Sources */
 enum InterruptSources_et
 {
-    INTR0,                                       // INT0 - D8: External Interrupt (RB0)
-    INTR1,                                       // INT1 - D12: Interrupt on Pin Change (RB4)
-    INTR2,                                       // INT2 - D13: Interrupt on Pin Change (RB5)
-    INTR3,                                       // INT3 - PGC: Interrupt on Pin Change (RB6)
-    INTR4                                        // INT4 - PGD: Interrupt on Pin Change (RB7)
+    INTR0,                                          // INT0 - D8: External Interrupt (RB0)
+    INTR1,                                          // INT1 - D12: Interrupt on Pin Change (RB4)
+    INTR2,                                          // INT2 - D13: Interrupt on Pin Change (RB5)
+    INTR3,                                          // INT3 - PGC: Interrupt on Pin Change (RB6)
+    INTR4                                           // INT4 - PGD: Interrupt on Pin Change (RB7)
 };
 
 /* Macro and Configuration Definitions */

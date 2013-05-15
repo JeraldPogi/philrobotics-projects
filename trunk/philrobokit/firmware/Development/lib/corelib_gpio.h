@@ -7,7 +7,7 @@
 * |Filename:      | "corelib_gpio.h"                            |
 * |:----          |:----                                        |
 * |Description:   | General Purpose Input/Output Hardware Abstraction Layer Header File for PIC |
-* |Revision:      | v01.01.00                                   |
+* |Revision:      | v01.01.01                                   |
 * |Author:        | Giancarlo Acelajado                         |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -30,6 +30,7 @@
 * |v01.00.00    |201209xx   |Giancarlo A.       |Leverage Library to Standard Architecture|
 * |v01.00.01    |20130405   |ESCII              |Separated module to HAL and Corelib|
 * |v01.01.00    |20130514   |ESCII              |Code Formatted, Fixed SPLINT warning, included unit test stub|
+* |v01.01.01    |20130515   |ESCII              |Performed unit testing, AN7 initialized as input, UART TX as HIGH, Hex notation used(for SPLINT)|
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -54,39 +55,20 @@
 #define PORTE_ACTIVE
 
 /* Pin Default Values and Direction */
-#ifndef S_SPLINT_S                      // Suppress SPLint Parse Errors
-/* esc.comment: not ANSI C Compliant, change to hex notation */
-#define PORTA_DIR_DEF                   (0b00011111)
-#define PORTA_OUT_DEF                   (0b00011111)
+#define PORTA_DIR_DEF                   0x3F        //(0b00111111)
+#define PORTA_OUT_DEF                   0x3F        //(0b00111111)
 
-#define PORTB_DIR_DEF                   (0b00000000)
-#define PORTB_OUT_DEF                   (0b00000000)
+#define PORTB_DIR_DEF                   0x00        //(0b00000000)
+#define PORTB_OUT_DEF                   0x00        //(0b00000000)
 
-#define PORTC_DIR_DEF                   (0b10000000)
-#define PORTC_OUT_DEF                   (0b10000000)
+#define PORTC_DIR_DEF                   0x80        //(0b10000000)
+#define PORTC_OUT_DEF                   0xC0        //(0b11000000)
 
-#define PORTD_DIR_DEF                   (0b00001100)
-#define PORTD_OUT_DEF                   (0b00001100)
+#define PORTD_DIR_DEF                   0x0C        //(0b00001100)
+#define PORTD_OUT_DEF                   0x0C        //(0b00001100)
 
-#define PORTE_DIR_DEF                   (0b00000111)
-#define PORTE_OUT_DEF                   (0b00000111)
-
-#else
-#define PORTA_DIR_DEF                   (0)
-#define PORTA_OUT_DEF                   (0)
-
-#define PORTB_DIR_DEF                   (0)
-#define PORTB_OUT_DEF                   (0)
-
-#define PORTC_DIR_DEF                   (0)
-#define PORTC_OUT_DEF                   (0)
-
-#define PORTD_DIR_DEF                   (0)
-#define PORTD_OUT_DEF                   (0)
-
-#define PORTE_DIR_DEF                   (0)
-#define PORTE_OUT_DEF                   (0)
-#endif
+#define PORTE_DIR_DEF                   0x07        //(0b00000111)
+#define PORTE_OUT_DEF                   0x07        //(0b00000111)
 
 /* Global Constants */
 /* none */

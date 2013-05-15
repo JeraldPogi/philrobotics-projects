@@ -147,29 +147,29 @@ static TEST_setupGpio(void)
     /* Perform Module Test */
     setupGpio();                                                // call function to be tested
     /* Check ADC are set as inputs */
-    UCUNIT_CheckIsEqual((REGISTER_TRISA&0x27), 0x27);
-    UCUNIT_CheckIsEqual((REGISTER_TRISE&0x07), 0x07);
+    UCUNIT_CheckIsEqual(0x27, (REGISTER_TRISA&0x27));
+    UCUNIT_CheckIsEqual(0x07, (REGISTER_TRISE&0x07));
     /* Check SW1 to SW4 are configured as inputs */
-    UCUNIT_CheckIsEqual((REGISTER_TRISD&0x0C), 0x0C);           // RD2 - RD3
+    UCUNIT_CheckIsEqual(0x0C, (REGISTER_TRISD&0x0C));           // RD2 - RD3
     /* Check LED1 to LED4 are configured as outputs */
-    UCUNIT_CheckIsEqual((REGISTER_TRISD&0xF0), 0x00);           // RD4 - RD7
-    UCUNIT_CheckIsEqual((REGISTER_PORTD&0xF0), 0x00);           // RD4 - RD7
+    UCUNIT_CheckIsEqual(0x00, (REGISTER_TRISD&0xF0));           // RD4 - RD7
+    UCUNIT_CheckIsEqual(0x00, (REGISTER_PORTD&0xF0));           // RD4 - RD7
     /* Check Buzzer is configured as output */
-    UCUNIT_CheckIsEqual((REGISTER_TRISD&0x02), 0x00);           // RD1
-    UCUNIT_CheckIsEqual((REGISTER_PORTD&0x02), 0x00);           // RD1
+    UCUNIT_CheckIsEqual(0x00, (REGISTER_TRISD&0x02));           // RD1
+    UCUNIT_CheckIsEqual(0x00, (REGISTER_PORTD&0x02));           // RD1
     /* Check Servo Port is configured as output */
-    UCUNIT_CheckIsEqual((REGISTER_TRISD&0x01), 0x00);           // RD0
-    UCUNIT_CheckIsEqual((REGISTER_PORTD&0x01), 0x00);           // RD0
+    UCUNIT_CheckIsEqual(0x00, (REGISTER_TRISD&0x01));           // RD0
+    UCUNIT_CheckIsEqual(0x00, (REGISTER_PORTD&0x01));           // RD0
     /* Check UART RX is input */
-    UCUNIT_CheckIsEqual((REGISTER_TRISC&0x80), 0x80);           // RC7
+    UCUNIT_CheckIsEqual(0x80, (REGISTER_TRISC&0x80));           // RC7
     /* Check UART TX is output */
-    UCUNIT_CheckIsEqual((REGISTER_TRISC&0x40), 0x00);           // RC6
-    UCUNIT_CheckIsEqual((REGISTER_PORTC&0x40), 0x40);           // RC6
+    UCUNIT_CheckIsEqual(0x00, (REGISTER_TRISC&0x40));           // RC6
+    UCUNIT_CheckIsEqual(0x40, (REGISTER_PORTC&0x40));           // RC6
     /* Check if the rest are configured as outputs */
-    UCUNIT_CheckIsEqual(REGISTER_TRISB, 0x00);
-    UCUNIT_CheckIsEqual(REGISTER_PORTB, 0x00);
-    UCUNIT_CheckIsEqual((REGISTER_TRISC&0x3F), 0x00);
-    UCUNIT_CheckIsEqual((REGISTER_PORTC&0x3F), 0x00);
+    UCUNIT_CheckIsEqual(0x00, REGISTER_TRISB);
+    UCUNIT_CheckIsEqual(0x00, REGISTER_PORTB);
+    UCUNIT_CheckIsEqual(0x00, (REGISTER_TRISC&0x3F));
+    UCUNIT_CheckIsEqual(0x00, (REGISTER_PORTC&0x3F));
     /* End Module Test */
     UCUNIT_TestcaseEnd();
 }

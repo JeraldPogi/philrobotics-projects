@@ -7,7 +7,7 @@
 * |Filename:      | "PhilRoboKit_CoreLib_GlobalDefs.c"          |
 * |:----          |:----                                        |
 * |Description:   | Global Variable Definitions                 |
-* |Revision:      | v00.01.00                                   |
+* |Revision:      | v00.01.01                                   |
 * |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -30,6 +30,7 @@
 * |v00.00.01    |20120713   |ESCII              |Library Initial Release            |
 * |v00.00.02    |20130508   |ESCII              |Fixed Mutex Locking on inc timer counters|
 * |v00.01.00    |20130514   |ESCII              |Code Formated                      |
+* |v00.01.01    |20130515   |ESCII              |Fixed SPLINT Warning               |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -65,7 +66,9 @@ void set_gblInitialized_FlagValue(void)
 
 bool_t get_gblInitialized_FlagValue(void)
 {
-    return gblInitialized;
+    bool_t blTemp;
+    blTemp = gblInitialized;
+    return blTemp;
 }
 
 /* Microseconds */
