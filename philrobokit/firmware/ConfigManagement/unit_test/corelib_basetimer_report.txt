@@ -1,0 +1,83 @@
+Init of hardware finished.
+
+**********************************************************************
+Name:     -corelib_basetimer- Module Testing
+Compiled: May 17 2013
+Time:     13:52:43
+Version:  v1.0
+**********************************************************************
+======================================
+getUs: Test when Mutex is locked by ISR (function is called inside ISR)
+======================================
+../../Output/unity_output/temp/corelib_basetimer_test_stub.c:61: passed:IsEqual(TEST_US_TMR_VALUE,getUs())
+../../Output/unity_output/temp/corelib_basetimer_test_stub.c:63: passed:TracepointCoverage(0)
+../../Output/unity_output/temp/corelib_basetimer_test_stub.c:64: passed:TracepointNonCoverage(1)
+../../Output/unity_output/temp/corelib_basetimer_test_stub.c:65: passed:TracepointNonCoverage(2)
+======================================
+Testcase passed.
+======================================
+
+======================================
+getUs: Test Disabling and Enabling of Interrupt
+======================================
+../../Output/unity_output/temp/corelib_basetimer_test_stub.c:74: passed:IsEqual(TEST_US_TMR_VALUE,getUs())
+../../Output/unity_output/temp/corelib_basetimer_test_stub.c:76: passed:TracepointNonCoverage(0)
+../../Output/unity_output/temp/corelib_basetimer_test_stub.c:77: passed:TracepointCoverage(1)
+../../Output/unity_output/temp/corelib_basetimer_test_stub.c:78: passed:TracepointCoverage(2)
+======================================
+Testcase passed.
+======================================
+
+======================================
+getElapsedUs: Test Elapsed Time @20Mhz with 
+======================================
+4../../Output/unity_output/temp/corelib_basetimer_test_stub.c:98: passed:IsEqual(4,getElapsedUs(ui16Timer))
+1000../../Output/unity_output/temp/corelib_basetimer_test_stub.c:101: passed:IsEqual(1000,getElapsedUs(ui16Timer))
+../../Output/unity_output/temp/corelib_basetimer_test_stub.c:103: passed:TracepointNonCoverage(0)
+../../Output/unity_output/temp/corelib_basetimer_test_stub.c:104: passed:TracepointCoverage(1)
+../../Output/unity_output/temp/corelib_basetimer_test_stub.c:105: passed:TracepointCoverage(2)
+======================================
+Testcase passed.
+======================================
+
+======================================
+getMs: Test when Mutex is locked by ISR (function is called inside ISR)
+======================================
+../../Output/unity_output/temp/corelib_basetimer_test_stub.c:119: passed:IsEqual(TEST_MS_TMR_VALUE,getMs())
+../../Output/unity_output/temp/corelib_basetimer_test_stub.c:121: passed:TracepointCoverage(0)
+../../Output/unity_output/temp/corelib_basetimer_test_stub.c:122: passed:TracepointNonCoverage(1)
+../../Output/unity_output/temp/corelib_basetimer_test_stub.c:123: passed:TracepointNonCoverage(2)
+======================================
+Testcase passed.
+======================================
+
+======================================
+getMs: Test Disabling and Enabling of Interrupt
+======================================
+../../Output/unity_output/temp/corelib_basetimer_test_stub.c:132: passed:IsEqual(TEST_MS_TMR_VALUE,getMs())
+../../Output/unity_output/temp/corelib_basetimer_test_stub.c:134: passed:TracepointNonCoverage(0)
+../../Output/unity_output/temp/corelib_basetimer_test_stub.c:135: passed:TracepointCoverage(1)
+../../Output/unity_output/temp/corelib_basetimer_test_stub.c:136: passed:TracepointCoverage(2)
+======================================
+Testcase passed.
+======================================
+
+======================================
+getElapsedMs: Test Elapsed Time @20Mhz with 1mS per increment
+======================================
+4../../Output/unity_output/temp/corelib_basetimer_test_stub.c:156: passed:IsEqual(4,getElapsedMs(ui16Timer))
+1000../../Output/unity_output/temp/corelib_basetimer_test_stub.c:159: passed:IsEqual(1000,getElapsedMs(ui16Timer))
+../../Output/unity_output/temp/corelib_basetimer_test_stub.c:161: passed:TracepointNonCoverage(0)
+../../Output/unity_output/temp/corelib_basetimer_test_stub.c:162: passed:TracepointCoverage(1)
+../../Output/unity_output/temp/corelib_basetimer_test_stub.c:163: passed:TracepointCoverage(2)
+======================================
+Testcase passed.
+======================================
+
+**************************************
+Testcases: failed: 0
+           passed: 6
+Checks:    failed: 0
+           passed: 26
+**************************************
+System safe state.

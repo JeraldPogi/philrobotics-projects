@@ -7,7 +7,7 @@
 * |Filename:      | "corelib_basetimer.c"                       |
 * |:----          |:----                                        |
 * |Description:   | Anito Base Timer Application                |
-* |Revision:      | v01.01.00                                   |
+* |Revision:      | v01.01.01                                   |
 * |Author:        | Giancarlo Acelajado                         |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -30,6 +30,7 @@
 * |v00.00.01    |201211xx   |Giancarlo A.       |Library Initial Release                    |
 * |v01.00.01    |20130321   |ESC II             |Modified uS time computation to use TMR0   |
 * |v01.01.00    |20130514   |ESCII              |Code Formatted                             |
+* |v01.01.01    |20130517   |ESCII              |Tracepoints added for unit testing         |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -73,10 +74,16 @@ uint16_t getUs(void)
     if(false == getGlobalIntEnableStatus())             // mutex locked by interrupt
     {
         blGlobalEnLocked = true;
+#ifdef UNIT_TEST
+        UCUNIT_Tracepoint(0);
+#endif
     }
     else
     {
         disableGlobalInt();
+#ifdef UNIT_TEST
+        UCUNIT_Tracepoint(1);
+#endif
     }
 
     ui16TempBuff = hal_getBaseTimerValue();
@@ -84,6 +91,9 @@ uint16_t getUs(void)
     if(false == blGlobalEnLocked)
     {
         enableGlobalInt();
+#ifdef UNIT_TEST
+        UCUNIT_Tracepoint(2);
+#endif
     }
 
     return ui16TempBuff;
@@ -114,10 +124,16 @@ uint16_t getElapsedUs(uint16_t ui16TimeUs)
     if(false == getGlobalIntEnableStatus())             // mutex locked by interrupt
     {
         blGlobalEnLocked = true;
+#ifdef UNIT_TEST
+        UCUNIT_Tracepoint(0);
+#endif
     }
     else
     {
         disableGlobalInt();
+#ifdef UNIT_TEST
+        UCUNIT_Tracepoint(1);
+#endif
     }
 
     ui16TempBuff = hal_getBaseTimerValue() - ui16TimeUs;// delta
@@ -125,6 +141,9 @@ uint16_t getElapsedUs(uint16_t ui16TimeUs)
     if(false == blGlobalEnLocked)
     {
         enableGlobalInt();
+#ifdef UNIT_TEST
+        UCUNIT_Tracepoint(2);
+#endif
     }
 
 #if (_XTAL_FREQ == 20000000)                            // 20Mhz normalization: timer interrupt slowed a little bit for slow clock so interrupt is less frequent
@@ -160,10 +179,16 @@ uint16_t getMs(void)
     if(false == getGlobalIntEnableStatus())             // mutex locked by interrupt
     {
         blGlobalEnLocked = true;
+#ifdef UNIT_TEST
+        UCUNIT_Tracepoint(0);
+#endif
     }
     else
     {
         disableGlobalInt();
+#ifdef UNIT_TEST
+        UCUNIT_Tracepoint(1);
+#endif
     }
 
     ui16TempBuff = get_gui16TimerMs_Value();
@@ -171,6 +196,9 @@ uint16_t getMs(void)
     if(false == blGlobalEnLocked)
     {
         enableGlobalInt();
+#ifdef UNIT_TEST
+        UCUNIT_Tracepoint(2);
+#endif
     }
 
     return ui16TempBuff;
@@ -201,10 +229,16 @@ uint16_t getElapsedMs(uint16_t ui16TimeMs)
     if(false == getGlobalIntEnableStatus())             // mutex locked by interrupt
     {
         blGlobalEnLocked = true;
+#ifdef UNIT_TEST
+        UCUNIT_Tracepoint(0);
+#endif
     }
     else
     {
         disableGlobalInt();
+#ifdef UNIT_TEST
+        UCUNIT_Tracepoint(1);
+#endif
     }
 
     ui16TempBuff = get_gui16TimerMs_Value() - ui16TimeMs;
@@ -212,6 +246,9 @@ uint16_t getElapsedMs(uint16_t ui16TimeMs)
     if(false == blGlobalEnLocked)
     {
         enableGlobalInt();
+#ifdef UNIT_TEST
+        UCUNIT_Tracepoint(2);
+#endif
     }
 
 #if (_XTAL_FREQ == 20000000)                            // 20Mhz normalization: timer interrupt slowed a little bit for slow clock so interrupt is less frequent
