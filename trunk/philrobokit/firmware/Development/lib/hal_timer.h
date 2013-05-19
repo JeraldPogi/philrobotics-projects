@@ -64,7 +64,7 @@ enum baseTmrPreScale_et
 /* User Configuration Definitions */
 #if (_XTAL_FREQ == 20000000)
 #define TMR0_PRESCALE                               (TMR0_PRE_DIV16)    // original:(TMR0_PRE_DIV4)
-#define TMR0_US_INCREMENT                           (205)               // 0.8uS per increment * 256 increments = 204.8uS
+#define TMR0_US_INCREMENT                           (205)               // @TMR0_PRE_DIV4 0.8uS per increment * 256 increments = 204.8uS
 #define SHIFT_MULT                                  2                   // results must be x4
 
 #elif (_XTAL_FREQ == 8000000)

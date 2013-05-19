@@ -1,6 +1,21 @@
 #ifndef __hal_gpio_test_stub__
 #define __hal_gpio_test_stub__
 
+/* Board Configuration */
+#define __MCU_PIC16__               (0)
+#define __MCU_PIC18__               (1)
+
+#define __PHR_CONTROLLER__          (__MCU_PIC16__)
+//#define __PHR_CONTROLLER__          (__MCU_PIC18__)
+
+#if (__PHR_CONTROLLER__ == __MCU_PIC18__)
+#define _18F4520
+#define _XTAL_FREQ                  8000000         /* 8MHz Crystal */
+#else
+#define _16F877A
+#define _XTAL_FREQ                  20000000        /* 20MHz Crystal */
+#endif
+
 #include "PhilRoboKit_CoreLib_DataTypes.h"
 #include "System.h"
 #include "uCUnit-v1.0.h"
@@ -25,14 +40,6 @@ union MCU_MockReg
     uint8_t                         Reg;
     struct bit_field                Byte;
 };
-
-/* Controller Configurations */
-#define __MCU_PIC16__               (0)
-#define __MCU_PIC18__               (1)
-
-#define __PHR_CONTROLLER__          (__MCU_PIC16__)
-#define _16F877A
-#define _XTAL_FREQ                  20000000     /* 20MHz Crystal */
 
 /* Boolean Conditions */
 #ifndef TRUE
