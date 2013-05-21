@@ -64,7 +64,7 @@ enum Tmr1PreScale_et
 
 #else
 
-#ifndef S_SPLINT_S                              // Suppress SPLint Parse Errors
+#ifndef S_SPLINT_S /* Suppress SPLint Parse Errors */
 #warning Clock Frequency Not Defined
 #else
 #define TMR1_PRESCALE                           0

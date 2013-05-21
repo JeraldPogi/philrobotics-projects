@@ -66,7 +66,7 @@
 void setDAC(uint8_t ui8DAC_Module, uint16_t ui16Value)
 {
     uint16_t ui16DutyCycle;
-#ifdef S_SPLINT_S                   // Suppress SPLint Unrecognized ID Errors
+#ifdef S_SPLINT_S /* Suppress SPLint Unrecognized ID Errors */
 #define uint24_t uint32_t       // esc.comment: use with caution
 #endif
     /* 0 - 1023 : 0 - 1000  */

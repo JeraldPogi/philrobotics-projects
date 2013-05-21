@@ -40,14 +40,6 @@
 #include "PhilRoboKit_CoreLib_Header.h"
 #include "PhilRoboKit_CoreLib_DataTypes.h"
 
-//#ifdef S_SPLINT_S                               // Suppress SPLint Parse Errors
-
-//#ifndef bool_t
-//#define bool_t  bool
-//#endif
-
-//#endif
-
 /* User Configuration Definitions */
 /* none */
 

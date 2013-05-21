@@ -186,11 +186,17 @@ static void TEST_adcCycle(void)
     /* Perform Unit Test */
     BIT_ADCON0_GO_DONE = false;                             // conversion has finished
     UCUNIT_CheckIsEqual(false, BIT_ADCON0_GO_DONE);
-
     // pass 0 to ADC_CYCLE_COUNTER_TIMEOUT-1
+#if (__POLLING_DELAY__ == __USE_COUNTER__)
+
     for(ui16Counter = 0; ui16Counter < (ADC_CYCLE_COUNTER_TIMEOUT-1); ui16Counter++)
     {
+#else
+
+    for(ui16Counter = 0; ui16Counter < (ADC_CYCLE_TIMEOUT); ui16Counter++)
+    {
         setMockFunctionReturnValue(&getMs_return, ui16Counter); // increment timer every cycle
+#endif
         adcCycle();                                             // call function to be tested
     }
 
@@ -199,6 +205,9 @@ static void TEST_adcCycle(void)
     UCUNIT_CheckTracepointNonCoverage(0);
     UCUNIT_CheckTracepointNonCoverage(1);
     /* call once more ADC_CYCLE_COUNTER_TIMEOUT and check for coverage */
+#if (__POLLING_DELAY__ == __USE_TIMER__)
+    setMockFunctionReturnValue(&getMs_return, ++ui16Counter); // increment timer every cycle
+#endif
     adcCycle();                                             // call function to be tested
     /* Test for Code Coverage */
     UCUNIT_CheckIsEqual(true, BIT_ADCON0_GO_DONE);          // conversion has started
@@ -206,6 +215,9 @@ static void TEST_adcCycle(void)
     UCUNIT_CheckTracepointCoverage(1);
     /* Reset coverage then call again */
     UCUNIT_ResetTracepointCoverage();
+#if (__POLLING_DELAY__ == __USE_TIMER__)
+    setMockFunctionReturnValue(&getMs_return, ++ui16Counter); // increment timer every cycle
+#endif
     adcCycle();
     /* Test for Code Coverage */
     UCUNIT_CheckTracepointNonCoverage(0);

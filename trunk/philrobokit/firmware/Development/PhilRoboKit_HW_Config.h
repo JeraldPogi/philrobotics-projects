@@ -60,7 +60,7 @@
 #define __PHR_CONTROLLER__          (__MCU_PIC18__)
 
 #else
-#if defined (ANITO_UNIT_TEST) || defined (S_SPLINT_S)
+#if defined (S_SPLINT_S)
 /* do nothing */
 #else
 #error  Device not yet supported!!!

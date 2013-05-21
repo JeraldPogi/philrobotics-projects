@@ -8,12 +8,12 @@
 #define __PHR_CONTROLLER__          (__MCU_PIC16__)
 //#define __PHR_CONTROLLER__          (__MCU_PIC18__)
 
-#if (__PHR_CONTROLLER__ == __MCU_PIC18__)
-#define _18F4520
-#define _XTAL_FREQ                  8000000         /* 8MHz Crystal */
-#else
+#if (__PHR_CONTROLLER__ == __MCU_PIC16__)
 #define _16F877A
 #define _XTAL_FREQ                  20000000        /* 20MHz Crystal */
+#else
+#define _18F4520
+#define _XTAL_FREQ                  8000000         /* 8MHz Crystal */
 #endif
 
 #include "PhilRoboKit_CoreLib_DataTypes.h"
@@ -92,6 +92,22 @@ extern  union MCU_MockReg           PORTD;
 extern  union MCU_MockReg           PORTE;
 #define REGISTER_PORTE              (PORTE.Reg)
 
+#if (__PHR_CONTROLLER__==__MCU_PIC18__)
+extern  union MCU_MockReg           LATA;
+#define REGISTER_LATA               (LATA.Reg)
+
+extern  union MCU_MockReg           LATB;
+#define REGISTER_LATB               (LATB.Reg)
+
+extern  union MCU_MockReg           LATC;
+#define REGISTER_LATC               (LATC.Reg)
+
+extern  union MCU_MockReg           LATD;
+#define REGISTER_LATD               (LATD.Reg)
+
+extern  union MCU_MockReg           LATE;
+#define REGISTER_LATE               (LATE.Reg)
+#endif
 /* Port Value and Direction Defaults (from hal_gpio.h) */
 /* Port A */
 #if (__PHR_CONTROLLER__==__MCU_PIC18__)

@@ -7,7 +7,7 @@
 * |Filename:      | "corelib_uart.c"                            |
 * |:----          |:----                                        |
 * |Description:   | This is a library for using the serial/uart functions |
-* |Revision:      | v01.01.01                                   |
+* |Revision:      | v01.01.02                                   |
 * |Author:        | Giancarlo Acelajado                         |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -33,6 +33,7 @@
 * |v01.00.01    |20130228   |ESCII              |Separated module to HAL and Corelib|
 * |v01.01.00    |20130514   |ESCII              |Code Formatted                     |
 * |v01.01.01    |20130515   |ESCII              |Fixed SPLINT errors                |
+* |v01.01.02    |20130521   |ESCII              |Fixed unit test errors             |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -43,14 +44,8 @@
 #define K8_UART_BUFFER_MASK         (K8_UART_BUFFER_SIZE-1)
 
 /* Local Variables */
-static struct UARTBuff_s
-{
-    uint8_t     aui8Buffer[K8_UART_BUFFER_SIZE];
-    uint8_t     ui8Head;
-    uint8_t     ui8Tail;
-};
-
-static struct UARTBuff_s   stUARTTXFiFo, stUARTRXFiFo;
+static struct UARTBuff_s            stUARTTXFiFo;
+static struct UARTBuff_s            stUARTRXFiFo;
 
 /* Private Function Prototypes */
 static bool_t isSerialDataAvailable(void);
@@ -112,18 +107,11 @@ void setupSerial(uint16_t ui16Baudrate)
 ***********************************************************************************/
 void serialWrite(uint8_t ui8TxData)
 {
-#if 0 //defined STACK_TEST
-    gui8StackLevelCounter++;
-
-    if(gui8StackLevelCounter>gui8MaxStackLevel)
-    {
-        gui8MaxStackLevel = gui8StackLevelCounter;
-    }
-
-#endif
-
     while (isSerialBufferFull())
     {
+#ifdef UNIT_TEST
+        UCUNIT_Tracepoint(0);
+#endif
         continue;
     }
 
@@ -131,6 +119,9 @@ void serialWrite(uint8_t ui8TxData)
     stUARTTXFiFo.aui8Buffer[stUARTTXFiFo.ui8Head++] = ui8TxData;
     stUARTTXFiFo.ui8Head &= K8_UART_BUFFER_MASK;
     hal_enableUARTTXInt();
+#ifdef UNIT_TEST
+    UCUNIT_Tracepoint(1);
+#endif
 }
 
 /*******************************************************************************//**
@@ -232,23 +223,27 @@ uint8_t serialDataCount(void)
 uint8_t serialRead(void)
 {
     uint8_t ui8serialData;
-    //int timeout = 7500; //1.5ms @20Mhz
 
-    while(!isSerialDataAvailable()/* && (--timeout)*/)
+    //while(!isSerialDataAvailable())                                       // esc.removed: possible blocking function, responsibility of the user to check before reading otherwise will read 0
+    if(!isSerialDataAvailable())
     {
-        continue;
+#ifdef UNIT_TEST
+        UCUNIT_Tracepoint(0);
+#endif
+        //continue;
+        return 0;
     }
-
-    if(isSerialDataAvailable())
+    else
     {
         hal_disableUARTRXInt();
-        ui8serialData = stUARTRXFiFo.aui8Buffer[stUARTRXFiFo.ui8Tail++];    //Get Data from aui8Buffer
+        ui8serialData = stUARTRXFiFo.aui8Buffer[stUARTRXFiFo.ui8Tail++];    // Get Data from aui8Buffer
         stUARTRXFiFo.ui8Tail &= K8_UART_BUFFER_MASK;
         hal_enableUARTRXInt();
+#ifdef UNIT_TEST
+        UCUNIT_Tracepoint(1);
+#endif
         return ui8serialData;
     }
-
-    return NULL;
 }
 
 /*******************************************************************************//**
@@ -273,8 +268,8 @@ void serialFlush(void)
     stUARTTXFiFo.ui8Head = 0;
     stUARTRXFiFo.ui8Tail = 0;
     stUARTTXFiFo.ui8Tail = 0;
-    memset(stUARTTXFiFo.aui8Buffer, NULL, sizeof(stUARTTXFiFo.aui8Buffer));
-    memset(stUARTRXFiFo.aui8Buffer, NULL, sizeof(stUARTRXFiFo.aui8Buffer));
+    memset(stUARTTXFiFo.aui8Buffer, 0, sizeof(stUARTTXFiFo.aui8Buffer));
+    memset(stUARTRXFiFo.aui8Buffer, 0, sizeof(stUARTRXFiFo.aui8Buffer));
 }
 
 /*******************************************************************************//**
@@ -297,13 +292,13 @@ void serialRxISR(void)
 {
     static uint8_t ui8TempIn;                                               // variables inside ISR must be static
 
-    if (hal_getUARTRXIntFlag() && hal_getUARTRXIntEnableStatus())
+    if(hal_getUARTRXIntFlag() && hal_getUARTRXIntEnableStatus())
     {
         hal_clrUARTRXIntFlag();
         stUARTRXFiFo.aui8Buffer[stUARTRXFiFo.ui8Head] = K_RXREG_BUFF;
         ui8TempIn = ((stUARTRXFiFo.ui8Head+1) & K8_UART_BUFFER_MASK);
 
-        if (ui8TempIn != stUARTRXFiFo.ui8Tail)
+        if(ui8TempIn != stUARTRXFiFo.ui8Tail)
         {
             stUARTRXFiFo.ui8Head = ui8TempIn;
         }
@@ -328,23 +323,13 @@ void serialRxISR(void)
 ***********************************************************************************/
 void serialTxISR(void)
 {
-#if 0 //defined STACK_TEST
-    gui8StackLevelCounter++;
-
-    if(gui8StackLevelCounter>gui8MaxStackLevel)
-    {
-        gui8MaxStackLevel = gui8StackLevelCounter;
-    }
-
-#endif
-
-    if (hal_getUARTTXIntFlag() && hal_getUARTTXIntEnableStatus())
+    if(hal_getUARTTXIntFlag() && hal_getUARTTXIntEnableStatus())
     {
         hal_clrUARTTXIntFlag();
         K_TXREG_BUFF = stUARTTXFiFo.aui8Buffer[stUARTTXFiFo.ui8Tail++];
         stUARTTXFiFo.ui8Tail &= K8_UART_BUFFER_MASK;
 
-        if (stUARTTXFiFo.ui8Tail == stUARTTXFiFo.ui8Head)
+        if(stUARTTXFiFo.ui8Tail == stUARTTXFiFo.ui8Head)
         {
             hal_disableUARTTXInt();
         }
@@ -371,15 +356,6 @@ void serialTxISR(void)
 /*@unused@*/
 static bool_t isSerialBufferFull(void)
 {
-#if 0 //defined STACK_TEST
-    gui8StackLevelCounter++;
-
-    if(gui8StackLevelCounter>gui8MaxStackLevel)
-    {
-        gui8MaxStackLevel = gui8StackLevelCounter;
-    }
-
-#endif
     return (((stUARTTXFiFo.ui8Head+1) & K8_UART_BUFFER_MASK) == stUARTTXFiFo.ui8Tail);
 }
 

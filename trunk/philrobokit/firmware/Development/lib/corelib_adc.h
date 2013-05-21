@@ -48,14 +48,6 @@
 #include "hal_adc.h"
 #endif
 
-//#ifdef S_SPLINT_S                                   // Suppress SPLint Parse Errors
-
-//#ifndef bool_t
-//#define bool_t  bool
-//#endif
-
-//#endif
-
 /* Global Constants */
 #define __USE_TIMER__                               (0)
 #define __USE_COUNTER__                             (1)
