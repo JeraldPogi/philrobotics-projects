@@ -8,13 +8,13 @@
 #define __PHR_CONTROLLER__          (__MCU_PIC16__)
 //#define __PHR_CONTROLLER__          (__MCU_PIC18__)
 
-#if (__PHR_CONTROLLER__ == __MCU_PIC18__)
-#define _18F4520
-#define _XTAL_FREQ                  8000000         /* 8MHz Crystal */
-#else
+#if (__PHR_CONTROLLER__ == __MCU_PIC16__)
 #define _16F877A
 #define _XTAL_FREQ                  20000000        /* 20MHz Crystal */
 #define SHIFT_MULT                  2               // results must be x4
+#else
+#define _18F4520
+#define _XTAL_FREQ                  8000000         /* 8MHz Crystal */
 #endif
 
 #include "PhilRoboKit_CoreLib_DataTypes.h"

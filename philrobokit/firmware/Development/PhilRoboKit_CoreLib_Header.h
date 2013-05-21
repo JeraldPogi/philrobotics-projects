@@ -48,10 +48,6 @@
 #if defined S_SPLINT_S
 #include "compilers\htc\htc_pic_SPLint.h"           /* Suppress SPLint Unrecognized ID Errors */
 
-/* Anito Unit Testing */
-#elif defined ANITO_UNIT_TEST
-/* do nothing */
-
 /* Normal Compile Path */
 #else
 #if defined(HI_TECH_C)

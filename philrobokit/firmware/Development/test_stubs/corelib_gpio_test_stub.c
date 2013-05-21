@@ -120,6 +120,15 @@ union MCU_MockReg               PORTE;
 #define BITPOS_PORTE_RE2            (2)
 #define BITPOS_PORTE_RE1            (1)
 #define BITPOS_PORTE_RE0            (0)
+
+#if (__PHR_CONTROLLER__==__MCU_PIC18__)
+union MCU_MockReg               LATA;
+union MCU_MockReg               LATB;
+union MCU_MockReg               LATC;
+union MCU_MockReg               LATD;
+union MCU_MockReg               LATE;
+#endif
+
 //
 //int [function_name]_return=0;
 /* module's private externs */

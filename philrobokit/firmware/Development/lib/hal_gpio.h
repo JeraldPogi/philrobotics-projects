@@ -7,7 +7,7 @@
 * |Filename:      | "hal_gpio.h"                                |
 * |:----          |:----                                        |
 * |Description:   | General Purpose Input/Output Hardware Abstraction Layer Header File for PIC |
-* |Revision:      | v01.01.00                                   |
+* |Revision:      | v01.01.01                                   |
 * |Author:        | Giancarlo Acelajado                         |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -30,6 +30,7 @@
 * |v01.00.00    |201209xx   |Giancarlo A.       |Leverage Library to Standard Architecture|
 * |v01.00.01    |20130405   |ESCII              |Separated module to HAL and Corelib|
 * |v01.01.00    |20130514   |ESCII              |Code Formatted, Fixed SPLINT warning, included unit test stub|
+* |v01.01.01    |20130521   |ESCII              |Change AnalogPins_et constants from ANx to Ax for PIC18F4520 compatibility|
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -43,14 +44,6 @@
 #else
 #include <PhilRoboKit_CoreLib_Macro.h>
 #endif
-
-//#ifdef S_SPLINT_S                               // Suppress SPLint Parse Errors
-
-//#ifndef bool_t
-//#define bool_t  bool
-//#endif
-
-//#endif
 
 /* User Configuration Definitions */
 /* Port Value and Direction Defaults */
@@ -126,10 +119,11 @@ enum DigitalPins_et
 #define LED2                            D27
 #define LED1                            D28
 
-//enum AnalogPins_et
-//{
-//    AN0, AN1, AN2, AN3,   AN4, AN5, AN6
-//};
+enum AnalogPins_et
+{
+    //AN0, AN1, AN2, AN3, AN4, AN5, AN6
+    A0, A1, A2, A3, A4, A5, A6
+};
 
 /* PORTC */
 // D0

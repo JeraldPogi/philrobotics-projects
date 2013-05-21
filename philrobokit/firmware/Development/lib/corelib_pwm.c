@@ -122,8 +122,8 @@ void setupPWM(enum PWMModules_et ePWM_Module, uint16_t ui16Frequency, uint16_t u
 void setPWMFrequency(uint16_t ui16Frequency)
 {
     uint16_t    ui16TempVar;
-#ifdef S_SPLINT_S                               // Suppress SPLint Parse Errors 
-#define uint24_t  uint32_t                  // esc.comment: use with caution
+#ifdef S_SPLINT_S /* Suppress SPLint Unrecognized ID Errors */
+#define uint24_t  uint32_t                          // esc.comment: use with caution
 #endif
     uint24_t    ui24Period;                         // 0.01uS/Bit Resolution
 

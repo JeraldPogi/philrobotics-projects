@@ -123,6 +123,14 @@ union MCU_MockReg               PORTE;
 #define BITPOS_PORTE_RE1            (1)
 #define BITPOS_PORTE_RE0            (0)
 
+#if (__PHR_CONTROLLER__==__MCU_PIC18__)
+union MCU_MockReg               LATA;
+union MCU_MockReg               LATB;
+union MCU_MockReg               LATC;
+union MCU_MockReg               LATD;
+union MCU_MockReg               LATE;
+#endif
+
 //
 //int [function_name]_return=0;
 
@@ -310,11 +318,19 @@ static TEST_changePinState(void)
     changePinState(D27, SET_PIN);
     changePinState(D28, SET_PIN);
     /* Check if all output pins are high (Refer to hal_gpio.h for used gpio and assignments) */
+#if (__PHR_CONTROLLER__==__MCU_PIC16__)
     UCUNIT_CheckIsEqual(REGISTER_PORTA, 0x27);
     UCUNIT_CheckIsEqual(REGISTER_PORTB, 0x3F);
     UCUNIT_CheckIsEqual(REGISTER_PORTC, 0xFF);
     UCUNIT_CheckIsEqual(REGISTER_PORTD, 0xFF);
     UCUNIT_CheckIsEqual(REGISTER_PORTE, 0x07);
+#else
+    UCUNIT_CheckIsEqual(REGISTER_LATA, 0x27);
+    UCUNIT_CheckIsEqual(REGISTER_LATB, 0x3F);
+    UCUNIT_CheckIsEqual(REGISTER_LATC, 0xFF);
+    UCUNIT_CheckIsEqual(REGISTER_LATD, 0xFF);
+    UCUNIT_CheckIsEqual(REGISTER_LATE, 0x07);
+#endif
     /* Test for Code Coverage */
     UCUNIT_CheckTracepointCoverage(0);
     UCUNIT_CheckTracepointCoverage(1);
@@ -420,11 +436,19 @@ static TEST_changePinState(void)
     changePinState(D27, TOGGLE_PIN);
     changePinState(D28, TOGGLE_PIN);
     /* Check if all output pins are high (Refer to hal_gpio.h for used gpio and assignments) */
+#if (__PHR_CONTROLLER__==__MCU_PIC16__)
     UCUNIT_CheckIsEqual(REGISTER_PORTA, 0x27);
     UCUNIT_CheckIsEqual(REGISTER_PORTB, 0x3F);
     UCUNIT_CheckIsEqual(REGISTER_PORTC, 0xFF);
     UCUNIT_CheckIsEqual(REGISTER_PORTD, 0xFF);
     UCUNIT_CheckIsEqual(REGISTER_PORTE, 0x07);
+#else
+    UCUNIT_CheckIsEqual(REGISTER_LATA, 0x27);
+    UCUNIT_CheckIsEqual(REGISTER_LATB, 0x3F);
+    UCUNIT_CheckIsEqual(REGISTER_LATC, 0xFF);
+    UCUNIT_CheckIsEqual(REGISTER_LATD, 0xFF);
+    UCUNIT_CheckIsEqual(REGISTER_LATE, 0x07);
+#endif
     /* Toggle for the 2nd time all pins states */
     changePinState(D0, TOGGLE_PIN);
     changePinState(D1, TOGGLE_PIN);

@@ -53,11 +53,17 @@
 #define K8_UART_BUFFER_SIZE                         (32)
 
 /* Global Constants */
-/*@ignore@*/                                        // esc.comment SPLINT warns it is redefined but an #ifndef check has been made, must be a bug on SPLINT
-#ifndef NULL
-#define NULL                                        ('\0')
+struct UARTBuff_s
+{
+    uint8_t     aui8Buffer[K8_UART_BUFFER_SIZE];
+    uint8_t     ui8Head;
+    uint8_t     ui8Tail;
+};
+
+#ifdef UNIT_TEST                                    // autodefined at unit testing script
+extern struct UARTBuff_s   stUARTTXFiFo;
+extern struct UARTBuff_s   stUARTRXFiFo;
 #endif
-/*@end@*/
 
 /* Macro and Configuration Definitions */
 /* none */

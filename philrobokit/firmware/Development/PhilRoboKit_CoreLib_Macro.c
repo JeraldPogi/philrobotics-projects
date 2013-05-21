@@ -43,7 +43,7 @@
 //#include "corelib_test.h"
 
 /* Controller Setting */
-#ifndef S_SPLINT_S                                          /* Suppress SPLint Parse Errors */
+#ifndef S_SPLINT_S /* Suppress SPLint Parse Errors */
 /* device configuration settings */
 #if defined(HI_TECH_C)
 
@@ -160,7 +160,7 @@ int main(void)
 * > <BR><BR>
 ***********************************************************************************/
 void
-#ifndef S_SPLINT_S // Suppress SPLint Parse Errors
+#ifndef S_SPLINT_S /* Suppress SPLint Parse Errors */
 interrupt
 #endif
 isr(void)

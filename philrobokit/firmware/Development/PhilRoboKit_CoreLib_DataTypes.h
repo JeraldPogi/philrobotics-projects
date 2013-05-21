@@ -46,7 +46,7 @@
 
 /*bit */
 /* same as with Hi-Tech C, not recommended */
-#ifndef S_SPLINT_S // Suppress SPLint Parse Errors
+#ifndef S_SPLINT_S /* Suppress SPLint Parse Errors */
 #define bit_t   bit;
 #else
 #define bit_t   unsigned char
@@ -58,7 +58,8 @@ typedef bool    bool_t;
 #define bool_t  bool_t
 #endif
 
-/*@ignore@*/ // esc.comment: placed on ignore because some terms were already defined by splint
+/*@ignore@*/ // Suppress SPLint Parse Errors
+// esc.comment: placed ignore because some terms were already defined by splint
 /* unsigned char */
 #ifndef uchar_t
 typedef unsigned char uchar_t;

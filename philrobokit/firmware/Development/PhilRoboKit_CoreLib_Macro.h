@@ -46,10 +46,6 @@
 #include "PhilRoboKit_CoreLib_DataTypes.h"
 #include "PhilRoboKit_CoreLib_GlobalDefs.h"
 
-//#ifdef S_SPLINT_S                             // Suppress SPLint Parse Errors
-//#define bool_t    uint8_t
-//#endif
-
 /* User Configuration Definitions */
 /* none */
 

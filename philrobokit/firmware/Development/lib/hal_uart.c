@@ -7,7 +7,7 @@
 * |Filename:      | "hal_uart.c"                                |
 * |:----          |:----                                        |
 * |Description:   | This is a library for using the serial/uart functions |
-* |Revision:      | v01.01.00                                   |
+* |Revision:      | v01.01.02                                   |
 * |Author:        | Giancarlo Acelajado                         |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -32,6 +32,8 @@
 * |v01.00.00    |201210xx   |Giancarlo A.       |Leverage Library to Standard Architecture|
 * |v01.00.01    |20130228   |ESCII              |Separated module to HAL and Corelib|
 * |v01.01.00    |20130514   |ESCII              |Code Formatted                     |
+* |v01.01.01    |20130520   |ESCII              |Modified implementation for PIC18F2550 compatibility, added unit test tracepoints|
+* |v01.01.02    |20130521   |ESCII              |Added 18F4520 Configuration of Baudrates|
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -66,57 +68,99 @@
 ***********************************************************************************/
 void hal_setSerialBAUD(uint16_t ui16Baudrate)
 {
-    BIT_TXSTA_BRGH = 1;                     // High Speed Asyncronous [SPBRG = FOSC/(16*baud) - 1]
-
-    if(ui16Baudrate < 4883)                 // @20MHz clk
+    switch(ui16Baudrate)
     {
-        BIT_TXSTA_BRGH = 0;                 // Low Speed Asyncronous  [SPBRG = FOSC/(64*baud) - 1]
-    }
-
-    switch(ui16Baudrate)                    // FOSC = 20MHz
-    {
-        case 1200:
+        case STD_BAUD_9600:
         {
-            REGISTER_SPBRG = 255;           // 1220.7
+            BIT_TXSTA_BRGH = HIGH_BAUDRATE;
+            REGISTER_SPBRG = BAUD_9600_BRGVAL;
+#ifdef UNIT_TEST
+            UCUNIT_Tracepoint(0);
+#endif
             break;
         }
 
-        case 4800:                          // intentional fallthrough
-        case 19200:
+        case STD_BAUD_57600:
         {
-            REGISTER_SPBRG = 64;            // 4807.7 or 19230.8
+            BIT_TXSTA_BRGH = HIGH_BAUDRATE;
+            REGISTER_SPBRG = BAUD_57600_BRGVAL;
+#ifdef UNIT_TEST
+            UCUNIT_Tracepoint(1);
+#endif
             break;
         }
 
-        case 38400:
+#if (_XTAL_FREQ == 20000000)                // FOSC = 20MHz, Sequence Optimized for Speed
+
+        case STD_BAUD_115200:
         {
-            REGISTER_SPBRG = 32;            // 39062.5
+            BIT_TXSTA_BRGH = HIGH_BAUDRATE;
+            REGISTER_SPBRG = BAUD_115200_BRGVAL;
+#ifdef UNIT_TEST
+            UCUNIT_Tracepoint(2);
+#endif
             break;
         }
 
-        case 57600:
+#endif
+
+        case STD_BAUD_19200:
         {
-            REGISTER_SPBRG = 21;            // 56818.2
+            BIT_TXSTA_BRGH = HIGH_BAUDRATE;
+            REGISTER_SPBRG = BAUD_19200_BRGVAL;
+#ifdef UNIT_TEST
+            UCUNIT_Tracepoint(3);
+#endif
             break;
         }
 
-        case 115200:
+        case STD_BAUD_4800:
         {
-            REGISTER_SPBRG = 10;            // 113636.4
+            BIT_TXSTA_BRGH = LOW_BAUDRATE;
+            REGISTER_SPBRG = BAUD_4800_BRGVAL;
+#ifdef UNIT_TEST
+            UCUNIT_Tracepoint(4);
+#endif
             break;
         }
 
-        case 230400:
+        case STD_BAUD_38400:
         {
-            REGISTER_SPBRG = 4;             // 250000.0 (8.5% error!)
+            BIT_TXSTA_BRGH = HIGH_BAUDRATE;
+            REGISTER_SPBRG = BAUD_38400_BRGVAL;
+#ifdef UNIT_TEST
+            UCUNIT_Tracepoint(5);
+#endif
             break;
         }
 
-        case 2400:                          // intentional fallthrough
-        case 9600:                          // intentional fallthrough (default)
-        default:
+        case STD_BAUD_2400:
         {
-            REGISTER_SPBRG = 129;           // 2403.8 or 9615.4
+            BIT_TXSTA_BRGH = LOW_BAUDRATE;
+            REGISTER_SPBRG = BAUD_2400_BRGVAL;
+#ifdef UNIT_TEST
+            UCUNIT_Tracepoint(6);
+#endif
+            break;
+        }
+
+        case STD_BAUD_1200:
+        {
+            BIT_TXSTA_BRGH = LOW_BAUDRATE;
+            REGISTER_SPBRG = BAUD_1200_BRGVAL;
+#ifdef UNIT_TEST
+            UCUNIT_Tracepoint(7);
+#endif
+            break;
+        }
+
+        default:    // default is 9600 Baudrate
+        {
+            BIT_TXSTA_BRGH = HIGH_BAUDRATE;
+            REGISTER_SPBRG = BAUD_9600_BRGVAL;
+#ifdef UNIT_TEST
+            UCUNIT_Tracepoint(8);
+#endif
             break;
         }
     }

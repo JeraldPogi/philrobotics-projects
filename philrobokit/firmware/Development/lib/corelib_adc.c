@@ -57,7 +57,7 @@ static enum adcModules_et
 /* Local Variables */
 static enum adcModules_et   eCurrentChannel = 0;
 static      uint16_t        ui16ADCBuff[MAX_ADC_CHANNELS-1] = {0};
-static      uint16_t        ui16ADCCycleTimer;
+static      uint16_t        ui16ADCCycleTimer=0;
 
 /* Private Function Prototypes */
 /* none */
