@@ -121,6 +121,7 @@ typedef double double_t;
 #endif
 /* not recommended */
 /*@end@*/
+
 /* long double */
 /* none */
 

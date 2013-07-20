@@ -63,6 +63,50 @@ enum PWMModes_et
 
 #define CCP_PWM_MODE                        PWM_MODE
 
+enum PWMPrescaler_et
+{
+    PRESCALE0_VAL                           = 0,
+    PRESCALE1_VAL                           = 1,
+    PRESCALE2_VAL                           = 2
+};
+
+//***********************************************************************************
+// TMR Prescaler Value
+//      0  - 1
+//      1  - 4
+//      2  - 16
+//***********************************************************************************
+#if (_XTAL_FREQ == 32000000)
+//***********************************************************************************
+// @32Mhz -> TOSC = 31.25nS
+// PWM Period = [(PR2) + 1] * 4 * TOSC * Prescaler
+// Period(uS)  = [PR2+1]  * 125nS * Prescaler
+// 1.96kHz - 500kHz
+// Prescaler 1
+// 31.25Khz     -> uS
+// 8Mhz         -> uS
+//
+// Prescaler 4
+// 7.81Khz      -> uS
+// 2Mhz         -> uS
+//
+// Prescaler 16
+// 1.96Khz      -> uS
+// 500kHz       -> uS
+//
+// ui16Frequency: in 10Hz/Bit Resolution (e.g. 1kHz/10Hz = 100)
+//***********************************************************************************
+#define K_T_SCALED                          125
+#define K_MAX_FREQ_RANGE                    20000       // 200kH @ 10Hz resolution
+#define K_MIN_FREQ_RANGE                    196         // 1.96kHz @ 10Hz resolution
+
+#define K_PERIOD_SAT_LIM                    255
+
+#define K_PRESCALE0_FREQ_LIM                3125        // >31.25kHz, div by 1
+#define K_PRESCALE1_FREQ_LIM                781         // >7.81kHz, div by 4
+#define K_PRESCALE2_FREQ_LIM                196         // >1.96kHz, div by 16
+
+#elif (_XTAL_FREQ == 20000000)
 //***********************************************************************************
 // @20Mhz -> TOSC = 50nS
 // PWM Period = [(PR2) + 1] * 4 * TOSC * Prescaler
@@ -82,6 +126,8 @@ enum PWMModes_et
 //
 // ui16Frequency: in 10Hz/Bit Resolution (e.g. 1kHz/10Hz = 100)
 //***********************************************************************************
+#define K_T_SCALED                          200
+
 #define K_MAX_FREQ_RANGE                    20000       // 200kH @ 10Hz resolution
 #define K_MIN_FREQ_RANGE                    122         // 1.22kHz @ 10Hz resolution
 
@@ -91,17 +137,13 @@ enum PWMModes_et
 #define K_PRESCALE1_FREQ_LIM                488         // >4.88kHz, div by 4
 #define K_PRESCALE2_FREQ_LIM                122         // >1.22kHz, div by 16
 
-enum PWMPrescaler_et
-{
-    PRESCALE0_VAL                           = 0,
-    PRESCALE1_VAL                           = 1,
-    PRESCALE2_VAL                           = 2
-};
+#else
+#endif
 
 //***********************************************************************************
 // @20Mhz -> TOSC = 50nS
 // Pulse Width =(CCPR1L:CCP1CON<5:4>) * TOSC *Prescaler
-//  Pulse Width  = CCP1CON  * 50nS * Prescaler
+// Pulse Width  = CCP1CON  * 50nS * Prescaler
 //
 // ui16DutyCycle: 0.1%/Bit Resolution (e.g. 50% /0.1% = 500)
 //***********************************************************************************
@@ -116,7 +158,6 @@ enum PWMPrescaler_et
 
 #define CCP_PWM_CLOCK                       TMR2_CLOCK
 
-
 #define mc_PWMClk_Source(a)                 \
     REG_CCPTMRS &= ~C1_TIMERSEL_MASK;       \
     REG_CCPTMRS |= a&C1_TIMERSEL_MASK       // semi-collon intentionally omitted
@@ -130,30 +171,30 @@ enum PWMPrescaler_et
 #define hal_disablePWMTmr()                 hal_disableTMR2()
 
 #define hal_configCCP1Mode(a)               \
-    REGISTER_CCP1CON = a&CCP_MODE_MASK          // semi-collon intentionally omitted
+    REGISTER_CCP1CON = a&CCP_MODE_MASK      // semi-collon intentionally omitted
 
 #define hal_configCCP2Mode(a)               \
-    REGISTER_CCP2CON = a&CCP_MODE_MASK          // semi-collon intentionally omitted
+    REGISTER_CCP2CON = a&CCP_MODE_MASK      // semi-collon intentionally omitted
 
 #define hal_setPWM0_On()                    \
-    hal_configCCP1Mode(PWM_MODE)                // semi-collon intentionally omitted
+    hal_configCCP1Mode(PWM_MODE)            // semi-collon intentionally omitted
 //hal_enablePWMTmr()
 
 #define hal_setPWM0_Off()                   \
-    hal_configCCP1Mode(PWM_OFF)                 // semi-collon intentionally omitted
+    hal_configCCP1Mode(PWM_OFF)             // semi-collon intentionally omitted
 //hal_disablePWMTmr()
 
 #define hal_setPWM1_On()                    \
-    hal_configCCP2Mode(PWM_MODE)                // semi-collon intentionally omitted
+    hal_configCCP2Mode(PWM_MODE)            // semi-collon intentionally omitted
 //hal_enablePWMTmr()
 
 #define hal_setPWM1_Off()                   \
-    hal_configCCP2Mode(PWM_OFF)                 // semi-collon intentionally omitted
+    hal_configCCP2Mode(PWM_OFF)             // semi-collon intentionally omitted
 //hal_disablePWMTmr()
 
 #define hal_initPWMTimer(a)                 setup8BitTimerFull(TIMER2,nullTMRFunction,a,0)
 
-#define hal_setPWMPeriod(period)            setTimer(TIMER2,period)
+#define hal_setPWMPeriod(period)            set8BitTimer(TIMER2,period)
 
 #define hal_setPWM0Ton(a)                   \
     REGISTER_CCP1CON &= ~PWM_DC_LSB_MASK;   \

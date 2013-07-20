@@ -1,0 +1,220 @@
+     1: /*****************************************************************************************//**
+     2: * # PhilRobotics | Philippine Electronics and Robotics Enthusiasts Club #
+     3: * http://philrobotics.com | http://philrobotics.com/forum | http://facebook.com/philrobotics
+     4: * phirobotics.core@philrobotics.com
+     5: *
+     6: *---------------------------------------------------------------------------------------------
+     7: * |Filename:      | "corelib_user_interrupt.c"                  |
+     8: * |:----          |:----                                        |
+     9: * |Description:   | This is a library for using the external pin interrupt |
+    10: * |Revision:      | v00.02.00                                   |
+    11: * |Author:        | Efren S. Cruzat II                          |
+    12: * |               |                                             |
+    13: * |Dependencies:  |                                             |
+    14: *
+    15: * > This program is free software: you can redistribute it and/or modify
+    16: * > it under the terms of the GNU General Public License as published by
+    17: * > the Free Software Foundation, either version 3 of the License, or
+    18: * > (at your option) any later version.
+    19: * > This program is distributed in the hope that it will be useful,
+    20: * > but WITHOUT ANY WARRANTY; without even the implied warranty of
+    21: * > MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    22: * > GNU General Public License for more details.
+    23: * > <BR><BR>
+    24: * > You should have received a copy of the GNU General Public License
+    25: * > along with this program. If not, see http://www.gnu.org/licenses/
+    26: * <BR>
+    27: *---------------------------------------------------------------------------------------------
+    28: * |FW Version   |Date       |Author             |Description                        |
+    29: * |:----        |:----      |:----              |:----                              |
+    30: * |v00.00.01    |20120608   |ESCII              |Library Initial Release            |
+    31: * |v00.00.02    |20120624   |ESCII              |Reorganized for Clarity
+    32: *                                                - Have more strict policy on scope of
+    33: *                                                  variables and functions          |
+    34: * |v00.00.03    |20120711   |ESCII              |Code Cleanup
+    35: *                                                - Removed void type on function pointers
+    36: *                                                - Enumerated interrupt modes and sources   |
+    37: * |v00.01.00    |20130207   |ESCII              |Modified For Layered Architecture  |
+    38: * |v00.02.00    |20130514   |ESCII              |Code Formatted                     |
+    39: *********************************************************************************************/
+    40: #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
+    41: #undef  __SHOW_MODULE_HEADER__
+    42: 
+    43: #include "corelib_user_interrupt.h"
+    44: 
+    45: /* Local Constants */
+    46: #define K_FALLING_EDGE          0
+    47: #define K_RISING_EDGE           1
+    48: 
+    49: /* Local Variables */
+    50: volatile uint8_t PORTB_BUFFER=0,PORTB_DIRECTION=0;
+    51: 
+    52: /* Private Function Prototypes */
+    53: /* none */
+    54: 
+    55: /* Public Functions */
+    56: /*******************************************************************************//**
+    57: * \brief External pin interrupt service routine
+    58: *
+    59: * >  This is an interrupt handler called when there is a change on interrupt pin state
+    60: *
+    61: * > <BR>
+    62: * > **Syntax:**<BR>
+    63: * >      userIntISR(), ISR
+    64: * > <BR><BR>
+    65: * > **Parameters:**<BR>
+    66: * >     none
+    67: * > <BR><BR>
+    68: * > **Returns:**<BR>
+    69: * >     none
+    70: * > <BR><BR>
+    71: ***********************************************************************************/
+    72: void userIntISR(void)
+    73: {
+    74:     /*  Check External Interrupt */
+    75:     if(hal_getEXTIntEnableStatus() && hal_getEXTIntFlag())
+    76:     {
+    77:         hal_disableEXTInt();                        // Temporary Disable Interrupt
+    78: #if(EXTINTENABLED == TRUE)
+    79:         extIntISR();
+    80: #endif
+    81:         hal_clrEXTIntFlag();
+    82:         hal_enableEXTInt();                         // Reenable Interrupt
+    83:     }
+    84: 
+    85:     /* Check Interrupt on PortB Change */
+    86:     if(hal_getRBIntEnableStatus() && hal_getRBIntFlag())
+    87:     {
+    88:         hal_disableRBInt();                         // Temporary Disable Interrupt
+    89: #if(RBINTENABLED == TRUE)
+    90:         rbIntISR();
+    91: #endif
+    92:         hal_clrRBIntFlag();
+    93:         hal_enableRBInt();                          // Reenable Interrupt
+    94:     }
+    95: }
+    96: 
+    97: /*******************************************************************************//**
+    98: * \brief Setup the external pin interrupt
+    99: *
+   100: * > This function is called to initialize the external pin interrupt peripheral
+   101: * > to interrupt on either, rising or falling edge, or change on pin states
+   102: *
+   103: * > <BR>
+   104: * > **Syntax:**<BR>
+   105: * >      setupUserInt(source, &callback, mode)
+   106: * > <BR><BR>
+   107: * > **Parameters:**<BR>
+   108: * >     source - external pin interrupt source, INT0, INT1, INT2, INT3, INT4    <BR>
+   109: * >     callback - function address of the external pin ISR callback            <BR>
+   110: * >     mode - defines how the interrupt should be triggered, CHANGE, RISING, FALLING
+   111: * > <BR><BR>
+   112: * > **Returns:**<BR>
+   113: * >     none
+   114: * > <BR><BR>
+   115: ***********************************************************************************/
+   116: void setupUserInt(enum InterruptSources_et eIntSource, void(*callback)(), /*enum InterruptModes_e*/uint8_t eIntMode)
+   117: {
+   118:     /* External Interrupt */
+   119:     if(INTR0 == eIntSource)
+   120:     {
+   121: #if(EXTINTENABLED == TRUE)
+   122:         /* Set Int Pin to Input */
+   123:         mc_makeInput(D8);
+   124: 
+   125:         if(RISING == eIntMode)
+   126:         {
+   127:             K_INT_EDGE_BIT = K_RISING_EDGE;         // Start detecting at rising edge
+   128:         }
+   129:         else if(FALLING == eIntMode)
+   130:         {
+   131:             K_INT_EDGE_BIT = K_FALLING_EDGE;        // Start detecting at falling edge
+   132:         }
+   133:         else if(CHANGE == eIntMode)
+   134:         {
+   135:             /* Set the Inverse of Current Pin State*/
+   136:             if(HIGH == mc_getPinState(D8))
+   137:             {
+   138:                 K_INT_EDGE_BIT  = K_FALLING_EDGE;
+   139:             }
+   140:             else
+   141:             {
+   142:                 K_INT_EDGE_BIT  = K_RISING_EDGE;
+   143:             }
+   144:         }
+   145:         else
+   146:         {
+   147:             /* Do Nothing */
+   148:         }
+   149: 
+   150:         eMod0_Mode = eIntMode;
+   151:         pt2INT0 = callback;                         // assign INT0 Function Pointer
+   152:         hal_clrEXTIntFlag();
+   153:         hal_enableEXTInt();
+   154: #endif
+   155:     }
+   156:     /* Interrupt on PortB Change */
+   157:     else
+   158:     {
+   159: #if(RBINTENABLED == TRUE)
+   160:         PORTB_DIRECTION = 0x00;
+   161: 
+   162:         /* RB4 Interrupt on Change */
+   163:         if(INTR1 == eIntSource)
+   164:         {
+   165:             /* Set Int Pin to Input */
+   166:             mc_makeInput(D12);
+   167:             PORTB_DIRECTION |= k8_D12_MASK;
+   168:             eMod1_Mode = eIntMode;
+   169:             pt2INT1 = callback;                     // assign INT1 Function Pointer
+   170:         }
+   171:         /* RB5 Interrupt on Change */
+   172:         else if(INTR2 == eIntSource)
+   173:         {
+   174:             /* Set Int Pin to Input */
+   175:             mc_makeInput(D13);
+   176:             PORTB_DIRECTION |= k8_D13_MASK;
+   177:             eMod2_Mode = eIntMode;
+   178:             pt2INT2 = callback;                     // assign INT2 Function Pointer
+   179:         }
+   180:         /* RB6 Interrupt on Change */
+   181:         else if(INTR3 == eIntSource)
+   182:         {
+   183:             /* Set Int Pin to Input */
+   184:             PORTB_DIR |= RB6_MASK;
+   185:             PORTB_DIRECTION |= RB6_MASK;
+   186:             eMod3_Mode = eIntMode;
+   187:             pt2INT3 = callback;                     // assign INT3 Function Pointer
+   188:         }
+   189:         /* RB7 Interrupt on Change */
+   190:         else if(INTR4 == eIntSource)
+   191:         {
+   192:             /* Set Int Pin to Input */
+   193:             PORTB_DIR |= RB7_MASK;
+   194:             PORTB_DIRECTION |= RB7_MASK;
+   195:             eMod4_Mode = eIntMode;
+   196:             pt2INT4 = callback;                     // assign INT4 Function Pointer
+   197:         }
+   198:         else
+   199:         {
+   200:             /* Do Nothing */
+   201:         }
+   202: 
+   203:         /* PORTB States Reference */
+   204:         PORTB_BUFFER = K_INT_PORT_REG & PORTB_DIRECTION;    // Ignore Outputs
+   205:         hal_clrRBIntFlag();
+   206:         hal_enableRBInt();
+   207: #endif
+   208:     }
+   209: }
+   210: 
+   211: /* Private Functions */
+   212: /* none */
+   213: 
+   214: /* end of corelib_user_interrupt.c */
+   215: //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   216: 
+   217: 
+   218: 
+   219: 
+   220: 

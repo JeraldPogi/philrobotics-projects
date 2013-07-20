@@ -1,0 +1,309 @@
+     1: /*****************************************************************************************//**
+     2: * # PhilRobotics | Philippine Electronics and Robotics Enthusiasts Club #
+     3: * http://philrobotics.com | http://philrobotics.com/forum | http://facebook.com/philrobotics
+     4: * phirobotics.core@philrobotics.com
+     5: *
+     6: *---------------------------------------------------------------------------------------------
+     7: * |Filename:      | "corelib_adc.c"                             |
+     8: * |:----          |:----                                        |
+     9: * |Description:   | This is a library for the ADC peripheral    |
+    10: * |Revision:      | v01.02.00                                   |
+    11: * |Author:        | Giancarlo Acelajado                         |
+    12: * |               |                                             |
+    13: * |Dependencies:  |                                             |
+    14: *
+    15: * > This program is free software: you can redistribute it and/or modify
+    16: * > it under the terms of the GNU General Public License as published by
+    17: * > the Free Software Foundation, either version 3 of the License, or
+    18: * > (at your option) any later version.
+    19: * > This program is distributed in the hope that it will be useful,
+    20: * > but WITHOUT ANY WARRANTY; without even the implied warranty of
+    21: * > MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    22: * > GNU General Public License for more details.
+    23: * > <BR><BR>
+    24: * > You should have received a copy of the GNU General Public License
+    25: * > along with this program. If not, see http://www.gnu.org/licenses/
+    26: * <BR>
+    27: *---------------------------------------------------------------------------------------------
+    28: * |FW Version   |Date       |Author             |Description                        |
+    29: * |:----        |:----      |:----              |:----                              |
+    30: * |v00.01.00    |20110xxx   |Giancarlo A.       |Library Initial Release            |
+    31: * |v00.01.01    |201203xx   |Giancarlo A.       |Fix Bugs, add setupADCPinsToDigital|
+    32: * |v01.00.00    |201210xx   |Giancarlo A.       |Leverage Library to Standard Architecture|
+    33: * |v01.00.01    |20130307   |ESC II             |Organized functions into HAL and CoreLib|
+    34: * |v01.00.02    |20130323   |ESC II             |Get ADCCycle timestamp regardless of ADC EOC status|
+    35: * |v01.01.00    |20130408   |ESC II             |Defined option for timer or counter delay|
+    36: * |v01.02.00    |20130514   |ESCII              |Code Formatted, added tracepoint for unit testing|
+    37: *********************************************************************************************/
+    38: #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
+    39: #undef  __SHOW_MODULE_HEADER__
+    40: 
+    41: #include "corelib_adc.h"
+    42: 
+    43: /* Local Constants */
+    44: static enum adcModules_et
+    45: {
+    46:     ADC0,                   // AN0
+    47:     ADC1,                   // AN1
+    48:     ADC2,                   // AN2
+    49:     ADC3,                   // Skipped
+    50:     ADC4,                   // AN3
+    51:     ADC5,                   // AN5
+    52:     ADC6,                   // AN6
+    53:     ADC7,                   // AN7
+    54:     MAX_ADC_CHANNELS
+    55: };
+    56: 
+    57: /* Local Variables */
+    58: static enum adcModules_et   eCurrentChannel = 0;
+    59: static      uint16_t        ui16ADCBuff[MAX_ADC_CHANNELS-1] = {0};
+    60: 
+    61: /* Private Function Prototypes */
+    62: /* none */
+    63: 
+    64: /* Public Functions */
+    65: /*******************************************************************************//**
+    66: * \brief ADC End of Conversion interrupt service routine
+    67: *
+    68: * > This is an interrupt handler called the ADC has finished conversion
+    69: * > of the channel value
+    70: *
+    71: * > <BR>
+    72: * > **Syntax:**<BR>
+    73: * >     adcISR(), ISR
+    74: * > <BR><BR>
+    75: * > **Parameters:**<BR>
+    76: * >     none
+    77: * > <BR><BR>
+    78: * > **Returns:**<BR>
+    79: * >     none
+    80: * > <BR><BR>
+    81: ***********************************************************************************/
+    82: void adcISR(void)
+    83: {
+    84:     static enum adcModules_et    eEffectiveChannel;
+    85: 
+    86:     if(hal_getADCIntFlag() && hal_getADCIntEnableStatus())
+    87:     {
+    88:         hal_clrADCIntFlag();
+    89: 
+    90:         /* parse effective channel */
+    91:         if(ADC3 == eCurrentChannel)
+    92:         {
+    93:             /* must not be reached */
+    94: #ifdef UNIT_TEST
+    95:             UCUNIT_Tracepoint(0);                               // must not be reached
+    96: #endif
+    97:         }
+    98:         else if(eCurrentChannel > ADC3)
+    99:         {
+   100:             eEffectiveChannel = eCurrentChannel - 1;
+   101: #ifdef UNIT_TEST
+   102:             UCUNIT_Tracepoint(1);
+   103: #endif
+   104:         }
+   105:         else
+   106:         {
+   107:             eEffectiveChannel = eCurrentChannel;
+   108: #ifdef UNIT_TEST
+   109:             UCUNIT_Tracepoint(2);
+   110: #endif
+   111:         }
+   112: 
+   113:         /* store results */
+   114:         ui16ADCBuff[eEffectiveChannel] = readADCResult();
+   115: 
+   116:         /* Increment Channel */
+   117:         if(eCurrentChannel < (MAX_ADC_CHANNELS-1))
+   118:         {
+   119:             eCurrentChannel++;
+   120: 
+   121:             /* Skip Vref Pin */
+   122:             if(ADC3 == eCurrentChannel)
+   123:             {
+   124:                 eCurrentChannel++;
+   125: #ifdef UNIT_TEST
+   126:                 UCUNIT_Tracepoint(4);
+   127: #endif
+   128:             }
+   129: 
+   130: #ifdef UNIT_TEST
+   131:             UCUNIT_Tracepoint(3);
+   132: #endif
+   133:         }
+   134:         else
+   135:         {
+   136:             eCurrentChannel = 0;
+   137: #ifdef UNIT_TEST
+   138:             UCUNIT_Tracepoint(5);
+   139: #endif
+   140:         }
+   141: 
+   142:         /* Set ADC Channel */
+   143:         hal_setADCChannel(eCurrentChannel);
+   144:     }
+   145: }
+   146: 
+   147: /*******************************************************************************//**
+   148: * \brief Cyclic ADC rotuines
+   149: *
+   150: * > This function is called at periodic interval to start the ADC conversion
+   151: *
+   152: * > <BR>
+   153: * > **Syntax:**<BR>
+   154: * >     adcCycle()
+   155: * > <BR><BR>
+   156: * > **Parameters:**<BR>
+   157: * >     none
+   158: * > <BR><BR>
+   159: * > **Returns:**<BR>
+   160: * >     none
+   161: * > <BR><BR>
+   162: ***********************************************************************************/
+   163: void adcCycle(void)
+   164: {
+   165:     static uint16_t ui16Counter = 0;
+   166:     ui16Counter++;
+   167: 
+   168:     /* Check cycle timeout */
+   169:     if(ui16Counter >= ADC_CYCLE_COUNTER_TIMEOUT)
+   170:     {
+   171:         /* get new time stamp */
+   172:         ui16Counter = 0;
+   173: #ifdef UNIT_TEST
+   174:         UCUNIT_Tracepoint(0);
+   175: #endif
+   176: 
+   177:         /* Check end of conversion */
+   178:         if(true == hal_checkADCEndofConversion())
+   179:         {
+   180:             /* start new conversion */
+   181:             hal_startADCConversion();
+   182: #ifdef UNIT_TEST
+   183:             UCUNIT_Tracepoint(1);
+   184: #endif
+   185:         }
+   186:     }
+   187: }
+   188: 
+   189: /*******************************************************************************//**
+   190: * \brief Setup the ADC peripheral for periodic sampling of all ADC channels
+   191: *
+   192: * > This function is called to Setup the ADC peripheral for periodic
+   193: * > sampling of all ADC channels. The positive reference can be selected as either VDD,
+   194: * > EXT, and on other variant INT.
+   195: *
+   196: * > <BR>
+   197: * > **Syntax:**<BR>
+   198: * >      setupADC(vref_source)
+   199: * > <BR><BR>
+   200: * > **Parameters:**<BR>
+   201: * >     vref_source - positive voltage reference source, VDD, EXT, INT
+   202: * > <BR><BR>
+   203: * > **Returns:**<BR>
+   204: * >     none
+   205: * > <BR><BR>
+   206: ***********************************************************************************/
+   207: void setupADC(enum ADCVrefSource_et eVrefSource)
+   208: {
+   209:     /* Ensure ADC Peripheral is Disabled */
+   210:     hal_disableADC();
+   211:     /* Configure GPIO as inputs */
+   212:     mc_makeInput(D14);              // AN0
+   213:     mc_makeInput(D15);              // AN1
+   214:     mc_makeInput(D16);              // AN2
+   215:     mc_makeInput(D17);              // AN3
+   216:     mc_makeInput(D18);              // AN4
+   217:     mc_makeInput(D19);              // AN5
+   218:     mc_makeInput(D20);              // AN6
+   219: 
+   220:     if(EXT == eVrefSource)
+   221:     {
+   222:         /* Configure ADC pins all analog, External Vref */
+   223:         hal_configADCPins(CFG_EXTVREF);
+   224: #ifdef UNIT_TEST
+   225:         UCUNIT_Tracepoint(0);
+   226: #endif
+   227:     }
+   228:     else
+   229:     {
+   230:         /* Configure ADC pins all analog, Vdd Vref */
+   231:         hal_configADCPins(CFG_ALLANALOG);
+   232: #ifdef UNIT_TEST
+   233:         UCUNIT_Tracepoint(1);
+   234: #endif
+   235:     }
+   236: 
+   237:     configLowLvlADC();
+   238:     /* Select Channel 0 by Default */
+   239:     eCurrentChannel = 0;
+   240:     hal_setADCChannel(eCurrentChannel);
+   241:     /* Enable Interrupt Here */
+   242:     hal_clrADCIntFlag();
+   243:     hal_enableADCInt();
+   244:     /* Enable ADC Peripheral */
+   245:     hal_enableADC();
+   246:     delayUs(10);                        // blocking function but on initialization only
+   247:     /* ADC Conversion Kickstart */
+   248:     hal_startADCConversion();
+   249: }
+   250: 
+   251: /*******************************************************************************//**
+   252: * \brief Setup the 8bit timer peripheral count resolution
+   253: *
+   254: * > This function is called to setup the 8bit timer peripheral count resolution
+   255: *
+   256: * > <BR>
+   257: * > **Syntax:**<BR>
+   258: * >      value = adcRead(channel)
+   259: * > <BR><BR>
+   260: * > **Parameters:**<BR>
+   261: * >     channel - ADC channel to be read, AN0, AN1, AN2, AN3, AN4, AN5, AN6
+   262: * > <BR><BR>
+   263: * > **Returns:**<BR>
+   264: * >     uint16_t value - the read ADC value from the requested channel
+   265: * > <BR><BR>
+   266: ***********************************************************************************/
+   267: uint16_t adcRead(uint8_t ui8Channel)
+   268: {
+   269:     return ui16ADCBuff[ui8Channel];
+   270: }
+   271: 
+   272: /*******************************************************************************//**
+   273: * \brief Disables the ADC pins so it can be used as digital pins
+   274: *
+   275: * > This function is called to disable the ADC pins so it can be used as
+   276: * > digital pins(D14 to D20). The default pin directions are set as inputs.
+   277: *
+   278: * > <BR>
+   279: * > **Syntax:**<BR>
+   280: * >      removeADC()
+   281: * > <BR><BR>
+   282: * > **Parameters:**<BR>
+   283: * >     none
+   284: * > <BR><BR>
+   285: * > **Returns:**<BR>
+   286: * >     none
+   287: * > <BR><BR>
+   288: ***********************************************************************************/
+   289: void removeADC(void)
+   290: {
+   291:     /* Configure ADC Pins to Digital */
+   292:     hal_configADCPins(CFG_ALLDIGITAL);
+   293:     /* Turn Off ADC Module */
+   294:     hal_disableADC();
+   295:     /* Configure GPIO as inputs */
+   296:     mc_makeInput(D14);              // AN0
+   297:     mc_makeInput(D15);              // AN1
+   298:     mc_makeInput(D16);              // AN2
+   299:     mc_makeInput(D17);              // AN3
+   300:     mc_makeInput(D18);              // AN4
+   301:     mc_makeInput(D19);              // AN5
+   302:     mc_makeInput(D20);              // AN6
+   303: }
+   304: 
+   305: /* Private Functions */
+   306: /* none */
+   307: 
+   308: /* end of corelib_adc.c */
+   309: //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

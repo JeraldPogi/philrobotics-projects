@@ -18,7 +18,7 @@ void init()
 	clrPin(LED1);
 }
 
-void program()
+void cycle()
 {
 	if(getPinState(SW1) == LOW)			// SW1 is active low (pressed is LOW)
 	{

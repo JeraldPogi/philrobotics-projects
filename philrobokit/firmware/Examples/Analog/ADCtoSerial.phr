@@ -21,13 +21,13 @@ void init()
 	Timer = getMs();                                        // get time stamp
 }
 
-void program()
+void cycle()
 {
 	uint16_t ADCValue;
 
 	if(getElapsedMs(Timer) >= 1000)                         // read and send ADC value every 1Sec
 	{
-		ADCValue = adcRead(AN0);
+		ADCValue = adcRead(A0);
 		
 		Timer = getMs();                                    // get another stamp for the next cycle
 		serialWrite((uint8_t)(ADCValue >> 8));              // send ADC High Byte

@@ -121,7 +121,6 @@ enum DigitalPins_et
 
 enum AnalogPins_et
 {
-    //AN0, AN1, AN2, AN3, AN4, AN5, AN6
     A0, A1, A2, A3, A4, A5, A6
 };
 

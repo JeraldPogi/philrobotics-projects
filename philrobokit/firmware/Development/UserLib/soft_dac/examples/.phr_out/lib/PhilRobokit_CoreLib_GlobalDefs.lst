@@ -1,0 +1,155 @@
+     1: /*****************************************************************************************//**
+     2: * # PhilRobotics | Philippine Electronics and Robotics Enthusiasts Club #
+     3: * http://philrobotics.com | http://philrobotics.com/forum | http://facebook.com/philrobotics
+     4: * phirobotics.core@philrobotics.com
+     5: *
+     6: *---------------------------------------------------------------------------------------------
+     7: * |Filename:      | "PhilRoboKit_CoreLib_GlobalDefs.c"          |
+     8: * |:----          |:----                                        |
+     9: * |Description:   | Global Variable Definitions                 |
+    10: * |Revision:      | v00.01.01                                   |
+    11: * |Author:        | Efren S. Cruzat II                          |
+    12: * |               |                                             |
+    13: * |Dependencies:  |                                             |
+    14: *
+    15: * > This program is free software: you can redistribute it and/or modify
+    16: * > it under the terms of the GNU General Public License as published by
+    17: * > the Free Software Foundation, either version 3 of the License, or
+    18: * > (at your option) any later version.
+    19: * > This program is distributed in the hope that it will be useful,
+    20: * > but WITHOUT ANY WARRANTY; without even the implied warranty of
+    21: * > MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    22: * > GNU General Public License for more details.
+    23: * > <BR><BR>
+    24: * > You should have received a copy of the GNU General Public License
+    25: * > along with this program. If not, see http://www.gnu.org/licenses/
+    26: * <BR>
+    27: *---------------------------------------------------------------------------------------------
+    28: * |FW Version   |Date       |Author             |Description                        |
+    29: * |:----        |:----      |:----              |:----                              |
+    30: * |v00.00.01    |20120713   |ESCII              |Library Initial Release            |
+    31: * |v00.00.02    |20130508   |ESCII              |Fixed Mutex Locking on inc timer counters|
+    32: * |v00.01.00    |20130514   |ESCII              |Code Formated                      |
+    33: * |v00.01.01    |20130515   |ESCII              |Fixed SPLINT Warning               |
+    34: *********************************************************************************************/
+    35: #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
+    36: #undef  __SHOW_MODULE_HEADER__
+    37: 
+    38: #include "PhilRoboKit_CoreLib_GlobalDefs.h"
+    39: 
+    40: /* Local Constants */
+    41: /* none */
+    42: 
+    43: /* Global Variables */
+    44: static volatile bool_t      gblInitialized      = FALSE;
+    45: 
+    46: /* Timers */
+    47: static volatile uint16_t    gui16TimerUsMSB     = 0;            // only the timer isr must write on these variables
+    48: static volatile uint16_t    gui16TimerMs        = 0;            // only the timer isr must write on these variables
+    49: static volatile uint16_t    gui16TimerSec       = 0;            // only the timer isr must write on these variables
+    50: 
+    51: /* Local Variables */
+    52: #if 0
+    53: /* Timer Mutex */
+    54: static          bool_t      gblTimerUsMSB_Mutex = FALSE;
+    55: static          bool_t      gblTimerMs_Mutex    = FALSE;
+    56: static          bool_t      gblTimerSec_Mutex   = FALSE;
+    57: #endif
+    58: 
+    59: /* Function Prototypes */
+    60: #if 0
+    61: void get_MutexLock(volatile bool_t* pblMutex);
+    62: void clr_MutexLock(volatile bool_t* pblMutex);
+    63: #endif
+    64: 
+    65: /* Public Functions */
+    66: /* A flag to indicate low level initialization has commenced and the global interrupts are alread enabled */
+    67: void set_gblInitialized_FlagValue(void)
+    68: {
+    69:     gblInitialized = true;
+    70: }
+    71: 
+    72: bool_t get_gblInitialized_FlagValue(void)
+    73: {
+    74:     bool_t blTemp;
+    75:     blTemp = gblInitialized;
+    76:     return blTemp;
+    77: }
+    78: 
+    79: /* Microseconds */
+    80: void inc_gui16TimerUsMSB_Value(uint16_t ui16Value)
+    81: {
+    82:     gui16TimerUsMSB += ui16Value;
+    83: }
+    84: 
+    85: uint16_t get_gui16TimerUsMSB_Value(void)
+    86: {
+    87:     uint16_t ui16Temp;
+    88:     ui16Temp = (gui16TimerUsMSB&0xFF00);
+    89:     return ui16Temp;
+    90: }
+    91: 
+    92: /* Milliseconds */
+    93: void inc_gui16TimerMs_Value(void)
+    94: {
+    95:     gui16TimerMs++;
+    96: }
+    97: 
+    98: uint16_t get_gui16TimerMs_Value(void)
+    99: {
+   100:     uint16_t ui16Temp;
+   101:     //while(FALSE == getGlobalIntEnableStatus()){}        // aquire mutex
+   102:     //disableGlobalInt();                                 // ensure atomic operation
+   103:     ui16Temp =  gui16TimerMs;
+   104:     //enableGlobalInt();                                  // esc.comment, disabling performed on corelib_basetimer, encountering problems
+   105:     return ui16Temp;
+   106: }
+   107: 
+   108: /* Seconds */
+   109: void inc_gui16TimerSec_Value(void)
+   110: {
+   111:     gui16TimerSec++;
+   112: }
+   113: 
+   114: uint16_t get_gui16TimerSec_Value(void)
+   115: {
+   116:     uint16_t ui16Temp;
+   117:     //while(FALSE == getGlobalIntEnableStatus()) {}       // aquire mutex
+   118:     //disableGlobalInt();                                 // ensure atomic operation
+   119:     ui16Temp = gui16TimerSec;
+   120:     //enableGlobalInt();                                  // esc.comment, disabling performed on corelib_basetimer, encountering problems
+   121:     return ui16Temp;
+   122: }
+   123: 
+   124: /* Private Functions */
+   125: #if 0
+   126: void get_MutexLock(volatile bool_t* pblMutex)
+   127: {
+   128:     bool_t blInitValue;
+   129:     blInitValue = FALSE;
+   130: 
+   131:     if(FALSE == getGlobalIntEnableStatus())             // mutex locked by interrupt
+   132:     {
+   133:         *pblMutex = TRUE;
+   134:     }
+   135:     else
+   136:     {
+   137:         do
+   138:         {
+   139:             disableGlobalInt();                         // ensure atomic operation
+   140:             blInitValue = *pblMutex;
+   141:             *pblMutex = TRUE;
+   142:             enableGlobalInt();
+   143:         }
+   144:         while(TRUE == blInitValue);
+   145:     }
+   146: }
+   147: 
+   148: void clr_MutexLock(volatile bool_t* pblMutex)
+   149: {
+   150:     *pblMutex = FALSE;
+   151: }
+   152: #endif
+   153: 
+   154: /* end of PhilRoboKit_CoreLib_GlobalDefs.c */
+   155: //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

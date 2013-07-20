@@ -167,7 +167,7 @@ void setup8BitTimerFull(enum tmrModules_et eTmrModule, void(*callback)(), uint8_
 * > This function is called to initialize the 8Bit timer peripheral,
 * > prescaler and poscaler values were predefined to count every 10uS.
 * >
-* > The time to interrupt is set by the "setTimer" function.
+* > The time to interrupt is set by the "set8BitTimer" function.
 *
 * > <BR>
 * > **Syntax:**<BR>
@@ -224,7 +224,7 @@ void setup8BitTimer(enum tmrModules_et eTmrModule, void(*callback)())
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >     setTimer(module, value)
+* >     set8BitTimer(module, value)
 * > <BR><BR>
 * > **Parameters:**<BR>
 * >     module - timer module assignment, TIMER2, TIMER4, TIMER6            <BR>
@@ -234,7 +234,7 @@ void setup8BitTimer(enum tmrModules_et eTmrModule, void(*callback)())
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setTimer(enum tmrModules_et eTmrModule, uint8_t ui8Value)
+void set8BitTimer(enum tmrModules_et eTmrModule, uint8_t ui8Value)
 {
     /* Default */
     if(TIMER2 == eTmrModule)

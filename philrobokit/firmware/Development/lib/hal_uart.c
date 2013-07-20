@@ -66,7 +66,7 @@
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void hal_setSerialBAUD(uint16_t ui16Baudrate)
+void hal_setSerialBAUD(uint24_t ui16Baudrate)
 {
     switch(ui16Baudrate)
     {
@@ -90,7 +90,7 @@ void hal_setSerialBAUD(uint16_t ui16Baudrate)
             break;
         }
 
-#if (_XTAL_FREQ == 20000000)                // FOSC = 20MHz, Sequence Optimized for Speed
+#if (_XTAL_FREQ != 8000000)
 
         case STD_BAUD_115200:
         {
@@ -144,6 +144,8 @@ void hal_setSerialBAUD(uint16_t ui16Baudrate)
             break;
         }
 
+#if(_XTAL_FREQ != 32000000)
+
         case STD_BAUD_1200:
         {
             BIT_TXSTA_BRGH = LOW_BAUDRATE;
@@ -153,6 +155,8 @@ void hal_setSerialBAUD(uint16_t ui16Baudrate)
 #endif
             break;
         }
+
+#endif
 
         default:    // default is 9600 Baudrate
         {

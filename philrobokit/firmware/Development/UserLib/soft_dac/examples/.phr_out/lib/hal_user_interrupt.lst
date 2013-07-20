@@ -1,0 +1,212 @@
+     1: /*****************************************************************************************//**
+     2: * # PhilRobotics | Philippine Electronics and Robotics Enthusiasts Club #
+     3: * http://philrobotics.com | http://philrobotics.com/forum | http://facebook.com/philrobotics
+     4: * phirobotics.core@philrobotics.com
+     5: *
+     6: *---------------------------------------------------------------------------------------------
+     7: * |Filename:      | "hal_user_interrupt.c"                      |
+     8: * |:----          |:----                                        |
+     9: * |Description:   | This is a driver for using the external pin interrupt |
+    10: * |Revision:      | v00.01.00                                   |
+    11: * |Author:        | Efren S. Cruzat II                          |
+    12: * |               |                                             |
+    13: * |Dependencies:  |                                             |
+    14: *
+    15: * > This program is free software: you can redistribute it and/or modify
+    16: * > it under the terms of the GNU General Public License as published by
+    17: * > the Free Software Foundation, either version 3 of the License, or
+    18: * > (at your option) any later version.
+    19: * > This program is distributed in the hope that it will be useful,
+    20: * > but WITHOUT ANY WARRANTY; without even the implied warranty of
+    21: * > MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    22: * > GNU General Public License for more details.
+    23: * > <BR><BR>
+    24: * > You should have received a copy of the GNU General Public License
+    25: * > along with this program. If not, see http://www.gnu.org/licenses/
+    26: * <BR>
+    27: *---------------------------------------------------------------------------------------------
+    28: * |FW Version   |Date       |Author             |Description                        |
+    29: * |:----        |:----      |:----              |:----                              |
+    30: * |v00.00.01    |20130207   |ESCII              |Library Initial Release            |
+    31: * |v00.00.02    |20130402   |ESCII              |Changed PORTCHANGE_BUFFER type from int to uint8_t  and made static|
+    32: * |v00.01.00    |20130514   |ESCII              |Code Formatted                     |
+    33: *********************************************************************************************/
+    34: #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
+    35: #undef  __SHOW_MODULE_HEADER__
+    36: 
+    37: #include "hal_user_interrupt.h"
+    38: 
+    39: /* Local Constants */
+    40: /* none */
+    41: 
+    42: /* Local Variables */
+    43: extern volatile uint8_t PORTB_BUFFER,PORTB_DIRECTION;
+    44: 
+    45: /* Private Function Prototypes */
+    46: /* none */
+    47: 
+    48: /* Public Functions */
+    49: /*******************************************************************************//**
+    50: * \brief Initialize external pin interrupt function pointer with null function
+    51: *
+    52: * > This function basically does nothing and is used to initialize external pin
+    53: * > interrupt function pointer.
+    54: *
+    55: * > <BR>
+    56: * > **Syntax:**<BR>
+    57: * >     nullINTFunction()
+    58: * > <BR><BR>
+    59: * > **Parameters:**<BR>
+    60: * >     none
+    61: * > <BR><BR>
+    62: * > **Returns:**<BR>
+    63: * >     none
+    64: * > <BR><BR>
+    65: ***********************************************************************************/
+    66: void nullIntFunction()
+    67: {
+    68:     ;/* NULL */
+    69: }
+    70: 
+    71: /*******************************************************************************//**
+    72: * \brief INT0 interrupt service routine
+    73: *
+    74: * >  This is an interrupt handler called when there is a change on INT0 pin state
+    75: *
+    76: * > <BR>
+    77: * > **Syntax:**<BR>
+    78: * >      extIntISR(), ISR
+    79: * > <BR><BR>
+    80: * > **Parameters:**<BR>
+    81: * >     none
+    82: * > <BR><BR>
+    83: * > **Returns:**<BR>
+    84: * >     none
+    85: * > <BR><BR>
+    86: ***********************************************************************************/
+    87: #if(EXTINTENABLED == TRUE)
+    88: void extIntISR()
+    89: {
+    90:     if(CHANGE == eMod0_Mode)
+    91:     {
+    92:         K_INT_EDGE_BIT = ~K_INT_EDGE_BIT;   // toggle Int0 edge to trigger on next interrupt edge
+    93:     }
+    94: 
+    95:     /* Call User Function */
+    96:     pt2INT0();
+    97: }
+    98: #endif
+    99: 
+   100: /*******************************************************************************//**
+   101: * \brief PORTB interrupt service routine
+   102: *
+   103: * >  This is an interrupt handler called when there is a change on PORTB interrupt
+   104: * >  pin state
+   105: *
+   106: * > <BR>
+   107: * > **Syntax:**<BR>
+   108: * >      rbIntISR(), ISR
+   109: * > <BR><BR>
+   110: * > **Parameters:**<BR>
+   111: * >     none
+   112: * > <BR><BR>
+   113: * > **Returns:**<BR>
+   114: * >     none
+   115: * > <BR><BR>
+   116: ***********************************************************************************/
+   117: #if(RBINTENABLED == TRUE)
+   118: void rbIntISR(void)
+   119: {
+   120:     static uint8_t PORTCHANGE_BUFFER;
+   121:     /* Capture Pin Changes */
+   122:     PORTCHANGE_BUFFER = PORTB_BUFFER ^ (PORTB_VAL & PORTB_DIR); // Ignore Outputs
+   123: 
+   124:     if(k8_D12_MASK == (PORTCHANGE_BUFFER&k8_D12_MASK))
+   125:     {
+   126:         if((RISING == eMod1_Mode) && (LOW == mc_getPinState(D12)))
+   127:         {
+   128:             /* Ignore and wait for the next interrupt */
+   129:         }
+   130:         else if((FALLING == eMod1_Mode) && (HIGH == mc_getPinState(D12)))
+   131:         {
+   132:             /* Ignore and wait for the next interrupt */
+   133:         }
+   134:         else // CHANGE == eMod1_Mode or coincide of correct mode and pin state
+   135:         {
+   136:             /* Call User Function */
+   137:             pt2INT1();
+   138:         }
+   139: 
+   140:         PORTB_BUFFER &= ~k8_D12_MASK;                   // clear buffered RB4
+   141:         PORTB_BUFFER |= PORTB_VAL & k8_D12_MASK;    // store new RB4
+   142:     }
+   143: 
+   144:     if(k8_D13_MASK == (PORTCHANGE_BUFFER&k8_D13_MASK))
+   145:     {
+   146:         if((RISING == eMod2_Mode) && (LOW == mc_getPinState(D13)))
+   147:         {
+   148:             /* Ignore and wait for the next interrupt */
+   149:         }
+   150:         else if((FALLING == eMod2_Mode) && (HIGH == mc_getPinState(D13)))
+   151:         {
+   152:             /* Ignore and wait for the next interrupt */
+   153:         }
+   154:         else // CHANGE == eMod2_Mode or coincide of correct mode and pin state
+   155:         {
+   156:             /* Call User Function */
+   157:             pt2INT2();
+   158:         }
+   159: 
+   160:         PORTB_BUFFER &= ~k8_D13_MASK;                   // clear buffered RB5
+   161:         PORTB_BUFFER |= PORTB_VAL & k8_D13_MASK;    // store new RB5
+   162:     }
+   163: 
+   164:     if(RB6_MASK == (PORTCHANGE_BUFFER&RB6_MASK))
+   165:     {
+   166:         if((RISING == eMod3_Mode) && (0 == (PORTB_VAL & RB6_MASK)))
+   167:         {
+   168:             /* Ignore and wait for the next interrupt */
+   169:         }
+   170:         else if((FALLING == eMod3_Mode) && (RB6_MASK == (PORTB_VAL & RB6_MASK)))
+   171:         {
+   172:             /* Ignore and wait for the next interrupt */
+   173:         }
+   174:         else // CHANGE == eMod3_Mode or coincide of correct mode and pin state
+   175:         {
+   176:             /* Call User Function */
+   177:             pt2INT3();
+   178:         }
+   179: 
+   180:         PORTB_BUFFER &= ~RB6_MASK;                  // clear buffered RB6
+   181:         PORTB_BUFFER |= PORTB_VAL & RB6_MASK;   // store new RB6
+   182:     }
+   183: 
+   184:     if(RB7_MASK == (PORTCHANGE_BUFFER&RB7_MASK))
+   185:     {
+   186:         if((RISING == eMod4_Mode) && (0 == (PORTB_VAL & RB7_MASK)))
+   187:         {
+   188:             /* Ignore and wait for the next interrupt */
+   189:         }
+   190:         else if((FALLING == eMod4_Mode) && (RB7_MASK == (PORTB_VAL & RB7_MASK)))
+   191:         {
+   192:             /* Ignore and wait for the next interrupt */
+   193:         }
+   194:         else // CHANGE == eMod4_Mode or coincide of correct mode and pin state
+   195:         {
+   196:             /* Call User Function */
+   197:             pt2INT4();
+   198:         }
+   199: 
+   200:         PORTB_BUFFER &= ~RB7_MASK;                  // clear buffered RB7
+   201:         PORTB_BUFFER |= PORTB_VAL & RB7_MASK;   // store new RB7
+   202:     }
+   203: 
+   204:     PORTB_BUFFER &= PORTB_DIR;                      // Ensure only inputs are stored
+   205: }
+   206: #endif
+   207: 
+   208: /* Private Functions */
+   209: /* none */
+   210: 
+   211: /* end of hal_user_interrupt.c */
+   212: //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

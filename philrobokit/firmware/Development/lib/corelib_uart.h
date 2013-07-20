@@ -45,7 +45,7 @@
 #include "corelib_uart_test_stub.h"
 #else
 #include <PhilRoboKit_CoreLib_Macro.h>
-#include "string.h"
+#include <string.h>
 #include "hal_uart.h"
 #endif
 
@@ -60,7 +60,7 @@ struct UARTBuff_s
     uint8_t     ui8Tail;
 };
 
-#ifdef UNIT_TEST                                    // autodefined at unit testing script
+#ifdef UNIT_TEST
 extern struct UARTBuff_s   stUARTTXFiFo;
 extern struct UARTBuff_s   stUARTRXFiFo;
 #endif
@@ -72,7 +72,7 @@ extern struct UARTBuff_s   stUARTRXFiFo;
 void setupSerial(uint16_t ui16Baudrate);
 
 void serialWrite(uint8_t ui8TxData);
-void serialWriteString(uint8_t* pui8StrTxData);
+void serialWriteString(const uchar_t* pucStrTxData);
 void serialWriteBlock(uint8_t* pui8StrTxData, uint8_t ui8Size);
 
 uint8_t serialDataCount(void);

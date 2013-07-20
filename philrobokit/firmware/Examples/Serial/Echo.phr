@@ -18,7 +18,7 @@ void init()
 	setupSerial(9600);						// 9600 bits per second
 }
 
-void program()
+void cycle()
 {
 	while(serialDataCount() > 0)            // check if serial data is available
 	{

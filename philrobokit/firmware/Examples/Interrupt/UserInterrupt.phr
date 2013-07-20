@@ -24,14 +24,14 @@ void pinToggle()
 
 void init()
 {
-	setupUserInt(INT0, pinToggle, CHANGE);      // setup user interrupt to interrupt on every change of INT0(D8) pin state
+	setupUserInt(INTR0, pinToggle, CHANGE);      // setup user interrupt to interrupt on every change of INT0(D8) pin state
 	clrPin(LED1);
 	clrPin(LED2);
 	clrPin(LED3);
 	clrPin(LED4);
 }
 
-void program()
+void cycle()
 {
 	/* do nothing */
 }

@@ -141,6 +141,38 @@ void timerISR(void)
     }
 }
 
+uint16_t getBaseTimerValue(void)
+{
+    uint16_t ui16Temp,ui16HiTimer;
+
+    while(FALSE == getGlobalIntEnableStatus()) {}       // aquire mutex
+
+    disableGlobalInt();                                 // ensure atomic operation
+#if (__PHR_CONTROLLER__==__MCU_PIC18__)
+    hal_disableBaseTimer();
+#elif (__PHR_CONTROLLER__==__MCU_PIC16__)
+
+    do
+#else
+#endif
+    {
+        ui16Temp = REGISTER_TMR0L;
+        ui16HiTimer = get_gui16TimerUsMSB_Value();
+    }
+
+#if (__PHR_CONTROLLER__==__MCU_PIC16__)
+
+    while(ui16HiTimer != get_gui16TimerUsMSB_Value());
+
+#elif (__PHR_CONTROLLER__==__MCU_PIC18__)
+    hal_enableBaseTimer();
+#else
+#endif
+    ui16Temp += ui16HiTimer;
+    enableGlobalInt();
+    return ui16Temp;
+}
+
 /* Private Functions */
 /* none */
 

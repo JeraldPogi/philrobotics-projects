@@ -150,10 +150,10 @@ int getMockFunctionReturn(int* reg)
 /* unit tests */
 static TEST_setupGpio(void)
 {
-    /* Initialize Module Test */
+    /* Initialize Unit Test */
     UCUNIT_TestcaseBegin("setupGpio: Test GPIO Initialization");
     UCUNIT_ResetTracepointCoverage();
-    /* Perform Module Test */
+    /* Perform Unit Test */
     setupGpio();                                                // call function to be tested
     /* Check ADC are set as inputs */
     UCUNIT_CheckIsEqual(0x27, (REGISTER_TRISA&0x27));
@@ -179,7 +179,7 @@ static TEST_setupGpio(void)
     UCUNIT_CheckIsEqual(0x00, REGISTER_PORTB);
     UCUNIT_CheckIsEqual(0x00, (REGISTER_TRISC&0x3F));
     UCUNIT_CheckIsEqual(0x00, (REGISTER_PORTC&0x3F));
-    /* End Module Test */
+    /* End Unit Test */
     UCUNIT_TestcaseEnd();
 }
 
@@ -190,7 +190,7 @@ void init()
     UCUNIT_Init();
     UCUNIT_WriteString("\n**********************************************************************");
     UCUNIT_WriteString("\nName:     ");
-    UCUNIT_WriteString("-corelib_gpio- Module Testing");
+    UCUNIT_WriteString("-corelib_gpio- Unit Testing");
     UCUNIT_WriteString("\nCompiled: ");
     UCUNIT_WriteString(__DATE__);
     UCUNIT_WriteString("\nTime:     ");

@@ -1,0 +1,238 @@
+Version 3.2 HI-TECH Software Intermediate Code
+[c E1288 0 1 2 3 .. ]
+[n E1288 InterruptModes_e LOWSTATE CHANGE RISING FALLING  ]
+"106 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[v F1304 `(v ~T0 @X0 0 tf ]
+"102
+[v _nullIntFunction `(v ~T0 @X0 0 ef ]
+"111
+[v F1309 `(v ~T0 @X0 0 tf ]
+"112
+[v F1312 `(v ~T0 @X0 0 tf ]
+"113
+[v F1315 `(v ~T0 @X0 0 tf ]
+"114
+[v F1318 `(v ~T0 @X0 0 tf ]
+"113 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v F1335 `(v ~T0 @X0 0 tf ]
+"111
+[v _nullTMRFunction `(v ~T0 @X0 0 ef ]
+"111 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v F1394 `(v ~T0 @X0 0 tf ]
+"109
+[v _null16BitTMRFunction `(v ~T0 @X0 0 ef ]
+"88 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_gpio.h
+[v _setupGpio `(v ~T0 @X0 0 ef ]
+"110 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_timer.h
+[v _setupTimer `(v ~T0 @X0 0 ef ]
+[c E1165 0 1 2 .. ]
+[n E1165 ADCVrefSource_e VDD EXT INT  ]
+"67 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\corelib_adc.h
+[v _setupADC `(v ~T0 @X0 0 ef1`E1165 ]
+[c E1396 1 .. ]
+[n E1396 tmr16BitModules_e TIMER1  ]
+"65 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\corelib_16bit_timer.h
+[v F1409 `(v ~T0 @X0 0 tf ]
+[v _setup16BitTimer `(v ~T0 @X0 0 ef2`E1396`*F1409 ]
+"46 hardware/cores\setupAnito.c
+[v _criticalTaskISR `(v ~T0 @X0 0 ef ]
+"66 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\corelib_16bit_timer.h
+[v _set16BitTimer `(v ~T0 @X0 0 ef2`E1396`ui ]
+"2438 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _GIE `Vb ~T0 @X0 0 e@95 ]
+"2478
+[v _PEIE `Vb ~T0 @X0 0 e@94 ]
+"46 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[; <" INDF equ 00h ;# ">
+"52
+[; <" TMR0 equ 01h ;# ">
+"58
+[; <" PCL equ 02h ;# ">
+"64
+[; <" STATUS equ 03h ;# ">
+"151
+[; <" FSR equ 04h ;# ">
+"157
+[; <" PORTA equ 05h ;# ">
+"206
+[; <" PORTB equ 06h ;# ">
+"267
+[; <" PORTC equ 07h ;# ">
+"328
+[; <" PORTD equ 08h ;# ">
+"389
+[; <" PORTE equ 09h ;# ">
+"420
+[; <" PCLATH equ 0Ah ;# ">
+"439
+[; <" INTCON equ 0Bh ;# ">
+"516
+[; <" PIR1 equ 0Ch ;# ">
+"577
+[; <" PIR2 equ 0Dh ;# ">
+"616
+[; <" TMR1 equ 0Eh ;# ">
+"622
+[; <" TMR1L equ 0Eh ;# ">
+"628
+[; <" TMR1H equ 0Fh ;# ">
+"634
+[; <" T1CON equ 010h ;# ">
+"708
+[; <" TMR2 equ 011h ;# ">
+"714
+[; <" T2CON equ 012h ;# ">
+"784
+[; <" SSPBUF equ 013h ;# ">
+"790
+[; <" SSPCON equ 014h ;# ">
+"859
+[; <" CCPR1 equ 015h ;# ">
+"865
+[; <" CCPR1L equ 015h ;# ">
+"871
+[; <" CCPR1H equ 016h ;# ">
+"877
+[; <" CCP1CON equ 017h ;# ">
+"934
+[; <" RCSTA equ 018h ;# ">
+"1028
+[; <" TXREG equ 019h ;# ">
+"1034
+[; <" RCREG equ 01Ah ;# ">
+"1040
+[; <" CCPR2 equ 01Bh ;# ">
+"1046
+[; <" CCPR2L equ 01Bh ;# ">
+"1052
+[; <" CCPR2H equ 01Ch ;# ">
+"1058
+[; <" CCP2CON equ 01Dh ;# ">
+"1115
+[; <" ADRESH equ 01Eh ;# ">
+"1121
+[; <" ADCON0 equ 01Fh ;# ">
+"1216
+[; <" OPTION_REG equ 081h ;# ">
+"1285
+[; <" TRISA equ 085h ;# ">
+"1334
+[; <" TRISB equ 086h ;# ">
+"1395
+[; <" TRISC equ 087h ;# ">
+"1456
+[; <" TRISD equ 088h ;# ">
+"1517
+[; <" TRISE equ 089h ;# ">
+"1573
+[; <" PIE1 equ 08Ch ;# ">
+"1634
+[; <" PIE2 equ 08Dh ;# ">
+"1673
+[; <" PCON equ 08Eh ;# ">
+"1706
+[; <" SSPCON2 equ 091h ;# ">
+"1767
+[; <" PR2 equ 092h ;# ">
+"1773
+[; <" SSPADD equ 093h ;# ">
+"1779
+[; <" SSPSTAT equ 094h ;# ">
+"1947
+[; <" TXSTA equ 098h ;# ">
+"2027
+[; <" SPBRG equ 099h ;# ">
+"2033
+[; <" CMCON equ 09Ch ;# ">
+"2102
+[; <" CVRCON equ 09Dh ;# ">
+"2166
+[; <" ADRESL equ 09Eh ;# ">
+"2172
+[; <" ADCON1 equ 09Fh ;# ">
+"2230
+[; <" EEDATA equ 010Ch ;# ">
+"2236
+[; <" EEADR equ 010Dh ;# ">
+"2242
+[; <" EEDATH equ 010Eh ;# ">
+"2248
+[; <" EEADRH equ 010Fh ;# ">
+"2254
+[; <" EECON1 equ 018Ch ;# ">
+"2298
+[; <" EECON2 equ 018Dh ;# ">
+"92 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[v _PORTB_BUFFER `uc ~T0 @X0 1 e ]
+[v _PORTB_DIR `uc ~T0 @X0 1 e ]
+"95
+[v _eMod0_Mode `E1288 ~T0 @X0 1 e ]
+"99
+[v _eMod1_Mode `E1288 ~T0 @X0 1 e ]
+[v _eMod2_Mode `E1288 ~T0 @X0 1 e ]
+[v _eMod3_Mode `E1288 ~T0 @X0 1 e ]
+[v _eMod4_Mode `E1288 ~T0 @X0 1 e ]
+"106
+[v _pt2INT0 `*F1304 ~T0 @X0 1 e ]
+[i _pt2INT0
+&U _nullIntFunction
+]
+"111
+[v _pt2INT1 `*F1309 ~T0 @X0 1 e ]
+[i _pt2INT1
+&U _nullIntFunction
+]
+"112
+[v _pt2INT2 `*F1312 ~T0 @X0 1 e ]
+[i _pt2INT2
+&U _nullIntFunction
+]
+"113
+[v _pt2INT3 `*F1315 ~T0 @X0 1 e ]
+[i _pt2INT3
+&U _nullIntFunction
+]
+"114
+[v _pt2INT4 `*F1318 ~T0 @X0 1 e ]
+[i _pt2INT4
+&U _nullIntFunction
+]
+"113 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v _pt2TMR2ISR `*F1335 ~T0 @X0 1 e ]
+[i _pt2TMR2ISR
+&U _nullTMRFunction
+]
+"111 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v _pt2TMR1ISR `*F1394 ~T0 @X0 1 e ]
+[i _pt2TMR1ISR
+&U _null16BitTMRFunction
+]
+"66 hardware/cores\setupAnito.c
+[v _philrobokit_init `(v ~T0 @X0 1 ef ]
+{
+[e :U _philrobokit_init ]
+[f ]
+"68
+[e ( _setupGpio ..  ]
+"71
+[e ( _setupTimer ..  ]
+"74
+[e ( _setupADC (1 -> . `E1165 0 `E1165 ]
+"77
+[e ( _setup16BitTimer (2 , -> . `E1396 0 `E1396 &U _criticalTaskISR ]
+"78
+[e ( _set16BitTimer (2 , -> . `E1396 0 `E1396 -> -> 5000 `i `ui ]
+"81
+[e = _GIE -> -> 1 `i `b ]
+[e = _PEIE -> -> 1 `i `b ]
+"82
+[e :UE 96 ]
+}
+"86
+[v _criticalTaskISR `(v ~T0 @X0 1 ef ]
+{
+[e :U _criticalTaskISR ]
+[f ]
+"88
+[e :UE 97 ]
+}

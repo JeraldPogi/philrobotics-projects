@@ -1,0 +1,64 @@
+/*****************************************************************************************//**
+* # PhilRobotics | Philippine Electronics and Robotics Enthusiasts Club #
+* http://philrobotics.com | http://philrobotics.com/forum | http://facebook.com/philrobotics
+* phirobotics.core@philrobotics.com
+*
+*---------------------------------------------------------------------------------------------
+* |Filename:      	| "Heartbeat.phr"                                                      			|
+* |:----          	|:----                                                                    			|
+* |Description:   | Outputs a ramp signal on DAC0(D2) output
+*                   	  An example of the use of the peripheral DAC library.                    	|
+* |Author:        	| Efren S. Cruzat II                                                      		|
+* |               	|                                                                         			|
+* |Dependencies: |                                                                         			|
+*
+* > This program is free software under GNU General Public License.
+*********************************************************************************************/
+#define LED_UPDATE_INTERVAL    500
+
+static 	uint16_t LoopTimer;
+		uint8_t  LEDCounter;
+		uint8_t  LogLookup[25] = {0,0,0,0,0,1,2,3,5,8,11,16,23,32,45,64,90,127,180,255,255,255,255,255,255};	
+		bool_t	 LEDDirection;
+		
+void init()
+{
+	LoopTimer = getMs();                            	// get time stamp
+}
+
+void cycle()
+{
+	uint16_t DACOutValue = 0;
+	
+	if(getElapsedMs(LoopTimer)>= LED_UPDATE_INTERVAL)
+	{
+		LoopTimer = getMs();                        	// get another stamp for the next cycle
+		
+		if(LEDCounter >= 24)
+		{
+		  LEDCounter=24;
+		  LEDDirection = false;
+		}
+		else if(LEDCounter < 1)
+		{
+		  LEDDirection = true;
+		  LEDCounter=1;
+		}
+		else
+		{
+		  /* Do Nothing */
+		}
+		
+		if(LEDDirection)
+		{
+		  LEDCounter++;
+		}
+		else
+		{
+		  LEDCounter--;
+		}
+		
+		DACOutValue = LogLookup[LEDCounter];
+		setDAC(DAC0, DACOutValue);                  	// update DAC0(D2) value (value can be between 0 and 1023) 
+	}
+}

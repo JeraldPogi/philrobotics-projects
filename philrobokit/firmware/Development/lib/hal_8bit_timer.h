@@ -67,7 +67,18 @@
 //      x  - x+1
 //          *
 //      15 - 16
+#if (__PHR_CONTROLLER__==__MCU_PIC18__)
 //***********************************************************************************
+//  @ 32Mhz Xtal, XTalT = 31.25nS
+//  prescaler = 16, postscaler = 5
+//  K is the timer resolution and the offset when PR2 is 0
+//  K = 4 x XtalT x pre-scaler x post-scaler
+//  K ~10uS resolution
+//***********************************************************************************
+#define K_10US_PRESCALE             2
+#define K_10US_POSTSCALE            4
+
+#elif  (__PHR_CONTROLLER__==__MCU_PIC16__)
 //  @ 20Mhz Xtal, XTalT = 50nS
 //  prescaler = 16, postscaler = 3
 //  K is the timer resolution and the offset when PR2 is 0
@@ -76,6 +87,9 @@
 //***********************************************************************************
 #define K_10US_PRESCALE             2
 #define K_10US_POSTSCALE            2
+
+#else
+#endif
 
 /* Macro and Configuration Definitions */
 #if(TIMER_8BIT_ENABLED == TRUE)

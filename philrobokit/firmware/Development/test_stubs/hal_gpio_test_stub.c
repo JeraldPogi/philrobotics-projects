@@ -619,7 +619,7 @@ void init()
     UCUNIT_Init();
     UCUNIT_WriteString("\n**********************************************************************");
     UCUNIT_WriteString("\nName:     ");
-    UCUNIT_WriteString("-hal_gpio- Module Testing");
+    UCUNIT_WriteString("-hal_gpio- Unit Testing");
     UCUNIT_WriteString("\nCompiled: ");
     UCUNIT_WriteString(__DATE__);
     UCUNIT_WriteString("\nTime:     ");

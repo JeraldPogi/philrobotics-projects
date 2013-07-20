@@ -41,11 +41,11 @@
 /* none */
 
 /* Local Variables */
-static uint16_t ui16TempBuff = 0;
-static bool_t   blGlobalEnLocked = false;
+/* none */
 
 /* Private Function Prototypes */
 /* none */
+
 
 /* Public Functions */
 /*******************************************************************************//**
@@ -68,34 +68,8 @@ static bool_t   blGlobalEnLocked = false;
 ***********************************************************************************/
 uint16_t getUs(void)
 {
-    /* Sort of Mutex checking and locking */
-    blGlobalEnLocked = false;                           // initialize
-
-    if(false == getGlobalIntEnableStatus())             // mutex locked by interrupt
-    {
-        blGlobalEnLocked = true;
-#ifdef UNIT_TEST
-        UCUNIT_Tracepoint(0);
-#endif
-    }
-    else
-    {
-        disableGlobalInt();
-#ifdef UNIT_TEST
-        UCUNIT_Tracepoint(1);
-#endif
-    }
-
-    ui16TempBuff = hal_getBaseTimerValue();
-
-    if(false == blGlobalEnLocked)
-    {
-        enableGlobalInt();
-#ifdef UNIT_TEST
-        UCUNIT_Tracepoint(2);
-#endif
-    }
-
+    uint16_t ui16TempBuff;
+    ui16TempBuff = getBaseTimerValue();
     return ui16TempBuff;
 }
 
@@ -118,34 +92,9 @@ uint16_t getUs(void)
 ***********************************************************************************/
 uint16_t getElapsedUs(uint16_t ui16TimeUs)
 {
-    /* Sort of Mutex checking and locking */
-    blGlobalEnLocked = false;                           // initialize
-
-    if(false == getGlobalIntEnableStatus())             // mutex locked by interrupt
-    {
-        blGlobalEnLocked = true;
-#ifdef UNIT_TEST
-        UCUNIT_Tracepoint(0);
-#endif
-    }
-    else
-    {
-        disableGlobalInt();
-#ifdef UNIT_TEST
-        UCUNIT_Tracepoint(1);
-#endif
-    }
-
-    ui16TempBuff = hal_getBaseTimerValue() - ui16TimeUs;// delta
-
-    if(false == blGlobalEnLocked)
-    {
-        enableGlobalInt();
-#ifdef UNIT_TEST
-        UCUNIT_Tracepoint(2);
-#endif
-    }
-
+    uint16_t ui16TempBuff;
+    ui16TempBuff = getBaseTimerValue();
+    ui16TempBuff -= ui16TimeUs;// delta
 #if (_XTAL_FREQ == 20000000)                            // 20Mhz normalization: timer interrupt slowed a little bit for slow clock so interrupt is less frequent
     ui16TempBuff = (ui16TempBuff - (ui16TempBuff >> 2)) + (ui16TempBuff >> 4);  // delta' = delta * 0.8, (0.8125 = 1 - 0.25 + 0.0625)
     ui16TempBuff <<= SHIFT_MULT;
@@ -173,34 +122,10 @@ uint16_t getElapsedUs(uint16_t ui16TimeUs)
 ***********************************************************************************/
 uint16_t getMs(void)
 {
-    /* Sort of Mutex checking and locking */
-    blGlobalEnLocked = false;                           // initialize
-
-    if(false == getGlobalIntEnableStatus())             // mutex locked by interrupt
-    {
-        blGlobalEnLocked = true;
-#ifdef UNIT_TEST
-        UCUNIT_Tracepoint(0);
-#endif
-    }
-    else
-    {
-        disableGlobalInt();
-#ifdef UNIT_TEST
-        UCUNIT_Tracepoint(1);
-#endif
-    }
-
+    uint16_t ui16TempBuff;
+    disableGlobalInt();
     ui16TempBuff = get_gui16TimerMs_Value();
-
-    if(false == blGlobalEnLocked)
-    {
-        enableGlobalInt();
-#ifdef UNIT_TEST
-        UCUNIT_Tracepoint(2);
-#endif
-    }
-
+    enableGlobalInt();
     return ui16TempBuff;
 }
 
@@ -223,37 +148,14 @@ uint16_t getMs(void)
 ***********************************************************************************/
 uint16_t getElapsedMs(uint16_t ui16TimeMs)
 {
-    /* Sort of Mutex checking and locking */
-    blGlobalEnLocked = false;                           // initialize
-
-    if(false == getGlobalIntEnableStatus())             // mutex locked by interrupt
-    {
-        blGlobalEnLocked = true;
-#ifdef UNIT_TEST
-        UCUNIT_Tracepoint(0);
-#endif
-    }
-    else
-    {
-        disableGlobalInt();
-#ifdef UNIT_TEST
-        UCUNIT_Tracepoint(1);
-#endif
-    }
-
-    ui16TempBuff = get_gui16TimerMs_Value() - ui16TimeMs;
-
-    if(false == blGlobalEnLocked)
-    {
-        enableGlobalInt();
-#ifdef UNIT_TEST
-        UCUNIT_Tracepoint(2);
-#endif
-    }
-
+    uint16_t ui16TempBuff;
+    disableGlobalInt();
+    ui16TempBuff = get_gui16TimerMs_Value();
+    ui16TempBuff -= ui16TimeMs;
 #if (_XTAL_FREQ == 20000000)                            // 20Mhz normalization: timer interrupt slowed a little bit for slow clock so interrupt is less frequent
     ui16TempBuff <<= SHIFT_MULT;
 #endif
+    enableGlobalInt();
     return ui16TempBuff;
 }
 
@@ -278,25 +180,8 @@ uint16_t getElapsedMs(uint16_t ui16TimeMs)
 ***********************************************************************************/
 uint16_t getSec(void)
 {
-    /* Sort of Mutex checking and locking */
-    blGlobalEnLocked = false;                           // initialize
-
-    if(false == getGlobalIntEnableStatus())             // mutex locked by interrupt
-    {
-        blGlobalEnLocked = true;
-    }
-    else
-    {
-        disableGlobalInt();
-    }
-
+    uint16_t ui16TempBuff;
     ui16TempBuff = get_gui16TimerSec_Value();
-
-    if(false == blGlobalEnLocked)
-    {
-        enableGlobalInt();
-    }
-
     return ui16TempBuff;
 }
 
@@ -319,25 +204,9 @@ uint16_t getSec(void)
 ***********************************************************************************/
 uint16_t getElapsedSec(uint16_t ui16TimeSec)
 {
-    /* Sort of Mutex checking and locking */
-    blGlobalEnLocked = false;                           // initialize
-
-    if(false == getGlobalIntEnableStatus())             // mutex locked by interrupt
-    {
-        blGlobalEnLocked = true;
-    }
-    else
-    {
-        disableGlobalInt();
-    }
-
-    ui16TempBuff = get_gui16TimerSec_Value() - ui16TimeSec;
-
-    if(false == blGlobalEnLocked)
-    {
-        enableGlobalInt();
-    }
-
+    uint16_t ui16TempBuff;
+    ui16TempBuff = get_gui16TimerSec_Value();
+    ui16TempBuff -= ui16TimeSec;
     return ui16TempBuff;
 }
 #endif

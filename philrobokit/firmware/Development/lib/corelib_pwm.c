@@ -76,9 +76,9 @@ void setupPWM(enum PWMModules_et ePWM_Module, uint16_t ui16Frequency, uint16_t u
     /* Select Source */
     //mc_PWMClk_Source(CCP_PWM_CLOCK);              // not for PIC16F877A
     /* Clear TMRxIF */
-    //hal_clrPWMTmrIntFlag() ;                          // not critical
+    //hal_clrPWMTmrIntFlag() ;                      // not critical
     /* Configure Prescaler value */
-    hal_initPWMTimer(ui8PreScalerVal);          // Common for CCP1 and CCP2
+    hal_initPWMTimer(ui8PreScalerVal);              // Common for CCP1 and CCP2
 
     /* Configure CCP to PWM mode */
     if(PWM0 == ePWM_Module)
@@ -143,15 +143,15 @@ void setPWMFrequency(uint16_t ui16Frequency)
     }
 
     /* Check Prescaler Range */
-    if(ui16Frequency >= K_PRESCALE0_FREQ_LIM)       // 19.53kHz - 200kHz
+    if(ui16Frequency >= K_PRESCALE0_FREQ_LIM)
     {
         ui8PreScalerVal = PRESCALE0_VAL;            // div by 1
     }
-    else if(ui16Frequency >= K_PRESCALE1_FREQ_LIM)  // 4.88kHz - 19.53kHz
+    else if(ui16Frequency >= K_PRESCALE1_FREQ_LIM)
     {
         ui8PreScalerVal = PRESCALE1_VAL;            // div by 4
     }
-    else if(ui16Frequency >= K_PRESCALE2_FREQ_LIM)  // 1.22kHz - 4.88kHz
+    else if(ui16Frequency >= K_PRESCALE2_FREQ_LIM)
     {
         ui8PreScalerVal = PRESCALE2_VAL;            // div by 16
     }
@@ -163,8 +163,8 @@ void setPWMFrequency(uint16_t ui16Frequency)
     /* Prescaler to Period Parsing */
     ui8PreScaler = ui8PreScalerVal << 1;
     ui8PreScaler = (uint8_t)1 << ui8PreScaler;      // secret :p
-    ui24Period = (uint24_t)(10000000UL / ui16Frequency);
-    ui16TempVar = (uint16_t)20 * ui8PreScaler;
+    ui24Period = (uint24_t)(100000000UL / ui16Frequency);
+    ui16TempVar = (uint16_t)K_T_SCALED * ui8PreScaler;
     ui24Period = ui24Period/ui16TempVar;
 
     /* Check Saturation */

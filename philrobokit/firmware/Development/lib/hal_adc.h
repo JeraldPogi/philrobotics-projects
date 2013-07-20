@@ -51,6 +51,16 @@
 /* none */
 
 /* Global Constants */
+#if (__PHR_CONTROLLER__==__MCU_PIC18__)
+/* PIC18F4520 Specific */
+enum adcModuleCfg_et
+{
+    CFG_ALLANALOG                                       = 0x00,
+    CFG_ALLDIGITAL                                      = 0x0F,
+    CFG_EXTVREF                                         = 0x10
+};
+
+#elif (__PHR_CONTROLLER__==__MCU_PIC16__)
 /* PIC16F877A Specific */
 enum adcModuleCfg_et
 {
@@ -58,6 +68,9 @@ enum adcModuleCfg_et
     CFG_ALLDIGITAL                                      = 0x07,
     CFG_EXTVREF                                         = 0x01
 };
+
+#else
+#endif
 
 /* Macro and Configuration Definitions */
 #define hal_enableADCInt()                              (BIT_PIE1_ADIE = 1)
@@ -73,21 +86,42 @@ enum adcModuleCfg_et
 #define hal_startADCConversion()                        (BIT_ADCON0_GO_DONE = 1)
 #define hal_checkADCEndofConversion()                   ((BIT_ADCON0_GO_DONE) ? false : true)
 
-#define hal_configADCPins(config)                       \
-    REGISTER_ADCON1 &= ~ADC_CONFIG_MASK;                \
-    REGISTER_ADCON1 |= (config&ADC_CONFIG_MASK)         // semi-collon intentionally omitted
+#if (__PHR_CONTROLLER__==__MCU_PIC18__)
+
+#define hal_leftAligned()                               (BIT_ADCON2_ADFM = 0)
+#define hal_rightAligned()                              (BIT_ADCON2_ADFM = 1)
+
+#define hal_configADCPinsClock(config)                  \
+    REGISTER_ADCON2 &=~ADC_CONVCLOCK_MASK;              \
+    REGISTER_ADCON2 |= ADC_CONVCLOCK_MASK               // semi-collon intentionally omitted
+
+#define hal_configADCAqDelay(config)                    \
+    REGISTER_ADCON2 &=~ADC_TAD_MASK;                    \
+    REGISTER_ADCON2 |= (config<<3)&ADC_TAD_MASK         // semi-collon intentionally omitted
+
+#define hal_setADCChannel(channel)                      \
+    REGISTER_ADCON0 &=~ADC_CHANSEL_MASK;                    \
+    REGISTER_ADCON0 |= (channel<<2)&ADC_CHANSEL_MASK        // semi-collon intentionally omitted
+
+#elif (__PHR_CONTROLLER__==__MCU_PIC16__)
 
 #define hal_leftAligned()                               (BIT_ADCON1_ADFM = 0)
 #define hal_rightAligned()                              (BIT_ADCON1_ADFM = 1)
-
-#define hal_setADCChannel(channel)                      \
-    REGISTER_ADCON0 &=~ADC_CHANSEL_MASK;                \
-    REGISTER_ADCON0 |= (channel<<3)&ADC_CHANSEL_MASK    // semi-collon intentionally omitted
 
 #define hal_configADCPinsClock(config)                  \
     REGISTER_ADCON0 &=~ADC_CONVCLOCK_MASK;              \
     REGISTER_ADCON0 |= (config<<6)&ADC_CONVCLOCK_MASK;  \
     BIT_ADCON1_ADCS2 = (((config&0x04)>0) ? 1 : 0)      // semi-collon intentionally omitted
+
+#define hal_setADCChannel(channel)                      \
+    REGISTER_ADCON0 &=~ADC_CHANSEL_MASK;                    \
+    REGISTER_ADCON0 |= (channel<<3)&ADC_CHANSEL_MASK        // semi-collon intentionally omitted
+#else
+#endif
+
+#define hal_configADCPins(config)                       \
+    REGISTER_ADCON1 &= ~ADC_CONFIG_MASK;                \
+    REGISTER_ADCON1 |= (config&ADC_CONFIG_MASK)         // semi-collon intentionally omitted
 
 #define readADCResult()                                 ((((uint16_t)REGISTER_ADRESH<<8) + REGISTER_ADRESL) & 0x03FF)
 

@@ -20,7 +20,7 @@ void init()
 	clrPin(LED1);
 }
 
-void program()
+void cycle()
 {
 	CurrentState = getPinState(SW1);
 	

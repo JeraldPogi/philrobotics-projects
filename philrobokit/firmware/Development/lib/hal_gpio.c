@@ -240,7 +240,7 @@ void changePinState(uint8_t ui8Pin, enum PinStateOperation_et eOperation)
         else
         {
 #ifdef UNIT_TEST
-            UCUNIT_Tracepoint(5);                                   // must not be reached
+            UCUNIT_Tracepoint(5);                       // must not be reached
 #endif
             /* assert(); */                             // must not be reached
         }
@@ -257,7 +257,7 @@ void changePinState(uint8_t ui8Pin, enum PinStateOperation_et eOperation)
     else
     {
 #ifdef UNIT_TEST
-        UCUNIT_Tracepoint(7);                                   // must not be reached
+        UCUNIT_Tracepoint(7);                           // must not be reached
 #endif
         /* assert(); */                                 // must not be reached
     }
@@ -290,7 +290,7 @@ void changePinState(uint8_t ui8Pin, enum PinStateOperation_et eOperation)
     else
     {
 #ifdef UNIT_TEST
-        UCUNIT_Tracepoint(11);                                  // must not be reached
+        UCUNIT_Tracepoint(11);                          // must not be reached
 #endif
         /* assert(); */                                 // null pointer
     }
@@ -387,7 +387,7 @@ bool_t checkPinState(uint8_t ui8Pin)
 #ifdef UNIT_TEST
         UCUNIT_Tracepoint(7);                                       // must not be reached
 #endif
-        /* assert(); */                                     // must not be reached
+        /* assert(); */                                             // must not be reached
     }
 
     /* Get Pin State */
@@ -417,7 +417,7 @@ bool_t checkPinState(uint8_t ui8Pin)
         UCUNIT_Tracepoint(10);                                      // must not be reached
 #endif
         /* assert(); */
-        return LOW;                                         // must not be reached
+        return LOW;                                                 // must not be reached
     }
 }
 

@@ -49,13 +49,18 @@ static volatile uint16_t    gui16TimerMs        = 0;            // only the time
 static volatile uint16_t    gui16TimerSec       = 0;            // only the timer isr must write on these variables
 
 /* Local Variables */
+#if 0
 /* Timer Mutex */
 static          bool_t      gblTimerUsMSB_Mutex = FALSE;
 static          bool_t      gblTimerMs_Mutex    = FALSE;
 static          bool_t      gblTimerSec_Mutex   = FALSE;
+#endif
 
 /* Function Prototypes */
-/* none */
+#if 0
+void get_MutexLock(volatile bool_t* pblMutex);
+void clr_MutexLock(volatile bool_t* pblMutex);
+#endif
 
 /* Public Functions */
 /* A flag to indicate low level initialization has commenced and the global interrupts are alread enabled */
@@ -74,83 +79,77 @@ bool_t get_gblInitialized_FlagValue(void)
 /* Microseconds */
 void inc_gui16TimerUsMSB_Value(uint16_t ui16Value)
 {
-    while(gblTimerUsMSB_Mutex)
-    {
-        gblTimerUsMSB_Mutex = TRUE;
-    }
-
     gui16TimerUsMSB += ui16Value;
-    gblTimerUsMSB_Mutex = FALSE;
 }
 
 uint16_t get_gui16TimerUsMSB_Value(void)
 {
     uint16_t ui16Temp;
-
-    while(gblTimerUsMSB_Mutex)
-    {
-        gblTimerUsMSB_Mutex = TRUE;
-    }
-
     ui16Temp = (gui16TimerUsMSB&0xFF00);
-    gblTimerUsMSB_Mutex = FALSE;
     return ui16Temp;
 }
 
 /* Milliseconds */
 void inc_gui16TimerMs_Value(void)
 {
-    while(gblTimerMs_Mutex)
-    {
-        gblTimerMs_Mutex = TRUE;
-    }
-
     gui16TimerMs++;
-    gblTimerMs_Mutex = FALSE;
 }
 
 uint16_t get_gui16TimerMs_Value(void)
 {
     uint16_t ui16Temp;
-
-    while(gblTimerMs_Mutex)
-    {
-        gblTimerMs_Mutex = TRUE;
-    }
-
+    //while(FALSE == getGlobalIntEnableStatus()){}        // aquire mutex
+    //disableGlobalInt();                                 // ensure atomic operation
     ui16Temp =  gui16TimerMs;
-    gblTimerMs_Mutex = FALSE;
+    //enableGlobalInt();                                  // esc.comment, disabling performed on corelib_basetimer, encountering problems
     return ui16Temp;
 }
 
 /* Seconds */
 void inc_gui16TimerSec_Value(void)
 {
-    while(gblTimerSec_Mutex)
-    {
-        gblTimerSec_Mutex = TRUE;
-    }
-
     gui16TimerSec++;
-    gblTimerSec_Mutex = FALSE;
 }
 
 uint16_t get_gui16TimerSec_Value(void)
 {
     uint16_t ui16Temp;
-
-    while(gblTimerSec_Mutex)
-    {
-        gblTimerSec_Mutex = TRUE;
-    }
-
+    //while(FALSE == getGlobalIntEnableStatus()) {}       // aquire mutex
+    //disableGlobalInt();                                 // ensure atomic operation
     ui16Temp = gui16TimerSec;
-    gblTimerSec_Mutex = FALSE;
+    //enableGlobalInt();                                  // esc.comment, disabling performed on corelib_basetimer, encountering problems
     return ui16Temp;
 }
 
 /* Private Functions */
-/* none */
+#if 0
+void get_MutexLock(volatile bool_t* pblMutex)
+{
+    bool_t blInitValue;
+    blInitValue = FALSE;
+
+    if(FALSE == getGlobalIntEnableStatus())             // mutex locked by interrupt
+    {
+        *pblMutex = TRUE;
+    }
+    else
+    {
+        do
+        {
+            disableGlobalInt();                         // ensure atomic operation
+            blInitValue = *pblMutex;
+            *pblMutex = TRUE;
+            enableGlobalInt();
+        }
+        while(TRUE == blInitValue);
+    }
+}
+
+void clr_MutexLock(volatile bool_t* pblMutex)
+{
+    *pblMutex = FALSE;
+}
+#endif
 
 /* end of PhilRoboKit_CoreLib_GlobalDefs.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -68,7 +68,17 @@ enum stdBaudrate_et
 #define HIGH_BAUDRATE               1
 #define LOW_BAUDRATE                0
 
-#if (_XTAL_FREQ == 20000000)
+#if (_XTAL_FREQ == 32000000)
+///#define BAUD_1200_BRGVAL         417     // BRGH = 0, ?% error,      (Off the scale)
+#define BAUD_2400_BRGVAL            208     // BRGH = 0, ?% error,
+#define BAUD_4800_BRGVAL            104     // BRGH = 0, ?% error,
+#define BAUD_9600_BRGVAL            208     // BRGH = 1, ?% error,
+#define BAUD_19200_BRGVAL           104     // BRGH = 1, ?% error,
+#define BAUD_38400_BRGVAL           52      // BRGH = 1, ?% error,
+#define BAUD_57600_BRGVAL           35      // BRGH = 1, ?% error,
+#define BAUD_115200_BRGVAL          17      // BRGH = 1, ?% error,
+
+#elif (_XTAL_FREQ == 20000000)
 #define BAUD_1200_BRGVAL            255     // BRGH = 0, 1.75% error,   1220.7
 #define BAUD_2400_BRGVAL            129     // BRGH = 0, 0.17% error,   2403.8
 #define BAUD_4800_BRGVAL            64      // BRGH = 0, 0.00% error,   4807.7
@@ -77,6 +87,7 @@ enum stdBaudrate_et
 #define BAUD_38400_BRGVAL           32      // BRGH = 1, 0.00% error,   39062.5
 #define BAUD_57600_BRGVAL           20      // BRGH = 1, 3.34% error,   56818.2
 #define BAUD_115200_BRGVAL          10      // BRGH = 1, 0.00% error,   113636.4
+
 #elif (_XTAL_FREQ == 8000000)
 #define BAUD_1200_BRGVAL            103     // BRGH = 0, 0.16% error,   1201
 #define BAUD_2400_BRGVAL            51      // BRGH = 0, 0.16% error,   2403
@@ -86,6 +97,7 @@ enum stdBaudrate_et
 #define BAUD_38400_BRGVAL           12      // BRGH = 1, 0.16% error,   38462
 #define BAUD_57600_BRGVAL           8       // BRGH = 1, 0.16% error,   55555
 //#define BAUD_115200_BRGVAL                // BRGH = 1, 0.00% error,   113636.4 unsupported at the moment
+
 #else
 
 #ifndef S_SPLINT_S // Suppress SPLint Unrecognized ID Errors
@@ -98,6 +110,7 @@ enum stdBaudrate_et
 #define BAUD_19200_BRGVAL           0
 #define BAUD_38400_BRGVAL           0
 #define BAUD_57600_BRGVAL           0
+#define BAUD_115200_BRGVAL          0
 #endif
 
 #endif
@@ -120,6 +133,12 @@ enum stdBaudrate_et
 
 #define hal_clrUARTRXIntFlag()                  (BIT_PIR1_RCIF = 0)
 #define hal_getUARTRXIntFlag()                  ((BIT_PIR1_RCIF) ? true : false)
+
+#define hal_checkUARTRxError()                  ((BIT_RCSTA_OERR) ? true : false)
+
+#define hal_restartUARTRx()                     \
+    BIT_RCSTA_CREN = 0;                         \
+    BIT_RCSTA_CREN = 1                          // semi-collon intentionally omitted
 
 #define K_RXREG_BUFF                            (REGISTER_RCREG)
 
@@ -147,7 +166,10 @@ enum stdBaudrate_et
 // makeInput();                                   esc.comment: UART RX Pin to be set as input
 
 /* Public Function Prototypes */
-void hal_setSerialBAUD(uint16_t ui16Baudrate);
+#ifdef S_SPLINT_S /* Suppress SPLint Unrecognized ID Errors */
+#define uint24_t  uint32_t                          // esc.comment: use with caution
+#endif
+void hal_setSerialBAUD(uint24_t ui16Baudrate);
 
 #endif /* end of hal_uart.h */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -52,38 +52,38 @@ int getMockFunctionReturn(int* reg)
 static TEST_getUs(void)
 {
 #define TEST_US_TMR_VALUE                           0xAA55
-    /* Initialize Module Test */
+    /* Initialize Unit Test */
     UCUNIT_TestcaseBegin("getUs: Test when Mutex is locked by ISR (function is called inside ISR)");
     UCUNIT_ResetTracepointCoverage();
     setMockFunctionReturnValue(&hal_getBaseTimerValue_return, TEST_US_TMR_VALUE);
     setMockFunctionReturnValue(&getGlobalIntEnableStatus_return, false);
-    /* Perform Module Test */
+    /* Perform Unit Test */
     UCUNIT_CheckIsEqual(TEST_US_TMR_VALUE,getUs());             // call function to be tested
     /* Test for Code Coverage */
     UCUNIT_CheckTracepointCoverage(0);
     UCUNIT_CheckTracepointNonCoverage(1);                       // interrupt is already disabled
     UCUNIT_CheckTracepointNonCoverage(2);                       // interrupt must be enabled only when exiting the ISR
-    /* End Module Test */
+    /* End Unit Test */
     UCUNIT_TestcaseEnd();
-    /* Initialize Module Test */
+    /* Initialize Unit Test */
     UCUNIT_TestcaseBegin("getUs: Test Disabling and Enabling of Interrupt");
     UCUNIT_ResetTracepointCoverage();
     setMockFunctionReturnValue(&hal_getBaseTimerValue_return, TEST_US_TMR_VALUE);
     setMockFunctionReturnValue(&getGlobalIntEnableStatus_return, true);
-    /* Perform Module Test */
+    /* Perform Unit Test */
     UCUNIT_CheckIsEqual(TEST_US_TMR_VALUE,getUs());             // call function to be tested
     /* Test for Code Coverage */
     UCUNIT_CheckTracepointNonCoverage(0);
     UCUNIT_CheckTracepointCoverage(1);                          // interrupt is disabled
     UCUNIT_CheckTracepointCoverage(2);                          // interrupt is enabled
-    /* End Module Test */
+    /* End Unit Test */
     UCUNIT_TestcaseEnd();
 }
 
 static TEST_getElapsedUs(void)
 {
     uint16_t ui16Timer;
-    /* Initialize Module Test */
+    /* Initialize Unit Test */
     UCUNIT_TestcaseBegin("getElapsedUs: Test Elapsed Time @20Mhz with ");
     UCUNIT_ResetTracepointCoverage();
     setMockFunctionReturnValue(&getGlobalIntEnableStatus_return, true);
@@ -93,7 +93,7 @@ static TEST_getElapsedUs(void)
     setMockFunctionReturnValue(&hal_getBaseTimerValue_return, TEST_US_TMR_VALUE0);
     ui16Timer = 0;
     setMockFunctionReturnValue(&hal_getBaseTimerValue_return, TEST_US_TMR_VALUE1);
-    /* Perform Module Test */
+    /* Perform Unit Test */
     UCUNIT_WriteInt(getElapsedUs(ui16Timer));                   // ~4uS has elapsed
     UCUNIT_CheckIsEqual(4,getElapsedUs(ui16Timer));
     setMockFunctionReturnValue(&hal_getBaseTimerValue_return, TEST_US_TMR_VALUE2);
@@ -103,45 +103,45 @@ static TEST_getElapsedUs(void)
     UCUNIT_CheckTracepointNonCoverage(0);
     UCUNIT_CheckTracepointCoverage(1);                          // interrupt is disabled
     UCUNIT_CheckTracepointCoverage(2);                          // interrupt is enabled
-    /* End Module Test */
+    /* End Unit Test */
     UCUNIT_TestcaseEnd();
 }
 
 static TEST_getMs(void)
 {
 #define TEST_MS_TMR_VALUE                           0xAA55
-    /* Initialize Module Test */
+    /* Initialize Unit Test */
     UCUNIT_TestcaseBegin("getMs: Test when Mutex is locked by ISR (function is called inside ISR)");
     UCUNIT_ResetTracepointCoverage();
     setMockFunctionReturnValue(&get_gui16TimerMs_Value_return, TEST_MS_TMR_VALUE);
     setMockFunctionReturnValue(&getGlobalIntEnableStatus_return, false);
-    /* Perform Module Test */
+    /* Perform Unit Test */
     UCUNIT_CheckIsEqual(TEST_MS_TMR_VALUE, getMs());            // call function to be tested
     /* Test for Code Coverage */
     UCUNIT_CheckTracepointCoverage(0);
     UCUNIT_CheckTracepointNonCoverage(1);                       // interrupt is already disabled
     UCUNIT_CheckTracepointNonCoverage(2);                       // interrupt must be enabled only when exiting the ISR
-    /* End Module Test */
+    /* End Unit Test */
     UCUNIT_TestcaseEnd();
-    /* Initialize Module Test */
+    /* Initialize Unit Test */
     UCUNIT_TestcaseBegin("getMs: Test Disabling and Enabling of Interrupt");
     UCUNIT_ResetTracepointCoverage();
     setMockFunctionReturnValue(&get_gui16TimerMs_Value_return, TEST_MS_TMR_VALUE);
     setMockFunctionReturnValue(&getGlobalIntEnableStatus_return, true);
-    /* Perform Module Test */
+    /* Perform Unit Test */
     UCUNIT_CheckIsEqual(TEST_MS_TMR_VALUE, getMs());    // call function to be tested
     /* Test for Code Coverage */
     UCUNIT_CheckTracepointNonCoverage(0);
     UCUNIT_CheckTracepointCoverage(1);                  // interrupt is disabled
     UCUNIT_CheckTracepointCoverage(2);                  // interrupt is enabled
-    /* End Module Test */
+    /* End Unit Test */
     UCUNIT_TestcaseEnd();
 }
 
 static TEST_getElapsedMs(void)
 {
     uint16_t ui16Timer;
-    /* Initialize Module Test */
+    /* Initialize Unit Test */
     UCUNIT_TestcaseBegin("getElapsedMs: Test Elapsed Time @20Mhz with 1mS per increment");
     UCUNIT_ResetTracepointCoverage();
     setMockFunctionReturnValue(&getGlobalIntEnableStatus_return, true);
@@ -151,7 +151,7 @@ static TEST_getElapsedMs(void)
     setMockFunctionReturnValue(&get_gui16TimerMs_Value_return, TEST_MS_TMR_VALUE0);
     ui16Timer = 0;
     setMockFunctionReturnValue(&get_gui16TimerMs_Value_return, TEST_MS_TMR_VALUE1);
-    /* Perform Module Test */
+    /* Perform Unit Test */
     UCUNIT_WriteInt(getElapsedMs(ui16Timer));                   // 4mS has elapsed
     UCUNIT_CheckIsEqual(4,getElapsedMs(ui16Timer));
     setMockFunctionReturnValue(&get_gui16TimerMs_Value_return, TEST_MS_TMR_VALUE2);
@@ -161,7 +161,7 @@ static TEST_getElapsedMs(void)
     UCUNIT_CheckTracepointNonCoverage(0);
     UCUNIT_CheckTracepointCoverage(1);                          // interrupt is disabled
     UCUNIT_CheckTracepointCoverage(2);                          // interrupt is enabled
-    /* End Module Test */
+    /* End Unit Test */
     UCUNIT_TestcaseEnd();
 }
 
@@ -172,7 +172,7 @@ void init()
     UCUNIT_Init();
     UCUNIT_WriteString("\n**********************************************************************");
     UCUNIT_WriteString("\nName:     ");
-    UCUNIT_WriteString("-corelib_basetimer- Module Testing");
+    UCUNIT_WriteString("-corelib_basetimer- Unit Testing");
     UCUNIT_WriteString("\nCompiled: ");
     UCUNIT_WriteString(__DATE__);
     UCUNIT_WriteString("\nTime:     ");

@@ -24,6 +24,30 @@ union MCU_MockReg
 };
 
 /* USART - Serial Communication Peripheral */
+/* Define PIR1 */
+extern  union MCU_MockReg           PIR1;
+#define REGISTER_PIR1               (PIR1.Reg)
+#define BIT_PIR1_PSPIF              (PIR1.Byte.Bit7)
+#define BIT_PIR1_ADIF               (PIR1.Byte.Bit6)
+#define BIT_PIR1_RCIF               (PIR1.Byte.Bit5)
+#define BIT_PIR1_TXIF               (PIR1.Byte.Bit4)
+#define BIT_PIR1_SSPIF              (PIR1.Byte.Bit3)
+#define BIT_PIR1_CCP1IF             (PIR1.Byte.Bit2)
+#define BIT_PIR1_TMR2IF             (PIR1.Byte.Bit1)
+#define BIT_PIR1_TMR1IF             (PIR1.Byte.Bit0)
+
+/* Define PIE1 */
+extern  union MCU_MockReg           PIE1;
+#define REGISTER_PIE1               (PIE1.Reg)
+#define BIT_PIE1_PSPIE              (PIE1.Byte.Bit7)
+#define BIT_PIE1_ADIE               (PIE1.Byte.Bit6)
+#define BIT_PIE1_RCIE               (PIE1.Byte.Bit5)
+#define BIT_PIE1_TXIE               (PIE1.Byte.Bit4)
+#define BIT_PIE1_SSPIE              (PIE1.Byte.Bit3)
+#define BIT_PIE1_CCP1IE             (PIE1.Byte.Bit2)
+#define BIT_PIE1_TMR2IE             (PIE1.Byte.Bit1)
+#define BIT_PIE1_TMR1IE             (PIE1.Byte.Bit0)
+
 /* Define TXSTA */
 extern  union MCU_MockReg           TXSTA;
 #define REGISTER_TXSTA              (TXSTA.Reg)
@@ -62,33 +86,43 @@ extern  union MCU_MockReg           SPBRG;
 void callMockFunction(void);
 void setMockFunctionReturnValue(int* reg, int value);
 int getMockFunctionReturn(int* reg);
+
+/* TX Macro */
+#define hal_enableUARTTXInt()       (BIT_PIE1_TXIE = 1)
+#define hal_disableUARTTXInt()      (BIT_PIE1_TXIE = 0)
+#define hal_getUARTTXIntEnableStatus()          ((BIT_PIE1_TXIE) ? true : false)
+
+#define hal_clrUARTTXIntFlag()      (BIT_PIR1_TXIF = 0)
+#define hal_getUARTTXIntFlag()      ((BIT_PIR1_TXIF) ? true : false)
+
+/* RX Macro */
+#define hal_enableUARTRXInt()       (BIT_PIE1_RCIE = 1)
+#define hal_disableUARTRXInt()      (BIT_PIE1_RCIE = 0)
+#define hal_getUARTRXIntEnableStatus()          ((BIT_PIE1_RCIE) ? true : false)
+
+#define hal_clrUARTRXIntFlag()      (BIT_PIR1_RCIF = 0)
+#define hal_getUARTRXIntFlag()      ((BIT_PIR1_RCIF) ? true : false)
+
+#define hal_checkUARTRxError()      ((BIT_RCSTA_OERR) ? true : false)
+
+#define hal_restartUARTRx()                     \
+    BIT_RCSTA_CREN = 0;                         \
+    BIT_RCSTA_CREN = 1                          // semi-collon intentionally omitted
+
 /* mock functions without return */
 #define hal_setSerialBAUD(a)        callMockFunction()
 #define hal_enableSerialTX()        callMockFunction()
 #define hal_enableSerialRX()        callMockFunction()
-#define hal_disableUARTTXInt()      callMockFunction()
-#define hal_clrUARTTXIntFlag()      callMockFunction()
-#define hal_enableUARTRXInt()       callMockFunction()
-#define hal_clrUARTRXIntFlag()      callMockFunction()
-#define hal_enableUARTTXInt()       callMockFunction()
-#define hal_disableUARTRXInt()      callMockFunction()
 
 /* mock functions with return and input parameters */
-extern int hal_getUARTRXIntFlag_return;
-#define hal_getUARTRXIntFlag()          ((bool_t)getMockFunctionReturn(&hal_getUARTRXIntFlag_return))
-
-extern int hal_getUARTRXIntEnableStatus_return;
-#define hal_getUARTRXIntEnableStatus()  ((bool_t)getMockFunctionReturn(&hal_getUARTRXIntEnableStatus_return))
-
-extern int hal_getUARTTXIntFlag_return;
-#define hal_getUARTTXIntFlag()          ((bool_t)getMockFunctionReturn(&hal_getUARTTXIntFlag_return))
-
-extern int hal_getUARTTXIntEnableStatus_return;
-#define hal_getUARTTXIntEnableStatus()  ((bool_t)getMockFunctionReturn(&hal_getUARTTXIntEnableStatus_return))
 
 /* mock functions with return and input parameters */
 //extern int [function_name]_return;
 //#define [function_name]()         ((uint16_t)getMockFunctionReturn([function_name]_return))
 //extern int [function_name]_param1;
 //#define [function_name](param)        ([function_name]_param1 = param)
+
+/* module's private externs */
+extern bool_t isSerialDataAvailable(void);
+extern bool_t isSerialBufferFull(void);
 #endif

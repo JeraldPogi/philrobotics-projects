@@ -56,7 +56,10 @@ enum Tmr1PreScale_et
 #define TIMER_16BIT_ENABLED                     TRUE
 #define TIMER1_ENABLED                          TRUE
 
-#if (_XTAL_FREQ == 20000000)
+#if (_XTAL_FREQ == 32000000)                    //esc.comment to be updated for 32Mhz
+#define TMR1_PRESCALE                           TMR1_PRE_DIV4           // 0.5uS resolution @ 32Mhz
+
+#elif (_XTAL_FREQ == 20000000)
 #define TMR1_PRESCALE                           TMR1_PRE_DIV1           // 0.2uS resolution @ 20Mhz
 
 #elif (_XTAL_FREQ == 8000000)
@@ -91,6 +94,17 @@ enum Tmr1PreScale_et
 
 #define hal_setTMR1Postscaler(a)                asm("nop")
 
+#if (__PHR_CONTROLLER__==__MCU_PIC18__)
+// Timer1 oscillator disabled
+// Timer1 external clock do not synchronize
+// Timer1 clock source select, internal clock (FOSC/4)
+#define hal_initTMR1()                          \
+    BIT_T1CON_T1OSCEN = 0;                      \
+    BIT_T1CON_T1SYNC = 1;                       \
+    BIT_T1CON_TMR1CS = 0;                       \
+    BIT_T1CON_RD16 = 1                          // semi-collon intentionally omitted
+
+#elif (__PHR_CONTROLLER__==__MCU_PIC16__)
 // Timer1 oscillator disabled
 // Timer1 external clock do not synchronize
 // Timer1 clock source select, internal clock (FOSC/4)
@@ -99,10 +113,14 @@ enum Tmr1PreScale_et
     BIT_T1CON_T1SYNC = 1;                       \
     BIT_T1CON_TMR1CS = 0                        // semi-collon intentionally omitted
 
+#else
+#endif
+
 #define hal_setTMR1Value(a)                     \
     a = 65535-a;                                \
-    REGISTER_TMR1L = (uint8_t)(a);              \
-    REGISTER_TMR1H = (uint8_t)(a>>8)            // semi-collon intentionally omitted
+    REGISTER_TMR1H = (uint8_t)(a>>8);           \
+    REGISTER_TMR1L = (uint8_t)(a)               // semi-collon intentionally omitted
+
 #endif
 
 /* Public Function Prototypes */

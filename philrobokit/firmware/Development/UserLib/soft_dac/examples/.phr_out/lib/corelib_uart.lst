@@ -1,0 +1,438 @@
+     1: /*****************************************************************************************//**
+     2: * # PhilRobotics | Philippine Electronics and Robotics Enthusiasts Club #
+     3: * http://philrobotics.com | http://philrobotics.com/forum | http://facebook.com/philrobotics
+     4: * phirobotics.core@philrobotics.com
+     5: *
+     6: *---------------------------------------------------------------------------------------------
+     7: * |Filename:      | "corelib_uart.c"                            |
+     8: * |:----          |:----                                        |
+     9: * |Description:   | This is a library for using the serial/uart functions |
+    10: * |Revision:      | v01.01.03                                   |
+    11: * |Author:        | Giancarlo Acelajado                         |
+    12: * |               |                                             |
+    13: * |Dependencies:  |                                             |
+    14: *
+    15: * > This program is free software: you can redistribute it and/or modify
+    16: * > it under the terms of the GNU General Public License as published by
+    17: * > the Free Software Foundation, either version 3 of the License, or
+    18: * > (at your option) any later version.
+    19: * > This program is distributed in the hope that it will be useful,
+    20: * > but WITHOUT ANY WARRANTY; without even the implied warranty of
+    21: * > MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    22: * > GNU General Public License for more details.
+    23: * > <BR><BR>
+    24: * > You should have received a copy of the GNU General Public License
+    25: * > along with this program. If not, see http://www.gnu.org/licenses/
+    26: * <BR>
+    27: *---------------------------------------------------------------------------------------------
+    28: * |FW Version   |Date       |Author             |Description                        |
+    29: * |:----        |:----      |:----              |:----                              |
+    30: * |v00.01.00    |201112xx   |Giancarlo A.       |Library Initial Release            |
+    31: * |v00.01.01    |201201xx   |Giancarlo A.       |Add serialFlush Routine            |
+    32: * |v01.00.00    |201210xx   |Giancarlo A.       |Leverage Library to Standard Architecture|
+    33: * |v01.00.01    |20130228   |ESCII              |Separated module to HAL and Corelib|
+    34: * |v01.01.00    |20130514   |ESCII              |Code Formatted                     |
+    35: * |v01.01.01    |20130515   |ESCII              |Fixed SPLINT errors                |
+    36: * |v01.01.02    |20130521   |ESCII              |Fixed unit test errors             |
+    37: * |v01.01.03    |20130521   |ESCII              |Send a NULL Character at the end of write string|
+    38: *********************************************************************************************/
+    39: #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
+    40: #undef  __SHOW_MODULE_HEADER__
+    41: 
+    42: #include "corelib_uart.h"
+    43: 
+    44: /* Local Constants */
+    45: #define K8_UART_BUFFER_MASK         (K8_UART_BUFFER_SIZE-1)
+    46: 
+    47: /* Local Variables */
+    48: static struct UARTBuff_s            stUARTTXFiFo;
+    49: static struct UARTBuff_s            stUARTRXFiFo;
+    50: 
+    51: /* Private Function Prototypes */
+    52: static bool_t isSerialDataAvailable(void);
+    53: static bool_t isSerialBufferFull(void);
+    54: 
+    55: /* Public Functions */
+    56: /*******************************************************************************//**
+    57: * \brief Setup the UART module
+    58: *
+    59: * > This function is called for setting up the UART module peripheral
+    60: *
+    61: * > <BR>
+    62: * > **Syntax:**<BR>
+    63: * >     setupSerial(baudrate)
+    64: * > <BR><BR>
+    65: * > **Parameters:**<BR>
+    66: * >     baudrate - desired UART baudrate (supports only standard baudrates)
+    67: * > <BR><BR>
+    68: * > **Returns:**<BR>
+    69: * >     none
+    70: * > <BR><BR>
+    71: ***********************************************************************************/
+    72: void setupSerial(uint16_t ui16Baudrate)
+    73: {
+    74:     /* Clear TX and RX Buffers */
+    75:     stUARTTXFiFo.ui8Head = 0;
+    76:     stUARTTXFiFo.ui8Tail = 0;
+    77:     stUARTRXFiFo.ui8Head = 0;
+    78:     stUARTRXFiFo.ui8Tail = 0;
+    79:     /* Set Baudrate */
+    80:     hal_setSerialBAUD(ui16Baudrate);
+    81:     /* Enable Serial Peripheral */
+    82:     hal_enableSerialTX();
+    83:     hal_enableSerialRX();
+    84:     /* Disable TX Interrupt */
+    85:     hal_disableUARTTXInt();
+    86:     hal_clrUARTTXIntFlag();
+    87:     /* Enable RX Interrupt */
+    88:     hal_enableUARTRXInt();
+    89:     hal_clrUARTRXIntFlag();
+    90: }
+    91: 
+    92: /*******************************************************************************//**
+    93: * \brief Writes a byte to the UART transmit buffer
+    94: *
+    95: * > Writes a byte to the UART transmit buffer
+    96: *
+    97: * > <BR>
+    98: * > **Syntax:**<BR>
+    99: * >      serialWrite(data)
+   100: * > <BR><BR>
+   101: * > **Parameters:**<BR>
+   102: * >     data - the byte to be transmitted
+   103: * > <BR><BR>
+   104: * > **Returns:**<BR>
+   105: * >     none
+   106: * > <BR><BR>
+   107: ***********************************************************************************/
+   108: void serialWrite(uint8_t ui8TxData)
+   109: {
+   110:     while (isSerialBufferFull())
+   111:     {
+   112: #ifdef UNIT_TEST
+   113:         UCUNIT_Tracepoint(0);
+   114: #endif
+   115:         continue;
+   116:     }
+   117: 
+   118:     hal_disableUARTTXInt();
+   119:     stUARTTXFiFo.aui8Buffer[stUARTTXFiFo.ui8Head++] = ui8TxData;
+   120:     stUARTTXFiFo.ui8Head &= K8_UART_BUFFER_MASK;
+   121:     hal_enableUARTTXInt();
+   122: #ifdef UNIT_TEST
+   123:     UCUNIT_Tracepoint(1);
+   124: #endif
+   125: }
+   126: 
+   127: /*******************************************************************************//**
+   128: * \brief Writes a string to the UART transmit buffer
+   129: *
+   130: * > Writes a string or multiple byte writes to the UART transmit buffer
+   131: *
+   132: * > <BR>
+   133: * > **Syntax:**<BR>
+   134: * >      serialWriteString(string)
+   135: * > <BR><BR>
+   136: * > **Parameters:**<BR>
+   137: * >     string - the string value to be transmitted, string is an array of characters which are null(\0) terminated
+   138: * > <BR><BR>
+   139: * > **Returns:**<BR>
+   140: * >     none
+   141: * > <BR><BR>
+   142: ***********************************************************************************/
+   143: void serialWriteString(const uchar_t* pucStrTxData)
+   144: {
+   145:     while(NULL != *pucStrTxData)
+   146:     {
+   147:         serialWrite(*pucStrTxData++);
+   148: #ifdef UNIT_TEST
+   149:         UCUNIT_Tracepoint(0);
+   150: #endif
+   151:     }
+   152: 
+   153:     serialWrite((uint8_t)NULL);                 // Write the null terminator
+   154: }
+   155: 
+   156: /*******************************************************************************//**
+   157: * \brief Send the content of a buffer to the UART transmit buffer
+   158: *
+   159: * > This function is called for sending contents of a buffer over the UART.
+   160: * > It has the advantage of being able to send data having variable length
+   161: *
+   162: * > <BR>
+   163: * > **Syntax:**<BR>
+   164: * >     serialWriteBlock(&data, length)
+   165: * > <BR><BR>
+   166: * > **Parameters:**<BR>
+   167: * >     &data - points to the location of the data block to be written         <BR>
+   168: * >     length - the size of the data block in number of bytes
+   169: * > <BR><BR>
+   170: * > **Returns:**<BR>
+   171: * >     none
+   172: * > <BR><BR>
+   173: ***********************************************************************************/
+   174: void serialWriteBlock(uint8_t* pui8StrTxData, uint8_t ui8Size)
+   175: {
+   176:     while(0 != ui8Size)
+   177:     {
+   178:         serialWrite(*pui8StrTxData++);
+   179:         ui8Size--;
+   180: #ifdef UNIT_TEST
+   181:         UCUNIT_Tracepoint(0);
+   182: #endif
+   183:     }
+   184: }
+   185: 
+   186: /*******************************************************************************//**
+   187: * \brief Returns the number of received data bytes
+   188: *
+   189: * > This function returns the number of data bytes currently on the receive
+   190: * > buffer.
+   191: *
+   192: * > <BR>
+   193: * > **Syntax:**<BR>
+   194: * >      num_of_bytes = serialDataCount()
+   195: * > <BR><BR>
+   196: * > **Parameters:**<BR>
+   197: * >     none
+   198: * > <BR><BR>
+   199: * > **Returns:**<BR>
+   200: * >     uint8_t num_of_bytes - the number of available bytes received through UART
+   201: * > <BR><BR>
+   202: ***********************************************************************************/
+   203: uint8_t serialDataCount(void)
+   204: {
+   205:     if(TRUE == isSerialDataAvailable())
+   206:     {
+   207: #ifdef UNIT_TEST
+   208:         UCUNIT_Tracepoint(0);
+   209: #endif
+   210:         return (stUARTRXFiFo.ui8Head - stUARTRXFiFo.ui8Tail);
+   211:     }
+   212:     else
+   213:     {
+   214: #ifdef UNIT_TEST
+   215:         UCUNIT_Tracepoint(1);
+   216: #endif
+   217:         return 0;
+   218:     }
+   219: }
+   220: 
+   221: /*******************************************************************************//**
+   222: * \brief Reads the received data byte value
+   223: *
+   224: * > This function reads the received data byte value. The data count is decremented
+   225: * > on every read.
+   226: *
+   227: * > <BR>
+   228: * > **Syntax:**<BR>
+   229: * >      data = serialRead()
+   230: * > <BR><BR>
+   231: * > **Parameters:**<BR>
+   232: * >     none
+   233: * > <BR><BR>
+   234: * > **Returns:**<BR>
+   235: * >     uint8_t data - the received data byte value
+   236: * > <BR><BR>
+   237: ***********************************************************************************/
+   238: uint8_t serialRead(void)
+   239: {
+   240:     uint8_t ui8serialData;
+   241: 
+   242:     if(FALSE == isSerialDataAvailable())
+   243:     {
+   244: #ifdef UNIT_TEST
+   245:         UCUNIT_Tracepoint(0);
+   246: #endif
+   247:         return 0;
+   248:     }
+   249:     else
+   250:     {
+   251:         hal_disableUARTRXInt();
+   252:         ui8serialData = stUARTRXFiFo.aui8Buffer[stUARTRXFiFo.ui8Tail++];    // Get Data from aui8Buffer
+   253:         stUARTRXFiFo.ui8Tail &= K8_UART_BUFFER_MASK;
+   254:         hal_enableUARTRXInt();
+   255: #ifdef UNIT_TEST
+   256:         UCUNIT_Tracepoint(1);
+   257: #endif
+   258:         return ui8serialData;
+   259:     }
+   260: }
+   261: 
+   262: /*******************************************************************************//**
+   263: * \brief Flush/Clears the RX and TX registers
+   264: *
+   265: * > This function is called when clearing the contents of the RX and TX regiter buffer
+   266: *
+   267: * > <BR>
+   268: * > **Syntax:**<BR>
+   269: * >      serialFlush(none)
+   270: * > <BR><BR>
+   271: * > **Parameters:**<BR>
+   272: * >     none
+   273: * > <BR><BR>
+   274: * > **Returns:**<BR>
+   275: * >     none
+   276: * > <BR><BR>
+   277: ***********************************************************************************/
+   278: void serialFlush(void)
+   279: {
+   280:     stUARTRXFiFo.ui8Head = 0;
+   281:     stUARTTXFiFo.ui8Head = 0;
+   282:     stUARTRXFiFo.ui8Tail = 0;
+   283:     stUARTTXFiFo.ui8Tail = 0;
+   284:     memset(stUARTTXFiFo.aui8Buffer, 0, sizeof(stUARTTXFiFo.aui8Buffer));
+   285:     memset(stUARTRXFiFo.aui8Buffer, 0, sizeof(stUARTRXFiFo.aui8Buffer));
+   286: }
+   287: 
+   288: /*******************************************************************************//**
+   289: * \brief UART recieve interrupt service routine
+   290: *
+   291: * >  This is an interrupt handler called when a byte is recieved from the UART peripheral
+   292: *
+   293: * > <BR>
+   294: * > **Syntax:**<BR>
+   295: * >      serialRxISR(), ISR
+   296: * > <BR><BR>
+   297: * > **Parameters:**<BR>
+   298: * >     none
+   299: * > <BR><BR>
+   300: * > **Returns:**<BR>
+   301: * >     none
+   302: * > <BR><BR>
+   303: ***********************************************************************************/
+   304: void serialRxISR(void)
+   305: {
+   306:     static uint8_t ui8TempIn;                                               // variables inside ISR must be static
+   307: 
+   308:     if(hal_getUARTRXIntFlag() && hal_getUARTRXIntEnableStatus())
+   309:     {
+   310:         hal_clrUARTRXIntFlag();
+   311:         stUARTRXFiFo.aui8Buffer[stUARTRXFiFo.ui8Head] = K_RXREG_BUFF;
+   312:         ui8TempIn = ((stUARTRXFiFo.ui8Head+1) & K8_UART_BUFFER_MASK);
+   313: 
+   314:         if(ui8TempIn != stUARTRXFiFo.ui8Tail)
+   315:         {
+   316:             stUARTRXFiFo.ui8Head = ui8TempIn;
+   317: #ifdef UNIT_TEST
+   318:             UCUNIT_Tracepoint(0);
+   319: #endif
+   320:         }
+   321:         else
+   322:         {
+   323:             /* Buffer full, do nothing, do not increment the head anymore */
+   324: #ifdef UNIT_TEST
+   325:             UCUNIT_Tracepoint(1);
+   326: #endif
+   327:         }
+   328: 
+   329: #ifdef UNIT_TEST
+   330:         UCUNIT_Tracepoint(2);
+   331: #endif
+   332:     }
+   333: }
+   334: 
+   335: /*******************************************************************************//**
+   336: * \brief UART transmit interrupt service routine
+   337: *
+   338: * >  This is an interrupt handler called when a byte is transmitted by the UART peripheral
+   339: *
+   340: * > <BR>
+   341: * > **Syntax:**<BR>
+   342: * >      serialTxISR(), ISR
+   343: * > <BR><BR>
+   344: * > **Parameters:**<BR>
+   345: * >     none
+   346: * > <BR><BR>
+   347: * > **Returns:**<BR>
+   348: * >     none
+   349: * > <BR><BR>
+   350: ***********************************************************************************/
+   351: void serialTxISR(void)
+   352: {
+   353:     if(hal_getUARTTXIntFlag() && hal_getUARTTXIntEnableStatus())
+   354:     {
+   355:         hal_clrUARTTXIntFlag();
+   356: 
+   357:         /* Check if no available data to send */
+   358:         if(stUARTTXFiFo.ui8Tail == stUARTTXFiFo.ui8Head)
+   359:         {
+   360:             hal_disableUARTTXInt();
+   361: #ifdef UNIT_TEST
+   362:             UCUNIT_Tracepoint(2);
+   363: #endif
+   364:         }
+   365:         else
+   366:         {
+   367:             K_TXREG_BUFF = stUARTTXFiFo.aui8Buffer[stUARTTXFiFo.ui8Tail++];
+   368:             stUARTTXFiFo.ui8Tail &= K8_UART_BUFFER_MASK;
+   369: #ifdef UNIT_TEST
+   370:             UCUNIT_Tracepoint(0);
+   371: #endif
+   372: 
+   373:             if(stUARTTXFiFo.ui8Tail == stUARTTXFiFo.ui8Head)
+   374:             {
+   375:                 hal_disableUARTTXInt();
+   376: #ifdef UNIT_TEST
+   377:                 UCUNIT_Tracepoint(1);
+   378: #endif
+   379:             }
+   380:         }
+   381:     }
+   382: }
+   383: 
+   384: /* Private Functions */
+   385: /*******************************************************************************//**
+   386: * \brief Returns the status of the transmit buffer content
+   387: *
+   388: * > Returns the status of the transmit buffer content
+   389: *
+   390: * > <BR>
+   391: * > **Syntax:**<BR>
+   392: * >      status = isSerialBufferFull()
+   393: * > <BR><BR>
+   394: * > **Parameters:**<BR>
+   395: * >     none
+   396: * > <BR><BR>
+   397: * > **Returns:**<BR>
+   398: * >     bool_t status - returns the status of the buffer content
+   399: * > <BR><BR>
+   400: ***********************************************************************************/
+   401: /*@unused@*/
+   402: static bool_t isSerialBufferFull(void)
+   403: {
+   404:     return (((stUARTTXFiFo.ui8Head+1) & K8_UART_BUFFER_MASK) == stUARTTXFiFo.ui8Tail);
+   405: }
+   406: 
+   407: /*******************************************************************************//**
+   408: * \brief Returns the status of the available data on the recieve buffer
+   409: *
+   410: * > Returns the status of the available data on the recieve buffer.
+   411: *
+   412: * > <BR>
+   413: * > **Syntax:**<BR>
+   414: * >     status = isSerialDataAvailable()
+   415: * > <BR><BR>
+   416: * > **Parameters:**<BR>
+   417: * >     none
+   418: * > <BR><BR>
+   419: * > **Returns:**<BR>
+   420: * >     bool_t status - returns the status of the available data
+   421: * > <BR><BR>
+   422: ***********************************************************************************/
+   423: /*@unused@*/
+   424: static bool_t isSerialDataAvailable(void)
+   425: {
+   426:     if(hal_checkUARTRxError())      // Error in Reception
+   427:     {
+   428:         hal_restartUARTRx();        // Restart Continuous Reception
+   429: #ifdef UNIT_TEST
+   430:         UCUNIT_Tracepoint(0);
+   431: #endif
+   432:         return FALSE;
+   433:     }
+   434: 
+   435:     return (stUARTRXFiFo.ui8Head != stUARTRXFiFo.ui8Tail);
+   436: }
+   437: /* end of corelib_uart.c */
+   438: //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

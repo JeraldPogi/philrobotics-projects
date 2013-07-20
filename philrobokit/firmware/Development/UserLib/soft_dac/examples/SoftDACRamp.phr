@@ -25,7 +25,7 @@ void init()
     LoopTimer = getMs();                            // get time stamp
 }
 
-void program()
+void cycle()
 {
 	/* New Value Every 1mS */
 	if(getElapsedMs(LoopTimer)>= 1)                 // check if 1mS has elapsed
