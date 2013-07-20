@@ -58,7 +58,7 @@ void init()
     UCUNIT_Init();
     UCUNIT_WriteString("\n**********************************************************************");
     UCUNIT_WriteString("\nName:     ");
-    UCUNIT_WriteString("-hal_adc- Module Testing");
+    UCUNIT_WriteString("-hal_adc- Unit Testing");
     UCUNIT_WriteString("\nCompiled: ");
     UCUNIT_WriteString(__DATE__);
     UCUNIT_WriteString("\nTime:     ");

@@ -64,7 +64,7 @@ enum tmrModules_et
 void timer8BitISR(void);
 void setup8BitTimerFull(enum tmrModules_et eTmrModule, void(*callback)(), uint8_t ui8Prescaler, uint8_t ui8Postscaler);
 void setup8BitTimer(enum tmrModules_et eTmrModule, void(*callback)());
-void setTimer(enum tmrModules_et eTmrModule, uint8_t ui8Value);
+void set8BitTimer(enum tmrModules_et eTmrModule, uint8_t ui8Value);
 
 #endif /* end of corelib_8bit_timer.h */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

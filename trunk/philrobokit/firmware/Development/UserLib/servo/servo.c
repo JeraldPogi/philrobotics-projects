@@ -106,7 +106,7 @@ void setupServoFull(enum ServoModules_e eServoMod, uint8_t ui8ServoPin, int8_t i
 	if(false == blKickStarted)
 	{
 		setup8BitTimer(SERVO_TIMER, servoController);
-		setTimer(SERVO_TIMER, SERVO_MAX_PULSEWIDTH);								// set pulse on period (kickstart)
+		set8BitTimer(SERVO_TIMER, SERVO_MAX_PULSEWIDTH);								// set pulse on period (kickstart)
 		blKickStarted = true;
 	}	
 }
@@ -224,7 +224,7 @@ static void servoController()
 	{
 		case SERVO_PULSEON:
 		{
-			setTimer(SERVO_TIMER, (SERVO_MAX_PULSEWIDTH-aui8Servo[ui8SequenceCounter][SERVO_PULSE]));  // set pulse off period
+			set8BitTimer(SERVO_TIMER, (SERVO_MAX_PULSEWIDTH-aui8Servo[ui8SequenceCounter][SERVO_PULSE]));  // set pulse off period
 			clrPin(aui8Servo[ui8SequenceCounter][SERVO_PIN]);
 			ui8ServoState = SERVO_PULSEOFF;
 			break;
@@ -246,13 +246,13 @@ static void servoController()
 			{
 				/* skip aui8Servo module */
 				aui8Servo[ui8SequenceCounter][SERVO_PULSE] = 0;
-				setTimer(SERVO_TIMER, SERVO_MAX_PULSEWIDTH);							        // low for 2.5mS
+				set8BitTimer(SERVO_TIMER, SERVO_MAX_PULSEWIDTH);							        // low for 2.5mS
 				clrPin(aui8Servo[ui8SequenceCounter][SERVO_PIN]);
 				ui8ServoState = SERVO_PULSEOFF;
 			}
 			else
 			{
-				setTimer(SERVO_TIMER, aui8Servo[ui8SequenceCounter][SERVO_PULSE]);				        // set pulse on period	
+				set8BitTimer(SERVO_TIMER, aui8Servo[ui8SequenceCounter][SERVO_PULSE]);				        // set pulse on period	
 				setPin(aui8Servo[ui8SequenceCounter][SERVO_PIN]);				
 				ui8ServoState = SERVO_PULSEON;
 			}
@@ -260,7 +260,7 @@ static void servoController()
 		}
 		default:	/* must not be reached */
 		{
-			setTimer(SERVO_TIMER, SERVO_MAX_PULSEWIDTH);								        // low for 2.5mS
+			set8BitTimer(SERVO_TIMER, SERVO_MAX_PULSEWIDTH);								        // low for 2.5mS
 			ui8SequenceCounter = 8;
 			ui8ServoState = SERVO_PULSEOFF;
 			break; 

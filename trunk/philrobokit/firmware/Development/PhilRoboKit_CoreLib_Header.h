@@ -70,7 +70,7 @@
 #include "compilers\htc\htc_18fxx20.h"
 
 #ifndef _XTAL_FREQ
-#define _XTAL_FREQ 8000000      /* 8MHz Internal Crystal */
+#define _XTAL_FREQ 32000000     /* 32MHz, 8Mhz Crystal + 4x PLL */
 #endif
 
 /* Glutnix Variant */
@@ -138,18 +138,14 @@
 #define OUTPUT                                  (0)
 //#define ANALOG                                (1)
 
-#define HIGH                                    TRUE
-#define LOW                                     FALSE
+#define HIGH                                    (1)
+#define LOW                                     (0)/*@null@*/
 
-#if defined ANITO_UNIT_TEST
-/* do nothing */
-#else
 /*@ignore@*/                                    // esc.comment SPLINT warns it is redefined but an #ifndef check has been made, must be a bug on SPLINT
 #ifndef NULL
 #define NULL                                    ('\0')
 #endif
 /*@end@*/
-#endif
 
 /* Macro and Configuration Definitions */
 /* none */

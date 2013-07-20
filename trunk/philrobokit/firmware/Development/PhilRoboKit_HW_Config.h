@@ -64,7 +64,7 @@
 /* do nothing */
 #else
 #error  Device not yet supported!!!
-#endif  /* Test Compile Switch */
+#endif  /* SPLINT Switch */
 
 #endif  /* MCU Part Compile Switch */
 

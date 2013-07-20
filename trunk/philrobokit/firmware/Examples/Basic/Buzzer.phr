@@ -1,0 +1,21 @@
+#include <soft_dac.h>
+
+uint8_t  ADCOutValue = 0;
+void init()
+{
+	setupSoftDAC(SDAC0, BUZZER, 255);
+}
+
+void cycle()
+{
+	if(getPinState(SW1) == LOW)		// SW1 is active low
+	{
+		setSoftDAC(SDAC0, 128);
+		setPin(LED1);
+	}
+	else
+	{
+		setSoftDAC(SDAC0, 255);
+		clrPin(LED1);
+	}
+}

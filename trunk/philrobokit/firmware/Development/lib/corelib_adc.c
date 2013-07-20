@@ -57,7 +57,6 @@ static enum adcModules_et
 /* Local Variables */
 static enum adcModules_et   eCurrentChannel = 0;
 static      uint16_t        ui16ADCBuff[MAX_ADC_CHANNELS-1] = {0};
-static      uint16_t        ui16ADCCycleTimer=0;
 
 /* Private Function Prototypes */
 /* none */
@@ -165,20 +164,12 @@ void adcCycle(void)
 {
     static uint16_t ui16Counter = 0;
     ui16Counter++;
-    /* Check cycle timeout */
-#if (__POLLING_DELAY__ == __USE_TIMER__)
 
-    if(getElapsedMs(ui16ADCCycleTimer) >= ADC_CYCLE_TIMEOUT)
-#else
+    /* Check cycle timeout */
     if(ui16Counter >= ADC_CYCLE_COUNTER_TIMEOUT)
-#endif
     {
         /* get new time stamp */
-#if (__POLLING_DELAY__ == __USE_TIMER__)
-        ui16ADCCycleTimer = getMs();
-#else
         ui16Counter = 0;
-#endif
 #ifdef UNIT_TEST
         UCUNIT_Tracepoint(0);
 #endif
@@ -254,7 +245,6 @@ void setupADC(enum ADCVrefSource_et eVrefSource)
     hal_enableADC();
     delayUs(10);                        // blocking function but on initialization only
     /* ADC Conversion Kickstart */
-    ui16ADCCycleTimer = getMs();
     hal_startADCConversion();
 }
 

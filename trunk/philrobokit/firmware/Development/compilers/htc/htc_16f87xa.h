@@ -38,6 +38,7 @@
 
 #ifndef __HTC_16F87XA_H
 #define __HTC_16F87XA_H
+
 /* Include .h Library Files */
 #include <htc.h>
 #include "PhilRoboKit_CoreLib_GlobalDefs.h"
@@ -46,7 +47,7 @@
 /* none */
 
 /* Global Constants */
-/* Interrupt Controler */
+/* Interrupt Controller */
 #define REGISTER_INTCON     INTCON
 #define BIT_INTCON_GIE      GIE
 #define BIT_INTCON_PEIE     PEIE
@@ -97,6 +98,10 @@
 #define BIT_RCSTA_FERR      FERR
 #define BIT_RCSTA_OERR      OERR
 #define BIT_RCSTA_RX9D      RX9D
+
+#define REGISTER_TXREG      TXREG
+#define REGISTER_RCREG      RCREG
+#define REGISTER_SPBRG      SPBRG
 
 /* TMR0 - 8/16Bit Timer Peripheral */
 #define REGISTER_T0CON      OPTION_REG
@@ -232,10 +237,6 @@
 #define REGISTER_LATD       LATD
 #define REGISTER_LATE       LATE
 #endif
-
-#define REGISTER_TXREG      TXREG
-#define REGISTER_RCREG      RCREG
-#define REGISTER_SPBRG      SPBRG
 
 #if defined( _16F873A ) || defined( _16F874A ) || defined( _16F876A ) || defined( _16F877A )
 #define REGISTER_TMR0L      TMR0

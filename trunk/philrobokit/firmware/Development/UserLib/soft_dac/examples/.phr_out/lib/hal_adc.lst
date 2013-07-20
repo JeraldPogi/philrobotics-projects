@@ -1,0 +1,108 @@
+     1: /*****************************************************************************************//**
+     2: * # PhilRobotics | Philippine Electronics and Robotics Enthusiasts Club #
+     3: * http://philrobotics.com | http://philrobotics.com/forum | http://facebook.com/philrobotics
+     4: * phirobotics.core@philrobotics.com
+     5: *
+     6: *---------------------------------------------------------------------------------------------
+     7: * |Filename:      | "hal_adc.c"                                 |
+     8: * |:----          |:----                                        |
+     9: * |Description:   | This is a driver for ADC peripheral configuration |
+    10: * |Revision:      | v01.01.00                                   |
+    11: * |Author:        | Giancarlo Acelajado                         |
+    12: * |               |                                             |
+    13: * |Dependencies:  |                                             |
+    14: *
+    15: * > This program is free software: you can redistribute it and/or modify
+    16: * > it under the terms of the GNU General Public License as published by
+    17: * > the Free Software Foundation, either version 3 of the License, or
+    18: * > (at your option) any later version.
+    19: * > This program is distributed in the hope that it will be useful,
+    20: * > but WITHOUT ANY WARRANTY; without even the implied warranty of
+    21: * > MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    22: * > GNU General Public License for more details.
+    23: * > <BR><BR>
+    24: * > You should have received a copy of the GNU General Public License
+    25: * > along with this program. If not, see http://www.gnu.org/licenses/
+    26: * <BR>
+    27: *---------------------------------------------------------------------------------------------
+    28: * |FW Version   |Date       |Author             |Description                        |
+    29: * |:----        |:----      |:----              |:----                              |
+    30: * |v00.01.00    |20110xxx   |Giancarlo A.       |Library Initial Release            |
+    31: * |v00.01.01    |201203xx   |Giancarlo A.       |Fix Bugs, add setupADCPinsToDigital|
+    32: * |v01.00.00    |201210xx   |Giancarlo A.       |Leverage Library to Standard Architecture|
+    33: * |v01.00.01    |20130307   |ESC II             |Organized functions into HAL and CoreLib|
+    34: * |v01.01.00    |20130514   |ESCII              |Code Formatted, Fixed SPLINT warning|
+    35: *********************************************************************************************/
+    36: #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
+    37: #undef  __SHOW_MODULE_HEADER__
+    38: 
+    39: #include "hal_adc.h"
+    40: 
+    41: /* Local Constants */
+    42: static enum adcClockCfg_et
+    43: {
+    44:     FOSC_DIV2,
+    45:     FOSC_DIV8,
+    46:     FOSC_DIV32,
+    47:     FOSC_INTRC0,
+    48:     FOSC_DIV4,
+    49:     FOSC_DIV16,
+    50:     FOSC_DIV64,
+    51:     FOSC_INTRC1
+    52: };
+    53: 
+    54: #if (__PHR_CONTROLLER__==__MCU_PIC18__)
+    55: static enum adcTADOptions_et
+    56: {
+    57:     TAD_0,
+    58:     TAD_2,
+    59:     TAD_4,
+    60:     TAD_6,
+    61:     TAD_8,
+    62:     TAD_12,
+    63:     TAD_16,
+    64:     TAD_21
+    65: };
+    66: #endif
+    67: 
+    68: /* Local Variables */
+    69: /* none */
+    70: 
+    71: /* Private Function Prototypes */
+    72: /* none */
+    73: 
+    74: /* Public Functions */
+    75: /*******************************************************************************//**
+    76: * \brief MCU Level configuration of ADC perpheral
+    77: *
+    78: * > This function is called to configure the ADC peripheral at MCU level.
+    79: *
+    80: * > <BR>
+    81: * > **Syntax:**<BR>
+    82: * >     configLowLvlADC()
+    83: * > <BR><BR>
+    84: * > **Parameters:**<BR>
+    85: * >     none
+    86: * > <BR><BR>
+    87: * > **Returns:**<BR>
+    88: * >     none
+    89: * > <BR><BR>
+    90: ***********************************************************************************/
+    91: /*@ignore@*/                                // esc.comment SPLINT warns a function configLowLvlADC overshadows outer declaration, this line is not a declaration but a definition, must be a bug on SPLINT
+    92: void configLowLvlADC(void)
+    93: {
+    94:     /* 20Mhz Clock: Anito PIC16F877A Specific */
+    95:     hal_configADCPinsClock(FOSC_DIV64);     // 64Tosc @20MHz   12*TAD for 10bit, TAD = 20MHz/64 3 --- 8.4uS
+    96: #if (__PHR_CONTROLLER__==__MCU_PIC18__)
+    97:     hal_configADCAqDelay(TAD_12);
+    98: #endif
+    99:     /* Right Justified */
+   100:     hal_rightAligned();
+   101: }
+   102: /*@end@*/
+   103: 
+   104: /* Private Functions */
+   105: /* none */
+   106: 
+   107: /* end of hal_adc.c */
+   108: //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

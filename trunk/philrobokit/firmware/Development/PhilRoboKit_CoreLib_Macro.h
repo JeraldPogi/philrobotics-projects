@@ -57,7 +57,7 @@
 
 /* Public Function Prototypes */
 extern void init();
-extern void program();
+extern void cycle();
 
 #endif/* end of PhilRoboKit_CoreLib_Macro.h */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

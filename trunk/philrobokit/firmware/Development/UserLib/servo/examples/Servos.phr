@@ -21,7 +21,7 @@ void init()
 	setupServo(SERV0,SERVO,-90);
 }
 
-void program()
+void cycle()
 {
 	int8_t i;
 	
@@ -32,8 +32,8 @@ void program()
 		delayMs(5);
 	}
 	
-	delayMs(200);
-	delayMs(200);
+	//delayMs(200);
+	//delayMs(200);
 	
 	/* decrement angle */
 	for(i=90;i>=-90;i--)
@@ -42,7 +42,7 @@ void program()
 		delayMs(5);
 	}
 	
-	delayMs(200);
-	delayMs(200);
+	//delayMs(200);
+	//delayMs(200);
 }
 

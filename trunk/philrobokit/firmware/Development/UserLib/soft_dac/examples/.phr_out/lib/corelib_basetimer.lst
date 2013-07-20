@@ -1,0 +1,218 @@
+     1: /*****************************************************************************************//**
+     2: * # PhilRobotics | Philippine Electronics and Robotics Enthusiasts Club #
+     3: * http://philrobotics.com | http://philrobotics.com/forum | http://facebook.com/philrobotics
+     4: * phirobotics.core@philrobotics.com
+     5: *
+     6: *---------------------------------------------------------------------------------------------
+     7: * |Filename:      | "corelib_basetimer.c"                       |
+     8: * |:----          |:----                                        |
+     9: * |Description:   | Anito Base Timer Application                |
+    10: * |Revision:      | v01.01.01                                   |
+    11: * |Author:        | Giancarlo Acelajado                         |
+    12: * |               |                                             |
+    13: * |Dependencies:  |                                             |
+    14: *
+    15: * > This program is free software: you can redistribute it and/or modify
+    16: * > it under the terms of the GNU General Public License as published by
+    17: * > the Free Software Foundation, either version 3 of the License, or
+    18: * > (at your option) any later version.
+    19: * > This program is distributed in the hope that it will be useful,
+    20: * > but WITHOUT ANY WARRANTY; without even the implied warranty of
+    21: * > MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    22: * > GNU General Public License for more details.
+    23: * > <BR><BR>
+    24: * > You should have received a copy of the GNU General Public License
+    25: * > along with this program. If not, see http://www.gnu.org/licenses/
+    26: * <BR>
+    27: *---------------------------------------------------------------------------------------------
+    28: * |FW Version   |Date       |Author             |Description                                |
+    29: * |:----        |:----      |:----              |:----                                      |
+    30: * |v00.00.01    |201211xx   |Giancarlo A.       |Library Initial Release                    |
+    31: * |v01.00.01    |20130321   |ESC II             |Modified uS time computation to use TMR0   |
+    32: * |v01.01.00    |20130514   |ESCII              |Code Formatted                             |
+    33: * |v01.01.01    |20130517   |ESCII              |Tracepoints added for unit testing         |
+    34: *********************************************************************************************/
+    35: #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
+    36: #undef  __SHOW_MODULE_HEADER__
+    37: 
+    38: #include "corelib_basetimer.h"
+    39: 
+    40: /* Local Constants */
+    41: /* none */
+    42: 
+    43: /* Local Variables */
+    44: /* none */
+    45: 
+    46: /* Private Function Prototypes */
+    47: /* none */
+    48: 
+    49: 
+    50: /* Public Functions */
+    51: /*******************************************************************************//**
+    52: * \brief Microsecond Time Stamp
+    53: *
+    54: * > This function returns the value of a freerunning counter which increments every
+    55: * > 1uS. The stamp is used to measure the elapsed time from the time a stamp is
+    56: * > acquired until the getElapsedUs() function is called.
+    57: *
+    58: * > <BR>
+    59: * > **Syntax:**<BR>
+    60: * >      stamp = getUs()
+    61: * > <BR><BR>
+    62: * > **Parameters:**<BR>
+    63: * >     none
+    64: * > <BR><BR>
+    65: * > **Returns:**<BR>
+    66: * >     uint16_t stamp - the current value of the freerunning uS counter
+    67: * > <BR><BR>
+    68: ***********************************************************************************/
+    69: uint16_t getUs(void)
+    70: {
+    71:     uint16_t ui16TempBuff;
+    72:     ui16TempBuff = getBaseTimerValue();
+    73:     return ui16TempBuff;
+    74: }
+    75: 
+    76: /*******************************************************************************//**
+    77: * \brief  Microsecond Elapsed Time Measurement
+    78: *
+    79: * > This function returns the difference between the current value of the freerunning
+    80: * > uS counter and the previous timestamp.
+    81: *
+    82: * > <BR>
+    83: * > **Syntax:**<BR>
+    84: * >      elapsed = getElapsedUs(stamp)
+    85: * > <BR><BR>
+    86: * > **Parameters:**<BR>
+    87: * >     stamp - uS time reference
+    88: * > <BR><BR>
+    89: * > **Returns:**<BR>
+    90: * >     uint16_t elapsed - measured uS time difference
+    91: * > <BR><BR>
+    92: ***********************************************************************************/
+    93: uint16_t getElapsedUs(uint16_t ui16TimeUs)
+    94: {
+    95:     uint16_t ui16TempBuff;
+    96:     ui16TempBuff = getBaseTimerValue();
+    97:     ui16TempBuff -= ui16TimeUs;// delta
+    98: #if (_XTAL_FREQ == 20000000)                            // 20Mhz normalization: timer interrupt slowed a little bit for slow clock so interrupt is less frequent
+    99:     ui16TempBuff = (ui16TempBuff - (ui16TempBuff >> 2)) + (ui16TempBuff >> 4);  // delta' = delta * 0.8, (0.8125 = 1 - 0.25 + 0.0625)
+   100:     ui16TempBuff <<= SHIFT_MULT;
+   101: #endif
+   102:     return ui16TempBuff;
+   103: }
+   104: 
+   105: /*******************************************************************************//**
+   106: * \brief Millisecond Time Stamp
+   107: *
+   108: * > This function returns the value of a freerunning counter which increments every
+   109: * > 1mS. The stamp is used to measure the elapsed time from the time a stamp is
+   110: * > acquired until the getElapsedMs() function is called.
+   111: *
+   112: * > <BR>
+   113: * > **Syntax:**<BR>
+   114: * >      stamp = getMs()
+   115: * > <BR><BR>
+   116: * > **Parameters:**<BR>
+   117: * >     none
+   118: * > <BR><BR>
+   119: * > **Returns:**<BR>
+   120: * >     uint16_t stamp - the current value of the freerunning mS counter
+   121: * > <BR><BR>
+   122: ***********************************************************************************/
+   123: uint16_t getMs(void)
+   124: {
+   125:     uint16_t ui16TempBuff;
+   126:     disableGlobalInt();
+   127:     ui16TempBuff = get_gui16TimerMs_Value();
+   128:     enableGlobalInt();
+   129:     return ui16TempBuff;
+   130: }
+   131: 
+   132: /*******************************************************************************//**
+   133: * \brief  Millisecond Elapsed Time Measurement
+   134: *
+   135: * > This function returns the difference between the current value of the freerunning
+   136: * > mS counter and the previous timestamp.
+   137: *
+   138: * > <BR>
+   139: * > **Syntax:**<BR>
+   140: * >      elapsed = getElapsedMs(stamp)
+   141: * > <BR><BR>
+   142: * > **Parameters:**<BR>
+   143: * >     stamp - mS time reference
+   144: * > <BR><BR>
+   145: * > **Returns:**<BR>
+   146: * >     uint16_t elapsed - measured mS time difference
+   147: * > <BR><BR>
+   148: ***********************************************************************************/
+   149: uint16_t getElapsedMs(uint16_t ui16TimeMs)
+   150: {
+   151:     uint16_t ui16TempBuff;
+   152:     disableGlobalInt();
+   153:     ui16TempBuff = get_gui16TimerMs_Value();
+   154:     ui16TempBuff -= ui16TimeMs;
+   155: #if (_XTAL_FREQ == 20000000)                            // 20Mhz normalization: timer interrupt slowed a little bit for slow clock so interrupt is less frequent
+   156:     ui16TempBuff <<= SHIFT_MULT;
+   157: #endif
+   158:     enableGlobalInt();
+   159:     return ui16TempBuff;
+   160: }
+   161: 
+   162: #ifdef __TIMER_SEC__
+   163: /*******************************************************************************//**
+   164: * \brief Seconds Time Stamp
+   165: *
+   166: * > This function returns the value of a freerunning counter which increments every
+   167: * > 1Sec. The stamp is used to measure the elapsed time from the time a stamp is
+   168: * > acquired until the getElapsedSec() function is called.
+   169: *
+   170: * > <BR>
+   171: * > **Syntax:**<BR>
+   172: * >      stamp = getSec()
+   173: * > <BR><BR>
+   174: * > **Parameters:**<BR>
+   175: * >     none
+   176: * > <BR><BR>
+   177: * > **Returns:**<BR>
+   178: * >     uint16_t stamp - the current value of the freerunning Sec counter
+   179: * > <BR><BR>
+   180: ***********************************************************************************/
+   181: uint16_t getSec(void)
+   182: {
+   183:     uint16_t ui16TempBuff;
+   184:     ui16TempBuff = get_gui16TimerSec_Value();
+   185:     return ui16TempBuff;
+   186: }
+   187: 
+   188: /*******************************************************************************//**
+   189: * \brief  Seconds Elapsed Time Measurement
+   190: *
+   191: * > This function returns the difference between the current value of the freerunning
+   192: * > Sec counter and the previous timestamp.
+   193: *
+   194: * > <BR>
+   195: * > **Syntax:**<BR>
+   196: * >      elapsed = getElapsedSec(stamp)
+   197: * > <BR><BR>
+   198: * > **Parameters:**<BR>
+   199: * >     stamp - Sec time reference
+   200: * > <BR><BR>
+   201: * > **Returns:**<BR>
+   202: * >     uint16_t elapsed - measured Sec time difference
+   203: * > <BR><BR>
+   204: ***********************************************************************************/
+   205: uint16_t getElapsedSec(uint16_t ui16TimeSec)
+   206: {
+   207:     uint16_t ui16TempBuff;
+   208:     ui16TempBuff = get_gui16TimerSec_Value();
+   209:     ui16TempBuff -= ui16TimeSec;
+   210:     return ui16TempBuff;
+   211: }
+   212: #endif
+   213: 
+   214: /* Private Functions */
+   215: /* none */
+   216: 
+   217: /* end of corelib_basetimer.c */
+   218: //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

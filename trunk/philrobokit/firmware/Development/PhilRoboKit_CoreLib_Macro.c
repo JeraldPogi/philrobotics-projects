@@ -40,10 +40,10 @@
 #undef  __SHOW_MODULE_HEADER__
 
 #include "PhilRoboKit_CoreLib_Macro.h"
-//#include "corelib_test.h"
 
 /* Controller Setting */
 #ifndef S_SPLINT_S /* Suppress SPLint Parse Errors */
+
 /* device configuration settings */
 #if defined(HI_TECH_C)
 
@@ -59,19 +59,29 @@ __CONFIG(WDTE_OFF& FOSC_HS& LVP_OFF& PWRTE_ON& BOREN_OFF);
 #elif (__PHR_CONTROLLER__==__MCU_PIC18__)
 /* Anito Rev1 */
 #if defined( _18F2420 ) || defined( _18F2520 ) || defined( _18F4420 ) || defined( _18F4520 )
-#pragma config WDT=OFF
-#pragma config OSC=XT
+#pragma config OSC=HSPLL            // 8Mhz Crystal x 4 PLL
 #pragma config LVP=OFF
 #pragma config PWRT=ON
 #pragma config BOREN=OFF
+#pragma config MCLRE=ON
+#pragma config IESO=OFF
+#pragma config FCMEN=OFF
+#pragma config WDT=OFF
+#pragma config WDTPS=1
+#pragma config PBADEN=OFF
 
 /* Glutnix Variant */
 #elif defined( _18F4620 )
-#pragma config WDT=OFF
-#pragma config OSC=XT
+#pragma config OSC=HS               // 8Mhz Crystal
 #pragma config LVP=OFF
 #pragma config PWRT=ON
 #pragma config BOREN=OFF
+#pragma config MCLRE=ON
+#pragma config IESO=OFF
+#pragma config FCMEN=OFF
+#pragma config WDT=OFF
+#pragma config WDTPS=1
+#pragma config PBADEN=OFF
 
 #else
 #error Device not yet supported!!!
@@ -126,18 +136,18 @@ int main(void)
     setup16BitTimer(TIMER1, criticalTaskISR);               // poll ADC on timer1 interrupt
     set16BitTimer(TIMER1, K16_CRITICALTASK_PERIOD);
 #endif
-    /* User defined initializations */
-    init();
     /* global and peripheral interrupts enabled */
     enableGlobalInt();
     set_gblInitialized_FlagValue();
+    /* User defined initializations */
+    init();
 
     while(true)
     {
 #if (__PHR_CONTROLLER__==__MCU_PIC16__)
         adcCycle();                                         // poll ADC on program loop
 #endif
-        program();
+        cycle();
     }
 
     return 0;

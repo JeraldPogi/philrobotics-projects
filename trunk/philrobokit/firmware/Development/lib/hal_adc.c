@@ -39,7 +39,6 @@
 #include "hal_adc.h"
 
 /* Local Constants */
-/* PIC16F877A Specific */
 static enum adcClockCfg_et
 {
     FOSC_DIV2,
@@ -51,6 +50,20 @@ static enum adcClockCfg_et
     FOSC_DIV64,
     FOSC_INTRC1
 };
+
+#if (__PHR_CONTROLLER__==__MCU_PIC18__)
+static enum adcTADOptions_et
+{
+    TAD_0,
+    TAD_2,
+    TAD_4,
+    TAD_6,
+    TAD_8,
+    TAD_12,
+    TAD_16,
+    TAD_21
+};
+#endif
 
 /* Local Variables */
 /* none */
@@ -80,6 +93,9 @@ void configLowLvlADC(void)
 {
     /* 20Mhz Clock: Anito PIC16F877A Specific */
     hal_configADCPinsClock(FOSC_DIV64);     // 64Tosc @20MHz   12*TAD for 10bit, TAD = 20MHz/64 3 --- 8.4uS
+#if (__PHR_CONTROLLER__==__MCU_PIC18__)
+    hal_configADCAqDelay(TAD_12);
+#endif
     /* Right Justified */
     hal_rightAligned();
 }

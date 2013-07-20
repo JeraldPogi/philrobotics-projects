@@ -69,9 +69,9 @@ void timer16BitISR(void)
     if(hal_getTMR1IntFlag() && hal_getTMR1IntEnableStatus())
     {
         /* disable TMR1 Module */
-        hal_clrTMR1IntFlag();
-        hal_disableTMR1Int();
         hal_disableTMR1();
+        hal_disableTMR1Int();
+        hal_clrTMR1IntFlag();
         /* call user ISR */
         pt2TMR1ISR();
     }

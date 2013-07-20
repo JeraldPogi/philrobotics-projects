@@ -1,0 +1,91 @@
+     1: /*****************************************************************************************//**
+     2: * # PhilRobotics | Philippine Electronics and Robotics Enthusiasts Club #
+     3: * http://philrobotics.com | http://philrobotics.com/forum | http://facebook.com/philrobotics
+     4: * phirobotics.core@philrobotics.com
+     5: *
+     6: *---------------------------------------------------------------------------------------------
+     7: * |Filename:      | "setupAnito.c"                              |
+     8: * |:----          |:----                                        |
+     9: * |Description:   | Anito setup routines                        |
+    10: * |Revision:      | v00.00.02                                   |
+    11: * |Author:        | Giancarlo Acelajado                         |
+    12: * |               |                                             |
+    13: * |Dependencies:  |                                             |
+    14: *
+    15: * > This program is free software: you can redistribute it and/or modify
+    16: * > it under the terms of the GNU General Public License as published by
+    17: * > the Free Software Foundation, either version 3 of the License, or
+    18: * > (at your option) any later version.
+    19: * > This program is distributed in the hope that it will be useful,
+    20: * > but WITHOUT ANY WARRANTY; without even the implied warranty of
+    21: * > MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    22: * > GNU General Public License for more details.
+    23: * > <BR><BR>
+    24: * > You should have received a copy of the GNU General Public License
+    25: * > along with this program. If not, see http://www.gnu.org/licenses/
+    26: * <BR>
+    27: *---------------------------------------------------------------------------------------------
+    28: * |FW Version   |Date       |Author             |Description                        |
+    29: * |:----        |:----      |:----              |:----                              |
+    30: * |v00.00.01    |201209xx   |Giancarlo A.       |Library Initial Release            |
+    31: * |v00.00.02    |20130307   |ESCII              |Renamed setupAnito to philrobokit_init to save 1 stack level <BR>
+    32: *                                                Added call to ADC setup and cyclic functions |
+    33: *********************************************************************************************/
+    34: #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
+    35: #undef  __SHOW_MODULE_HEADER__
+    36: 
+    37: #include  "setupAnito.h"
+    38: 
+    39: /* Local Constants */
+    40:     /* none */
+    41: 
+    42: /* Local Variables */
+    43:     /* none */
+    44: 
+    45: /* Private Function Prototypes */
+    46: void criticalTaskISR();
+    47:     
+    48: /* Public Functions */
+    49: /*******************************************************************************//**
+    50: * \brief Setup Philrobokit Variant Specific Peripherals
+    51: *
+    52: * > This function is called to initialize anito specific peripherals 
+    53: *
+    54: * > <BR>
+    55: * > **Syntax:**<BR>
+    56: * >      philrobokit_init()
+    57: * > <BR><BR>
+    58: * > **Parameters:**<BR>
+    59: * >     none
+    60: * > <BR><BR>
+    61: * > **Returns:**<BR>
+    62: * >     none
+    63: * > <BR><BR>
+    64: ***********************************************************************************/
+    65: void philrobokit_init(void)
+    66: {
+    67:     /* Initialize GPIO default and direction */
+    68:     setupGpio();
+    69:     
+    70:     /* System Timebase */
+    71:     setupTimer();               
+    72:     
+    73:         /* Vref at Vdd by default */
+    74:     setupADC(VDD);  
+    75:         
+    76:     /* Use Timer 1 for ADC Polling */
+    77:     setup16BitTimer(TIMER1, criticalTaskISR);
+    78:     set16BitTimer(TIMER1, K16_CRITICALTASK_PERIOD);    
+    79:     
+    80:     /* global and peripheral interrupts enabled */
+    81:     enableGlobalInt();      
+    82: }
+    83: 
+    84: /* Private Functions */
+    85: void criticalTaskISR()
+    86: {
+    87:         ;/* task moved to TMR1 module to save stack */
+    88: }
+    89:     
+    90: /* end of setupAnito.c */
+    91: //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

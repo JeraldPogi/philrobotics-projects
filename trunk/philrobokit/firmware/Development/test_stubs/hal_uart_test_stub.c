@@ -59,63 +59,63 @@ int getMockFunctionReturn(int* reg)
 /* unit tests */
 static TEST_hal_setSerialBAUD(void)
 {
-    /* Initialize Module Test */
+    /* Initialize Unit Test */
     UCUNIT_TestcaseBegin("setSerialBAUD: Test Standard Baudrates");
     UCUNIT_ResetTracepointCoverage();
-    /* Perform Module Test */
+    /* Perform Unit Test */
     hal_setSerialBAUD(STD_BAUD_9600);
     UCUNIT_CheckIsBitSet(REGISTER_TXSTA,BITPOS_TXSTA_BRGH);
     UCUNIT_CheckIsEqual(BAUD_9600_BRGVAL,REGISTER_SPBRG);
     /* Test for Code Coverage */
     UCUNIT_CheckTracepointCoverage(0);
-    /* Perform Module Test */
+    /* Perform Unit Test */
     hal_setSerialBAUD(STD_BAUD_57600);
     UCUNIT_CheckIsBitSet(REGISTER_TXSTA,BITPOS_TXSTA_BRGH);
     UCUNIT_CheckIsEqual(BAUD_57600_BRGVAL,REGISTER_SPBRG);
     /* Test for Code Coverage */
     UCUNIT_CheckTracepointCoverage(1);
-    /* Perform Module Test */
+    /* Perform Unit Test */
     //esc.comment TCC cannot recognize the switch case but ok when tried to compile using XC8
     //    hal_setSerialBAUD(STD_BAUD_115200);
     //    UCUNIT_CheckIsBitSet(REGISTER_TXSTA,BITPOS_TXSTA_BRGH);
     //    UCUNIT_CheckIsEqual(BAUD_115200_BRGVAL,REGISTER_SPBRG);
     /* Test for Code Coverage */
     //    UCUNIT_CheckTracepointCoverage(2);
-    /* Perform Module Test */
+    /* Perform Unit Test */
     hal_setSerialBAUD(STD_BAUD_19200);
     UCUNIT_CheckIsBitSet(REGISTER_TXSTA,BITPOS_TXSTA_BRGH);
     UCUNIT_CheckIsEqual(BAUD_19200_BRGVAL,REGISTER_SPBRG);
     /* Test for Code Coverage */
     UCUNIT_CheckTracepointCoverage(3);
-    /* Perform Module Test */
+    /* Perform Unit Test */
     hal_setSerialBAUD(STD_BAUD_4800);
     UCUNIT_CheckIsBitClear(REGISTER_TXSTA,BITPOS_TXSTA_BRGH);
     UCUNIT_CheckIsEqual(BAUD_4800_BRGVAL,REGISTER_SPBRG);
     /* Test for Code Coverage */
     UCUNIT_CheckTracepointCoverage(4);
-    /* Perform Module Test */
+    /* Perform Unit Test */
     hal_setSerialBAUD(STD_BAUD_38400);
     UCUNIT_CheckIsBitSet(REGISTER_TXSTA,BITPOS_TXSTA_BRGH);
     UCUNIT_CheckIsEqual(BAUD_38400_BRGVAL,REGISTER_SPBRG);
     /* Test for Code Coverage */
     UCUNIT_CheckTracepointCoverage(5);
-    /* Perform Module Test */
+    /* Perform Unit Test */
     hal_setSerialBAUD(STD_BAUD_2400);
     UCUNIT_CheckIsBitClear(REGISTER_TXSTA,BITPOS_TXSTA_BRGH);
     UCUNIT_CheckIsEqual(BAUD_2400_BRGVAL,REGISTER_SPBRG);
     /* Test for Code Coverage */
     UCUNIT_CheckTracepointCoverage(6);
-    /* Perform Module Test */
+    /* Perform Unit Test */
     hal_setSerialBAUD(STD_BAUD_1200);
     /* Test for Code Coverage */
     UCUNIT_CheckTracepointCoverage(7);
     UCUNIT_CheckTracepointNonCoverage(8);
-    /* End Module Test */
+    /* End Unit Test */
     UCUNIT_TestcaseEnd();
-    /* Initialize Module Test */
+    /* Initialize Unit Test */
     UCUNIT_TestcaseBegin("setSerialBAUD: Test Non Standard Baudrates");
     UCUNIT_ResetTracepointCoverage();
-    /* Perform Module Test */
+    /* Perform Unit Test */
     hal_setSerialBAUD(0);
     hal_setSerialBAUD(255);
     hal_setSerialBAUD(1023);
@@ -148,7 +148,7 @@ static TEST_hal_setSerialBAUD(void)
     UCUNIT_CheckTracepointNonCoverage(6);
     UCUNIT_CheckTracepointNonCoverage(7);
     UCUNIT_CheckTracepointCoverage(8);
-    /* End Module Test */
+    /* End Unit Test */
     UCUNIT_TestcaseEnd();
 }
 
@@ -159,7 +159,7 @@ void init()
     UCUNIT_Init();
     UCUNIT_WriteString("\n**********************************************************************");
     UCUNIT_WriteString("\nName:     ");
-    UCUNIT_WriteString("-hal_uart- Module Testing");
+    UCUNIT_WriteString("-hal_uart- Unit Testing");
     UCUNIT_WriteString("\nCompiled: ");
     UCUNIT_WriteString(__DATE__);
     UCUNIT_WriteString("\nTime:     ");

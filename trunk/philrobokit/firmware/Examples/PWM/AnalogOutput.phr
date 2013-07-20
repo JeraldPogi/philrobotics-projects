@@ -21,7 +21,7 @@ void init()
 	LoopTimer = getMs();                            // get time stamp
 }
 
-void program()
+void cycle()
 {
 	static uint16_t ADCOutValue = 0;
 	

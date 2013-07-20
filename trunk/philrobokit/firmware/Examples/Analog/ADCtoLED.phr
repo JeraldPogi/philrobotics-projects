@@ -28,11 +28,11 @@ void init()
 	clrPin(LED4);
 }
 
-void program()
+void cycle()
 {
 	uint16_t ADCValue;
 
-	ADCValue = adcRead(AN0);
+	ADCValue = adcRead(A0);
 	
 	/* check lowest to highest range */
 	if(ADCValue < K16_LEVEL1)

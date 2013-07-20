@@ -60,17 +60,19 @@ enum ADCVrefSource_et
 };
 
 /* User Configuration Definitions */
-#if (__PHR_CONTROLLER__==__MCU_PIC18__)
-#define __POLLING_DELAY__                   __USE_COUNTER__
-#else
-#define __POLLING_DELAY__                   __USE_TIMER__
-#endif
+#define ADC_CYCLE_COUNTER_TIMEOUT           5       // 5mS with 0.5uS resolution
 
-#if (__POLLING_DELAY__ == __USE_TIMER__)
-#define ADC_CYCLE_TIMEOUT                   5       // 5mS with 1mS resolution
-#else
-#define ADC_CYCLE_COUNTER_TIMEOUT           25000   // 5mS with 0.2uS resolution
-#endif
+//#if (__PHR_CONTROLLER__==__MCU_PIC18__)
+//#define __POLLING_DELAY__                   __USE_COUNTER__
+//#else
+//#define __POLLING_DELAY__                   __USE_COUNTER__//__USE_TIMER__
+//#endif
+
+//#if (__POLLING_DELAY__ == __USE_TIMER__)
+//#define ADC_CYCLE_TIMEOUT                   5       // 5mS with 1mS resolution
+//#else
+//#define ADC_CYCLE_COUNTER_TIMEOUT           5       // 5mS with 0.5uS resolution
+//#endif
 
 /* Macro and Configuration Definitions */
 /* none */

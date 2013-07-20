@@ -62,10 +62,10 @@ int getMockFunctionReturn(int* reg)
 /* unit tests */
 static TEST_setupTimer(void)
 {
-    /* Initialize Module Test */
+    /* Initialize Unit Test */
     UCUNIT_TestcaseBegin("setupTimer: Check Prescaler");
     UCUNIT_ResetTracepointCoverage();
-    /* Perform Module Test */
+    /* Perform Unit Test */
     setupTimer();                       // call function to be tested
 #if(__PHR_CONTROLLER__ == __MCU_PIC18__)
     /* Check Prescaler Content @ 8Mhz 000(div2) */
@@ -86,7 +86,7 @@ static TEST_setupTimer(void)
     /* Check if Interrupt is Enabled */
     UCUNIT_CheckIsBitClear(REGISTER_INTCON,BITPOS_INTCON_TMR0IF);
     UCUNIT_CheckIsBitSet(REGISTER_INTCON,BITPOS_INTCON_TMR0IE);
-    /* End Module Test */
+    /* End Unit Test */
     UCUNIT_TestcaseEnd();
 }
 
@@ -94,7 +94,7 @@ static TEST_timerISR(void)
 {
     uint16_t ui16Counter;
 #if(__PHR_CONTROLLER__ == __MCU_PIC18__)
-    /* Initialize Module Test */
+    /* Initialize Unit Test */
     UCUNIT_TestcaseBegin("timerISR: Test 256uS increment");
     UCUNIT_ResetTracepointCoverage();
     /* Perform Unit Test */
@@ -115,9 +115,9 @@ static TEST_timerISR(void)
 
     /* Check Register Content */
     UCUNIT_CheckIsEqual(0x0100, hal_getBaseTimerValue());   // MSB has incremented
-    /* End Module Test */
+    /* End Unit Test */
     UCUNIT_TestcaseEnd();
-    /* Initialize Module Test */
+    /* Initialize Unit Test */
     UCUNIT_TestcaseBegin("timerISR: Test 1mS increment");
     UCUNIT_ResetTracepointCoverage();
     /* Perform Unit Test */
@@ -141,10 +141,10 @@ static TEST_timerISR(void)
     UCUNIT_CheckIsEqual(0x0001, get_gui16TimerMs_Value());  // mS has incremented
     /* Test for Code Coverage */
     UCUNIT_CheckTracepointCoverage(0);
-    /* End Module Test */
+    /* End Unit Test */
     UCUNIT_TestcaseEnd();
 #else
-    /* Initialize Module Test */
+    /* Initialize Unit Test */
     UCUNIT_TestcaseBegin("timerISR: Test 204.8uS increment");
     UCUNIT_ResetTracepointCoverage();
     /* Perform Unit Test */
@@ -165,9 +165,9 @@ static TEST_timerISR(void)
 
     /* Check Register Content */
     UCUNIT_CheckIsEqual(0x0100, hal_getBaseTimerValue());   // MSB has incremented
-    /* End Module Test */
+    /* End Unit Test */
     UCUNIT_TestcaseEnd();
-    /* Initialize Module Test */
+    /* Initialize Unit Test */
     UCUNIT_TestcaseBegin("timerISR: Test 1mS increment");
     UCUNIT_ResetTracepointCoverage();
     /* Perform Unit Test */
@@ -191,7 +191,7 @@ static TEST_timerISR(void)
     UCUNIT_CheckIsEqual(0x0001, get_gui16TimerMs_Value());  // mS has incremented
     /* Test for Code Coverage */
     UCUNIT_CheckTracepointCoverage(0);
-    /* End Module Test */
+    /* End Unit Test */
     UCUNIT_TestcaseEnd();
 #endif
 }
@@ -203,7 +203,7 @@ void init()
     UCUNIT_Init();
     UCUNIT_WriteString("\n**********************************************************************");
     UCUNIT_WriteString("\nName:     ");
-    UCUNIT_WriteString("-hal_timer- Module Testing");
+    UCUNIT_WriteString("-hal_timer- Unit Testing");
     UCUNIT_WriteString("\nCompiled: ");
     UCUNIT_WriteString(__DATE__);
     UCUNIT_WriteString("\nTime:     ");

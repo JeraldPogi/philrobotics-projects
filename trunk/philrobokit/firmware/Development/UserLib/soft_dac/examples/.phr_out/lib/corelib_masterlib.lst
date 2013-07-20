@@ -1,0 +1,53 @@
+     1: /*****************************************************************************************//**
+     2: * # PhilRobotics | Philippine Electronics and Robotics Enthusiasts Club #
+     3: * http://philrobotics.com | http://philrobotics.com/forum | http://facebook.com/philrobotics
+     4: * phirobotics.core@philrobotics.com
+     5: *
+     6: *---------------------------------------------------------------------------------------------
+     7: * |Filename:      | "corelib_masterlib.c"                       |
+     8: * |:----          |:----                                        |
+     9: * |Description:   | PhilRobokit Master Library Header           |
+    10: * |Revision:      | v00.00.01                                   |
+    11: * |Author:        | Efren S. Cruzat II                          |
+    12: * |               |                                             |
+    13: * |Dependencies:  |                                             |
+    14: *
+    15: * > This program is free software: you can redistribute it and/or modify
+    16: * > it under the terms of the GNU General Public License as published by
+    17: * > the Free Software Foundation, either version 3 of the License, or
+    18: * > (at your option) any later version.
+    19: * > This program is distributed in the hope that it will be useful,
+    20: * > but WITHOUT ANY WARRANTY; without even the implied warranty of
+    21: * > MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    22: * > GNU General Public License for more details.
+    23: * > <BR><BR>
+    24: * > You should have received a copy of the GNU General Public License
+    25: * > along with this program. If not, see http://www.gnu.org/licenses/
+    26: * <BR>
+    27: *---------------------------------------------------------------------------------------------
+    28: * |FW Version   |Date       |Author             |Description                        |
+    29: * |:----        |:----      |:----              |:----                              |
+    30: * |v00.00.01    |20130408   |ESC II             |Library Initial Release            |
+    31: *********************************************************************************************/
+    32: #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
+    33: #undef  __SHOW_MODULE_HEADER__
+    34: 
+    35: #include "corelib_masterlib.h"
+    36: 
+    37: /* Local Constants */
+    38: /* none */
+    39: 
+    40: /* Local Variables */
+    41: /* none */
+    42: 
+    43: /* Private Function Prototypes */
+    44: /* none */
+    45: 
+    46: /* Public Functions */
+    47: /* none */
+    48: 
+    49: /* Private Functions */
+    50: /* none */
+    51: 
+    52: /* end of corelib_masterlib.c */
+    53: //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

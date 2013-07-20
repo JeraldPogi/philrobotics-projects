@@ -22,7 +22,7 @@ void init()
 	setupPWM(PWM1,200,750);		// 2kHz @ 10Hz per bit resolution, 75% @ 0.1% per bit resolution
 }
 
-void program()
+void cycle()
 {
 	/* do nothing */
 }

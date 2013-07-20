@@ -24,7 +24,7 @@ void init()
 	setupSoftDAC(SDAC0, D0, ONE_FOURTH_OF_VCC);
 }
 
-void program()
+void cycle()
 {
 
 }

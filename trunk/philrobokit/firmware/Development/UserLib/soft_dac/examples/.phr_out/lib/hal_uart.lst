@@ -1,0 +1,177 @@
+     1: /*****************************************************************************************//**
+     2: * # PhilRobotics | Philippine Electronics and Robotics Enthusiasts Club #
+     3: * http://philrobotics.com | http://philrobotics.com/forum | http://facebook.com/philrobotics
+     4: * phirobotics.core@philrobotics.com
+     5: *
+     6: *---------------------------------------------------------------------------------------------
+     7: * |Filename:      | "hal_uart.c"                                |
+     8: * |:----          |:----                                        |
+     9: * |Description:   | This is a library for using the serial/uart functions |
+    10: * |Revision:      | v01.01.02                                   |
+    11: * |Author:        | Giancarlo Acelajado                         |
+    12: * |               |                                             |
+    13: * |Dependencies:  |                                             |
+    14: *
+    15: * > This program is free software: you can redistribute it and/or modify
+    16: * > it under the terms of the GNU General Public License as published by
+    17: * > the Free Software Foundation, either version 3 of the License, or
+    18: * > (at your option) any later version.
+    19: * > This program is distributed in the hope that it will be useful,
+    20: * > but WITHOUT ANY WARRANTY; without even the implied warranty of
+    21: * > MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    22: * > GNU General Public License for more details.
+    23: * > <BR><BR>
+    24: * > You should have received a copy of the GNU General Public License
+    25: * > along with this program. If not, see http://www.gnu.org/licenses/
+    26: * <BR>
+    27: *---------------------------------------------------------------------------------------------
+    28: * |FW Version   |Date       |Author             |Description                        |
+    29: * |:----        |:----      |:----              |:----                              |
+    30: * |v00.01.00    |201112xx   |Giancarlo A.       |Library Initial Release            |
+    31: * |v00.01.01    |201201xx   |Giancarlo A.       |Add serialFlush Routine            |
+    32: * |v01.00.00    |201210xx   |Giancarlo A.       |Leverage Library to Standard Architecture|
+    33: * |v01.00.01    |20130228   |ESCII              |Separated module to HAL and Corelib|
+    34: * |v01.01.00    |20130514   |ESCII              |Code Formatted                     |
+    35: * |v01.01.01    |20130520   |ESCII              |Modified implementation for PIC18F2550 compatibility, added unit test tracepoints|
+    36: * |v01.01.02    |20130521   |ESCII              |Added 18F4520 Configuration of Baudrates|
+    37: *********************************************************************************************/
+    38: #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
+    39: #undef  __SHOW_MODULE_HEADER__
+    40: 
+    41: #include "hal_uart.h"
+    42: 
+    43: /* Local Constants */
+    44: /* none */
+    45: 
+    46: /* Local Variables */
+    47: /* none */
+    48: 
+    49: /* Private Function Prototypes */
+    50: /* none */
+    51: 
+    52: /* Public Functions */
+    53: /*******************************************************************************//**
+    54: * \brief Set UART peripheral baudrate
+    55: *
+    56: * > This function is called for setting up the UART baudrate
+    57: *
+    58: * > <BR>
+    59: * > **Syntax:**<BR>
+    60: * >     hal_setSerialBAUD(baudrate)
+    61: * > <BR><BR>
+    62: * > **Parameters:**<BR>
+    63: * >     baudrate - desired UART baudrate (supports only standard baudrates)
+    64: * > <BR><BR>
+    65: * > **Returns:**<BR>
+    66: * >     none
+    67: * > <BR><BR>
+    68: ***********************************************************************************/
+    69: void hal_setSerialBAUD(uint24_t ui16Baudrate)
+    70: {
+    71:     switch(ui16Baudrate)
+    72:     {
+    73:         case STD_BAUD_9600:
+    74:         {
+    75:             BIT_TXSTA_BRGH = HIGH_BAUDRATE;
+    76:             REGISTER_SPBRG = BAUD_9600_BRGVAL;
+    77: #ifdef UNIT_TEST
+    78:             UCUNIT_Tracepoint(0);
+    79: #endif
+    80:             break;
+    81:         }
+    82: 
+    83:         case STD_BAUD_57600:
+    84:         {
+    85:             BIT_TXSTA_BRGH = HIGH_BAUDRATE;
+    86:             REGISTER_SPBRG = BAUD_57600_BRGVAL;
+    87: #ifdef UNIT_TEST
+    88:             UCUNIT_Tracepoint(1);
+    89: #endif
+    90:             break;
+    91:         }
+    92: 
+    93: #if (_XTAL_FREQ != 8000000)
+    94: 
+    95:         case STD_BAUD_115200:
+    96:         {
+    97:             BIT_TXSTA_BRGH = HIGH_BAUDRATE;
+    98:             REGISTER_SPBRG = BAUD_115200_BRGVAL;
+    99: #ifdef UNIT_TEST
+   100:             UCUNIT_Tracepoint(2);
+   101: #endif
+   102:             break;
+   103:         }
+   104: 
+   105: #endif
+   106: 
+   107:         case STD_BAUD_19200:
+   108:         {
+   109:             BIT_TXSTA_BRGH = HIGH_BAUDRATE;
+   110:             REGISTER_SPBRG = BAUD_19200_BRGVAL;
+   111: #ifdef UNIT_TEST
+   112:             UCUNIT_Tracepoint(3);
+   113: #endif
+   114:             break;
+   115:         }
+   116: 
+   117:         case STD_BAUD_4800:
+   118:         {
+   119:             BIT_TXSTA_BRGH = LOW_BAUDRATE;
+   120:             REGISTER_SPBRG = BAUD_4800_BRGVAL;
+   121: #ifdef UNIT_TEST
+   122:             UCUNIT_Tracepoint(4);
+   123: #endif
+   124:             break;
+   125:         }
+   126: 
+   127:         case STD_BAUD_38400:
+   128:         {
+   129:             BIT_TXSTA_BRGH = HIGH_BAUDRATE;
+   130:             REGISTER_SPBRG = BAUD_38400_BRGVAL;
+   131: #ifdef UNIT_TEST
+   132:             UCUNIT_Tracepoint(5);
+   133: #endif
+   134:             break;
+   135:         }
+   136: 
+   137:         case STD_BAUD_2400:
+   138:         {
+   139:             BIT_TXSTA_BRGH = LOW_BAUDRATE;
+   140:             REGISTER_SPBRG = BAUD_2400_BRGVAL;
+   141: #ifdef UNIT_TEST
+   142:             UCUNIT_Tracepoint(6);
+   143: #endif
+   144:             break;
+   145:         }
+   146: 
+   147: #if(_XTAL_FREQ != 32000000)
+   148: 
+   149:         case STD_BAUD_1200:
+   150:         {
+   151:             BIT_TXSTA_BRGH = LOW_BAUDRATE;
+   152:             REGISTER_SPBRG = BAUD_1200_BRGVAL;
+   153: #ifdef UNIT_TEST
+   154:             UCUNIT_Tracepoint(7);
+   155: #endif
+   156:             break;
+   157:         }
+   158: 
+   159: #endif
+   160: 
+   161:         default:    // default is 9600 Baudrate
+   162:         {
+   163:             BIT_TXSTA_BRGH = HIGH_BAUDRATE;
+   164:             REGISTER_SPBRG = BAUD_9600_BRGVAL;
+   165: #ifdef UNIT_TEST
+   166:             UCUNIT_Tracepoint(8);
+   167: #endif
+   168:             break;
+   169:         }
+   170:     }
+   171: }
+   172: 
+   173: /* Private Functions */
+   174: /* none */
+   175: 
+   176: /* end of hal_uart.c */
+   177: //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

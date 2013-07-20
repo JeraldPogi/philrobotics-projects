@@ -7,7 +7,7 @@
 * |Filename:      | "htc_16f87xa.h"                             |
 * |:----          |:----                                        |
 * |Description:   | Hi-Tech C PIC16F877A Register Definitions   |
-* |Revision:      | v00.01.03                                   |
+* |Revision:      | v00.02.00                                   |
 * |Author:        | Giancarlo Acelajado                         |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -31,6 +31,7 @@
 * |v00.01.01    |20120711   |ESCII              |Added defines for PWM and Timers   |
 * |v00.01.02    |20130307   |ESCII              |Added macro for enabling and disabling global interrupts |
 * |v00.01.03    |20130320   |ESCII              |Added definitions for TMR0 registers, delay macro moved here |
+* |v00.01.04    |20130630   |ESCII              |Fixed SPLINT Errors                |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -45,15 +46,15 @@
 /* none */
 
 /* Global Constants */
-/* Interrupt Controler */
+/* Interrupt Controller */
 #define REGISTER_INTCON     INTCON
 #define BIT_INTCON_GIE      GIE
 #define BIT_INTCON_PEIE     PEIE
 #define BIT_INTCON_TMR0IE   TMR0IE
-//#define BIT_INTCON_INTE       INT0IE
+//#define BIT_INTCON_INTE   INT0IE
 #define BIT_INTCON_RBIE     RBIE
 #define BIT_INTCON_TMR0IF   TMR0IF
-//#define BIT_INTCON_INTF       INT0IF
+//#define BIT_INTCON_INTF   INT0IF
 #define BIT_INTCON_RBIF     RBIF
 
 #define REGISTER_INTCON2    INTCON2
@@ -104,8 +105,14 @@
 #define BIT_RCSTA_OERR      OERR
 #define BIT_RCSTA_RX9D      RX9D
 
+#define REGISTER_BAUDCON    BAUDCON
+
+#define REGISTER_TXREG      TXREG
+#define REGISTER_RCREG      RCREG
+#define REGISTER_SPBRG      SPBRG
+
 /* TMR0 - 8/16Bit Timer Peripheral */
-//#define REGISTER_T0CON      OPTION_REG
+//#define REGISTER_T0CON    OPTION_REG
 #define REGISTER_T0CON      T0CON
 #define BIT_T0CON_TMR0ON    TMR0ON
 #define BIT_T0CON_T08BIT    T08BIT
@@ -120,8 +127,8 @@
 
 /* TMR1 - 16Bit Timer Peripheral */
 #define REGISTER_T1CON      T1CON
-//#define BIT_T1CON_RESERVED    T1CON.7
-//#define BIT_T1CON_RESERVED    T1CON.6
+#define BIT_T1CON_RD16      T1RD16
+#define BIT_T1CON_T1RUN     T1RUN
 #define BIT_T1CON_T1CKPS1   T1CKPS1
 #define BIT_T1CON_T1CKPS0   T1CKPS0
 #define BIT_T1CON_T1OSCEN   T1OSCEN
@@ -133,38 +140,50 @@
 
 /* ADC - Analog to Digital Converter Peripheral */
 #define REGISTER_ADCON0     ADCON0
-#define BIT_ADCON0_ADCS1    ADCS1
-#define BIT_ADCON0_ADCS0    ADCS0
+//#define BIT_ADCON0_RESERVED   ADCON.7
+//#define BIT_ADCON0_RESERVED   ADCON.6
+#define BIT_ADCON0_CHS3     CHS3
 #define BIT_ADCON0_CHS2     CHS2
 #define BIT_ADCON0_CHS1     CHS1
 #define BIT_ADCON0_CHS0     CHS0
 #define BIT_ADCON0_GO_DONE  GO_DONE
-//#define BIT_ADCON0_RESERVED   ADCON.1
 #define BIT_ADCON0_ADON     ADON
 
-#define ADC_CONVCLOCK_MASK  0xC0            // Bit 6 to 7
-#define ADC_CHANSEL_MASK    0x38            // Bit 3 to 5
+#define ADC_CHANSEL_MASK    0x3C            // Bit 2 to 5
 
 #define REGISTER_ADCON1     ADCON1
-#define BIT_ADCON1_ADFM     ADFM
-#define BIT_ADCON1_ADCS2    ADCS2
-//#define BIT_ADCON1_RESERVED   ADCON.5
-//#define BIT_ADCON1_RESERVED   ADCON.4
+//#define BIT_ADCON1_RESERVED   ADCON.7
+//#define BIT_ADCON1_RESERVED   ADCON.6
+#define BIT_ADCON1_VCFG1    VCFG1
+#define BIT_ADCON1_VCFG0    VCFG0
 #define BIT_ADCON1_PCFG3    PCFG3
 #define BIT_ADCON1_PCFG2    PCFG2
 #define BIT_ADCON1_PCFG1    PCFG1
 #define BIT_ADCON1_PCFG0    PCFG0
 
-#define ADC_CONFIG_MASK     0x0F            // Bit 0 to 3
+#define ADC_CONFIG_MASK     0x3F            // Bit 0 to 5
+
+#define REGISTER_ADCON2     ADCON2
+#define BIT_ADCON2_ADFM     ADFM
+//#define BIT_ADCON2_RESERVED   ADCON.6
+#define BIT_ADCON2_ACQT2    ACQT2
+#define BIT_ADCON2_ACQT1    ACQT1
+#define BIT_ADCON2_ACQT0    ACQT0
+#define BIT_ADCON2_ADCS2    ADCS2
+#define BIT_ADCON2_ADCS1    ADCS1
+#define BIT_ADCON2_ADCS0    ADCS0
+
+#define ADC_CONVCLOCK_MASK  0x03            // Bit 0 to 2
+#define ADC_TAD_MASK        0x38            // Bit 3 to 5
 
 /* TMRx - 8Bit Timer Peripheral */
 #define REGISTER_PR2        PR2
-//define REGISTER_PR4           PR4
-//#define REGISTER_PR6          PR6
+//define REGISTER_PR4       PR4
+//#define REGISTER_PR6      PR6
 
 #define REGISTER_T2CON      T2CON
-//#define REGISTER_T4CON        T4CON
-//#define REGISTER_T6CON        T6CON
+//#define REGISTER_T4CON    T4CON
+//#define REGISTER_T6CON    T6CON
 
 //#define BIT_TxCON_RESERVED    T2CON.7
 #define BIT_T2CON_TOUTPS3   TOUTPS3
@@ -175,8 +194,8 @@
 #define BIT_T2CON_T2CKPS1   T2CKPS1
 #define BIT_T2CON_T2CKPS0   T2CKPS0
 
-#define TMR_POSTSCALE_MASK      0x78        // Bit 3 to Bit 6    
-#define TMR_PRESCALE_MASK       0x03        // Bit 0 to Bit 1       
+#define TMR_POSTSCALE_MASK  0x78            // Bit 3 to Bit 6    
+#define TMR_PRESCALE_MASK   0x03            // Bit 0 to Bit 1       
 
 /* CCPx - Capture-Compare/PWM Peripheral */
 #define REGISTER_CCP1CON    CCP1CON
@@ -184,18 +203,18 @@
 //#define REG_CCP3CON           CCP3CON
 //#define REG_CCP4CON           CCP4CON
 
-#define MASK_PxM1           0x80        // Bit 7 (For ECCP Only)
-#define MASK_PxM0           0x40        // Bit 6 (For ECCP Only)
-#define MASK_DCxB1          0x20        // Bit 5
-#define MASK_DCxB0          0x10        // Bit 4
-#define MASK_CCPxM3         0x08        // Bit 3
-#define MASK_CCPxM2         0x04        // Bit 2
-#define MASK_CCPxM1         0x02        // Bit 1
-#define MASK_CCPxM0         0x01        // Bit 0
+#define MASK_PxM1           0x80            // Bit 7 (For ECCP Only)
+#define MASK_PxM0           0x40            // Bit 6 (For ECCP Only)
+#define MASK_DCxB1          0x20            // Bit 5
+#define MASK_DCxB0          0x10            // Bit 4
+#define MASK_CCPxM3         0x08            // Bit 3
+#define MASK_CCPxM2         0x04            // Bit 2
+#define MASK_CCPxM1         0x02            // Bit 1
+#define MASK_CCPxM0         0x01            // Bit 0
 
-#define ECCP_CONFIG_MASK    0xC0        // Bit 6 to 7 (For ECCP Only)
-#define PWM_DC_LSB_MASK     0x30        // Bit 4 to 5
-#define CCP_MODE_MASK       0x0F        // Bit 0 to 3
+#define ECCP_CONFIG_MASK    0xC0            // Bit 6 to 7 (For ECCP Only)
+#define PWM_DC_LSB_MASK     0x30            // Bit 4 to 5
+#define CCP_MODE_MASK       0x0F            // Bit 0 to 3
 
 #define REGISTER_CCPR1L     CCPR1L
 #define REGISTER_CCPR2L     CCPR2L
@@ -204,19 +223,19 @@
 
 #if 0 // not for PIC16F877A
 #define REGISTER_CCPTMRS    CCPTMRS
-#define MASK_C4TSEL1        0x80        // Bit 7 
-#define MASK_C4TSEL0        0x40        // Bit 6 
-#define MASK_C3TSEL1        0x20        // Bit 5
-#define MASK_C3TSEL0        0x10        // Bit 4
-#define MASK_C2TSEL1        0x08        // Bit 3
-#define MASK_C2TSEL0        0x04        // Bit 2
-#define MASK_C1TSEL1        0x02        // Bit 1
-#define MASK_C1TSEL0        0x01        // Bit 0
+#define MASK_C4TSEL1        0x80            // Bit 7 
+#define MASK_C4TSEL0        0x40            // Bit 6 
+#define MASK_C3TSEL1        0x20            // Bit 5
+#define MASK_C3TSEL0        0x10            // Bit 4
+#define MASK_C2TSEL1        0x08            // Bit 3
+#define MASK_C2TSEL0        0x04            // Bit 2
+#define MASK_C1TSEL1        0x02            // Bit 1
+#define MASK_C1TSEL0        0x01            // Bit 0
 
-#define C4_TIMERSEL_MASK    0xC0        // Bit 6 to 7
-#define C3_TIMERSEL_MASK    0x30        // Bit 4 to 5
-#define C2_TIMERSEL_MASK    0x0C        // Bit 2 to 3
-#define C1_TIMERSEL_MASK    0x03        // Bit 0 to 1
+#define C4_TIMERSEL_MASK    0xC0            // Bit 6 to 7
+#define C3_TIMERSEL_MASK    0x30            // Bit 4 to 5
+#define C2_TIMERSEL_MASK    0x0C            // Bit 2 to 3
+#define C1_TIMERSEL_MASK    0x03            // Bit 0 to 1
 #endif
 
 #define REGISTER_TRISA      TRISA
@@ -237,12 +256,9 @@
 #define REGISTER_LATD       LATD
 #define REGISTER_LATE       LATE
 
-#define REGISTER_TXREG      TXREG
-#define REGISTER_RCREG      RCREG
-#define REGISTER_SPBRG      SPBRG
-
 #if defined( _16F873A ) || defined( _16F874A ) || defined( _16F876A ) || defined( _16F877A )
 #define REGISTER_TMR0L      TMR0
+
 #else
 #define REGISTER_TMR0H      TMR0H
 #define REGISTER_TMR0L      TMR0L
@@ -259,23 +275,28 @@
 
 /* Macro and Configuration Definitions */
 /* Global Interrupts Disable/Enable */
+/*@notfunction@*/
 #define enableGlobalInt()                           \
     BIT_INTCON_GIE = 1;                             \
     BIT_INTCON_PEIE = 1                             // semi-collon intentionally omitted
 
+/*@notfunction@*/
 #define disableGlobalInt()                          \
     BIT_INTCON_GIE = 0;                             \
     BIT_INTCON_PEIE = 0                             // semi-collon intentionally omitted
 
-#define getGlobalIntEnableStatus()              ((BIT_INTCON_GIE) ? true : false)
+/*@notfunction@*/
+#define getGlobalIntEnableStatus()                  ((BIT_INTCON_GIE) ? true : false)
 
 /* Timer Delay Functions, Note: These are blocking functions, do not call inside ISR!!! */
+/*@notfunction@*/
 #define delayUs(x)                                  \
     while((false == getGlobalIntEnableStatus()) && (true == get_gblInitialized_FlagValue())){};   \
     disableGlobalInt();                             \
     __delay_us(x);                                  \
     enableGlobalInt()                               // semi-collon intentionally omitted
 
+/*@notfunction@*/
 #define delayMs(x)                                  \
     while((false == getGlobalIntEnableStatus()) && (true == get_gblInitialized_FlagValue())){};   \
     disableGlobalInt();                             \

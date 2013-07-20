@@ -6,7 +6,7 @@
 *---------------------------------------------------------------------------------------------
 * |Filename:      	| "Blink.phr"                                                             					|
 * |:----          	|:----                                                                    					|
-* |Description:   | Turns on LED1 on for one second, then off for another second, repeatedly.	|
+* |Description:   | Turns on LED1 on for a second, then off for another second, repeatedly.		|
 * |Author:        	| Efren S. Cruzat II                                                      				|
 * |               	|                                                                         					|
 * |Dependencies: |                                                                         					|
@@ -18,8 +18,9 @@ void init()
     setPin(LED1);
 }
 
-void program()
+void cycle()
 {
-    delayMs(1000);                                      // pause program execution for 1000mS
+	delayMs(1000);                                     	// pause program execution for 1000mS
+    //delayMs(24);                                       						// maximum delay that can be set for 18F4520 is only 24mS, this is way too fast to be recognizable by the naked eye
 	togglePin(LED1);		                            // toggle the LED on/off
 }

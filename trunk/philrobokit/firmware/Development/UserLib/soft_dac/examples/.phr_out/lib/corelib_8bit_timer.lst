@@ -1,0 +1,284 @@
+     1: /*****************************************************************************************//**
+     2: * # PhilRobotics | Philippine Electronics and Robotics Enthusiasts Club #
+     3: * http://philrobotics.com | http://philrobotics.com/forum | http://facebook.com/philrobotics
+     4: * phirobotics.core@philrobotics.com
+     5: *
+     6: *---------------------------------------------------------------------------------------------
+     7: * |Filename:      | "corelib_8bit_timer.c"                      |
+     8: * |:----          |:----                                        |
+     9: * |Description:   | This is a library for using the 8 bit timer functions |
+    10: * |Revision:      | v00.02.00                                   |
+    11: * |Author:        | Efren S. Cruzat II                          |
+    12: * |               |                                             |
+    13: * |Dependencies:  |                                             |
+    14: *
+    15: * > This program is free software: you can redistribute it and/or modify
+    16: * > it under the terms of the GNU General Public License as published by
+    17: * > the Free Software Foundation, either version 3 of the License, or
+    18: * > (at your option) any later version.
+    19: * > This program is distributed in the hope that it will be useful,
+    20: * > but WITHOUT ANY WARRANTY; without even the implied warranty of
+    21: * > MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    22: * > GNU General Public License for more details.
+    23: * > <BR><BR>
+    24: * > You should have received a copy of the GNU General Public License
+    25: * > along with this program. If not, see http://www.gnu.org/licenses/
+    26: * <BR>
+    27: *---------------------------------------------------------------------------------------------
+    28: * |FW Version   |Date       |Author             |Description                        |
+    29: * |:----        |:----      |:----              |:----                              |
+    30: * |v00.00.01    |20120620   |ESCII              |Library Initial Release            |
+    31: * |v00.01.00    |20130205   |ESCII              |Modified For Layered Architecture  |
+    32: * |v00.01.01    |20130323   |ESCII              |Clear IF when setting timer value  |
+    33: * |v00.02.00    |20130514   |ESCII              |Code Formatted                     |
+    34: *********************************************************************************************/
+    35: #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
+    36: #undef  __SHOW_MODULE_HEADER__
+    37: 
+    38: #include "corelib_8bit_timer.h"
+    39: 
+    40: /* Local Constants */
+    41: /* none */
+    42: 
+    43: /* Local Variables */
+    44: /* none */
+    45: 
+    46: /* Private Function Prototypes */
+    47: /* none */
+    48: 
+    49: /* Public Functions */
+    50: /*******************************************************************************//**
+    51: * \brief 8 bit timer interrupt service routine
+    52: *
+    53: * > This is an interrupt handler called when the 8 bit timer value expires
+    54: *
+    55: * > <BR>
+    56: * > **Syntax:**<BR>
+    57: * >     timer8BitISR() , ISR
+    58: * > <BR><BR>
+    59: * > **Parameters:**<BR>
+    60: * >     none
+    61: * > <BR><BR>
+    62: * > **Returns:**<BR>
+    63: * >     none
+    64: * > <BR><BR>
+    65: ***********************************************************************************/
+    66: void timer8BitISR(void)
+    67: {
+    68: #if(TIMER_8BIT_ENABLED == TRUE)
+    69: 
+    70:     if(hal_getTMR2IntFlag() && hal_getTMR2IntEnableStatus())
+    71:     {
+    72:         /* disable TMR2 Module */
+    73:         hal_clrTMR2IntFlag();
+    74:         hal_disableTMR2Int();
+    75:         hal_disableTMR2();
+    76:         /* call user ISR */
+    77:         pt2TMR2ISR();
+    78:     }
+    79: 
+    80: #if(TIMER4_ENABLED == TRUE)
+    81: 
+    82:     if(hal_getTMR4IntFlag() && hal_getTMR4IntEnableStatus())
+    83:     {
+    84:         /* disable TMR2 Module */
+    85:         hal_clrTMR4IntFlag();
+    86:         hal_disableTMR4Int();
+    87:         hal_disableTMR4();
+    88:         /* call user ISR */
+    89:         pt2TMR4ISR();
+    90:     }
+    91: 
+    92: #endif
+    93: #if(TIMER6_ENABLED == TRUE)
+    94: 
+    95:     if(hal_getTMR6IntFlag() && hal_getTMR6IntEnableStatus())
+    96:     {
+    97:         /* disable TMR2 Module */
+    98:         hal_clrTMR6IntFlag();
+    99:         hal_disableTMR6Int();
+   100:         hal_disableTMR6();
+   101:         /* call user ISR */
+   102:         pt2TMR6ISR();
+   103:     }
+   104: 
+   105: #endif
+   106: #endif
+   107: }
+   108: 
+   109: #if(TIMER_8BIT_ENABLED == TRUE)
+   110: /*******************************************************************************//**
+   111: * \brief Setup the 8bit timer peripheral count resolution
+   112: *
+   113: * > This function is called to setup the 8bit timer peripheral count resolution
+   114: *
+   115: * > <BR>
+   116: * > **Syntax:**<BR>
+   117: * >      setup8BitTimerFull(module, &callback, prescaler, postscaler)
+   118: * > <BR><BR>
+   119: * > **Parameters:**<BR>
+   120: * >     module - timer module assignment, TIMER2, TIMER4, TIMER6            <BR>
+   121: * >     callback - function address of the timer ISR                        <BR>
+   122: * >     prescaler - prescaler value(MCU chip dependent)                     <BR>
+   123: * >     postcaler - postscaler value(MCU chip dependent)
+   124: * > <BR><BR>
+   125: * > **Returns:**<BR>
+   126: * >     none
+   127: * > <BR><BR>
+   128: ***********************************************************************************/
+   129: void setup8BitTimerFull(enum tmrModules_et eTmrModule, void(*callback)(), uint8_t ui8Prescaler, uint8_t ui8Postscaler)
+   130: {
+   131:     /* Default */
+   132:     if(TIMER2 == eTmrModule)
+   133:     {
+   134:         hal_setTMR2Prescaler(ui8Prescaler);
+   135:         hal_setTMR2Postscaler(ui8Postscaler);
+   136:         pt2TMR2ISR = callback;
+   137:     }
+   138: 
+   139: #if(TIMER4_ENABLED == TRUE)
+   140:     else if(TIMER4 == eTmrModule)
+   141:     {
+   142:         mc_setTMR4Prescaler(ui8Prescaler);
+   143:         mc_setTMR4Postscaler(ui8Postscaler);
+   144:         pt2TMR4ISR = callback;
+   145:     }
+   146: 
+   147: #endif
+   148: #if(TIMER6_ENABLED == TRUE)
+   149:     else if(TIMER6 == eTmrModule)
+   150:     {
+   151:         mc_setTMR6Prescaler(ui8Prescaler);
+   152:         mc_setTMR6Postscaler(ui8Postscaler);
+   153:         pt2TMR6ISR = callback;
+   154:     }
+   155: 
+   156: #endif
+   157:     else
+   158:     {
+   159:         /* do nothing */
+   160:     }
+   161: }
+   162: #endif
+   163: 
+   164: /*******************************************************************************//**
+   165: * \brief Setup the 8Bit timer peripheral to count every 10uS
+   166: *
+   167: * > This function is called to initialize the 8Bit timer peripheral,
+   168: * > prescaler and poscaler values were predefined to count every 10uS.
+   169: * >
+   170: * > The time to interrupt is set by the "set8BitTimer" function.
+   171: *
+   172: * > <BR>
+   173: * > **Syntax:**<BR>
+   174: * >      setup8BitTimer(module, &callback)
+   175: * > <BR><BR>
+   176: * > **Parameters:**<BR>
+   177: * >     module - timer module assignment, TIMER2, TIMER4, TIMER6            <BR>
+   178: * >     callback - function address of the timer ISR callback
+   179: * > <BR><BR>
+   180: * > **Returns:**<BR>
+   181: * >     none
+   182: * > <BR><BR>
+   183: ***********************************************************************************/
+   184: void setup8BitTimer(enum tmrModules_et eTmrModule, void(*callback)())
+   185: {
+   186:     //setup8BitTimerFull(eTmrModule, callback, K_10US_PRESCALE, K_10US_POSTSCALE);          // disabled to save stack
+   187:     /* Default */
+   188:     if(TIMER2 == eTmrModule)
+   189:     {
+   190:         hal_setTMR2Prescaler(K_10US_PRESCALE);
+   191:         hal_setTMR2Postscaler(K_10US_POSTSCALE);
+   192:         pt2TMR2ISR = callback;
+   193:     }
+   194: 
+   195: #if(TIMER4_ENABLED == TRUE)
+   196:     else if(TIMER4 == eTmrModule)
+   197:     {
+   198:         mc_setTMR4Prescaler(K_10US_PRESCALE);
+   199:         mc_setTMR4Postscaler(K_10US_POSTSCALE);
+   200:         pt2TMR4ISR = callback;
+   201:     }
+   202: 
+   203: #endif
+   204: #if(TIMER6_ENABLED == TRUE)
+   205:     else if(TIMER6 == eTmrModule)
+   206:     {
+   207:         mc_setTMR6Prescaler(K_10US_PRESCALE);
+   208:         mc_setTMR6Postscaler(K_10US_POSTSCALE);
+   209:         pt2TMR6ISR = callback;
+   210:     }
+   211: 
+   212: #endif
+   213:     else
+   214:     {
+   215:         /* do nothing */
+   216:     }
+   217: }
+   218: 
+   219: /*******************************************************************************//**
+   220: * \brief Set the 8bit count value
+   221: *
+   222: * > This function is called to set the timer count value. Once the count expires
+   223: * > the interrupt service routine will be called.
+   224: *
+   225: * > <BR>
+   226: * > **Syntax:**<BR>
+   227: * >     set8BitTimer(module, value)
+   228: * > <BR><BR>
+   229: * > **Parameters:**<BR>
+   230: * >     module - timer module assignment, TIMER2, TIMER4, TIMER6            <BR>
+   231: * >     value - (value x resolution) is the time it takes before timer interrupt occur
+   232: * > <BR><BR>
+   233: * > **Returns:**<BR>
+   234: * >     none
+   235: * > <BR><BR>
+   236: ***********************************************************************************/
+   237: void set8BitTimer(enum tmrModules_et eTmrModule, uint8_t ui8Value)
+   238: {
+   239:     /* Default */
+   240:     if(TIMER2 == eTmrModule)
+   241:     {
+   242:         hal_setTMR2Value(ui8Value);
+   243:         /* enable TMR2 interrupt */
+   244:         hal_clrTMR2IntFlag();                       // important at first run after initialization
+   245:         hal_enableTMR2Int();
+   246:         /* turn-on timer module */
+   247:         hal_enableTMR2();
+   248:     }
+   249: 
+   250: #if(TIMER4_ENABLED == TRUE)
+   251:     else if(TIMER4 == eTmrModule)
+   252:     {
+   253:         hal_setTMR4Value(ui8Value);
+   254:         /* enable TMR4 interrupt */
+   255:         hal_clrTMR4IntFlag();                       // important at first run after initialization
+   256:         hal_enableTMR4Int();
+   257:         /* turn-on timer module */
+   258:         hal_enableTMR4();
+   259:     }
+   260: 
+   261: #endif
+   262: #if(TIMER6_ENABLED == TRUE)
+   263:     else if(TIMER6 == eTmrModule)
+   264:     {
+   265:         hal_setTMR6Value(ui8Value);
+   266:         /* enable TMR6 interrupt */
+   267:         hal_clrTMR6IntFlag();                       // important at first run after initialization
+   268:         hal_enableTMR6Int();
+   269:         /* turn-on timer module */
+   270:         hal_enableTMR6();
+   271:     }
+   272: 
+   273: #endif
+   274:     else
+   275:     {
+   276:         /* do nothing */
+   277:     }
+   278: }
+   279: 
+   280: /* Private Functions */
+   281: /* none */
+   282: 
+   283: /* end of corelib_8bit_timer.c */
+   284: //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

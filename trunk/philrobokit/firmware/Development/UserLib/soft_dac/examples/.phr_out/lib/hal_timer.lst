@@ -1,0 +1,180 @@
+     1: /*****************************************************************************************//**
+     2: * # PhilRobotics | Philippine Electronics and Robotics Enthusiasts Club #
+     3: * http://philrobotics.com | http://philrobotics.com/forum | http://facebook.com/philrobotics
+     4: * phirobotics.core@philrobotics.com
+     5: *
+     6: *---------------------------------------------------------------------------------------------
+     7: * |Filename:      | "hal_timer.c"                               |
+     8: * |:----          |:----                                        |
+     9: * |Description:   | Anito Base Timer Low Level                  |
+    10: * |Revision:      | v01.01.01                                   |
+    11: * |Author:        | Giancarlo Acelajado                         |
+    12: * |               |                                             |
+    13: * |Dependencies:  |                                             |
+    14: *
+    15: * > This program is free software: you can redistribute it and/or modify
+    16: * > it under the terms of the GNU General Public License as published by
+    17: * > the Free Software Foundation, either version 3 of the License, or
+    18: * > (at your option) any later version.
+    19: * > This program is distributed in the hope that it will be useful,
+    20: * > but WITHOUT ANY WARRANTY; without even the implied warranty of
+    21: * > MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    22: * > GNU General Public License for more details.
+    23: * > <BR><BR>
+    24: * > You should have received a copy of the GNU General Public License
+    25: * > along with this program. If not, see http://www.gnu.org/licenses/
+    26: * <BR>
+    27: *---------------------------------------------------------------------------------------------
+    28: * |FW Version   |Date       |Author             |Description                                |
+    29: * |:----        |:----      |:----              |:----                                      |
+    30: * |v00.00.01    |201202xx   |Giancarlo A.       |Library Initial Release                    |
+    31: * |v00.00.02    |201203xx   |Giancarlo A.       |XXXXXX                                     |
+    32: * |v00.00.03    |20130707   |ESCII              |Fixed Interrupt Handler                    |
+    33: * |             |           |                   |Set to Overflow every 100uS                |
+    34: * |v01.00.00    |201211xx   |Giancarlo A.       |Leverage Library to Standard Architecture  |
+    35: * |v01.00.01    |20130320   |ESCII              |Move Timebase to TMR0 freerunning timer    |
+    36: * |v01.01.00    |20130514   |ESCII              |Code Formatted                             |
+    37: * |v01.01.01    |20130515   |ESCII              |Added unit test tracepoints                |
+    38: *********************************************************************************************/
+    39: #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
+    40: #undef  __SHOW_MODULE_HEADER__
+    41: 
+    42: #include "hal_timer.h"
+    43: 
+    44: /* Local Constants */
+    45: /* none */
+    46: 
+    47: /* Local Variables */
+    48: /* none */
+    49: 
+    50: /* Private Function Prototypes */
+    51: /* none */
+    52: 
+    53: /* Public Functions */
+    54: /*******************************************************************************//**
+    55: * \brief Setup Base Timer
+    56: *
+    57: * > This function is called to initialize the base timer as freerunning timer which
+    58: * > interrupts on overflow to increment timebases
+    59: *
+    60: * > <BR>
+    61: * > **Syntax:**<BR>
+    62: * >      setupTimer()
+    63: * > <BR><BR>
+    64: * > **Parameters:**<BR>
+    65: * >     none
+    66: * > <BR><BR>
+    67: * > **Returns:**<BR>
+    68: * >     none
+    69: * > <BR><BR>
+    70: ***********************************************************************************/
+    71: void setupTimer(void)
+    72: {
+    73:     /* Set Prescaler */
+    74:     hal_setTMR0Prescaler(TMR0_PRESCALE);
+    75:     /* Timer Peripheral Init */
+    76:     hal_TMR0_Init();
+    77:     /* Additional Configuration for PIC 18 */
+    78: #if (__PHR_CONTROLLER__==__MCU_PIC18__)
+    79:     hal_use8BitTMR0();
+    80:     /* Enable Timer Module */
+    81:     hal_enableBaseTimer();
+    82: #endif
+    83:     /* Enable Interrupt */
+    84:     hal_clrBaseTimerIntFlag();
+    85:     hal_enableBaseTimerInt();
+    86: }
+    87: 
+    88: /*******************************************************************************//**
+    89: * \brief Timebase Interrupt Service Routine
+    90: *
+    91: * > This is an interrupt handler called periodically to manage system timebase
+    92: *
+    93: * > <BR>
+    94: * > **Syntax:**<BR>
+    95: * >      timerISR(), ISR
+    96: * > <BR><BR>
+    97: * > **Parameters:**<BR>
+    98: * >     none
+    99: * > <BR><BR>
+   100: * > **Returns:**<BR>
+   101: * >     none
+   102: * > <BR><BR>
+   103: ***********************************************************************************/
+   104: void timerISR(void)
+   105: {
+   106:     static uint16_t ui16UsCounter = 0;
+   107: #ifdef __TIMER_SEC__
+   108:     static uint16_t ui16MsCounter = 0;
+   109: #endif
+   110: 
+   111:     if(hal_getBaseTimerIntFlag() && hal_getBaseTimerIntEnableStatus())
+   112:     {
+   113:         hal_clrBaseTimerIntFlag();
+   114:         inc_gui16TimerUsMSB_Value(256);                     // increment uS Timer High Byte
+   115:         ui16UsCounter += TMR0_US_INCREMENT;
+   116: 
+   117:         while(ui16UsCounter >= 1000)
+   118:         {
+   119:             inc_gui16TimerMs_Value();
+   120:             ui16UsCounter -= 1000;
+   121: #ifdef __TIMER_SEC__
+   122:             ui16MsCounter++;
+   123: #endif
+   124: #ifdef UNIT_TEST
+   125:             UCUNIT_Tracepoint(0);
+   126: #endif
+   127:         }
+   128: 
+   129: #ifdef __TIMER_SEC__
+   130: 
+   131:         if(ui16MsCounter >= 1000)
+   132:         {
+   133:             inc_gui16TimerSec_Value();
+   134:             ui16MsCounter = 0;
+   135: #ifdef UNIT_TEST
+   136:             UCUNIT_Tracepoint(1);
+   137: #endif
+   138:         }
+   139: 
+   140: #endif
+   141:     }
+   142: }
+   143: 
+   144: uint16_t getBaseTimerValue(void)
+   145: {
+   146:     uint16_t ui16Temp,ui16HiTimer;
+   147: 
+   148:     while(FALSE == getGlobalIntEnableStatus()) {}       // aquire mutex
+   149: 
+   150:     disableGlobalInt();                                 // ensure atomic operation
+   151: #if (__PHR_CONTROLLER__==__MCU_PIC18__)
+   152:     hal_disableBaseTimer();
+   153: #elif (__PHR_CONTROLLER__==__MCU_PIC16__)
+   154: 
+   155:     do
+   156: #else
+   157: #endif
+   158:     {
+   159:         ui16Temp = REGISTER_TMR0L;
+   160:         ui16HiTimer = get_gui16TimerUsMSB_Value();
+   161:     }
+   162: 
+   163: #if (__PHR_CONTROLLER__==__MCU_PIC16__)
+   164: 
+   165:     while(ui16HiTimer != get_gui16TimerUsMSB_Value());
+   166: 
+   167: #elif (__PHR_CONTROLLER__==__MCU_PIC18__)
+   168:     hal_enableBaseTimer();
+   169: #else
+   170: #endif
+   171:     ui16Temp += ui16HiTimer;
+   172:     enableGlobalInt();
+   173:     return ui16Temp;
+   174: }
+   175: 
+   176: /* Private Functions */
+   177: /* none */
+   178: 
+   179: /* end of hal_timer.c */
+   180: //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,1 @@
+ C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_dac/examples/.phr_out/lib/corelib_test.d  C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_dac/examples/.phr_out/lib/corelib_test.p1:  hardware/cores/lib/corelib_test.c hardware/cores/lib/corelib_test.h

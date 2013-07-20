@@ -62,14 +62,18 @@ enum baseTmrPreScale_et
 };
 
 /* User Configuration Definitions */
-#if (_XTAL_FREQ == 20000000)
+#if (_XTAL_FREQ == 32000000)
+#define TMR0_PRESCALE                               (TMR0_PRE_DIV8)
+#define TMR0_US_INCREMENT                           (255)               // 1uS per increment
+
+#elif (_XTAL_FREQ == 20000000)
 #define TMR0_PRESCALE                               (TMR0_PRE_DIV16)    // original:(TMR0_PRE_DIV4)
 #define TMR0_US_INCREMENT                           (205)               // @TMR0_PRE_DIV4 0.8uS per increment * 256 increments = 204.8uS
 #define SHIFT_MULT                                  2                   // results must be x4
 
 #elif (_XTAL_FREQ == 8000000)
 #define TMR0_PRESCALE                               (TMR0_PRE_DIV2)
-#define TMR0_US_INCREMENT                           (256)               // 1uS per increment
+#define TMR0_US_INCREMENT                           (255)               // 1uS per increment
 
 #else
 #ifndef S_SPLINT_S
@@ -110,11 +114,11 @@ enum baseTmrPreScale_et
     REGISTER_T0CON &=~TMR0_PRESCALE_MASK;           \
     REGISTER_T0CON |= (a&TMR0_PRESCALE_MASK)        // semi-collon intentionally omitted
 
-#define hal_getBaseTimerValue()                     (get_gui16TimerUsMSB_Value() + REGISTER_TMR0L)
-
+#define hal_getBaseTimerValue()                     get_BaseTimerValue()
 /* Public Function Prototypes */
 void setupTimer(void);
 void timerISR(void);
+uint16_t getBaseTimerValue(void);
 
 #endif/* end of hal_timer.h */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -157,12 +157,12 @@ void setupSoftDAC(enum SoftDACModules_e eSDACModule, uint8_t ui8Pin, uint8_t ui8
         /* Set next timeout */
         if(astDACModuleSchedule[SCHED0].ui8Value < K_SOFT_DAC_PERIOD)
         {
-            setTimer(K_DAC_TIMER, astDACModuleSchedule[SCHED0].ui8Value);
+            set8BitTimer(K_DAC_TIMER, astDACModuleSchedule[SCHED0].ui8Value);
             ui8PrevValue = astDACModuleSchedule[SCHED0].ui8Value;            
         }
         else
         {
-            setTimer(K_DAC_TIMER, K_SOFT_DAC_PERIOD);
+            set8BitTimer(K_DAC_TIMER, K_SOFT_DAC_PERIOD);
             ui8DACEngineStates = PERIOD_START;            
         }
     }
@@ -403,12 +403,12 @@ static void softDACController()
             /* Set next timeout */
             if(astDACModuleSchedule[SCHED0].ui8Value < K_SOFT_DAC_PERIOD)
             {
-                setTimer(K_DAC_TIMER, astDACModuleSchedule[SCHED0].ui8Value);
+                set8BitTimer(K_DAC_TIMER, astDACModuleSchedule[SCHED0].ui8Value);
                 ui8PrevValue = astDACModuleSchedule[SCHED0].ui8Value;            
             }
             else
             {
-                setTimer(K_DAC_TIMER, (K_SOFT_DAC_PERIOD - ui8PrevValue));
+                set8BitTimer(K_DAC_TIMER, (K_SOFT_DAC_PERIOD - ui8PrevValue));
                 ui8PrevValue = 0;
                 ui8DACEngineStates = PERIOD_START;            
             }
@@ -425,7 +425,7 @@ static void softDACController()
                 /* check if previous and current have same values */
                 if(ui8PrevValue != astDACModuleSchedule[ui8DACEngineStates].ui8Value)
                 {
-                    setTimer(K_DAC_TIMER, (astDACModuleSchedule[ui8DACEngineStates].ui8Value - ui8PrevValue));
+                    set8BitTimer(K_DAC_TIMER, (astDACModuleSchedule[ui8DACEngineStates].ui8Value - ui8PrevValue));
                     ui8PrevValue = astDACModuleSchedule[ui8DACEngineStates].ui8Value; 
                 }
                 else
@@ -436,7 +436,7 @@ static void softDACController()
             }
             else
             {
-                setTimer(K_DAC_TIMER, (K_SOFT_DAC_PERIOD - ui8PrevValue));
+                set8BitTimer(K_DAC_TIMER, (K_SOFT_DAC_PERIOD - ui8PrevValue));
                 ui8PrevValue = 0;
                 ui8DACEngineStates = PERIOD_START;
             }
