@@ -7,7 +7,7 @@
 * |Filename:      | "hal_adc.c"                                 |
 * |:----          |:----                                        |
 * |Description:   | This is a driver for ADC peripheral configuration |
-* |Revision:      | v01.00.01                                   |
+* |Revision:      | v01.01.00                                   |
 * |Author:        | Giancarlo Acelajado                         |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -31,6 +31,7 @@
 * |v00.01.01    |201203xx   |Giancarlo A.       |Fix Bugs, add setupADCPinsToDigital|
 * |v01.00.00    |201210xx   |Giancarlo A.       |Leverage Library to Standard Architecture|
 * |v01.00.01    |20130307   |ESC II             |Organized functions into HAL and CoreLib|
+* |v01.01.00    |20130514   |ESCII              |Code Formatted, Fixed SPLINT warning|
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -38,25 +39,38 @@
 #include "hal_adc.h"
 
 /* Local Constants */
-    /* PIC16F877A Specific */
-static enum adcClockCfg_e
+static enum adcClockCfg_et
 {
-    FOSC_DIV2
-    ,FOSC_DIV8
-    ,FOSC_DIV32
-    ,FOSC_INTRC0
-    ,FOSC_DIV4
-    ,FOSC_DIV16
-    ,FOSC_DIV64 
-    ,FOSC_INTRC1 
+    FOSC_DIV2,
+    FOSC_DIV8,
+    FOSC_DIV32,
+    FOSC_INTRC0,
+    FOSC_DIV4,
+    FOSC_DIV16,
+    FOSC_DIV64,
+    FOSC_INTRC1
 };
 
+#if (__PHR_CONTROLLER__==__MCU_PIC18__)
+static enum adcTADOptions_et
+{
+    TAD_0,
+    TAD_2,
+    TAD_4,
+    TAD_6,
+    TAD_8,
+    TAD_12,
+    TAD_16,
+    TAD_21
+};
+#endif
+
 /* Local Variables */
-    /* none */
+/* none */
 
 /* Private Function Prototypes */
-    /* none */
-    
+/* none */
+
 /* Public Functions */
 /*******************************************************************************//**
 * \brief MCU Level configuration of ADC perpheral
@@ -74,47 +88,21 @@ static enum adcClockCfg_e
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
+/*@ignore@*/                                // esc.comment SPLINT warns a function configLowLvlADC overshadows outer declaration, this line is not a declaration but a definition, must be a bug on SPLINT
 void configLowLvlADC(void)
 {
     /* 20Mhz Clock: Anito PIC16F877A Specific */
     hal_configADCPinsClock(FOSC_DIV64);     // 64Tosc @20MHz   12*TAD for 10bit, TAD = 20MHz/64 3 --- 8.4uS
-    
+#if (__PHR_CONTROLLER__==__MCU_PIC18__)
+    hal_configADCAqDelay(TAD_12);
+#endif
     /* Right Justified */
-	hal_rightAligned();
+    hal_rightAligned();
 }
-
-/*******************************************************************************//**
-* \brief Configure the ADC pin IO direction as inputs/hi-z
-*
-* > This function is called to configure the ADC pin IO direction as inputs/hi-z
-* > for the ADC to function properly.
-*
-* > <BR>
-* > **Syntax:**<BR>
-* >     makeADCPinsInput()
-* > <BR><BR>
-* > **Parameters:**<BR>
-* >     none
-* > <BR><BR>
-* > **Returns:**<BR>
-* >     none
-* > <BR><BR>
-***********************************************************************************/
-void makeADCPinsInput(void)
-{
-    /* Anito Specific */
-    /* Configure GPIO as inputs */
-    makeInput(D14);             // AN0
-    makeInput(D15);             // AN1
-    makeInput(D16);             // AN2
-    makeInput(D17);             // AN3
-    makeInput(D18);             // AN4
-    makeInput(D19);             // AN5
-    makeInput(D20);             // AN6
-}
+/*@end@*/
 
 /* Private Functions */
-    /* none */
-    
+/* none */
+
 /* end of hal_adc.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

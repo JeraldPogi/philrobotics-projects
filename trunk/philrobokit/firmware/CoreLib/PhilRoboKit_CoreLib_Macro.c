@@ -7,7 +7,7 @@
 * |Filename:      | "PhilRoboKit_CoreLib_Macro.c"               |
 * |:----          |:----                                        |
 * |Description:   | PhilRobokit Main Macro File                 |
-* |Revision:      | v01.00.02                                   |
+* |Revision:      | v01.02.00                                   |
 * |Author:        | Giancarlo Acelajado                         |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -33,6 +33,8 @@
 * |v01.00.00    |201210xx   |Giancarlo A.       |Leverage Library to Standard Architecture  |
 * |v01.00.01    |20130307   |ESCII              |philrobokit_init moved to setupAnito.c to save 1 stack level|
 * |v01.00.02    |20130321   |ESCII              |Disabled global interrupt on ISR and reenable before return|
+* |v01.01.00    |20130408   |ESCII              |Added option for polling ADC on program loop or tmr1 interrupt|
+* |v01.02.00    |20130514   |ESCII              |Code Formatted, added PIC18F2550 Configuration|
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -40,35 +42,70 @@
 #include "PhilRoboKit_CoreLib_Macro.h"
 
 /* Controller Setting */
-#ifndef S_SPLINT_S                              /* Suppress SPLint Parse Errors */  
-#if (__PHR_CONTROLLER__==__MCU_PIC__)
-    /* device configuration settings */
-    #if defined(HI_TECH_C)
-        /* Anito Rev0 */
-        #if defined( _16F873A ) || defined( _16F874A ) || defined( _16F876A ) || defined( _16F877A )         
-            __CONFIG(WDTE_OFF & FOSC_HS & LVP_OFF & PWRTE_ON & BOREN_OFF);
-        /* Anito Rev1 */
-        #elif defined( _18F2420 ) || defined( _18F2520 ) || defined( _18F4420 ) || defined( _18F4520 )  
-        
-        /* Glutnix Variant */  
-        #elif defined( _18F4620 ) 
-        
-        #else
-        /* Warning: no defined fuses!!! */
-        #endif
-    #endif
+#ifndef S_SPLINT_S /* Suppress SPLint Parse Errors */
+
+/* device configuration settings */
+#if defined(HI_TECH_C)
+
+#if (__PHR_CONTROLLER__==__MCU_PIC16__)
+/* Anito Rev0 */
+#if defined( _16F873A ) || defined( _16F874A ) || defined( _16F876A ) || defined( _16F877A )
+__CONFIG(WDTE_OFF& FOSC_HS& LVP_OFF& PWRTE_ON& BOREN_OFF);
+
+#else
+#error Device not yet supported!!!
 #endif
+
+#elif (__PHR_CONTROLLER__==__MCU_PIC18__)
+/* Anito Rev1 */
+#if defined( _18F2420 ) || defined( _18F2520 ) || defined( _18F4420 ) || defined( _18F4520 )
+#pragma config OSC=HSPLL            // 8Mhz Crystal x 4 PLL
+#pragma config LVP=OFF
+#pragma config PWRT=ON
+#pragma config BOREN=OFF
+#pragma config MCLRE=ON
+#pragma config IESO=OFF
+#pragma config FCMEN=OFF
+#pragma config WDT=OFF
+#pragma config WDTPS=1
+#pragma config PBADEN=OFF
+
+/* Glutnix Variant */
+#elif defined( _18F4620 )
+#pragma config OSC=HS               // 8Mhz Crystal
+#pragma config LVP=OFF
+#pragma config PWRT=ON
+#pragma config BOREN=OFF
+#pragma config MCLRE=ON
+#pragma config IESO=OFF
+#pragma config FCMEN=OFF
+#pragma config WDT=OFF
+#pragma config WDTPS=1
+#pragma config PBADEN=OFF
+
+#else
+#error Device not yet supported!!!
+#endif
+
+#endif
+
+#else
+#error Compiler not yet supported!!!
+#endif
+
 #endif
 
 /* Local Constants */
-    /* none */
+/* none */
 
 /* Local Variables */
-    /* none */
+/* none */
 
 /* Private Function Prototypes */
-    /* none */
-    
+#if (__PHR_CONTROLLER__==__MCU_PIC18__)
+static void criticalTaskISR();
+#endif
+
 /* Public Functions */
 /*******************************************************************************//**
 * \brief Main C Function
@@ -88,16 +125,33 @@
 ***********************************************************************************/
 int main(void)
 {
-	philrobokit_init();         //Configure Defaults		
-	
-	init();
-	
-	while(true){
-		program();	
-	}	
-	
-	return 0;
-}	
+    /* Initialize GPIO default and direction */
+    setupGpio();
+    /* System Timebase */
+    setupTimer();
+    /* Vref at Vdd by default */
+    setupADC(VDD);
+#if (__PHR_CONTROLLER__==__MCU_PIC18__)
+    /* Use Timer 1 for ADC Polling */
+    setup16BitTimer(TIMER1, criticalTaskISR);               // poll ADC on timer1 interrupt
+    set16BitTimer(TIMER1, K16_CRITICALTASK_PERIOD);
+#endif
+    /* global and peripheral interrupts enabled */
+    enableGlobalInt();
+    set_gblInitialized_FlagValue();
+    /* User defined initializations */
+    init();
+
+    while(TRUE)
+    {
+#if (__PHR_CONTROLLER__==__MCU_PIC16__)
+        adcCycle();                                         // poll ADC on program loop
+#endif
+        cycle();
+    }
+
+    return 0;
+}
 
 /*******************************************************************************//**
 * \brief Central Interrupt Service Routine
@@ -106,7 +160,7 @@ int main(void)
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >      isr(), ISR
+* >     isr(), ISR
 * > <BR><BR>
 * > **Parameters:**<BR>
 * >     none
@@ -115,29 +169,60 @@ int main(void)
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void 
-#ifndef S_SPLINT_S // Suppress SPLint Parse Errors
-interrupt 
+void
+#ifndef S_SPLINT_S /* Suppress SPLint Parse Errors */
+interrupt
 #endif
 isr(void)
 {
     disableGlobalInt();
-    
+    set_gblISRLocked_FlagValue();
     timerISR();
     timer16BitISR();
-    
     timer8BitISR();
-	serialRxISR();
+    serialRxISR();
     userIntISR();
-	serialTxISR();
-	adcISR();
-    
+    serialTxISR();
+    adcISR();
+    clr_gblISRLocked_FlagValue();
     enableGlobalInt();
 }
 
+#if (__PHR_CONTROLLER__==__MCU_PIC18__)
+void interrupt low_priority low_isr(void)
+{
+    disableGlobalInt();
+    set_gblISRLocked_FlagValue();
+    clr_gblISRLocked_FlagValue();
+    enableGlobalInt();
+}
+#endif
+
 /* Private Functions */
-    /* none */
+/*******************************************************************************//**
+* \brief Realtime critical task to be executed periodically
+*
+* > This function contains calls to realtime critical task that are needed to be
+* > executed on regular periodic manner.
+*
+* > <BR>
+* > **Syntax:**<BR>
+* >     criticalTaskISR()
+* > <BR><BR>
+* > **Parameters:**<BR>
+* >     none
+* > <BR><BR>
+* > **Returns:**<BR>
+* >     none
+* > <BR><BR>
+***********************************************************************************/
+#if (__PHR_CONTROLLER__==__MCU_PIC18__)
+static void criticalTaskISR()
+{
+    set16BitTimer(TIMER1, K16_CRITICALTASK_PERIOD);         // cyclic
+    adcCycle();
+}
+#endif
 
 /* end of PhilRoboKit_CoreLib_Macro.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	

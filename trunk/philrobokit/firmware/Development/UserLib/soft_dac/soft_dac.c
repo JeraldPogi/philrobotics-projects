@@ -89,8 +89,8 @@ static void bubbleSortDAC(uint8_t ui8MaxCount);
 ***********************************************************************************/
 void setupSoftDAC(enum SoftDACModules_e eSDACModule, uint8_t ui8Pin, uint8_t ui8Value) 
 {
-    static bool_t   blKickstarted = false;
-           bool_t   blScheduled = false;
+    static bool_t   blKickstarted = FALSE;
+           bool_t   blScheduled = FALSE;
            uint8_t  ui8Counter;
     
     /* can accurately set only between 7 and 250 */
@@ -124,12 +124,12 @@ void setupSoftDAC(enum SoftDACModules_e eSDACModule, uint8_t ui8Pin, uint8_t ui8
             astDACModuleSchedule[ui8Counter].ui8Pin      = ui8Pin;
             astDACModuleSchedule[ui8Counter].ui8Value    = ui8Value;
             
-            blScheduled = true;
+            blScheduled = TRUE;
         }
     }
 
     /* Store at the tail if not yet scheduled */
-    if(false == blScheduled)
+    if(FALSE == blScheduled)
     {
         astDACModuleSchedule[ui8DACScheduleTail].ui8Module   = eSDACModule;
         astDACModuleSchedule[ui8DACScheduleTail].ui8Pin      = ui8Pin;
@@ -138,9 +138,9 @@ void setupSoftDAC(enum SoftDACModules_e eSDACModule, uint8_t ui8Pin, uint8_t ui8
     }
 
     /* Kickstart */
-    if(false == blKickstarted)
+    if(FALSE == blKickstarted)
     {   
-        blKickstarted = true;
+        blKickstarted = TRUE;
         
         /* Set sched 0 pin to high except if 0 value */
         if(0 != astDACModuleSchedule[SCHED0].ui8Value)
@@ -282,15 +282,15 @@ void removeSoftDAC(enum SoftDACModules_e eSDACModule)
 ***********************************************************************************/
 static void bubbleSortDAC(uint8_t ui8MaxCount)
 {
-    static bool_t  blOnGoing = true;
+    static bool_t  blOnGoing = TRUE;
     static uint8_t ui8Counter, ui8TempBuff, ui8Counter1 = 0;
     
-    blOnGoing = true;
+    blOnGoing = TRUE;
     ui8Counter1 = 0;
     
     while(blOnGoing) 
     {
-        blOnGoing = false;
+        blOnGoing = FALSE;
         ui8Counter1++;
 
         for (ui8Counter = 0; ui8Counter < (ui8MaxCount - ui8Counter1); ui8Counter++) 
@@ -313,7 +313,7 @@ static void bubbleSortDAC(uint8_t ui8MaxCount)
                 astDACModuleSchedule[ui8Counter].ui8Pin = astDACModuleSchedule[ui8Counter+1].ui8Pin;
                 astDACModuleSchedule[ui8Counter+1].ui8Pin = ui8TempBuff;
                                
-                blOnGoing = true;
+                blOnGoing = TRUE;
             }
         }
     }    
@@ -338,11 +338,11 @@ static void bubbleSortDAC(uint8_t ui8MaxCount)
 static void softDACController()
 {   
     static uint8_t ui8Counter = 0;
-    static bool_t  blScheduleCleared = false;
+    static bool_t  blScheduleCleared = FALSE;
     
-    blScheduleCleared = false;                  // always false at entry point
+    blScheduleCleared = FALSE;                  // always false at entry point
     
-    while((false == blScheduleCleared) && (ui8DACScheduleTail > 0))
+    while((FALSE == blScheduleCleared) && (ui8DACScheduleTail > 0))
     {
         switch(ui8DACEngineStates)
         {
@@ -394,7 +394,7 @@ static void softDACController()
         }
         
         /* Check Schedules */
-        blScheduleCleared = true;
+        blScheduleCleared = TRUE;
         
         if(PERIOD_START == ui8DACEngineStates)
         {
@@ -431,7 +431,7 @@ static void softDACController()
                 else
                 {
                     /* If previous and current have same values, don't set interrupt and loop back */
-                    blScheduleCleared = false;
+                    blScheduleCleared = FALSE;
                 }
             }
             else

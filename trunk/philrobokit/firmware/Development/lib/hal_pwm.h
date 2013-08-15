@@ -76,7 +76,7 @@ enum PWMPrescaler_et
 //      1  - 4
 //      2  - 16
 //***********************************************************************************
-#if (_XTAL_FREQ == 32000000)
+#if (_XTAL_FREQ == 32000000) || (defined S_SPLINT_S)
 //***********************************************************************************
 // @32Mhz -> TOSC = 31.25nS
 // PWM Period = [(PR2) + 1] * 4 * TOSC * Prescaler
@@ -138,6 +138,8 @@ enum PWMPrescaler_et
 #define K_PRESCALE2_FREQ_LIM                122         // >1.22kHz, div by 16
 
 #else
+#warning Clock Frequency Not Defined
+
 #endif
 
 //***********************************************************************************

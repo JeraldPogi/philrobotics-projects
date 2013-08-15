@@ -169,7 +169,7 @@ enum stdBaudrate_et
 #ifdef S_SPLINT_S /* Suppress SPLint Unrecognized ID Errors */
 #define uint24_t  uint32_t                          // esc.comment: use with caution
 #endif
-void hal_setSerialBAUD(uint24_t ui16Baudrate);
+void hal_setSerialBAUD(uint24_t ui24Baudrate);
 
 #endif /* end of hal_uart.h */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

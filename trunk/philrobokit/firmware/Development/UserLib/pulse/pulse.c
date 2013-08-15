@@ -173,7 +173,7 @@ uint16_t getPulseWidth(enum PulseModules_e ePulseModule)
     {
         if(ePulseModule == astPulseModuleSchedule[ui8Counter].ui8Module)
         {
-            astPulseModuleSchedule[ui8Counter].blPulseAvailable = false;
+            astPulseModuleSchedule[ui8Counter].blPulseAvailable = FALSE;
             return astPulseModuleSchedule[ui8Counter].ui16Value;
         }
     }
@@ -272,8 +272,8 @@ static void pulseCycle()
 ***********************************************************************************/
 static void setupPulse(enum PulseMode_e ePulseMode, enum PulseModules_e ePulseModule, uint8_t ui8Pin, bool_t blActivelogic, uint16_t ui16Timeout)
 {
-    static bool_t   blKickstarted = false;
-           bool_t   blScheduled = false;
+    static bool_t   blKickstarted = FALSE;
+           bool_t   blScheduled = FALSE;
            uint8_t  ui8Counter;
     
     /* Setup Output Pin */
@@ -293,12 +293,12 @@ static void setupPulse(enum PulseMode_e ePulseMode, enum PulseModules_e ePulseMo
             astPulseModuleSchedule[ui8Counter].blPrevState      = getPinValue(ui8Pin);
             astPulseModuleSchedule[ui8Counter].ui16Value        = 0;
             
-            blScheduled = true;
+            blScheduled = TRUE;
         }
     }
 
     /* Store at the tail if not yet scheduled */
-    if(false == blScheduled)
+    if(FALSE == blScheduled)
     {
         astPulseModuleSchedule[ui8PulseScheduleTail].ui8Module      = ePulseModule;
         astPulseModuleSchedule[ui8PulseScheduleTail].ui8Pin         = ui8Pin;
@@ -313,9 +313,9 @@ static void setupPulse(enum PulseMode_e ePulseMode, enum PulseModules_e ePulseMo
     }
 
     /* Kickstart */
-    if(false == blKickstarted)
+    if(FALSE == blKickstarted)
     {   
-        blKickstarted = true;
+        blKickstarted = TRUE;
         
         /* Use 8Bit Timer Peripheral */
         setup8BitTimer(K_PULSE_CYCLE_TIMER,pulseCycle);

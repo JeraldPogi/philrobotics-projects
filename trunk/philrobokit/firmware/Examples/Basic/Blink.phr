@@ -13,6 +13,8 @@
 *
 * > This program is free software under GNU General Public License.
 *********************************************************************************************/
+uint8_t Counter;
+
 void init()
 {
     setPin(LED1);
@@ -20,7 +22,10 @@ void init()
 
 void cycle()
 {
-	delayMs(1000);                                     	// pause program execution for 1000mS
-    //delayMs(24);                                       						// maximum delay that can be set for 18F4520 is only 24mS, this is way too fast to be recognizable by the naked eye
+	//delayMs(1000);                                     						// pause program execution for 1000mS, use for PIC16F877A only
+	for(Counter=0; Counter<50; Counter++)
+	{
+		delayMs(20);                                    // maximum delay that can be set for PIC18F4520 is only 24mS
+	}
 	togglePin(LED1);		                            // toggle the LED on/off
 }

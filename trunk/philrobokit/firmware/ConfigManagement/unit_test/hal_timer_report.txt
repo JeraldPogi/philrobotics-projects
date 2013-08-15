@@ -1,22 +1,22 @@
 Init of hardware finished.
 
 **********************************************************************
-Name:     -hal_timer- Module Testing
-Compiled: May 15 2013
-Time:     17:44:52
+Name:     -hal_timer- Unit Testing
+Compiled: May 22 2013
+Time:     13:49:23
 Version:  v1.0
 **********************************************************************
 ======================================
 setupTimer: Check Prescaler
 ======================================
-../../Output/unity_output/temp/hal_timer_test_stub.c:82: passed:IsBitSet(REGISTER_T0CON,BITPOS_T0CON_PS0)
-../../Output/unity_output/temp/hal_timer_test_stub.c:83: passed:IsBitSet(REGISTER_T0CON,BITPOS_T0CON_PS1)
-../../Output/unity_output/temp/hal_timer_test_stub.c:84: passed:IsBitClear(REGISTER_T0CON,BITPOS_T0CON_PS2)
-../../Output/unity_output/temp/hal_timer_test_stub.c:87: passed:IsBitClear(REGISTER_T0CON,BITPOS_T0CON_T0CS)
-../../Output/unity_output/temp/hal_timer_test_stub.c:88: passed:IsBitClear(REGISTER_T0CON,BITPOS_T0CON_PSA)
-../../Output/unity_output/temp/hal_timer_test_stub.c:89: passed:IsEqual(0x00,REGISTER_TMR0L)
-../../Output/unity_output/temp/hal_timer_test_stub.c:92: passed:IsBitClear(REGISTER_INTCON,BITPOS_INTCON_TMR0IF)
-../../Output/unity_output/temp/hal_timer_test_stub.c:93: passed:IsBitSet(REGISTER_INTCON,BITPOS_INTCON_TMR0IE)
+../../Output/unity_output/temp/hal_timer_test_stub.c:79: passed:IsBitSet(REGISTER_T0CON,BITPOS_T0CON_PS0)
+../../Output/unity_output/temp/hal_timer_test_stub.c:80: passed:IsBitSet(REGISTER_T0CON,BITPOS_T0CON_PS1)
+../../Output/unity_output/temp/hal_timer_test_stub.c:81: passed:IsBitClear(REGISTER_T0CON,BITPOS_T0CON_PS2)
+../../Output/unity_output/temp/hal_timer_test_stub.c:83: passed:IsBitClear(REGISTER_T0CON,BITPOS_T0CON_T0CS)
+../../Output/unity_output/temp/hal_timer_test_stub.c:84: passed:IsBitClear(REGISTER_T0CON,BITPOS_T0CON_PSA)
+../../Output/unity_output/temp/hal_timer_test_stub.c:85: passed:IsEqual(0x00,REGISTER_TMR0L)
+../../Output/unity_output/temp/hal_timer_test_stub.c:87: passed:IsBitClear(REGISTER_INTCON,BITPOS_INTCON_TMR0IF)
+../../Output/unity_output/temp/hal_timer_test_stub.c:88: passed:IsBitSet(REGISTER_INTCON,BITPOS_INTCON_TMR0IE)
 ======================================
 Testcase passed.
 ======================================
@@ -24,8 +24,8 @@ Testcase passed.
 ======================================
 timerISR: Test 204.8uS increment
 ======================================
-../../Output/unity_output/temp/hal_timer_test_stub.c:167: passed:IsEqual(0x0000,hal_getBaseTimerValue())
-../../Output/unity_output/temp/hal_timer_test_stub.c:180: passed:IsEqual(0x0100,hal_getBaseTimerValue())
+../../Output/unity_output/temp/hal_timer_test_stub.c:153: passed:IsEqual(0x0000,hal_getBaseTimerValue())
+../../Output/unity_output/temp/hal_timer_test_stub.c:167: passed:IsEqual(0x0100,hal_getBaseTimerValue())
 ======================================
 Testcase passed.
 ======================================
@@ -33,10 +33,10 @@ Testcase passed.
 ======================================
 timerISR: Test 1mS increment
 ======================================
-../../Output/unity_output/temp/hal_timer_test_stub.c:191: passed:IsEqual(0x0000,get_gui16TimerMs_Value())
-0000../../Output/unity_output/temp/hal_timer_test_stub.c:205: passed:IsEqual(0x0500,hal_getBaseTimerValue())
-../../Output/unity_output/temp/hal_timer_test_stub.c:206: passed:IsEqual(0x0001,get_gui16TimerMs_Value())
-../../Output/unity_output/temp/hal_timer_test_stub.c:209: passed:TracepointCoverage(0)
+../../Output/unity_output/temp/hal_timer_test_stub.c:175: passed:IsEqual(0x0000,get_gui16TimerMs_Value())
+0000../../Output/unity_output/temp/hal_timer_test_stub.c:190: passed:IsEqual(0x0500,hal_getBaseTimerValue())
+../../Output/unity_output/temp/hal_timer_test_stub.c:191: passed:IsEqual(0x0001,get_gui16TimerMs_Value())
+../../Output/unity_output/temp/hal_timer_test_stub.c:193: passed:TracepointCoverage(0)
 ======================================
 Testcase passed.
 ======================================

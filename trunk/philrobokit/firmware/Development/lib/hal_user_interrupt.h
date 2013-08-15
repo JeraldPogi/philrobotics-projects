@@ -47,6 +47,12 @@
 
 /* User Configuration Definitions */
 #define EXTINTENABLED       TRUE
+
+#if (__PHR_CONTROLLER__==__MCU_PIC18__)
+#define EXTINT1ENABLED      TRUE
+#define EXTINT2ENABLED      TRUE
+#endif
+
 #define RBINTENABLED        TRUE
 
 /* Global Constants */
@@ -71,6 +77,24 @@ enum InterruptModes_et
 #define hal_clrEXTIntFlag()                     (BIT_INTCON_INTF = 0)
 #define hal_getEXTIntFlag()                     ((BIT_INTCON_INTF) ? true : false)
 
+#if (EXTINT1ENABLED == TRUE)
+#define hal_enableEXTInt1()                     (BIT_INTCON_INT1E = 1)
+#define hal_disableEXTInt1()                    (BIT_INTCON_INT1E = 0)
+#define hal_getEXTInt1EnableStatus()            ((BIT_INTCON_INT1E) ? true : false)
+
+#define hal_clrEXTInt1Flag()                    (BIT_INTCON_INT1F = 0)
+#define hal_getEXTInt1Flag()                    ((BIT_INTCON_INT1F) ? true : false)
+#endif
+
+#if (EXTINT2ENABLED == TRUE)
+#define hal_enableEXTInt2()                     (BIT_INTCON_INT2E = 1)
+#define hal_disableEXTInt2()                    (BIT_INTCON_INT2E = 0)
+#define hal_getEXTInt2EnableStatus()            ((BIT_INTCON_INT2E) ? true : false)
+
+#define hal_clrEXTInt2Flag()                    (BIT_INTCON_INT2F = 0)
+#define hal_getEXTInt2Flag()                    ((BIT_INTCON_INT2F) ? true : false)
+#endif
+
 #define hal_enableRBInt()                       (BIT_INTCON_RBIE = 1)
 #define hal_disableRBInt()                      (BIT_INTCON_RBIE = 0)
 #define hal_getRBIntEnableStatus()              ((BIT_INTCON_RBIE) ? true : false)
@@ -78,32 +102,38 @@ enum InterruptModes_et
 #define hal_clrRBIntFlag()                      (BIT_INTCON_RBIF = 0)
 #define hal_getRBIntFlag()                      ((BIT_INTCON_RBIF) ? true : false)
 
-#define K_INT_PORT_REG                          (REGISTER_PORTB)
-#define K_INT_EDGE_BIT                          (INTEDG)
+#define K_INT_PORTB_REG                         (REGISTER_PORTB)
+#define K_INT0_EDGE_BIT                         (INT0_EDGE)
+#define K_INT1_EDGE_BIT                         (INT1_EDGE)
+#define K_INT2_EDGE_BIT                         (INT2_EDGE)
 
 /* Public Function Prototypes */
-
 #if(EXTINTENABLED == TRUE)
-enum InterruptModes_et eMod0_Mode;
+enum InterruptModes_et eMod0_Mode, eMod1_Mode, eMod2_Mode, eMod3_Mode;
 #endif
 
 #if(RBINTENABLED == TRUE)
-enum InterruptModes_et eMod1_Mode, eMod2_Mode, eMod3_Mode, eMod4_Mode;
+enum InterruptModes_et eMod4_Mode, eMod5_Mode, eMod6_Mode, eMod7_Mode;
 #endif
 
 void nullIntFunction();
 
 #if(EXTINTENABLED == TRUE)
 void extIntISR(void);
+void extInt1ISR(void);
+void extInt2ISR(void);
 void (*pt2INT0)() = &nullIntFunction;       // interrupt function pointer
+void (*pt2INT1)() = &nullIntFunction;       // interrupt function pointer
+void (*pt2INT2)() = &nullIntFunction;       // interrupt function pointer
+//void (*pt2INT3)() = &nullIntFunction;     // interrupt function pointer
 #endif
 
 #if(RBINTENABLED == TRUE)
 void rbIntISR(void);
-void (*pt2INT1)() = &nullIntFunction;       // interrupt function pointer
-void (*pt2INT2)() = &nullIntFunction;       // interrupt function pointer
-void (*pt2INT3)() = &nullIntFunction;       // interrupt function pointer
 void (*pt2INT4)() = &nullIntFunction;       // interrupt function pointer
+void (*pt2INT5)() = &nullIntFunction;       // interrupt function pointer
+void (*pt2INT6)() = &nullIntFunction;       // interrupt function pointer
+void (*pt2INT7)() = &nullIntFunction;       // interrupt function pointer
 #endif
 
 #endif /* end of hal_user_interrupt.h */

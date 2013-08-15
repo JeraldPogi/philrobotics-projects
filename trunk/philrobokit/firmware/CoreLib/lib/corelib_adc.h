@@ -7,7 +7,7 @@
 * |Filename:      | "corelib_adc.h"                             |
 * |:----          |:----                                        |
 * |Description:   | This is a header file for the ADC library   |
-* |Revision:      | v01.00.01                                   |
+* |Revision:      | v01.02.00                                   |
 * |Author:        | Giancarlo Acelajado                         |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -31,6 +31,8 @@
 * |v00.01.01    |201203xx   |Giancarlo A.       |Fix Bugs, add removeADC            |
 * |v01.00.00    |201210xx   |Giancarlo A.       |Leverage Library to Standard Architecture|
 * |v01.00.01    |20130307   |ESC II             |Organized functions into HAL and CoreLib|
+* |v01.01.00    |20130408   |ESC II             |Defined option for timer or counter delay|
+* |v01.02.00    |20130514   |ESCII              |Code Formatted, included unit test stub|
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -39,34 +41,49 @@
 #define __PH_ADC_H__
 
 /* Include .h Library Files */
+#ifdef UNIT_TEST                                    // autodefined at unit testing script
+#include "corelib_adc_test_stub.h"
+#else
 #include <PhilRoboKit_CoreLib_Macro.h>
 #include "hal_adc.h"
-
-/* User Configuration Definitions */
-#ifdef S_SPLINT_S                                       // Suppress SPLint Parse Errors 
-    #define bool_t  bool
-#endif 
-
-#define ADC_CYCLE_TIMEOUT                       5       // in mS  
+#endif
 
 /* Global Constants */
-enum ADCVrefSource_e
+#define __USE_TIMER__                               (0)
+#define __USE_COUNTER__                             (1)
+
+enum ADCVrefSource_et
 {
-    VDD
-    ,EXT
-    ,INT                                                // not used on Anito
+    VDD,
+    EXT,
+    INTL                                            // not used on Anito
 };
-    
+
+/* User Configuration Definitions */
+#define ADC_CYCLE_COUNTER_TIMEOUT           5       // 5mS with 0.5uS resolution
+
+//#if (__PHR_CONTROLLER__==__MCU_PIC18__)
+//#define __POLLING_DELAY__                   __USE_COUNTER__
+//#else
+//#define __POLLING_DELAY__                   __USE_COUNTER__//__USE_TIMER__
+//#endif
+
+//#if (__POLLING_DELAY__ == __USE_TIMER__)
+//#define ADC_CYCLE_TIMEOUT                   5       // 5mS with 1mS resolution
+//#else
+//#define ADC_CYCLE_COUNTER_TIMEOUT           5       // 5mS with 0.5uS resolution
+//#endif
+
 /* Macro and Configuration Definitions */
-    /* none */
-    
+/* none */
+
 /* Public Function Prototypes */
 void adcISR(void);
 void adcCycle(void);
 
-void setupADC(enum ADCVrefSource_e eVrefSource);
+void setupADC(enum ADCVrefSource_et eVrefSource);
 uint16_t adcRead(uint8_t ui8Channel);
 void removeADC(void);
 
 #endif /* end of corelib_adc.h */
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

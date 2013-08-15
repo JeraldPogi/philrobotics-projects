@@ -26,7 +26,9 @@ void cycle()
 	
 	if((PreviousState == HIGH) && (CurrentState == LOW))		// edge triggered: check HIGH to LOW edge
 	{
-        delayUs(20);                                            // debounce delay
+        delayMs(20);                                          	// debounce delay
+		delayMs(20);                                          	// debounce delay
+		delayMs(20);                                          	// debounce delay
         
 		if(CurrentState == getPinState(SW1))					// not perfect, but the simplest debounce algorithm is to read the pin again after some delays
 		{

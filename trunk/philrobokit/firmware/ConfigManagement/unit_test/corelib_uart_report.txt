@@ -1,0 +1,566 @@
+Init of hardware finished.
+
+**********************************************************************
+Name:     -corelib_uart- Unit Testing
+Compiled: May 23 2013
+Time:     16:54:00
+Version:  v1.0
+**********************************************************************
+======================================
+setupSerial: Test setup initialization
+======================================
+../../Output/unity_output/temp/corelib_uart_test_stub.c:96: passed:IsEqual(0,stUARTTXFiFo.ui8Head)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:97: passed:IsEqual(0,stUARTTXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:98: passed:IsEqual(0,stUARTRXFiFo.ui8Head)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:99: passed:IsEqual(0,stUARTRXFiFo.ui8Tail)
+======================================
+Testcase passed.
+======================================
+
+======================================
+serialWrite: Test writing a byte value
+======================================
+../../Output/unity_output/temp/corelib_uart_test_stub.c:117: passed:IsEqual(2,stUARTTXFiFo.ui8Head)
+85../../Output/unity_output/temp/corelib_uart_test_stub.c:119: passed:IsEqual(TEST_WRITE_VAL,stUARTTXFiFo.aui8Buffer[stUARTTXFiFo.ui8Head-1])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:123: passed:IsEqual(3,stUARTTXFiFo.ui8Head)
+170../../Output/unity_output/temp/corelib_uart_test_stub.c:125: passed:IsEqual((uint8_t)~TEST_WRITE_VAL,stUARTTXFiFo.aui8Buffer[stUARTTXFiFo.ui8Head-1])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:127: passed:TracepointNonCoverage(0)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:128: passed:TracepointCoverage(1)
+======================================
+Testcase passed.
+======================================
+
+======================================
+serialWrite: Check head counter overflow
+======================================
+2../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+3../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+4../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+5../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+6../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+7../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+8../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+9../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+10../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+11../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+12../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+13../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+14../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+15../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+16../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+17../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+18../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+19../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+20../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+21../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+22../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+23../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+24../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+25../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+26../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+27../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+28../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+29../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+30../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+31../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+0../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+1../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+2../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+3../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+4../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+5../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+6../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+7../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+8../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+9../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+10../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+11../../Output/unity_output/temp/corelib_uart_test_stub.c:144: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTTXFiFo.ui8Head)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:148: passed:TracepointNonCoverage(0)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:149: passed:TracepointCoverage(1)
+======================================
+Testcase passed.
+======================================
+
+======================================
+serialRead: Test reading a bytes and tail counter overflow
+======================================
+../../Output/unity_output/temp/corelib_uart_test_stub.c:175: passed:IsEqual(TEST_WRITE_VAL,serialRead())
+1../../Output/unity_output/temp/corelib_uart_test_stub.c:177: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:175: passed:IsEqual(TEST_WRITE_VAL,serialRead())
+2../../Output/unity_output/temp/corelib_uart_test_stub.c:177: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:175: passed:IsEqual(TEST_WRITE_VAL,serialRead())
+3../../Output/unity_output/temp/corelib_uart_test_stub.c:177: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:175: passed:IsEqual(TEST_WRITE_VAL,serialRead())
+4../../Output/unity_output/temp/corelib_uart_test_stub.c:177: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:175: passed:IsEqual(TEST_WRITE_VAL,serialRead())
+5../../Output/unity_output/temp/corelib_uart_test_stub.c:177: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:175: passed:IsEqual(TEST_WRITE_VAL,serialRead())
+6../../Output/unity_output/temp/corelib_uart_test_stub.c:177: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:175: passed:IsEqual(TEST_WRITE_VAL,serialRead())
+7../../Output/unity_output/temp/corelib_uart_test_stub.c:177: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:175: passed:IsEqual(TEST_WRITE_VAL,serialRead())
+8../../Output/unity_output/temp/corelib_uart_test_stub.c:177: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:175: passed:IsEqual(TEST_WRITE_VAL,serialRead())
+9../../Output/unity_output/temp/corelib_uart_test_stub.c:177: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:175: passed:IsEqual(TEST_WRITE_VAL,serialRead())
+10../../Output/unity_output/temp/corelib_uart_test_stub.c:177: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:175: passed:IsEqual(TEST_WRITE_VAL,serialRead())
+11../../Output/unity_output/temp/corelib_uart_test_stub.c:177: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:175: passed:IsEqual(TEST_WRITE_VAL,serialRead())
+12../../Output/unity_output/temp/corelib_uart_test_stub.c:177: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:175: passed:IsEqual(TEST_WRITE_VAL,serialRead())
+13../../Output/unity_output/temp/corelib_uart_test_stub.c:177: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:175: passed:IsEqual(TEST_WRITE_VAL,serialRead())
+14../../Output/unity_output/temp/corelib_uart_test_stub.c:177: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:175: passed:IsEqual(TEST_WRITE_VAL,serialRead())
+15../../Output/unity_output/temp/corelib_uart_test_stub.c:177: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:175: passed:IsEqual(TEST_WRITE_VAL,serialRead())
+16../../Output/unity_output/temp/corelib_uart_test_stub.c:177: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:175: passed:IsEqual(TEST_WRITE_VAL,serialRead())
+17../../Output/unity_output/temp/corelib_uart_test_stub.c:177: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:175: passed:IsEqual(TEST_WRITE_VAL,serialRead())
+18../../Output/unity_output/temp/corelib_uart_test_stub.c:177: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:175: passed:IsEqual(TEST_WRITE_VAL,serialRead())
+19../../Output/unity_output/temp/corelib_uart_test_stub.c:177: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:175: passed:IsEqual(TEST_WRITE_VAL,serialRead())
+20../../Output/unity_output/temp/corelib_uart_test_stub.c:177: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:175: passed:IsEqual(TEST_WRITE_VAL,serialRead())
+21../../Output/unity_output/temp/corelib_uart_test_stub.c:177: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:175: passed:IsEqual(TEST_WRITE_VAL,serialRead())
+22../../Output/unity_output/temp/corelib_uart_test_stub.c:177: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:175: passed:IsEqual(TEST_WRITE_VAL,serialRead())
+23../../Output/unity_output/temp/corelib_uart_test_stub.c:177: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:175: passed:IsEqual(TEST_WRITE_VAL,serialRead())
+24../../Output/unity_output/temp/corelib_uart_test_stub.c:177: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:175: passed:IsEqual(TEST_WRITE_VAL,serialRead())
+25../../Output/unity_output/temp/corelib_uart_test_stub.c:177: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:175: passed:IsEqual(TEST_WRITE_VAL,serialRead())
+26../../Output/unity_output/temp/corelib_uart_test_stub.c:177: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:175: passed:IsEqual(TEST_WRITE_VAL,serialRead())
+27../../Output/unity_output/temp/corelib_uart_test_stub.c:177: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:175: passed:IsEqual(TEST_WRITE_VAL,serialRead())
+28../../Output/unity_output/temp/corelib_uart_test_stub.c:177: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:175: passed:IsEqual(TEST_WRITE_VAL,serialRead())
+29../../Output/unity_output/temp/corelib_uart_test_stub.c:177: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:175: passed:IsEqual(TEST_WRITE_VAL,serialRead())
+30../../Output/unity_output/temp/corelib_uart_test_stub.c:177: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:175: passed:IsEqual(TEST_WRITE_VAL,serialRead())
+31../../Output/unity_output/temp/corelib_uart_test_stub.c:177: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:193: passed:IsEqual((uint8_t)~TEST_WRITE_VAL,serialRead())
+1../../Output/unity_output/temp/corelib_uart_test_stub.c:195: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:193: passed:IsEqual((uint8_t)~TEST_WRITE_VAL,serialRead())
+2../../Output/unity_output/temp/corelib_uart_test_stub.c:195: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:193: passed:IsEqual((uint8_t)~TEST_WRITE_VAL,serialRead())
+3../../Output/unity_output/temp/corelib_uart_test_stub.c:195: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:193: passed:IsEqual((uint8_t)~TEST_WRITE_VAL,serialRead())
+4../../Output/unity_output/temp/corelib_uart_test_stub.c:195: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:193: passed:IsEqual((uint8_t)~TEST_WRITE_VAL,serialRead())
+5../../Output/unity_output/temp/corelib_uart_test_stub.c:195: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:193: passed:IsEqual((uint8_t)~TEST_WRITE_VAL,serialRead())
+6../../Output/unity_output/temp/corelib_uart_test_stub.c:195: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:193: passed:IsEqual((uint8_t)~TEST_WRITE_VAL,serialRead())
+7../../Output/unity_output/temp/corelib_uart_test_stub.c:195: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:193: passed:IsEqual((uint8_t)~TEST_WRITE_VAL,serialRead())
+8../../Output/unity_output/temp/corelib_uart_test_stub.c:195: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:193: passed:IsEqual((uint8_t)~TEST_WRITE_VAL,serialRead())
+9../../Output/unity_output/temp/corelib_uart_test_stub.c:195: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:193: passed:IsEqual((uint8_t)~TEST_WRITE_VAL,serialRead())
+10../../Output/unity_output/temp/corelib_uart_test_stub.c:195: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:193: passed:IsEqual((uint8_t)~TEST_WRITE_VAL,serialRead())
+11../../Output/unity_output/temp/corelib_uart_test_stub.c:195: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:193: passed:IsEqual((uint8_t)~TEST_WRITE_VAL,serialRead())
+12../../Output/unity_output/temp/corelib_uart_test_stub.c:195: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:193: passed:IsEqual((uint8_t)~TEST_WRITE_VAL,serialRead())
+13../../Output/unity_output/temp/corelib_uart_test_stub.c:195: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:193: passed:IsEqual((uint8_t)~TEST_WRITE_VAL,serialRead())
+14../../Output/unity_output/temp/corelib_uart_test_stub.c:195: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:193: passed:IsEqual((uint8_t)~TEST_WRITE_VAL,serialRead())
+15../../Output/unity_output/temp/corelib_uart_test_stub.c:195: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:193: passed:IsEqual((uint8_t)~TEST_WRITE_VAL,serialRead())
+16../../Output/unity_output/temp/corelib_uart_test_stub.c:195: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:193: passed:IsEqual((uint8_t)~TEST_WRITE_VAL,serialRead())
+17../../Output/unity_output/temp/corelib_uart_test_stub.c:195: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:193: passed:IsEqual((uint8_t)~TEST_WRITE_VAL,serialRead())
+18../../Output/unity_output/temp/corelib_uart_test_stub.c:195: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:193: passed:IsEqual((uint8_t)~TEST_WRITE_VAL,serialRead())
+19../../Output/unity_output/temp/corelib_uart_test_stub.c:195: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:193: passed:IsEqual((uint8_t)~TEST_WRITE_VAL,serialRead())
+20../../Output/unity_output/temp/corelib_uart_test_stub.c:195: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:193: passed:IsEqual((uint8_t)~TEST_WRITE_VAL,serialRead())
+21../../Output/unity_output/temp/corelib_uart_test_stub.c:195: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:193: passed:IsEqual((uint8_t)~TEST_WRITE_VAL,serialRead())
+22../../Output/unity_output/temp/corelib_uart_test_stub.c:195: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:193: passed:IsEqual((uint8_t)~TEST_WRITE_VAL,serialRead())
+23../../Output/unity_output/temp/corelib_uart_test_stub.c:195: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:193: passed:IsEqual((uint8_t)~TEST_WRITE_VAL,serialRead())
+24../../Output/unity_output/temp/corelib_uart_test_stub.c:195: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:193: passed:IsEqual((uint8_t)~TEST_WRITE_VAL,serialRead())
+25../../Output/unity_output/temp/corelib_uart_test_stub.c:195: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:193: passed:IsEqual((uint8_t)~TEST_WRITE_VAL,serialRead())
+26../../Output/unity_output/temp/corelib_uart_test_stub.c:195: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:193: passed:IsEqual((uint8_t)~TEST_WRITE_VAL,serialRead())
+27../../Output/unity_output/temp/corelib_uart_test_stub.c:195: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:193: passed:IsEqual((uint8_t)~TEST_WRITE_VAL,serialRead())
+28../../Output/unity_output/temp/corelib_uart_test_stub.c:195: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:193: passed:IsEqual((uint8_t)~TEST_WRITE_VAL,serialRead())
+29../../Output/unity_output/temp/corelib_uart_test_stub.c:195: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:193: passed:IsEqual((uint8_t)~TEST_WRITE_VAL,serialRead())
+30../../Output/unity_output/temp/corelib_uart_test_stub.c:195: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:193: passed:IsEqual((uint8_t)~TEST_WRITE_VAL,serialRead())
+31../../Output/unity_output/temp/corelib_uart_test_stub.c:195: passed:IsNotEqual(K8_UART_BUFFER_MASK+1,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:199: passed:TracepointNonCoverage(0)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:200: passed:TracepointCoverage(1)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:203: passed:IsEqual(0,serialRead())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:205: passed:TracepointCoverage(0)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:206: passed:TracepointNonCoverage(1)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:209: passed:IsEqual(0,serialRead())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:211: passed:TracepointCoverage(0)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:212: passed:TracepointNonCoverage(1)
+======================================
+Testcase passed.
+======================================
+
+======================================
+serialRead: Test reading with no serial data available
+======================================
+../../Output/unity_output/temp/corelib_uart_test_stub.c:222: passed:IsEqual(0,serialRead())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:223: passed:IsEqual(0,serialRead())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:224: passed:IsEqual(0,serialRead())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:226: passed:TracepointCoverage(0)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:227: passed:TracepointNonCoverage(1)
+======================================
+Testcase passed.
+======================================
+
+======================================
+serialFlush: Test flushing of RX and TX buffers
+======================================
+../../Output/unity_output/temp/corelib_uart_test_stub.c:253: passed:IsEqual(0,stUARTTXFiFo.ui8Head)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:254: passed:IsEqual(0,stUARTTXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:255: passed:IsEqual(0,stUARTRXFiFo.ui8Head)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:256: passed:IsEqual(0,stUARTRXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:260: passed:IsEqual(0,stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:261: passed:IsEqual(0,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:260: passed:IsEqual(0,stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:261: passed:IsEqual(0,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:260: passed:IsEqual(0,stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:261: passed:IsEqual(0,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:260: passed:IsEqual(0,stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:261: passed:IsEqual(0,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:260: passed:IsEqual(0,stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:261: passed:IsEqual(0,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:260: passed:IsEqual(0,stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:261: passed:IsEqual(0,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:260: passed:IsEqual(0,stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:261: passed:IsEqual(0,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:260: passed:IsEqual(0,stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:261: passed:IsEqual(0,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:260: passed:IsEqual(0,stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:261: passed:IsEqual(0,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:260: passed:IsEqual(0,stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:261: passed:IsEqual(0,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:260: passed:IsEqual(0,stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:261: passed:IsEqual(0,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:260: passed:IsEqual(0,stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:261: passed:IsEqual(0,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:260: passed:IsEqual(0,stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:261: passed:IsEqual(0,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:260: passed:IsEqual(0,stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:261: passed:IsEqual(0,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:260: passed:IsEqual(0,stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:261: passed:IsEqual(0,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:260: passed:IsEqual(0,stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:261: passed:IsEqual(0,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:260: passed:IsEqual(0,stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:261: passed:IsEqual(0,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:260: passed:IsEqual(0,stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:261: passed:IsEqual(0,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:260: passed:IsEqual(0,stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:261: passed:IsEqual(0,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:260: passed:IsEqual(0,stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:261: passed:IsEqual(0,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:260: passed:IsEqual(0,stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:261: passed:IsEqual(0,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:260: passed:IsEqual(0,stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:261: passed:IsEqual(0,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:260: passed:IsEqual(0,stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:261: passed:IsEqual(0,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:260: passed:IsEqual(0,stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:261: passed:IsEqual(0,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:260: passed:IsEqual(0,stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:261: passed:IsEqual(0,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:260: passed:IsEqual(0,stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:261: passed:IsEqual(0,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:260: passed:IsEqual(0,stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:261: passed:IsEqual(0,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:260: passed:IsEqual(0,stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:261: passed:IsEqual(0,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:260: passed:IsEqual(0,stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:261: passed:IsEqual(0,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:260: passed:IsEqual(0,stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:261: passed:IsEqual(0,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:260: passed:IsEqual(0,stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:261: passed:IsEqual(0,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:260: passed:IsEqual(0,stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:261: passed:IsEqual(0,stUARTRXFiFo.aui8Buffer[ui8Counter])
+======================================
+Testcase passed.
+======================================
+
+======================================
+serialRxISR: Simulate receipt of serial data
+======================================
+../../Output/unity_output/temp/corelib_uart_test_stub.c:283: passed:IsEqual(TEST_WRITE_VAL,stUARTRXFiFo.aui8Buffer[0])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:284: passed:IsEqual(1,stUARTRXFiFo.ui8Head)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:291: passed:IsEqual(TEST_WRITE_VAL,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:291: passed:IsEqual(TEST_WRITE_VAL,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:291: passed:IsEqual(TEST_WRITE_VAL,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:291: passed:IsEqual(TEST_WRITE_VAL,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:291: passed:IsEqual(TEST_WRITE_VAL,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:291: passed:IsEqual(TEST_WRITE_VAL,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:291: passed:IsEqual(TEST_WRITE_VAL,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:291: passed:IsEqual(TEST_WRITE_VAL,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:291: passed:IsEqual(TEST_WRITE_VAL,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:291: passed:IsEqual(TEST_WRITE_VAL,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:291: passed:IsEqual(TEST_WRITE_VAL,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:291: passed:IsEqual(TEST_WRITE_VAL,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:291: passed:IsEqual(TEST_WRITE_VAL,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:291: passed:IsEqual(TEST_WRITE_VAL,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:291: passed:IsEqual(TEST_WRITE_VAL,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:291: passed:IsEqual(TEST_WRITE_VAL,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:291: passed:IsEqual(TEST_WRITE_VAL,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:291: passed:IsEqual(TEST_WRITE_VAL,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:291: passed:IsEqual(TEST_WRITE_VAL,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:291: passed:IsEqual(TEST_WRITE_VAL,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:291: passed:IsEqual(TEST_WRITE_VAL,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:291: passed:IsEqual(TEST_WRITE_VAL,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:291: passed:IsEqual(TEST_WRITE_VAL,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:291: passed:IsEqual(TEST_WRITE_VAL,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:291: passed:IsEqual(TEST_WRITE_VAL,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:291: passed:IsEqual(TEST_WRITE_VAL,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:291: passed:IsEqual(TEST_WRITE_VAL,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:291: passed:IsEqual(TEST_WRITE_VAL,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:291: passed:IsEqual(TEST_WRITE_VAL,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:291: passed:IsEqual(TEST_WRITE_VAL,stUARTRXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:294: passed:IsEqual((K8_UART_BUFFER_SIZE-1),stUARTRXFiFo.ui8Head)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:296: passed:TracepointCoverage(0)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:297: passed:TracepointNonCoverage(1)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:298: passed:TracepointCoverage(2)
+======================================
+Testcase passed.
+======================================
+
+======================================
+serialRxISR: Simulate buffer full condition
+======================================
+../../Output/unity_output/temp/corelib_uart_test_stub.c:307: passed:IsEqual((K8_UART_BUFFER_SIZE-1),stUARTRXFiFo.ui8Head)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:310: passed:IsEqual((K8_UART_BUFFER_SIZE-1),stUARTRXFiFo.ui8Head)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:312: passed:TracepointNonCoverage(0)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:313: passed:TracepointCoverage(1)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:314: passed:TracepointCoverage(2)
+======================================
+Testcase passed.
+======================================
+
+======================================
+serialTxISR: Simulate transmission of serial data
+======================================
+../../Output/unity_output/temp/corelib_uart_test_stub.c:340: passed:IsEqual(TEST_WRITE_VAL,K_TXREG_BUFF)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:341: passed:IsEqual(1,stUARTTXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:348: passed:IsEqual(TEST_WRITE_VAL,K_TXREG_BUFF)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:348: passed:IsEqual(TEST_WRITE_VAL,K_TXREG_BUFF)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:348: passed:IsEqual(TEST_WRITE_VAL,K_TXREG_BUFF)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:348: passed:IsEqual(TEST_WRITE_VAL,K_TXREG_BUFF)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:348: passed:IsEqual(TEST_WRITE_VAL,K_TXREG_BUFF)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:348: passed:IsEqual(TEST_WRITE_VAL,K_TXREG_BUFF)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:348: passed:IsEqual(TEST_WRITE_VAL,K_TXREG_BUFF)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:348: passed:IsEqual(TEST_WRITE_VAL,K_TXREG_BUFF)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:348: passed:IsEqual(TEST_WRITE_VAL,K_TXREG_BUFF)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:348: passed:IsEqual(TEST_WRITE_VAL,K_TXREG_BUFF)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:348: passed:IsEqual(TEST_WRITE_VAL,K_TXREG_BUFF)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:348: passed:IsEqual(TEST_WRITE_VAL,K_TXREG_BUFF)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:348: passed:IsEqual(TEST_WRITE_VAL,K_TXREG_BUFF)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:348: passed:IsEqual(TEST_WRITE_VAL,K_TXREG_BUFF)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:348: passed:IsEqual(TEST_WRITE_VAL,K_TXREG_BUFF)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:348: passed:IsEqual(TEST_WRITE_VAL,K_TXREG_BUFF)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:348: passed:IsEqual(TEST_WRITE_VAL,K_TXREG_BUFF)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:348: passed:IsEqual(TEST_WRITE_VAL,K_TXREG_BUFF)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:348: passed:IsEqual(TEST_WRITE_VAL,K_TXREG_BUFF)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:348: passed:IsEqual(TEST_WRITE_VAL,K_TXREG_BUFF)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:348: passed:IsEqual(TEST_WRITE_VAL,K_TXREG_BUFF)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:348: passed:IsEqual(TEST_WRITE_VAL,K_TXREG_BUFF)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:348: passed:IsEqual(TEST_WRITE_VAL,K_TXREG_BUFF)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:348: passed:IsEqual(TEST_WRITE_VAL,K_TXREG_BUFF)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:348: passed:IsEqual(TEST_WRITE_VAL,K_TXREG_BUFF)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:348: passed:IsEqual(TEST_WRITE_VAL,K_TXREG_BUFF)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:348: passed:IsEqual(TEST_WRITE_VAL,K_TXREG_BUFF)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:348: passed:IsEqual(TEST_WRITE_VAL,K_TXREG_BUFF)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:348: passed:IsEqual(TEST_WRITE_VAL,K_TXREG_BUFF)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:348: passed:IsEqual(TEST_WRITE_VAL,K_TXREG_BUFF)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:352: passed:IsEqual(stUARTTXFiFo.ui8Head,stUARTTXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:353: passed:IsBitClear(PIE1,BITPOS_PIE1_TXIE)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:355: passed:TracepointCoverage(0)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:356: passed:TracepointCoverage(1)
+======================================
+Testcase passed.
+======================================
+
+======================================
+serialTxISR: Simulate buffer empty condition
+======================================
+../../Output/unity_output/temp/corelib_uart_test_stub.c:370: passed:IsEqual(stUARTTXFiFo.ui8Head,stUARTTXFiFo.ui8Tail)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:371: passed:IsBitClear(PIE1,BITPOS_PIE1_TXIE)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:372: passed:IsEqual(0,K_TXREG_BUFF)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:374: passed:TracepointNonCoverage(0)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:375: passed:TracepointNonCoverage(1)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:376: passed:TracepointCoverage(2)
+======================================
+Testcase passed.
+======================================
+
+======================================
+serialWriteString: Test sending null
+======================================
+../../Output/unity_output/temp/corelib_uart_test_stub.c:391: passed:TracepointNonCoverage(0)
+======================================
+Testcase passed.
+======================================
+
+======================================
+serialWriteString: Test sending a string
+======================================
+../../Output/unity_output/temp/corelib_uart_test_stub.c:404: passed:IsEqual(ui8TestBuff[ui8Counter],stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:404: passed:IsEqual(ui8TestBuff[ui8Counter],stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:404: passed:IsEqual(ui8TestBuff[ui8Counter],stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:404: passed:IsEqual(ui8TestBuff[ui8Counter],stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:404: passed:IsEqual(ui8TestBuff[ui8Counter],stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:404: passed:IsEqual(ui8TestBuff[ui8Counter],stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:404: passed:IsEqual(ui8TestBuff[ui8Counter],stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:404: passed:IsEqual(ui8TestBuff[ui8Counter],stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:404: passed:IsEqual(ui8TestBuff[ui8Counter],stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:404: passed:IsEqual(ui8TestBuff[ui8Counter],stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:404: passed:IsEqual(ui8TestBuff[ui8Counter],stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:409: passed:TracepointCoverage(0)
+======================================
+Testcase passed.
+======================================
+
+======================================
+serialWriteBlock: Test sending 0 length
+======================================
+../../Output/unity_output/temp/corelib_uart_test_stub.c:424: passed:TracepointNonCoverage(0)
+======================================
+Testcase passed.
+======================================
+
+======================================
+serialWriteBlock: Test sending a block
+======================================
+../../Output/unity_output/temp/corelib_uart_test_stub.c:437: passed:IsEqual(ui8TestBuff[ui8Counter],stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:437: passed:IsEqual(ui8TestBuff[ui8Counter],stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:437: passed:IsEqual(ui8TestBuff[ui8Counter],stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:437: passed:IsEqual(ui8TestBuff[ui8Counter],stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:437: passed:IsEqual(ui8TestBuff[ui8Counter],stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:437: passed:IsEqual(ui8TestBuff[ui8Counter],stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:437: passed:IsEqual(ui8TestBuff[ui8Counter],stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:437: passed:IsEqual(ui8TestBuff[ui8Counter],stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:437: passed:IsEqual(ui8TestBuff[ui8Counter],stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:437: passed:IsEqual(ui8TestBuff[ui8Counter],stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:437: passed:IsEqual(ui8TestBuff[ui8Counter],stUARTTXFiFo.aui8Buffer[ui8Counter])
+../../Output/unity_output/temp/corelib_uart_test_stub.c:442: passed:TracepointCoverage(0)
+======================================
+Testcase passed.
+======================================
+
+======================================
+isSerialDataAvailable: Test no available data
+======================================
+../../Output/unity_output/temp/corelib_uart_test_stub.c:455: passed:IsEqual(FALSE,isSerialDataAvailable())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:458: passed:IsEqual(FALSE,isSerialDataAvailable())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:460: passed:TracepointNonCoverage(0)
+======================================
+Testcase passed.
+======================================
+
+======================================
+isSerialDataAvailable: Test with available data
+======================================
+../../Output/unity_output/temp/corelib_uart_test_stub.c:469: passed:IsEqual(TRUE,isSerialDataAvailable())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:472: passed:IsEqual(TRUE,isSerialDataAvailable())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:474: passed:TracepointNonCoverage(0)
+======================================
+Testcase passed.
+======================================
+
+======================================
+isSerialDataAvailable: Test with UART Rx error
+======================================
+../../Output/unity_output/temp/corelib_uart_test_stub.c:484: passed:IsEqual(FALSE,isSerialDataAvailable())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:486: passed:TracepointCoverage(0)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:491: passed:IsEqual(FALSE,isSerialDataAvailable())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:493: passed:TracepointCoverage(0)
+======================================
+Testcase passed.
+======================================
+
+======================================
+serialDataCount: Test sending 0 length
+======================================
+../../Output/unity_output/temp/corelib_uart_test_stub.c:508: passed:IsEqual(0,serialDataCount())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:512: passed:IsEqual(0,serialDataCount())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:514: passed:TracepointNonCoverage(0)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:515: passed:TracepointCoverage(1)
+======================================
+Testcase passed.
+======================================
+
+======================================
+serialDataCount: Test increasing data count
+======================================
+../../Output/unity_output/temp/corelib_uart_test_stub.c:529: passed:IsEqual(ui8Counter,serialDataCount())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:529: passed:IsEqual(ui8Counter,serialDataCount())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:529: passed:IsEqual(ui8Counter,serialDataCount())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:529: passed:IsEqual(ui8Counter,serialDataCount())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:529: passed:IsEqual(ui8Counter,serialDataCount())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:529: passed:IsEqual(ui8Counter,serialDataCount())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:529: passed:IsEqual(ui8Counter,serialDataCount())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:529: passed:IsEqual(ui8Counter,serialDataCount())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:529: passed:IsEqual(ui8Counter,serialDataCount())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:529: passed:IsEqual(ui8Counter,serialDataCount())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:529: passed:IsEqual(ui8Counter,serialDataCount())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:529: passed:IsEqual(ui8Counter,serialDataCount())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:529: passed:IsEqual(ui8Counter,serialDataCount())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:529: passed:IsEqual(ui8Counter,serialDataCount())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:529: passed:IsEqual(ui8Counter,serialDataCount())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:529: passed:IsEqual(ui8Counter,serialDataCount())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:529: passed:IsEqual(ui8Counter,serialDataCount())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:529: passed:IsEqual(ui8Counter,serialDataCount())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:529: passed:IsEqual(ui8Counter,serialDataCount())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:529: passed:IsEqual(ui8Counter,serialDataCount())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:529: passed:IsEqual(ui8Counter,serialDataCount())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:529: passed:IsEqual(ui8Counter,serialDataCount())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:529: passed:IsEqual(ui8Counter,serialDataCount())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:529: passed:IsEqual(ui8Counter,serialDataCount())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:529: passed:IsEqual(ui8Counter,serialDataCount())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:529: passed:IsEqual(ui8Counter,serialDataCount())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:529: passed:IsEqual(ui8Counter,serialDataCount())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:529: passed:IsEqual(ui8Counter,serialDataCount())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:529: passed:IsEqual(ui8Counter,serialDataCount())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:529: passed:IsEqual(ui8Counter,serialDataCount())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:529: passed:IsEqual(ui8Counter,serialDataCount())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:533: passed:TracepointCoverage(0)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:534: passed:TracepointNonCoverage(1)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:538: passed:IsEqual(K8_UART_BUFFER_SIZE,serialDataCount())
+../../Output/unity_output/temp/corelib_uart_test_stub.c:541: passed:TracepointCoverage(0)
+../../Output/unity_output/temp/corelib_uart_test_stub.c:542: passed:TracepointNonCoverage(1)
+======================================
+Testcase passed.
+======================================
+
+**************************************
+Testcases: failed: 0
+           passed: 19
+Checks:    failed: 0
+           passed: 418
+**************************************
+System safe state.

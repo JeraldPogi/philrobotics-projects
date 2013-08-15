@@ -142,7 +142,7 @@ int main(void)
     /* User defined initializations */
     init();
 
-    while(true)
+    while(TRUE)
     {
 #if (__PHR_CONTROLLER__==__MCU_PIC16__)
         adcCycle();                                         // poll ADC on program loop
@@ -176,6 +176,7 @@ interrupt
 isr(void)
 {
     disableGlobalInt();
+    set_gblISRLocked_FlagValue();
     timerISR();
     timer16BitISR();
     timer8BitISR();
@@ -183,8 +184,19 @@ isr(void)
     userIntISR();
     serialTxISR();
     adcISR();
+    clr_gblISRLocked_FlagValue();
     enableGlobalInt();
 }
+
+#if (__PHR_CONTROLLER__==__MCU_PIC18__)
+void interrupt low_priority low_isr(void)
+{
+    disableGlobalInt();
+    set_gblISRLocked_FlagValue();
+    clr_gblISRLocked_FlagValue();
+    enableGlobalInt();
+}
+#endif
 
 /* Private Functions */
 /*******************************************************************************//**

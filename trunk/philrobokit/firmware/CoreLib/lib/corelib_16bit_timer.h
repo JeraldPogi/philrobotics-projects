@@ -7,7 +7,7 @@
 * |Filename:      | "corelib_16bit_timer.h"                     |
 * |:----          |:----                                        |
 * |Description:   | This is a header file of the 16bit timer library |
-* |Revision:      | v00.00.01                                   |
+* |Revision:      | v00.01.00                                   |
 * |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -28,6 +28,7 @@
 * |FW Version   |Date       |Author             |Description                        |
 * |:----        |:----      |:----              |:----                              |
 * |v00.00.01    |20130323   |ESCII              |Library Initial Release            |
+* |v00.01.00    |20130514   |ESCII              |Code Formatted, included unit test stub|
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -36,34 +37,43 @@
 #define __PH_16BIT_TIMER_H__
 
 /* Include .h Library Files */
+#ifdef UNIT_TEST                                    // autodefined at unit testing script
+#include "corelib_16bit_timer_test_stub.h"
+#else
 #include <PhilRoboKit_CoreLib_Macro.h>
 #include "hal_16bit_timer.h"
+#endif
 
 /* User Configuration Definitions */
 // 1/(3*9600) = 34.72222uS, UART bit is sampled 3x
-#if (_XTAL_FREQ == 20000000)
-    #define K16_CRITICALTASK_PERIOD                     5000//esc.test:1mS interval			174 // 0.2uS resolution @ 20Mhz
+#if (_XTAL_FREQ == 32000000)                        //esc.comment to be updated for 32Mhz
+//#define K16_CRITICALTASK_PERIOD                     69   // 0.2uS resolution @ 20Mhz
+#define K16_CRITICALTASK_PERIOD                     2000    // 1mS @ 0.5uS resolution @ 32Mhz
+#elif (_XTAL_FREQ == 20000000)
+//#define K16_CRITICALTASK_PERIOD                     174   // 0.2uS resolution @ 20Mhz
+#define K16_CRITICALTASK_PERIOD                     5000    // 1mS @ 0.2uS resolution @ 20Mhz
 #elif (_XTAL_FREQ == 8000000)
-    #define K16_CRITICALTASK_PERIOD                     69  // 0.5uS resolution @ 8Mhz
+//#define K16_CRITICALTASK_PERIOD                     69    // 0.5uS resolution @ 8Mhz
+#define K16_CRITICALTASK_PERIOD                     2000    // 1mS @ 0.5uS resolution @ 8Mhz
 #else
-    #warning Clock Frequency Not Defined
+#warning Clock Frequency Not Defined
 #endif
-    
+
 /* Global Constants */
-    /* Timers */
-enum tmr16BitModules_e
+/* Timers */
+enum tmr16BitModules_et
 {
-	TIMER1		= 1
+    TIMER1      = 1
 };
-    
+
 /* Macro and Configuration Definitions */
-    /* none */
-    
+/* none */
+
 /* Public Function Prototypes */
-    void setup16BitTimerFull(enum tmr16BitModules_e eTmrModule, void(*callback)(), uint8_t ui8Prescaler, uint8_t ui8Postscaler);
-	void setup16BitTimer(enum tmr16BitModules_e eTmrModule, void(*callback)());
-	void set16BitTimer(enum tmr16BitModules_e eTmrModule, uint16_t ui16Value);
-    void timer16BitISR(void);
-    
+void timer16BitISR(void);
+void setup16BitTimerFull(enum tmr16BitModules_et eTmrModule, void(*callback)(), uint8_t ui8Prescaler, uint8_t ui8Postscaler);
+void setup16BitTimer(enum tmr16BitModules_et eTmrModule, void(*callback)());
+void set16BitTimer(enum tmr16BitModules_et eTmrModule, uint16_t ui16Value);
+
 #endif /* end of corelib_8bit_timer.h */
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

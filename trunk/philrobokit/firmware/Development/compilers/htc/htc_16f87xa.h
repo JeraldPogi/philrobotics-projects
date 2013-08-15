@@ -40,7 +40,8 @@
 #define __HTC_16F87XA_H
 
 /* Include .h Library Files */
-#include <htc.h>
+//#include <htc.h>
+#include <xc.h>
 #include "PhilRoboKit_CoreLib_GlobalDefs.h"
 
 /* User Configuration Definitions */
@@ -57,6 +58,8 @@
 #define BIT_INTCON_TMR0IF   TMR0IF
 #define BIT_INTCON_INTF     INTF
 #define BIT_INTCON_RBIF     RBIF
+
+#define INT0_EDGE           INTEDG
 
 #define REGISTER_PIR1       PIR1
 #define BIT_PIR1_PSPIF      PSPIF

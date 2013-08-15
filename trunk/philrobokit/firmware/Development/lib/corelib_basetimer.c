@@ -28,7 +28,7 @@
 * |FW Version   |Date       |Author             |Description                                |
 * |:----        |:----      |:----              |:----                                      |
 * |v00.00.01    |201211xx   |Giancarlo A.       |Library Initial Release                    |
-* |v01.00.01    |20130321   |ESC II             |Modified uS time computation to use TMR0   |
+* |v01.00.01    |20130321   |ESCII              |Modified uS time computation to use TMR0   |
 * |v01.01.00    |20130514   |ESCII              |Code Formatted                             |
 * |v01.01.01    |20130517   |ESCII              |Tracepoints added for unit testing         |
 *********************************************************************************************/
@@ -69,7 +69,12 @@
 uint16_t getUs(void)
 {
     uint16_t ui16TempBuff;
+
+    while(TRUE == get_gblISRLocked_FlagValue()) {}  // acquire mutex
+
+    disableGlobalInt();                             // Atomic Operation
     ui16TempBuff = getBaseTimerValue();
+    enableGlobalInt();
     return ui16TempBuff;
 }
 
@@ -93,12 +98,12 @@ uint16_t getUs(void)
 uint16_t getElapsedUs(uint16_t ui16TimeUs)
 {
     uint16_t ui16TempBuff;
-    ui16TempBuff = getBaseTimerValue();
-    ui16TempBuff -= ui16TimeUs;// delta
-#if (_XTAL_FREQ == 20000000)                            // 20Mhz normalization: timer interrupt slowed a little bit for slow clock so interrupt is less frequent
-    ui16TempBuff = (ui16TempBuff - (ui16TempBuff >> 2)) + (ui16TempBuff >> 4);  // delta' = delta * 0.8, (0.8125 = 1 - 0.25 + 0.0625)
-    ui16TempBuff <<= SHIFT_MULT;
-#endif
+
+    while(TRUE == get_gblISRLocked_FlagValue()) {}  // acquire mutex
+
+    disableGlobalInt();                             // Atomic Operation
+    ui16TempBuff = getBaseTimerValue() - ui16TimeUs;
+    enableGlobalInt();
     return ui16TempBuff;
 }
 
@@ -123,7 +128,10 @@ uint16_t getElapsedUs(uint16_t ui16TimeUs)
 uint16_t getMs(void)
 {
     uint16_t ui16TempBuff;
-    disableGlobalInt();
+
+    while(TRUE == get_gblISRLocked_FlagValue()) {}  // acquire mutex
+
+    disableGlobalInt();                             // Atomic Operation
     ui16TempBuff = get_gui16TimerMs_Value();
     enableGlobalInt();
     return ui16TempBuff;
@@ -149,12 +157,11 @@ uint16_t getMs(void)
 uint16_t getElapsedMs(uint16_t ui16TimeMs)
 {
     uint16_t ui16TempBuff;
-    disableGlobalInt();
-    ui16TempBuff = get_gui16TimerMs_Value();
-    ui16TempBuff -= ui16TimeMs;
-#if (_XTAL_FREQ == 20000000)                            // 20Mhz normalization: timer interrupt slowed a little bit for slow clock so interrupt is less frequent
-    ui16TempBuff <<= SHIFT_MULT;
-#endif
+
+    while(TRUE == get_gblISRLocked_FlagValue()) {}  // acquire mutex
+
+    disableGlobalInt();                             // Atomic Operation
+    ui16TempBuff = get_gui16TimerMs_Value() - ui16TimeMs;
     enableGlobalInt();
     return ui16TempBuff;
 }

@@ -4,10 +4,10 @@
 * phirobotics.core@philrobotics.com
 *
 *---------------------------------------------------------------------------------------------
-* |Filename:      | "setupAnito.c"                              |
+* |Filename:      | "corelib_gpio.c"                            |
 * |:----          |:----                                        |
-* |Description:   | Anito setup routines                        |
-* |Revision:      | v00.00.02                                   |
+* |Description:   | General Purpose Input/Output Hardware Abstraction Layer Header File for PIC |
+* |Revision:      | v01.01.00                                   |
 * |Author:        | Giancarlo Acelajado                         |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -27,33 +27,33 @@
 *---------------------------------------------------------------------------------------------
 * |FW Version   |Date       |Author             |Description                        |
 * |:----        |:----      |:----              |:----                              |
-* |v00.00.01    |201209xx   |Giancarlo A.       |Library Initial Release            |
-* |v00.00.02    |20130307   |ESCII              |Renamed setupAnito to philrobokit_init to save 1 stack level <BR>
-*                                                Added call to ADC setup and cyclic functions |
+* |v01.00.00    |201209xx   |Giancarlo A.       |Leverage Library to Standard Architecture|
+* |v01.00.01    |20130405   |ESCII              |Separated module to HAL and Corelib|
+* |v01.01.00    |20130514   |ESCII              |Code Formatted                     |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
 
-#include  "setupAnito.h"
+#include "corelib_gpio.h"
 
 /* Local Constants */
-    /* none */
+/* none */
 
 /* Local Variables */
-    /* none */
+/* none */
 
 /* Private Function Prototypes */
-void criticalTaskISR();
-    
+/* none */
+
 /* Public Functions */
 /*******************************************************************************//**
-* \brief Setup Philrobokit Variant Specific Peripherals
+* \brief Initialize Pin default state and data direction
 *
-* > This function is called to initialize anito specific peripherals 
+* > This function is called to initialize pin default state and data direction
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >      philrobokit_init()
+* >     setupGpio()
 * > <BR><BR>
 * > **Parameters:**<BR>
 * >     none
@@ -62,30 +62,33 @@ void criticalTaskISR();
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void philrobokit_init(void)
+void setupGpio(void)
 {
-    /* Initialize GPIO default and direction */
-    setupGpio();
-    
-    /* System Timebase */
-    setupTimer();	        
-    
-	/* Vref at Vdd by default */
-    setupADC(VDD);  
-	
-    /* Use Timer 1 for ADC Polling */
-    setup16BitTimer(TIMER1, criticalTaskISR);
-    set16BitTimer(TIMER1, K16_CRITICALTASK_PERIOD);    
-    
-    /* global and peripheral interrupts enabled */
-    enableGlobalInt();      
+    /* Port Value and Direction */
+#ifdef PORTA_ACTIVE
+    PORTA_OUT = PORTA_OUT_DEF;
+    PORTA_DIR = PORTA_DIR_DEF;
+#endif
+#ifdef PORTB_ACTIVE
+    PORTB_OUT = PORTB_OUT_DEF;
+    PORTB_DIR = PORTB_DIR_DEF;
+#endif
+#ifdef PORTC_ACTIVE
+    PORTC_OUT = PORTC_OUT_DEF;
+    PORTC_DIR = PORTC_DIR_DEF;
+#endif
+#ifdef PORTD_ACTIVE
+    PORTD_OUT = PORTD_OUT_DEF;
+    PORTD_DIR = PORTD_DIR_DEF;
+#endif
+#ifdef PORTE_ACTIVE
+    PORTE_OUT = PORTE_OUT_DEF;
+    PORTE_DIR = PORTE_DIR_DEF;
+#endif
 }
 
 /* Private Functions */
-void criticalTaskISR()
-{
-	;/* task moved to TMR1 module to save stack */
-}
-    
-/* end of setupAnito.c */
+/* none */
+
+/* end of corelib_gpio.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
