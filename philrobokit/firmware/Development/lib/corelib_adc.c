@@ -175,7 +175,7 @@ void adcCycle(void)
 #endif
 
         /* Check end of conversion */
-        if(true == hal_checkADCEndofConversion())
+        if(TRUE == hal_checkADCEndofConversion())
         {
             /* start new conversion */
             hal_startADCConversion();

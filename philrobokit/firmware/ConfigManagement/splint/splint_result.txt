@@ -1,4 +1,8 @@
 ********************************************************************************** 	
 ****************************   Static Code Test ....  ****************************     
 ********************************************************************************** 	
+..\..\Output\splint_output\temp\Apps.c: (in function cycle)
+..\..\Output\splint_output\temp\Apps.c(60,21):
+    Function serialWrite expects arg 1 to be uint8_t gets char: '\n'
+  Types are incompatible. (Use -type to inhibit warning)
 ********************************************************************************** 	

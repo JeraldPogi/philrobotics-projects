@@ -4,10 +4,10 @@
 * phirobotics.core@philrobotics.com
 *
 *---------------------------------------------------------------------------------------------
-* |Filename:      | "setupAnito.h"                              |
+* |Filename:      | "PhilRoboKit_HW_Config.h"                   |
 * |:----          |:----                                        |
-* |Description:   | Header for Anito setup routines             |
-* |Revision:      | v00.00.02                                   |
+* |Description:   | PhilRobokit Hardware Header File            |
+* |Revision:      | v00.02.00                                   |
 * |Author:        | Giancarlo Acelajado                         |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -28,66 +28,53 @@
 * |FW Version   |Date       |Author             |Description                        |
 * |:----        |:----      |:----              |:----                              |
 * |v00.00.01    |201209xx   |Giancarlo A.       |Library Initial Release            |
-* |v00.00.02    |20130307   |ESCII              |Renamed setupAnito to philrobokit_init to save 1 stack level|
+* |v00.01.00    |20130408   |ESC II             |enumerations used instead of defines for configurations |
+* |v01.01.00    |20130514   |ESCII              |Code Formatted                     |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
 
-#ifndef __SETUP_ANITO__
-#define __SETUP_ANITO__
+#ifndef __PHILROBOKIT_HW_CONFIG_H__
+#define __PHILROBOKIT_HW_CONFIG_H__
 
 /* Include .h Library Files */
-#include "hal_timer.h"
-#include "corelib_basetimer.h"
+/* none */
 
-#include "hal_gpio.h"
-//#include "corelib_gpio.h" <not existing>
+/* Global Constants */
+/* PhilRoboKit Controller Selection */
+#define __MCU_PIC16__               (0)
+#define __MCU_PIC18__               (1)
+#define __ARM_ST__                  (2)
 
-#include "hal_adc.h"
-#include "corelib_adc.h"
+/* PhilRoboKit Board Selection */
+#define __HW_PHR_ANITO__            (0)
+#define __HW_PHR_BATHALA__          (1)
+#define __HW_eGIZMO_ePICPICMO__     (2)
 
-#include "hal_uart.h"
-#include "corelib_uart.h"
-
-#include "hal_user_interrupt.h"
-#include "corelib_user_interrupt.h"
-
-#include "hal_8bit_timer.h"
-#include "corelib_8bit_timer.h"
-
-#include "hal_pwm.h"
-#include "corelib_pwm.h"
-#include "corelib_dac.h"
-
-#include "hal_16bit_timer.h"
-#include "corelib_16bit_timer.h"
-    
 /* User Configuration Definitions */
-    /* Pin Default Initialization */
-#define	K8_DEFAULT_CONFIG_PORTA	(0b00011111)
-#define	K8_DEFAULT_CONFIG_PORTB	(0b00000000)
-#define	K8_DEFAULT_CONFIG_PORTC	(0b10000000)
-#define	K8_DEFAULT_CONFIG_PORTE	(0b00000111)
-#define	K8_DEFAULT_CONFIG_PORTD	(0b00001100)
+/* PhilRoboKit Hardware Configuration */
+#if defined( _16F873A ) || defined( _16F874A ) || defined( _16F876A ) || defined( _16F877A )
+#define __PHR_CONTROLLER__          (__MCU_PIC16__)
 
-/* Global Constants */    
-    /* Pin Definitions */
-extern enum etDigitalPins{
-    D0,	D1,	D2,	D3,	D4,	D5,	D6,	                        /* PORTC */
-    D7,	D8,	D9,	D10, D11, D12, D13,                     /* PORTB */
-    D14, D15, D16, D17, D18, D19, D20,                  /* PORTA and PORTE (Analog Pins Configured as Digital Pins */
-    SERVO, BUZZER, SW2, SW1, LED4, LED3, LED2, LED1	    /* PORTD, Builtin Components */
-};	
+#elif defined( _18F2420 ) || defined( _18F2520 ) || defined( _18F4420 ) || defined( _18F4520 ) || ( _18F4620 )
+#define __PHR_CONTROLLER__          (__MCU_PIC18__)
 
-extern enum etAnalogPins{
-    AN0, AN1, AN2, AN3,	AN4, AN5, AN6
-};
+#else
+#if defined (S_SPLINT_S)
+/* do nothing */
+#else
+#error  Device not yet supported!!!
+#endif  /* SPLINT Switch */
+
+#endif  /* MCU Part Compile Switch */
+
+#define __PHR_BOARD__               (__HW_PHR_ANITO__)
 
 /* Macro and Configuration Definitions */
-    /* none */
+/* none */
 
-/* Public Function Prototypes */    
-void philrobokit_init(void);
+/* Public Function Prototypes */
+/* none */
 
-#endif/* end of setupAnito.h */
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+#endif/* end of PhilRoboKit_HW_Config.h */
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

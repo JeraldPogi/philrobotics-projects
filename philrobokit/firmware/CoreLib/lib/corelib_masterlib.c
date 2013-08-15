@@ -4,11 +4,11 @@
 * phirobotics.core@philrobotics.com
 *
 *---------------------------------------------------------------------------------------------
-* |Filename:      | "PhilRoboKit_HW_Config.h"                   |
+* |Filename:      | "corelib_masterlib.c"                       |
 * |:----          |:----                                        |
-* |Description:   | PhilRobokit Hardware Header File            |
+* |Description:   | PhilRobokit Master Library Header           |
 * |Revision:      | v00.00.01                                   |
-* |Author:        | Giancarlo Acelajado                         |
+* |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
 * |Dependencies:  |                                             |
 *
@@ -27,37 +27,27 @@
 *---------------------------------------------------------------------------------------------
 * |FW Version   |Date       |Author             |Description                        |
 * |:----        |:----      |:----              |:----                              |
-* |v00.00.01    |201209xx   |Giancarlo A.       |Library Initial Release            |
+* |v00.00.01    |20130408   |ESC II             |Library Initial Release            |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
 
-#ifndef __PHILROBOKIT_HW_CONFIG_H__
-#define __PHILROBOKIT_HW_CONFIG_H__
+#include "corelib_masterlib.h"
 
-/* Include .h Library Files */
-    /* none */
+/* Local Constants */
+/* none */
 
-/* Global Constants */      
-    /* PhilRoboKit Controller Selection */
-#define __MCU_PIC__                 (0)
-#define __ARM_ST__                  (1)
+/* Local Variables */
+/* none */
 
-    /* PhilRoboKit Board Selection */
-#define __HW_PHR_ANITO__            (0)
-#define __HW_PHR_BATHALA__          (1)
-#define __HW_EGIZMO_EPICPICMO__     (2)
+/* Private Function Prototypes */
+/* none */
 
-/* User Configuration Definitions */
-    /* PhilRoboKit Hardware Configuration */
-#define __PHR_CONTROLLER__   (__MCU_PIC__)
-#define __PHR_BOARD__        (__HW_PHR_ANITO__)
+/* Public Functions */
+/* none */
 
-/* Macro and Configuration Definitions */
-    /* none */
+/* Private Functions */
+/* none */
 
-/* Public Function Prototypes */ 
-    /* none */
-    
-#endif/* end of PhilRoboKit_HW_Config.h */
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+/* end of corelib_masterlib.c */
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

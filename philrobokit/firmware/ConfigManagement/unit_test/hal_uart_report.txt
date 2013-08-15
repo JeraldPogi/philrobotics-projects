@@ -1,0 +1,60 @@
+Init of hardware finished.
+
+**********************************************************************
+Name:     -hal_uart- Unit Testing
+Compiled: May 22 2013
+Time:     13:45:33
+Version:  v1.0
+**********************************************************************
+======================================
+setSerialBAUD: Test Standard Baudrates
+======================================
+../../Output/unity_output/temp/hal_uart_test_stub.c:67: passed:IsBitSet(REGISTER_TXSTA,BITPOS_TXSTA_BRGH)
+../../Output/unity_output/temp/hal_uart_test_stub.c:68: passed:IsEqual(BAUD_9600_BRGVAL,REGISTER_SPBRG)
+../../Output/unity_output/temp/hal_uart_test_stub.c:70: passed:TracepointCoverage(0)
+../../Output/unity_output/temp/hal_uart_test_stub.c:73: passed:IsBitSet(REGISTER_TXSTA,BITPOS_TXSTA_BRGH)
+../../Output/unity_output/temp/hal_uart_test_stub.c:74: passed:IsEqual(BAUD_57600_BRGVAL,REGISTER_SPBRG)
+../../Output/unity_output/temp/hal_uart_test_stub.c:76: passed:TracepointCoverage(1)
+../../Output/unity_output/temp/hal_uart_test_stub.c:86: passed:IsBitSet(REGISTER_TXSTA,BITPOS_TXSTA_BRGH)
+../../Output/unity_output/temp/hal_uart_test_stub.c:87: passed:IsEqual(BAUD_19200_BRGVAL,REGISTER_SPBRG)
+../../Output/unity_output/temp/hal_uart_test_stub.c:89: passed:TracepointCoverage(3)
+../../Output/unity_output/temp/hal_uart_test_stub.c:92: passed:IsBitClear(REGISTER_TXSTA,BITPOS_TXSTA_BRGH)
+../../Output/unity_output/temp/hal_uart_test_stub.c:93: passed:IsEqual(BAUD_4800_BRGVAL,REGISTER_SPBRG)
+../../Output/unity_output/temp/hal_uart_test_stub.c:95: passed:TracepointCoverage(4)
+../../Output/unity_output/temp/hal_uart_test_stub.c:98: passed:IsBitSet(REGISTER_TXSTA,BITPOS_TXSTA_BRGH)
+../../Output/unity_output/temp/hal_uart_test_stub.c:99: passed:IsEqual(BAUD_38400_BRGVAL,REGISTER_SPBRG)
+../../Output/unity_output/temp/hal_uart_test_stub.c:101: passed:TracepointCoverage(5)
+../../Output/unity_output/temp/hal_uart_test_stub.c:104: passed:IsBitClear(REGISTER_TXSTA,BITPOS_TXSTA_BRGH)
+../../Output/unity_output/temp/hal_uart_test_stub.c:105: passed:IsEqual(BAUD_2400_BRGVAL,REGISTER_SPBRG)
+../../Output/unity_output/temp/hal_uart_test_stub.c:107: passed:TracepointCoverage(6)
+../../Output/unity_output/temp/hal_uart_test_stub.c:111: passed:TracepointCoverage(7)
+../../Output/unity_output/temp/hal_uart_test_stub.c:112: passed:TracepointNonCoverage(8)
+======================================
+Testcase passed.
+======================================
+
+======================================
+setSerialBAUD: Test Non Standard Baudrates
+======================================
+../../Output/unity_output/temp/hal_uart_test_stub.c:140: passed:IsBitSet(REGISTER_TXSTA,BITPOS_TXSTA_BRGH)
+../../Output/unity_output/temp/hal_uart_test_stub.c:141: passed:IsEqual(BAUD_9600_BRGVAL,REGISTER_SPBRG)
+../../Output/unity_output/temp/hal_uart_test_stub.c:142: passed:TracepointNonCoverage(0)
+../../Output/unity_output/temp/hal_uart_test_stub.c:143: passed:TracepointNonCoverage(1)
+../../Output/unity_output/temp/hal_uart_test_stub.c:144: passed:TracepointNonCoverage(2)
+../../Output/unity_output/temp/hal_uart_test_stub.c:145: passed:TracepointNonCoverage(3)
+../../Output/unity_output/temp/hal_uart_test_stub.c:146: passed:TracepointNonCoverage(4)
+../../Output/unity_output/temp/hal_uart_test_stub.c:147: passed:TracepointNonCoverage(5)
+../../Output/unity_output/temp/hal_uart_test_stub.c:148: passed:TracepointNonCoverage(6)
+../../Output/unity_output/temp/hal_uart_test_stub.c:149: passed:TracepointNonCoverage(7)
+../../Output/unity_output/temp/hal_uart_test_stub.c:150: passed:TracepointCoverage(8)
+======================================
+Testcase passed.
+======================================
+
+**************************************
+Testcases: failed: 0
+           passed: 2
+Checks:    failed: 0
+           passed: 31
+**************************************
+System safe state.

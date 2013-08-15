@@ -58,7 +58,7 @@ static uint8_t ui8ServoState = SERVO_PULSEOFF;
 #ifdef S_SPLINT_S // Suppress SPLint Parse Errors 
     #define bool_t  bool
 #endif  
-static bool_t blKickStarted = false;
+static bool_t blKickStarted = FALSE;
 
 /* Private Function Prototypes */
 static void servoController();
@@ -103,11 +103,11 @@ void setupServoFull(enum ServoModules_e eServoMod, uint8_t ui8ServoPin, int8_t i
 	aui8Servo[eServoMod][SERVO_PULSE] = (uint8_t)(((int32_t)i8DefaultAngle*aui8Servo[eServoMod][SERVO_SLOPE]) / 128 + SERVO_PULSE_OFFSET);
 	
 	/* Initialize TMR2 for Servo Control */
-	if(false == blKickStarted)
+	if(FALSE == blKickStarted)
 	{
 		setup8BitTimer(SERVO_TIMER, servoController);
 		set8BitTimer(SERVO_TIMER, SERVO_MAX_PULSEWIDTH);								// set pulse on period (kickstart)
-		blKickStarted = true;
+		blKickStarted = TRUE;
 	}	
 }
 

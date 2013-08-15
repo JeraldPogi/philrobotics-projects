@@ -52,7 +52,7 @@
 #define BIT_INTCON_INTF     0x00
 #define BIT_INTCON_RBIF     0x00
 
-#define INTEDG              0x00
+#define INT0_EDGE           0x00
 
 #define REGISTER_PIR1       0x55
 #define BIT_PIR1_PSPIF      0x00

@@ -42,6 +42,7 @@
 
 /* Global Variables */
 static volatile bool_t      gblInitialized      = FALSE;
+static volatile bool_t      gblISRLocked        = FALSE;
 
 /* Timers */
 static volatile uint16_t    gui16TimerUsMSB     = 0;            // only the timer isr must write on these variables
@@ -66,7 +67,7 @@ void clr_MutexLock(volatile bool_t* pblMutex);
 /* A flag to indicate low level initialization has commenced and the global interrupts are alread enabled */
 void set_gblInitialized_FlagValue(void)
 {
-    gblInitialized = true;
+    gblInitialized = TRUE;
 }
 
 bool_t get_gblInitialized_FlagValue(void)
@@ -76,48 +77,92 @@ bool_t get_gblInitialized_FlagValue(void)
     return blTemp;
 }
 
+void set_gblISRLocked_FlagValue(void)
+{
+    gblISRLocked = TRUE;
+}
+
+void clr_gblISRLocked_FlagValue(void)
+{
+    gblISRLocked = FALSE;
+}
+
+bool_t get_gblISRLocked_FlagValue(void)
+{
+    bool_t blTemp;
+    blTemp = gblISRLocked;
+    return blTemp;
+}
+
 /* Microseconds */
 void inc_gui16TimerUsMSB_Value(uint16_t ui16Value)
 {
+    disableGlobalInt();                             // Atomic Operation
     gui16TimerUsMSB += ui16Value;
+
+    if(FALSE == gblISRLocked)                       // Let ISR reenable interrupts
+    {
+        enableGlobalInt();
+    }
 }
 
 uint16_t get_gui16TimerUsMSB_Value(void)
 {
     uint16_t ui16Temp;
+
+    while(TRUE == gblISRLocked) {}                  // acquire mutex
+
+    disableGlobalInt();                             // Atomic Operation
     ui16Temp = (gui16TimerUsMSB&0xFF00);
+    enableGlobalInt();
     return ui16Temp;
 }
 
 /* Milliseconds */
 void inc_gui16TimerMs_Value(void)
 {
+    disableGlobalInt();                             // Atomic Operation
     gui16TimerMs++;
+
+    if(FALSE == gblISRLocked)                       // Let ISR reenable interrupts
+    {
+        enableGlobalInt();
+    }
 }
 
 uint16_t get_gui16TimerMs_Value(void)
 {
     uint16_t ui16Temp;
-    //while(FALSE == getGlobalIntEnableStatus()){}        // aquire mutex
-    //disableGlobalInt();                                 // ensure atomic operation
+
+    while(TRUE == gblISRLocked) {}                  // acquire mutex
+
+    disableGlobalInt();                             // Atomic Operation
     ui16Temp =  gui16TimerMs;
-    //enableGlobalInt();                                  // esc.comment, disabling performed on corelib_basetimer, encountering problems
+    //enableGlobalInt();                            // esc.comment enabled on corelib_basetimer.c
     return ui16Temp;
 }
 
 /* Seconds */
 void inc_gui16TimerSec_Value(void)
 {
+    disableGlobalInt();                             // Atomic Operation
     gui16TimerSec++;
+
+    if(FALSE == gblISRLocked)                       // Let ISR reenable interrupts
+    {
+        enableGlobalInt();
+    }
 }
 
 uint16_t get_gui16TimerSec_Value(void)
 {
     uint16_t ui16Temp;
-    //while(FALSE == getGlobalIntEnableStatus()) {}       // aquire mutex
-    //disableGlobalInt();                                 // ensure atomic operation
+
+    while(TRUE == gblISRLocked) {}                  // acquire mutex
+
+    disableGlobalInt();                             // Atomic Operation
     ui16Temp = gui16TimerSec;
-    //enableGlobalInt();                                  // esc.comment, disabling performed on corelib_basetimer, encountering problems
+    enableGlobalInt();
     return ui16Temp;
 }
 
@@ -128,7 +173,7 @@ void get_MutexLock(volatile bool_t* pblMutex)
     bool_t blInitValue;
     blInitValue = FALSE;
 
-    if(FALSE == getGlobalIntEnableStatus())             // mutex locked by interrupt
+    if(TRUE == gblISRLocked)                        // mutex locked by interrupt
     {
         *pblMutex = TRUE;
     }
@@ -136,7 +181,7 @@ void get_MutexLock(volatile bool_t* pblMutex)
     {
         do
         {
-            disableGlobalInt();                         // ensure atomic operation
+            disableGlobalInt();                    // ensure atomic operation
             blInitValue = *pblMutex;
             *pblMutex = TRUE;
             enableGlobalInt();

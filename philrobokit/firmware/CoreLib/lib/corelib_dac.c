@@ -7,7 +7,7 @@
 * |Filename:      | "corelib_dac.c"                             |
 * |:----          |:----                                        |
 * |Description:   | This is a library for using the DAC functions |
-* |Revision:      | v00.00.01                                   |
+* |Revision:      | v00.01.00                                   |
 * |Author:        | Efren S. Cruzat II                          |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -28,6 +28,7 @@
 * |FW Version   |Date       |Author             |Description                |
 * |:----        |:----      |:----              |:----                      |
 * |v00.00.01    |20130205   |ESCII              |Library Initial Release    |
+* |v00.01.00    |20130514   |ESCII              |Code Formatted             |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -35,14 +36,14 @@
 #include "corelib_dac.h"
 
 /* Local Constants */
-    /* none */
+/* none */
 
 /* Local Variables */
-    /* none */
+/* none */
 
 /* Private Function Prototypes */
-    /* none */
-    
+/* none */
+
 /* Public Functions */
 /*******************************************************************************//**
 * \brief Set DAC value
@@ -52,7 +53,7 @@
 *
 * > <BR>
 * > **Syntax:**<BR>
-* >      setDAC(module, value) 
+* >      setDAC(module, value)
 * > <BR><BR>
 * > **Parameters:**<BR>
 * >     module - DAC module assignment, DAC0, DAC1                          <BR>
@@ -62,16 +63,15 @@
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void setDAC(uint8_t ui8DAC_Module, uint16_t ui16Value) 
+void setDAC(uint8_t ui8DAC_Module, uint16_t ui16Value)
 {
-	uint16_t ui16DutyCycle;
-    #ifdef S_SPLINT_S 			        // Suppress SPLint Unrecognized ID Errors
-        #define uint24_t uint32_t       // esc.comment: use with caution
-    #endif
-	/* 0 - 1023 : 0 - 1000  */
-	ui16DutyCycle = (uint16_t)(((uint24_t)976 * ui16Value) / 1000);
-	
-	setupPWM(ui8DAC_Module, K_DAC_DEFAULT_FREQ, ui16DutyCycle);	
+    uint16_t ui16DutyCycle;
+#ifdef S_SPLINT_S /* Suppress SPLint Unrecognized ID Errors */
+#define uint24_t uint32_t       // esc.comment: use with caution
+#endif
+    /* 0 - 1023 : 0 - 1000  */
+    ui16DutyCycle = (uint16_t)(((uint24_t)976 * ui16Value) / 1000);
+    setupPWM(ui8DAC_Module, K_DAC_DEFAULT_FREQ, ui16DutyCycle);
 }
 
 /*******************************************************************************//**
@@ -92,10 +92,11 @@ void setDAC(uint8_t ui8DAC_Module, uint16_t ui16Value)
 ***********************************************************************************/
 void removeDAC(uint8_t ui8DAC_Module)
 {
-	removePWM(ui8DAC_Module);
+    removePWM(ui8DAC_Module);
 }
+
 /* Private Functions */
-    /* none */
-    
+/* none */
+
 /* end of corelib_dac.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

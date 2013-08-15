@@ -1,9 +1,9 @@
 Init of hardware finished.
 
 **********************************************************************
-Name:     -corelib_basetimer- Module Testing
-Compiled: May 17 2013
-Time:     13:52:43
+Name:     -corelib_basetimer- Unit Testing
+Compiled: May 22 2013
+Time:     13:47:25
 Version:  v1.0
 **********************************************************************
 ======================================

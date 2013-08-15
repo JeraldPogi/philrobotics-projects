@@ -7,7 +7,7 @@
 * |Filename:      | "PhilRoboKit_CoreLib_Macro.h"               |
 * |:----          |:----                                        |
 * |Description:   | Header file for the PhilRobokit Main Macro File|
-* |Revision:      | v01.00.00                                   |
+* |Revision:      | v01.01.00                                   |
 * |Author:        | Giancarlo Acelajado                         |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -33,6 +33,7 @@
 * |v00.01.04    |20120712   |ESCII              |Modified library include links             |
 * |v00.01.05    |20120713   |ESCII              |Added includes for DataTypes.h             |
 * |v01.00.00    |201210xx   |Giancarlo A.       |Leverage Library to Standard Architecture  |
+* |v01.01.00    |20130514   |ESCII              |Code Formatted                             |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -43,19 +44,20 @@
 /* Include .h Library Files */
 #include "PhilRoboKit_CoreLib_Header.h"
 #include "PhilRoboKit_CoreLib_DataTypes.h"
+#include "PhilRoboKit_CoreLib_GlobalDefs.h"
 
 /* User Configuration Definitions */
-    /* none */
+/* none */
 
-/* Global Constants */ 
-    /* none */
+/* Global Constants */
+/* none */
 
-/* Macro and Configuration Definitions */    
-    /* none */
+/* Macro and Configuration Definitions */
+/* none */
 
-/* Public Function Prototypes */ 
-void init(void);
-void program(void);
+/* Public Function Prototypes */
+extern void init();
+extern void cycle();
 
 #endif/* end of PhilRoboKit_CoreLib_Macro.h */
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

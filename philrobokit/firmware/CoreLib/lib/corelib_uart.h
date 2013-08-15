@@ -7,7 +7,7 @@
 * |Filename:      | "corelib_uart.h"                            |
 * |:----          |:----                                        |
 * |Description:   | This is a header file of the serial/uart library |
-* |Revision:      | v01.00.01                                   |
+* |Revision:      | v01.01.00                                   |
 * |Author:        | Giancarlo Acelajado                         |
 * |               |                                             |
 * |Dependencies:  |                                             |
@@ -31,6 +31,8 @@
 * |v00.01.01    |201201xx   |Giancarlo A.       |Add serialFlush Routine            |
 * |v01.00.00    |201210xx   |Giancarlo A.       |Leverage Library to Standard Architecture|
 * |v01.00.01    |20130228   |ESCII              |Separated module to HAL and Corelib|
+* |v01.00.02    |20130405   |ESCII              |Changed block lenght datatype from u16 to ui8|
+* |v01.01.00    |20130514   |ESCII              |Code Formatted, Fixed SPLINT warning, included unit test stub|
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
@@ -39,35 +41,47 @@
 #define __PH_UART_H__
 
 /* Include .h Library Files */
+#ifdef UNIT_TEST                                    // autodefined at unit testing script
+#include "corelib_uart_test_stub.h"
+#else
 #include <PhilRoboKit_CoreLib_Macro.h>
-#include "string.h"
+#include <string.h>
 #include "hal_uart.h"
+#endif
 
 /* User Configuration Definitions */
-#define K8_UART_BUFFER_SIZE			(32)
-    
+#define K8_UART_BUFFER_SIZE                         (32)
+
 /* Global Constants */
-#ifndef NULL
-    #define NULL				'\0'
+struct UARTBuff_s
+{
+    uint8_t     aui8Buffer[K8_UART_BUFFER_SIZE];
+    uint8_t     ui8Head;
+    uint8_t     ui8Tail;
+};
+
+#ifdef UNIT_TEST
+extern struct UARTBuff_s   stUARTTXFiFo;
+extern struct UARTBuff_s   stUARTRXFiFo;
 #endif
 
 /* Macro and Configuration Definitions */
-    /* none */
-    
+/* none */
+
 /* Public Function Prototypes */
 void setupSerial(uint16_t ui16Baudrate);
 
 void serialWrite(uint8_t ui8TxData);
-void serialWriteString(uint8_t *pui8StrTxData);
-void serialWriteBlock(uint8_t *pui8StrTxData, uint16_t ui16Size);
+void serialWriteString(const uchar_t* pucStrTxData);
+void serialWriteBlock(uint8_t* pui8StrTxData, uint8_t ui8Size);
 
 uint8_t serialDataCount(void);
 uint8_t serialRead(void);
 
 void serialFlush(void);
 
-void serialRxISR(void);	
+void serialRxISR(void);
 void serialTxISR(void);
-	
+
 #endif /* end of corelib_uart.h */
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

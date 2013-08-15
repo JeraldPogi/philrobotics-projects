@@ -141,11 +141,27 @@ void timerISR(void)
     }
 }
 
+/*******************************************************************************//**
+* \brief Basetimer counter value
+*
+* > This is function which returns the value of the uS base timer counter
+*
+* > <BR>
+* > **Syntax:**<BR>
+* >      getBaseTimerValue(), ISR
+* > <BR><BR>
+* > **Parameters:**<BR>
+* >     none
+* > <BR><BR>
+* > **Returns:**<BR>
+* >     value of the uS counter
+* > <BR><BR>
+***********************************************************************************/
 uint16_t getBaseTimerValue(void)
 {
     uint16_t ui16Temp,ui16HiTimer;
 
-    while(FALSE == getGlobalIntEnableStatus()) {}       // aquire mutex
+    while((TRUE == get_gblISRLocked_FlagValue())) {}    // aquire mutex
 
     disableGlobalInt();                                 // ensure atomic operation
 #if (__PHR_CONTROLLER__==__MCU_PIC18__)
@@ -156,8 +172,8 @@ uint16_t getBaseTimerValue(void)
 #else
 #endif
     {
-        ui16Temp = REGISTER_TMR0L;
         ui16HiTimer = get_gui16TimerUsMSB_Value();
+        ui16Temp = REGISTER_TMR0L;
     }
 
 #if (__PHR_CONTROLLER__==__MCU_PIC16__)
@@ -169,7 +185,7 @@ uint16_t getBaseTimerValue(void)
 #else
 #endif
     ui16Temp += ui16HiTimer;
-    enableGlobalInt();
+    //enableGlobalInt();                                // esc.comment enabled on corelib_basetimer.c
     return ui16Temp;
 }
 

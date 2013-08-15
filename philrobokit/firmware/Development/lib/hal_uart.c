@@ -66,14 +66,14 @@
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
-void hal_setSerialBAUD(uint24_t ui16Baudrate)
+void hal_setSerialBAUD(uint24_t ui24Baudrate)
 {
-    switch(ui16Baudrate)
+    switch(ui24Baudrate)
     {
         case STD_BAUD_9600:
         {
             BIT_TXSTA_BRGH = HIGH_BAUDRATE;
-            REGISTER_SPBRG = BAUD_9600_BRGVAL;
+            REGISTER_SPBRG = (uint8_t)BAUD_9600_BRGVAL;
 #ifdef UNIT_TEST
             UCUNIT_Tracepoint(0);
 #endif
@@ -83,7 +83,7 @@ void hal_setSerialBAUD(uint24_t ui16Baudrate)
         case STD_BAUD_57600:
         {
             BIT_TXSTA_BRGH = HIGH_BAUDRATE;
-            REGISTER_SPBRG = BAUD_57600_BRGVAL;
+            REGISTER_SPBRG = (uint8_t)BAUD_57600_BRGVAL;
 #ifdef UNIT_TEST
             UCUNIT_Tracepoint(1);
 #endif
@@ -95,7 +95,7 @@ void hal_setSerialBAUD(uint24_t ui16Baudrate)
         case STD_BAUD_115200:
         {
             BIT_TXSTA_BRGH = HIGH_BAUDRATE;
-            REGISTER_SPBRG = BAUD_115200_BRGVAL;
+            REGISTER_SPBRG = (uint8_t)BAUD_115200_BRGVAL;
 #ifdef UNIT_TEST
             UCUNIT_Tracepoint(2);
 #endif
@@ -107,7 +107,7 @@ void hal_setSerialBAUD(uint24_t ui16Baudrate)
         case STD_BAUD_19200:
         {
             BIT_TXSTA_BRGH = HIGH_BAUDRATE;
-            REGISTER_SPBRG = BAUD_19200_BRGVAL;
+            REGISTER_SPBRG = (uint8_t)BAUD_19200_BRGVAL;
 #ifdef UNIT_TEST
             UCUNIT_Tracepoint(3);
 #endif
@@ -117,7 +117,7 @@ void hal_setSerialBAUD(uint24_t ui16Baudrate)
         case STD_BAUD_4800:
         {
             BIT_TXSTA_BRGH = LOW_BAUDRATE;
-            REGISTER_SPBRG = BAUD_4800_BRGVAL;
+            REGISTER_SPBRG = (uint8_t)BAUD_4800_BRGVAL;
 #ifdef UNIT_TEST
             UCUNIT_Tracepoint(4);
 #endif
@@ -127,7 +127,7 @@ void hal_setSerialBAUD(uint24_t ui16Baudrate)
         case STD_BAUD_38400:
         {
             BIT_TXSTA_BRGH = HIGH_BAUDRATE;
-            REGISTER_SPBRG = BAUD_38400_BRGVAL;
+            REGISTER_SPBRG = (uint8_t)BAUD_38400_BRGVAL;
 #ifdef UNIT_TEST
             UCUNIT_Tracepoint(5);
 #endif
@@ -137,7 +137,7 @@ void hal_setSerialBAUD(uint24_t ui16Baudrate)
         case STD_BAUD_2400:
         {
             BIT_TXSTA_BRGH = LOW_BAUDRATE;
-            REGISTER_SPBRG = BAUD_2400_BRGVAL;
+            REGISTER_SPBRG = (uint8_t)BAUD_2400_BRGVAL;
 #ifdef UNIT_TEST
             UCUNIT_Tracepoint(6);
 #endif
@@ -149,7 +149,7 @@ void hal_setSerialBAUD(uint24_t ui16Baudrate)
         case STD_BAUD_1200:
         {
             BIT_TXSTA_BRGH = LOW_BAUDRATE;
-            REGISTER_SPBRG = BAUD_1200_BRGVAL;
+            REGISTER_SPBRG = (uint8_t)BAUD_1200_BRGVAL;
 #ifdef UNIT_TEST
             UCUNIT_Tracepoint(7);
 #endif
@@ -161,7 +161,7 @@ void hal_setSerialBAUD(uint24_t ui16Baudrate)
         default:    // default is 9600 Baudrate
         {
             BIT_TXSTA_BRGH = HIGH_BAUDRATE;
-            REGISTER_SPBRG = BAUD_9600_BRGVAL;
+            REGISTER_SPBRG = (uint8_t)BAUD_9600_BRGVAL;
 #ifdef UNIT_TEST
             UCUNIT_Tracepoint(8);
 #endif
