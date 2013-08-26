@@ -41,7 +41,7 @@
 #ifdef UNIT_TEST                                    // autodefined at unit testing script
 #include "hal_pwm_test_stub.h"
 #else
-#include <PhilRoboKit_CoreLib_Macro.h>
+#include "PhilRoboKit_CoreLib_Macro.h"
 #include "hal_8bit_timer.h"
 #endif
 
@@ -138,7 +138,7 @@ enum PWMPrescaler_et
 #define K_PRESCALE2_FREQ_LIM                122         // >1.22kHz, div by 16
 
 #else
-#warning Clock Frequency Not Defined
+#error No Defined Clock Frequency!!!
 
 #endif
 

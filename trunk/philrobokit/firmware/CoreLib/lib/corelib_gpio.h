@@ -42,7 +42,7 @@
 #ifdef UNIT_TEST                                    // autodefined at unit testing script
 #include "corelib_gpio_test_stub.h"
 #else
-#include <PhilRoboKit_CoreLib_Macro.h>
+#include "PhilRoboKit_CoreLib_Macro.h"
 #include "hal_gpio.h"
 #endif
 

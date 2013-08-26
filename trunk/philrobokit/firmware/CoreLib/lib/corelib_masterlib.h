@@ -37,7 +37,7 @@
 #define __PHILROBOKIT_MASTERLIB_H__
 
 /* Include .h Library Files */
-#include <PhilRoboKit_CoreLib_Macro.h>
+#include "PhilRoboKit_CoreLib_Macro.h"
 
 /* Global Constants */
 /* none */

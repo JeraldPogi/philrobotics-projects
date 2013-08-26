@@ -41,7 +41,7 @@
 #ifdef UNIT_TEST                                    // autodefined at unit testing script
 #include "corelib_pwm_test_stub.h"
 #else
-#include <PhilRoboKit_CoreLib_Macro.h>
+#include "PhilRoboKit_CoreLib_Macro.h"
 #include "hal_pwm.h"
 #endif
 

@@ -281,8 +281,8 @@ void serialFlush(void)
     stUARTTXFiFo.ui8Head = 0;
     stUARTRXFiFo.ui8Tail = 0;
     stUARTTXFiFo.ui8Tail = 0;
-    memset(stUARTTXFiFo.aui8Buffer, 0, sizeof(stUARTTXFiFo.aui8Buffer));
-    memset(stUARTRXFiFo.aui8Buffer, 0, sizeof(stUARTRXFiFo.aui8Buffer));
+    //memset(stUARTTXFiFo.aui8Buffer, 0, sizeof(stUARTTXFiFo.aui8Buffer)); esc.disabled problem on SDCC
+    //memset(stUARTRXFiFo.aui8Buffer, 0, sizeof(stUARTRXFiFo.aui8Buffer)); esc.disabled problem on SDCC
 }
 
 /*******************************************************************************//**

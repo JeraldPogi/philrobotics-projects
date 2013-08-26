@@ -59,6 +59,7 @@ bool_t get_gblISRLocked_FlagValue(void);
 
 void inc_gui16TimerUsMSB_Value(uint16_t ui16Value);
 uint16_t get_gui16TimerUsMSB_Value(void);
+uint16_t getBaseTimerValue(void);
 
 void inc_gui16TimerMs_Value(void);
 uint16_t get_gui16TimerMs_Value(void);

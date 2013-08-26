@@ -41,12 +41,12 @@
 #ifdef UNIT_TEST                                    // autodefined at unit testing script
 #include "hal_8bit_timer_test_stub.h"
 #else
-#include <PhilRoboKit_CoreLib_Macro.h>
+#include "PhilRoboKit_CoreLib_Macro.h"
 #endif
 
 /* User Configuration Definitions */
 #define TIMER_8BIT_ENABLED  TRUE
-#define TIMER2_ENABLED  TRUE
+#define TIMER2_ENABLED      TRUE
 //#define TIMER4_ENABLED    TRUE
 //#define TIMER6_ENABLED    TRUE
 
@@ -119,7 +119,7 @@
 #if(TIMER_8BIT_ENABLED == TRUE)
 void nullTMRFunction();
 
-void (*pt2TMR2ISR)() = &nullTMRFunction;        // interrupt function pointer
+//void (*pt2TMR2ISR)() = &nullTMRFunction;        // interrupt function pointer
 //void (*pt2TMR4ISR)(void) = &nullTMRFunction;      // interrupt function pointer
 //void (*pt2TMR6ISR)(void) = &nullTMRFunction;      // interrupt function pointer
 #endif

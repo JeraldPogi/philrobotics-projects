@@ -25,10 +25,10 @@
 * > along with this program. If not, see http://www.gnu.org/licenses/
 * <BR>
 *---------------------------------------------------------------------------------------------
-* |FW Version   |Date       |Author             |Description                        |
-* |:----        |:----      |:----              |:----                              |
-* |v01.00.00    |201209xx   |Giancarlo A.       |Leverage Library to Standard Architecture|
-* |v01.00.01    |20130405   |ESCII              |Separated module to HAL and Corelib|
+* |FW Version   |Date       |Author             |Description                        			|
+* |:----        |:----      |:----              |:----                              			|
+* |v01.00.00    |201209xx   |Giancarlo A.       |Leverage Library to Standard Architecture		|
+* |v01.00.01    |20130405   |ESCII              |Separated module to HAL and Corelib			|
 * |v01.01.00    |20130514   |ESCII              |Code Formatted, added tracepoint for unit testing|
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
@@ -118,7 +118,7 @@ void configPin(uint8_t ui8Pin, uint8_t ui8Direction)
         else
         {
 #ifdef UNIT_TEST
-            UCUNIT_Tracepoint(5);                                       // must not be reached
+            UCUNIT_Tracepoint(5);                           // must not be reached
 #endif
             /* assert(); */                                 // must not be reached
         }
@@ -161,7 +161,7 @@ void configPin(uint8_t ui8Pin, uint8_t ui8Direction)
     else
     {
 #ifdef UNIT_TEST
-        UCUNIT_Tracepoint(10);                                      // must not be reached
+        UCUNIT_Tracepoint(10);                              // must not be reached
 #endif
         /* assert(); */                                     // null pointer
     }
@@ -312,6 +312,7 @@ void changePinState(uint8_t ui8Pin, enum PinStateOperation_et eOperation)
 * >     bool_t pin_state - the state of the read pin, HIGH or LOW
 * > <BR><BR>
 ***********************************************************************************/
+/*@null@*/
 bool_t checkPinState(uint8_t ui8Pin)
 {
     uint8_t ui8PinStatus, ui8PinMask;
@@ -368,9 +369,9 @@ bool_t checkPinState(uint8_t ui8Pin)
         else
         {
 #ifdef UNIT_TEST
-            UCUNIT_Tracepoint(5);                                       // must not be reached
+            UCUNIT_Tracepoint(5);                                   // must not be reached
 #endif
-            /* assert(); */                                 // must not be reached
+            /* assert(); */                                 		// must not be reached
         }
     }
     /* Port D */

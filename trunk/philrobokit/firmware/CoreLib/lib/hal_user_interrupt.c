@@ -42,6 +42,28 @@
 /* Local Variables */
 extern volatile uint8_t PORTB_BUFFER,PORTB_DIRECTION;
 
+#if(EXTINTENABLED == TRUE)
+extern enum InterruptModes_et eMod0_Mode, eMod1_Mode, eMod2_Mode, eMod3_Mode;
+#endif
+
+#if(RBINTENABLED == TRUE)
+extern enum InterruptModes_et eMod4_Mode, eMod5_Mode, eMod6_Mode, eMod7_Mode;
+#endif
+
+#if(EXTINTENABLED == TRUE)
+extern void (*pt2INT0)();        // interrupt function pointer
+extern void (*pt2INT1)();        // interrupt function pointer
+extern void (*pt2INT2)();        // interrupt function pointer
+//void (*pt2INT3)();             // interrupt function pointer
+#endif
+
+#if(RBINTENABLED == TRUE)
+extern void (*pt2INT4)();        // interrupt function pointer
+extern void (*pt2INT5)();        // interrupt function pointer
+extern void (*pt2INT6)();        // interrupt function pointer
+extern void (*pt2INT7)();        // interrupt function pointer
+#endif
+
 /* Private Function Prototypes */
 /* none */
 
@@ -90,7 +112,16 @@ void extIntISR()
     /* INT0 */
     if(CHANGE == eMod0_Mode)
     {
-        K_INT0_EDGE_BIT = ~K_INT0_EDGE_BIT; // toggle Int0 edge to trigger on next interrupt edge
+        if(0 == K_INT0_EDGE_BIT)
+        {
+            K_INT0_EDGE_BIT = 1;
+        }
+        else
+        {
+            K_INT0_EDGE_BIT = 0;
+        }
+
+        //K_INT0_EDGE_BIT = ~K_INT0_EDGE_BIT; // toggle Int0 edge to trigger on next interrupt edge
     }
 
     /* Call User Function */
@@ -120,7 +151,16 @@ void extInt1ISR()
     /* INT1 */
     if(CHANGE == eMod1_Mode)
     {
-        K_INT1_EDGE_BIT = ~K_INT1_EDGE_BIT; // toggle Int0 edge to trigger on next interrupt edge
+        if(0 == K_INT1_EDGE_BIT)
+        {
+            K_INT1_EDGE_BIT = 1;
+        }
+        else
+        {
+            K_INT1_EDGE_BIT = 0;
+        }
+
+        //K_INT1_EDGE_BIT = ~K_INT1_EDGE_BIT; // toggle Int0 edge to trigger on next interrupt edge
     }
 
     /* Call User Function */
@@ -150,7 +190,16 @@ void extInt2ISR()
     /* INT2 */
     if(CHANGE == eMod2_Mode)
     {
-        K_INT2_EDGE_BIT = ~K_INT2_EDGE_BIT; // toggle Int0 edge to trigger on next interrupt edge
+        if(0 == K_INT2_EDGE_BIT)
+        {
+            K_INT2_EDGE_BIT = 1;
+        }
+        else
+        {
+            K_INT2_EDGE_BIT = 0;
+        }
+
+        //K_INT2_EDGE_BIT = ~K_INT2_EDGE_BIT; // toggle Int0 edge to trigger on next interrupt edge
     }
 
     /* Call User Function */

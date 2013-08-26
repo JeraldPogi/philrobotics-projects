@@ -69,10 +69,30 @@ __CONFIG(WDTE_OFF& FOSC_HS& LVP_OFF& PWRTE_ON& BOREN_OFF);
 #pragma config WDT=OFF
 #pragma config WDTPS=1
 #pragma config PBADEN=OFF
+#else
+#error Device not yet supported!!!
+#endif
 
-/* Glutnix Variant */
-#elif defined( _18F4620 )
-#pragma config OSC=HS               // 8Mhz Crystal
+#else
+#error Device not yet supported!!!
+#endif
+
+#elif defined(SDCC)
+
+#if (__PHR_CONTROLLER__==__MCU_PIC16__)
+/* Anito Rev0 */
+#if defined(__SDCC_PIC16F877A) || defined(__SDCC_PIC16F877)
+typedef unsigned int config;
+config __at (0x2007) __CONFIG = _WDT_OFF & _HS_OSC & _LVP_OFF & _PWRTE_ON & _BODEN_OFF;
+
+#else
+#error Device not yet supported!!!
+#endif
+
+#elif (__PHR_CONTROLLER__==__MCU_PIC18__)
+/* Anito Rev1 */
+#if defined(__SDCC_PIC18F4520)
+#pragma config OSC=HSPLL            // 8Mhz Crystal x 4 PLL
 #pragma config LVP=OFF
 #pragma config PWRT=ON
 #pragma config BOREN=OFF
@@ -87,6 +107,8 @@ __CONFIG(WDTE_OFF& FOSC_HS& LVP_OFF& PWRTE_ON& BOREN_OFF);
 #error Device not yet supported!!!
 #endif
 
+#else
+#error Device not yet supported!!!
 #endif
 
 #else
@@ -170,10 +192,13 @@ int main(void)
 * > <BR><BR>
 ***********************************************************************************/
 void
-#ifndef S_SPLINT_S /* Suppress SPLint Parse Errors */
+#if defined(HI_TECH_C)
 interrupt
 #endif
 isr(void)
+#if defined(SDCC)
+__interrupt (1)
+#endif
 {
     disableGlobalInt();
     set_gblISRLocked_FlagValue();
@@ -189,7 +214,14 @@ isr(void)
 }
 
 #if (__PHR_CONTROLLER__==__MCU_PIC18__)
-void interrupt low_priority low_isr(void)
+void
+#if defined(HI_TECH_C)
+interrupt low_priority
+#endif
+low_isr(void)
+#if defined(SDCC)
+__interrupt (2)
+#endif
 {
     disableGlobalInt();
     set_gblISRLocked_FlagValue();
