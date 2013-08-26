@@ -45,7 +45,7 @@
 #ifdef UNIT_TEST                                    // autodefined at unit testing script
 #include "hal_timer_test_stub.h"
 #else
-#include <PhilRoboKit_CoreLib_Macro.h>
+#include "PhilRoboKit_CoreLib_Macro.h"
 #endif
 
 /* Global Constants */
@@ -75,7 +75,7 @@ enum baseTmrPreScale_et
 #define TMR0_US_INCREMENT                           (255)               // 1uS per increment
 
 #else
-#warning Clock Frequency Not Defined
+#error No Defined Clock Frequency!!!
 
 #endif
 
@@ -107,10 +107,10 @@ enum baseTmrPreScale_et
     REGISTER_T0CON |= (a&TMR0_PRESCALE_MASK)        // semi-collon intentionally omitted
 
 #define hal_getBaseTimerValue()                     get_BaseTimerValue()
+
 /* Public Function Prototypes */
 void setupTimer(void);
 void timerISR(void);
-uint16_t getBaseTimerValue(void);
 
 #endif/* end of hal_timer.h */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

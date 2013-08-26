@@ -40,7 +40,7 @@
 #ifdef UNIT_TEST                                    // autodefined at unit testing script
 #include "hal_16bit_timer_test_stub.h"
 #else
-#include <PhilRoboKit_CoreLib_Macro.h>
+#include "PhilRoboKit_CoreLib_Macro.h"
 #endif
 
 /* Global Constants */
@@ -68,7 +68,7 @@ enum Tmr1PreScale_et
 #else
 
 #ifndef S_SPLINT_S /* Suppress SPLint Parse Errors */
-#warning Clock Frequency Not Defined
+#error No Defined Clock Frequency!!!
 #else
 #define TMR1_PRESCALE                           0
 #endif
@@ -92,7 +92,7 @@ enum Tmr1PreScale_et
     REGISTER_T1CON &=~TMR1_PRESCALE_MASK;       \
     REGISTER_T1CON |= (a<<4)&TMR1_PRESCALE_MASK // semi-collon intentionally omitted
 
-#define hal_setTMR1Postscaler(a)                asm("nop")
+#define hal_setTMR1Postscaler(a)                //asm("nop")
 
 #if (__PHR_CONTROLLER__==__MCU_PIC18__)
 // Timer1 oscillator disabled
@@ -127,7 +127,7 @@ enum Tmr1PreScale_et
 #if(TIMER_16BIT_ENABLED == TRUE)
 void null16BitTMRFunction();
 
-void (*pt2TMR1ISR)() = &null16BitTMRFunction;   // interrupt function pointer
+//void (*pt2TMR1ISR)() = &null16BitTMRFunction;   // interrupt function pointer
 #endif
 
 #endif /* end of hal_8bit_timer.h */

@@ -50,18 +50,10 @@ static volatile uint16_t    gui16TimerMs        = 0;            // only the time
 static volatile uint16_t    gui16TimerSec       = 0;            // only the timer isr must write on these variables
 
 /* Local Variables */
-#if 0
-/* Timer Mutex */
-static          bool_t      gblTimerUsMSB_Mutex = FALSE;
-static          bool_t      gblTimerMs_Mutex    = FALSE;
-static          bool_t      gblTimerSec_Mutex   = FALSE;
-#endif
+/* none */
 
 /* Function Prototypes */
-#if 0
-void get_MutexLock(volatile bool_t* pblMutex);
-void clr_MutexLock(volatile bool_t* pblMutex);
-#endif
+/* none */
 
 /* Public Functions */
 /* A flag to indicate low level initialization has commenced and the global interrupts are alread enabled */
@@ -109,12 +101,58 @@ void inc_gui16TimerUsMSB_Value(uint16_t ui16Value)
 uint16_t get_gui16TimerUsMSB_Value(void)
 {
     uint16_t ui16Temp;
-
-    while(TRUE == gblISRLocked) {}                  // acquire mutex
-
-    disableGlobalInt();                             // Atomic Operation
+    //while(TRUE == gblISRLocked) {}                // acquire mutex
+    //disableGlobalInt();                           // Atomic Operation
     ui16Temp = (gui16TimerUsMSB&0xFF00);
-    enableGlobalInt();
+    //enableGlobalInt();                            // esc.comment enabled on corelib_basetimer.c
+    return ui16Temp;
+}
+
+/*******************************************************************************//**
+* \brief Basetimer counter value
+*
+* > This is function which returns the value of the uS base timer counter
+*
+* > <BR>
+* > **Syntax:**<BR>
+* >      getBaseTimerValue(), ISR
+* > <BR><BR>
+* > **Parameters:**<BR>
+* >     none
+* > <BR><BR>
+* > **Returns:**<BR>
+* >     value of the uS counter
+* > <BR><BR>
+***********************************************************************************/
+uint16_t getBaseTimerValue(void)
+{
+    uint16_t ui16Temp,ui16HiTimer;
+
+    while((TRUE == get_gblISRLocked_FlagValue())) {}    // aquire mutex
+
+    disableGlobalInt();                                 // ensure atomic operation
+#if (__PHR_CONTROLLER__==__MCU_PIC18__)
+    hal_disableBaseTimer();
+#elif (__PHR_CONTROLLER__==__MCU_PIC16__)
+
+    do
+#else
+#endif
+    {
+        ui16HiTimer = get_gui16TimerUsMSB_Value();
+        ui16Temp = REGISTER_TMR0L;
+    }
+
+#if (__PHR_CONTROLLER__==__MCU_PIC16__)
+
+    while(ui16HiTimer != get_gui16TimerUsMSB_Value());
+
+#elif (__PHR_CONTROLLER__==__MCU_PIC18__)
+    hal_enableBaseTimer();
+#else
+#endif
+    ui16Temp += ui16HiTimer;
+    //enableGlobalInt();                                // esc.comment enabled on corelib_basetimer.c
     return ui16Temp;
 }
 
@@ -133,10 +171,8 @@ void inc_gui16TimerMs_Value(void)
 uint16_t get_gui16TimerMs_Value(void)
 {
     uint16_t ui16Temp;
-
-    while(TRUE == gblISRLocked) {}                  // acquire mutex
-
-    disableGlobalInt();                             // Atomic Operation
+    //while(TRUE == gblISRLocked) {}                // acquire mutex
+    //disableGlobalInt();                           // Atomic Operation
     ui16Temp =  gui16TimerMs;
     //enableGlobalInt();                            // esc.comment enabled on corelib_basetimer.c
     return ui16Temp;
@@ -157,44 +193,15 @@ void inc_gui16TimerSec_Value(void)
 uint16_t get_gui16TimerSec_Value(void)
 {
     uint16_t ui16Temp;
-
-    while(TRUE == gblISRLocked) {}                  // acquire mutex
-
-    disableGlobalInt();                             // Atomic Operation
+    //while(TRUE == gblISRLocked) {}                // acquire mutex
+    //disableGlobalInt();                           // Atomic Operation
     ui16Temp = gui16TimerSec;
-    enableGlobalInt();
+    //enableGlobalInt();                            // esc.comment enabled on corelib_basetimer.c
     return ui16Temp;
 }
 
 /* Private Functions */
-#if 0
-void get_MutexLock(volatile bool_t* pblMutex)
-{
-    bool_t blInitValue;
-    blInitValue = FALSE;
-
-    if(TRUE == gblISRLocked)                        // mutex locked by interrupt
-    {
-        *pblMutex = TRUE;
-    }
-    else
-    {
-        do
-        {
-            disableGlobalInt();                    // ensure atomic operation
-            blInitValue = *pblMutex;
-            *pblMutex = TRUE;
-            enableGlobalInt();
-        }
-        while(TRUE == blInitValue);
-    }
-}
-
-void clr_MutexLock(volatile bool_t* pblMutex)
-{
-    *pblMutex = FALSE;
-}
-#endif
+/* none */
 
 /* end of PhilRoboKit_CoreLib_GlobalDefs.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

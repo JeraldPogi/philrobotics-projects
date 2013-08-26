@@ -42,7 +42,7 @@
 #ifdef UNIT_TEST                                 // autodefined at unit testing script
 #include "hal_gpio_test_stub.h"
 #else
-#include <PhilRoboKit_CoreLib_Macro.h>
+#include "PhilRoboKit_CoreLib_Macro.h"
 #endif
 
 /* User Configuration Definitions */
@@ -109,6 +109,11 @@ enum DigitalPins_et
     D21, D22, D23, D24, D25, D26, D27, D28              /* PORTD, Ready to Fly Port */
 };
 
+enum AnalogPins_et
+{
+    A0, A1, A2, A3, A4, A5, A6
+};
+
 /* PORTD, Ready to Fly Port */
 #define SERVO                           D21
 #define BUZZER                          D22
@@ -118,11 +123,6 @@ enum DigitalPins_et
 #define LED3                            D26
 #define LED2                            D27
 #define LED1                            D28
-
-enum AnalogPins_et
-{
-    A0, A1, A2, A3, A4, A5, A6
-};
 
 /* PORTC */
 // D0

@@ -44,7 +44,7 @@
 #ifdef UNIT_TEST                                    // autodefined at unit testing script
 #include "hal_uart_test_stub.h"
 #else
-#include <PhilRoboKit_CoreLib_Macro.h>
+#include "PhilRoboKit_CoreLib_Macro.h"
 #endif
 
 /* User Configuration Definitions */

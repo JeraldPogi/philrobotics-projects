@@ -40,7 +40,9 @@
 /* none */
 
 /* Local Variables */
-/* none */
+#if(TIMER_16BIT_ENABLED == TRUE)
+static void (*pt2TMR1ISR)() = &null16BitTMRFunction;    // interrupt function pointer
+#endif
 
 /* Private Function Prototypes */
 /* none */

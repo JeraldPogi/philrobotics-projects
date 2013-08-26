@@ -40,7 +40,7 @@
 #ifdef UNIT_TEST                                    // autodefined at unit testing script
 #include "corelib_16bit_timer_test_stub.h"
 #else
-#include <PhilRoboKit_CoreLib_Macro.h>
+#include "PhilRoboKit_CoreLib_Macro.h"
 #include "hal_16bit_timer.h"
 #endif
 
@@ -56,7 +56,7 @@
 //#define K16_CRITICALTASK_PERIOD                     69    // 0.5uS resolution @ 8Mhz
 #define K16_CRITICALTASK_PERIOD                     2000    // 1mS @ 0.5uS resolution @ 8Mhz
 #else
-#warning Clock Frequency Not Defined
+#error No Defined Clock Frequency!!!
 #endif
 
 /* Global Constants */

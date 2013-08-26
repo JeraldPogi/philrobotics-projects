@@ -41,7 +41,11 @@
 /* none */
 
 /* Local Variables */
-/* none */
+#if(TIMER_8BIT_ENABLED == TRUE)
+static void (*pt2TMR2ISR)() = &nullTMRFunction;     // interrupt function pointer
+//void (*pt2TMR4ISR)(void) = &nullTMRFunction;      // interrupt function pointer
+//void (*pt2TMR6ISR)(void) = &nullTMRFunction;      // interrupt function pointer
+#endif
 
 /* Private Function Prototypes */
 /* none */
@@ -161,6 +165,7 @@ void setup8BitTimerFull(enum tmrModules_et eTmrModule, void(*callback)(), uint8_
 }
 #endif
 
+#if(TIMER_8BIT_ENABLED == TRUE)
 /*******************************************************************************//**
 * \brief Setup the 8Bit timer peripheral to count every 10uS
 *
@@ -215,6 +220,7 @@ void setup8BitTimer(enum tmrModules_et eTmrModule, void(*callback)())
         /* do nothing */
     }
 }
+#endif
 
 /*******************************************************************************//**
 * \brief Set the 8bit count value
