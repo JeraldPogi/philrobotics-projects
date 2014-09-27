@@ -1,0 +1,257 @@
+Version 3.2 HI-TECH Software Intermediate Code
+"58 C:\Users\glutnix\Desktop\philrobokit_xc8/hardware/cores\compilers\htc\..\..\PhilRoboKit_CoreLib_GlobalDefs.h
+[v _get_gblISRLocked_FlagValue `(uc ~T0 @X0 0 ef ]
+"2441 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _GIE `Vb ~T0 @X0 0 e@95 ]
+"2481
+[v _PEIE `Vb ~T0 @X0 0 e@94 ]
+"62 C:\Users\glutnix\Desktop\philrobokit_xc8/hardware/cores\compilers\htc\..\..\PhilRoboKit_CoreLib_GlobalDefs.h
+[v _getBaseTimerValue `(ui ~T0 @X0 0 ef ]
+"65
+[v _get_gui16TimerMs_Value `(ui ~T0 @X0 0 ef ]
+"49 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[; <" INDF equ 00h ;# ">
+"55
+[; <" TMR0 equ 01h ;# ">
+"61
+[; <" PCL equ 02h ;# ">
+"67
+[; <" STATUS equ 03h ;# ">
+"154
+[; <" FSR equ 04h ;# ">
+"160
+[; <" PORTA equ 05h ;# ">
+"209
+[; <" PORTB equ 06h ;# ">
+"270
+[; <" PORTC equ 07h ;# ">
+"331
+[; <" PORTD equ 08h ;# ">
+"392
+[; <" PORTE equ 09h ;# ">
+"423
+[; <" PCLATH equ 0Ah ;# ">
+"442
+[; <" INTCON equ 0Bh ;# ">
+"519
+[; <" PIR1 equ 0Ch ;# ">
+"580
+[; <" PIR2 equ 0Dh ;# ">
+"619
+[; <" TMR1 equ 0Eh ;# ">
+"625
+[; <" TMR1L equ 0Eh ;# ">
+"631
+[; <" TMR1H equ 0Fh ;# ">
+"637
+[; <" T1CON equ 010h ;# ">
+"711
+[; <" TMR2 equ 011h ;# ">
+"717
+[; <" T2CON equ 012h ;# ">
+"787
+[; <" SSPBUF equ 013h ;# ">
+"793
+[; <" SSPCON equ 014h ;# ">
+"862
+[; <" CCPR1 equ 015h ;# ">
+"868
+[; <" CCPR1L equ 015h ;# ">
+"874
+[; <" CCPR1H equ 016h ;# ">
+"880
+[; <" CCP1CON equ 017h ;# ">
+"937
+[; <" RCSTA equ 018h ;# ">
+"1031
+[; <" TXREG equ 019h ;# ">
+"1037
+[; <" RCREG equ 01Ah ;# ">
+"1043
+[; <" CCPR2 equ 01Bh ;# ">
+"1049
+[; <" CCPR2L equ 01Bh ;# ">
+"1055
+[; <" CCPR2H equ 01Ch ;# ">
+"1061
+[; <" CCP2CON equ 01Dh ;# ">
+"1118
+[; <" ADRESH equ 01Eh ;# ">
+"1124
+[; <" ADCON0 equ 01Fh ;# ">
+"1219
+[; <" OPTION_REG equ 081h ;# ">
+"1288
+[; <" TRISA equ 085h ;# ">
+"1337
+[; <" TRISB equ 086h ;# ">
+"1398
+[; <" TRISC equ 087h ;# ">
+"1459
+[; <" TRISD equ 088h ;# ">
+"1520
+[; <" TRISE equ 089h ;# ">
+"1576
+[; <" PIE1 equ 08Ch ;# ">
+"1637
+[; <" PIE2 equ 08Dh ;# ">
+"1676
+[; <" PCON equ 08Eh ;# ">
+"1709
+[; <" SSPCON2 equ 091h ;# ">
+"1770
+[; <" PR2 equ 092h ;# ">
+"1776
+[; <" SSPADD equ 093h ;# ">
+"1782
+[; <" SSPSTAT equ 094h ;# ">
+"1950
+[; <" TXSTA equ 098h ;# ">
+"2030
+[; <" SPBRG equ 099h ;# ">
+"2036
+[; <" CMCON equ 09Ch ;# ">
+"2105
+[; <" CVRCON equ 09Dh ;# ">
+"2169
+[; <" ADRESL equ 09Eh ;# ">
+"2175
+[; <" ADCON1 equ 09Fh ;# ">
+"2233
+[; <" EEDATA equ 010Ch ;# ">
+"2239
+[; <" EEADR equ 010Dh ;# ">
+"2245
+[; <" EEDATH equ 010Eh ;# ">
+"2251
+[; <" EEADRH equ 010Fh ;# ">
+"2257
+[; <" EECON1 equ 018Ch ;# ">
+"2301
+[; <" EECON2 equ 018Dh ;# ">
+"69 hardware/cores/lib\corelib_basetimer.c
+[v _getUs `(ui ~T0 @X0 1 ef ]
+"70
+{
+[e :U _getUs ]
+[f ]
+"71
+[v _ui16TempBuff `ui ~T0 @X0 1 a ]
+"73
+[e $U 98  ]
+[e :U 99 ]
+{
+}
+[e :U 98 ]
+[e $ == -> == -> 1 `i -> 1 `i `i -> ( _get_gblISRLocked_FlagValue ..  `i 99  ]
+[e :U 100 ]
+"75
+[e = _GIE -> -> 0 `i `b ]
+[e = _PEIE -> -> 0 `i `b ]
+"76
+[e = _ui16TempBuff ( _getBaseTimerValue ..  ]
+"77
+[e = _GIE -> -> 1 `i `b ]
+[e = _PEIE -> -> 1 `i `b ]
+"78
+[e ) _ui16TempBuff ]
+[e $UE 97  ]
+"79
+[e :UE 97 ]
+}
+"98
+[v _getElapsedUs `(ui ~T0 @X0 1 ef1`ui ]
+"99
+{
+[e :U _getElapsedUs ]
+"98
+[v _ui16TimeUs `ui ~T0 @X0 1 r1 ]
+"99
+[f ]
+"100
+[v _ui16TempBuff `ui ~T0 @X0 1 a ]
+"102
+[e $U 102  ]
+[e :U 103 ]
+{
+}
+[e :U 102 ]
+[e $ == -> == -> 1 `i -> 1 `i `i -> ( _get_gblISRLocked_FlagValue ..  `i 103  ]
+[e :U 104 ]
+"104
+[e = _GIE -> -> 0 `i `b ]
+[e = _PEIE -> -> 0 `i `b ]
+"105
+[e = _ui16TempBuff - ( _getBaseTimerValue ..  _ui16TimeUs ]
+"106
+[e = _GIE -> -> 1 `i `b ]
+[e = _PEIE -> -> 1 `i `b ]
+"107
+[e ) _ui16TempBuff ]
+[e $UE 101  ]
+"108
+[e :UE 101 ]
+}
+"128
+[v _getMs `(ui ~T0 @X0 1 ef ]
+"129
+{
+[e :U _getMs ]
+[f ]
+"130
+[v _ui16TempBuff `ui ~T0 @X0 1 a ]
+"132
+[e $U 106  ]
+[e :U 107 ]
+{
+}
+[e :U 106 ]
+[e $ == -> == -> 1 `i -> 1 `i `i -> ( _get_gblISRLocked_FlagValue ..  `i 107  ]
+[e :U 108 ]
+"134
+[e = _GIE -> -> 0 `i `b ]
+[e = _PEIE -> -> 0 `i `b ]
+"135
+[e = _ui16TempBuff ( _get_gui16TimerMs_Value ..  ]
+"136
+[e = _GIE -> -> 1 `i `b ]
+[e = _PEIE -> -> 1 `i `b ]
+"137
+[e ) _ui16TempBuff ]
+[e $UE 105  ]
+"138
+[e :UE 105 ]
+}
+"157
+[v _getElapsedMs `(ui ~T0 @X0 1 ef1`ui ]
+"158
+{
+[e :U _getElapsedMs ]
+"157
+[v _ui16TimeMs `ui ~T0 @X0 1 r1 ]
+"158
+[f ]
+"159
+[v _ui16TempBuff `ui ~T0 @X0 1 a ]
+"161
+[e $U 110  ]
+[e :U 111 ]
+{
+}
+[e :U 110 ]
+[e $ == -> == -> 1 `i -> 1 `i `i -> ( _get_gblISRLocked_FlagValue ..  `i 111  ]
+[e :U 112 ]
+"163
+[e = _GIE -> -> 0 `i `b ]
+[e = _PEIE -> -> 0 `i `b ]
+"164
+[e = _ui16TempBuff - ( _get_gui16TimerMs_Value ..  _ui16TimeMs ]
+"165
+[e = _GIE -> -> 1 `i `b ]
+[e = _PEIE -> -> 1 `i `b ]
+"166
+[e ) _ui16TempBuff ]
+[e $UE 109  ]
+"167
+[e :UE 109 ]
+}

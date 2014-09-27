@@ -42,7 +42,7 @@
 /* Include .h Library Files */
 //#include <htc.h>
 #include <xc.h>
-#include "PhilRoboKit_CoreLib_GlobalDefs.h"
+#include "..\..\PhilRoboKit_CoreLib_GlobalDefs.h"
 
 /* User Configuration Definitions */
 /* none */
@@ -262,12 +262,12 @@
 /*@notfunction@*/
 #define enableGlobalInt()                           \
     BIT_INTCON_GIE = 1;                             \
-    BIT_INTCON_PEIE = 1                             // semi-collon intentionally omitted
+    BIT_INTCON_PEIE = 1                             // semi-colon intentionally omitted
 
 /*@notfunction@*/
 #define disableGlobalInt()                          \
     BIT_INTCON_GIE = 0;                             \
-    BIT_INTCON_PEIE = 0                             // semi-collon intentionally omitted
+    BIT_INTCON_PEIE = 0                             // semi-colon intentionally omitted
 
 /*@notfunction@*/
 #define getGlobalIntEnableStatus()                  ((BIT_INTCON_GIE) ? true : false)
@@ -278,14 +278,14 @@
     while((false == getGlobalIntEnableStatus()) && (true == get_gblInitialized_FlagValue())){};   \
     disableGlobalInt();                             \
     __delay_us(x);                                  \
-    enableGlobalInt()                               // semi-collon intentionally omitted
+    enableGlobalInt()                               // semi-colon intentionally omitted
 
 /*@notfunction@*/
 #define delayMs(x)                                  \
     while((false == getGlobalIntEnableStatus()) && (true == get_gblInitialized_FlagValue())){};   \
     disableGlobalInt();                             \
     __delay_ms(x);                                  \
-    enableGlobalInt()                               // semi-collon intentionally omitted
+    enableGlobalInt()                               // semi-colon intentionally omitted
 
 /* Public Function Prototypes */
 /* none */

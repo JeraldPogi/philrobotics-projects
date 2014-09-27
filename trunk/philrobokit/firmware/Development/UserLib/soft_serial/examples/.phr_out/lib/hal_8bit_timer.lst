@@ -1,0 +1,75 @@
+     1: /*****************************************************************************************//**
+     2: * # PhilRobotics | Philippine Electronics and Robotics Enthusiasts Club #
+     3: * http://philrobotics.com | http://philrobotics.com/forum | http://facebook.com/philrobotics
+     4: * phirobotics.core@philrobotics.com
+     5: *
+     6: *---------------------------------------------------------------------------------------------
+     7: * |Filename:      | "hal_8bit_timer.c"                          |
+     8: * |:----          |:----                                        |
+     9: * |Description:   | This is a driver for micrcochip 8bit timer (TMR2, TMR4, TMR6) |
+    10: * |Revision:      | v00.02.00                                   |
+    11: * |Author:        | Efren S. Cruzat II                          |
+    12: * |               |                                             |
+    13: * |Dependencies:  |                                             |
+    14: *
+    15: * > This program is free software: you can redistribute it and/or modify
+    16: * > it under the terms of the GNU General Public License as published by
+    17: * > the Free Software Foundation, either version 3 of the License, or
+    18: * > (at your option) any later version.
+    19: * > This program is distributed in the hope that it will be useful,
+    20: * > but WITHOUT ANY WARRANTY; without even the implied warranty of
+    21: * > MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    22: * > GNU General Public License for more details.
+    23: * > <BR><BR>
+    24: * > You should have received a copy of the GNU General Public License
+    25: * > along with this program. If not, see http://www.gnu.org/licenses/
+    26: * <BR>
+    27: *---------------------------------------------------------------------------------------------
+    28: * |FW Version   |Date       |Author             |Description                        |
+    29: * |:----        |:----      |:----              |:----                              |
+    30: * |v00.00.01    |20120620   |ESCII              |Library Initial Release            |
+    31: * |v00.01.00    |20130205   |ESCII              |Modified For Layered Architecture  |
+    32: * |v00.02.00    |20130514   |ESCII              |Code Formatted                     |
+    33: *********************************************************************************************/
+    34: #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
+    35: #undef  __SHOW_MODULE_HEADER__
+    36: 
+    37: #include "hal_8bit_timer.h"
+    38: 
+    39: /* Local Constants */
+    40: /* none */
+    41: 
+    42: /* Local Variables */
+    43: /* none */
+    44: 
+    45: /* Private Function Prototypes */
+    46: /* none */
+    47: 
+    48: /* Public Functions */
+    49: /*******************************************************************************//**
+    50: * \brief Initialize 8bit timer interrupt function pointer with null function
+    51: *
+    52: * > This function basically does nothing and is used to initialize 8bit timer
+    53: * > interrupt function pointer.
+    54: *
+    55: * > <BR>
+    56: * > **Syntax:**<BR>
+    57: * >     nullTMRFunction()
+    58: * > <BR><BR>
+    59: * > **Parameters:**<BR>
+    60: * >     none
+    61: * > <BR><BR>
+    62: * > **Returns:**<BR>
+    63: * >     none
+    64: * > <BR><BR>
+    65: ***********************************************************************************/
+    66: void nullTMRFunction()
+    67: {
+    68:     ;/* NULL */
+    69: }
+    70: 
+    71: /* Private Functions */
+    72: /* none */
+    73: 
+    74: /* end of hal_8bit_timer.c */
+    75: //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -63,16 +63,14 @@ enum baseTmrPreScale_et
 
 /* User Configuration Definitions */
 #if (_XTAL_FREQ == 32000000) || (defined S_SPLINT_S)
-#define TMR0_PRESCALE                               (TMR0_PRE_DIV8)
-#define TMR0_US_INCREMENT                           (255)               // 1uS per increment
+#define TMR0_PRESCALE                               (TMR0_PRE_DIV32)
+#define TMR0_1MS_PRELOAD                            (6)                 // TMR0_1MS_PRELOAD @ TMR0_PRE_DIV32, 4uS per increment * 250 increments = 1mS
+//#define TMR0_US_INCREMENT                         (255)               // 1uS per increment
 
 #elif (_XTAL_FREQ == 20000000)
-#define TMR0_PRESCALE                               (TMR0_PRE_DIV4)
-#define TMR0_US_INCREMENT                           (205)               // @TMR0_PRE_DIV4 0.8uS per increment * 256 increments = 204.8uS
-
-#elif (_XTAL_FREQ == 8000000)
-#define TMR0_PRESCALE                               (TMR0_PRE_DIV2)
-#define TMR0_US_INCREMENT                           (255)               // 1uS per increment
+#define TMR0_PRESCALE                               (TMR0_PRE_DIV128)
+#define TMR0_1MS_PRELOAD                            (217)               // TMR0_1MS_PRELOAD @ TMR0_PRE_DIV128, 25.6uS per increment * 39 increments = 0.998mS, ~ 1mS
+//#define TMR0_US_INCREMENT                         (205)               // TMR0_US_INCREMENT @ TMR0_PRE_DIV4, 0.8uS per increment * 256 increments = 204.8uS
 
 #else
 #error No Defined Clock Frequency!!!
@@ -95,21 +93,53 @@ enum baseTmrPreScale_et
 #define hal_use16BitTMR0()                          (BIT_T0CON_T08BIT = 0)
 #endif
 
+//#define __TIMER_SEC__
+
 /* Timer0 Peripheral Init */
 #define hal_TMR0_Init()                             \
     BIT_T0CON_T0CS  = 0;                            \
     BIT_T0CON_PSA   = 0;                            \
-    REGISTER_TMR0L  = 0                             // semi-collon intentionally omitted
+    REGISTER_TMR0L  = TMR0_1MS_PRELOAD              // semi-colon intentionally omitted
+    //REGISTER_TMR0L  = 0                           // semi-colon intentionally omitted
 
 /* TMR0 Prescaler Value */
 #define hal_setTMR0Prescaler(a)                     \
     REGISTER_T0CON &=~TMR0_PRESCALE_MASK;           \
-    REGISTER_T0CON |= (a&TMR0_PRESCALE_MASK)        // semi-collon intentionally omitted
+    REGISTER_T0CON |= (a&TMR0_PRESCALE_MASK)        // semi-colon intentionally omitted
 
-#define hal_getBaseTimerValue()                     get_BaseTimerValue()
+//#define hal_getBaseTimerValue()                   get_BaseTimerValue()
 
 /* Public Function Prototypes */
-void setupTimer(void);
+//void setupTimer(void);
+    /* Set Prescaler */
+    /* Timer Peripheral Init */
+    /* Enable Timer Module (PIC18) */
+    /* Enable Interrupt */
+#if (__PHR_CONTROLLER__==__MCU_PIC18__)
+#define setupTimer()                                        \
+    REGISTER_T0CON &=~TMR0_PRESCALE_MASK;                   \
+    REGISTER_T0CON |= (TMR0_PRESCALE&TMR0_PRESCALE_MASK);   \
+    BIT_T0CON_T0CS  = 0;                                    \
+    BIT_T0CON_PSA   = 0;                                    \
+    REGISTER_TMR0L  = TMR0_1MS_PRELOAD;                     \
+    BIT_T0CON_T08BIT = 1;                                   \
+    BIT_T0CON_TMR0ON = 1;                                   \
+    BIT_INTCON_TMR0IF = 0;                                  \
+    BIT_INTCON_TMR0IE = 1                                   // semi-colon intentionally omitted
+
+#elif (__PHR_CONTROLLER__==__MCU_PIC16__)
+#define setupTimer()                                        \
+    REGISTER_T0CON &=~TMR0_PRESCALE_MASK;                   \
+    REGISTER_T0CON |= (TMR0_PRESCALE&TMR0_PRESCALE_MASK);   \
+    BIT_T0CON_T0CS  = 0;                                    \
+    BIT_T0CON_PSA   = 0;                                    \
+    REGISTER_TMR0L  = TMR0_1MS_PRELOAD;                     \
+    BIT_INTCON_TMR0IF = 0;                                  \
+    BIT_INTCON_TMR0IE = 1                                   // semi-colon intentionally omitted
+
+#else
+#endif
+
 void timerISR(void);
 
 #endif/* end of hal_timer.h */

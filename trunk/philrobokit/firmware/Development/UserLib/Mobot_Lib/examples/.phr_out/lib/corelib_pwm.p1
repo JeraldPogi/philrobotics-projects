@@ -1,0 +1,433 @@
+Version 3.2 HI-TECH Software Intermediate Code
+"70 hardware/cores/lib\corelib_pwm.c
+[c E1462 0 1 .. ]
+[n E1462 PWMModules_et PWM0 PWM1  ]
+"64 hardware/cores/lib\corelib_pwm.h
+[v _setPWMFrequency `(v ~T0 @X0 0 ef1`ui ]
+"65
+[v _setPWMDuty `(v ~T0 @X0 0 ef2`E1462`ui ]
+"81 hardware/cores/lib\corelib_pwm.c
+[c E1401 2 4 6 .. ]
+[n E1401 tmrModules_et TIMER2 TIMER4 TIMER6  ]
+[v F1410 `(v ~T0 @X0 0 tf ]
+"65 C:\Users\glutnix\Desktop\philrobokit_xc8/hardware/cores/lib\corelib_8bit_timer.h
+[v _setup8BitTimerFull `(v ~T0 @X0 0 ef4`E1401`*F1410`uc`uc ]
+"120 C:\Users\glutnix\Desktop\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v _nullTMRFunction `(v ~T0 @X0 0 ef ]
+"878 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _CCP1CON `Vuc ~T0 @X0 0 e@23 ]
+"86 hardware/cores/lib\corelib_pwm.c
+[c E1420 0 2 4 5 6 7 12 .. ]
+[n E1420 PWMModes_et PWM_OFF COMP_TOGGLE_CCPO CAPTURE_FALL CAPTURE_RISE CAPTURE_4TH_FALL CAPTURE_16TH_RISE PWM_MODE  ]
+"1396 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _TRISC `Vuc ~T0 @X0 0 e@135 ]
+"1059
+[v _CCP2CON `Vuc ~T0 @X0 0 e@29 ]
+"2663
+[v _TMR2ON `Vb ~T0 @X0 0 e@146 ]
+"148 hardware/cores/lib\corelib_pwm.c
+[c E1428 0 1 2 .. ]
+[n E1428 PWMPrescaler_et PRESCALE0_VAL PRESCALE1_VAL PRESCALE2_VAL  ]
+"67 C:\Users\glutnix\Desktop\philrobokit_xc8/hardware/cores/lib\corelib_8bit_timer.h
+[v _set8BitTimer `(v ~T0 @X0 0 ef2`E1401`uc ]
+"866 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _CCPR1L `Vuc ~T0 @X0 0 e@21 ]
+"1047
+[v _CCPR2L `Vuc ~T0 @X0 0 e@27 ]
+"49 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[; <" INDF equ 00h ;# ">
+"55
+[; <" TMR0 equ 01h ;# ">
+"61
+[; <" PCL equ 02h ;# ">
+"67
+[; <" STATUS equ 03h ;# ">
+"154
+[; <" FSR equ 04h ;# ">
+"160
+[; <" PORTA equ 05h ;# ">
+"209
+[; <" PORTB equ 06h ;# ">
+"270
+[; <" PORTC equ 07h ;# ">
+"331
+[; <" PORTD equ 08h ;# ">
+"392
+[; <" PORTE equ 09h ;# ">
+"423
+[; <" PCLATH equ 0Ah ;# ">
+"442
+[; <" INTCON equ 0Bh ;# ">
+"519
+[; <" PIR1 equ 0Ch ;# ">
+"580
+[; <" PIR2 equ 0Dh ;# ">
+"619
+[; <" TMR1 equ 0Eh ;# ">
+"625
+[; <" TMR1L equ 0Eh ;# ">
+"631
+[; <" TMR1H equ 0Fh ;# ">
+"637
+[; <" T1CON equ 010h ;# ">
+"711
+[; <" TMR2 equ 011h ;# ">
+"717
+[; <" T2CON equ 012h ;# ">
+"787
+[; <" SSPBUF equ 013h ;# ">
+"793
+[; <" SSPCON equ 014h ;# ">
+"862
+[; <" CCPR1 equ 015h ;# ">
+"868
+[; <" CCPR1L equ 015h ;# ">
+"874
+[; <" CCPR1H equ 016h ;# ">
+"880
+[; <" CCP1CON equ 017h ;# ">
+"937
+[; <" RCSTA equ 018h ;# ">
+"1031
+[; <" TXREG equ 019h ;# ">
+"1037
+[; <" RCREG equ 01Ah ;# ">
+"1043
+[; <" CCPR2 equ 01Bh ;# ">
+"1049
+[; <" CCPR2L equ 01Bh ;# ">
+"1055
+[; <" CCPR2H equ 01Ch ;# ">
+"1061
+[; <" CCP2CON equ 01Dh ;# ">
+"1118
+[; <" ADRESH equ 01Eh ;# ">
+"1124
+[; <" ADCON0 equ 01Fh ;# ">
+"1219
+[; <" OPTION_REG equ 081h ;# ">
+"1288
+[; <" TRISA equ 085h ;# ">
+"1337
+[; <" TRISB equ 086h ;# ">
+"1398
+[; <" TRISC equ 087h ;# ">
+"1459
+[; <" TRISD equ 088h ;# ">
+"1520
+[; <" TRISE equ 089h ;# ">
+"1576
+[; <" PIE1 equ 08Ch ;# ">
+"1637
+[; <" PIE2 equ 08Dh ;# ">
+"1676
+[; <" PCON equ 08Eh ;# ">
+"1709
+[; <" SSPCON2 equ 091h ;# ">
+"1770
+[; <" PR2 equ 092h ;# ">
+"1776
+[; <" SSPADD equ 093h ;# ">
+"1782
+[; <" SSPSTAT equ 094h ;# ">
+"1950
+[; <" TXSTA equ 098h ;# ">
+"2030
+[; <" SPBRG equ 099h ;# ">
+"2036
+[; <" CMCON equ 09Ch ;# ">
+"2105
+[; <" CVRCON equ 09Dh ;# ">
+"2169
+[; <" ADRESL equ 09Eh ;# ">
+"2175
+[; <" ADCON1 equ 09Fh ;# ">
+"2233
+[; <" EEDATA equ 010Ch ;# ">
+"2239
+[; <" EEADR equ 010Dh ;# ">
+"2245
+[; <" EEDATH equ 010Eh ;# ">
+"2251
+[; <" EEADRH equ 010Fh ;# ">
+"2257
+[; <" EECON1 equ 018Ch ;# ">
+"2301
+[; <" EECON2 equ 018Dh ;# ">
+"43 hardware/cores/lib\corelib_pwm.c
+[v _ui8PreScaler `uc ~T0 @X0 1 s ]
+[i _ui8PreScaler
+-> -> 1 `i `uc
+]
+[v _ui8PreScalerVal `uc ~T0 @X0 1 s ]
+[i _ui8PreScalerVal
+-> -> 1 `i `uc
+]
+[v _ui8PR2plus1 `uc ~T0 @X0 1 s ]
+[i _ui8PR2plus1
+-> -> 0 `i `uc
+]
+"69
+[v _setupPWM `(v ~T0 @X0 1 ef3`E1462`ui`ui ]
+"70
+{
+[e :U _setupPWM ]
+"69
+[v _ePWM_Module `E1462 ~T0 @X0 1 r1 ]
+[v _ui16Frequency `ui ~T0 @X0 1 r2 ]
+[v _ui16DutyCycle `ui ~T0 @X0 1 r3 ]
+"70
+[f ]
+"72
+[e ( _setPWMFrequency (1 _ui16Frequency ]
+"74
+[e ( _setPWMDuty (2 , _ePWM_Module _ui16DutyCycle ]
+"81
+[e ( _setup8BitTimerFull (4 , , , -> . `E1401 0 `E1401 &U _nullTMRFunction _ui8PreScalerVal -> -> 0 `i `uc ]
+"84
+[e $ ! == -> . `E1462 0 `i -> _ePWM_Module `i 98  ]
+"85
+{
+"86
+[e = _CCP1CON -> & -> . `E1420 6 `i -> 15 `i `uc ]
+"87
+[e =& _TRISC -> ~ -> 4 `i `uc ]
+"88
+}
+[e $U 99  ]
+"89
+[e :U 98 ]
+[e $ ! == -> . `E1462 1 `i -> _ePWM_Module `i 100  ]
+"90
+{
+"91
+[e = _CCP2CON -> & -> . `E1420 6 `i -> 15 `i `uc ]
+"92
+[e =& _TRISC -> ~ -> 2 `i `uc ]
+"93
+}
+[e $U 101  ]
+"94
+[e :U 100 ]
+"95
+{
+"98
+}
+[e :U 101 ]
+[e :U 99 ]
+"101
+[e = _TMR2ON -> -> 1 `i `b ]
+"102
+[e :UE 97 ]
+}
+"122
+[v _setPWMFrequency `(v ~T0 @X0 1 ef1`ui ]
+"123
+{
+[e :U _setPWMFrequency ]
+"122
+[v _ui16Frequency `ui ~T0 @X0 1 r1 ]
+"123
+[f ]
+"124
+[v _ui16TempVar `ui ~T0 @X0 1 a ]
+"128
+[v _ui24Period `um ~T0 @X0 1 a ]
+"131
+[e $ ! > _ui16Frequency -> -> 20000 `i `ui 103  ]
+"132
+{
+"133
+[e = _ui16Frequency -> -> 20000 `i `ui ]
+"134
+}
+[e $U 104  ]
+"135
+[e :U 103 ]
+[e $ ! < _ui16Frequency -> -> 122 `i `ui 105  ]
+"136
+{
+"137
+[e = _ui16Frequency -> -> 122 `i `ui ]
+"138
+}
+[e $U 106  ]
+"139
+[e :U 105 ]
+"140
+{
+"143
+}
+[e :U 106 ]
+[e :U 104 ]
+"146
+[e $ ! >= _ui16Frequency -> -> 1953 `i `ui 107  ]
+"147
+{
+"148
+[e = _ui8PreScalerVal -> . `E1428 0 `uc ]
+"149
+}
+[e $U 108  ]
+"150
+[e :U 107 ]
+[e $ ! >= _ui16Frequency -> -> 488 `i `ui 109  ]
+"151
+{
+"152
+[e = _ui8PreScalerVal -> . `E1428 1 `uc ]
+"153
+}
+[e $U 110  ]
+"154
+[e :U 109 ]
+[e $ ! >= _ui16Frequency -> -> 122 `i `ui 111  ]
+"155
+{
+"156
+[e = _ui8PreScalerVal -> . `E1428 2 `uc ]
+"157
+}
+[e $U 112  ]
+"158
+[e :U 111 ]
+"159
+{
+"160
+[e = _ui8PreScalerVal -> . `E1428 2 `uc ]
+"161
+}
+[e :U 112 ]
+[e :U 110 ]
+[e :U 108 ]
+"164
+[e = _ui8PreScaler -> << -> _ui8PreScalerVal `i -> 1 `i `uc ]
+"165
+[e = _ui8PreScaler -> << -> -> -> 1 `i `uc `i _ui8PreScaler `uc ]
+"166
+[e = _ui24Period -> / -> 100000000 `ul -> _ui16Frequency `ul `um ]
+"167
+[e = _ui16TempVar * -> -> 200 `i `ui -> _ui8PreScaler `ui ]
+"168
+[e = _ui24Period / _ui24Period -> _ui16TempVar `um ]
+"171
+[e $ ! > _ui24Period -> -> -> 255 `i `m `um 113  ]
+"172
+{
+"173
+[e = _ui8PR2plus1 -> -> 255 `i `uc ]
+"174
+}
+[e $U 114  ]
+"175
+[e :U 113 ]
+"176
+{
+"177
+[e = _ui8PR2plus1 -> _ui24Period `uc ]
+"178
+}
+[e :U 114 ]
+"180
+[e ( _set8BitTimer (2 , -> . `E1401 0 `E1401 _ui8PR2plus1 ]
+"181
+[e :UE 102 ]
+}
+"201
+[v _setPWMDuty `(v ~T0 @X0 1 ef2`E1462`ui ]
+"202
+{
+[e :U _setPWMDuty ]
+"201
+[v _ePWM_Module `E1462 ~T0 @X0 1 r1 ]
+[v _ui16DutyCycle `ui ~T0 @X0 1 r2 ]
+"202
+[f ]
+"203
+[v _ui16TempVar `ui ~T0 @X0 1 a ]
+"206
+[e $ ! > _ui16DutyCycle -> -> 1000 `i `ui 116  ]
+"207
+{
+"208
+[e = _ui16DutyCycle -> -> 1000 `i `ui ]
+"209
+}
+[e :U 116 ]
+"211
+[e = _ui16TempVar << -> _ui8PR2plus1 `ui -> 2 `i ]
+"212
+[e = _ui16TempVar -> / * -> _ui16TempVar `ul -> _ui16DutyCycle `ul -> -> -> 1000 `i `l `ul `ui ]
+"214
+[e $ ! == -> . `E1462 0 `i -> _ePWM_Module `i 117  ]
+"215
+{
+"216
+[e =& _CCP1CON -> ~ -> 48 `i `uc ]
+[e =| _CCP1CON -> << & _ui16TempVar -> -> 3 `i `ui -> 4 `i `uc ]
+[e = _CCPR1L -> >> & _ui16TempVar -> -> 1020 `i `ui -> 2 `i `uc ]
+"217
+}
+[e $U 118  ]
+"218
+[e :U 117 ]
+[e $ ! == -> . `E1462 1 `i -> _ePWM_Module `i 119  ]
+"219
+{
+"220
+[e =& _CCP2CON -> ~ -> 48 `i `uc ]
+[e =| _CCP2CON -> << & _ui16TempVar -> -> 3 `i `ui -> 4 `i `uc ]
+[e = _CCPR2L -> >> & _ui16TempVar -> -> 1020 `i `ui -> 2 `i `uc ]
+"221
+}
+[e $U 120  ]
+"222
+[e :U 119 ]
+"223
+{
+"226
+}
+[e :U 120 ]
+[e :U 118 ]
+"227
+[e :UE 115 ]
+}
+"245
+[v _removePWM `(v ~T0 @X0 1 ef1`E1462 ]
+"246
+{
+[e :U _removePWM ]
+"245
+[v _ePWM_Module `E1462 ~T0 @X0 1 r1 ]
+"246
+[f ]
+"247
+[e $ ! == -> . `E1462 0 `i -> _ePWM_Module `i 122  ]
+"248
+{
+"249
+[e = _CCP1CON -> & -> . `E1420 0 `i -> 15 `i `uc ]
+"250
+}
+[e $U 123  ]
+"251
+[e :U 122 ]
+[e $ ! == -> . `E1462 1 `i -> _ePWM_Module `i 124  ]
+"252
+{
+"253
+[e = _CCP2CON -> & -> . `E1420 0 `i -> 15 `i `uc ]
+"254
+}
+[e $U 125  ]
+"255
+[e :U 124 ]
+"256
+{
+"259
+}
+[e :U 125 ]
+[e :U 123 ]
+"260
+[e :UE 121 ]
+}

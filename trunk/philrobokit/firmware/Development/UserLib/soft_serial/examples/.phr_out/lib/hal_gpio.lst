@@ -1,0 +1,428 @@
+     1: /*****************************************************************************************//**
+     2: * # PhilRobotics | Philippine Electronics and Robotics Enthusiasts Club #
+     3: * http://philrobotics.com | http://philrobotics.com/forum | http://facebook.com/philrobotics
+     4: * phirobotics.core@philrobotics.com
+     5: *
+     6: *---------------------------------------------------------------------------------------------
+     7: * |Filename:      | "hal_gpio.c"                                |
+     8: * |:----          |:----                                        |
+     9: * |Description:   | General Purpose Input/Output Hardware Abstraction Layer Header File for PIC |
+    10: * |Revision:      | v01.01.00                                   |
+    11: * |Author:        | Giancarlo Acelajado                         |
+    12: * |               |                                             |
+    13: * |Dependencies:  |                                             |
+    14: *
+    15: * > This program is free software: you can redistribute it and/or modify
+    16: * > it under the terms of the GNU General Public License as published by
+    17: * > the Free Software Foundation, either version 3 of the License, or
+    18: * > (at your option) any later version.
+    19: * > This program is distributed in the hope that it will be useful,
+    20: * > but WITHOUT ANY WARRANTY; without even the implied warranty of
+    21: * > MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    22: * > GNU General Public License for more details.
+    23: * > <BR><BR>
+    24: * > You should have received a copy of the GNU General Public License
+    25: * > along with this program. If not, see http://www.gnu.org/licenses/
+    26: * <BR>
+    27: *---------------------------------------------------------------------------------------------
+    28: * |FW Version   |Date       |Author             |Description                        |
+    29: * |:----        |:----      |:----              |:----                              |
+    30: * |v01.00.00    |201209xx   |Giancarlo A.       |Leverage Library to Standard Architecture|
+    31: * |v01.00.01    |20130405   |ESCII              |Separated module to HAL and Corelib|
+    32: * |v01.01.00    |20130514   |ESCII              |Code Formatted, added tracepoint for unit testing|
+    33: *********************************************************************************************/
+    34: #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
+    35: #undef  __SHOW_MODULE_HEADER__
+    36: 
+    37: #include "hal_gpio.h"
+    38: 
+    39: /* Local Constants */
+    40: /* none */
+    41: 
+    42: /* Local Variables */
+    43: /* none */
+    44: 
+    45: /* Private Function Prototypes */
+    46: /* none */
+    47: 
+    48: /* Public Functions */
+    49: /*******************************************************************************//**
+    50: * \brief Set a pin either as INPUT or OUTPUT
+    51: *
+    52: * > This function is called to set pin either as INPUT or OUTPUT
+    53: *
+    54: * > <BR>
+    55: * > **Syntax:**<BR>
+    56: * >     configPin(pin, direction)
+    57: * > <BR><BR>
+    58: * > **Parameters:**<BR>
+    59: * >     pin - pin number or ID                                  <BR>
+    60: * >     direction - data direction of the pin, INPUT, OUTPUT
+    61: * > <BR><BR>
+    62: * > **Returns:**<BR>
+    63: * >     none
+    64: * > <BR><BR>
+    65: ***********************************************************************************/
+    66: void configPin(uint8_t ui8Pin, uint8_t ui8Direction)
+    67: {
+    68:     uint8_t* pui8PortDirReg = NULL;
+    69: 
+    70:     /* Port C */
+    71:     if(ui8Pin <= 7)
+    72:     {
+    73:         pui8PortDirReg = (uint8_t*)&PORTC_DIR;
+    74: #ifdef UNIT_TEST
+    75:         UCUNIT_Tracepoint(0);
+    76: #endif
+    77:     }
+    78:     /* Port B */
+    79:     else if(ui8Pin <= 13)
+    80:     {
+    81:         ui8Pin -= 8;
+    82:         pui8PortDirReg = (uint8_t*)&PORTB_DIR;
+    83: #ifdef UNIT_TEST
+    84:         UCUNIT_Tracepoint(1);
+    85: #endif
+    86:     }
+    87:     /* Port A and E */
+    88:     else if(ui8Pin <= 20)
+    89:     {
+    90:         ui8Pin -= 14;
+    91: 
+    92:         /* RA0 to RA2 */
+    93:         if(ui8Pin <= 2)
+    94:         {
+    95:             pui8PortDirReg = (uint8_t*)&PORTA_DIR;
+    96: #ifdef UNIT_TEST
+    97:             UCUNIT_Tracepoint(2);
+    98: #endif
+    99:         }
+   100:         /* RA5 */
+   101:         else if(ui8Pin == 3)
+   102:         {
+   103:             ui8Pin += 2;
+   104:             pui8PortDirReg = (uint8_t*)&PORTA_DIR;
+   105: #ifdef UNIT_TEST
+   106:             UCUNIT_Tracepoint(3);
+   107: #endif
+   108:         }
+   109:         /* RE0 to RE2 */
+   110:         else if(ui8Pin <= 6)
+   111:         {
+   112:             ui8Pin -= 4;
+   113:             pui8PortDirReg = (uint8_t*)&PORTE_DIR;
+   114: #ifdef UNIT_TEST
+   115:             UCUNIT_Tracepoint(4);
+   116: #endif
+   117:         }
+   118:         else
+   119:         {
+   120: #ifdef UNIT_TEST
+   121:             UCUNIT_Tracepoint(5);                                       // must not be reached
+   122: #endif
+   123:             /* assert(); */                                 // must not be reached
+   124:         }
+   125:     }
+   126:     /* Port D */
+   127:     else if(ui8Pin <= 28)
+   128:     {
+   129:         ui8Pin -= 21;
+   130:         pui8PortDirReg = (uint8_t*)&PORTD_DIR;
+   131: #ifdef UNIT_TEST
+   132:         UCUNIT_Tracepoint(6);
+   133: #endif
+   134:     }
+   135:     else
+   136:     {
+   137: #ifdef UNIT_TEST
+   138:         UCUNIT_Tracepoint(7);
+   139: #endif
+   140:         /* assert(); */                                     // must not be reached
+   141:     }
+   142: 
+   143:     /* Set Pin Direction */
+   144:     if(NULL != pui8PortDirReg)
+   145:     {
+   146:         if(INPUT == ui8Direction)
+   147:         {
+   148:             *pui8PortDirReg |= (1<<ui8Pin);                 // set as input
+   149: #ifdef UNIT_TEST
+   150:             UCUNIT_Tracepoint(8);
+   151: #endif
+   152:         }
+   153:         else
+   154:         {
+   155:             *pui8PortDirReg &= ~(1<<ui8Pin);                // set as output
+   156: #ifdef UNIT_TEST
+   157:             UCUNIT_Tracepoint(9);
+   158: #endif
+   159:         }
+   160:     }
+   161:     else
+   162:     {
+   163: #ifdef UNIT_TEST
+   164:         UCUNIT_Tracepoint(10);                                      // must not be reached
+   165: #endif
+   166:         /* assert(); */                                     // null pointer
+   167:     }
+   168: }
+   169: 
+   170: /*******************************************************************************//**
+   171: * \brief Change the state of the Pin
+   172: *
+   173: * > This function is called to change the state of the pin to either set to HIGH,
+   174: * > clear to LOW, or toggle the current state.
+   175: *
+   176: * > <BR>
+   177: * > **Syntax:**<BR>
+   178: * >      changePinState(pin, operation)
+   179: * > <BR><BR>
+   180: * > **Parameters:**<BR>
+   181: * >     pin - pin number or ID    <BR>
+   182: * >     operation - pin state change operation, SET_PIN, CLR_PIN, TOGGLE_PIN
+   183: * > <BR><BR>
+   184: * > **Returns:**<BR>
+   185: * >     none
+   186: * > <BR><BR>
+   187: ***********************************************************************************/
+   188: void changePinState(uint8_t ui8Pin, enum PinStateOperation_et eOperation)
+   189: {
+   190:     uint8_t* pui8PortReg = NULL;
+   191: 
+   192:     /* Port C */
+   193:     if(ui8Pin <= 7)
+   194:     {
+   195:         pui8PortReg = (uint8_t*)&PORTC_OUT;
+   196: #ifdef UNIT_TEST
+   197:         UCUNIT_Tracepoint(0);
+   198: #endif
+   199:     }
+   200:     /* Port B */
+   201:     else if(ui8Pin <= 13)
+   202:     {
+   203:         ui8Pin -= 8;
+   204:         pui8PortReg = (uint8_t*)&PORTB_OUT;
+   205: #ifdef UNIT_TEST
+   206:         UCUNIT_Tracepoint(1);
+   207: #endif
+   208:     }
+   209:     /* Port A and E */
+   210:     else if(ui8Pin <= 20)
+   211:     {
+   212:         ui8Pin -= 14;
+   213: 
+   214:         /* RA0 to RA2 */
+   215:         if(ui8Pin <= 2)
+   216:         {
+   217:             pui8PortReg = (uint8_t*)&PORTA_OUT;
+   218: #ifdef UNIT_TEST
+   219:             UCUNIT_Tracepoint(2);
+   220: #endif
+   221:         }
+   222:         /* RA5 */
+   223:         else if(ui8Pin == 3)
+   224:         {
+   225:             ui8Pin += 2;
+   226:             pui8PortReg = (uint8_t*)&PORTA_OUT;
+   227: #ifdef UNIT_TEST
+   228:             UCUNIT_Tracepoint(3);
+   229: #endif
+   230:         }
+   231:         /* RE0 to RE2 */
+   232:         else if(ui8Pin <= 6)
+   233:         {
+   234:             ui8Pin -= 4;
+   235:             pui8PortReg = (uint8_t*)&PORTE_OUT;
+   236: #ifdef UNIT_TEST
+   237:             UCUNIT_Tracepoint(4);
+   238: #endif
+   239:         }
+   240:         else
+   241:         {
+   242: #ifdef UNIT_TEST
+   243:             UCUNIT_Tracepoint(5);                       // must not be reached
+   244: #endif
+   245:             /* assert(); */                             // must not be reached
+   246:         }
+   247:     }
+   248:     /* Port D */
+   249:     else if(ui8Pin <= 28)
+   250:     {
+   251:         ui8Pin -= 21;
+   252:         pui8PortReg = (uint8_t*)&PORTD_OUT;
+   253: #ifdef UNIT_TEST
+   254:         UCUNIT_Tracepoint(6);
+   255: #endif
+   256:     }
+   257:     else
+   258:     {
+   259: #ifdef UNIT_TEST
+   260:         UCUNIT_Tracepoint(7);                           // must not be reached
+   261: #endif
+   262:         /* assert(); */                                 // must not be reached
+   263:     }
+   264: 
+   265:     /* Set Pin Direction */
+   266:     if(NULL != pui8PortReg)
+   267:     {
+   268:         if(SET_PIN == eOperation)
+   269:         {
+   270:             *pui8PortReg |= (1<<ui8Pin);                // set pin
+   271: #ifdef UNIT_TEST
+   272:             UCUNIT_Tracepoint(8);
+   273: #endif
+   274:         }
+   275:         else if(CLR_PIN == eOperation)
+   276:         {
+   277:             *pui8PortReg &= ~(1<<ui8Pin);               // clear pin
+   278: #ifdef UNIT_TEST
+   279:             UCUNIT_Tracepoint(9);
+   280: #endif
+   281:         }
+   282:         else
+   283:         {
+   284:             *pui8PortReg ^= (1<<ui8Pin);                // toggle pin
+   285: #ifdef UNIT_TEST
+   286:             UCUNIT_Tracepoint(10);
+   287: #endif
+   288:         }
+   289:     }
+   290:     else
+   291:     {
+   292: #ifdef UNIT_TEST
+   293:         UCUNIT_Tracepoint(11);                          // must not be reached
+   294: #endif
+   295:         /* assert(); */                                 // null pointer
+   296:     }
+   297: }
+   298: 
+   299: /*******************************************************************************//**
+   300: * \brief Get the current state of the Pin
+   301: *
+   302: * > This function is called to get the current state of the Pin
+   303: *
+   304: * > <BR>
+   305: * > **Syntax:**<BR>
+   306: * >     checkPinState(pin)
+   307: * > <BR><BR>
+   308: * > **Parameters:**<BR>
+   309: * >     pin - pin number or ID
+   310: * > <BR><BR>
+   311: * > **Returns:**<BR>
+   312: * >     bool_t pin_state - the state of the read pin, HIGH or LOW
+   313: * > <BR><BR>
+   314: ***********************************************************************************/
+   315: bool_t checkPinState(uint8_t ui8Pin)
+   316: {
+   317:     uint8_t ui8PinStatus, ui8PinMask;
+   318:     uint8_t* pui8PortReg = NULL;
+   319: 
+   320:     /* Port C */
+   321:     if(ui8Pin <= 7)
+   322:     {
+   323:         pui8PortReg = (uint8_t*)&PORTC_VAL;
+   324: #ifdef UNIT_TEST
+   325:         UCUNIT_Tracepoint(0);
+   326: #endif
+   327:     }
+   328:     /* Port B */
+   329:     else if(ui8Pin <= 13)
+   330:     {
+   331:         ui8Pin -= 8;
+   332:         pui8PortReg = (uint8_t*)&PORTB_VAL;
+   333: #ifdef UNIT_TEST
+   334:         UCUNIT_Tracepoint(1);
+   335: #endif
+   336:     }
+   337:     /* Port A and E */
+   338:     else if(ui8Pin <= 20)
+   339:     {
+   340:         ui8Pin -= 14;
+   341: 
+   342:         /* RA0 to RA2 */
+   343:         if(ui8Pin <= 2)
+   344:         {
+   345:             pui8PortReg = (uint8_t*)&PORTA_VAL;
+   346: #ifdef UNIT_TEST
+   347:             UCUNIT_Tracepoint(2);
+   348: #endif
+   349:         }
+   350:         /* RA5 */
+   351:         else if(ui8Pin == 3)
+   352:         {
+   353:             ui8Pin += 2;
+   354:             pui8PortReg = (uint8_t*)&PORTA_VAL;
+   355: #ifdef UNIT_TEST
+   356:             UCUNIT_Tracepoint(3);
+   357: #endif
+   358:         }
+   359:         /* RE0 to RE2 */
+   360:         else if(ui8Pin <= 6)
+   361:         {
+   362:             ui8Pin -= 4;
+   363:             pui8PortReg = (uint8_t*)&PORTE_VAL;
+   364: #ifdef UNIT_TEST
+   365:             UCUNIT_Tracepoint(4);
+   366: #endif
+   367:         }
+   368:         else
+   369:         {
+   370: #ifdef UNIT_TEST
+   371:             UCUNIT_Tracepoint(5);                                       // must not be reached
+   372: #endif
+   373:             /* assert(); */                                 // must not be reached
+   374:         }
+   375:     }
+   376:     /* Port D */
+   377:     else if(ui8Pin <= 28)
+   378:     {
+   379:         ui8Pin -= 21;
+   380:         pui8PortReg = (uint8_t*)&PORTD_VAL;
+   381: #ifdef UNIT_TEST
+   382:         UCUNIT_Tracepoint(6);
+   383: #endif
+   384:     }
+   385:     else
+   386:     {
+   387: #ifdef UNIT_TEST
+   388:         UCUNIT_Tracepoint(7);                                       // must not be reached
+   389: #endif
+   390:         /* assert(); */                                             // must not be reached
+   391:     }
+   392: 
+   393:     /* Get Pin State */
+   394:     if(NULL != pui8PortReg)
+   395:     {
+   396:         ui8PinMask = (1<<ui8Pin);
+   397:         ui8PinStatus = *pui8PortReg&ui8PinMask;
+   398: 
+   399:         if(ui8PinMask == ui8PinStatus)
+   400:         {
+   401: #ifdef UNIT_TEST
+   402:             UCUNIT_Tracepoint(8);
+   403: #endif
+   404:             return HIGH;
+   405:         }
+   406:         else
+   407:         {
+   408: #ifdef UNIT_TEST
+   409:             UCUNIT_Tracepoint(9);
+   410: #endif
+   411:             return LOW;
+   412:         }
+   413:     }
+   414:     else
+   415:     {
+   416: #ifdef UNIT_TEST
+   417:         UCUNIT_Tracepoint(10);                                      // must not be reached
+   418: #endif
+   419:         /* assert(); */
+   420:         return LOW;                                                 // must not be reached
+   421:     }
+   422: }
+   423: 
+   424: /* Private Functions */
+   425: /* none */
+   426: 
+   427: /* end of hal_gpio.c */
+   428: //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

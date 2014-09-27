@@ -34,6 +34,9 @@
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
 
+#include "PhilRoboKit_CoreLib_Macro.h"
+#if defined (USE_PWM)
+#include "corelib_8bit_timer.h"
 #include "corelib_pwm.h"
 
 /* Local Constants */
@@ -68,6 +71,8 @@ static  uint8_t     ui8PreScaler=1, ui8PreScalerVal=1, ui8PR2plus1=0;
 ***********************************************************************************/
 void setupPWM(enum PWMModules_et ePWM_Module, uint16_t ui16Frequency, uint16_t ui16DutyCycle)
 {
+	/* Disable PWM Timer Interrupt */
+	hal_disablePWMTmrInt();
     /* Set the PWM period */
     setPWMFrequency(ui16Frequency);                 // Common for CCP1 and CCP2
     /* Load the default PWM duty value */
@@ -76,7 +81,7 @@ void setupPWM(enum PWMModules_et ePWM_Module, uint16_t ui16Frequency, uint16_t u
     /* Select Source */
     //mc_PWMClk_Source(CCP_PWM_CLOCK);              // not for PIC16F877A
     /* Clear TMRxIF */
-    //hal_clrPWMTmrIntFlag() ;                      // not critical
+    hal_clrPWMTmrIntFlag() ;                        // not critical
     /* Configure Prescaler value */
     hal_initPWMTimer(ui8PreScalerVal);              // Common for CCP1 and CCP2
 
@@ -262,5 +267,6 @@ void removePWM(enum PWMModules_et ePWM_Module)
 /* Private Functions */
 /* none */
 
+#endif
 /* end of corelib_pwm.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

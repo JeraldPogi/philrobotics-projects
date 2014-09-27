@@ -1,0 +1,414 @@
+Version 3.2 HI-TECH Software Intermediate Code
+"58 hardware/cores/lib\corelib_adc.c
+[c E1476 0 1 2 3 4 5 6 7 8 .. ]
+[n E1476 adcModules_et ADC0 ADC1 ADC2 ADC3 ADC4 ADC5 ADC6 ADC7 MAX_ADC_CHANNELS  ]
+"2329 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _ADIF `Vb ~T0 @X0 0 e@102 ]
+"2327
+[v _ADIE `Vb ~T0 @X0 0 e@1126 ]
+"1116
+[v _ADRESH `Vuc ~T0 @X0 0 e@30 ]
+"2167
+[v _ADRESL `Vuc ~T0 @X0 0 e@158 ]
+"1122
+[v _ADCON0 `Vuc ~T0 @X0 0 e@31 ]
+"62 C:\Users\glutnix\Desktop\philrobokit_xc8/hardware/cores/lib\corelib_basetimer.h
+[v _getElapsedMs `(ui ~T0 @X0 0 ef1`ui ]
+"61
+[v _getMs `(ui ~T0 @X0 0 ef ]
+"2445 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _GO_DONE `Vb ~T0 @X0 0 e@250 ]
+"221 hardware/cores/lib\corelib_adc.c
+[c E1462 0 1 2 .. ]
+[n E1462 ADCVrefSource_et VDD EXT INTL  ]
+"2331 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _ADON `Vb ~T0 @X0 0 e@248 ]
+"1286
+[v _TRISA `Vuc ~T0 @X0 0 e@133 ]
+"1518
+[v _TRISE `Vuc ~T0 @X0 0 e@137 ]
+"2173
+[v _ADCON1 `Vuc ~T0 @X0 0 e@159 ]
+"236 hardware/cores/lib\corelib_adc.c
+[c E1221 0 7 1 .. ]
+[n E1221 adcModuleCfg_et CFG_ALLANALOG CFG_ALLDIGITAL CFG_EXTVREF  ]
+"129 C:\Users\glutnix\Desktop\philrobokit_xc8/hardware/cores/lib\hal_adc.h
+[v _configLowLvlADC `(v ~T0 @X0 0 ef ]
+"2441 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _GIE `Vb ~T0 @X0 0 e@95 ]
+"54 C:\Users\glutnix\Desktop\philrobokit_xc8/hardware/cores\compilers\htc\..\..\PhilRoboKit_CoreLib_GlobalDefs.h
+[v _get_gblInitialized_FlagValue `(uc ~T0 @X0 0 ef ]
+"2481 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _PEIE `Vb ~T0 @X0 0 e@94 ]
+[v F1089 `(v ~T0 @X0 1 tf1`ul ]
+"154 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic.h
+[v __delay `JF1089 ~T0 @X0 0 e ]
+[p i __delay ]
+"49 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[; <" INDF equ 00h ;# ">
+"55
+[; <" TMR0 equ 01h ;# ">
+"61
+[; <" PCL equ 02h ;# ">
+"67
+[; <" STATUS equ 03h ;# ">
+"154
+[; <" FSR equ 04h ;# ">
+"160
+[; <" PORTA equ 05h ;# ">
+"209
+[; <" PORTB equ 06h ;# ">
+"270
+[; <" PORTC equ 07h ;# ">
+"331
+[; <" PORTD equ 08h ;# ">
+"392
+[; <" PORTE equ 09h ;# ">
+"423
+[; <" PCLATH equ 0Ah ;# ">
+"442
+[; <" INTCON equ 0Bh ;# ">
+"519
+[; <" PIR1 equ 0Ch ;# ">
+"580
+[; <" PIR2 equ 0Dh ;# ">
+"619
+[; <" TMR1 equ 0Eh ;# ">
+"625
+[; <" TMR1L equ 0Eh ;# ">
+"631
+[; <" TMR1H equ 0Fh ;# ">
+"637
+[; <" T1CON equ 010h ;# ">
+"711
+[; <" TMR2 equ 011h ;# ">
+"717
+[; <" T2CON equ 012h ;# ">
+"787
+[; <" SSPBUF equ 013h ;# ">
+"793
+[; <" SSPCON equ 014h ;# ">
+"862
+[; <" CCPR1 equ 015h ;# ">
+"868
+[; <" CCPR1L equ 015h ;# ">
+"874
+[; <" CCPR1H equ 016h ;# ">
+"880
+[; <" CCP1CON equ 017h ;# ">
+"937
+[; <" RCSTA equ 018h ;# ">
+"1031
+[; <" TXREG equ 019h ;# ">
+"1037
+[; <" RCREG equ 01Ah ;# ">
+"1043
+[; <" CCPR2 equ 01Bh ;# ">
+"1049
+[; <" CCPR2L equ 01Bh ;# ">
+"1055
+[; <" CCPR2H equ 01Ch ;# ">
+"1061
+[; <" CCP2CON equ 01Dh ;# ">
+"1118
+[; <" ADRESH equ 01Eh ;# ">
+"1124
+[; <" ADCON0 equ 01Fh ;# ">
+"1219
+[; <" OPTION_REG equ 081h ;# ">
+"1288
+[; <" TRISA equ 085h ;# ">
+"1337
+[; <" TRISB equ 086h ;# ">
+"1398
+[; <" TRISC equ 087h ;# ">
+"1459
+[; <" TRISD equ 088h ;# ">
+"1520
+[; <" TRISE equ 089h ;# ">
+"1576
+[; <" PIE1 equ 08Ch ;# ">
+"1637
+[; <" PIE2 equ 08Dh ;# ">
+"1676
+[; <" PCON equ 08Eh ;# ">
+"1709
+[; <" SSPCON2 equ 091h ;# ">
+"1770
+[; <" PR2 equ 092h ;# ">
+"1776
+[; <" SSPADD equ 093h ;# ">
+"1782
+[; <" SSPSTAT equ 094h ;# ">
+"1950
+[; <" TXSTA equ 098h ;# ">
+"2030
+[; <" SPBRG equ 099h ;# ">
+"2036
+[; <" CMCON equ 09Ch ;# ">
+"2105
+[; <" CVRCON equ 09Dh ;# ">
+"2169
+[; <" ADRESL equ 09Eh ;# ">
+"2175
+[; <" ADCON1 equ 09Fh ;# ">
+"2233
+[; <" EEDATA equ 010Ch ;# ">
+"2239
+[; <" EEADR equ 010Dh ;# ">
+"2245
+[; <" EEDATH equ 010Eh ;# ">
+"2251
+[; <" EEADRH equ 010Fh ;# ">
+"2257
+[; <" EECON1 equ 018Ch ;# ">
+"2301
+[; <" EECON2 equ 018Dh ;# ">
+"58 hardware/cores/lib\corelib_adc.c
+[v _eCurrentChannel `E1476 ~T0 @X0 1 s ]
+[i _eCurrentChannel
+-> -> 0 `i `E1476
+]
+"59
+[v _ui16ADCBuff `ui ~T0 @X0 - -> . `E1476 8 `i -> 1 `i s ]
+[i _ui16ADCBuff
+:U ..
+-> -> 0 `i `ui
+..
+]
+"85
+[v _adcISR `(v ~T0 @X0 1 ef ]
+"86
+{
+[e :U _adcISR ]
+[f ]
+"87
+[v F1489 `E1476 ~T0 @X0 1 s eEffectiveChannel ]
+"89
+[e $ ! && != ? _ADIF : -> 1 `i -> 0 `i -> 0 `i != ? _ADIE : -> 1 `i -> 0 `i -> 0 `i 98  ]
+"90
+{
+"91
+[e = _ADIF -> -> 0 `i `b ]
+"94
+[e $ ! == -> . `E1476 3 `i -> _eCurrentChannel `i 99  ]
+"95
+{
+"100
+}
+[e $U 100  ]
+"101
+[e :U 99 ]
+[e $ ! > -> _eCurrentChannel `i -> . `E1476 3 `i 101  ]
+"102
+{
+"103
+[e = F1489 -> - -> _eCurrentChannel `i -> 1 `i `E1476 ]
+"107
+}
+[e $U 102  ]
+"108
+[e :U 101 ]
+"109
+{
+"110
+[e = F1489 _eCurrentChannel ]
+"114
+}
+[e :U 102 ]
+[e :U 100 ]
+"117
+[e = *U + &U _ui16ADCBuff * -> F1489 `ux -> -> # *U &U _ui16ADCBuff `ui `ux & + << -> _ADRESH `ui -> 8 `i -> _ADRESL `ui -> -> 1023 `i `ui ]
+"120
+[e $ ! < -> _eCurrentChannel `i - -> . `E1476 8 `i -> 1 `i 103  ]
+"121
+{
+"122
+[e ++ _eCurrentChannel -> -> 1 `i `E1476 ]
+"125
+[e $ ! == -> . `E1476 3 `i -> _eCurrentChannel `i 104  ]
+"126
+{
+"127
+[e ++ _eCurrentChannel -> -> 1 `i `E1476 ]
+"131
+}
+[e :U 104 ]
+"136
+}
+[e $U 105  ]
+"137
+[e :U 103 ]
+"138
+{
+"139
+[e = _eCurrentChannel -> -> 0 `i `E1476 ]
+"143
+}
+[e :U 105 ]
+"146
+[e =& _ADCON0 -> ~ -> 56 `i `uc ]
+[e =| _ADCON0 -> & << -> _eCurrentChannel `i -> 3 `i -> 56 `i `uc ]
+"147
+}
+[e :U 98 ]
+"148
+[e :UE 97 ]
+}
+"166
+[v _adcCycle `(v ~T0 @X0 1 ef ]
+"167
+{
+[e :U _adcCycle ]
+[f ]
+"168
+[v F1492 `ui ~T0 @X0 1 s ui16Counter ]
+[i F1492
+-> -> 0 `i `ui
+]
+[v F1493 `ui ~T0 @X0 1 s ui16Timer ]
+[i F1493
+-> -> 0 `i `ui
+]
+"173
+[e = F1492 ( _getElapsedMs (1 F1493 ]
+"177
+[e $ ! >= F1492 -> -> 5 `i `ui 107  ]
+"178
+{
+"183
+[e = F1493 ( _getMs ..  ]
+"191
+[e $ ! == -> == -> 1 `i -> 1 `i `i ? _GO_DONE : -> 0 `i -> 1 `i 108  ]
+"192
+{
+"194
+[e = _GO_DONE -> -> 1 `i `b ]
+"198
+}
+[e :U 108 ]
+"199
+}
+[e :U 107 ]
+"200
+[e :UE 106 ]
+}
+"220
+[v _setupADC `(v ~T0 @X0 1 ef1`E1462 ]
+"221
+{
+[e :U _setupADC ]
+"220
+[v _eVrefSource `E1462 ~T0 @X0 1 r1 ]
+"221
+[f ]
+"223
+[e = _ADON -> -> 0 `i `b ]
+"225
+[e =| _TRISA -> -> 1 `i `uc ]
+"226
+[e =| _TRISA -> -> 2 `i `uc ]
+"227
+[e =| _TRISA -> -> 4 `i `uc ]
+"228
+[e =| _TRISA -> -> 32 `i `uc ]
+"229
+[e =| _TRISE -> -> 1 `i `uc ]
+"230
+[e =| _TRISE -> -> 2 `i `uc ]
+"231
+[e =| _TRISE -> -> 4 `i `uc ]
+"233
+[e $ ! == -> . `E1462 1 `i -> _eVrefSource `i 110  ]
+"234
+{
+"236
+[e =& _ADCON1 -> ~ -> 15 `i `uc ]
+[e =| _ADCON1 -> & -> . `E1221 2 `i -> 15 `i `uc ]
+"240
+}
+[e $U 111  ]
+"241
+[e :U 110 ]
+"242
+{
+"244
+[e =& _ADCON1 -> ~ -> 15 `i `uc ]
+[e =| _ADCON1 -> & -> . `E1221 0 `i -> 15 `i `uc ]
+"248
+}
+[e :U 111 ]
+"250
+[e ( _configLowLvlADC ..  ]
+"252
+[e = _eCurrentChannel -> -> 0 `i `E1476 ]
+"253
+[e =& _ADCON0 -> ~ -> 56 `i `uc ]
+[e =| _ADCON0 -> & << -> _eCurrentChannel `i -> 3 `i -> 56 `i `uc ]
+"255
+[e = _ADIF -> -> 0 `i `b ]
+"256
+[e = _ADIE -> -> 1 `i `b ]
+"258
+[e = _ADON -> -> 1 `i `b ]
+"259
+[e $U 112  ]
+[e :U 113 ]
+{
+}
+[e :U 112 ]
+[e $ && == -> 0 `i ? _GIE : -> 1 `i -> 0 `i == -> 1 `i -> ( _get_gblInitialized_FlagValue ..  `i 113  ]
+[e :U 114 ]
+[e = _GIE -> -> 0 `i `b ]
+[e = _PEIE -> -> 0 `i `b ]
+[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 20000000 `l `d .4000000.0 `ul ]
+[e = _GIE -> -> 1 `i `b ]
+[e = _PEIE -> -> 1 `i `b ]
+"261
+[e = _GO_DONE -> -> 1 `i `b ]
+"262
+[e :UE 109 ]
+}
+"280
+[v _adcRead `(ui ~T0 @X0 1 ef1`uc ]
+"281
+{
+[e :U _adcRead ]
+"280
+[v _ui8Channel `uc ~T0 @X0 1 r1 ]
+"281
+[f ]
+"282
+[e ) *U + &U _ui16ADCBuff * -> _ui8Channel `ux -> -> # *U &U _ui16ADCBuff `ui `ux ]
+[e $UE 115  ]
+"283
+[e :UE 115 ]
+}
+"302
+[v _removeADC `(v ~T0 @X0 1 ef ]
+"303
+{
+[e :U _removeADC ]
+[f ]
+"305
+[e =& _ADCON1 -> ~ -> 15 `i `uc ]
+[e =| _ADCON1 -> & -> . `E1221 1 `i -> 15 `i `uc ]
+"307
+[e = _ADON -> -> 0 `i `b ]
+"309
+[e =| _TRISA -> -> 1 `i `uc ]
+"310
+[e =| _TRISA -> -> 2 `i `uc ]
+"311
+[e =| _TRISA -> -> 4 `i `uc ]
+"312
+[e =| _TRISA -> -> 32 `i `uc ]
+"313
+[e =| _TRISE -> -> 1 `i `uc ]
+"314
+[e =| _TRISE -> -> 2 `i `uc ]
+"315
+[e =| _TRISE -> -> 4 `i `uc ]
+"316
+[e :UE 116 ]
+}

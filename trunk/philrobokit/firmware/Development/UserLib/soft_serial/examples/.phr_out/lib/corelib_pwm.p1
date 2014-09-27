@@ -1,0 +1,496 @@
+Version 3.2 HI-TECH Software Intermediate Code
+[c E1359 0 1 2 3 .. ]
+[n E1359 InterruptModes_et LOWSTATE CHANGE RISING FALLING  ]
+"125 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[v F1380 `(v ~T0 @X0 0 tf ]
+"119
+[v _nullIntFunction `(v ~T0 @X0 0 ef ]
+"126
+[v F1383 `(v ~T0 @X0 0 tf ]
+"127
+[v F1386 `(v ~T0 @X0 0 tf ]
+"133
+[v F1391 `(v ~T0 @X0 0 tf ]
+"134
+[v F1394 `(v ~T0 @X0 0 tf ]
+"135
+[v F1397 `(v ~T0 @X0 0 tf ]
+"136
+[v F1400 `(v ~T0 @X0 0 tf ]
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v F1419 `(v ~T0 @X0 0 tf ]
+"120
+[v _nullTMRFunction `(v ~T0 @X0 0 ef ]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v F1464 `(v ~T0 @X0 0 tf ]
+"128
+[v _null16BitTMRFunction `(v ~T0 @X0 0 ef ]
+[c E1485 0 1 .. ]
+[n E1485 PWMModules_et PWM0 PWM1  ]
+"64 hardware/cores/lib\corelib_pwm.h
+[v _setPWMFrequency `(v ~T0 @X0 0 ef1`ui ]
+"65
+[v _setPWMDuty `(v ~T0 @X0 0 ef2`E1485`ui ]
+[c E1421 2 4 6 .. ]
+[n E1421 tmrModules_et TIMER2 TIMER4 TIMER6  ]
+"65 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\corelib_8bit_timer.h
+[v F1430 `(v ~T0 @X0 0 tf ]
+[v _setup8BitTimerFull `(v ~T0 @X0 0 ef4`E1421`*F1430`uc`uc ]
+"875 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _CCP1CON `Vuc ~T0 @X0 0 e@23 ]
+[c E1440 0 2 4 5 6 7 12 .. ]
+[n E1440 PWMModes_et PWM_OFF COMP_TOGGLE_CCPO CAPTURE_FALL CAPTURE_RISE CAPTURE_4TH_FALL CAPTURE_16TH_RISE PWM_MODE  ]
+"1393
+[v _TRISC `Vuc ~T0 @X0 0 e@135 ]
+"1056
+[v _CCP2CON `Vuc ~T0 @X0 0 e@29 ]
+"2660
+[v _TMR2ON `Vb ~T0 @X0 0 e@146 ]
+[c E1448 0 1 2 .. ]
+[n E1448 PWMPrescaler_et PRESCALE0_VAL PRESCALE1_VAL PRESCALE2_VAL  ]
+"67 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\corelib_8bit_timer.h
+[v _set8BitTimer `(v ~T0 @X0 0 ef2`E1421`uc ]
+"863 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _CCPR1L `Vuc ~T0 @X0 0 e@21 ]
+"1044
+[v _CCPR2L `Vuc ~T0 @X0 0 e@27 ]
+"46 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[; <" INDF equ 00h ;# ">
+"52
+[; <" TMR0 equ 01h ;# ">
+"58
+[; <" PCL equ 02h ;# ">
+"64
+[; <" STATUS equ 03h ;# ">
+"151
+[; <" FSR equ 04h ;# ">
+"157
+[; <" PORTA equ 05h ;# ">
+"206
+[; <" PORTB equ 06h ;# ">
+"267
+[; <" PORTC equ 07h ;# ">
+"328
+[; <" PORTD equ 08h ;# ">
+"389
+[; <" PORTE equ 09h ;# ">
+"420
+[; <" PCLATH equ 0Ah ;# ">
+"439
+[; <" INTCON equ 0Bh ;# ">
+"516
+[; <" PIR1 equ 0Ch ;# ">
+"577
+[; <" PIR2 equ 0Dh ;# ">
+"616
+[; <" TMR1 equ 0Eh ;# ">
+"622
+[; <" TMR1L equ 0Eh ;# ">
+"628
+[; <" TMR1H equ 0Fh ;# ">
+"634
+[; <" T1CON equ 010h ;# ">
+"708
+[; <" TMR2 equ 011h ;# ">
+"714
+[; <" T2CON equ 012h ;# ">
+"784
+[; <" SSPBUF equ 013h ;# ">
+"790
+[; <" SSPCON equ 014h ;# ">
+"859
+[; <" CCPR1 equ 015h ;# ">
+"865
+[; <" CCPR1L equ 015h ;# ">
+"871
+[; <" CCPR1H equ 016h ;# ">
+"877
+[; <" CCP1CON equ 017h ;# ">
+"934
+[; <" RCSTA equ 018h ;# ">
+"1028
+[; <" TXREG equ 019h ;# ">
+"1034
+[; <" RCREG equ 01Ah ;# ">
+"1040
+[; <" CCPR2 equ 01Bh ;# ">
+"1046
+[; <" CCPR2L equ 01Bh ;# ">
+"1052
+[; <" CCPR2H equ 01Ch ;# ">
+"1058
+[; <" CCP2CON equ 01Dh ;# ">
+"1115
+[; <" ADRESH equ 01Eh ;# ">
+"1121
+[; <" ADCON0 equ 01Fh ;# ">
+"1216
+[; <" OPTION_REG equ 081h ;# ">
+"1285
+[; <" TRISA equ 085h ;# ">
+"1334
+[; <" TRISB equ 086h ;# ">
+"1395
+[; <" TRISC equ 087h ;# ">
+"1456
+[; <" TRISD equ 088h ;# ">
+"1517
+[; <" TRISE equ 089h ;# ">
+"1573
+[; <" PIE1 equ 08Ch ;# ">
+"1634
+[; <" PIE2 equ 08Dh ;# ">
+"1673
+[; <" PCON equ 08Eh ;# ">
+"1706
+[; <" SSPCON2 equ 091h ;# ">
+"1767
+[; <" PR2 equ 092h ;# ">
+"1773
+[; <" SSPADD equ 093h ;# ">
+"1779
+[; <" SSPSTAT equ 094h ;# ">
+"1947
+[; <" TXSTA equ 098h ;# ">
+"2027
+[; <" SPBRG equ 099h ;# ">
+"2033
+[; <" CMCON equ 09Ch ;# ">
+"2102
+[; <" CVRCON equ 09Dh ;# ">
+"2166
+[; <" ADRESL equ 09Eh ;# ">
+"2172
+[; <" ADCON1 equ 09Fh ;# ">
+"2230
+[; <" EEDATA equ 010Ch ;# ">
+"2236
+[; <" EEADR equ 010Dh ;# ">
+"2242
+[; <" EEDATH equ 010Eh ;# ">
+"2248
+[; <" EEADRH equ 010Fh ;# ">
+"2254
+[; <" EECON1 equ 018Ch ;# ">
+"2298
+[; <" EECON2 equ 018Dh ;# ">
+"112 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[v _eMod0_Mode `E1359 ~T0 @X0 1 e ]
+[v _eMod1_Mode `E1359 ~T0 @X0 1 e ]
+[v _eMod2_Mode `E1359 ~T0 @X0 1 e ]
+[v _eMod3_Mode `E1359 ~T0 @X0 1 e ]
+"116
+[v _eMod4_Mode `E1359 ~T0 @X0 1 e ]
+[v _eMod5_Mode `E1359 ~T0 @X0 1 e ]
+[v _eMod6_Mode `E1359 ~T0 @X0 1 e ]
+[v _eMod7_Mode `E1359 ~T0 @X0 1 e ]
+"125
+[v _pt2INT0 `*F1380 ~T0 @X0 1 e ]
+[i _pt2INT0
+&U _nullIntFunction
+]
+"126
+[v _pt2INT1 `*F1383 ~T0 @X0 1 e ]
+[i _pt2INT1
+&U _nullIntFunction
+]
+"127
+[v _pt2INT2 `*F1386 ~T0 @X0 1 e ]
+[i _pt2INT2
+&U _nullIntFunction
+]
+"133
+[v _pt2INT4 `*F1391 ~T0 @X0 1 e ]
+[i _pt2INT4
+&U _nullIntFunction
+]
+"134
+[v _pt2INT5 `*F1394 ~T0 @X0 1 e ]
+[i _pt2INT5
+&U _nullIntFunction
+]
+"135
+[v _pt2INT6 `*F1397 ~T0 @X0 1 e ]
+[i _pt2INT6
+&U _nullIntFunction
+]
+"136
+[v _pt2INT7 `*F1400 ~T0 @X0 1 e ]
+[i _pt2INT7
+&U _nullIntFunction
+]
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v _pt2TMR2ISR `*F1419 ~T0 @X0 1 e ]
+[i _pt2TMR2ISR
+&U _nullTMRFunction
+]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v _pt2TMR1ISR `*F1464 ~T0 @X0 1 e ]
+[i _pt2TMR1ISR
+&U _null16BitTMRFunction
+]
+"43 hardware/cores/lib\corelib_pwm.c
+[v _ui8PreScaler `uc ~T0 @X0 1 s ]
+[i _ui8PreScaler
+-> -> 1 `i `uc
+]
+[v _ui8PreScalerVal `uc ~T0 @X0 1 s ]
+[i _ui8PreScalerVal
+-> -> 1 `i `uc
+]
+[v _ui8PR2plus1 `uc ~T0 @X0 1 s ]
+[i _ui8PR2plus1
+-> -> 0 `i `uc
+]
+"70
+[v _setupPWM `(v ~T0 @X0 1 ef3`E1485`ui`ui ]
+{
+[e :U _setupPWM ]
+[v _ePWM_Module `E1485 ~T0 @X0 1 r1 ]
+[v _ui16Frequency `ui ~T0 @X0 1 r2 ]
+[v _ui16DutyCycle `ui ~T0 @X0 1 r3 ]
+[f ]
+"72
+[e ( _setPWMFrequency (1 _ui16Frequency ]
+"74
+[e ( _setPWMDuty (2 , _ePWM_Module _ui16DutyCycle ]
+"81
+[e ( _setup8BitTimerFull (4 , , , -> . `E1421 0 `E1421 &U _nullTMRFunction _ui8PreScalerVal -> -> 0 `i `uc ]
+"84
+[e $ ! == -> . `E1485 0 `i -> _ePWM_Module `i 98  ]
+"85
+{
+"86
+[e = _CCP1CON -> & -> . `E1440 6 `i -> 15 `i `uc ]
+"87
+[e =& _TRISC -> ~ -> 4 `i `uc ]
+"88
+}
+[e $U 99  ]
+"89
+[e :U 98 ]
+[e $ ! == -> . `E1485 1 `i -> _ePWM_Module `i 100  ]
+"90
+{
+"91
+[e = _CCP2CON -> & -> . `E1440 6 `i -> 15 `i `uc ]
+"92
+[e =& _TRISC -> ~ -> 2 `i `uc ]
+"93
+}
+[e $U 101  ]
+"94
+[e :U 100 ]
+"95
+{
+"98
+}
+[e :U 101 ]
+[e :U 99 ]
+"101
+[e = _TMR2ON -> -> 1 `i `b ]
+"102
+[e :UE 97 ]
+}
+"123
+[v _setPWMFrequency `(v ~T0 @X0 1 ef1`ui ]
+{
+[e :U _setPWMFrequency ]
+[v _ui16Frequency `ui ~T0 @X0 1 r1 ]
+[f ]
+"124
+[v _ui16TempVar `ui ~T0 @X0 1 a ]
+"128
+[v _ui24Period `um ~T0 @X0 1 a ]
+"131
+[e $ ! > _ui16Frequency -> -> 20000 `i `ui 103  ]
+"132
+{
+"133
+[e = _ui16Frequency -> -> 20000 `i `ui ]
+"134
+}
+[e $U 104  ]
+"135
+[e :U 103 ]
+[e $ ! < _ui16Frequency -> -> 122 `i `ui 105  ]
+"136
+{
+"137
+[e = _ui16Frequency -> -> 122 `i `ui ]
+"138
+}
+[e $U 106  ]
+"139
+[e :U 105 ]
+"140
+{
+"143
+}
+[e :U 106 ]
+[e :U 104 ]
+"146
+[e $ ! >= _ui16Frequency -> -> 1953 `i `ui 107  ]
+"147
+{
+"148
+[e = _ui8PreScalerVal -> . `E1448 0 `uc ]
+"149
+}
+[e $U 108  ]
+"150
+[e :U 107 ]
+[e $ ! >= _ui16Frequency -> -> 488 `i `ui 109  ]
+"151
+{
+"152
+[e = _ui8PreScalerVal -> . `E1448 1 `uc ]
+"153
+}
+[e $U 110  ]
+"154
+[e :U 109 ]
+[e $ ! >= _ui16Frequency -> -> 122 `i `ui 111  ]
+"155
+{
+"156
+[e = _ui8PreScalerVal -> . `E1448 2 `uc ]
+"157
+}
+[e $U 112  ]
+"158
+[e :U 111 ]
+"159
+{
+"160
+[e = _ui8PreScalerVal -> . `E1448 2 `uc ]
+"161
+}
+[e :U 112 ]
+[e :U 110 ]
+[e :U 108 ]
+"164
+[e = _ui8PreScaler -> << -> _ui8PreScalerVal `i -> 1 `i `uc ]
+"165
+[e = _ui8PreScaler -> << -> -> -> 1 `i `uc `i _ui8PreScaler `uc ]
+"166
+[e = _ui24Period -> / -> 100000000 `ul -> _ui16Frequency `ul `um ]
+"167
+[e = _ui16TempVar * -> -> 200 `i `ui -> _ui8PreScaler `ui ]
+"168
+[e = _ui24Period / _ui24Period -> _ui16TempVar `um ]
+"171
+[e $ ! > _ui24Period -> -> -> 255 `i `m `um 113  ]
+"172
+{
+"173
+[e = _ui8PR2plus1 -> -> 255 `i `uc ]
+"174
+}
+[e $U 114  ]
+"175
+[e :U 113 ]
+"176
+{
+"177
+[e = _ui8PR2plus1 -> _ui24Period `uc ]
+"178
+}
+[e :U 114 ]
+"180
+[e ( _set8BitTimer (2 , -> . `E1421 0 `E1421 _ui8PR2plus1 ]
+"181
+[e :UE 102 ]
+}
+"202
+[v _setPWMDuty `(v ~T0 @X0 1 ef2`E1485`ui ]
+{
+[e :U _setPWMDuty ]
+[v _ePWM_Module `E1485 ~T0 @X0 1 r1 ]
+[v _ui16DutyCycle `ui ~T0 @X0 1 r2 ]
+[f ]
+"203
+[v _ui16TempVar `ui ~T0 @X0 1 a ]
+"206
+[e $ ! > _ui16DutyCycle -> -> 1000 `i `ui 116  ]
+"207
+{
+"208
+[e = _ui16DutyCycle -> -> 1000 `i `ui ]
+"209
+}
+[e :U 116 ]
+"211
+[e = _ui16TempVar << -> _ui8PR2plus1 `ui -> 2 `i ]
+"212
+[e = _ui16TempVar -> / * -> _ui16TempVar `ul -> _ui16DutyCycle `ul -> -> -> 1000 `i `l `ul `ui ]
+"214
+[e $ ! == -> . `E1485 0 `i -> _ePWM_Module `i 117  ]
+"215
+{
+"216
+[e =& _CCP1CON -> ~ -> 48 `i `uc ]
+[e =| _CCP1CON -> << & _ui16TempVar -> -> 3 `i `ui -> 4 `i `uc ]
+[e = _CCPR1L -> >> & _ui16TempVar -> -> 1020 `i `ui -> 2 `i `uc ]
+"217
+}
+[e $U 118  ]
+"218
+[e :U 117 ]
+[e $ ! == -> . `E1485 1 `i -> _ePWM_Module `i 119  ]
+"219
+{
+"220
+[e =& _CCP2CON -> ~ -> 48 `i `uc ]
+[e =| _CCP2CON -> << & _ui16TempVar -> -> 3 `i `ui -> 4 `i `uc ]
+[e = _CCPR2L -> >> & _ui16TempVar -> -> 1020 `i `ui -> 2 `i `uc ]
+"221
+}
+[e $U 120  ]
+"222
+[e :U 119 ]
+"223
+{
+"226
+}
+[e :U 120 ]
+[e :U 118 ]
+"227
+[e :UE 115 ]
+}
+"246
+[v _removePWM `(v ~T0 @X0 1 ef1`E1485 ]
+{
+[e :U _removePWM ]
+[v _ePWM_Module `E1485 ~T0 @X0 1 r1 ]
+[f ]
+"247
+[e $ ! == -> . `E1485 0 `i -> _ePWM_Module `i 122  ]
+"248
+{
+"249
+[e = _CCP1CON -> & -> . `E1440 0 `i -> 15 `i `uc ]
+"250
+}
+[e $U 123  ]
+"251
+[e :U 122 ]
+[e $ ! == -> . `E1485 1 `i -> _ePWM_Module `i 124  ]
+"252
+{
+"253
+[e = _CCP2CON -> & -> . `E1440 0 `i -> 15 `i `uc ]
+"254
+}
+[e $U 125  ]
+"255
+[e :U 124 ]
+"256
+{
+"259
+}
+[e :U 125 ]
+[e :U 123 ]
+"260
+[e :UE 121 ]
+}

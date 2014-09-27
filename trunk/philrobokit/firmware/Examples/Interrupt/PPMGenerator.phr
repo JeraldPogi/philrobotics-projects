@@ -15,12 +15,12 @@
 * > This program is free software under GNU General Public License.
 *********************************************************************************************/
 /* PPM Output Pin */
-#define PPM_OUT             D13
+#define PPM_OUT             D0
 
 /* Packet Description */
-#define PULSE_PERIOD		15		// 100uS
+#define PULSE_PERIOD		17		// 170uS
 #define CYCLE_PERIOD		2500	// 25mS
-#define TIMER2_MAX_COUNT	255
+#define TIMER2_MAX_COUNT	200
 
 /* Channel Description */
 #define NUM_OF_CHANNELS		6       // 6 servo channels
@@ -34,8 +34,8 @@
 
 enum PPMGenStates
 {
-	SEND_PULSE
-	,SEND_CHANNEL_PERIOD
+	SEND_MARK
+	,SEND_SPACE
 	,WAIT_END_OF_CYCLE
 };
 
@@ -53,40 +53,43 @@ void PPMGenerator()
 {
 	switch(PPM_State)
 	{
-		case SEND_PULSE:
+		case SEND_MARK:
 		{
-			clrPin(PPM_OUT);
 			set8BitTimer(TIMER2,PULSE_PERIOD);
-			
-			if(channel_ctr < (NUM_OF_CHANNELS-1))
+			setPin(PPM_OUT);
+			PPM_State = SEND_SPACE;
+			break;
+		}
+		case SEND_SPACE:
+		{
+			if(channel_ctr < NUM_OF_CHANNELS)
 			{
-				PPM_State = SEND_CHANNEL_PERIOD;
+				set8BitTimer(TIMER2,(ChannelPeriods[channel_ctr] - PULSE_PERIOD));
+				clrPin(PPM_OUT);
+				SumOfPeriods += ChannelPeriods[channel_ctr];
+				PPM_State = SEND_MARK;
 				channel_ctr++;
 			}
 			else
 			{
+				set8BitTimer(TIMER2,PULSE_PERIOD);
+				clrPin(PPM_OUT);
+				SumOfPeriods += PULSE_PERIOD<<1;
 				PPM_State = WAIT_END_OF_CYCLE;
-				channel_ctr=-1;
+				channel_ctr = 0;
 				BlankTimeSet = 0;
-			}			
-			break;
-		}
-		case SEND_CHANNEL_PERIOD:
-		{
-			setPin(PPM_OUT);			
-			set8BitTimer(TIMER2,(ChannelPeriods[channel_ctr] - PULSE_PERIOD));
-			SumOfPeriods += ChannelPeriods[channel_ctr];
-			PPM_State = SEND_PULSE;
+			}		
 			break;
 		}
 		case WAIT_END_OF_CYCLE:
 		{
-			setPin(PPM_OUT);
+			clrPin(PPM_OUT);
 			
 			if(0 == BlankTimeSet)
 			{
 				FrameBlankTime = CYCLE_PERIOD - SumOfPeriods;
 				BlankTimeSet = 1;
+				SumOfPeriods = 0;
 			}
 
 			if(FrameBlankTime > TIMER2_MAX_COUNT)
@@ -98,8 +101,7 @@ void PPMGenerator()
 			else
 			{
 				set8BitTimer(TIMER2,(uchar_t)FrameBlankTime);
-				PPM_State = SEND_PULSE;
-				SumOfPeriods = 0;
+				PPM_State = SEND_MARK;
 			}
 			break;
 		}
@@ -132,16 +134,19 @@ void init()
 	makeOutput(PPM_OUT);
 	clrPin(PPM_OUT);
     
+	makeOutput(D1);
+	clrPin(D1);
+	
     /* PPM Engine Kickstart (Start with Channel 1) */
-	set8BitTimer(TIMER2,PULSE_PERIOD);	
-	PPM_State = SEND_CHANNEL_PERIOD;
+	set8BitTimer(TIMER2,TIMER2_MAX_COUNT);	
+	PPM_State = SEND_MARK;
 	channel_ctr = 0;
 }
 
 void cycle()
 {
 	uint16_t i;
-	
+#if 0 // Stack Problem on PIC18F877A
   /*********************************************************//**
     /* > read stick ADC input and convert to channel periods
     **************************************************************/
@@ -151,7 +156,7 @@ void cycle()
 	{
 		ChannelPeriods[tempvar] = convertADC2Period(1);
 	}
-	#endif
+	#else
 
   /*********************************************************//**
     * > else emulate a signal of increasing and decreasing value
@@ -183,4 +188,6 @@ void cycle()
 	
 	//delayMs(200);
 	//delayMs(200);
+	#endif
+#endif
 }

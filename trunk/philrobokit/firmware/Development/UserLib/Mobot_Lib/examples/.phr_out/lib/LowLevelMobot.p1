@@ -1,0 +1,332 @@
+Version 3.2 HI-TECH Software Intermediate Code
+"59 libraries/Mobot_Lib\LowLevelMobot.c
+[c E1169 0 1 2 .. ]
+[n E1169 PinStateOperation_et SET_PIN CLR_PIN TOGGLE_PIN  ]
+"295 C:\Users\glutnix\Desktop\philrobokit_xc8/hardware/cores/lib\hal_gpio.h
+[v _changePinState `(v ~T0 @X0 0 ef2`uc`E1169 ]
+"59 libraries/Mobot_Lib\LowLevelMobot.c
+[c E1173 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 .. ]
+[n E1173 DigitalPins_et D0 D1 D2 D3 D4 D5 D6 D7 D8 D9 D10 D11 D12 D13 D14 D15 D16 D17 D18 D19 D20 D21 D22 D23 D24 D25 D26 D27 D28  ]
+"296 C:\Users\glutnix\Desktop\philrobokit_xc8/hardware/cores/lib\hal_gpio.h
+[v _checkPinState `(uc ~T0 @X0 0 ef1`uc ]
+"56 libraries/Mobot_Lib\PBotGlobals.h
+[v _blWallDetectedonLeft `uc ~T0 @X0 0 e ]
+"57
+[v _blWallDetectedonCenter `uc ~T0 @X0 0 e ]
+"58
+[v _blWallDetectedonRight `uc ~T0 @X0 0 e ]
+"60
+[v _blLineDetectedonLeft `uc ~T0 @X0 0 e ]
+"61
+[v _blLineDetectedonCenter `uc ~T0 @X0 0 e ]
+"62
+[v _blLineDetectedonRight `uc ~T0 @X0 0 e ]
+"49 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[; <" INDF equ 00h ;# ">
+"55
+[; <" TMR0 equ 01h ;# ">
+"61
+[; <" PCL equ 02h ;# ">
+"67
+[; <" STATUS equ 03h ;# ">
+"154
+[; <" FSR equ 04h ;# ">
+"160
+[; <" PORTA equ 05h ;# ">
+"209
+[; <" PORTB equ 06h ;# ">
+"270
+[; <" PORTC equ 07h ;# ">
+"331
+[; <" PORTD equ 08h ;# ">
+"392
+[; <" PORTE equ 09h ;# ">
+"423
+[; <" PCLATH equ 0Ah ;# ">
+"442
+[; <" INTCON equ 0Bh ;# ">
+"519
+[; <" PIR1 equ 0Ch ;# ">
+"580
+[; <" PIR2 equ 0Dh ;# ">
+"619
+[; <" TMR1 equ 0Eh ;# ">
+"625
+[; <" TMR1L equ 0Eh ;# ">
+"631
+[; <" TMR1H equ 0Fh ;# ">
+"637
+[; <" T1CON equ 010h ;# ">
+"711
+[; <" TMR2 equ 011h ;# ">
+"717
+[; <" T2CON equ 012h ;# ">
+"787
+[; <" SSPBUF equ 013h ;# ">
+"793
+[; <" SSPCON equ 014h ;# ">
+"862
+[; <" CCPR1 equ 015h ;# ">
+"868
+[; <" CCPR1L equ 015h ;# ">
+"874
+[; <" CCPR1H equ 016h ;# ">
+"880
+[; <" CCP1CON equ 017h ;# ">
+"937
+[; <" RCSTA equ 018h ;# ">
+"1031
+[; <" TXREG equ 019h ;# ">
+"1037
+[; <" RCREG equ 01Ah ;# ">
+"1043
+[; <" CCPR2 equ 01Bh ;# ">
+"1049
+[; <" CCPR2L equ 01Bh ;# ">
+"1055
+[; <" CCPR2H equ 01Ch ;# ">
+"1061
+[; <" CCP2CON equ 01Dh ;# ">
+"1118
+[; <" ADRESH equ 01Eh ;# ">
+"1124
+[; <" ADCON0 equ 01Fh ;# ">
+"1219
+[; <" OPTION_REG equ 081h ;# ">
+"1288
+[; <" TRISA equ 085h ;# ">
+"1337
+[; <" TRISB equ 086h ;# ">
+"1398
+[; <" TRISC equ 087h ;# ">
+"1459
+[; <" TRISD equ 088h ;# ">
+"1520
+[; <" TRISE equ 089h ;# ">
+"1576
+[; <" PIE1 equ 08Ch ;# ">
+"1637
+[; <" PIE2 equ 08Dh ;# ">
+"1676
+[; <" PCON equ 08Eh ;# ">
+"1709
+[; <" SSPCON2 equ 091h ;# ">
+"1770
+[; <" PR2 equ 092h ;# ">
+"1776
+[; <" SSPADD equ 093h ;# ">
+"1782
+[; <" SSPSTAT equ 094h ;# ">
+"1950
+[; <" TXSTA equ 098h ;# ">
+"2030
+[; <" SPBRG equ 099h ;# ">
+"2036
+[; <" CMCON equ 09Ch ;# ">
+"2105
+[; <" CVRCON equ 09Dh ;# ">
+"2169
+[; <" ADRESL equ 09Eh ;# ">
+"2175
+[; <" ADCON1 equ 09Fh ;# ">
+"2233
+[; <" EEDATA equ 010Ch ;# ">
+"2239
+[; <" EEADR equ 010Dh ;# ">
+"2245
+[; <" EEDATH equ 010Eh ;# ">
+"2251
+[; <" EEADRH equ 010Fh ;# ">
+"2257
+[; <" EECON1 equ 018Ch ;# ">
+"2301
+[; <" EECON2 equ 018Dh ;# ">
+"55 libraries/Mobot_Lib\LowLevelMobot.c
+[v _runRightMotor `(v ~T0 @X0 1 ef2`uc`uc ]
+"56
+{
+[e :U _runRightMotor ]
+"55
+[v _ui8Speed `uc ~T0 @X0 1 r1 ]
+[v _blDirection `uc ~T0 @X0 1 r2 ]
+"56
+[f ]
+"57
+[e $ ! == -> 1 `i -> _blDirection `i 98  ]
+"58
+{
+"59
+[e ( _changePinState (2 , -> . `E1173 8 `uc -> . `E1169 0 `E1169 ]
+"60
+}
+[e $U 99  ]
+"61
+[e :U 98 ]
+"62
+{
+"63
+[e ( _changePinState (2 , -> . `E1173 8 `uc -> . `E1169 1 `E1169 ]
+"64
+}
+[e :U 99 ]
+"68
+[e $ ! == -> 1 `i -> _blDirection `i 100  ]
+"69
+{
+"70
+[e ( _changePinState (2 , -> . `E1173 1 `uc -> . `E1169 1 `E1169 ]
+"71
+}
+[e $U 101  ]
+"72
+[e :U 100 ]
+"73
+{
+"74
+[e ( _changePinState (2 , -> . `E1173 1 `uc -> . `E1169 0 `E1169 ]
+"75
+}
+[e :U 101 ]
+"96
+[e :UE 97 ]
+}
+"98
+[v _runLeftMotor `(v ~T0 @X0 1 ef2`uc`uc ]
+"99
+{
+[e :U _runLeftMotor ]
+"98
+[v _ui8Speed `uc ~T0 @X0 1 r1 ]
+[v _blDirection `uc ~T0 @X0 1 r2 ]
+"99
+[f ]
+"100
+[e $ ! == -> 1 `i -> _blDirection `i 103  ]
+"101
+{
+"102
+[e ( _changePinState (2 , -> . `E1173 11 `uc -> . `E1169 0 `E1169 ]
+"103
+}
+[e $U 104  ]
+"104
+[e :U 103 ]
+"105
+{
+"106
+[e ( _changePinState (2 , -> . `E1173 11 `uc -> . `E1169 1 `E1169 ]
+"107
+}
+[e :U 104 ]
+"111
+[e $ ! == -> 1 `i -> _blDirection `i 105  ]
+"112
+{
+"113
+[e ( _changePinState (2 , -> . `E1173 2 `uc -> . `E1169 1 `E1169 ]
+"114
+}
+[e $U 106  ]
+"115
+[e :U 105 ]
+"116
+{
+"117
+[e ( _changePinState (2 , -> . `E1173 2 `uc -> . `E1169 0 `E1169 ]
+"118
+}
+[e :U 106 ]
+"139
+[e :UE 102 ]
+}
+"141
+[v _stopRightMotor `(v ~T0 @X0 1 ef ]
+"142
+{
+[e :U _stopRightMotor ]
+[f ]
+"143
+[e ( _changePinState (2 , -> . `E1173 8 `uc -> . `E1169 1 `E1169 ]
+"145
+[e ( _changePinState (2 , -> . `E1173 1 `uc -> . `E1169 1 `E1169 ]
+"152
+[e :UE 107 ]
+}
+"154
+[v _stopLeftMotor `(v ~T0 @X0 1 ef ]
+"155
+{
+[e :U _stopLeftMotor ]
+[f ]
+"156
+[e ( _changePinState (2 , -> . `E1173 11 `uc -> . `E1169 1 `E1169 ]
+"158
+[e ( _changePinState (2 , -> . `E1173 2 `uc -> . `E1169 1 `E1169 ]
+"165
+[e :UE 108 ]
+}
+"168
+[v _readSensorOutput `(uc ~T0 @X0 1 sf2`uc`uc ]
+"169
+{
+[e :U _readSensorOutput ]
+"168
+[v _iSensorPin `uc ~T0 @X0 1 r1 ]
+[v _blPolarity `uc ~T0 @X0 1 r2 ]
+"169
+[f ]
+"170
+[e $ ! != -> _blPolarity `i -> -> -> 0 `i `uc `i 110  ]
+"171
+{
+"172
+[e ) -> -> ! != -> ( _checkPinState (1 _iSensorPin `i -> -> -> 0 `i `uc `i `i `uc ]
+[e $UE 109  ]
+"173
+}
+[e $U 111  ]
+"174
+[e :U 110 ]
+"175
+{
+"176
+[e ) ( _checkPinState (1 _iSensorPin ]
+[e $UE 109  ]
+"177
+}
+[e :U 111 ]
+"178
+[e :UE 109 ]
+}
+"272
+[v _pollWallSensors `(v ~T0 @X0 1 ef1`*uc ]
+"273
+{
+[e :U _pollWallSensors ]
+[v _blObstacleSensorPolarity `*uc ~T0 @X0 1 r1 ]
+[f ]
+"274
+[e = _blWallDetectedonLeft ( _readSensorOutput (2 , -> . `E1173 4 `uc *U _blObstacleSensorPolarity ]
+"275
+[e = _blWallDetectedonCenter ( _readSensorOutput (2 , -> . `E1173 0 `uc *U _blObstacleSensorPolarity ]
+"276
+[e = _blWallDetectedonRight ( _readSensorOutput (2 , -> . `E1173 3 `uc *U _blObstacleSensorPolarity ]
+"277
+[e :UE 112 ]
+}
+"279
+[v _pollLineSensors `(v ~T0 @X0 1 ef1`*uc ]
+"280
+{
+[e :U _pollLineSensors ]
+[v _blLineSensorPolarity `*uc ~T0 @X0 1 r1 ]
+[f ]
+"281
+[e = _blLineDetectedonLeft ( _readSensorOutput (2 , -> . `E1173 10 `uc *U _blLineSensorPolarity ]
+"282
+[e = _blLineDetectedonCenter ( _readSensorOutput (2 , -> . `E1173 5 `uc *U _blLineSensorPolarity ]
+"283
+[e = _blLineDetectedonRight ( _readSensorOutput (2 , -> . `E1173 9 `uc *U _blLineSensorPolarity ]
+"284
+[e :UE 113 ]
+}

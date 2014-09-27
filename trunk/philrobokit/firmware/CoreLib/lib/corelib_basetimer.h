@@ -55,16 +55,14 @@
 /* none */
 
 /* Public Function Prototypes */
-uint16_t getUs(void);
-uint16_t getElapsedUs(uint16_t ui16TimeUs);
+//uint16_t getUs(void);
+// uint16_t getElapsedUs(uint16_t ui16TimeUs);
 
 uint16_t getMs(void);
 uint16_t getElapsedMs(uint16_t ui16TimeMs);
 
-#ifdef __TIMER_SEC__
 uint16_t getSec(void);
 uint16_t getElapsedSec(uint16_t ui16TimeSec);
-#endif
 
 #endif/* end of corelib_basetimer.h */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -74,7 +74,22 @@ enum ServoModules_e
 };
     
 /* Macro and Configuration Definitions */
-    /* none */
+#ifdef PHILROBOKIT_LITE
+#define removeSERVOOutputPin(pin)						inline_makeInput(pin)
+#define configSERVOOutputPin(pin)						inline_makeOutput(pin)
+#define setServoPin(pin)								inline_setPin(pin)
+#define clrServoPin(pin)								inline_clrPin(pin)
+
+#else
+#define removeSERVOOutputPin(pin)						makeInput(pin)
+#define configSERVOOutputPin(pin)						makeOutput(pin)
+#define setServoPin(pin)								setPin(pin)
+#define clrServoPin(pin)								clrPin(pin)
+
+#endif
+
+#define setupSERVOTimer(tmr_module,isr_pointer)			setup8BitTimer(tmr_module,isr_pointer)
+#define setSERVOTimer(tmr_timer,value)					set8BitTimer(tmr_timer,value)
     
 /* Public Function Prototypes */
 void setupServo(enum ServoModules_e eServoMod, uint8_t ui8ServoPin, int8_t i8DefaultAngle);

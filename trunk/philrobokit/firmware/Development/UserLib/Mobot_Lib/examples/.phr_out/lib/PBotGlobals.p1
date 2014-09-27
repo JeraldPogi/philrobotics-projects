@@ -1,0 +1,157 @@
+Version 3.2 HI-TECH Software Intermediate Code
+"49 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[; <" INDF equ 00h ;# ">
+"55
+[; <" TMR0 equ 01h ;# ">
+"61
+[; <" PCL equ 02h ;# ">
+"67
+[; <" STATUS equ 03h ;# ">
+"154
+[; <" FSR equ 04h ;# ">
+"160
+[; <" PORTA equ 05h ;# ">
+"209
+[; <" PORTB equ 06h ;# ">
+"270
+[; <" PORTC equ 07h ;# ">
+"331
+[; <" PORTD equ 08h ;# ">
+"392
+[; <" PORTE equ 09h ;# ">
+"423
+[; <" PCLATH equ 0Ah ;# ">
+"442
+[; <" INTCON equ 0Bh ;# ">
+"519
+[; <" PIR1 equ 0Ch ;# ">
+"580
+[; <" PIR2 equ 0Dh ;# ">
+"619
+[; <" TMR1 equ 0Eh ;# ">
+"625
+[; <" TMR1L equ 0Eh ;# ">
+"631
+[; <" TMR1H equ 0Fh ;# ">
+"637
+[; <" T1CON equ 010h ;# ">
+"711
+[; <" TMR2 equ 011h ;# ">
+"717
+[; <" T2CON equ 012h ;# ">
+"787
+[; <" SSPBUF equ 013h ;# ">
+"793
+[; <" SSPCON equ 014h ;# ">
+"862
+[; <" CCPR1 equ 015h ;# ">
+"868
+[; <" CCPR1L equ 015h ;# ">
+"874
+[; <" CCPR1H equ 016h ;# ">
+"880
+[; <" CCP1CON equ 017h ;# ">
+"937
+[; <" RCSTA equ 018h ;# ">
+"1031
+[; <" TXREG equ 019h ;# ">
+"1037
+[; <" RCREG equ 01Ah ;# ">
+"1043
+[; <" CCPR2 equ 01Bh ;# ">
+"1049
+[; <" CCPR2L equ 01Bh ;# ">
+"1055
+[; <" CCPR2H equ 01Ch ;# ">
+"1061
+[; <" CCP2CON equ 01Dh ;# ">
+"1118
+[; <" ADRESH equ 01Eh ;# ">
+"1124
+[; <" ADCON0 equ 01Fh ;# ">
+"1219
+[; <" OPTION_REG equ 081h ;# ">
+"1288
+[; <" TRISA equ 085h ;# ">
+"1337
+[; <" TRISB equ 086h ;# ">
+"1398
+[; <" TRISC equ 087h ;# ">
+"1459
+[; <" TRISD equ 088h ;# ">
+"1520
+[; <" TRISE equ 089h ;# ">
+"1576
+[; <" PIE1 equ 08Ch ;# ">
+"1637
+[; <" PIE2 equ 08Dh ;# ">
+"1676
+[; <" PCON equ 08Eh ;# ">
+"1709
+[; <" SSPCON2 equ 091h ;# ">
+"1770
+[; <" PR2 equ 092h ;# ">
+"1776
+[; <" SSPADD equ 093h ;# ">
+"1782
+[; <" SSPSTAT equ 094h ;# ">
+"1950
+[; <" TXSTA equ 098h ;# ">
+"2030
+[; <" SPBRG equ 099h ;# ">
+"2036
+[; <" CMCON equ 09Ch ;# ">
+"2105
+[; <" CVRCON equ 09Dh ;# ">
+"2169
+[; <" ADRESL equ 09Eh ;# ">
+"2175
+[; <" ADCON1 equ 09Fh ;# ">
+"2233
+[; <" EEDATA equ 010Ch ;# ">
+"2239
+[; <" EEADR equ 010Dh ;# ">
+"2245
+[; <" EEDATH equ 010Eh ;# ">
+"2251
+[; <" EEADRH equ 010Fh ;# ">
+"2257
+[; <" EECON1 equ 018Ch ;# ">
+"2301
+[; <" EECON2 equ 018Dh ;# ">
+"4 libraries/Mobot_Lib\PBotGlobals.c
+[v _blWallDetectedonLeft `uc ~T0 @X0 1 e ]
+"5
+[v _blWallDetectedonCenter `uc ~T0 @X0 1 e ]
+"6
+[v _blWallDetectedonRight `uc ~T0 @X0 1 e ]
+"8
+[v _blLineDetectedonLeft `uc ~T0 @X0 1 e ]
+"9
+[v _blLineDetectedonCenter `uc ~T0 @X0 1 e ]
+"10
+[v _blLineDetectedonRight `uc ~T0 @X0 1 e ]
+"14
+[v _strDProtocolID `uc ~T0 @X0 -> 4 `i e ]
+"15
+[v _strCommandCode `uc ~T0 @X0 -> 5 `i e ]
+"16
+[v _strParam1 `uc ~T0 @X0 -> 7 `i e ]
+"17
+[v _strParam2 `uc ~T0 @X0 -> 7 `i e ]
+"19
+[v _ui8ObstacleLocation `uc ~T0 @X0 1 e ]
+"20
+[v _ui8LineLocation `uc ~T0 @X0 1 e ]
+"22
+[v _blDPacketReady `uc ~T0 @X0 1 e ]
+"23
+[v _blDPacketAvailable `uc ~T0 @X0 1 e ]
+"24
+[v _blBufferOverflow `uc ~T0 @X0 1 e ]
+"25
+[v _blTerminationError `uc ~T0 @X0 1 e ]
+"27
+[v _blObstacleSensorPolarity `uc ~T0 @X0 1 e ]
+"28
+[v _blLineSensorPolarity `uc ~T0 @X0 1 e ]

@@ -40,6 +40,8 @@
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
 
+#include "PhilRoboKit_CoreLib_Macro.h"
+#if defined (USE_INTERRUPT)
 #include "corelib_user_interrupt.h"
 
 /* Local Constants */
@@ -336,6 +338,7 @@ void setupUserInt(enum InterruptSources_et eIntSource, void(*callback)(), /*enum
 /* Private Functions */
 /* none */
 
+#endif
 /* end of corelib_user_interrupt.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 

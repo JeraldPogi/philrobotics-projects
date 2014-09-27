@@ -44,7 +44,6 @@
 #ifdef UNIT_TEST                                    // autodefined at unit testing script
 #include "corelib_adc_test_stub.h"
 #else
-#include "PhilRoboKit_CoreLib_Macro.h"
 #include "hal_adc.h"
 #endif
 
@@ -62,24 +61,11 @@ enum ADCVrefSource_et
 /* User Configuration Definitions */
 #define ADC_CYCLE_COUNTER_TIMEOUT           5       // 5mS with 0.5uS resolution
 
-//#if (__PHR_CONTROLLER__==__MCU_PIC18__)
-//#define __POLLING_DELAY__                   __USE_COUNTER__
-//#else
-//#define __POLLING_DELAY__                   __USE_COUNTER__//__USE_TIMER__
-//#endif
-
-//#if (__POLLING_DELAY__ == __USE_TIMER__)
-//#define ADC_CYCLE_TIMEOUT                   5       // 5mS with 1mS resolution
-//#else
-//#define ADC_CYCLE_COUNTER_TIMEOUT           5       // 5mS with 0.5uS resolution
-//#endif
-
 /* Macro and Configuration Definitions */
 /* none */
 
 /* Public Function Prototypes */
 void adcISR(void);
-void adcCycle(void);
 
 void setupADC(enum ADCVrefSource_et eVrefSource);
 uint16_t adcRead(uint8_t ui8Channel);

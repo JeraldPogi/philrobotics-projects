@@ -1,0 +1,381 @@
+Version 3.2 HI-TECH Software Intermediate Code
+"2441 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _GIE `Vb ~T0 @X0 0 e@95 ]
+"2481
+[v _PEIE `Vb ~T0 @X0 0 e@94 ]
+"53
+[v _TMR0 `Vuc ~T0 @X0 0 e@1 ]
+"49 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[; <" INDF equ 00h ;# ">
+"55
+[; <" TMR0 equ 01h ;# ">
+"61
+[; <" PCL equ 02h ;# ">
+"67
+[; <" STATUS equ 03h ;# ">
+"154
+[; <" FSR equ 04h ;# ">
+"160
+[; <" PORTA equ 05h ;# ">
+"209
+[; <" PORTB equ 06h ;# ">
+"270
+[; <" PORTC equ 07h ;# ">
+"331
+[; <" PORTD equ 08h ;# ">
+"392
+[; <" PORTE equ 09h ;# ">
+"423
+[; <" PCLATH equ 0Ah ;# ">
+"442
+[; <" INTCON equ 0Bh ;# ">
+"519
+[; <" PIR1 equ 0Ch ;# ">
+"580
+[; <" PIR2 equ 0Dh ;# ">
+"619
+[; <" TMR1 equ 0Eh ;# ">
+"625
+[; <" TMR1L equ 0Eh ;# ">
+"631
+[; <" TMR1H equ 0Fh ;# ">
+"637
+[; <" T1CON equ 010h ;# ">
+"711
+[; <" TMR2 equ 011h ;# ">
+"717
+[; <" T2CON equ 012h ;# ">
+"787
+[; <" SSPBUF equ 013h ;# ">
+"793
+[; <" SSPCON equ 014h ;# ">
+"862
+[; <" CCPR1 equ 015h ;# ">
+"868
+[; <" CCPR1L equ 015h ;# ">
+"874
+[; <" CCPR1H equ 016h ;# ">
+"880
+[; <" CCP1CON equ 017h ;# ">
+"937
+[; <" RCSTA equ 018h ;# ">
+"1031
+[; <" TXREG equ 019h ;# ">
+"1037
+[; <" RCREG equ 01Ah ;# ">
+"1043
+[; <" CCPR2 equ 01Bh ;# ">
+"1049
+[; <" CCPR2L equ 01Bh ;# ">
+"1055
+[; <" CCPR2H equ 01Ch ;# ">
+"1061
+[; <" CCP2CON equ 01Dh ;# ">
+"1118
+[; <" ADRESH equ 01Eh ;# ">
+"1124
+[; <" ADCON0 equ 01Fh ;# ">
+"1219
+[; <" OPTION_REG equ 081h ;# ">
+"1288
+[; <" TRISA equ 085h ;# ">
+"1337
+[; <" TRISB equ 086h ;# ">
+"1398
+[; <" TRISC equ 087h ;# ">
+"1459
+[; <" TRISD equ 088h ;# ">
+"1520
+[; <" TRISE equ 089h ;# ">
+"1576
+[; <" PIE1 equ 08Ch ;# ">
+"1637
+[; <" PIE2 equ 08Dh ;# ">
+"1676
+[; <" PCON equ 08Eh ;# ">
+"1709
+[; <" SSPCON2 equ 091h ;# ">
+"1770
+[; <" PR2 equ 092h ;# ">
+"1776
+[; <" SSPADD equ 093h ;# ">
+"1782
+[; <" SSPSTAT equ 094h ;# ">
+"1950
+[; <" TXSTA equ 098h ;# ">
+"2030
+[; <" SPBRG equ 099h ;# ">
+"2036
+[; <" CMCON equ 09Ch ;# ">
+"2105
+[; <" CVRCON equ 09Dh ;# ">
+"2169
+[; <" ADRESL equ 09Eh ;# ">
+"2175
+[; <" ADCON1 equ 09Fh ;# ">
+"2233
+[; <" EEDATA equ 010Ch ;# ">
+"2239
+[; <" EEADR equ 010Dh ;# ">
+"2245
+[; <" EEDATH equ 010Eh ;# ">
+"2251
+[; <" EEADRH equ 010Fh ;# ">
+"2257
+[; <" EECON1 equ 018Ch ;# ">
+"2301
+[; <" EECON2 equ 018Dh ;# ">
+"44 hardware/cores\PhilRobokit_CoreLib_GlobalDefs.c
+[v _gblInitialized `Vuc ~T0 @X0 1 s ]
+[i _gblInitialized
+-> -> == -> 1 `i -> 0 `i `i `uc
+]
+"45
+[v _gblISRLocked `Vuc ~T0 @X0 1 s ]
+[i _gblISRLocked
+-> -> == -> 1 `i -> 0 `i `i `uc
+]
+"48
+[v _gui16TimerUsMSB `Vui ~T0 @X0 1 s ]
+[i _gui16TimerUsMSB
+-> -> 0 `i `ui
+]
+"49
+[v _gui16TimerMs `Vui ~T0 @X0 1 s ]
+[i _gui16TimerMs
+-> -> 0 `i `ui
+]
+"50
+[v _gui16TimerSec `Vui ~T0 @X0 1 s ]
+[i _gui16TimerSec
+-> -> 0 `i `ui
+]
+"60
+[v _set_gblInitialized_FlagValue `(v ~T0 @X0 1 ef ]
+"61
+{
+[e :U _set_gblInitialized_FlagValue ]
+[f ]
+"62
+[e = _gblInitialized -> -> == -> 1 `i -> 1 `i `i `uc ]
+"63
+[e :UE 97 ]
+}
+"65
+[v _get_gblInitialized_FlagValue `(uc ~T0 @X0 1 ef ]
+"66
+{
+[e :U _get_gblInitialized_FlagValue ]
+[f ]
+"67
+[v _blTemp `uc ~T0 @X0 1 a ]
+"68
+[e = _blTemp _gblInitialized ]
+"69
+[e ) _blTemp ]
+[e $UE 98  ]
+"70
+[e :UE 98 ]
+}
+"72
+[v _set_gblISRLocked_FlagValue `(v ~T0 @X0 1 ef ]
+"73
+{
+[e :U _set_gblISRLocked_FlagValue ]
+[f ]
+"74
+[e = _gblISRLocked -> -> == -> 1 `i -> 1 `i `i `uc ]
+"75
+[e :UE 99 ]
+}
+"77
+[v _clr_gblISRLocked_FlagValue `(v ~T0 @X0 1 ef ]
+"78
+{
+[e :U _clr_gblISRLocked_FlagValue ]
+[f ]
+"79
+[e = _gblISRLocked -> -> == -> 1 `i -> 0 `i `i `uc ]
+"80
+[e :UE 100 ]
+}
+"82
+[v _get_gblISRLocked_FlagValue `(uc ~T0 @X0 1 ef ]
+"83
+{
+[e :U _get_gblISRLocked_FlagValue ]
+[f ]
+"84
+[v _blTemp `uc ~T0 @X0 1 a ]
+"85
+[e = _blTemp _gblISRLocked ]
+"86
+[e ) _blTemp ]
+[e $UE 101  ]
+"87
+[e :UE 101 ]
+}
+"90
+[v _inc_gui16TimerUsMSB_Value `(v ~T0 @X0 1 ef1`ui ]
+"91
+{
+[e :U _inc_gui16TimerUsMSB_Value ]
+"90
+[v _ui16Value `ui ~T0 @X0 1 r1 ]
+"91
+[f ]
+"92
+[e = _GIE -> -> 0 `i `b ]
+[e = _PEIE -> -> 0 `i `b ]
+"93
+[e =+ _gui16TimerUsMSB _ui16Value ]
+"95
+[e $ ! == -> == -> 1 `i -> 0 `i `i -> _gblISRLocked `i 103  ]
+"96
+{
+"97
+[e = _GIE -> -> 1 `i `b ]
+[e = _PEIE -> -> 1 `i `b ]
+"98
+}
+[e :U 103 ]
+"99
+[e :UE 102 ]
+}
+"101
+[v _get_gui16TimerUsMSB_Value `(ui ~T0 @X0 1 ef ]
+"102
+{
+[e :U _get_gui16TimerUsMSB_Value ]
+[f ]
+"103
+[v _ui16Temp `ui ~T0 @X0 1 a ]
+"104
+[e = _ui16Temp & _gui16TimerUsMSB -> 65280 `ui ]
+"105
+[e ) _ui16Temp ]
+[e $UE 104  ]
+"106
+[e :UE 104 ]
+}
+"124
+[v _getBaseTimerValue `(ui ~T0 @X0 1 ef ]
+"125
+{
+[e :U _getBaseTimerValue ]
+[f ]
+"126
+[v _ui16Temp `ui ~T0 @X0 1 a ]
+[v _ui16HiTimer `ui ~T0 @X0 1 a ]
+"128
+[e $U 106  ]
+[e :U 107 ]
+{
+}
+[e :U 106 ]
+[e $ == -> == -> 1 `i -> 1 `i `i -> ( _get_gblISRLocked_FlagValue ..  `i 107  ]
+[e :U 108 ]
+"130
+[e = _GIE -> -> 0 `i `b ]
+[e = _PEIE -> -> 0 `i `b ]
+"135
+[e :U 111 ]
+"138
+{
+"139
+[e = _ui16HiTimer ( _get_gui16TimerUsMSB_Value ..  ]
+"140
+[e = _ui16Temp -> _TMR0 `ui ]
+"141
+}
+"145
+[e $ != _ui16HiTimer ( _get_gui16TimerUsMSB_Value ..  111  ]
+[e :U 110 ]
+"151
+[e =+ _ui16Temp _ui16HiTimer ]
+"153
+[e ) _ui16Temp ]
+[e $UE 105  ]
+"154
+[e :UE 105 ]
+}
+"157
+[v _inc_gui16TimerMs_Value `(v ~T0 @X0 1 ef ]
+"158
+{
+[e :U _inc_gui16TimerMs_Value ]
+[f ]
+"159
+[e = _GIE -> -> 0 `i `b ]
+[e = _PEIE -> -> 0 `i `b ]
+"160
+[e ++ _gui16TimerMs -> -> 1 `i `ui ]
+"162
+[e $ ! == -> == -> 1 `i -> 0 `i `i -> _gblISRLocked `i 113  ]
+"163
+{
+"164
+[e = _GIE -> -> 1 `i `b ]
+[e = _PEIE -> -> 1 `i `b ]
+"165
+}
+[e :U 113 ]
+"166
+[e :UE 112 ]
+}
+"168
+[v _get_gui16TimerMs_Value `(ui ~T0 @X0 1 ef ]
+"169
+{
+[e :U _get_gui16TimerMs_Value ]
+[f ]
+"170
+[v _ui16Temp `ui ~T0 @X0 1 a ]
+"171
+[e = _ui16Temp _gui16TimerMs ]
+"172
+[e ) _ui16Temp ]
+[e $UE 114  ]
+"173
+[e :UE 114 ]
+}
+"176
+[v _inc_gui16TimerSec_Value `(v ~T0 @X0 1 ef ]
+"177
+{
+[e :U _inc_gui16TimerSec_Value ]
+[f ]
+"178
+[e = _GIE -> -> 0 `i `b ]
+[e = _PEIE -> -> 0 `i `b ]
+"179
+[e ++ _gui16TimerSec -> -> 1 `i `ui ]
+"181
+[e $ ! == -> == -> 1 `i -> 0 `i `i -> _gblISRLocked `i 116  ]
+"182
+{
+"183
+[e = _GIE -> -> 1 `i `b ]
+[e = _PEIE -> -> 1 `i `b ]
+"184
+}
+[e :U 116 ]
+"185
+[e :UE 115 ]
+}
+"187
+[v _get_gui16TimerSec_Value `(ui ~T0 @X0 1 ef ]
+"188
+{
+[e :U _get_gui16TimerSec_Value ]
+[f ]
+"189
+[v _ui16Temp `ui ~T0 @X0 1 a ]
+"190
+[e = _ui16Temp _gui16TimerSec ]
+"191
+[e ) _ui16Temp ]
+[e $UE 117  ]
+"192
+[e :UE 117 ]
+}

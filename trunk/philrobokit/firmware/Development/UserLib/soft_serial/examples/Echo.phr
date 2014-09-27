@@ -1,0 +1,29 @@
+/*****************************************************************************************//**
+* # PhilRobotics | Philippine Electronics and Robotics Enthusiasts Club #
+* http://philrobotics.com | http://philrobotics.com/forum | http://facebook.com/philrobotics
+* phirobotics.core@philrobotics.com
+*
+*---------------------------------------------------------------------------------------------
+* |Filename:      	| "Echo.phr"                                                 						|
+* |:----          	|:----                                                                    					|
+* |Description:   | Echo the recieved serial data back to serial monitor.					|
+* |Author:        	| Efren S. Cruzat II                                                      				|
+* |               	|                                                                         					|
+* |Dependencies: |                                                                         					|
+*
+* > This program is free software under GNU General Public License.
+*********************************************************************************************/
+#include <soft_serial.h>
+void init()
+{
+	setupSerial(9600);						        // 9600 bits per second
+    setupSoftSerial(SUART0,D1,D0,4800);			    // 4800 bits per second, TX = D1, RX = D0
+}
+
+void cycle()
+{
+	while(serialDataCount() > 0)         			// check if serial data is available
+	{
+		serialSoftWrite(serialRead());       		// read soft serial character and send relay it to serial
+    }
+}

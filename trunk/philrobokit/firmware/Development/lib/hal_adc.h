@@ -44,13 +44,25 @@
 #ifdef UNIT_TEST                                        // autodefined at unit testing script
 #include "hal_adc_test_stub.h"
 #else
-#include <PhilRoboKit_CoreLib_Macro.h>
+/* none */
 #endif
 
 /* User Configuration Definitions */
 /* none */
 
 /* Global Constants */
+enum adcClockCfg_et
+{
+    FOSC_DIV2,
+    FOSC_DIV8,
+    FOSC_DIV32,
+    FOSC_INTRC0,
+    FOSC_DIV4,
+    FOSC_DIV16,
+    FOSC_DIV64,
+    FOSC_INTRC1
+};
+
 #if (__PHR_CONTROLLER__==__MCU_PIC18__)
 /* PIC18F4520 Specific */
 enum adcModuleCfg_et
@@ -58,6 +70,18 @@ enum adcModuleCfg_et
     CFG_ALLANALOG                                       = 0x00,
     CFG_ALLDIGITAL                                      = 0x0F,
     CFG_EXTVREF                                         = 0x10
+};
+
+enum adcTADOptions_et
+{
+    TAD_0,
+    TAD_2,
+    TAD_4,
+    TAD_6,
+    TAD_8,
+    TAD_12,
+    TAD_16,
+    TAD_21
 };
 
 #elif (__PHR_CONTROLLER__==__MCU_PIC16__)
@@ -87,46 +111,62 @@ enum adcModuleCfg_et
 #define hal_checkADCEndofConversion()                   ((BIT_ADCON0_GO_DONE) ? false : true)
 
 #if (__PHR_CONTROLLER__==__MCU_PIC18__)
-
 #define hal_leftAligned()                               (BIT_ADCON2_ADFM = 0)
 #define hal_rightAligned()                              (BIT_ADCON2_ADFM = 1)
 
 #define hal_configADCPinsClock(config)                  \
     REGISTER_ADCON2 &=~ADC_CONVCLOCK_MASK;              \
-    REGISTER_ADCON2 |= ADC_CONVCLOCK_MASK               // semi-collon intentionally omitted
+    REGISTER_ADCON2 |= ADC_CONVCLOCK_MASK               // semi-colon intentionally omitted
 
 #define hal_configADCAqDelay(config)                    \
     REGISTER_ADCON2 &=~ADC_TAD_MASK;                    \
-    REGISTER_ADCON2 |= (config<<3)&ADC_TAD_MASK         // semi-collon intentionally omitted
+    REGISTER_ADCON2 |= (config<<3)&ADC_TAD_MASK         // semi-colon intentionally omitted
 
 #define hal_setADCChannel(channel)                      \
-    REGISTER_ADCON0 &=~ADC_CHANSEL_MASK;                    \
-    REGISTER_ADCON0 |= (channel<<2)&ADC_CHANSEL_MASK        // semi-collon intentionally omitted
+    REGISTER_ADCON0 &=~ADC_CHANSEL_MASK;                \
+    REGISTER_ADCON0 |= (channel<<2)&ADC_CHANSEL_MASK    // semi-colon intentionally omitted
 
 #elif (__PHR_CONTROLLER__==__MCU_PIC16__)
-
 #define hal_leftAligned()                               (BIT_ADCON1_ADFM = 0)
 #define hal_rightAligned()                              (BIT_ADCON1_ADFM = 1)
 
 #define hal_configADCPinsClock(config)                  \
     REGISTER_ADCON0 &=~ADC_CONVCLOCK_MASK;              \
     REGISTER_ADCON0 |= (config<<6)&ADC_CONVCLOCK_MASK;  \
-    BIT_ADCON1_ADCS2 = (((config&0x04)>0) ? 1 : 0)      // semi-collon intentionally omitted
+    BIT_ADCON1_ADCS2 = (((config&0x04)>0) ? 1 : 0)      // semi-colon intentionally omitted
 
 #define hal_setADCChannel(channel)                      \
-    REGISTER_ADCON0 &=~ADC_CHANSEL_MASK;                    \
-    REGISTER_ADCON0 |= (channel<<3)&ADC_CHANSEL_MASK        // semi-collon intentionally omitted
+    REGISTER_ADCON0 &=~ADC_CHANSEL_MASK;                \
+    REGISTER_ADCON0 |= (channel<<3)&ADC_CHANSEL_MASK    // semi-colon intentionally omitted
+
 #else
 #endif
 
 #define hal_configADCPins(config)                       \
     REGISTER_ADCON1 &= ~ADC_CONFIG_MASK;                \
-    REGISTER_ADCON1 |= (config&ADC_CONFIG_MASK)         // semi-collon intentionally omitted
+    REGISTER_ADCON1 |= (config&ADC_CONFIG_MASK)         // semi-colon intentionally omitted
 
 #define readADCResult()                                 ((((uint16_t)REGISTER_ADRESH<<8) + REGISTER_ADRESL) & 0x03FF)
 
 /* Public Function Prototypes */
-void configLowLvlADC(void);
+//void configLowLvlADC(void);
+#if (__PHR_CONTROLLER__==__MCU_PIC18__)
+#define configLowLvlADC()                                   \
+    REGISTER_ADCON2 &=~ADC_CONVCLOCK_MASK;                  \
+    REGISTER_ADCON2 |= ADC_CONVCLOCK_MASK;                  \
+    BIT_ADCON2_ADFM = 1;                                    \
+    REGISTER_ADCON2 &=~ADC_TAD_MASK;                        \
+    REGISTER_ADCON2 |= (TAD_12<<3)&ADC_TAD_MASK             // semi-colon intentionally omitted
+
+#elif (__PHR_CONTROLLER__==__MCU_PIC16__)
+#define configLowLvlADC()                                   \
+    REGISTER_ADCON0 &=~ADC_CONVCLOCK_MASK;                  \
+    REGISTER_ADCON0 |= (FOSC_DIV64<<6)&ADC_CONVCLOCK_MASK;  \
+    BIT_ADCON1_ADCS2 = (((FOSC_DIV64&0x04)>0) ? 1 : 0);     \
+    BIT_ADCON1_ADFM = 1                                     // semi-colon intentionally omitted
+
+#else
+#endif
 
 #endif /* end of hal_adc.h */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

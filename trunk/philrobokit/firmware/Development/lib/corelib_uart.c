@@ -39,6 +39,8 @@
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
 
+#include "PhilRoboKit_CoreLib_Macro.h"
+#if defined (USE_UART)
 #include "corelib_uart.h"
 
 /* Local Constants */
@@ -281,8 +283,8 @@ void serialFlush(void)
     stUARTTXFiFo.ui8Head = 0;
     stUARTRXFiFo.ui8Tail = 0;
     stUARTTXFiFo.ui8Tail = 0;
-    memset(stUARTTXFiFo.aui8Buffer, 0, sizeof(stUARTTXFiFo.aui8Buffer));
-    memset(stUARTRXFiFo.aui8Buffer, 0, sizeof(stUARTRXFiFo.aui8Buffer));
+    //memset(stUARTTXFiFo.aui8Buffer, 0, sizeof(stUARTTXFiFo.aui8Buffer)); esc.disabled problem on SDCC
+    //memset(stUARTRXFiFo.aui8Buffer, 0, sizeof(stUARTRXFiFo.aui8Buffer)); esc.disabled problem on SDCC
 }
 
 /*******************************************************************************//**
@@ -434,5 +436,7 @@ static bool_t isSerialDataAvailable(void)
 
     return (stUARTRXFiFo.ui8Head != stUARTRXFiFo.ui8Tail);
 }
+
+#endif
 /* end of corelib_uart.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

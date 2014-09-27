@@ -1,0 +1,266 @@
+     1: /*****************************************************************************************//**
+     2: * # PhilRobotics | Philippine Electronics and Robotics Enthusiasts Club #
+     3: * http://philrobotics.com | http://philrobotics.com/forum | http://facebook.com/philrobotics
+     4: * phirobotics.core@philrobotics.com
+     5: *
+     6: *---------------------------------------------------------------------------------------------
+     7: * |Filename:      | "corelib_pwm.c"                             |
+     8: * |:----          |:----                                        |
+     9: * |Description:   | This is a library for using the PWM functions |
+    10: * |Revision:      | v00.02.00                                   |
+    11: * |Author:        | Efren S. Cruzat II                          |
+    12: * |               |                                             |
+    13: * |Dependencies:  |                                             |
+    14: *
+    15: * > This program is free software: you can redistribute it and/or modify
+    16: * > it under the terms of the GNU General Public License as published by
+    17: * > the Free Software Foundation, either version 3 of the License, or
+    18: * > (at your option) any later version.
+    19: * > This program is distributed in the hope that it will be useful,
+    20: * > but WITHOUT ANY WARRANTY; without even the implied warranty of
+    21: * > MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    22: * > GNU General Public License for more details.
+    23: * > <BR><BR>
+    24: * > You should have received a copy of the GNU General Public License
+    25: * > along with this program. If not, see http://www.gnu.org/licenses/
+    26: * <BR>
+    27: *---------------------------------------------------------------------------------------------
+    28: * |FW Version   |Date       |Author             |Description                |
+    29: * |:----        |:----      |:----              |:----                      |
+    30: * |v00.00.01    |20120710   |ESCII              |Library Initial Release    |
+    31: * |v00.01.00    |20130205   |ESCII              |Modified For Layered Architecture  |
+    32: * |v00.02.00    |20130514   |ESCII              |Code Formatted                     |
+    33: *********************************************************************************************/
+    34: #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
+    35: #undef  __SHOW_MODULE_HEADER__
+    36: 
+    37: #include "corelib_pwm.h"
+    38: 
+    39: /* Local Constants */
+    40: /* none */
+    41: 
+    42: /* Local Variables */
+    43: static  uint8_t     ui8PreScaler=1, ui8PreScalerVal=1, ui8PR2plus1=0;
+    44: 
+    45: /* Private Function Prototypes */
+    46: /* none */
+    47: 
+    48: /* Public Functions */
+    49: /*******************************************************************************//**
+    50: * \brief Setup the PWM peripheral frequency and default duty cycle
+    51: *
+    52: * > This function is called to initialize the PWM peripheral frequency and default
+    53: * > duty cycle. The frequency can be set between 1.22kHz and 200kHz with 10Hz resolution,
+    54: * > while the duty cycle has a 0.1% resolution
+    55: *
+    56: * > <BR>
+    57: * > **Syntax:**<BR>
+    58: * >      setupPWM(module, frequency, dutycycle)
+    59: * > <BR><BR>
+    60: * > **Parameters:**<BR>
+    61: * >     module - PWM module assignment, PWM0, PWM1                          <BR>
+    62: * >     frequency - the required PWM frequency in 10Hz resolution           <BR>
+    63: * >     dutycycle - the required PWM duty cycle in 0.1% resolution
+    64: * > <BR><BR>
+    65: * > **Returns:**<BR>
+    66: * >     none
+    67: * > <BR><BR>
+    68: ***********************************************************************************/
+    69: void setupPWM(enum PWMModules_et ePWM_Module, uint16_t ui16Frequency, uint16_t ui16DutyCycle)
+    70: {
+    71:     /* Set the PWM period */
+    72:     setPWMFrequency(ui16Frequency);                 // Common for CCP1 and CCP2
+    73:     /* Load the default PWM duty value */
+    74:     setPWMDuty(ePWM_Module,ui16DutyCycle);
+    75:     /* Configure Timer */
+    76:     /* Select Source */
+    77:     //mc_PWMClk_Source(CCP_PWM_CLOCK);              // not for PIC16F877A
+    78:     /* Clear TMRxIF */
+    79:     //hal_clrPWMTmrIntFlag() ;                      // not critical
+    80:     /* Configure Prescaler value */
+    81:     hal_initPWMTimer(ui8PreScalerVal);              // Common for CCP1 and CCP2
+    82: 
+    83:     /* Configure CCP to PWM mode */
+    84:     if(PWM0 == ePWM_Module)
+    85:     {
+    86:         hal_configCCP1Mode(CCP_PWM_MODE);
+    87:         mc_makeOutput(D2);
+    88:     }
+    89:     else if(PWM1 == ePWM_Module)
+    90:     {
+    91:         hal_configCCP2Mode(CCP_PWM_MODE);
+    92:         mc_makeOutput(D1);
+    93:     }
+    94:     else
+    95:     {
+    96:         /* Invalid PWM Module */
+    97:         /* Do Nothing */
+    98:     }
+    99: 
+   100:     /* Enable Timer */
+   101:     hal_enablePWMTmr();                             // Common for CCP1 and CCP2
+   102: }
+   103: 
+   104: /*******************************************************************************//**
+   105: * \brief Set the PWM frequency
+   106: *
+   107: * > This function is called for setting the PWM frequency which affects both
+   108: * > PWM0 and PWM1. The frequency can be set between 1.22kHz and 200kHz w
+   109: * > ith 10Hz resolution (e.g. 1kHz/10Hz = 100).
+   110: *
+   111: * > <BR>
+   112: * > **Syntax:**<BR>
+   113: * >     setPWMFrequency(frequency)
+   114: * > <BR><BR>
+   115: * > **Parameters:**<BR>
+   116: * >     frequency - the required PWM frequency in 10Hz resolution
+   117: * > <BR><BR>
+   118: * > **Returns:**<BR>
+   119: * >     none
+   120: * > <BR><BR>
+   121: ***********************************************************************************/
+   122: void setPWMFrequency(uint16_t ui16Frequency)
+   123: {
+   124:     uint16_t    ui16TempVar;
+   125: #ifdef S_SPLINT_S /* Suppress SPLint Unrecognized ID Errors */
+   126: #define uint24_t  uint32_t                          // esc.comment: use with caution
+   127: #endif
+   128:     uint24_t    ui24Period;                         // 0.01uS/Bit Resolution
+   129: 
+   130:     /* Check Frequency Range */
+   131:     if(ui16Frequency > K_MAX_FREQ_RANGE)            // > 200kHz
+   132:     {
+   133:         ui16Frequency = K_MAX_FREQ_RANGE;
+   134:     }
+   135:     else if(ui16Frequency < K_MIN_FREQ_RANGE)       // < 1.22kHz
+   136:     {
+   137:         ui16Frequency  = K_MIN_FREQ_RANGE;
+   138:     }
+   139:     else
+   140:     {
+   141:         /* Frequency within Range */
+   142:         /* Do Nothing */
+   143:     }
+   144: 
+   145:     /* Check Prescaler Range */
+   146:     if(ui16Frequency >= K_PRESCALE0_FREQ_LIM)
+   147:     {
+   148:         ui8PreScalerVal = PRESCALE0_VAL;            // div by 1
+   149:     }
+   150:     else if(ui16Frequency >= K_PRESCALE1_FREQ_LIM)
+   151:     {
+   152:         ui8PreScalerVal = PRESCALE1_VAL;            // div by 4
+   153:     }
+   154:     else if(ui16Frequency >= K_PRESCALE2_FREQ_LIM)
+   155:     {
+   156:         ui8PreScalerVal = PRESCALE2_VAL;            // div by 16
+   157:     }
+   158:     else                                            // default
+   159:     {
+   160:         ui8PreScalerVal = PRESCALE2_VAL;            // div by 16
+   161:     }
+   162: 
+   163:     /* Prescaler to Period Parsing */
+   164:     ui8PreScaler = ui8PreScalerVal << 1;
+   165:     ui8PreScaler = (uint8_t)1 << ui8PreScaler;      // secret :p
+   166:     ui24Period = (uint24_t)(100000000UL / ui16Frequency);
+   167:     ui16TempVar = (uint16_t)K_T_SCALED * ui8PreScaler;
+   168:     ui24Period = ui24Period/ui16TempVar;
+   169: 
+   170:     /* Check Saturation */
+   171:     if(ui24Period > K_PERIOD_SAT_LIM)
+   172:     {
+   173:         ui8PR2plus1 = K_PERIOD_SAT_LIM;
+   174:     }
+   175:     else
+   176:     {
+   177:         ui8PR2plus1 = (uint8_t)ui24Period;
+   178:     }
+   179: 
+   180:     hal_setPWMPeriod(ui8PR2plus1);
+   181: }
+   182: 
+   183: /*******************************************************************************//**
+   184: * \brief Set the PWM duty cycle
+   185: *
+   186: * > This function is called for setting the PWM duty cycle.
+   187: * > The duty cycle value has a 0.1% resolution (e.g. 50% / 0.1% = 500).
+   188: *
+   189: * > <BR>
+   190: * > **Syntax:**<BR>
+   191: * >      setPWMDuty(module, dutycycle)
+   192: * > <BR><BR>
+   193: * > **Parameters:**<BR>
+   194: * >     module - PWM module assignment, PWM0, PWM1                          <BR>
+   195: * >     dutycycle - the required PWM duty cycle in 0.1% resolution
+   196: * > <BR><BR>
+   197: * > **Returns:**<BR>
+   198: * >     none
+   199: * > <BR><BR>
+   200: ***********************************************************************************/
+   201: void setPWMDuty(enum PWMModules_et ePWM_Module, uint16_t ui16DutyCycle)
+   202: {
+   203:     uint16_t    ui16TempVar;
+   204: 
+   205:     /* Maximum of 100% Only */
+   206:     if(ui16DutyCycle > K_DUTY_SAT_LIM)
+   207:     {
+   208:         ui16DutyCycle = K_DUTY_SAT_LIM;
+   209:     }
+   210: 
+   211:     ui16TempVar = (uint16_t)ui8PR2plus1 << 2;       // secret :p
+   212:     ui16TempVar = (uint16_t)(((uint32_t)ui16TempVar * ui16DutyCycle) / 1000);
+   213: 
+   214:     if(PWM0 == ePWM_Module)
+   215:     {
+   216:         hal_setPWM0Ton(ui16TempVar);
+   217:     }
+   218:     else if(PWM1 == ePWM_Module)
+   219:     {
+   220:         hal_setPWM1Ton(ui16TempVar);
+   221:     }
+   222:     else
+   223:     {
+   224:         /* Invalid PWM Module */
+   225:         /* Do Nothing */
+   226:     }
+   227: }
+   228: 
+   229: /*******************************************************************************//**
+   230: * \brief Remove the PWM module
+   231: *
+   232: * > This function is called for disabling the PWM module
+   233: *
+   234: * > <BR>
+   235: * > **Syntax:**<BR>
+   236: * >      removePWM(module)
+   237: * > <BR><BR>
+   238: * > **Parameters:**<BR>
+   239: * >     module - PWM module assignment, PWM0, PWM1
+   240: * > <BR><BR>
+   241: * > **Returns:**<BR>
+   242: * >     none
+   243: * > <BR><BR>
+   244: ***********************************************************************************/
+   245: void removePWM(enum PWMModules_et ePWM_Module)
+   246: {
+   247:     if(PWM0 == ePWM_Module)
+   248:     {
+   249:         hal_setPWM0_Off();
+   250:     }
+   251:     else if(PWM1 == ePWM_Module)
+   252:     {
+   253:         hal_setPWM1_Off();
+   254:     }
+   255:     else
+   256:     {
+   257:         /* Invalid PWM Module */
+   258:         /* Do Nothing */
+   259:     }
+   260: }
+   261: 
+   262: /* Private Functions */
+   263: /* none */
+   264: 
+   265: /* end of corelib_pwm.c */
+   266: //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

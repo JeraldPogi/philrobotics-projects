@@ -17,14 +17,33 @@
 #include <soft_dac.h>
 
 #define MAX_VALUE			(255)
-#define ONE_FOURTH_OF_VCC	(MAX_VALUE/4)
+#define ONE_FOURTH_OF_VCC	(MAX_VALUE>>2)
+
+static uint16_t Timer,TimerDelta;
 
 void init()
 {
+	makeOutput(D1);
+	clrPin(D1);
+	makeOutput(D2);
+	clrPin(D2);
 	setupSoftDAC(SDAC0, D0, ONE_FOURTH_OF_VCC);
+	//setupSoftDAC(SDAC0, D3, ONE_FOURTH_OF_VCC);
+	
+	clrPin(LED1);
+	Timer = getMs();                                        // get time stamp
+
 }
 
 void cycle()
 {
+	/* do nothing */
+	TimerDelta = getElapsedMs(Timer);
 
+	if(TimerDelta >= 1000)                        			// check if 1000mS has elapsed
+	{
+		Timer = getMs();                                    // get another stamp for the next cycle
+		togglePin(LED1);		                            // toggle the LED on/off
+		togglePin(D2);
+	}
 }

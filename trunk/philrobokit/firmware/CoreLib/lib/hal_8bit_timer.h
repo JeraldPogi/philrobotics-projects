@@ -41,7 +41,7 @@
 #ifdef UNIT_TEST                                    // autodefined at unit testing script
 #include "hal_8bit_timer_test_stub.h"
 #else
-#include "PhilRoboKit_CoreLib_Macro.h"
+/* none */
 #endif
 
 /* User Configuration Definitions */
@@ -106,11 +106,11 @@
 
 #define hal_setTMR2Prescaler(a)                 \
     REGISTER_T2CON &=~TMR_PRESCALE_MASK;        \
-    REGISTER_T2CON |= a&TMR_PRESCALE_MASK       // semi-collon intentionally omitted
+    REGISTER_T2CON |= a&TMR_PRESCALE_MASK       // semi-colon intentionally omitted
 
 #define hal_setTMR2Postscaler(a)                \
     REGISTER_T2CON &=~TMR_POSTSCALE_MASK;       \
-    REGISTER_T2CON |= (a<<3)&TMR_POSTSCALE_MASK // semi-collon intentionally omitted
+    REGISTER_T2CON |= (a<<3)&TMR_POSTSCALE_MASK // semi-colon intentionally omitted
 
 #define hal_setTMR2Value(a)                     (REGISTER_PR2 = (a-1))
 #endif
@@ -119,9 +119,6 @@
 #if(TIMER_8BIT_ENABLED == TRUE)
 void nullTMRFunction();
 
-//void (*pt2TMR2ISR)() = &nullTMRFunction;        // interrupt function pointer
-//void (*pt2TMR4ISR)(void) = &nullTMRFunction;      // interrupt function pointer
-//void (*pt2TMR6ISR)(void) = &nullTMRFunction;      // interrupt function pointer
 #endif
 
 #endif /* end of hal_8bit_timer.h */

@@ -1,0 +1,395 @@
+Version 3.2 HI-TECH Software Intermediate Code
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v F1376 `(v ~T0 @X0 0 tf ]
+"120
+[v _nullTMRFunction `(v ~T0 @X0 0 ef ]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v F1435 `(v ~T0 @X0 0 tf ]
+"128
+[v _null16BitTMRFunction `(v ~T0 @X0 0 ef ]
+[c E1456 0 1 2 3 .. ]
+[n E1456 InterruptModes_et LOWSTATE CHANGE RISING FALLING  ]
+"125 hardware/cores/lib\hal_user_interrupt.h
+[v F1477 `(v ~T0 @X0 0 tf ]
+"119
+[v _nullIntFunction `(v ~T0 @X0 0 ef ]
+"126
+[v F1480 `(v ~T0 @X0 0 tf ]
+"127
+[v F1483 `(v ~T0 @X0 0 tf ]
+"133
+[v F1488 `(v ~T0 @X0 0 tf ]
+"134
+[v F1491 `(v ~T0 @X0 0 tf ]
+"135
+[v F1494 `(v ~T0 @X0 0 tf ]
+"136
+[v F1497 `(v ~T0 @X0 0 tf ]
+"2460 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _INTEDG `Vb ~T0 @X0 0 e@1038 ]
+"43 hardware/cores/lib\hal_user_interrupt.c
+[v _PORTB_BUFFER `Vuc ~T0 @X0 0 e ]
+"204 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _PORTB `Vuc ~T0 @X0 0 e@6 ]
+"1332
+[v _TRISB `Vuc ~T0 @X0 0 e@134 ]
+"46 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[; <" INDF equ 00h ;# ">
+"52
+[; <" TMR0 equ 01h ;# ">
+"58
+[; <" PCL equ 02h ;# ">
+"64
+[; <" STATUS equ 03h ;# ">
+"151
+[; <" FSR equ 04h ;# ">
+"157
+[; <" PORTA equ 05h ;# ">
+"206
+[; <" PORTB equ 06h ;# ">
+"267
+[; <" PORTC equ 07h ;# ">
+"328
+[; <" PORTD equ 08h ;# ">
+"389
+[; <" PORTE equ 09h ;# ">
+"420
+[; <" PCLATH equ 0Ah ;# ">
+"439
+[; <" INTCON equ 0Bh ;# ">
+"516
+[; <" PIR1 equ 0Ch ;# ">
+"577
+[; <" PIR2 equ 0Dh ;# ">
+"616
+[; <" TMR1 equ 0Eh ;# ">
+"622
+[; <" TMR1L equ 0Eh ;# ">
+"628
+[; <" TMR1H equ 0Fh ;# ">
+"634
+[; <" T1CON equ 010h ;# ">
+"708
+[; <" TMR2 equ 011h ;# ">
+"714
+[; <" T2CON equ 012h ;# ">
+"784
+[; <" SSPBUF equ 013h ;# ">
+"790
+[; <" SSPCON equ 014h ;# ">
+"859
+[; <" CCPR1 equ 015h ;# ">
+"865
+[; <" CCPR1L equ 015h ;# ">
+"871
+[; <" CCPR1H equ 016h ;# ">
+"877
+[; <" CCP1CON equ 017h ;# ">
+"934
+[; <" RCSTA equ 018h ;# ">
+"1028
+[; <" TXREG equ 019h ;# ">
+"1034
+[; <" RCREG equ 01Ah ;# ">
+"1040
+[; <" CCPR2 equ 01Bh ;# ">
+"1046
+[; <" CCPR2L equ 01Bh ;# ">
+"1052
+[; <" CCPR2H equ 01Ch ;# ">
+"1058
+[; <" CCP2CON equ 01Dh ;# ">
+"1115
+[; <" ADRESH equ 01Eh ;# ">
+"1121
+[; <" ADCON0 equ 01Fh ;# ">
+"1216
+[; <" OPTION_REG equ 081h ;# ">
+"1285
+[; <" TRISA equ 085h ;# ">
+"1334
+[; <" TRISB equ 086h ;# ">
+"1395
+[; <" TRISC equ 087h ;# ">
+"1456
+[; <" TRISD equ 088h ;# ">
+"1517
+[; <" TRISE equ 089h ;# ">
+"1573
+[; <" PIE1 equ 08Ch ;# ">
+"1634
+[; <" PIE2 equ 08Dh ;# ">
+"1673
+[; <" PCON equ 08Eh ;# ">
+"1706
+[; <" SSPCON2 equ 091h ;# ">
+"1767
+[; <" PR2 equ 092h ;# ">
+"1773
+[; <" SSPADD equ 093h ;# ">
+"1779
+[; <" SSPSTAT equ 094h ;# ">
+"1947
+[; <" TXSTA equ 098h ;# ">
+"2027
+[; <" SPBRG equ 099h ;# ">
+"2033
+[; <" CMCON equ 09Ch ;# ">
+"2102
+[; <" CVRCON equ 09Dh ;# ">
+"2166
+[; <" ADRESL equ 09Eh ;# ">
+"2172
+[; <" ADCON1 equ 09Fh ;# ">
+"2230
+[; <" EEDATA equ 010Ch ;# ">
+"2236
+[; <" EEADR equ 010Dh ;# ">
+"2242
+[; <" EEDATH equ 010Eh ;# ">
+"2248
+[; <" EEADRH equ 010Fh ;# ">
+"2254
+[; <" EECON1 equ 018Ch ;# ">
+"2298
+[; <" EECON2 equ 018Dh ;# ">
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v _pt2TMR2ISR `*F1376 ~T0 @X0 1 e ]
+[i _pt2TMR2ISR
+&U _nullTMRFunction
+]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v _pt2TMR1ISR `*F1435 ~T0 @X0 1 e ]
+[i _pt2TMR1ISR
+&U _null16BitTMRFunction
+]
+"112 hardware/cores/lib\hal_user_interrupt.h
+[v _eMod0_Mode `E1456 ~T0 @X0 1 e ]
+[v _eMod1_Mode `E1456 ~T0 @X0 1 e ]
+[v _eMod2_Mode `E1456 ~T0 @X0 1 e ]
+[v _eMod3_Mode `E1456 ~T0 @X0 1 e ]
+"116
+[v _eMod4_Mode `E1456 ~T0 @X0 1 e ]
+[v _eMod5_Mode `E1456 ~T0 @X0 1 e ]
+[v _eMod6_Mode `E1456 ~T0 @X0 1 e ]
+[v _eMod7_Mode `E1456 ~T0 @X0 1 e ]
+"125
+[v _pt2INT0 `*F1477 ~T0 @X0 1 e ]
+[i _pt2INT0
+&U _nullIntFunction
+]
+"126
+[v _pt2INT1 `*F1480 ~T0 @X0 1 e ]
+[i _pt2INT1
+&U _nullIntFunction
+]
+"127
+[v _pt2INT2 `*F1483 ~T0 @X0 1 e ]
+[i _pt2INT2
+&U _nullIntFunction
+]
+"133
+[v _pt2INT4 `*F1488 ~T0 @X0 1 e ]
+[i _pt2INT4
+&U _nullIntFunction
+]
+"134
+[v _pt2INT5 `*F1491 ~T0 @X0 1 e ]
+[i _pt2INT5
+&U _nullIntFunction
+]
+"135
+[v _pt2INT6 `*F1494 ~T0 @X0 1 e ]
+[i _pt2INT6
+&U _nullIntFunction
+]
+"136
+[v _pt2INT7 `*F1497 ~T0 @X0 1 e ]
+[i _pt2INT7
+&U _nullIntFunction
+]
+"67 hardware/cores/lib\hal_user_interrupt.c
+[v _nullIntFunction `(v ~T0 @X0 1 ef ]
+{
+[e :U _nullIntFunction ]
+[f ]
+"69
+[e :UE 97 ]
+}
+"89
+[v _extIntISR `(v ~T0 @X0 1 ef ]
+{
+[e :U _extIntISR ]
+[f ]
+"91
+[e $ ! == -> . `E1456 1 `i -> _eMod0_Mode `i 99  ]
+"92
+{
+"93
+[e = _INTEDG ! _INTEDG ]
+"94
+}
+[e :U 99 ]
+"97
+[e ( *U _pt2INT0 ..  ]
+"98
+[e :UE 98 ]
+}
+"180
+[v _rbIntISR `(v ~T0 @X0 1 ef ]
+{
+[e :U _rbIntISR ]
+[f ]
+"181
+[v F1502 `uc ~T0 @X0 1 s PORTCHANGE_BUFFER ]
+"183
+[e = F1502 -> ^ -> _PORTB_BUFFER `i & -> _PORTB `i -> _TRISB `i `uc ]
+"185
+[e $ ! == -> 16 `i & -> F1502 `i -> 16 `i 101  ]
+"186
+{
+"187
+[e $ ! && == -> . `E1456 2 `i -> _eMod4_Mode `i == -> 0 `i ? == -> 16 `i & -> _PORTB `i -> 16 `i : -> 1 `i -> 0 `i 102  ]
+"188
+{
+"190
+}
+[e $U 103  ]
+"191
+[e :U 102 ]
+[e $ ! && == -> . `E1456 3 `i -> _eMod4_Mode `i == -> 1 `i ? == -> 16 `i & -> _PORTB `i -> 16 `i : -> 1 `i -> 0 `i 104  ]
+"192
+{
+"194
+}
+[e $U 105  ]
+"195
+[e :U 104 ]
+"196
+{
+"198
+[e ( *U _pt2INT4 ..  ]
+"199
+}
+[e :U 105 ]
+[e :U 103 ]
+"201
+[e =& _PORTB_BUFFER -> ~ -> 16 `i `uc ]
+"202
+[e =| _PORTB_BUFFER -> & -> _PORTB `i -> 16 `i `uc ]
+"203
+}
+[e :U 101 ]
+"205
+[e $ ! == -> 32 `i & -> F1502 `i -> 32 `i 106  ]
+"206
+{
+"207
+[e $ ! && == -> . `E1456 2 `i -> _eMod5_Mode `i == -> 0 `i ? == -> 32 `i & -> _PORTB `i -> 32 `i : -> 1 `i -> 0 `i 107  ]
+"208
+{
+"210
+}
+[e $U 108  ]
+"211
+[e :U 107 ]
+[e $ ! && == -> . `E1456 3 `i -> _eMod5_Mode `i == -> 1 `i ? == -> 32 `i & -> _PORTB `i -> 32 `i : -> 1 `i -> 0 `i 109  ]
+"212
+{
+"214
+}
+[e $U 110  ]
+"215
+[e :U 109 ]
+"216
+{
+"218
+[e ( *U _pt2INT5 ..  ]
+"219
+}
+[e :U 110 ]
+[e :U 108 ]
+"221
+[e =& _PORTB_BUFFER -> ~ -> 32 `i `uc ]
+"222
+[e =| _PORTB_BUFFER -> & -> _PORTB `i -> 32 `i `uc ]
+"223
+}
+[e :U 106 ]
+"225
+[e $ ! == -> 64 `i & -> F1502 `i -> 64 `i 111  ]
+"226
+{
+"227
+[e $ ! && == -> . `E1456 2 `i -> _eMod6_Mode `i == -> 0 `i & -> _PORTB `i -> 64 `i 112  ]
+"228
+{
+"230
+}
+[e $U 113  ]
+"231
+[e :U 112 ]
+[e $ ! && == -> . `E1456 3 `i -> _eMod6_Mode `i == -> 64 `i & -> _PORTB `i -> 64 `i 114  ]
+"232
+{
+"234
+}
+[e $U 115  ]
+"235
+[e :U 114 ]
+"236
+{
+"238
+[e ( *U _pt2INT6 ..  ]
+"239
+}
+[e :U 115 ]
+[e :U 113 ]
+"241
+[e =& _PORTB_BUFFER -> ~ -> 64 `i `uc ]
+"242
+[e =| _PORTB_BUFFER -> & -> _PORTB `i -> 64 `i `uc ]
+"243
+}
+[e :U 111 ]
+"245
+[e $ ! == -> 128 `i & -> F1502 `i -> 128 `i 116  ]
+"246
+{
+"247
+[e $ ! && == -> . `E1456 2 `i -> _eMod7_Mode `i == -> 0 `i & -> _PORTB `i -> 128 `i 117  ]
+"248
+{
+"250
+}
+[e $U 118  ]
+"251
+[e :U 117 ]
+[e $ ! && == -> . `E1456 3 `i -> _eMod7_Mode `i == -> 128 `i & -> _PORTB `i -> 128 `i 119  ]
+"252
+{
+"254
+}
+[e $U 120  ]
+"255
+[e :U 119 ]
+"256
+{
+"258
+[e ( *U _pt2INT7 ..  ]
+"259
+}
+[e :U 120 ]
+[e :U 118 ]
+"261
+[e =& _PORTB_BUFFER -> ~ -> 128 `i `uc ]
+"262
+[e =| _PORTB_BUFFER -> & -> _PORTB `i -> 128 `i `uc ]
+"263
+}
+[e :U 116 ]
+"265
+[e =& _PORTB_BUFFER _TRISB ]
+"266
+[e :UE 100 ]
+}

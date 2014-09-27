@@ -35,6 +35,8 @@
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
 
+#include "PhilRoboKit_CoreLib_Macro.h"
+#if defined (USE_8BIT_TIMER)
 #include "corelib_8bit_timer.h"
 
 /* Local Constants */
@@ -42,7 +44,7 @@
 
 /* Local Variables */
 #if(TIMER_8BIT_ENABLED == TRUE)
-static void (*pt2TMR2ISR)() = &nullTMRFunction;     // interrupt function pointer
+void (*pt2TMR2ISR)() = &nullTMRFunction;     // interrupt function pointer
 //void (*pt2TMR4ISR)(void) = &nullTMRFunction;      // interrupt function pointer
 //void (*pt2TMR6ISR)(void) = &nullTMRFunction;      // interrupt function pointer
 #endif
@@ -188,6 +190,7 @@ void setup8BitTimerFull(enum tmrModules_et eTmrModule, void(*callback)(), uint8_
 ***********************************************************************************/
 void setup8BitTimer(enum tmrModules_et eTmrModule, void(*callback)())
 {
+	/* Save Stack */
     //setup8BitTimerFull(eTmrModule, callback, K_10US_PRESCALE, K_10US_POSTSCALE);          // disabled to save stack
     /* Default */
     if(TIMER2 == eTmrModule)
@@ -286,5 +289,6 @@ void set8BitTimer(enum tmrModules_et eTmrModule, uint8_t ui8Value)
 /* Private Functions */
 /* none */
 
+#endif
 /* end of corelib_8bit_timer.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

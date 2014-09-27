@@ -93,6 +93,8 @@ void setupServoFull(enum ServoModules_e eServoMod, uint8_t ui8ServoPin, int8_t i
 	
 	/* Initilize Parameters */
 	aui8Servo[eServoMod][SERVO_PIN]		= ui8ServoPin;
+	configSERVOOutputPin(ui8ServoPin);
+	clrServoPin(ui8ServoPin);
 
 	/* Compute Servo Slope */
 	ui32TempBuffer = (((uint32_t)ui8MaxPulseWidth - ui8MinPulseWidth)*128);
@@ -105,8 +107,8 @@ void setupServoFull(enum ServoModules_e eServoMod, uint8_t ui8ServoPin, int8_t i
 	/* Initialize TMR2 for Servo Control */
 	if(FALSE == blKickStarted)
 	{
-		setup8BitTimer(SERVO_TIMER, servoController);
-		set8BitTimer(SERVO_TIMER, SERVO_MAX_PULSEWIDTH);								// set pulse on period (kickstart)
+		setupSERVOTimer(SERVO_TIMER, servoController);
+		setSERVOTimer(SERVO_TIMER, SERVO_MAX_PULSEWIDTH);								// set pulse on period (kickstart)
 		blKickStarted = TRUE;
 	}	
 }
@@ -132,7 +134,31 @@ void setupServoFull(enum ServoModules_e eServoMod, uint8_t ui8ServoPin, int8_t i
 ***********************************************************************************/
 void setupServo(enum ServoModules_e eServoMod, uint8_t ui8ServoPin, int8_t i8DefaultAngle)
 {
-	setupServoFull(eServoMod, ui8ServoPin, i8DefaultAngle, SERVO_MIN_PULSEWIDTH, SERVO_MAX_PULSEWIDTH, SERVO_MIN_ANGLEPOSITION, SERVO_MAX_ANGLEPOSITION);
+	uint32_t ui32TempBuffer;
+	
+	/* Save Stack */
+	//setupServoFull(eServoMod, ui8ServoPin, i8DefaultAngle, SERVO_MIN_PULSEWIDTH, SERVO_MAX_PULSEWIDTH, SERVO_MIN_ANGLEPOSITION, SERVO_MAX_ANGLEPOSITION);
+	
+	/* Initilize Parameters */
+	aui8Servo[eServoMod][SERVO_PIN]		= ui8ServoPin;
+	configSERVOOutputPin(ui8ServoPin);
+	clrServoPin(ui8ServoPin);
+
+	/* Compute Servo Slope */
+	ui32TempBuffer = (((uint32_t)SERVO_MAX_PULSEWIDTH - SERVO_MIN_PULSEWIDTH)*128);
+	ui32TempBuffer /= ((int8_t)SERVO_MAX_ANGLEPOSITION - SERVO_MIN_ANGLEPOSITION);
+	aui8Servo[eServoMod][SERVO_SLOPE] = (uint8_t)ui32TempBuffer;
+	
+	/* Compute Servo Pulse Width */
+	aui8Servo[eServoMod][SERVO_PULSE] = (uint8_t)(((int32_t)i8DefaultAngle*aui8Servo[eServoMod][SERVO_SLOPE]) / 128 + SERVO_PULSE_OFFSET);
+	
+	/* Initialize TMR2 for Servo Control */
+	if(FALSE == blKickStarted)
+	{
+		setupSERVOTimer(SERVO_TIMER, servoController);
+		setSERVOTimer(SERVO_TIMER, SERVO_MAX_PULSEWIDTH);								// set pulse on period (kickstart)
+		blKickStarted = TRUE;
+	}
 }
 
 /*******************************************************************************//**
@@ -153,7 +179,30 @@ void setupServo(enum ServoModules_e eServoMod, uint8_t ui8ServoPin, int8_t i8Def
 ***********************************************************************************/
 void setupServoPort(int8_t i8DefaultAngle)
 {
-	setupServoFull(SERV0,SERVO,i8DefaultAngle, SERVO_MIN_PULSEWIDTH, SERVO_MAX_PULSEWIDTH, SERVO_MIN_ANGLEPOSITION, SERVO_MAX_ANGLEPOSITION);
+	/* Save Stack */
+	//setupServoFull(SERV0,SERVO,i8DefaultAngle, SERVO_MIN_PULSEWIDTH, SERVO_MAX_PULSEWIDTH, SERVO_MIN_ANGLEPOSITION, SERVO_MAX_ANGLEPOSITION);
+	uint32_t ui32TempBuffer;
+	
+	/* Initilize Parameters */
+	aui8Servo[SERV0][SERVO_PIN]		= SERVO;
+	configSERVOOutputPin(SERVO);
+	clrServoPin(SERVO);
+	
+	/* Compute Servo Slope */
+	ui32TempBuffer = (((uint32_t)SERVO_MAX_PULSEWIDTH - SERVO_MIN_PULSEWIDTH)*128);
+	ui32TempBuffer /= ((int8_t)SERVO_MAX_ANGLEPOSITION - SERVO_MIN_ANGLEPOSITION);
+	aui8Servo[SERV0][SERVO_SLOPE] = (uint8_t)ui32TempBuffer;
+	
+	/* Compute Servo Pulse Width */
+	aui8Servo[SERV0][SERVO_PULSE] = (uint8_t)(((int32_t)i8DefaultAngle*aui8Servo[SERV0][SERVO_SLOPE]) / 128 + SERVO_PULSE_OFFSET);
+	
+	/* Initialize TMR2 for Servo Control */
+	if(FALSE == blKickStarted)
+	{
+		setupSERVOTimer(SERVO_TIMER, servoController);
+		setSERVOTimer(SERVO_TIMER, SERVO_MAX_PULSEWIDTH);								// set pulse on period (kickstart)
+		blKickStarted = TRUE;
+	}
 }
 
 /*******************************************************************************//**
@@ -196,7 +245,9 @@ void setServoAngle(enum ServoModules_e eServoMod, int8_t i8ServoAngle)
 ***********************************************************************************/
 void setServoPortAngle(int8_t i8ServoAngle)
 {
-	setServoAngle(SERV0,i8ServoAngle);
+	/* Save Stack */
+	//setServoAngle(SERV0,i8ServoAngle);
+	aui8Servo[SERV0][SERVO_PULSE] = (uint8_t)(((int32_t)i8ServoAngle*aui8Servo[SERV0][SERVO_SLOPE]) / 128 + SERVO_PULSE_OFFSET);
 }
 
 /* Private Functions */
@@ -224,8 +275,8 @@ static void servoController()
 	{
 		case SERVO_PULSEON:
 		{
-			set8BitTimer(SERVO_TIMER, (SERVO_MAX_PULSEWIDTH-aui8Servo[ui8SequenceCounter][SERVO_PULSE]));  // set pulse off period
-			clrPin(aui8Servo[ui8SequenceCounter][SERVO_PIN]);
+			setSERVOTimer(SERVO_TIMER, (SERVO_MAX_PULSEWIDTH-aui8Servo[ui8SequenceCounter][SERVO_PULSE]));  // set pulse off period
+			clrServoPin(aui8Servo[ui8SequenceCounter][SERVO_PIN]);
 			ui8ServoState = SERVO_PULSEOFF;
 			break;
 		}
@@ -246,21 +297,21 @@ static void servoController()
 			{
 				/* skip aui8Servo module */
 				aui8Servo[ui8SequenceCounter][SERVO_PULSE] = 0;
-				set8BitTimer(SERVO_TIMER, SERVO_MAX_PULSEWIDTH);							        // low for 2.5mS
-				clrPin(aui8Servo[ui8SequenceCounter][SERVO_PIN]);
+				setSERVOTimer(SERVO_TIMER, SERVO_MAX_PULSEWIDTH);							        // low for 2.5mS
+				clrServoPin(aui8Servo[ui8SequenceCounter][SERVO_PIN]);
 				ui8ServoState = SERVO_PULSEOFF;
 			}
 			else
 			{
-				set8BitTimer(SERVO_TIMER, aui8Servo[ui8SequenceCounter][SERVO_PULSE]);				        // set pulse on period	
-				setPin(aui8Servo[ui8SequenceCounter][SERVO_PIN]);				
+				setSERVOTimer(SERVO_TIMER, aui8Servo[ui8SequenceCounter][SERVO_PULSE]);				// set pulse on period	
+				setServoPin(aui8Servo[ui8SequenceCounter][SERVO_PIN]);				
 				ui8ServoState = SERVO_PULSEON;
 			}
 			break;
 		}
 		default:	/* must not be reached */
 		{
-			set8BitTimer(SERVO_TIMER, SERVO_MAX_PULSEWIDTH);								        // low for 2.5mS
+			setSERVOTimer(SERVO_TIMER, SERVO_MAX_PULSEWIDTH);								        // low for 2.5mS
 			ui8SequenceCounter = 8;
 			ui8ServoState = SERVO_PULSEOFF;
 			break; 

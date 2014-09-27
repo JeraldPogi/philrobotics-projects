@@ -34,6 +34,8 @@
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
 
+#include "PhilRoboKit_CoreLib_Macro.h"
+#if defined (USE_8BIT_TIMER)
 #include "hal_8bit_timer.h"
 
 /* Local Constants */
@@ -71,5 +73,6 @@ void nullTMRFunction()
 /* Private Functions */
 /* none */
 
+#endif
 /* end of hal_8bit_timer.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

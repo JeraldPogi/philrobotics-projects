@@ -39,6 +39,8 @@
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
 
+#include "PhilRoboKit_CoreLib_Macro.h"
+#if defined (USE_UART)
 #include "corelib_uart.h"
 
 /* Local Constants */
@@ -434,5 +436,7 @@ static bool_t isSerialDataAvailable(void)
 
     return (stUARTRXFiFo.ui8Head != stUARTRXFiFo.ui8Tail);
 }
+
+#endif
 /* end of corelib_uart.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

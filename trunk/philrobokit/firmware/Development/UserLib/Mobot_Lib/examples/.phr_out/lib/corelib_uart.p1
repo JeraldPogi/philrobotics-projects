@@ -1,0 +1,495 @@
+Version 3.2 HI-TECH Software Intermediate Code
+"56 hardware/cores/lib\corelib_uart.h
+[s S96 `uc -> 32 `i `uc 1 `uc 1 ]
+[n S96 UARTBuff_s aui8Buffer ui8Head ui8Tail ]
+"172 C:\Users\glutnix\Desktop\philrobokit_xc8/hardware/cores/lib\hal_uart.h
+[v _hal_setSerialBAUD `(v ~T0 @X0 0 ef1`um ]
+"2743 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _TX9 `Vb ~T0 @X0 0 e@1222 ]
+"2623
+[v _SYNC `Vb ~T0 @X0 0 e@1220 ]
+"2749
+[v _TXEN `Vb ~T0 @X0 0 e@1221 ]
+"2591
+[v _RX9 `Vb ~T0 @X0 0 e@198 ]
+"2405
+[v _CREN `Vb ~T0 @X0 0 e@196 ]
+"2603
+[v _SPEN `Vb ~T0 @X0 0 e@199 ]
+"2751
+[v _TXIE `Vb ~T0 @X0 0 e@1124 ]
+"2753
+[v _TXIF `Vb ~T0 @X0 0 e@100 ]
+"2555
+[v _RCIE `Vb ~T0 @X0 0 e@1125 ]
+"2557
+[v _RCIF `Vb ~T0 @X0 0 e@101 ]
+"53 hardware/cores/lib\corelib_uart.c
+[v _isSerialBufferFull `(uc ~T0 @X0 0 sf ]
+"52
+[v _isSerialDataAvailable `(uc ~T0 @X0 0 sf ]
+"1035 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _RCREG `Vuc ~T0 @X0 0 e@26 ]
+"1029
+[v _TXREG `Vuc ~T0 @X0 0 e@25 ]
+"2471
+[v _OERR `Vb ~T0 @X0 0 e@193 ]
+"49 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[; <" INDF equ 00h ;# ">
+"55
+[; <" TMR0 equ 01h ;# ">
+"61
+[; <" PCL equ 02h ;# ">
+"67
+[; <" STATUS equ 03h ;# ">
+"154
+[; <" FSR equ 04h ;# ">
+"160
+[; <" PORTA equ 05h ;# ">
+"209
+[; <" PORTB equ 06h ;# ">
+"270
+[; <" PORTC equ 07h ;# ">
+"331
+[; <" PORTD equ 08h ;# ">
+"392
+[; <" PORTE equ 09h ;# ">
+"423
+[; <" PCLATH equ 0Ah ;# ">
+"442
+[; <" INTCON equ 0Bh ;# ">
+"519
+[; <" PIR1 equ 0Ch ;# ">
+"580
+[; <" PIR2 equ 0Dh ;# ">
+"619
+[; <" TMR1 equ 0Eh ;# ">
+"625
+[; <" TMR1L equ 0Eh ;# ">
+"631
+[; <" TMR1H equ 0Fh ;# ">
+"637
+[; <" T1CON equ 010h ;# ">
+"711
+[; <" TMR2 equ 011h ;# ">
+"717
+[; <" T2CON equ 012h ;# ">
+"787
+[; <" SSPBUF equ 013h ;# ">
+"793
+[; <" SSPCON equ 014h ;# ">
+"862
+[; <" CCPR1 equ 015h ;# ">
+"868
+[; <" CCPR1L equ 015h ;# ">
+"874
+[; <" CCPR1H equ 016h ;# ">
+"880
+[; <" CCP1CON equ 017h ;# ">
+"937
+[; <" RCSTA equ 018h ;# ">
+"1031
+[; <" TXREG equ 019h ;# ">
+"1037
+[; <" RCREG equ 01Ah ;# ">
+"1043
+[; <" CCPR2 equ 01Bh ;# ">
+"1049
+[; <" CCPR2L equ 01Bh ;# ">
+"1055
+[; <" CCPR2H equ 01Ch ;# ">
+"1061
+[; <" CCP2CON equ 01Dh ;# ">
+"1118
+[; <" ADRESH equ 01Eh ;# ">
+"1124
+[; <" ADCON0 equ 01Fh ;# ">
+"1219
+[; <" OPTION_REG equ 081h ;# ">
+"1288
+[; <" TRISA equ 085h ;# ">
+"1337
+[; <" TRISB equ 086h ;# ">
+"1398
+[; <" TRISC equ 087h ;# ">
+"1459
+[; <" TRISD equ 088h ;# ">
+"1520
+[; <" TRISE equ 089h ;# ">
+"1576
+[; <" PIE1 equ 08Ch ;# ">
+"1637
+[; <" PIE2 equ 08Dh ;# ">
+"1676
+[; <" PCON equ 08Eh ;# ">
+"1709
+[; <" SSPCON2 equ 091h ;# ">
+"1770
+[; <" PR2 equ 092h ;# ">
+"1776
+[; <" SSPADD equ 093h ;# ">
+"1782
+[; <" SSPSTAT equ 094h ;# ">
+"1950
+[; <" TXSTA equ 098h ;# ">
+"2030
+[; <" SPBRG equ 099h ;# ">
+"2036
+[; <" CMCON equ 09Ch ;# ">
+"2105
+[; <" CVRCON equ 09Dh ;# ">
+"2169
+[; <" ADRESL equ 09Eh ;# ">
+"2175
+[; <" ADCON1 equ 09Fh ;# ">
+"2233
+[; <" EEDATA equ 010Ch ;# ">
+"2239
+[; <" EEADR equ 010Dh ;# ">
+"2245
+[; <" EEDATH equ 010Eh ;# ">
+"2251
+[; <" EEADRH equ 010Fh ;# ">
+"2257
+[; <" EECON1 equ 018Ch ;# ">
+"2301
+[; <" EECON2 equ 018Dh ;# ">
+"48 hardware/cores/lib\corelib_uart.c
+[v _stUARTTXFiFo `S96 ~T0 @X0 1 s ]
+"49
+[v _stUARTRXFiFo `S96 ~T0 @X0 1 s ]
+"72
+[v _setupSerial `(v ~T0 @X0 1 ef1`ui ]
+"73
+{
+[e :U _setupSerial ]
+"72
+[v _ui16Baudrate `ui ~T0 @X0 1 r1 ]
+"73
+[f ]
+"75
+[e = . _stUARTTXFiFo 1 -> -> 0 `i `uc ]
+"76
+[e = . _stUARTTXFiFo 2 -> -> 0 `i `uc ]
+"77
+[e = . _stUARTRXFiFo 1 -> -> 0 `i `uc ]
+"78
+[e = . _stUARTRXFiFo 2 -> -> 0 `i `uc ]
+"80
+[e ( _hal_setSerialBAUD (1 -> _ui16Baudrate `um ]
+"82
+[e = _TX9 -> -> 0 `i `b ]
+[e = _SYNC -> -> 0 `i `b ]
+[e = _TXEN -> -> 1 `i `b ]
+"83
+[e = _RX9 -> -> 0 `i `b ]
+[e = _CREN -> -> 1 `i `b ]
+[e = _SPEN -> -> 1 `i `b ]
+"85
+[e = _TXIE -> -> 0 `i `b ]
+"86
+[e = _TXIF -> -> 0 `i `b ]
+"88
+[e = _RCIE -> -> 1 `i `b ]
+"89
+[e = _RCIF -> -> 0 `i `b ]
+"90
+[e :UE 97 ]
+}
+"108
+[v _serialWrite `(v ~T0 @X0 1 ef1`uc ]
+"109
+{
+[e :U _serialWrite ]
+"108
+[v _ui8TxData `uc ~T0 @X0 1 r1 ]
+"109
+[f ]
+"110
+[e $U 99  ]
+[e :U 100 ]
+"111
+{
+"115
+[e $U 99  ]
+"116
+}
+[e :U 99 ]
+"110
+[e $ != -> ( _isSerialBufferFull ..  `i -> -> -> 0 `i `uc `i 100  ]
+[e :U 101 ]
+"118
+[e = _TXIE -> -> 0 `i `b ]
+"119
+[e = *U + &U . _stUARTTXFiFo 0 * -> ++ . _stUARTTXFiFo 1 -> -> 1 `i `uc `ux -> -> # *U &U . _stUARTTXFiFo 0 `ui `ux _ui8TxData ]
+"120
+[e =& . _stUARTTXFiFo 1 -> - -> 32 `i -> 1 `i `uc ]
+"121
+[e = _TXIE -> -> 1 `i `b ]
+"125
+[e :UE 98 ]
+}
+"143
+[v _serialWriteString `(v ~T0 @X0 1 ef1`*Cuc ]
+"144
+{
+[e :U _serialWriteString ]
+"143
+[v _pucStrTxData `*Cuc ~T0 @X0 1 r1 ]
+"144
+[f ]
+"145
+[e $U 103  ]
+[e :U 104 ]
+"146
+{
+"147
+[e ( _serialWrite (1 *U ++ _pucStrTxData * -> -> 1 `i `x -> -> # *U _pucStrTxData `i `x ]
+"151
+}
+[e :U 103 ]
+"145
+[e $ != -> 0 `ui -> *U _pucStrTxData `ui 104  ]
+[e :U 105 ]
+"153
+[e ( _serialWrite (1 -> -> 0 `ui `uc ]
+"154
+[e :UE 102 ]
+}
+"174
+[v _serialWriteBlock `(v ~T0 @X0 1 ef2`*uc`uc ]
+"175
+{
+[e :U _serialWriteBlock ]
+"174
+[v _pui8StrTxData `*uc ~T0 @X0 1 r1 ]
+[v _ui8Size `uc ~T0 @X0 1 r2 ]
+"175
+[f ]
+"176
+[e $U 107  ]
+[e :U 108 ]
+"177
+{
+"178
+[e ( _serialWrite (1 *U ++ _pui8StrTxData * -> -> 1 `i `x -> -> # *U _pui8StrTxData `i `x ]
+"179
+[e -- _ui8Size -> -> 1 `i `uc ]
+"183
+}
+[e :U 107 ]
+"176
+[e $ != -> 0 `i -> _ui8Size `i 108  ]
+[e :U 109 ]
+"184
+[e :UE 106 ]
+}
+"203
+[v _serialDataCount `(uc ~T0 @X0 1 ef ]
+"204
+{
+[e :U _serialDataCount ]
+[f ]
+"205
+[e $ ! == -> == -> 1 `i -> 1 `i `i -> ( _isSerialDataAvailable ..  `i 111  ]
+"206
+{
+"210
+[e ) -> - -> . _stUARTRXFiFo 1 `i -> . _stUARTRXFiFo 2 `i `uc ]
+[e $UE 110  ]
+"211
+}
+[e $U 112  ]
+"212
+[e :U 111 ]
+"213
+{
+"217
+[e ) -> -> 0 `i `uc ]
+[e $UE 110  ]
+"218
+}
+[e :U 112 ]
+"219
+[e :UE 110 ]
+}
+"238
+[v _serialRead `(uc ~T0 @X0 1 ef ]
+"239
+{
+[e :U _serialRead ]
+[f ]
+"240
+[v _ui8serialData `uc ~T0 @X0 1 a ]
+"242
+[e $ ! == -> == -> 1 `i -> 0 `i `i -> ( _isSerialDataAvailable ..  `i 114  ]
+"243
+{
+"247
+[e ) -> -> 0 `i `uc ]
+[e $UE 113  ]
+"248
+}
+[e $U 115  ]
+"249
+[e :U 114 ]
+"250
+{
+"251
+[e = _RCIE -> -> 0 `i `b ]
+"252
+[e = _ui8serialData *U + &U . _stUARTRXFiFo 0 * -> ++ . _stUARTRXFiFo 2 -> -> 1 `i `uc `ux -> -> # *U &U . _stUARTRXFiFo 0 `ui `ux ]
+"253
+[e =& . _stUARTRXFiFo 2 -> - -> 32 `i -> 1 `i `uc ]
+"254
+[e = _RCIE -> -> 1 `i `b ]
+"258
+[e ) _ui8serialData ]
+[e $UE 113  ]
+"259
+}
+[e :U 115 ]
+"260
+[e :UE 113 ]
+}
+"278
+[v _serialFlush `(v ~T0 @X0 1 ef ]
+"279
+{
+[e :U _serialFlush ]
+[f ]
+"280
+[e = . _stUARTRXFiFo 1 -> -> 0 `i `uc ]
+"281
+[e = . _stUARTTXFiFo 1 -> -> 0 `i `uc ]
+"282
+[e = . _stUARTRXFiFo 2 -> -> 0 `i `uc ]
+"283
+[e = . _stUARTTXFiFo 2 -> -> 0 `i `uc ]
+"286
+[e :UE 116 ]
+}
+"304
+[v _serialRxISR `(v ~T0 @X0 1 ef ]
+"305
+{
+[e :U _serialRxISR ]
+[f ]
+"306
+[v F1493 `uc ~T0 @X0 1 s ui8TempIn ]
+"308
+[e $ ! && != ? _RCIF : -> 1 `i -> 0 `i -> 0 `i != ? _RCIE : -> 1 `i -> 0 `i -> 0 `i 118  ]
+"309
+{
+"310
+[e = _RCIF -> -> 0 `i `b ]
+"311
+[e = *U + &U . _stUARTRXFiFo 0 * -> . _stUARTRXFiFo 1 `ux -> -> # *U &U . _stUARTRXFiFo 0 `ui `ux _RCREG ]
+"312
+[e = F1493 -> & + -> . _stUARTRXFiFo 1 `i -> 1 `i - -> 32 `i -> 1 `i `uc ]
+"314
+[e $ ! != -> F1493 `i -> . _stUARTRXFiFo 2 `i 119  ]
+"315
+{
+"316
+[e = . _stUARTRXFiFo 1 F1493 ]
+"320
+}
+[e $U 120  ]
+"321
+[e :U 119 ]
+"322
+{
+"327
+}
+[e :U 120 ]
+"332
+}
+[e :U 118 ]
+"333
+[e :UE 117 ]
+}
+"351
+[v _serialTxISR `(v ~T0 @X0 1 ef ]
+"352
+{
+[e :U _serialTxISR ]
+[f ]
+"353
+[e $ ! && != ? _TXIF : -> 1 `i -> 0 `i -> 0 `i != ? _TXIE : -> 1 `i -> 0 `i -> 0 `i 122  ]
+"354
+{
+"355
+[e = _TXIF -> -> 0 `i `b ]
+"358
+[e $ ! == -> . _stUARTTXFiFo 2 `i -> . _stUARTTXFiFo 1 `i 123  ]
+"359
+{
+"360
+[e = _TXIE -> -> 0 `i `b ]
+"364
+}
+[e $U 124  ]
+"365
+[e :U 123 ]
+"366
+{
+"367
+[e = _TXREG *U + &U . _stUARTTXFiFo 0 * -> ++ . _stUARTTXFiFo 2 -> -> 1 `i `uc `ux -> -> # *U &U . _stUARTTXFiFo 0 `ui `ux ]
+"368
+[e =& . _stUARTTXFiFo 2 -> - -> 32 `i -> 1 `i `uc ]
+"373
+[e $ ! == -> . _stUARTTXFiFo 2 `i -> . _stUARTTXFiFo 1 `i 125  ]
+"374
+{
+"375
+[e = _TXIE -> -> 0 `i `b ]
+"379
+}
+[e :U 125 ]
+"380
+}
+[e :U 124 ]
+"381
+}
+[e :U 122 ]
+"382
+[e :UE 121 ]
+}
+"402
+[v _isSerialBufferFull `(uc ~T0 @X0 1 sf ]
+"403
+{
+[e :U _isSerialBufferFull ]
+[f ]
+"404
+[e ) -> -> == & + -> . _stUARTTXFiFo 1 `i -> 1 `i - -> 32 `i -> 1 `i -> . _stUARTTXFiFo 2 `i `i `uc ]
+[e $UE 126  ]
+"405
+[e :UE 126 ]
+}
+"424
+[v _isSerialDataAvailable `(uc ~T0 @X0 1 sf ]
+"425
+{
+[e :U _isSerialDataAvailable ]
+[f ]
+"426
+[e $ ! != ? _OERR : -> 1 `i -> 0 `i -> 0 `i 128  ]
+"427
+{
+"428
+[e = _CREN -> -> 0 `i `b ]
+[e = _CREN -> -> 1 `i `b ]
+"432
+[e ) -> -> == -> 1 `i -> 0 `i `i `uc ]
+[e $UE 127  ]
+"433
+}
+[e :U 128 ]
+"435
+[e ) -> -> != -> . _stUARTRXFiFo 1 `i -> . _stUARTRXFiFo 2 `i `i `uc ]
+[e $UE 127  ]
+"436
+[e :UE 127 ]
+}

@@ -68,6 +68,7 @@
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
+#if 0
 void setupTimer(void)
 {
     /* Set Prescaler */
@@ -84,11 +85,15 @@ void setupTimer(void)
     hal_clrBaseTimerIntFlag();
     hal_enableBaseTimerInt();
 }
+#endif
 
 /*******************************************************************************//**
 * \brief Timebase Interrupt Service Routine
 *
 * > This is an interrupt handler called periodically to manage system timebase
+*
+* > PIC18F4520, XC8, @32Mhz(/4) Clock, 255uS Period: 5-10uS from trigger, 12uS Duration (4.7% resource)
+* > PIC16F877A, XC8, @20Mhz(/4) Clock, 204uS Period: 8-16uS from trigger, 28uS Duration (13.73% resource)
 *
 * > <BR>
 * > **Syntax:**<BR>
@@ -103,40 +108,34 @@ void setupTimer(void)
 ***********************************************************************************/
 void timerISR(void)
 {
-    static uint16_t ui16UsCounter = 0;
-#ifdef __TIMER_SEC__
     static uint16_t ui16MsCounter = 0;
-#endif
 
     if(hal_getBaseTimerIntFlag() && hal_getBaseTimerIntEnableStatus())
     {
+        REGISTER_TMR0L = TMR0_1MS_PRELOAD;
         hal_clrBaseTimerIntFlag();
-        inc_gui16TimerUsMSB_Value(256);                     // increment uS Timer High Byte
-        ui16UsCounter += TMR0_US_INCREMENT;
+        inc_gui16TimerMs_Value();
 
-        while(ui16UsCounter >= 1000)
-        {
-            inc_gui16TimerMs_Value();
-            ui16UsCounter -= 1000;
-#ifdef __TIMER_SEC__
-            ui16MsCounter++;
-#endif
-#ifdef UNIT_TEST
-            UCUNIT_Tracepoint(0);
-#endif
-        }
-
-#ifdef __TIMER_SEC__
-
+        ui16MsCounter++;
         if(ui16MsCounter >= 1000)
         {
             inc_gui16TimerSec_Value();
             ui16MsCounter = 0;
 #ifdef UNIT_TEST
-            UCUNIT_Tracepoint(1);
+            UCUNIT_Tracepoint(0);
 #endif
         }
 
+#if defined (USE_ADC)
+        /* Check end of conversion */
+        if(TRUE == hal_checkADCEndofConversion())
+        {
+            /* start new conversion */
+            hal_startADCConversion();
+#ifdef UNIT_TEST
+            UCUNIT_Tracepoint(1);
+#endif
+        }
 #endif
     }
 }

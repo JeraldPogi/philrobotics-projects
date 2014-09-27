@@ -69,10 +69,30 @@ __CONFIG(WDTE_OFF& FOSC_HS& LVP_OFF& PWRTE_ON& BOREN_OFF);
 #pragma config WDT=OFF
 #pragma config WDTPS=1
 #pragma config PBADEN=OFF
+#else
+#error Device not yet supported!!!
+#endif
 
-/* Glutnix Variant */
-#elif defined( _18F4620 )
-#pragma config OSC=HS               // 8Mhz Crystal
+#else
+#error Device not yet supported!!!
+#endif
+
+#elif defined(SDCC)
+
+#if (__PHR_CONTROLLER__==__MCU_PIC16__)
+/* Anito Rev0 */
+#if defined(__SDCC_PIC16F877A) || defined(__SDCC_PIC16F877)
+typedef unsigned int config;
+config __at (0x2007) __CONFIG = _WDT_OFF & _HS_OSC & _LVP_OFF & _PWRTE_ON & _BODEN_OFF;
+
+#else
+#error Device not yet supported!!!
+#endif
+
+#elif (__PHR_CONTROLLER__==__MCU_PIC18__)
+/* Anito Rev1 */
+#if defined(__SDCC_PIC18F4520)
+#pragma config OSC=HSPLL            // 8Mhz Crystal x 4 PLL
 #pragma config LVP=OFF
 #pragma config PWRT=ON
 #pragma config BOREN=OFF
@@ -87,6 +107,8 @@ __CONFIG(WDTE_OFF& FOSC_HS& LVP_OFF& PWRTE_ON& BOREN_OFF);
 #error Device not yet supported!!!
 #endif
 
+#else
+#error Device not yet supported!!!
 #endif
 
 #else
@@ -102,9 +124,7 @@ __CONFIG(WDTE_OFF& FOSC_HS& LVP_OFF& PWRTE_ON& BOREN_OFF);
 /* none */
 
 /* Private Function Prototypes */
-#if (__PHR_CONTROLLER__==__MCU_PIC18__)
-static void criticalTaskISR();
-#endif
+/* none */
 
 /* Public Functions */
 /*******************************************************************************//**
@@ -129,13 +149,11 @@ int main(void)
     setupGpio();
     /* System Timebase */
     setupTimer();
+#if defined (USE_ADC)
     /* Vref at Vdd by default */
     setupADC(VDD);
-#if (__PHR_CONTROLLER__==__MCU_PIC18__)
-    /* Use Timer 1 for ADC Polling */
-    setup16BitTimer(TIMER1, criticalTaskISR);               // poll ADC on timer1 interrupt
-    set16BitTimer(TIMER1, K16_CRITICALTASK_PERIOD);
 #endif
+
     /* global and peripheral interrupts enabled */
     enableGlobalInt();
     set_gblInitialized_FlagValue();
@@ -144,9 +162,6 @@ int main(void)
 
     while(TRUE)
     {
-#if (__PHR_CONTROLLER__==__MCU_PIC16__)
-        adcCycle();                                         // poll ADC on program loop
-#endif
         cycle();
     }
 
@@ -170,26 +185,55 @@ int main(void)
 * > <BR><BR>
 ***********************************************************************************/
 void
-#ifndef S_SPLINT_S /* Suppress SPLint Parse Errors */
+#if defined(HI_TECH_C)
 interrupt
 #endif
 isr(void)
+#if defined(SDCC)
+__interrupt (1)
+#endif
 {
     disableGlobalInt();
     set_gblISRLocked_FlagValue();
     timerISR();
-    timer16BitISR();
+
+#if defined (USE_8BIT_TIMER)
     timer8BitISR();
+#endif
+
+#if defined (USE_16BIT_TIMER)
+    timer16BitISR();
+#endif
+	
+#if defined (USE_UART)
     serialRxISR();
+#endif
+
+#if defined (USE_INTERRUPT)
     userIntISR();
+#endif
+
+#if defined (USE_UART)	
     serialTxISR();
+#endif
+
+#if defined (USE_ADC)
     adcISR();
+#endif
+
     clr_gblISRLocked_FlagValue();
     enableGlobalInt();
 }
 
 #if (__PHR_CONTROLLER__==__MCU_PIC18__)
-void interrupt low_priority low_isr(void)
+void
+#if defined(HI_TECH_C)
+interrupt low_priority
+#endif
+low_isr(void)
+#if defined(SDCC)
+__interrupt (2)
+#endif
 {
     disableGlobalInt();
     set_gblISRLocked_FlagValue();
@@ -199,30 +243,7 @@ void interrupt low_priority low_isr(void)
 #endif
 
 /* Private Functions */
-/*******************************************************************************//**
-* \brief Realtime critical task to be executed periodically
-*
-* > This function contains calls to realtime critical task that are needed to be
-* > executed on regular periodic manner.
-*
-* > <BR>
-* > **Syntax:**<BR>
-* >     criticalTaskISR()
-* > <BR><BR>
-* > **Parameters:**<BR>
-* >     none
-* > <BR><BR>
-* > **Returns:**<BR>
-* >     none
-* > <BR><BR>
-***********************************************************************************/
-#if (__PHR_CONTROLLER__==__MCU_PIC18__)
-static void criticalTaskISR()
-{
-    set16BitTimer(TIMER1, K16_CRITICALTASK_PERIOD);         // cyclic
-    adcCycle();
-}
-#endif
+/* none */
 
 /* end of PhilRoboKit_CoreLib_Macro.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

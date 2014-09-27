@@ -1,0 +1,528 @@
+Version 3.2 HI-TECH Software Intermediate Code
+"96 libraries/Mobot_Lib\Mobot_Lib.h
+[v _setupPBot `(v ~T0 @X0 0 ef3`uc`uc`uc ]
+"61 C:\Users\glutnix\Desktop\philrobokit_xc8/hardware/cores/lib\corelib_basetimer.h
+[v _getMs `(ui ~T0 @X0 0 ef ]
+"73 libraries/Mobot_Lib\LowLevelMobot.h
+[v _runRightMotor `(v ~T0 @X0 0 ef2`uc`uc ]
+"112 libraries/Mobot_Lib\Mobot_Lib.h
+[v _stopMotors `(v ~T0 @X0 0 ef ]
+"75 libraries/Mobot_Lib\LowLevelMobot.h
+[v _runLeftMotor `(v ~T0 @X0 0 ef2`uc`uc ]
+"106 libraries/Mobot_Lib\Mobot_Lib.h
+[v _moveForward `(v ~T0 @X0 0 ef1`uc ]
+"107
+[v _moveBackward `(v ~T0 @X0 0 ef1`uc ]
+"110
+[v _rotateLeft `(v ~T0 @X0 0 ef1`uc ]
+"111
+[v _rotateRight `(v ~T0 @X0 0 ef1`uc ]
+"108
+[v _turnLeft `(v ~T0 @X0 0 ef1`uc ]
+"109
+[v _turnRight `(v ~T0 @X0 0 ef1`uc ]
+"62 C:\Users\glutnix\Desktop\philrobokit_xc8/hardware/cores/lib\corelib_basetimer.h
+[v _getElapsedMs `(ui ~T0 @X0 0 ef1`ui ]
+"49 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic18f4520.h
+[; <" PORTA equ 0F80h ;# ">
+"269
+[; <" PORTB equ 0F81h ;# ">
+"447
+[; <" PORTC equ 0F82h ;# ">
+"631
+[; <" PORTD equ 0F83h ;# ">
+"772
+[; <" PORTE equ 0F84h ;# ">
+"1100
+[; <" LATA equ 0F89h ;# ">
+"1232
+[; <" LATB equ 0F8Ah ;# ">
+"1364
+[; <" LATC equ 0F8Bh ;# ">
+"1496
+[; <" LATD equ 0F8Ch ;# ">
+"1628
+[; <" LATE equ 0F8Dh ;# ">
+"1730
+[; <" TRISA equ 0F92h ;# ">
+"1735
+[; <" DDRA equ 0F92h ;# ">
+"1951
+[; <" TRISB equ 0F93h ;# ">
+"1956
+[; <" DDRB equ 0F93h ;# ">
+"2172
+[; <" TRISC equ 0F94h ;# ">
+"2177
+[; <" DDRC equ 0F94h ;# ">
+"2393
+[; <" TRISD equ 0F95h ;# ">
+"2398
+[; <" DDRD equ 0F95h ;# ">
+"2614
+[; <" TRISE equ 0F96h ;# ">
+"2619
+[; <" DDRE equ 0F96h ;# ">
+"2777
+[; <" OSCTUNE equ 0F9Bh ;# ">
+"2841
+[; <" PIE1 equ 0F9Dh ;# ">
+"2920
+[; <" PIR1 equ 0F9Eh ;# ">
+"2999
+[; <" IPR1 equ 0F9Fh ;# ">
+"3078
+[; <" PIE2 equ 0FA0h ;# ">
+"3143
+[; <" PIR2 equ 0FA1h ;# ">
+"3208
+[; <" IPR2 equ 0FA2h ;# ">
+"3273
+[; <" EECON1 equ 0FA6h ;# ">
+"3338
+[; <" EECON2 equ 0FA7h ;# ">
+"3344
+[; <" EEDATA equ 0FA8h ;# ">
+"3350
+[; <" EEADR equ 0FA9h ;# ">
+"3356
+[; <" RCSTA equ 0FABh ;# ">
+"3361
+[; <" RCSTA1 equ 0FABh ;# ">
+"3565
+[; <" TXSTA equ 0FACh ;# ">
+"3570
+[; <" TXSTA1 equ 0FACh ;# ">
+"3862
+[; <" TXREG equ 0FADh ;# ">
+"3867
+[; <" TXREG1 equ 0FADh ;# ">
+"3873
+[; <" RCREG equ 0FAEh ;# ">
+"3878
+[; <" RCREG1 equ 0FAEh ;# ">
+"3884
+[; <" SPBRG equ 0FAFh ;# ">
+"3889
+[; <" SPBRG1 equ 0FAFh ;# ">
+"3895
+[; <" SPBRGH equ 0FB0h ;# ">
+"3901
+[; <" T3CON equ 0FB1h ;# ">
+"4014
+[; <" TMR3 equ 0FB2h ;# ">
+"4020
+[; <" TMR3L equ 0FB2h ;# ">
+"4026
+[; <" TMR3H equ 0FB3h ;# ">
+"4032
+[; <" CMCON equ 0FB4h ;# ">
+"4127
+[; <" CVRCON equ 0FB5h ;# ">
+"4205
+[; <" ECCP1AS equ 0FB6h ;# ">
+"4210
+[; <" ECCPAS equ 0FB6h ;# ">
+"4366
+[; <" PWM1CON equ 0FB7h ;# ">
+"4371
+[; <" ECCP1DEL equ 0FB7h ;# ">
+"4503
+[; <" BAUDCON equ 0FB8h ;# ">
+"4508
+[; <" BAUDCTL equ 0FB8h ;# ">
+"4682
+[; <" CCP2CON equ 0FBAh ;# ">
+"4760
+[; <" CCPR2 equ 0FBBh ;# ">
+"4766
+[; <" CCPR2L equ 0FBBh ;# ">
+"4772
+[; <" CCPR2H equ 0FBCh ;# ">
+"4778
+[; <" CCP1CON equ 0FBDh ;# ">
+"4874
+[; <" CCPR1 equ 0FBEh ;# ">
+"4880
+[; <" CCPR1L equ 0FBEh ;# ">
+"4886
+[; <" CCPR1H equ 0FBFh ;# ">
+"4892
+[; <" ADCON2 equ 0FC0h ;# ">
+"4962
+[; <" ADCON1 equ 0FC1h ;# ">
+"5052
+[; <" ADCON0 equ 0FC2h ;# ">
+"5174
+[; <" ADRES equ 0FC3h ;# ">
+"5180
+[; <" ADRESL equ 0FC3h ;# ">
+"5186
+[; <" ADRESH equ 0FC4h ;# ">
+"5192
+[; <" SSPCON2 equ 0FC5h ;# ">
+"5286
+[; <" SSPCON1 equ 0FC6h ;# ">
+"5355
+[; <" SSPSTAT equ 0FC7h ;# ">
+"5594
+[; <" SSPADD equ 0FC8h ;# ">
+"5600
+[; <" SSPBUF equ 0FC9h ;# ">
+"5606
+[; <" T2CON equ 0FCAh ;# ">
+"5703
+[; <" PR2 equ 0FCBh ;# ">
+"5708
+[; <" MEMCON equ 0FCBh ;# ">
+"5812
+[; <" TMR2 equ 0FCCh ;# ">
+"5818
+[; <" T1CON equ 0FCDh ;# ">
+"5922
+[; <" TMR1 equ 0FCEh ;# ">
+"5928
+[; <" TMR1L equ 0FCEh ;# ">
+"5934
+[; <" TMR1H equ 0FCFh ;# ">
+"5940
+[; <" RCON equ 0FD0h ;# ">
+"6072
+[; <" WDTCON equ 0FD1h ;# ">
+"6099
+[; <" HLVDCON equ 0FD2h ;# ">
+"6104
+[; <" LVDCON equ 0FD2h ;# ">
+"6368
+[; <" OSCCON equ 0FD3h ;# ">
+"6450
+[; <" T0CON equ 0FD5h ;# ">
+"6532
+[; <" TMR0 equ 0FD6h ;# ">
+"6538
+[; <" TMR0L equ 0FD6h ;# ">
+"6544
+[; <" TMR0H equ 0FD7h ;# ">
+"6550
+[; <" STATUS equ 0FD8h ;# ">
+"6628
+[; <" FSR2 equ 0FD9h ;# ">
+"6634
+[; <" FSR2L equ 0FD9h ;# ">
+"6640
+[; <" FSR2H equ 0FDAh ;# ">
+"6646
+[; <" PLUSW2 equ 0FDBh ;# ">
+"6652
+[; <" PREINC2 equ 0FDCh ;# ">
+"6658
+[; <" POSTDEC2 equ 0FDDh ;# ">
+"6664
+[; <" POSTINC2 equ 0FDEh ;# ">
+"6670
+[; <" INDF2 equ 0FDFh ;# ">
+"6676
+[; <" BSR equ 0FE0h ;# ">
+"6682
+[; <" FSR1 equ 0FE1h ;# ">
+"6688
+[; <" FSR1L equ 0FE1h ;# ">
+"6694
+[; <" FSR1H equ 0FE2h ;# ">
+"6700
+[; <" PLUSW1 equ 0FE3h ;# ">
+"6706
+[; <" PREINC1 equ 0FE4h ;# ">
+"6712
+[; <" POSTDEC1 equ 0FE5h ;# ">
+"6718
+[; <" POSTINC1 equ 0FE6h ;# ">
+"6724
+[; <" INDF1 equ 0FE7h ;# ">
+"6730
+[; <" WREG equ 0FE8h ;# ">
+"6741
+[; <" FSR0 equ 0FE9h ;# ">
+"6747
+[; <" FSR0L equ 0FE9h ;# ">
+"6753
+[; <" FSR0H equ 0FEAh ;# ">
+"6759
+[; <" PLUSW0 equ 0FEBh ;# ">
+"6765
+[; <" PREINC0 equ 0FECh ;# ">
+"6771
+[; <" POSTDEC0 equ 0FEDh ;# ">
+"6777
+[; <" POSTINC0 equ 0FEEh ;# ">
+"6783
+[; <" INDF0 equ 0FEFh ;# ">
+"6789
+[; <" INTCON3 equ 0FF0h ;# ">
+"6880
+[; <" INTCON2 equ 0FF1h ;# ">
+"6949
+[; <" INTCON equ 0FF2h ;# ">
+"7085
+[; <" PROD equ 0FF3h ;# ">
+"7091
+[; <" PRODL equ 0FF3h ;# ">
+"7097
+[; <" PRODH equ 0FF4h ;# ">
+"7103
+[; <" TABLAT equ 0FF5h ;# ">
+"7111
+[; <" TBLPTR equ 0FF6h ;# ">
+"7117
+[; <" TBLPTRL equ 0FF6h ;# ">
+"7123
+[; <" TBLPTRH equ 0FF7h ;# ">
+"7129
+[; <" TBLPTRU equ 0FF8h ;# ">
+"7137
+[; <" PCLAT equ 0FF9h ;# ">
+"7144
+[; <" PC equ 0FF9h ;# ">
+"7150
+[; <" PCL equ 0FF9h ;# ">
+"7156
+[; <" PCLATH equ 0FFAh ;# ">
+"7162
+[; <" PCLATU equ 0FFBh ;# ">
+"7168
+[; <" STKPTR equ 0FFCh ;# ">
+"7241
+[; <" TOS equ 0FFDh ;# ">
+"7247
+[; <" TOSL equ 0FFDh ;# ">
+"7253
+[; <" TOSH equ 0FFEh ;# ">
+"7259
+[; <" TOSU equ 0FFFh ;# ">
+"23 C:/Users/glutnix/Desktop/philrobokit_xc8/libraries/Mobot_Lib/examples/.phr_out\CrazyMobot.phr.c
+[v _State `uc ~T0 @X0 1 s ]
+"24
+[v _StateDuration `ul ~T0 @X0 1 e ]
+"26
+[v _init `(v ~T0 @X0 1 ef ]
+"27
+{
+[e :U _init ]
+[f ]
+"28
+[e ( _setupPBot (3 , , -> -> 0 `i `uc -> -> == -> 1 `i -> 0 `i `i `uc -> -> == -> 1 `i -> 1 `i `i `uc ]
+"32
+[e = _StateDuration -> ( _getMs ..  `ul ]
+"33
+[e :UE 403 ]
+}
+"35
+[v _cycle `(v ~T0 @X0 1 ef ]
+"36
+{
+[e :U _cycle ]
+[f ]
+"38
+[e $U 406  ]
+"39
+{
+"40
+[e :U 407 ]
+"41
+{
+"42
+[e ( _runRightMotor (2 , -> -> 255 `i `uc -> -> 0 `i `uc ]
+"43
+[e $U 405  ]
+"44
+}
+"45
+[e :U 408 ]
+"46
+{
+"47
+[e ( _runRightMotor (2 , -> -> 255 `i `uc -> -> 1 `i `uc ]
+"48
+[e $U 405  ]
+"49
+}
+"50
+[e :U 409 ]
+"51
+{
+"52
+[e ( _stopMotors ..  ]
+"53
+[e ( _runLeftMotor (2 , -> -> 255 `i `uc -> -> 0 `i `uc ]
+"54
+[e $U 405  ]
+"55
+}
+"56
+[e :U 410 ]
+"57
+{
+"58
+[e ( _runLeftMotor (2 , -> -> 255 `i `uc -> -> 1 `i `uc ]
+"59
+[e $U 405  ]
+"60
+}
+"61
+[e :U 411 ]
+"62
+{
+"63
+[e ( _moveForward (1 -> -> 150 `i `uc ]
+"64
+[e $U 405  ]
+"65
+}
+"66
+[e :U 412 ]
+"67
+{
+"68
+[e ( _moveForward (1 -> -> 75 `i `uc ]
+"69
+[e $U 405  ]
+"70
+}
+"71
+[e :U 413 ]
+"72
+{
+"73
+[e ( _moveBackward (1 -> -> 75 `i `uc ]
+"74
+[e $U 405  ]
+"75
+}
+"76
+[e :U 414 ]
+"77
+{
+"78
+[e ( _rotateLeft (1 -> -> 150 `i `uc ]
+"79
+[e $U 405  ]
+"80
+}
+"81
+[e :U 415 ]
+"82
+{
+"83
+[e ( _rotateRight (1 -> -> 150 `i `uc ]
+"84
+[e $U 405  ]
+"85
+}
+"86
+[e :U 416 ]
+"87
+{
+"88
+[e ( _turnLeft (1 -> -> 150 `i `uc ]
+"89
+[e $U 405  ]
+"90
+}
+"91
+[e :U 417 ]
+"92
+{
+"93
+[e ( _turnRight (1 -> -> 150 `i `uc ]
+"94
+[e $U 405  ]
+"95
+}
+"96
+[e :U 418 ]
+"97
+{
+"99
+[e $ ! <= ( _getElapsedMs (1 -> _StateDuration `ui -> >> -> 1500 `i -> 1 `i `ui 419  ]
+"100
+{
+"101
+[e ( _rotateRight (1 -> -> 255 `i `uc ]
+"102
+}
+[e $U 420  ]
+"103
+[e :U 419 ]
+"104
+{
+"105
+[e ( _rotateLeft (1 -> -> 255 `i `uc ]
+"106
+}
+[e :U 420 ]
+"107
+[e ( _stopMotors ..  ]
+"108
+[e $U 405  ]
+"109
+}
+"110
+[e :U 421 ]
+"111
+{
+"112
+[e ( _stopMotors ..  ]
+"113
+[e $U 405  ]
+"114
+}
+"115
+}
+[e $U 405  ]
+"38
+[e :U 406 ]
+[e [\ _State , $ -> -> 0 `i `uc 407
+ , $ -> -> 1 `i `uc 408
+ , $ -> -> 2 `i `uc 409
+ , $ -> -> 3 `i `uc 410
+ , $ -> -> 4 `i `uc 411
+ , $ -> -> 5 `i `uc 412
+ , $ -> -> 6 `i `uc 413
+ , $ -> -> 7 `i `uc 414
+ , $ -> -> 8 `i `uc 415
+ , $ -> -> 9 `i `uc 416
+ , $ -> -> 10 `i `uc 417
+ , $ -> -> 11 `i `uc 418
+ 421 ]
+"115
+[e :U 405 ]
+"118
+[e $ ! >= ( _getElapsedMs (1 -> _StateDuration `ui -> -> 1500 `i `ui 422  ]
+"119
+{
+"120
+[e = _StateDuration -> ( _getMs ..  `ul ]
+"122
+[e $ ! <= -> _State `i -> 10 `i 423  ]
+"123
+{
+"124
+[e ++ _State -> -> 1 `i `uc ]
+"125
+}
+[e $U 424  ]
+"126
+[e :U 423 ]
+"127
+{
+"128
+[e = _State -> -> 0 `i `uc ]
+"129
+}
+[e :U 424 ]
+"130
+}
+[e :U 422 ]
+"131
+[e :UE 404 ]
+}

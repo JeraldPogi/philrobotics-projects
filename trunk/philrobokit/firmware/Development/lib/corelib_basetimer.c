@@ -48,6 +48,7 @@
 
 
 /* Public Functions */
+#if 0
 /*******************************************************************************//**
 * \brief Microsecond Time Stamp
 *
@@ -106,6 +107,7 @@ uint16_t getElapsedUs(uint16_t ui16TimeUs)
     enableGlobalInt();
     return ui16TempBuff;
 }
+#endif
 
 /*******************************************************************************//**
 * \brief Millisecond Time Stamp
@@ -166,7 +168,6 @@ uint16_t getElapsedMs(uint16_t ui16TimeMs)
     return ui16TempBuff;
 }
 
-#ifdef __TIMER_SEC__
 /*******************************************************************************//**
 * \brief Seconds Time Stamp
 *
@@ -188,6 +189,10 @@ uint16_t getElapsedMs(uint16_t ui16TimeMs)
 uint16_t getSec(void)
 {
     uint16_t ui16TempBuff;
+
+    while(TRUE == get_gblISRLocked_FlagValue()) {}  // acquire mutex
+
+    disableGlobalInt();                             // Atomic Operation
     ui16TempBuff = get_gui16TimerSec_Value();
     return ui16TempBuff;
 }
@@ -212,11 +217,14 @@ uint16_t getSec(void)
 uint16_t getElapsedSec(uint16_t ui16TimeSec)
 {
     uint16_t ui16TempBuff;
-    ui16TempBuff = get_gui16TimerSec_Value();
-    ui16TempBuff -= ui16TimeSec;
+
+    while(TRUE == get_gblISRLocked_FlagValue()) {}  // acquire mutex
+
+    disableGlobalInt();                             // Atomic Operation
+    ui16TempBuff = get_gui16TimerSec_Value() - ui16TimeSec;
+    enableGlobalInt();
     return ui16TempBuff;
 }
-#endif
 
 /* Private Functions */
 /* none */

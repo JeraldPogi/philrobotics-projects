@@ -37,7 +37,7 @@
 #define __PHILROBOKIT_MASTERLIB_H__
 
 /* Include .h Library Files */
-#include "PhilRoboKit_CoreLib_Macro.h"
+/* none */
 
 /* Global Constants */
 /* none */
@@ -51,7 +51,7 @@
 #define getRegVal(Register)                             (Register)
 #define setMaskedReg(Register, Value, Mask, Shift)      \
     Register &= ~Mask;                                  \
-    Register |= (Value << Shift) & Mask                 // semi-collon intentionally omitted
+    Register |= (Value << Shift) & Mask                 // semi-colon intentionally omitted
 #define getMaskedReg(Register, Mask, Shift)             ((Register & Mask) >> Shift)
 
 #define setBit(Register, Bit)                           (Register |= (1 << Bit))

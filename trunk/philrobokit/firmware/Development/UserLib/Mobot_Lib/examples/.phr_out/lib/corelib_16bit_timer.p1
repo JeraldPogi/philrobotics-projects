@@ -1,0 +1,292 @@
+Version 3.2 HI-TECH Software Intermediate Code
+[v F1477 `(v ~T0 @X0 0 tf ]
+"128 C:\Users\glutnix\Desktop\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v _null16BitTMRFunction `(v ~T0 @X0 0 ef ]
+"2655 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _TMR1IF `Vb ~T0 @X0 0 e@96 ]
+"2653
+[v _TMR1IE `Vb ~T0 @X0 0 e@1120 ]
+"2657
+[v _TMR1ON `Vb ~T0 @X0 0 e@128 ]
+"105 hardware/cores/lib\corelib_16bit_timer.c
+[c E1459 1 .. ]
+[n E1459 tmr16BitModules_et TIMER1  ]
+[v F1466 `(v ~T0 @X0 0 tf ]
+"2639 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _T1OSCEN `Vb ~T0 @X0 0 e@131 ]
+"2641
+[v _T1SYNC `Vb ~T0 @X0 0 e@130 ]
+"2651
+[v _TMR1CS `Vb ~T0 @X0 0 e@129 ]
+"635
+[v _T1CON `Vuc ~T0 @X0 0 e@16 ]
+[v F1472 `(v ~T0 @X0 0 tf ]
+"146 hardware/cores/lib\corelib_16bit_timer.c
+[c E1451 0 1 2 3 .. ]
+[n E1451 Tmr1PreScale_et TMR1_PRE_DIV1 TMR1_PRE_DIV2 TMR1_PRE_DIV4 TMR1_PRE_DIV8  ]
+"629 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _TMR1H `Vuc ~T0 @X0 0 e@15 ]
+"623
+[v _TMR1L `Vuc ~T0 @X0 0 e@14 ]
+"49 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[; <" INDF equ 00h ;# ">
+"55
+[; <" TMR0 equ 01h ;# ">
+"61
+[; <" PCL equ 02h ;# ">
+"67
+[; <" STATUS equ 03h ;# ">
+"154
+[; <" FSR equ 04h ;# ">
+"160
+[; <" PORTA equ 05h ;# ">
+"209
+[; <" PORTB equ 06h ;# ">
+"270
+[; <" PORTC equ 07h ;# ">
+"331
+[; <" PORTD equ 08h ;# ">
+"392
+[; <" PORTE equ 09h ;# ">
+"423
+[; <" PCLATH equ 0Ah ;# ">
+"442
+[; <" INTCON equ 0Bh ;# ">
+"519
+[; <" PIR1 equ 0Ch ;# ">
+"580
+[; <" PIR2 equ 0Dh ;# ">
+"619
+[; <" TMR1 equ 0Eh ;# ">
+"625
+[; <" TMR1L equ 0Eh ;# ">
+"631
+[; <" TMR1H equ 0Fh ;# ">
+"637
+[; <" T1CON equ 010h ;# ">
+"711
+[; <" TMR2 equ 011h ;# ">
+"717
+[; <" T2CON equ 012h ;# ">
+"787
+[; <" SSPBUF equ 013h ;# ">
+"793
+[; <" SSPCON equ 014h ;# ">
+"862
+[; <" CCPR1 equ 015h ;# ">
+"868
+[; <" CCPR1L equ 015h ;# ">
+"874
+[; <" CCPR1H equ 016h ;# ">
+"880
+[; <" CCP1CON equ 017h ;# ">
+"937
+[; <" RCSTA equ 018h ;# ">
+"1031
+[; <" TXREG equ 019h ;# ">
+"1037
+[; <" RCREG equ 01Ah ;# ">
+"1043
+[; <" CCPR2 equ 01Bh ;# ">
+"1049
+[; <" CCPR2L equ 01Bh ;# ">
+"1055
+[; <" CCPR2H equ 01Ch ;# ">
+"1061
+[; <" CCP2CON equ 01Dh ;# ">
+"1118
+[; <" ADRESH equ 01Eh ;# ">
+"1124
+[; <" ADCON0 equ 01Fh ;# ">
+"1219
+[; <" OPTION_REG equ 081h ;# ">
+"1288
+[; <" TRISA equ 085h ;# ">
+"1337
+[; <" TRISB equ 086h ;# ">
+"1398
+[; <" TRISC equ 087h ;# ">
+"1459
+[; <" TRISD equ 088h ;# ">
+"1520
+[; <" TRISE equ 089h ;# ">
+"1576
+[; <" PIE1 equ 08Ch ;# ">
+"1637
+[; <" PIE2 equ 08Dh ;# ">
+"1676
+[; <" PCON equ 08Eh ;# ">
+"1709
+[; <" SSPCON2 equ 091h ;# ">
+"1770
+[; <" PR2 equ 092h ;# ">
+"1776
+[; <" SSPADD equ 093h ;# ">
+"1782
+[; <" SSPSTAT equ 094h ;# ">
+"1950
+[; <" TXSTA equ 098h ;# ">
+"2030
+[; <" SPBRG equ 099h ;# ">
+"2036
+[; <" CMCON equ 09Ch ;# ">
+"2105
+[; <" CVRCON equ 09Dh ;# ">
+"2169
+[; <" ADRESL equ 09Eh ;# ">
+"2175
+[; <" ADCON1 equ 09Fh ;# ">
+"2233
+[; <" EEDATA equ 010Ch ;# ">
+"2239
+[; <" EEADR equ 010Dh ;# ">
+"2245
+[; <" EEDATH equ 010Eh ;# ">
+"2251
+[; <" EEADRH equ 010Fh ;# ">
+"2257
+[; <" EECON1 equ 018Ch ;# ">
+"2301
+[; <" EECON2 equ 018Dh ;# ">
+"44 hardware/cores/lib\corelib_16bit_timer.c
+[v _pt2TMR1ISR `*F1477 ~T0 @X0 1 s ]
+[i _pt2TMR1ISR
+&U _null16BitTMRFunction
+]
+"67
+[v _timer16BitISR `(v ~T0 @X0 1 ef ]
+"68
+{
+[e :U _timer16BitISR ]
+[f ]
+"71
+[e $ ! && != ? _TMR1IF : -> 1 `i -> 0 `i -> 0 `i != ? _TMR1IE : -> 1 `i -> 0 `i -> 0 `i 98  ]
+"72
+{
+"74
+[e = _TMR1ON -> -> 0 `i `b ]
+"75
+[e = _TMR1IE -> -> 0 `i `b ]
+"76
+[e = _TMR1IF -> -> 0 `i `b ]
+"78
+[e ( *U _pt2TMR1ISR ..  ]
+"79
+}
+[e :U 98 ]
+"82
+[e :UE 97 ]
+}
+"104
+[v _setup16BitTimerFull `(v ~T0 @X0 1 ef4`E1459`*F1466`uc`uc ]
+"105
+{
+[e :U _setup16BitTimerFull ]
+"104
+[v _eTmrModule `E1459 ~T0 @X0 1 r1 ]
+[v F1482 `(v ~T0 @X0 0 tf ]
+[v _callback `*F1482 ~T0 @X0 1 r2 ]
+[v _ui8Prescaler `uc ~T0 @X0 1 r3 ]
+[v _ui8Postscaler `uc ~T0 @X0 1 r4 ]
+"105
+[f ]
+"107
+[e $ ! == -> . `E1459 0 `i -> _eTmrModule `i 100  ]
+"108
+{
+"109
+[e = _T1OSCEN -> -> 0 `i `b ]
+[e = _T1SYNC -> -> 1 `i `b ]
+[e = _TMR1CS -> -> 0 `i `b ]
+"110
+[e =& _T1CON -> ~ -> 48 `i `uc ]
+[e =| _T1CON -> & << -> _ui8Prescaler `i -> 4 `i -> 48 `i `uc ]
+"112
+[e = _pt2TMR1ISR _callback ]
+"113
+}
+[e $U 101  ]
+"114
+[e :U 100 ]
+"115
+{
+"117
+}
+[e :U 101 ]
+"118
+[e :UE 99 ]
+}
+"140
+[v _setup16BitTimer `(v ~T0 @X0 1 ef2`E1459`*F1472 ]
+"141
+{
+[e :U _setup16BitTimer ]
+"140
+[v _eTmrModule `E1459 ~T0 @X0 1 r1 ]
+[v F1487 `(v ~T0 @X0 0 tf ]
+[v _callback `*F1487 ~T0 @X0 1 r2 ]
+"141
+[f ]
+"143
+[e $ ! == -> . `E1459 0 `i -> _eTmrModule `i 103  ]
+"144
+{
+"145
+[e = _T1OSCEN -> -> 0 `i `b ]
+[e = _T1SYNC -> -> 1 `i `b ]
+[e = _TMR1CS -> -> 0 `i `b ]
+"146
+[e =& _T1CON -> ~ -> 48 `i `uc ]
+[e =| _T1CON -> & << -> . `E1451 0 `i -> 4 `i -> 48 `i `uc ]
+"147
+[e = _pt2TMR1ISR _callback ]
+"148
+}
+[e $U 104  ]
+"149
+[e :U 103 ]
+"150
+{
+"152
+}
+[e :U 104 ]
+"153
+[e :UE 102 ]
+}
+"173
+[v _set16BitTimer `(v ~T0 @X0 1 ef2`E1459`ui ]
+"174
+{
+[e :U _set16BitTimer ]
+"173
+[v _eTmrModule `E1459 ~T0 @X0 1 r1 ]
+[v _ui16Value `ui ~T0 @X0 1 r2 ]
+"174
+[f ]
+"176
+[e $ ! == -> . `E1459 0 `i -> _eTmrModule `i 106  ]
+"177
+{
+"178
+[e = _ui16Value -> - -> 65535 `l -> _ui16Value `l `ui ]
+[e = _TMR1H -> >> _ui16Value -> 8 `i `uc ]
+[e = _TMR1L -> _ui16Value `uc ]
+"180
+[e = _TMR1IF -> -> 0 `i `b ]
+"181
+[e = _TMR1IE -> -> 1 `i `b ]
+"183
+[e = _TMR1ON -> -> 1 `i `b ]
+"184
+}
+[e $U 107  ]
+"185
+[e :U 106 ]
+"186
+{
+"188
+}
+[e :U 107 ]
+"189
+[e :UE 105 ]
+}

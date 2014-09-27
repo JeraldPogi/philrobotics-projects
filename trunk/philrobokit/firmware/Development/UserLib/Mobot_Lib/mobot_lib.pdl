@@ -1,0 +1,7 @@
+init init#include <Mobot_Lib/Config_Pinguino.h>
+
+setupPBot setupPBot#include <Mobot_Lib/Mobot_Lib.c>
+setupPBotUART setupPBotUART#include <Mobot_Lib/Mobot_Lib.c>
+
+
+

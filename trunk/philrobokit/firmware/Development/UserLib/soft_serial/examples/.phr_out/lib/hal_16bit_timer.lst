@@ -1,0 +1,74 @@
+     1: /*****************************************************************************************//**
+     2: * # PhilRobotics | Philippine Electronics and Robotics Enthusiasts Club #
+     3: * http://philrobotics.com | http://philrobotics.com/forum | http://facebook.com/philrobotics
+     4: * phirobotics.core@philrobotics.com
+     5: *
+     6: *---------------------------------------------------------------------------------------------
+     7: * |Filename:      | "hal_16bit_timer.c"                         |
+     8: * |:----          |:----                                        |
+     9: * |Description:   | This is a driver for micrcochip 16bit timer (TMR1) |
+    10: * |Revision:      | v00.01.00                                   |
+    11: * |Author:        | Efren S. Cruzat II                          |
+    12: * |               |                                             |
+    13: * |Dependencies:  |                                             |
+    14: *
+    15: * > This program is free software: you can redistribute it and/or modify
+    16: * > it under the terms of the GNU General Public License as published by
+    17: * > the Free Software Foundation, either version 3 of the License, or
+    18: * > (at your option) any later version.
+    19: * > This program is distributed in the hope that it will be useful,
+    20: * > but WITHOUT ANY WARRANTY; without even the implied warranty of
+    21: * > MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    22: * > GNU General Public License for more details.
+    23: * > <BR><BR>
+    24: * > You should have received a copy of the GNU General Public License
+    25: * > along with this program. If not, see http://www.gnu.org/licenses/
+    26: * <BR>
+    27: *---------------------------------------------------------------------------------------------
+    28: * |FW Version   |Date       |Author             |Description                        |
+    29: * |:----        |:----      |:----              |:----                              |
+    30: * |v00.00.01    |20130323   |ESCII              |Library Initial Release            |
+    31: * |v00.01.00    |20130514   |ESCII              |Code Formatted                     |
+    32: *********************************************************************************************/
+    33: #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
+    34: #undef  __SHOW_MODULE_HEADER__
+    35: 
+    36: #include "hal_16bit_timer.h"
+    37: 
+    38: /* Local Constants */
+    39: /* none */
+    40: 
+    41: /* Local Variables */
+    42: /* none */
+    43: 
+    44: /* Private Function Prototypes */
+    45: /* none */
+    46: 
+    47: /* Public Functions */
+    48: /*******************************************************************************//**
+    49: * \brief Initialize 16bit timer interrupt function pointer with null function
+    50: *
+    51: * > This function basically does nothing and is used to initialize 16bit timer
+    52: * > interrupt function pointer.
+    53: *
+    54: * > <BR>
+    55: * > **Syntax:**<BR>
+    56: * >     null16BitTMRFunction()
+    57: * > <BR><BR>
+    58: * > **Parameters:**<BR>
+    59: * >     none
+    60: * > <BR><BR>
+    61: * > **Returns:**<BR>
+    62: * >     none
+    63: * > <BR><BR>
+    64: ***********************************************************************************/
+    65: void null16BitTMRFunction()
+    66: {
+    67:     ;/* NULL */
+    68: }
+    69: 
+    70: /* Private Functions */
+    71: /* none */
+    72: 
+    73: /* end of hal_8bit_timer.c */
+    74: //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

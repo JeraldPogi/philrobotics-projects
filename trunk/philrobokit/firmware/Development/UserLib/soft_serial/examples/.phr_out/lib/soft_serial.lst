@@ -1,0 +1,734 @@
+     1: /*****************************************************************************************//**
+     2: * # PhilRobotics | Philippine Electronics and Robotics Enthusiasts Club #
+     3: * http://philrobotics.com | http://philrobotics.com/forum | http://facebook.com/philrobotics
+     4: * phirobotics.core@philrobotics.com
+     5: *
+     6: *---------------------------------------------------------------------------------------------
+     7: * |Filename:      | "soft_serial.c"                             |
+     8: * |:----          |:----                                        |
+     9: * |Description:   | This is a library for using the serial/uart functions |
+    10: * |Revision:      | v01.01.03                                   |
+    11: * |Author:        | Efren S. Cruzat II                          |
+    12: * |               |                                             |
+    13: * |Dependencies:  |                                             |
+    14: *
+    15: * > This program is free software: you can redistribute it and/or modify
+    16: * > it under the terms of the GNU General Public License as published by
+    17: * > the Free Software Foundation, either version 3 of the License, or
+    18: * > (at your option) any later version.
+    19: * > This program is distributed in the hope that it will be useful,
+    20: * > but WITHOUT ANY WARRANTY; without even the implied warranty of
+    21: * > MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    22: * > GNU General Public License for more details.
+    23: * > <BR><BR>
+    24: * > You should have received a copy of the GNU General Public License
+    25: * > along with this program. If not, see http://www.gnu.org/licenses/
+    26: * <BR>
+    27: *---------------------------------------------------------------------------------------------
+    28: * |FW Version   |Date       |Author             |Description                        |
+    29: * |:----        |:----      |:----              |:----                              |
+    30: * |v00.01.00    |20130924   |ESCII              |Library Initial Release            |
+    31: *********************************************************************************************/
+    32: #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
+    33: #undef  __SHOW_MODULE_HEADER__
+    34: 
+    35: #include "soft_serial.h"
+    36: 
+    37: /* Local Constants */
+    38: #define K8_SUART_BUFFER_MASK         (K8_SUART_BUFFER_SIZE-1)
+    39: 
+    40: enum SoftUARTRXStates_e
+    41: {
+    42:     RX_IDLE
+    43:     ,WAIT_4_START_EDGE
+    44:     ,WAIT_4_START_BIT
+    45:     ,WAIT_4_DATA_BIT
+    46:     ,WAIT_4_STOP_BIT
+    47:     ,RECEPTION_ERROR
+    48: };
+    49: 
+    50: enum SoftUARTTXStates_e
+    51: {
+    52:     TX_IDLE
+    53:     ,SEND_START_BIT
+    54:     ,SEND_DATA_BIT
+    55:     ,WAIT_3_CYCLES
+    56:     ,SEND_STOP_BIT
+    57: };
+    58: 
+    59: /* Local Variables */
+    60: struct SUART_TXBuff_s
+    61: {
+    62:     uint8_t     aui8Buffer[K8_SUART_BUFFER_SIZE];
+    63:     uint8_t     ui8Head;
+    64:     uint8_t     ui8Tail;
+    65:     uint8_t     ui8Pin;
+    66:     uint8_t     ui8TXState;
+    67:     uint8_t     ui8PollCounter;
+    68:     uint8_t     ui8BitCounter;
+    69:     bool_t      blSendingByte;
+    70: };
+    71: 
+    72: struct SUART_RXBuff_s
+    73: {
+    74:     uint8_t     aui8Buffer[K8_SUART_BUFFER_SIZE];
+    75:     uint8_t     ui8Head;
+    76:     uint8_t     ui8Tail;
+    77:     uint8_t     ui8Pin;
+    78:     uint8_t     ui8RXState;
+    79:     uint8_t     ui8PollCounter;
+    80:     uint8_t     ui8BitCounter;
+    81:     uint8_t     ui8LowCounter;
+    82:     uint8_t     ui8HighCounter;
+    83:     bool_t      blPinVal;
+    84:     bool_t      blPrevPinVal;
+    85:     bool_t      blStartBitDetected;
+    86:     bool_t      blErrorDetected;
+    87: };
+    88: 
+    89: static  uint16_t        ui16SUARTBitPeriod_div3;
+    90: struct  SUART_TXBuff_s  stSUART_TXFiFo[MAX_NUM_OF_SUART];
+    91: struct  SUART_RXBuff_s  stSUART_RXFiFo[MAX_NUM_OF_SUART];
+    92: 
+    93: /* Private Function Prototypes */
+    94: static void softUARTController();
+    95: static void serialSoftRxISR(void);
+    96: static void serialSoftTxISR(void);
+    97: 
+    98: static bool_t isSoftSerialDataAvailable(enum SoftUARTModules_e eSUARTModule);
+    99: static bool_t isSoftSerialBufferFull(enum SoftUARTModules_e eSUARTModule);
+   100: 
+   101: /* Public Functions */
+   102: /*******************************************************************************//**
+   103: * \brief Setup the UART module
+   104: *
+   105: * > This function is called for setting up the UART module peripheral
+   106: *
+   107: * > <BR>
+   108: * > **Syntax:**<BR>
+   109: * >     setupSoftSerial(module, tx_pin, rx_pin, baudrate)
+   110: * > <BR><BR>
+   111: * > **Parameters:**<BR>
+   112: * >     baudrate - desired UART baudrate (supports only standard baudrates)
+   113: * > <BR><BR>
+   114: * > **Returns:**<BR>
+   115: * >     none
+   116: * > <BR><BR>
+   117: ***********************************************************************************/
+   118: void setupSoftSerial(enum SoftUARTModules_e eSUARTModule, uint8_t ui8TXPin, uint8_t ui8RXPin, uint16_t ui16Baudrate)
+   119: {
+   120:     /* Clear TX Buffers */
+   121:     stSUART_TXFiFo[eSUARTModule].ui8Head = 0;
+   122:     stSUART_TXFiFo[eSUARTModule].ui8Tail = 0;
+   123:     stSUART_TXFiFo[eSUARTModule].ui8Pin = ui8TXPin;
+   124:     stSUART_TXFiFo[eSUARTModule].ui8TXState = TX_IDLE;
+   125:     makeOutput(ui8TXPin);
+   126:     setPin(ui8TXPin);
+   127:     
+   128:     /* Clear RX Buffers */
+   129:     stSUART_RXFiFo[eSUARTModule].ui8Head = 0;
+   130:     stSUART_RXFiFo[eSUARTModule].ui8Tail = 0;
+   131:     stSUART_RXFiFo[eSUARTModule].ui8Pin = ui8RXPin;
+   132:     stSUART_RXFiFo[eSUARTModule].blPinVal = HIGH; 
+   133:     stSUART_RXFiFo[eSUARTModule].blPrevPinVal = HIGH;
+   134:     stSUART_RXFiFo[eSUARTModule].ui8RXState = RX_IDLE;
+   135:     makeInput(ui8RXPin);
+   136:     
+   137:     /* Set Baudrate */
+   138:     ui16SUARTBitPeriod_div3 = K_SOFT_SERIAL_POLLING_INTERVAL;
+   139:     
+   140:     /* Use 16Bit Timer Peripheral */
+   141:     setup8BitTimer(K_SUART_TIMER, softUARTController);
+   142:     set8BitTimer(K_SUART_TIMER, ui16SUARTBitPeriod_div3);
+   143: }
+   144: 
+   145: /*******************************************************************************//**
+   146: * \brief Writes a byte to the UART transmit buffer
+   147: *
+   148: * > Writes a byte to the UART transmit buffer
+   149: *
+   150: * > <BR>
+   151: * > **Syntax:**<BR>
+   152: * >      serialSoftWrite(module, data)
+   153: * > <BR><BR>
+   154: * > **Parameters:**<BR>
+   155: * >     data - the byte to be transmitted
+   156: * > <BR><BR>
+   157: * > **Returns:**<BR>
+   158: * >     none
+   159: * > <BR><BR>
+   160: ***********************************************************************************/
+   161: void serialSoftWrite(enum SoftUARTModules_e eSUARTModule, uint8_t ui8TxData)
+   162: {
+   163:     while (isSoftSerialBufferFull(eSUARTModule))
+   164:     {
+   165: #ifdef UNIT_TEST
+   166:         UCUNIT_Tracepoint(0);
+   167: #endif
+   168:         continue;
+   169:     }
+   170: 
+   171: //    hal_disableUARTTXInt();
+   172:     stSUART_TXFiFo[eSUARTModule].aui8Buffer[stSUART_TXFiFo[eSUARTModule].ui8Head++] = ui8TxData;
+   173:     stSUART_TXFiFo[eSUARTModule].ui8Head &= K8_SUART_BUFFER_MASK;
+   174: //    hal_enableUARTTXInt();
+   175: #ifdef UNIT_TEST
+   176:     UCUNIT_Tracepoint(1);
+   177: #endif
+   178: }
+   179: 
+   180: /*******************************************************************************//**
+   181: * \brief Writes a string to the UART transmit buffer
+   182: *
+   183: * > Writes a string or multiple byte writes to the UART transmit buffer
+   184: *
+   185: * > <BR>
+   186: * > **Syntax:**<BR>
+   187: * >      serialSoftWriteString(module, string)
+   188: * > <BR><BR>
+   189: * > **Parameters:**<BR>
+   190: * >     string - the string value to be transmitted, string is an array of characters which are null(\0) terminated
+   191: * > <BR><BR>
+   192: * > **Returns:**<BR>
+   193: * >     none
+   194: * > <BR><BR>
+   195: ***********************************************************************************/
+   196: void serialSoftWriteString(enum SoftUARTModules_e eSUARTModule, const uchar_t* pucStrTxData)
+   197: {
+   198:     while(NULL != *pucStrTxData)
+   199:     {
+   200:         serialSoftWrite(eSUARTModule, *pucStrTxData++);
+   201: #ifdef UNIT_TEST
+   202:         UCUNIT_Tracepoint(0);
+   203: #endif
+   204:     }
+   205: 
+   206:     serialSoftWrite(eSUARTModule, (uint8_t)NULL);                 // Write the null terminator
+   207: }
+   208: 
+   209: /*******************************************************************************//**
+   210: * \brief Send the content of a buffer to the UART transmit buffer
+   211: *
+   212: * > This function is called for sending contents of a buffer over the UART.
+   213: * > It has the advantage of being able to send data having variable length
+   214: *
+   215: * > <BR>
+   216: * > **Syntax:**<BR>
+   217: * >     serialSoftWriteBlock(module, &data, length)
+   218: * > <BR><BR>
+   219: * > **Parameters:**<BR>
+   220: * >     &data - points to the location of the data block to be written         <BR>
+   221: * >     length - the size of the data block in number of bytes
+   222: * > <BR><BR>
+   223: * > **Returns:**<BR>
+   224: * >     none
+   225: * > <BR><BR>
+   226: ***********************************************************************************/
+   227: void serialSoftWriteBlock(enum SoftUARTModules_e eSUARTModule, uint8_t* pui8StrTxData, uint8_t ui8Size)
+   228: {
+   229:     while(0 != ui8Size)
+   230:     {
+   231:         serialSoftWrite(eSUARTModule, *pui8StrTxData++);
+   232:         ui8Size--;
+   233: #ifdef UNIT_TEST
+   234:         UCUNIT_Tracepoint(0);
+   235: #endif
+   236:     }
+   237: }
+   238: 
+   239: /*******************************************************************************//**
+   240: * \brief Returns the number of received data bytes
+   241: *
+   242: * > This function returns the number of data bytes currently on the receive
+   243: * > buffer.
+   244: *
+   245: * > <BR>
+   246: * > **Syntax:**<BR>
+   247: * >      num_of_bytes = serialSoftDataCount(module)
+   248: * > <BR><BR>
+   249: * > **Parameters:**<BR>
+   250: * >     none
+   251: * > <BR><BR>
+   252: * > **Returns:**<BR>
+   253: * >     uint8_t num_of_bytes - the number of available bytes received through UART
+   254: * > <BR><BR>
+   255: ***********************************************************************************/
+   256: uint8_t serialSoftDataCount(enum SoftUARTModules_e eSUARTModule)
+   257: {
+   258:     if(TRUE == isSoftSerialDataAvailable(eSUARTModule))
+   259:     {
+   260: #ifdef UNIT_TEST
+   261:         UCUNIT_Tracepoint(0);
+   262: #endif
+   263:         return (stSUART_RXFiFo[eSUARTModule].ui8Head - stSUART_RXFiFo[eSUARTModule].ui8Tail);
+   264:     }
+   265:     else
+   266:     {
+   267: #ifdef UNIT_TEST
+   268:         UCUNIT_Tracepoint(1);
+   269: #endif
+   270:         return 0;
+   271:     }
+   272: }
+   273: 
+   274: /*******************************************************************************//**
+   275: * \brief Reads the received data byte value
+   276: *
+   277: * > This function reads the received data byte value. The data count is decremented
+   278: * > on every read.
+   279: *
+   280: * > <BR>
+   281: * > **Syntax:**<BR>
+   282: * >      data = serialSoftRead(module)
+   283: * > <BR><BR>
+   284: * > **Parameters:**<BR>
+   285: * >     none
+   286: * > <BR><BR>
+   287: * > **Returns:**<BR>
+   288: * >     uint8_t data - the received data byte value
+   289: * > <BR><BR>
+   290: ***********************************************************************************/
+   291: uint8_t serialSoftRead(enum SoftUARTModules_e eSUARTModule)
+   292: {
+   293:     uint8_t ui8serialData;
+   294: 
+   295:     if(FALSE == isSoftSerialDataAvailable(eSUARTModule))
+   296:     {
+   297: #ifdef UNIT_TEST
+   298:         UCUNIT_Tracepoint(0);
+   299: #endif
+   300:         return 0;
+   301:     }
+   302:     else
+   303:     {
+   304:         //hal_disableUARTRXInt();
+   305:         ui8serialData = stSUART_RXFiFo[eSUARTModule].aui8Buffer[stSUART_RXFiFo[eSUARTModule].ui8Tail++];    // Get Data from aui8Buffer
+   306:         stSUART_RXFiFo[eSUARTModule].ui8Tail &= K8_SUART_BUFFER_MASK;
+   307:         //hal_enableUARTRXInt();
+   308: #ifdef UNIT_TEST
+   309:         UCUNIT_Tracepoint(1);
+   310: #endif
+   311:         return ui8serialData;
+   312:     }
+   313: }
+   314: 
+   315: /*******************************************************************************//**
+   316: * \brief Flush/Clears the RX and TX registers
+   317: *
+   318: * > This function is called when clearing the contents of the RX and TX regiter buffer
+   319: *
+   320: * > <BR>
+   321: * > **Syntax:**<BR>
+   322: * >      serialSoftFlush(module)
+   323: * > <BR><BR>
+   324: * > **Parameters:**<BR>
+   325: * >     none
+   326: * > <BR><BR>
+   327: * > **Returns:**<BR>
+   328: * >     none
+   329: * > <BR><BR>
+   330: ***********************************************************************************/
+   331: void serialSoftFlush(enum SoftUARTModules_e eSUARTModule)
+   332: {
+   333:     stSUART_RXFiFo[eSUARTModule].ui8Head = 0;
+   334:     stSUART_TXFiFo[eSUARTModule].ui8Head = 0;
+   335:     stSUART_RXFiFo[eSUARTModule].ui8Tail = 0;
+   336:     stSUART_TXFiFo[eSUARTModule].ui8Tail = 0;
+   337:     memset(stSUART_TXFiFo[eSUARTModule].aui8Buffer, 0, sizeof(stSUART_TXFiFo[eSUARTModule].aui8Buffer));
+   338:     memset(stSUART_RXFiFo[eSUARTModule].aui8Buffer, 0, sizeof(stSUART_RXFiFo[eSUARTModule].aui8Buffer));
+   339: }
+   340: 
+   341: /* Private Functions */
+   342: /*******************************************************************************//**
+   343: * \brief Main Software UART engine
+   344: *
+   345: * > This function is called on every timer interrupt. 
+   346: *
+   347: * > <BR>
+   348: * > **Syntax:**<BR>
+   349: * >      softUARTController(), ISR
+   350: * > <BR><BR>
+   351: * > **Parameters:**<BR>
+   352: * >     none
+   353: * > <BR><BR>
+   354: * > **Returns:**<BR>
+   355: * >     none
+   356: * > <BR><BR>
+   357: ***********************************************************************************/
+   358: static void softUARTController()
+   359: {
+   360:     set8BitTimer(K_SUART_TIMER, ui16SUARTBitPeriod_div3);        // periodic interrupt
+   361:     serialSoftRxISR();
+   362:     serialSoftTxISR();
+   363: }
+   364: 
+   365: /*******************************************************************************//**
+   366: * \brief UART recieve interrupt service routine
+   367: *
+   368: * >  This is an interrupt handler called when a byte is recieved from the UART peripheral
+   369: *
+   370: * > <BR>
+   371: * > **Syntax:**<BR>
+   372: * >      serialSoftRxISR(), ISR
+   373: * > <BR><BR>
+   374: * > **Parameters:**<BR>
+   375: * >     none
+   376: * > <BR><BR>
+   377: * > **Returns:**<BR>
+   378: * >     none
+   379: * > <BR><BR>
+   380: ***********************************************************************************/
+   381: static void serialSoftRxISR(void)
+   382: {
+   383:     /* variables inside ISR must be static */
+   384:     static uint8_t ui8TempIn=0;                                               
+   385:     static uint8_t ui8TempByte=0xFF;
+   386:     static uint8_t ui8ModuleCounter=0;
+   387: 
+   388:     /* Run through all modules */
+   389:     for(ui8ModuleCounter=0; ui8ModuleCounter<MAX_NUM_OF_SUART; ui8ModuleCounter++)
+   390:     {
+   391:         /* Poll Rx Pin */
+   392:         stSUART_RXFiFo[ui8ModuleCounter].blPinVal = getPinState(stSUART_RXFiFo[ui8ModuleCounter].ui8Pin);
+   393:         stSUART_RXFiFo[ui8ModuleCounter].ui8PollCounter++;
+   394:         
+   395:         switch(stSUART_RXFiFo[ui8ModuleCounter].ui8RXState)
+   396:         {
+   397:             case RX_IDLE:
+   398:             {
+   399:                 /* Check High State */
+   400:                 if(HIGH == stSUART_RXFiFo[ui8ModuleCounter].blPinVal)
+   401:                 {
+   402:                     stSUART_RXFiFo[ui8ModuleCounter].ui8HighCounter++;
+   403:                 }
+   404:                 else
+   405:                 {
+   406:                     stSUART_RXFiFo[ui8ModuleCounter].ui8HighCounter = 0;
+   407:                 } 
+   408:                 
+   409:                 /* Check if High for duration of > 10 bits */
+   410:                 if(stSUART_RXFiFo[ui8ModuleCounter].ui8HighCounter >= 30)                            
+   411:                 {
+   412:                     stSUART_RXFiFo[ui8ModuleCounter].ui8RXState = WAIT_4_START_EDGE;
+   413:                     
+   414:                     /* reset parameters */
+   415:                     stSUART_RXFiFo[ui8ModuleCounter].ui8PollCounter = 0;
+   416:                     stSUART_RXFiFo[ui8ModuleCounter].blStartBitDetected = FALSE;
+   417:                     stSUART_RXFiFo[ui8ModuleCounter].ui8HighCounter = 0;
+   418:                     stSUART_RXFiFo[ui8ModuleCounter].ui8LowCounter = 0;
+   419:                     stSUART_RXFiFo[ui8ModuleCounter].ui8BitCounter = 0;
+   420:                 }
+   421:                 break;
+   422:             }
+   423:             case WAIT_4_START_EDGE:
+   424:             {
+   425:                 /* Start Bit Detected */
+   426:                 if((HIGH == stSUART_RXFiFo[ui8ModuleCounter].blPrevPinVal) && (LOW == stSUART_RXFiFo[ui8ModuleCounter].blPinVal))
+   427:                 {
+   428:                     stSUART_RXFiFo[ui8ModuleCounter].ui8RXState = WAIT_4_START_BIT;
+   429:                     stSUART_RXFiFo[ui8ModuleCounter].ui8LowCounter = 1;
+   430:                 }
+   431:                 /* No Start Edge Yet */
+   432:                 else
+   433:                 {
+   434:                     /* reset parameters */
+   435:                     stSUART_RXFiFo[ui8ModuleCounter].ui8PollCounter = 0;
+   436:                 }
+   437:                 break;
+   438:             }            
+   439:             case WAIT_4_START_BIT:
+   440:             {
+   441:                 if(LOW == stSUART_RXFiFo[ui8ModuleCounter].blPinVal)
+   442:                 {
+   443:                     stSUART_RXFiFo[ui8ModuleCounter].ui8LowCounter++;
+   444:                 }
+   445:                 else
+   446:                 {
+   447:                     stSUART_RXFiFo[ui8ModuleCounter].ui8HighCounter++;
+   448:                 }
+   449:                 
+   450:                 /* done with 3 polling samples */
+   451:                 if(stSUART_RXFiFo[ui8ModuleCounter].ui8PollCounter >= 3)
+   452:                 {
+   453:                     if(stSUART_RXFiFo[ui8ModuleCounter].ui8LowCounter > stSUART_RXFiFo[ui8ModuleCounter].ui8HighCounter)
+   454:                     {
+   455:                         stSUART_RXFiFo[ui8ModuleCounter].blStartBitDetected = TRUE;
+   456:                         stSUART_RXFiFo[ui8ModuleCounter].ui8RXState = WAIT_4_DATA_BIT;
+   457:                     }
+   458:                     else
+   459:                     {
+   460:                         stSUART_RXFiFo[ui8ModuleCounter].ui8RXState = RECEPTION_ERROR;
+   461:                     }
+   462:                     
+   463:                     /* reset parameters */
+   464:                     stSUART_RXFiFo[ui8ModuleCounter].ui8PollCounter = 0;
+   465:                     stSUART_RXFiFo[ui8ModuleCounter].ui8HighCounter = 0;
+   466:                     stSUART_RXFiFo[ui8ModuleCounter].ui8LowCounter = 0;
+   467:                 }
+   468:                 break;
+   469:             }
+   470:             case WAIT_4_DATA_BIT:
+   471:             {
+   472:                 if(LOW == stSUART_RXFiFo[ui8ModuleCounter].blPinVal)
+   473:                 {
+   474:                     stSUART_RXFiFo[ui8ModuleCounter].ui8LowCounter++;
+   475:                 }
+   476:                 else
+   477:                 {
+   478:                     stSUART_RXFiFo[ui8ModuleCounter].ui8HighCounter++;
+   479:                 }
+   480:                 
+   481:                 /* done with 3 polling samples */
+   482:                 if(stSUART_RXFiFo[ui8ModuleCounter].ui8PollCounter >= 3)
+   483:                 {
+   484:                     stSUART_RXFiFo[ui8ModuleCounter].ui8BitCounter++;
+   485:                     
+   486:                     if(stSUART_RXFiFo[ui8ModuleCounter].ui8LowCounter > stSUART_RXFiFo[ui8ModuleCounter].ui8HighCounter)
+   487:                     {
+   488:                         ui8TempByte &= ~0xF0;           // zero is recieved
+   489:                     }
+   490:                     else
+   491:                     {
+   492:                         ui8TempByte |= 0xF0;            // one is recieved
+   493:                     }
+   494: 
+   495:                     /* reset parameters */
+   496:                     stSUART_RXFiFo[ui8ModuleCounter].ui8PollCounter = 0;
+   497:                     stSUART_RXFiFo[ui8ModuleCounter].ui8HighCounter = 0;
+   498:                     stSUART_RXFiFo[ui8ModuleCounter].ui8LowCounter = 0;                
+   499:                 }
+   500:                 
+   501:                 if(stSUART_RXFiFo[ui8ModuleCounter].ui8BitCounter < 8)
+   502:                 {
+   503:                     ui8TempByte >>= 1;                  // prepare buffer for next bit
+   504:                 }
+   505:                 /* a complete byte is recieved */
+   506:                 else
+   507:                 {
+   508:                     stSUART_RXFiFo[ui8ModuleCounter].ui8RXState = WAIT_4_STOP_BIT;
+   509:                     
+   510:                     /* reset parameters */
+   511:                     stSUART_RXFiFo[ui8ModuleCounter].ui8BitCounter = 0;
+   512:                 }
+   513:                 break;
+   514:             }            
+   515:             case WAIT_4_STOP_BIT:
+   516:             {
+   517:                 if(stSUART_RXFiFo[ui8ModuleCounter].blPinVal == LOW)
+   518:                 {
+   519:                     stSUART_RXFiFo[ui8ModuleCounter].ui8LowCounter++;
+   520:                 }
+   521:                 else
+   522:                 {
+   523:                     stSUART_RXFiFo[ui8ModuleCounter].ui8HighCounter++;
+   524:                 }
+   525:                 
+   526:                 /* done with 3 polling samples */
+   527:                 if(stSUART_RXFiFo[ui8ModuleCounter].ui8PollCounter >= 3)
+   528:                 {
+   529:                     /* Check if high for two consecutive sample */
+   530:                     if(stSUART_RXFiFo[ui8ModuleCounter].ui8HighCounter > stSUART_RXFiFo[ui8ModuleCounter].ui8LowCounter)
+   531:                     {
+   532:                         stSUART_RXFiFo[ui8ModuleCounter].aui8Buffer[stSUART_RXFiFo[ui8ModuleCounter].ui8Head] = ui8TempByte;
+   533:                         ui8TempIn = ((stSUART_RXFiFo[ui8ModuleCounter].ui8Head+1) & K8_SUART_BUFFER_MASK);
+   534: 
+   535:                         if(ui8TempIn != stSUART_RXFiFo[ui8ModuleCounter].ui8Tail)
+   536:                         {
+   537:                             stSUART_RXFiFo[ui8ModuleCounter].ui8Head = ui8TempIn;
+   538:                         }
+   539:                         else
+   540:                         {
+   541:                             /* Buffer full, do nothing, do not increment the head anymore */
+   542:                         }                     
+   543:                     
+   544:                         stSUART_RXFiFo[ui8ModuleCounter].ui8RXState = WAIT_4_START_EDGE;
+   545:                     }
+   546:                     else
+   547:                     {
+   548:                         stSUART_RXFiFo[ui8ModuleCounter].ui8RXState = RECEPTION_ERROR;
+   549:                     }    
+   550: 
+   551:                     /* reset parameters */
+   552:                     stSUART_RXFiFo[ui8ModuleCounter].blStartBitDetected = FALSE;
+   553:                     stSUART_RXFiFo[ui8ModuleCounter].ui8PollCounter = 0;
+   554:                     stSUART_RXFiFo[ui8ModuleCounter].ui8HighCounter = 0;
+   555:                     stSUART_RXFiFo[ui8ModuleCounter].ui8LowCounter = 0;                  
+   556:                 }
+   557:                 break;
+   558:             }            
+   559:             case RECEPTION_ERROR:
+   560:             {
+   561:                 stSUART_RXFiFo[ui8ModuleCounter].blErrorDetected = TRUE;
+   562:                 stSUART_RXFiFo[ui8ModuleCounter].blStartBitDetected = FALSE;
+   563:                 stSUART_RXFiFo[ui8ModuleCounter].ui8RXState = RX_IDLE;
+   564:                 break;
+   565:             }            
+   566:             default:
+   567:             {
+   568:                 //assert();
+   569:                 break;
+   570:             }            
+   571:         }
+   572:         
+   573:         stSUART_RXFiFo[ui8ModuleCounter].blPrevPinVal = stSUART_RXFiFo[ui8ModuleCounter].blPinVal;
+   574:     }
+   575: }
+   576: 
+   577: /*******************************************************************************//**
+   578: * \brief UART transmit interrupt service routine
+   579: *
+   580: * >  This is an interrupt handler called when a byte is transmitted by the UART peripheral
+   581: *
+   582: * > <BR>
+   583: * > **Syntax:**<BR>
+   584: * >      serialSoftTxISR(), ISR
+   585: * > <BR><BR>
+   586: * > **Parameters:**<BR>
+   587: * >     none
+   588: * > <BR><BR>
+   589: * > **Returns:**<BR>
+   590: * >     none
+   591: * > <BR><BR>
+   592: ***********************************************************************************/
+   593: static void serialSoftTxISR(void)
+   594: {
+   595:     /* variables inside ISR must be static */
+   596:     static uint8_t ui8TempByte=0xFF;
+   597:     static uint8_t ui8ModuleCounter=0;
+   598:     
+   599:     /* Run through all modules */
+   600:     for(ui8ModuleCounter=0; ui8ModuleCounter<MAX_NUM_OF_SUART; ui8ModuleCounter++)
+   601:     {
+   602:         /* Check if no available data to send */
+   603:         if(FALSE == stSUART_TXFiFo[ui8ModuleCounter].blSendingByte)
+   604:         {
+   605:             if(stSUART_TXFiFo[ui8ModuleCounter].ui8Tail == stSUART_TXFiFo[ui8ModuleCounter].ui8Head)
+   606:             {
+   607:                 return;                                                     // no data to send
+   608:             }
+   609:             else
+   610:             {
+   611:                 ui8TempByte = stSUART_TXFiFo[ui8ModuleCounter].aui8Buffer[stSUART_TXFiFo[ui8ModuleCounter].ui8Tail++];
+   612:                 stSUART_TXFiFo[ui8ModuleCounter].ui8Tail &= K8_SUART_BUFFER_MASK;
+   613:                                 
+   614:                 /* Start Sending Byte */
+   615:                 stSUART_TXFiFo[ui8ModuleCounter].blSendingByte = TRUE;
+   616:                 stSUART_TXFiFo[ui8ModuleCounter].ui8TXState = SEND_START_BIT;
+   617:             }
+   618:         }
+   619:         else
+   620:         {
+   621:             stSUART_TXFiFo[ui8ModuleCounter].ui8PollCounter++;
+   622:             
+   623:             switch(stSUART_TXFiFo[ui8ModuleCounter].ui8TXState)
+   624:             {
+   625:                 case TX_IDLE:
+   626:                 {
+   627:                     stSUART_TXFiFo[ui8ModuleCounter].blSendingByte = FALSE;
+   628:                     break;            
+   629:                 }
+   630:                 case SEND_START_BIT:
+   631:                 {
+   632:                     clrPin(stSUART_TXFiFo[ui8ModuleCounter].ui8Pin);
+   633:                     
+   634:                     stSUART_TXFiFo[ui8ModuleCounter].ui8PollCounter = 0;
+   635:                     stSUART_TXFiFo[ui8ModuleCounter].ui8BitCounter = 0;
+   636:                     stSUART_TXFiFo[ui8ModuleCounter].ui8TXState = WAIT_3_CYCLES;
+   637:                     break;
+   638:                 }
+   639:                 case SEND_DATA_BIT:
+   640:                 {
+   641:                     if(ui8TempByte&0x01)
+   642:                     {
+   643:                         setPin(stSUART_TXFiFo[ui8ModuleCounter].ui8Pin);
+   644:                     }
+   645:                     else
+   646:                     {
+   647:                         clrPin(stSUART_TXFiFo[ui8ModuleCounter].ui8Pin);
+   648:                     }
+   649: 
+   650:                     stSUART_TXFiFo[ui8ModuleCounter].ui8BitCounter++;
+   651:                     stSUART_TXFiFo[ui8ModuleCounter].ui8TXState = WAIT_3_CYCLES;
+   652:                     break;
+   653:                 }
+   654:                 case WAIT_3_CYCLES:
+   655:                 {
+   656:                     if(stSUART_TXFiFo[ui8ModuleCounter].ui8PollCounter >= 3)
+   657:                     {
+   658:                         if(stSUART_TXFiFo[ui8ModuleCounter].ui8BitCounter < 8)
+   659:                         {
+   660:                             ui8TempByte >>= 1;
+   661:                             stSUART_TXFiFo[ui8ModuleCounter].ui8TXState = SEND_DATA_BIT;
+   662:                         }
+   663:                         else
+   664:                         {
+   665:                             stSUART_TXFiFo[ui8ModuleCounter].ui8TXState = SEND_STOP_BIT;
+   666:                         }                    
+   667:                         stSUART_TXFiFo[ui8ModuleCounter].ui8PollCounter = 0;
+   668:                     }
+   669:                     break;
+   670:                 }
+   671:                 case SEND_STOP_BIT: 
+   672:                 {
+   673:                     setPin(stSUART_TXFiFo[ui8ModuleCounter].ui8Pin);
+   674:                     
+   675:                     if(stSUART_TXFiFo[ui8ModuleCounter].ui8PollCounter >= 3)
+   676:                     {
+   677:                         stSUART_TXFiFo[ui8ModuleCounter].ui8TXState = TX_IDLE;
+   678:                     }
+   679:                     break;
+   680:                 }            
+   681:                 default:
+   682:                 {
+   683:                     break;
+   684:                 }            
+   685:             }
+   686:         }
+   687:     }
+   688: }
+   689: 
+   690: /*******************************************************************************//**
+   691: * \brief Returns the status of the transmit buffer content
+   692: *
+   693: * > Returns the status of the transmit buffer content
+   694: *
+   695: * > <BR>
+   696: * > **Syntax:**<BR>
+   697: * >      status = isSoftSerialBufferFull(module)
+   698: * > <BR><BR>
+   699: * > **Parameters:**<BR>
+   700: * >     none
+   701: * > <BR><BR>
+   702: * > **Returns:**<BR>
+   703: * >     bool_t status - returns the status of the buffer content
+   704: * > <BR><BR>
+   705: ***********************************************************************************/
+   706: /*@unused@*/
+   707: static bool_t isSoftSerialBufferFull(enum SoftUARTModules_e eSUARTModule)
+   708: {
+   709:     return (((stSUART_TXFiFo[eSUARTModule].ui8Head+1) & K8_SUART_BUFFER_MASK) == stSUART_TXFiFo[eSUARTModule].ui8Tail);
+   710: }
+   711: 
+   712: /*******************************************************************************//**
+   713: * \brief Returns the status of the available data on the recieve buffer
+   714: *
+   715: * > Returns the status of the available data on the recieve buffer.
+   716: *
+   717: * > <BR>
+   718: * > **Syntax:**<BR>
+   719: * >     status = isSoftSerialDataAvailable(module)
+   720: * > <BR><BR>
+   721: * > **Parameters:**<BR>
+   722: * >     none
+   723: * > <BR><BR>
+   724: * > **Returns:**<BR>
+   725: * >     bool_t status - returns the status of the available data
+   726: * > <BR><BR>
+   727: ***********************************************************************************/
+   728: /*@unused@*/
+   729: static bool_t isSoftSerialDataAvailable(enum SoftUARTModules_e eSUARTModule)
+   730: {
+   731:     return (stSUART_RXFiFo[eSUARTModule].ui8Head != stSUART_RXFiFo[eSUARTModule].ui8Tail);
+   732: }
+   733: /* end of soft_serial.c */
+   734: //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

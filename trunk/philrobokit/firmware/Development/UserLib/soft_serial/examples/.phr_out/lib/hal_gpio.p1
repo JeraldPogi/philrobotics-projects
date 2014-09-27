@@ -1,0 +1,666 @@
+Version 3.2 HI-TECH Software Intermediate Code
+[c E1309 0 1 2 3 .. ]
+[n E1309 InterruptModes_et LOWSTATE CHANGE RISING FALLING  ]
+"125 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[v F1330 `(v ~T0 @X0 0 tf ]
+"119
+[v _nullIntFunction `(v ~T0 @X0 0 ef ]
+"126
+[v F1333 `(v ~T0 @X0 0 tf ]
+"127
+[v F1336 `(v ~T0 @X0 0 tf ]
+"133
+[v F1341 `(v ~T0 @X0 0 tf ]
+"134
+[v F1344 `(v ~T0 @X0 0 tf ]
+"135
+[v F1347 `(v ~T0 @X0 0 tf ]
+"136
+[v F1350 `(v ~T0 @X0 0 tf ]
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v F1369 `(v ~T0 @X0 0 tf ]
+"120
+[v _nullTMRFunction `(v ~T0 @X0 0 ef ]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v F1428 `(v ~T0 @X0 0 tf ]
+"128
+[v _null16BitTMRFunction `(v ~T0 @X0 0 ef ]
+"1393 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _TRISC `Vuc ~T0 @X0 0 e@135 ]
+"1332
+[v _TRISB `Vuc ~T0 @X0 0 e@134 ]
+"1283
+[v _TRISA `Vuc ~T0 @X0 0 e@133 ]
+"1515
+[v _TRISE `Vuc ~T0 @X0 0 e@137 ]
+"1454
+[v _TRISD `Vuc ~T0 @X0 0 e@136 ]
+[c E1449 0 1 2 .. ]
+[n E1449 PinStateOperation_et SET_PIN CLR_PIN TOGGLE_PIN  ]
+"265
+[v _PORTC `Vuc ~T0 @X0 0 e@7 ]
+"204
+[v _PORTB `Vuc ~T0 @X0 0 e@6 ]
+"155
+[v _PORTA `Vuc ~T0 @X0 0 e@5 ]
+"387
+[v _PORTE `Vuc ~T0 @X0 0 e@9 ]
+"326
+[v _PORTD `Vuc ~T0 @X0 0 e@8 ]
+"46 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[; <" INDF equ 00h ;# ">
+"52
+[; <" TMR0 equ 01h ;# ">
+"58
+[; <" PCL equ 02h ;# ">
+"64
+[; <" STATUS equ 03h ;# ">
+"151
+[; <" FSR equ 04h ;# ">
+"157
+[; <" PORTA equ 05h ;# ">
+"206
+[; <" PORTB equ 06h ;# ">
+"267
+[; <" PORTC equ 07h ;# ">
+"328
+[; <" PORTD equ 08h ;# ">
+"389
+[; <" PORTE equ 09h ;# ">
+"420
+[; <" PCLATH equ 0Ah ;# ">
+"439
+[; <" INTCON equ 0Bh ;# ">
+"516
+[; <" PIR1 equ 0Ch ;# ">
+"577
+[; <" PIR2 equ 0Dh ;# ">
+"616
+[; <" TMR1 equ 0Eh ;# ">
+"622
+[; <" TMR1L equ 0Eh ;# ">
+"628
+[; <" TMR1H equ 0Fh ;# ">
+"634
+[; <" T1CON equ 010h ;# ">
+"708
+[; <" TMR2 equ 011h ;# ">
+"714
+[; <" T2CON equ 012h ;# ">
+"784
+[; <" SSPBUF equ 013h ;# ">
+"790
+[; <" SSPCON equ 014h ;# ">
+"859
+[; <" CCPR1 equ 015h ;# ">
+"865
+[; <" CCPR1L equ 015h ;# ">
+"871
+[; <" CCPR1H equ 016h ;# ">
+"877
+[; <" CCP1CON equ 017h ;# ">
+"934
+[; <" RCSTA equ 018h ;# ">
+"1028
+[; <" TXREG equ 019h ;# ">
+"1034
+[; <" RCREG equ 01Ah ;# ">
+"1040
+[; <" CCPR2 equ 01Bh ;# ">
+"1046
+[; <" CCPR2L equ 01Bh ;# ">
+"1052
+[; <" CCPR2H equ 01Ch ;# ">
+"1058
+[; <" CCP2CON equ 01Dh ;# ">
+"1115
+[; <" ADRESH equ 01Eh ;# ">
+"1121
+[; <" ADCON0 equ 01Fh ;# ">
+"1216
+[; <" OPTION_REG equ 081h ;# ">
+"1285
+[; <" TRISA equ 085h ;# ">
+"1334
+[; <" TRISB equ 086h ;# ">
+"1395
+[; <" TRISC equ 087h ;# ">
+"1456
+[; <" TRISD equ 088h ;# ">
+"1517
+[; <" TRISE equ 089h ;# ">
+"1573
+[; <" PIE1 equ 08Ch ;# ">
+"1634
+[; <" PIE2 equ 08Dh ;# ">
+"1673
+[; <" PCON equ 08Eh ;# ">
+"1706
+[; <" SSPCON2 equ 091h ;# ">
+"1767
+[; <" PR2 equ 092h ;# ">
+"1773
+[; <" SSPADD equ 093h ;# ">
+"1779
+[; <" SSPSTAT equ 094h ;# ">
+"1947
+[; <" TXSTA equ 098h ;# ">
+"2027
+[; <" SPBRG equ 099h ;# ">
+"2033
+[; <" CMCON equ 09Ch ;# ">
+"2102
+[; <" CVRCON equ 09Dh ;# ">
+"2166
+[; <" ADRESL equ 09Eh ;# ">
+"2172
+[; <" ADCON1 equ 09Fh ;# ">
+"2230
+[; <" EEDATA equ 010Ch ;# ">
+"2236
+[; <" EEADR equ 010Dh ;# ">
+"2242
+[; <" EEDATH equ 010Eh ;# ">
+"2248
+[; <" EEADRH equ 010Fh ;# ">
+"2254
+[; <" EECON1 equ 018Ch ;# ">
+"2298
+[; <" EECON2 equ 018Dh ;# ">
+"112 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[v _eMod0_Mode `E1309 ~T0 @X0 1 e ]
+[v _eMod1_Mode `E1309 ~T0 @X0 1 e ]
+[v _eMod2_Mode `E1309 ~T0 @X0 1 e ]
+[v _eMod3_Mode `E1309 ~T0 @X0 1 e ]
+"116
+[v _eMod4_Mode `E1309 ~T0 @X0 1 e ]
+[v _eMod5_Mode `E1309 ~T0 @X0 1 e ]
+[v _eMod6_Mode `E1309 ~T0 @X0 1 e ]
+[v _eMod7_Mode `E1309 ~T0 @X0 1 e ]
+"125
+[v _pt2INT0 `*F1330 ~T0 @X0 1 e ]
+[i _pt2INT0
+&U _nullIntFunction
+]
+"126
+[v _pt2INT1 `*F1333 ~T0 @X0 1 e ]
+[i _pt2INT1
+&U _nullIntFunction
+]
+"127
+[v _pt2INT2 `*F1336 ~T0 @X0 1 e ]
+[i _pt2INT2
+&U _nullIntFunction
+]
+"133
+[v _pt2INT4 `*F1341 ~T0 @X0 1 e ]
+[i _pt2INT4
+&U _nullIntFunction
+]
+"134
+[v _pt2INT5 `*F1344 ~T0 @X0 1 e ]
+[i _pt2INT5
+&U _nullIntFunction
+]
+"135
+[v _pt2INT6 `*F1347 ~T0 @X0 1 e ]
+[i _pt2INT6
+&U _nullIntFunction
+]
+"136
+[v _pt2INT7 `*F1350 ~T0 @X0 1 e ]
+[i _pt2INT7
+&U _nullIntFunction
+]
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v _pt2TMR2ISR `*F1369 ~T0 @X0 1 e ]
+[i _pt2TMR2ISR
+&U _nullTMRFunction
+]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v _pt2TMR1ISR `*F1428 ~T0 @X0 1 e ]
+[i _pt2TMR1ISR
+&U _null16BitTMRFunction
+]
+"67 hardware/cores/lib\hal_gpio.c
+[v _configPin `(v ~T0 @X0 1 ef2`uc`uc ]
+{
+[e :U _configPin ]
+[v _ui8Pin `uc ~T0 @X0 1 r1 ]
+[v _ui8Direction `uc ~T0 @X0 1 r2 ]
+[f ]
+"68
+[v _pui8PortDirReg `*uc ~T0 @X0 1 a ]
+[e = _pui8PortDirReg -> -> 0 `i `*uc ]
+"71
+[e $ ! <= -> _ui8Pin `i -> 7 `i 98  ]
+"72
+{
+"73
+[e = _pui8PortDirReg -> &U _TRISC `*uc ]
+"77
+}
+[e $U 99  ]
+"79
+[e :U 98 ]
+[e $ ! <= -> _ui8Pin `i -> 13 `i 100  ]
+"80
+{
+"81
+[e =- _ui8Pin -> -> 8 `i `uc ]
+"82
+[e = _pui8PortDirReg -> &U _TRISB `*uc ]
+"86
+}
+[e $U 101  ]
+"88
+[e :U 100 ]
+[e $ ! <= -> _ui8Pin `i -> 20 `i 102  ]
+"89
+{
+"90
+[e =- _ui8Pin -> -> 14 `i `uc ]
+"93
+[e $ ! <= -> _ui8Pin `i -> 2 `i 103  ]
+"94
+{
+"95
+[e = _pui8PortDirReg -> &U _TRISA `*uc ]
+"99
+}
+[e $U 104  ]
+"101
+[e :U 103 ]
+[e $ ! == -> _ui8Pin `i -> 3 `i 105  ]
+"102
+{
+"103
+[e =+ _ui8Pin -> -> 2 `i `uc ]
+"104
+[e = _pui8PortDirReg -> &U _TRISA `*uc ]
+"108
+}
+[e $U 106  ]
+"110
+[e :U 105 ]
+[e $ ! <= -> _ui8Pin `i -> 6 `i 107  ]
+"111
+{
+"112
+[e =- _ui8Pin -> -> 4 `i `uc ]
+"113
+[e = _pui8PortDirReg -> &U _TRISE `*uc ]
+"117
+}
+[e $U 108  ]
+"118
+[e :U 107 ]
+"119
+{
+"124
+}
+[e :U 108 ]
+[e :U 106 ]
+[e :U 104 ]
+"125
+}
+[e $U 109  ]
+"127
+[e :U 102 ]
+[e $ ! <= -> _ui8Pin `i -> 28 `i 110  ]
+"128
+{
+"129
+[e =- _ui8Pin -> -> 21 `i `uc ]
+"130
+[e = _pui8PortDirReg -> &U _TRISD `*uc ]
+"134
+}
+[e $U 111  ]
+"135
+[e :U 110 ]
+"136
+{
+"141
+}
+[e :U 111 ]
+[e :U 109 ]
+[e :U 101 ]
+[e :U 99 ]
+"144
+[e $ ! != -> -> 0 `i `*uc _pui8PortDirReg 112  ]
+"145
+{
+"146
+[e $ ! == -> 1 `i -> _ui8Direction `i 113  ]
+"147
+{
+"148
+[e =| *U _pui8PortDirReg -> << -> 1 `i _ui8Pin `uc ]
+"152
+}
+[e $U 114  ]
+"153
+[e :U 113 ]
+"154
+{
+"155
+[e =& *U _pui8PortDirReg -> ~ << -> 1 `i _ui8Pin `uc ]
+"159
+}
+[e :U 114 ]
+"160
+}
+[e $U 115  ]
+"161
+[e :U 112 ]
+"162
+{
+"167
+}
+[e :U 115 ]
+"168
+[e :UE 97 ]
+}
+"189
+[v _changePinState `(v ~T0 @X0 1 ef2`uc`E1449 ]
+{
+[e :U _changePinState ]
+[v _ui8Pin `uc ~T0 @X0 1 r1 ]
+[v _eOperation `E1449 ~T0 @X0 1 r2 ]
+[f ]
+"190
+[v _pui8PortReg `*uc ~T0 @X0 1 a ]
+[e = _pui8PortReg -> -> 0 `i `*uc ]
+"193
+[e $ ! <= -> _ui8Pin `i -> 7 `i 117  ]
+"194
+{
+"195
+[e = _pui8PortReg -> &U _PORTC `*uc ]
+"199
+}
+[e $U 118  ]
+"201
+[e :U 117 ]
+[e $ ! <= -> _ui8Pin `i -> 13 `i 119  ]
+"202
+{
+"203
+[e =- _ui8Pin -> -> 8 `i `uc ]
+"204
+[e = _pui8PortReg -> &U _PORTB `*uc ]
+"208
+}
+[e $U 120  ]
+"210
+[e :U 119 ]
+[e $ ! <= -> _ui8Pin `i -> 20 `i 121  ]
+"211
+{
+"212
+[e =- _ui8Pin -> -> 14 `i `uc ]
+"215
+[e $ ! <= -> _ui8Pin `i -> 2 `i 122  ]
+"216
+{
+"217
+[e = _pui8PortReg -> &U _PORTA `*uc ]
+"221
+}
+[e $U 123  ]
+"223
+[e :U 122 ]
+[e $ ! == -> _ui8Pin `i -> 3 `i 124  ]
+"224
+{
+"225
+[e =+ _ui8Pin -> -> 2 `i `uc ]
+"226
+[e = _pui8PortReg -> &U _PORTA `*uc ]
+"230
+}
+[e $U 125  ]
+"232
+[e :U 124 ]
+[e $ ! <= -> _ui8Pin `i -> 6 `i 126  ]
+"233
+{
+"234
+[e =- _ui8Pin -> -> 4 `i `uc ]
+"235
+[e = _pui8PortReg -> &U _PORTE `*uc ]
+"239
+}
+[e $U 127  ]
+"240
+[e :U 126 ]
+"241
+{
+"246
+}
+[e :U 127 ]
+[e :U 125 ]
+[e :U 123 ]
+"247
+}
+[e $U 128  ]
+"249
+[e :U 121 ]
+[e $ ! <= -> _ui8Pin `i -> 28 `i 129  ]
+"250
+{
+"251
+[e =- _ui8Pin -> -> 21 `i `uc ]
+"252
+[e = _pui8PortReg -> &U _PORTD `*uc ]
+"256
+}
+[e $U 130  ]
+"257
+[e :U 129 ]
+"258
+{
+"263
+}
+[e :U 130 ]
+[e :U 128 ]
+[e :U 120 ]
+[e :U 118 ]
+"266
+[e $ ! != -> -> 0 `i `*uc _pui8PortReg 131  ]
+"267
+{
+"268
+[e $ ! == -> . `E1449 0 `i -> _eOperation `i 132  ]
+"269
+{
+"270
+[e =| *U _pui8PortReg -> << -> 1 `i _ui8Pin `uc ]
+"274
+}
+[e $U 133  ]
+"275
+[e :U 132 ]
+[e $ ! == -> . `E1449 1 `i -> _eOperation `i 134  ]
+"276
+{
+"277
+[e =& *U _pui8PortReg -> ~ << -> 1 `i _ui8Pin `uc ]
+"281
+}
+[e $U 135  ]
+"282
+[e :U 134 ]
+"283
+{
+"284
+[e =^ *U _pui8PortReg -> << -> 1 `i _ui8Pin `uc ]
+"288
+}
+[e :U 135 ]
+[e :U 133 ]
+"289
+}
+[e $U 136  ]
+"290
+[e :U 131 ]
+"291
+{
+"296
+}
+[e :U 136 ]
+"297
+[e :UE 116 ]
+}
+"316
+[v _checkPinState `(uc ~T0 @X0 1 ef1`uc ]
+{
+[e :U _checkPinState ]
+[v _ui8Pin `uc ~T0 @X0 1 r1 ]
+[f ]
+"317
+[v _ui8PinStatus `uc ~T0 @X0 1 a ]
+[v _ui8PinMask `uc ~T0 @X0 1 a ]
+"318
+[v _pui8PortReg `*uc ~T0 @X0 1 a ]
+[e = _pui8PortReg -> -> 0 `i `*uc ]
+"321
+[e $ ! <= -> _ui8Pin `i -> 7 `i 138  ]
+"322
+{
+"323
+[e = _pui8PortReg -> &U _PORTC `*uc ]
+"327
+}
+[e $U 139  ]
+"329
+[e :U 138 ]
+[e $ ! <= -> _ui8Pin `i -> 13 `i 140  ]
+"330
+{
+"331
+[e =- _ui8Pin -> -> 8 `i `uc ]
+"332
+[e = _pui8PortReg -> &U _PORTB `*uc ]
+"336
+}
+[e $U 141  ]
+"338
+[e :U 140 ]
+[e $ ! <= -> _ui8Pin `i -> 20 `i 142  ]
+"339
+{
+"340
+[e =- _ui8Pin -> -> 14 `i `uc ]
+"343
+[e $ ! <= -> _ui8Pin `i -> 2 `i 143  ]
+"344
+{
+"345
+[e = _pui8PortReg -> &U _PORTA `*uc ]
+"349
+}
+[e $U 144  ]
+"351
+[e :U 143 ]
+[e $ ! == -> _ui8Pin `i -> 3 `i 145  ]
+"352
+{
+"353
+[e =+ _ui8Pin -> -> 2 `i `uc ]
+"354
+[e = _pui8PortReg -> &U _PORTA `*uc ]
+"358
+}
+[e $U 146  ]
+"360
+[e :U 145 ]
+[e $ ! <= -> _ui8Pin `i -> 6 `i 147  ]
+"361
+{
+"362
+[e =- _ui8Pin -> -> 4 `i `uc ]
+"363
+[e = _pui8PortReg -> &U _PORTE `*uc ]
+"367
+}
+[e $U 148  ]
+"368
+[e :U 147 ]
+"369
+{
+"374
+}
+[e :U 148 ]
+[e :U 146 ]
+[e :U 144 ]
+"375
+}
+[e $U 149  ]
+"377
+[e :U 142 ]
+[e $ ! <= -> _ui8Pin `i -> 28 `i 150  ]
+"378
+{
+"379
+[e =- _ui8Pin -> -> 21 `i `uc ]
+"380
+[e = _pui8PortReg -> &U _PORTD `*uc ]
+"384
+}
+[e $U 151  ]
+"385
+[e :U 150 ]
+"386
+{
+"391
+}
+[e :U 151 ]
+[e :U 149 ]
+[e :U 141 ]
+[e :U 139 ]
+"394
+[e $ ! != -> -> 0 `i `*uc _pui8PortReg 152  ]
+"395
+{
+"396
+[e = _ui8PinMask -> << -> 1 `i _ui8Pin `uc ]
+"397
+[e = _ui8PinStatus -> & -> *U _pui8PortReg `i -> _ui8PinMask `i `uc ]
+"399
+[e $ ! == -> _ui8PinMask `i -> _ui8PinStatus `i 153  ]
+"400
+{
+"404
+[e ) -> -> 1 `i `uc ]
+[e $UE 137  ]
+"405
+}
+[e $U 154  ]
+"406
+[e :U 153 ]
+"407
+{
+"411
+[e ) -> -> 0 `i `uc ]
+[e $UE 137  ]
+"412
+}
+[e :U 154 ]
+"413
+}
+[e $U 155  ]
+"414
+[e :U 152 ]
+"415
+{
+"420
+[e ) -> -> 0 `i `uc ]
+[e $UE 137  ]
+"421
+}
+[e :U 155 ]
+"422
+[e :UE 137 ]
+}

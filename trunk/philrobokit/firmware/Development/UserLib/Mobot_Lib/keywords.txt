@@ -1,0 +1,96 @@
+# v01.00.00
+
+#######################################
+# Syntax Coloring Map PBOT
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+PBotClass	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+ # Low Level Motor Functions
+runRightMotor			KEYWORD2
+runLeftMotor			KEYWORD2
+stopRightMotor			KEYWORD2
+stopLeftMotor			KEYWORD2
+stopMotors				KEYWORD2
+
+getRightTachoPeriod		KEYWORD2
+getLeftTachoPeriod		KEYWORD2
+pollWallSensors			KEYWORD2
+pollLineSensors			KEYWORD2
+
+ # High Level PBot Functions
+moveForward			KEYWORD2
+moveBackward			KEYWORD2
+turnLeft				KEYWORD2
+turnRight				KEYWORD2
+rotateLeft				KEYWORD2
+rotateRight			KEYWORD2
+stopMotors				KEYWORD2
+
+ # Sensor Functions
+detectObstacle			KEYWORD2
+detectLine				KEYWORD2
+
+ # Telemetry
+pollSensors			KEYWORD2
+reportWallSensors		KEYWORD2
+reportLineSensors		KEYWORD2
+
+ # D-Protocol
+parseIncomingBytes		KEYWORD2
+interpretDProtocolCommands	KEYWORD2
+resetDProtocol			KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+ # Motor Predefined Speeds
+FULLSPEED              	LITERAL1
+HIGHSPEED              	LITERAL1
+MIDSPEED               	LITERAL1
+LOWSPEED               	LITERAL1
+
+ # Motor Spin Direction
+FORWARD                	LITERAL1
+REVERSE                	LITERAL1
+
+ # Line/Wall Sensor Polarity
+WHITE                  	LITERAL1
+BLACK                  	LITERAL1
+
+ # Obstacle Input States
+NO_OBSTACLE            	LITERAL1
+OBJECT_LEFT            	LITERAL1
+OBJECT_LEFTCENTER      	LITERAL1
+OBJECT_RIGHT           	LITERAL1
+OBJECT_RIGHTCENTER     	LITERAL1
+OBJECT_FARFRONT        	LITERAL1
+OBJECT_NEARFRONT       	LITERAL1
+
+ # Line Input States
+NO_LINE                	LITERAL1
+LINE_LEFT              	LITERAL1
+LINE_LEFTCENTER       	LITERAL1
+LINE_RIGHT             	LITERAL1
+LINE_RIGHTCENTER       	LITERAL1
+OVER_LINE              	LITERAL1
+LINE_CENTER            	LITERAL1
+LINE_REAR              	LITERAL1
+LINE_FRONT             	LITERAL1
+
+# P-Bot Modes
+SUMO		       	  	LITERAL1
+LINETRACKING	       	LITERAL1
+MICROMOUSE			  	LITERAL1
+REMOTECONTROL	       	LITERAL1
+WHEELBALANCE	       	LITERAL1
+VACUUMCLEANER	       	LITERAL1
+

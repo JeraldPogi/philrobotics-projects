@@ -1,613 +1,380 @@
 Version 3.2 HI-TECH Software Intermediate Code
-[c E4271 0 1 2 3 .. ]
-[n E4271 InterruptModes_et LOWSTATE CHANGE RISING FALLING  ]
-"98 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
-[v F4285 `(v ~T0 @X0 0 tf ]
-"94
-[v _nullIntFunction `(v ~T0 @X0 0 ef ]
-"103
-[v F4290 `(v ~T0 @X0 0 tf ]
-"104
-[v F4293 `(v ~T0 @X0 0 tf ]
-"105
-[v F4296 `(v ~T0 @X0 0 tf ]
-"106
-[v F4299 `(v ~T0 @X0 0 tf ]
-"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
-[v F4316 `(v ~T0 @X0 0 tf ]
-"120
-[v _nullTMRFunction `(v ~T0 @X0 0 ef ]
-"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
-[v F4375 `(v ~T0 @X0 0 tf ]
-"128
-[v _null16BitTMRFunction `(v ~T0 @X0 0 ef ]
-[c E4410 0 1 2 3 4 5 6 7 8 .. ]
-[n E4410 adcModules_et ADC0 ADC1 ADC2 ADC3 ADC4 ADC5 ADC6 ADC7 MAX_ADC_CHANNELS  ]
-"7112 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic18f4520.h
-[v _ADIF `Vb ~T0 @X0 0 e@31990 ]
-"7110
-[v _ADIE `Vb ~T0 @X0 0 e@31982 ]
-"5095
-[v _ADRESH `Vuc ~T0 @X0 0 e@4036 ]
-"5089
-[v _ADRESL `Vuc ~T0 @X0 0 e@4035 ]
-"4961
-[v _ADCON0 `Vuc ~T0 @X0 0 e@4034 ]
-"7366
-[v _GO_DONE `Vb ~T0 @X0 0 e@32273 ]
-[c E4396 0 1 2 .. ]
-[n E4396 ADCVrefSource_et VDD EXT INTL  ]
-"7126
-[v _ADON `Vb ~T0 @X0 0 e@32272 ]
-"1725
-[v _TRISA `Vuc ~T0 @X0 0 e@3986 ]
-"2609
-[v _TRISE `Vuc ~T0 @X0 0 e@3990 ]
-"4871
-[v _ADCON1 `Vuc ~T0 @X0 0 e@4033 ]
-[c E4147 0 15 16 .. ]
-[n E4147 adcModuleCfg_et CFG_ALLANALOG CFG_ALLDIGITAL CFG_EXTVREF  ]
-"129 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_adc.h
-[v _configLowLvlADC `(v ~T0 @X0 0 ef ]
-"7354 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic18f4520.h
-[v _GIE `Vb ~T0 @X0 0 e@32663 ]
-"54 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores\PhilRoboKit_CoreLib_GlobalDefs.h
+"60 hardware/cores/lib\corelib_adc.c
+[c E1473 0 1 2 3 4 5 6 7 8 .. ]
+[n E1473 adcModules_et ADC0 ADC1 ADC2 ADC3 ADC4 ADC5 ADC6 ADC7 MAX_ADC_CHANNELS  ]
+"2329 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _ADIF `Vb ~T0 @X0 0 e@102 ]
+"2327
+[v _ADIE `Vb ~T0 @X0 0 e@1126 ]
+"1116
+[v _ADRESH `Vuc ~T0 @X0 0 e@30 ]
+"2167
+[v _ADRESL `Vuc ~T0 @X0 0 e@158 ]
+"1122
+[v _ADCON0 `Vuc ~T0 @X0 0 e@31 ]
+"171 hardware/cores/lib\corelib_adc.c
+[c E1226 0 1 2 .. ]
+[n E1226 ADCVrefSource_et VDD EXT INTL  ]
+"2331 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _ADON `Vb ~T0 @X0 0 e@248 ]
+"1286
+[v _TRISA `Vuc ~T0 @X0 0 e@133 ]
+"1518
+[v _TRISE `Vuc ~T0 @X0 0 e@137 ]
+"2173
+[v _ADCON1 `Vuc ~T0 @X0 0 e@159 ]
+"186 hardware/cores/lib\corelib_adc.c
+[c E1222 0 7 1 .. ]
+[n E1222 adcModuleCfg_et CFG_ALLANALOG CFG_ALLDIGITAL CFG_EXTVREF  ]
+"200
+[c E1213 0 1 2 3 4 5 6 7 .. ]
+[n E1213 adcClockCfg_et FOSC_DIV2 FOSC_DIV8 FOSC_DIV32 FOSC_INTRC0 FOSC_DIV4 FOSC_DIV16 FOSC_DIV64 FOSC_INTRC1  ]
+"2321 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _ADCS2 `Vb ~T0 @X0 0 e@1278 ]
+"2325
+[v _ADFM `Vb ~T0 @X0 0 e@1279 ]
+"2441
+[v _GIE `Vb ~T0 @X0 0 e@95 ]
+"54 C:\Users\glutnix\Desktop\philrobokit_xc8/hardware/cores\compilers\htc\..\..\PhilRoboKit_CoreLib_GlobalDefs.h
 [v _get_gblInitialized_FlagValue `(uc ~T0 @X0 0 ef ]
-"7756 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic18f4520.h
-[v _PEIE `Vb ~T0 @X0 0 e@32662 ]
-"144 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic18.h
-[v __delay `(v ~T0 @X0 0 ef1`ul ]
+"2481 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _PEIE `Vb ~T0 @X0 0 e@94 ]
+[v F1089 `(v ~T0 @X0 1 tf1`ul ]
+"154 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic.h
+[v __delay `JF1089 ~T0 @X0 0 e ]
 [p i __delay ]
-"46 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic18f4520.h
-[; <" PORTA equ 0F80h ;# ">
-"266
-[; <" PORTB equ 0F81h ;# ">
-"444
-[; <" PORTC equ 0F82h ;# ">
-"628
-[; <" PORTD equ 0F83h ;# ">
-"769
-[; <" PORTE equ 0F84h ;# ">
-"1097
-[; <" LATA equ 0F89h ;# ">
-"1229
-[; <" LATB equ 0F8Ah ;# ">
-"1361
-[; <" LATC equ 0F8Bh ;# ">
-"1493
-[; <" LATD equ 0F8Ch ;# ">
-"1625
-[; <" LATE equ 0F8Dh ;# ">
-"1727
-[; <" TRISA equ 0F92h ;# ">
-"1732
-[; <" DDRA equ 0F92h ;# ">
-"1948
-[; <" TRISB equ 0F93h ;# ">
-"1953
-[; <" DDRB equ 0F93h ;# ">
+"2445 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _GO_DONE `Vb ~T0 @X0 0 e@250 ]
+"49 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[; <" INDF equ 00h ;# ">
+"55
+[; <" TMR0 equ 01h ;# ">
+"61
+[; <" PCL equ 02h ;# ">
+"67
+[; <" STATUS equ 03h ;# ">
+"154
+[; <" FSR equ 04h ;# ">
+"160
+[; <" PORTA equ 05h ;# ">
+"209
+[; <" PORTB equ 06h ;# ">
+"270
+[; <" PORTC equ 07h ;# ">
+"331
+[; <" PORTD equ 08h ;# ">
+"392
+[; <" PORTE equ 09h ;# ">
+"423
+[; <" PCLATH equ 0Ah ;# ">
+"442
+[; <" INTCON equ 0Bh ;# ">
+"519
+[; <" PIR1 equ 0Ch ;# ">
+"580
+[; <" PIR2 equ 0Dh ;# ">
+"619
+[; <" TMR1 equ 0Eh ;# ">
+"625
+[; <" TMR1L equ 0Eh ;# ">
+"631
+[; <" TMR1H equ 0Fh ;# ">
+"637
+[; <" T1CON equ 010h ;# ">
+"711
+[; <" TMR2 equ 011h ;# ">
+"717
+[; <" T2CON equ 012h ;# ">
+"787
+[; <" SSPBUF equ 013h ;# ">
+"793
+[; <" SSPCON equ 014h ;# ">
+"862
+[; <" CCPR1 equ 015h ;# ">
+"868
+[; <" CCPR1L equ 015h ;# ">
+"874
+[; <" CCPR1H equ 016h ;# ">
+"880
+[; <" CCP1CON equ 017h ;# ">
+"937
+[; <" RCSTA equ 018h ;# ">
+"1031
+[; <" TXREG equ 019h ;# ">
+"1037
+[; <" RCREG equ 01Ah ;# ">
+"1043
+[; <" CCPR2 equ 01Bh ;# ">
+"1049
+[; <" CCPR2L equ 01Bh ;# ">
+"1055
+[; <" CCPR2H equ 01Ch ;# ">
+"1061
+[; <" CCP2CON equ 01Dh ;# ">
+"1118
+[; <" ADRESH equ 01Eh ;# ">
+"1124
+[; <" ADCON0 equ 01Fh ;# ">
+"1219
+[; <" OPTION_REG equ 081h ;# ">
+"1288
+[; <" TRISA equ 085h ;# ">
+"1337
+[; <" TRISB equ 086h ;# ">
+"1398
+[; <" TRISC equ 087h ;# ">
+"1459
+[; <" TRISD equ 088h ;# ">
+"1520
+[; <" TRISE equ 089h ;# ">
+"1576
+[; <" PIE1 equ 08Ch ;# ">
+"1637
+[; <" PIE2 equ 08Dh ;# ">
+"1676
+[; <" PCON equ 08Eh ;# ">
+"1709
+[; <" SSPCON2 equ 091h ;# ">
+"1770
+[; <" PR2 equ 092h ;# ">
+"1776
+[; <" SSPADD equ 093h ;# ">
+"1782
+[; <" SSPSTAT equ 094h ;# ">
+"1950
+[; <" TXSTA equ 098h ;# ">
+"2030
+[; <" SPBRG equ 099h ;# ">
+"2036
+[; <" CMCON equ 09Ch ;# ">
+"2105
+[; <" CVRCON equ 09Dh ;# ">
 "2169
-[; <" TRISC equ 0F94h ;# ">
-"2174
-[; <" DDRC equ 0F94h ;# ">
-"2390
-[; <" TRISD equ 0F95h ;# ">
-"2395
-[; <" DDRD equ 0F95h ;# ">
-"2611
-[; <" TRISE equ 0F96h ;# ">
-"2616
-[; <" DDRE equ 0F96h ;# ">
-"2774
-[; <" OSCTUNE equ 0F9Bh ;# ">
-"2838
-[; <" PIE1 equ 0F9Dh ;# ">
-"2917
-[; <" PIR1 equ 0F9Eh ;# ">
-"2996
-[; <" IPR1 equ 0F9Fh ;# ">
-"3075
-[; <" PIE2 equ 0FA0h ;# ">
-"3140
-[; <" PIR2 equ 0FA1h ;# ">
-"3205
-[; <" IPR2 equ 0FA2h ;# ">
-"3270
-[; <" EECON1 equ 0FA6h ;# ">
-"3335
-[; <" EECON2 equ 0FA7h ;# ">
-"3341
-[; <" EEDATA equ 0FA8h ;# ">
-"3347
-[; <" EEADR equ 0FA9h ;# ">
-"3353
-[; <" RCSTA equ 0FABh ;# ">
-"3358
-[; <" RCSTA1 equ 0FABh ;# ">
-"3510
-[; <" TXSTA equ 0FACh ;# ">
-"3515
-[; <" TXSTA1 equ 0FACh ;# ">
-"3773
-[; <" TXREG equ 0FADh ;# ">
-"3778
-[; <" TXREG1 equ 0FADh ;# ">
-"3784
-[; <" RCREG equ 0FAEh ;# ">
-"3789
-[; <" RCREG1 equ 0FAEh ;# ">
-"3795
-[; <" SPBRG equ 0FAFh ;# ">
-"3800
-[; <" SPBRG1 equ 0FAFh ;# ">
-"3806
-[; <" SPBRGH equ 0FB0h ;# ">
-"3812
-[; <" T3CON equ 0FB1h ;# ">
-"3925
-[; <" TMR3 equ 0FB2h ;# ">
-"3931
-[; <" TMR3L equ 0FB2h ;# ">
-"3937
-[; <" TMR3H equ 0FB3h ;# ">
-"3943
-[; <" CMCON equ 0FB4h ;# ">
-"4038
-[; <" CVRCON equ 0FB5h ;# ">
-"4116
-[; <" ECCP1AS equ 0FB6h ;# ">
-"4121
-[; <" ECCPAS equ 0FB6h ;# ">
-"4277
-[; <" PWM1CON equ 0FB7h ;# ">
-"4282
-[; <" ECCP1DEL equ 0FB7h ;# ">
-"4414
-[; <" BAUDCON equ 0FB8h ;# ">
-"4419
-[; <" BAUDCTL equ 0FB8h ;# ">
-"4593
-[; <" CCP2CON equ 0FBAh ;# ">
-"4671
-[; <" CCPR2 equ 0FBBh ;# ">
-"4677
-[; <" CCPR2L equ 0FBBh ;# ">
-"4683
-[; <" CCPR2H equ 0FBCh ;# ">
-"4689
-[; <" CCP1CON equ 0FBDh ;# ">
-"4785
-[; <" CCPR1 equ 0FBEh ;# ">
-"4791
-[; <" CCPR1L equ 0FBEh ;# ">
-"4797
-[; <" CCPR1H equ 0FBFh ;# ">
-"4803
-[; <" ADCON2 equ 0FC0h ;# ">
-"4873
-[; <" ADCON1 equ 0FC1h ;# ">
-"4963
-[; <" ADCON0 equ 0FC2h ;# ">
-"5085
-[; <" ADRES equ 0FC3h ;# ">
-"5091
-[; <" ADRESL equ 0FC3h ;# ">
-"5097
-[; <" ADRESH equ 0FC4h ;# ">
-"5103
-[; <" SSPCON2 equ 0FC5h ;# ">
-"5197
-[; <" SSPCON1 equ 0FC6h ;# ">
-"5266
-[; <" SSPSTAT equ 0FC7h ;# ">
-"5505
-[; <" SSPADD equ 0FC8h ;# ">
-"5511
-[; <" SSPBUF equ 0FC9h ;# ">
-"5517
-[; <" T2CON equ 0FCAh ;# ">
-"5614
-[; <" PR2 equ 0FCBh ;# ">
-"5619
-[; <" MEMCON equ 0FCBh ;# ">
-"5625
-[; <" TMR2 equ 0FCCh ;# ">
-"5631
-[; <" T1CON equ 0FCDh ;# ">
-"5735
-[; <" TMR1 equ 0FCEh ;# ">
-"5741
-[; <" TMR1L equ 0FCEh ;# ">
-"5747
-[; <" TMR1H equ 0FCFh ;# ">
-"5753
-[; <" RCON equ 0FD0h ;# ">
-"5885
-[; <" WDTCON equ 0FD1h ;# ">
-"5912
-[; <" HLVDCON equ 0FD2h ;# ">
-"5917
-[; <" LVDCON equ 0FD2h ;# ">
-"6181
-[; <" OSCCON equ 0FD3h ;# ">
-"6263
-[; <" T0CON equ 0FD5h ;# ">
-"6345
-[; <" TMR0 equ 0FD6h ;# ">
-"6351
-[; <" TMR0L equ 0FD6h ;# ">
-"6357
-[; <" TMR0H equ 0FD7h ;# ">
-"6363
-[; <" STATUS equ 0FD8h ;# ">
-"6441
-[; <" FSR2 equ 0FD9h ;# ">
-"6447
-[; <" FSR2L equ 0FD9h ;# ">
-"6453
-[; <" FSR2H equ 0FDAh ;# ">
-"6459
-[; <" PLUSW2 equ 0FDBh ;# ">
-"6465
-[; <" PREINC2 equ 0FDCh ;# ">
-"6471
-[; <" POSTDEC2 equ 0FDDh ;# ">
-"6477
-[; <" POSTINC2 equ 0FDEh ;# ">
-"6483
-[; <" INDF2 equ 0FDFh ;# ">
-"6489
-[; <" BSR equ 0FE0h ;# ">
-"6495
-[; <" FSR1 equ 0FE1h ;# ">
-"6501
-[; <" FSR1L equ 0FE1h ;# ">
-"6507
-[; <" FSR1H equ 0FE2h ;# ">
-"6513
-[; <" PLUSW1 equ 0FE3h ;# ">
-"6519
-[; <" PREINC1 equ 0FE4h ;# ">
-"6525
-[; <" POSTDEC1 equ 0FE5h ;# ">
-"6531
-[; <" POSTINC1 equ 0FE6h ;# ">
-"6537
-[; <" INDF1 equ 0FE7h ;# ">
-"6543
-[; <" WREG equ 0FE8h ;# ">
-"6554
-[; <" FSR0 equ 0FE9h ;# ">
-"6560
-[; <" FSR0L equ 0FE9h ;# ">
-"6566
-[; <" FSR0H equ 0FEAh ;# ">
-"6572
-[; <" PLUSW0 equ 0FEBh ;# ">
-"6578
-[; <" PREINC0 equ 0FECh ;# ">
-"6584
-[; <" POSTDEC0 equ 0FEDh ;# ">
-"6590
-[; <" POSTINC0 equ 0FEEh ;# ">
-"6596
-[; <" INDF0 equ 0FEFh ;# ">
-"6602
-[; <" INTCON3 equ 0FF0h ;# ">
-"6693
-[; <" INTCON2 equ 0FF1h ;# ">
-"6762
-[; <" INTCON equ 0FF2h ;# ">
-"6898
-[; <" PROD equ 0FF3h ;# ">
-"6904
-[; <" PRODL equ 0FF3h ;# ">
-"6910
-[; <" PRODH equ 0FF4h ;# ">
-"6916
-[; <" TABLAT equ 0FF5h ;# ">
-"6924
-[; <" TBLPTR equ 0FF6h ;# ">
-"6930
-[; <" TBLPTRL equ 0FF6h ;# ">
-"6936
-[; <" TBLPTRH equ 0FF7h ;# ">
-"6942
-[; <" TBLPTRU equ 0FF8h ;# ">
-"6950
-[; <" PCLAT equ 0FF9h ;# ">
-"6957
-[; <" PC equ 0FF9h ;# ">
-"6963
-[; <" PCL equ 0FF9h ;# ">
-"6969
-[; <" PCLATH equ 0FFAh ;# ">
-"6975
-[; <" PCLATU equ 0FFBh ;# ">
-"6981
-[; <" STKPTR equ 0FFCh ;# ">
-"7054
-[; <" TOS equ 0FFDh ;# ">
-"7060
-[; <" TOSL equ 0FFDh ;# ">
-"7066
-[; <" TOSH equ 0FFEh ;# ">
-"7072
-[; <" TOSU equ 0FFFh ;# ">
-"87 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
-[v _eMod0_Mode `E4271 ~T0 @X0 1 e ]
-"91
-[v _eMod1_Mode `E4271 ~T0 @X0 1 e ]
-[v _eMod2_Mode `E4271 ~T0 @X0 1 e ]
-[v _eMod3_Mode `E4271 ~T0 @X0 1 e ]
-[v _eMod4_Mode `E4271 ~T0 @X0 1 e ]
-"98
-[v _pt2INT0 `*F4285 ~T0 @X0 1 e ]
-[i _pt2INT0
-&U _nullIntFunction
-]
-"103
-[v _pt2INT1 `*F4290 ~T0 @X0 1 e ]
-[i _pt2INT1
-&U _nullIntFunction
-]
-"104
-[v _pt2INT2 `*F4293 ~T0 @X0 1 e ]
-[i _pt2INT2
-&U _nullIntFunction
-]
-"105
-[v _pt2INT3 `*F4296 ~T0 @X0 1 e ]
-[i _pt2INT3
-&U _nullIntFunction
-]
-"106
-[v _pt2INT4 `*F4299 ~T0 @X0 1 e ]
-[i _pt2INT4
-&U _nullIntFunction
-]
-"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
-[v _pt2TMR2ISR `*F4316 ~T0 @X0 1 e ]
-[i _pt2TMR2ISR
-&U _nullTMRFunction
-]
-"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
-[v _pt2TMR1ISR `*F4375 ~T0 @X0 1 e ]
-[i _pt2TMR1ISR
-&U _null16BitTMRFunction
-]
-"58 hardware/cores/lib\corelib_adc.c
-[v _eCurrentChannel `E4410 ~T0 @X0 1 s ]
+[; <" ADRESL equ 09Eh ;# ">
+"2175
+[; <" ADCON1 equ 09Fh ;# ">
+"2233
+[; <" EEDATA equ 010Ch ;# ">
+"2239
+[; <" EEADR equ 010Dh ;# ">
+"2245
+[; <" EEDATH equ 010Eh ;# ">
+"2251
+[; <" EEADRH equ 010Fh ;# ">
+"2257
+[; <" EECON1 equ 018Ch ;# ">
+"2301
+[; <" EECON2 equ 018Dh ;# ">
+"60 hardware/cores/lib\corelib_adc.c
+[v _eCurrentChannel `E1473 ~T0 @X0 1 s ]
 [i _eCurrentChannel
--> -> 0 `i `E4410
+-> -> 0 `i `E1473
 ]
-"59
-[v _ui16ADCBuff `ui ~T0 @X0 - -> . `E4410 8 `i -> 1 `i s ]
+"61
+[v _ui16ADCBuff `ui ~T0 @X0 - -> . `E1473 8 `i -> 1 `i s ]
 [i _ui16ADCBuff
 :U ..
 -> -> 0 `i `ui
 ..
 ]
-"83
+"87
 [v _adcISR `(v ~T0 @X0 1 ef ]
+"88
 {
 [e :U _adcISR ]
 [f ]
-"84
-[v F4423 `E4410 ~T0 @X0 1 s eEffectiveChannel ]
-"86
-[e $ ! && != ? _ADIF : -> 1 `i -> 0 `i -> 0 `i != ? _ADIE : -> 1 `i -> 0 `i -> 0 `i 382  ]
-"87
-{
-"88
-[e = _ADIF -> -> 0 `i `b ]
+"89
+[v F1486 `E1473 ~T0 @X0 1 s eEffectiveChannel ]
 "91
-[e $ ! == -> . `E4410 3 `i -> _eCurrentChannel `i 383  ]
+[e $ ! && != ? _ADIF : -> 1 `i -> 0 `i -> 0 `i != ? _ADIE : -> 1 `i -> 0 `i -> 0 `i 98  ]
 "92
 {
+"93
+[e = _ADIF -> -> 0 `i `b ]
+"96
+[e $ ! == -> . `E1473 3 `i -> _eCurrentChannel `i 99  ]
 "97
-}
-[e $U 384  ]
-"98
-[e :U 383 ]
-[e $ ! > -> _eCurrentChannel `i -> . `E4410 3 `i 385  ]
-"99
 {
-"100
-[e = F4423 -> - -> _eCurrentChannel `i -> 1 `i `E4410 ]
+"102
+}
+[e $U 100  ]
+"103
+[e :U 99 ]
+[e $ ! > -> _eCurrentChannel `i -> . `E1473 3 `i 101  ]
 "104
-}
-[e $U 386  ]
+{
 "105
-[e :U 385 ]
-"106
-{
-"107
-[e = F4423 _eCurrentChannel ]
-"111
+[e = F1486 -> - -> _eCurrentChannel `i -> 1 `i `E1473 ]
+"109
 }
-[e :U 386 ]
-[e :U 384 ]
-"114
-[e = *U + &U _ui16ADCBuff * -> F4423 `ux -> -> # *U &U _ui16ADCBuff `ui `ux & + << -> _ADRESH `ui -> 8 `i -> _ADRESL `ui -> -> 1023 `i `ui ]
-"117
-[e $ ! < -> _eCurrentChannel `i - -> . `E4410 8 `i -> 1 `i 387  ]
-"118
+[e $U 102  ]
+"110
+[e :U 101 ]
+"111
 {
+"112
+[e = F1486 _eCurrentChannel ]
+"116
+}
+[e :U 102 ]
+[e :U 100 ]
 "119
-[e ++ _eCurrentChannel -> -> 1 `i `E4410 ]
+[e = *U + &U _ui16ADCBuff * -> F1486 `ux -> -> # *U &U _ui16ADCBuff `ui `ux & + << -> _ADRESH `ui -> 8 `i -> _ADRESL `ui -> -> 1023 `i `ui ]
 "122
-[e $ ! == -> . `E4410 3 `i -> _eCurrentChannel `i 388  ]
+[e $ ! < -> _eCurrentChannel `i - -> . `E1473 8 `i -> 1 `i 103  ]
 "123
 {
 "124
-[e ++ _eCurrentChannel -> -> 1 `i `E4410 ]
+[e ++ _eCurrentChannel -> -> 1 `i `E1473 ]
+"127
+[e $ ! == -> . `E1473 3 `i -> _eCurrentChannel `i 104  ]
 "128
-}
-[e :U 388 ]
+{
+"129
+[e ++ _eCurrentChannel -> -> 1 `i `E1473 ]
 "133
 }
-[e $U 389  ]
-"134
-[e :U 387 ]
-"135
-{
-"136
-[e = _eCurrentChannel -> -> 0 `i `E4410 ]
+[e :U 104 ]
+"138
+}
+[e $U 105  ]
+"139
+[e :U 103 ]
 "140
-}
-[e :U 389 ]
-"143
-[e =& _ADCON0 -> ~ -> 60 `i `uc ]
-[e =| _ADCON0 -> & << -> _eCurrentChannel `i -> 2 `i -> 60 `i `uc ]
-"144
-}
-[e :U 382 ]
+{
+"141
+[e = _eCurrentChannel -> -> 0 `i `E1473 ]
 "145
-[e :UE 381 ]
 }
-"164
-[v _adcCycle `(v ~T0 @X0 1 ef ]
-{
-[e :U _adcCycle ]
-[f ]
-"165
-[v F4426 `ui ~T0 @X0 1 s ui16Counter ]
-[i F4426
--> -> 0 `i `ui
-]
-"166
-[e ++ F4426 -> -> 1 `i `ui ]
-"169
-[e $ ! >= F4426 -> -> 5 `i `ui 391  ]
+[e :U 105 ]
+"148
+[e =& _ADCON0 -> ~ -> 56 `i `uc ]
+[e =| _ADCON0 -> & << -> _eCurrentChannel `i -> 3 `i -> 56 `i `uc ]
+"149
+}
+[e :U 98 ]
+"150
+[e :UE 97 ]
+}
 "170
-{
-"172
-[e = F4426 -> -> 0 `i `ui ]
-"178
-[e $ ! == -> 1 `i ? _GO_DONE : -> 0 `i -> 1 `i 392  ]
-"179
-{
-"181
-[e = _GO_DONE -> -> 1 `i `b ]
-"185
-}
-[e :U 392 ]
-"186
-}
-[e :U 391 ]
-"187
-[e :UE 390 ]
-}
-"208
-[v _setupADC `(v ~T0 @X0 1 ef1`E4396 ]
+[v _setupADC `(v ~T0 @X0 1 ef1`E1226 ]
+"171
 {
 [e :U _setupADC ]
-[v _eVrefSource `E4396 ~T0 @X0 1 r1 ]
+"170
+[v _eVrefSource `E1226 ~T0 @X0 1 r1 ]
+"171
 [f ]
-"210
+"173
 [e = _ADON -> -> 0 `i `b ]
-"212
+"175
 [e =| _TRISA -> -> 1 `i `uc ]
-"213
+"176
 [e =| _TRISA -> -> 2 `i `uc ]
-"214
+"177
 [e =| _TRISA -> -> 4 `i `uc ]
-"215
+"178
 [e =| _TRISA -> -> 32 `i `uc ]
-"216
+"179
 [e =| _TRISE -> -> 1 `i `uc ]
-"217
+"180
 [e =| _TRISE -> -> 2 `i `uc ]
-"218
+"181
 [e =| _TRISE -> -> 4 `i `uc ]
-"220
-[e $ ! == -> . `E4396 1 `i -> _eVrefSource `i 394  ]
-"221
+"183
+[e $ ! == -> . `E1226 1 `i -> _eVrefSource `i 107  ]
+"184
 {
-"223
-[e =& _ADCON1 -> ~ -> 63 `i `uc ]
-[e =| _ADCON1 -> & -> . `E4147 2 `i -> 63 `i `uc ]
-"227
+"186
+[e =& _ADCON1 -> ~ -> 15 `i `uc ]
+[e =| _ADCON1 -> & -> . `E1222 2 `i -> 15 `i `uc ]
+"190
 }
-[e $U 395  ]
-"228
-[e :U 394 ]
-"229
+[e $U 108  ]
+"191
+[e :U 107 ]
+"192
 {
-"231
-[e =& _ADCON1 -> ~ -> 63 `i `uc ]
-[e =| _ADCON1 -> & -> . `E4147 0 `i -> 63 `i `uc ]
-"235
+"194
+[e =& _ADCON1 -> ~ -> 15 `i `uc ]
+[e =| _ADCON1 -> & -> . `E1222 0 `i -> 15 `i `uc ]
+"198
 }
-[e :U 395 ]
-"237
-[e ( _configLowLvlADC ..  ]
-"239
-[e = _eCurrentChannel -> -> 0 `i `E4410 ]
-"240
-[e =& _ADCON0 -> ~ -> 60 `i `uc ]
-[e =| _ADCON0 -> & << -> _eCurrentChannel `i -> 2 `i -> 60 `i `uc ]
-"242
+[e :U 108 ]
+"200
+[e =& _ADCON0 -> ~ -> 192 `i `uc ]
+[e =| _ADCON0 -> & << -> . `E1213 6 `i -> 6 `i -> 192 `i `uc ]
+[e = _ADCS2 -> ? > & -> . `E1213 6 `i -> 4 `i -> 0 `i : -> 1 `i -> 0 `i `b ]
+[e = _ADFM -> -> 1 `i `b ]
+"202
+[e = _eCurrentChannel -> -> 0 `i `E1473 ]
+"203
+[e =& _ADCON0 -> ~ -> 56 `i `uc ]
+[e =| _ADCON0 -> & << -> _eCurrentChannel `i -> 3 `i -> 56 `i `uc ]
+"205
 [e = _ADIF -> -> 0 `i `b ]
-"243
+"206
 [e = _ADIE -> -> 1 `i `b ]
-"245
+"208
 [e = _ADON -> -> 1 `i `b ]
-"246
-[e $U 396  ]
-[e :U 397 ]
+"209
+[e $U 109  ]
+[e :U 110 ]
 {
 }
-[e :U 396 ]
-[e $ && == -> 0 `i ? _GIE : -> 1 `i -> 0 `i == -> 1 `i -> ( _get_gblInitialized_FlagValue ..  `i 397  ]
-[e :U 398 ]
+[e :U 109 ]
+[e $ && == -> 0 `i ? _GIE : -> 1 `i -> 0 `i == -> 1 `i -> ( _get_gblInitialized_FlagValue ..  `i 110  ]
+[e :U 111 ]
 [e = _GIE -> -> 0 `i `b ]
 [e = _PEIE -> -> 0 `i `b ]
-[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000000.0 `ul ]
+[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 20000000 `l `d .4000000.0 `ul ]
 [e = _GIE -> -> 1 `i `b ]
 [e = _PEIE -> -> 1 `i `b ]
-"248
+"211
 [e = _GO_DONE -> -> 1 `i `b ]
-"249
-[e :UE 393 ]
+"212
+[e :UE 106 ]
 }
-"268
+"230
 [v _adcRead `(ui ~T0 @X0 1 ef1`uc ]
+"231
 {
 [e :U _adcRead ]
+"230
 [v _ui8Channel `uc ~T0 @X0 1 r1 ]
+"231
 [f ]
-"269
+"232
 [e ) *U + &U _ui16ADCBuff * -> _ui8Channel `ux -> -> # *U &U _ui16ADCBuff `ui `ux ]
-[e $UE 399  ]
-"270
-[e :UE 399 ]
+[e $UE 112  ]
+"233
+[e :UE 112 ]
 }
-"290
+"252
 [v _removeADC `(v ~T0 @X0 1 ef ]
+"253
 {
 [e :U _removeADC ]
 [f ]
-"292
-[e =& _ADCON1 -> ~ -> 63 `i `uc ]
-[e =| _ADCON1 -> & -> . `E4147 1 `i -> 63 `i `uc ]
-"294
+"255
+[e =& _ADCON1 -> ~ -> 15 `i `uc ]
+[e =| _ADCON1 -> & -> . `E1222 1 `i -> 15 `i `uc ]
+"257
 [e = _ADON -> -> 0 `i `b ]
-"296
+"259
 [e =| _TRISA -> -> 1 `i `uc ]
-"297
+"260
 [e =| _TRISA -> -> 2 `i `uc ]
-"298
+"261
 [e =| _TRISA -> -> 4 `i `uc ]
-"299
+"262
 [e =| _TRISA -> -> 32 `i `uc ]
-"300
+"263
 [e =| _TRISE -> -> 1 `i `uc ]
-"301
+"264
 [e =| _TRISE -> -> 2 `i `uc ]
-"302
+"265
 [e =| _TRISE -> -> 4 `i `uc ]
-"303
-[e :UE 400 ]
+"266
+[e :UE 113 ]
 }

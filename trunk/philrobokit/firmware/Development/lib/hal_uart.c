@@ -38,6 +38,8 @@
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
 
+#include "PhilRoboKit_CoreLib_Macro.h"
+#if defined (USE_UART)
 #include "hal_uart.h"
 
 /* Local Constants */
@@ -173,5 +175,6 @@ void hal_setSerialBAUD(uint24_t ui24Baudrate)
 /* Private Functions */
 /* none */
 
+#endif
 /* end of hal_uart.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
