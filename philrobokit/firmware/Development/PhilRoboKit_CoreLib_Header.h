@@ -12,14 +12,7 @@
 * |               |                                             |
 * |Dependencies:  |                                             |
 *
-* > This program is free software: you can redistribute it and/or modify
-* > it under the terms of the GNU General Public License as published by
-* > the Free Software Foundation, either version 3 of the License, or
-* > (at your option) any later version.
-* > This program is distributed in the hope that it will be useful,
-* > but WITHOUT ANY WARRANTY; without even the implied warranty of
-* > MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* > GNU General Public License for more details.
+* > This program is free software under the terms of the GNU General Public License
 * > <BR><BR>
 * > You should have received a copy of the GNU General Public License
 * > along with this program. If not, see http://www.gnu.org/licenses/
@@ -50,11 +43,23 @@
 
 /* Normal Compile Path */
 #else
+
+/* remove the comment to enable */
+#define USE_ADC
+#define USE_UART
+#define USE_INTERRUPT
+#define USE_8BIT_TIMER
+#if defined USE_8BIT_TIMER
+#define USE_PWM
+#endif
+#define USE_16BIT_TIMER
+#define PHILROBOKIT_LITE
+
 #if defined(HI_TECH_C)
 
 #if (__PHR_CONTROLLER__==__MCU_PIC16__)
 /* Anito Rev0 */
-#if defined( _16F873A ) || defined( _16F874A ) || defined( _16F876A ) || defined( _16F877A )
+#if defined(_16F877A)
 #include "compilers\htc\htc_16f87xa.h"
 
 #ifndef _XTAL_FREQ
@@ -66,19 +71,46 @@
 
 #elif (__PHR_CONTROLLER__==__MCU_PIC18__)
 /* Anito Rev1 */
-#if defined( _18F2420 ) || defined( _18F2520 ) || defined( _18F4420 ) || defined( _18F4520 )
+#if defined(_18F4520)
 #include "compilers\htc\htc_18fxx20.h"
 
 #ifndef _XTAL_FREQ
 #define _XTAL_FREQ 32000000     /* 32MHz, 8Mhz Crystal + 4x PLL */
 #endif
 
-/* Glutnix Variant */
-#elif defined( _18F4620 )
-#include "compilers\htc\htc_18fxx20.h"
+/* Unsupported Device */
+#else
+#error Device not yet supported!!!
+#endif  /* MCU Part Compile Switch */
+
+#else
+#error Controller not yet supported!!!
+#endif  /* Controller Family Compile Switch */
+
+#elif defined(SDCC)
+#if (__PHR_CONTROLLER__==__MCU_PIC16__)
+#include <pic16regs.h>
+
+/* Anito Rev0 */
+#if defined(__SDCC_PIC16F877A)
+#include "compilers\sdcc\sdcc_pic16.h"
 
 #ifndef _XTAL_FREQ
-#define _XTAL_FREQ 8000000      /* 8MHz Internal Crystal */
+#define _XTAL_FREQ 20000000     /* 20MHz Crystal */
+#endif
+#else
+#error Device not yet supported!!!
+#endif
+
+#elif (__PHR_CONTROLLER__==__MCU_PIC18__)
+#include <pic18fregs.h>
+
+/* Anito Rev1 */
+#if defined(__SDCC_PIC18F4520)
+#include "compilers\sdcc\sdcc_pic18.h"
+
+#ifndef _XTAL_FREQ
+#define _XTAL_FREQ 32000000     /* 32MHz, 8Mhz Crystal + 4x PLL */
 #endif
 
 /* Unsupported Device */
@@ -92,6 +124,7 @@
 
 #else
 #error Compiler not yet supported!!!
+
 #endif  /* Compiler Compile Switch */
 
 #endif  /* Test Compile Switch */
@@ -105,24 +138,36 @@
 #include "hal_gpio.h"
 #include "corelib_gpio.h"
 
+#if defined (USE_ADC)
 #include "hal_adc.h"
 #include "corelib_adc.h"
+#endif
 
+#if defined (USE_UART)
 #include "hal_uart.h"
 #include "corelib_uart.h"
+#endif
 
+#if defined (USE_INTERRUPT)
 #include "hal_user_interrupt.h"
 #include "corelib_user_interrupt.h"
+#endif
 
+#if defined (USE_8BIT_TIMER)
 #include "hal_8bit_timer.h"
 #include "corelib_8bit_timer.h"
+#endif
 
+#if defined (USE_PWM)
 #include "hal_pwm.h"
 #include "corelib_pwm.h"
 #include "corelib_dac.h"
+#endif
 
+#if defined (USE_16BIT_TIMER)
 #include "hal_16bit_timer.h"
 #include "corelib_16bit_timer.h"
+#endif
 
 #else
 #error Board not yet supported!!!
@@ -139,7 +184,7 @@
 //#define ANALOG                                (1)
 
 #define HIGH                                    (1)
-#define LOW                                     (0)/*@null@*/
+#define LOW                                     (0)
 
 /*@ignore@*/                                    // esc.comment SPLINT warns it is redefined but an #ifndef check has been made, must be a bug on SPLINT
 #ifndef NULL

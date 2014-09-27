@@ -45,7 +45,7 @@ static volatile bool_t      gblInitialized      = FALSE;
 static volatile bool_t      gblISRLocked        = FALSE;
 
 /* Timers */
-static volatile uint16_t    gui16TimerUsMSB     = 0;            // only the timer isr must write on these variables
+//static volatile uint16_t    gui16TimerUsMSB     = 0;            // only the timer isr must write on these variables
 static volatile uint16_t    gui16TimerMs        = 0;            // only the timer isr must write on these variables
 static volatile uint16_t    gui16TimerSec       = 0;            // only the timer isr must write on these variables
 
@@ -86,6 +86,7 @@ bool_t get_gblISRLocked_FlagValue(void)
     return blTemp;
 }
 
+#if 0
 /* Microseconds */
 void inc_gui16TimerUsMSB_Value(uint16_t ui16Value)
 {
@@ -101,10 +102,7 @@ void inc_gui16TimerUsMSB_Value(uint16_t ui16Value)
 uint16_t get_gui16TimerUsMSB_Value(void)
 {
     uint16_t ui16Temp;
-    //while(TRUE == gblISRLocked) {}                // acquire mutex
-    //disableGlobalInt();                           // Atomic Operation
     ui16Temp = (gui16TimerUsMSB&0xFF00);
-    //enableGlobalInt();                            // esc.comment enabled on corelib_basetimer.c
     return ui16Temp;
 }
 
@@ -128,7 +126,7 @@ uint16_t getBaseTimerValue(void)
 {
     uint16_t ui16Temp,ui16HiTimer;
 
-    while((TRUE == get_gblISRLocked_FlagValue())) {}    // aquire mutex
+    while((TRUE == get_gblISRLocked_FlagValue())) {}    // acquire mutex
 
     disableGlobalInt();                                 // ensure atomic operation
 #if (__PHR_CONTROLLER__==__MCU_PIC18__)
@@ -144,17 +142,18 @@ uint16_t getBaseTimerValue(void)
     }
 
 #if (__PHR_CONTROLLER__==__MCU_PIC16__)
-
     while(ui16HiTimer != get_gui16TimerUsMSB_Value());
 
 #elif (__PHR_CONTROLLER__==__MCU_PIC18__)
     hal_enableBaseTimer();
+
 #else
 #endif
     ui16Temp += ui16HiTimer;
-    //enableGlobalInt();                                // esc.comment enabled on corelib_basetimer.c
+    //enableGlobalInt();                            // esc.comment enabled on corelib_basetimer.c
     return ui16Temp;
 }
+#endif
 
 /* Milliseconds */
 void inc_gui16TimerMs_Value(void)
@@ -171,10 +170,7 @@ void inc_gui16TimerMs_Value(void)
 uint16_t get_gui16TimerMs_Value(void)
 {
     uint16_t ui16Temp;
-    //while(TRUE == gblISRLocked) {}                // acquire mutex
-    //disableGlobalInt();                           // Atomic Operation
     ui16Temp =  gui16TimerMs;
-    //enableGlobalInt();                            // esc.comment enabled on corelib_basetimer.c
     return ui16Temp;
 }
 
@@ -193,10 +189,7 @@ void inc_gui16TimerSec_Value(void)
 uint16_t get_gui16TimerSec_Value(void)
 {
     uint16_t ui16Temp;
-    //while(TRUE == gblISRLocked) {}                // acquire mutex
-    //disableGlobalInt();                           // Atomic Operation
     ui16Temp = gui16TimerSec;
-    //enableGlobalInt();                            // esc.comment enabled on corelib_basetimer.c
     return ui16Temp;
 }
 

@@ -1,0 +1,474 @@
+Version 3.2 HI-TECH Software Intermediate Code
+[c E1345 0 1 2 3 .. ]
+[n E1345 InterruptModes_et LOWSTATE CHANGE RISING FALLING  ]
+"125 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[v F1366 `(v ~T0 @X0 0 tf ]
+"119
+[v _nullIntFunction `(v ~T0 @X0 0 ef ]
+"126
+[v F1369 `(v ~T0 @X0 0 tf ]
+"127
+[v F1372 `(v ~T0 @X0 0 tf ]
+"133
+[v F1377 `(v ~T0 @X0 0 tf ]
+"134
+[v F1380 `(v ~T0 @X0 0 tf ]
+"135
+[v F1383 `(v ~T0 @X0 0 tf ]
+"136
+[v F1386 `(v ~T0 @X0 0 tf ]
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v F1405 `(v ~T0 @X0 0 tf ]
+"120
+[v _nullTMRFunction `(v ~T0 @X0 0 ef ]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v F1464 `(v ~T0 @X0 0 tf ]
+"128
+[v _null16BitTMRFunction `(v ~T0 @X0 0 ef ]
+[c E1499 0 1 2 3 4 5 6 7 8 .. ]
+[n E1499 adcModules_et ADC0 ADC1 ADC2 ADC3 ADC4 ADC5 ADC6 ADC7 MAX_ADC_CHANNELS  ]
+"2326 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _ADIF `Vb ~T0 @X0 0 e@102 ]
+"2324
+[v _ADIE `Vb ~T0 @X0 0 e@1126 ]
+"1113
+[v _ADRESH `Vuc ~T0 @X0 0 e@30 ]
+"2164
+[v _ADRESL `Vuc ~T0 @X0 0 e@158 ]
+"1119
+[v _ADCON0 `Vuc ~T0 @X0 0 e@31 ]
+"2442
+[v _GO_DONE `Vb ~T0 @X0 0 e@250 ]
+[c E1485 0 1 2 .. ]
+[n E1485 ADCVrefSource_et VDD EXT INTL  ]
+"2328
+[v _ADON `Vb ~T0 @X0 0 e@248 ]
+"1283
+[v _TRISA `Vuc ~T0 @X0 0 e@133 ]
+"1515
+[v _TRISE `Vuc ~T0 @X0 0 e@137 ]
+"2170
+[v _ADCON1 `Vuc ~T0 @X0 0 e@159 ]
+[c E1217 0 7 1 .. ]
+[n E1217 adcModuleCfg_et CFG_ALLANALOG CFG_ALLDIGITAL CFG_EXTVREF  ]
+"129 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_adc.h
+[v _configLowLvlADC `(v ~T0 @X0 0 ef ]
+"2438 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _GIE `Vb ~T0 @X0 0 e@95 ]
+"54 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores\PhilRoboKit_CoreLib_GlobalDefs.h
+[v _get_gblInitialized_FlagValue `(uc ~T0 @X0 0 ef ]
+"2478 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _PEIE `Vb ~T0 @X0 0 e@94 ]
+"151 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic.h
+[v __delay `(v ~T0 @X0 0 ef1`ul ]
+[p i __delay ]
+"46 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[; <" INDF equ 00h ;# ">
+"52
+[; <" TMR0 equ 01h ;# ">
+"58
+[; <" PCL equ 02h ;# ">
+"64
+[; <" STATUS equ 03h ;# ">
+"151
+[; <" FSR equ 04h ;# ">
+"157
+[; <" PORTA equ 05h ;# ">
+"206
+[; <" PORTB equ 06h ;# ">
+"267
+[; <" PORTC equ 07h ;# ">
+"328
+[; <" PORTD equ 08h ;# ">
+"389
+[; <" PORTE equ 09h ;# ">
+"420
+[; <" PCLATH equ 0Ah ;# ">
+"439
+[; <" INTCON equ 0Bh ;# ">
+"516
+[; <" PIR1 equ 0Ch ;# ">
+"577
+[; <" PIR2 equ 0Dh ;# ">
+"616
+[; <" TMR1 equ 0Eh ;# ">
+"622
+[; <" TMR1L equ 0Eh ;# ">
+"628
+[; <" TMR1H equ 0Fh ;# ">
+"634
+[; <" T1CON equ 010h ;# ">
+"708
+[; <" TMR2 equ 011h ;# ">
+"714
+[; <" T2CON equ 012h ;# ">
+"784
+[; <" SSPBUF equ 013h ;# ">
+"790
+[; <" SSPCON equ 014h ;# ">
+"859
+[; <" CCPR1 equ 015h ;# ">
+"865
+[; <" CCPR1L equ 015h ;# ">
+"871
+[; <" CCPR1H equ 016h ;# ">
+"877
+[; <" CCP1CON equ 017h ;# ">
+"934
+[; <" RCSTA equ 018h ;# ">
+"1028
+[; <" TXREG equ 019h ;# ">
+"1034
+[; <" RCREG equ 01Ah ;# ">
+"1040
+[; <" CCPR2 equ 01Bh ;# ">
+"1046
+[; <" CCPR2L equ 01Bh ;# ">
+"1052
+[; <" CCPR2H equ 01Ch ;# ">
+"1058
+[; <" CCP2CON equ 01Dh ;# ">
+"1115
+[; <" ADRESH equ 01Eh ;# ">
+"1121
+[; <" ADCON0 equ 01Fh ;# ">
+"1216
+[; <" OPTION_REG equ 081h ;# ">
+"1285
+[; <" TRISA equ 085h ;# ">
+"1334
+[; <" TRISB equ 086h ;# ">
+"1395
+[; <" TRISC equ 087h ;# ">
+"1456
+[; <" TRISD equ 088h ;# ">
+"1517
+[; <" TRISE equ 089h ;# ">
+"1573
+[; <" PIE1 equ 08Ch ;# ">
+"1634
+[; <" PIE2 equ 08Dh ;# ">
+"1673
+[; <" PCON equ 08Eh ;# ">
+"1706
+[; <" SSPCON2 equ 091h ;# ">
+"1767
+[; <" PR2 equ 092h ;# ">
+"1773
+[; <" SSPADD equ 093h ;# ">
+"1779
+[; <" SSPSTAT equ 094h ;# ">
+"1947
+[; <" TXSTA equ 098h ;# ">
+"2027
+[; <" SPBRG equ 099h ;# ">
+"2033
+[; <" CMCON equ 09Ch ;# ">
+"2102
+[; <" CVRCON equ 09Dh ;# ">
+"2166
+[; <" ADRESL equ 09Eh ;# ">
+"2172
+[; <" ADCON1 equ 09Fh ;# ">
+"2230
+[; <" EEDATA equ 010Ch ;# ">
+"2236
+[; <" EEADR equ 010Dh ;# ">
+"2242
+[; <" EEDATH equ 010Eh ;# ">
+"2248
+[; <" EEADRH equ 010Fh ;# ">
+"2254
+[; <" EECON1 equ 018Ch ;# ">
+"2298
+[; <" EECON2 equ 018Dh ;# ">
+"112 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[v _eMod0_Mode `E1345 ~T0 @X0 1 e ]
+[v _eMod1_Mode `E1345 ~T0 @X0 1 e ]
+[v _eMod2_Mode `E1345 ~T0 @X0 1 e ]
+[v _eMod3_Mode `E1345 ~T0 @X0 1 e ]
+"116
+[v _eMod4_Mode `E1345 ~T0 @X0 1 e ]
+[v _eMod5_Mode `E1345 ~T0 @X0 1 e ]
+[v _eMod6_Mode `E1345 ~T0 @X0 1 e ]
+[v _eMod7_Mode `E1345 ~T0 @X0 1 e ]
+"125
+[v _pt2INT0 `*F1366 ~T0 @X0 1 e ]
+[i _pt2INT0
+&U _nullIntFunction
+]
+"126
+[v _pt2INT1 `*F1369 ~T0 @X0 1 e ]
+[i _pt2INT1
+&U _nullIntFunction
+]
+"127
+[v _pt2INT2 `*F1372 ~T0 @X0 1 e ]
+[i _pt2INT2
+&U _nullIntFunction
+]
+"133
+[v _pt2INT4 `*F1377 ~T0 @X0 1 e ]
+[i _pt2INT4
+&U _nullIntFunction
+]
+"134
+[v _pt2INT5 `*F1380 ~T0 @X0 1 e ]
+[i _pt2INT5
+&U _nullIntFunction
+]
+"135
+[v _pt2INT6 `*F1383 ~T0 @X0 1 e ]
+[i _pt2INT6
+&U _nullIntFunction
+]
+"136
+[v _pt2INT7 `*F1386 ~T0 @X0 1 e ]
+[i _pt2INT7
+&U _nullIntFunction
+]
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v _pt2TMR2ISR `*F1405 ~T0 @X0 1 e ]
+[i _pt2TMR2ISR
+&U _nullTMRFunction
+]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v _pt2TMR1ISR `*F1464 ~T0 @X0 1 e ]
+[i _pt2TMR1ISR
+&U _null16BitTMRFunction
+]
+"58 hardware/cores/lib\corelib_adc.c
+[v _eCurrentChannel `E1499 ~T0 @X0 1 s ]
+[i _eCurrentChannel
+-> -> 0 `i `E1499
+]
+"59
+[v _ui16ADCBuff `ui ~T0 @X0 - -> . `E1499 8 `i -> 1 `i s ]
+[i _ui16ADCBuff
+:U ..
+-> -> 0 `i `ui
+..
+]
+"83
+[v _adcISR `(v ~T0 @X0 1 ef ]
+{
+[e :U _adcISR ]
+[f ]
+"84
+[v F1512 `E1499 ~T0 @X0 1 s eEffectiveChannel ]
+"86
+[e $ ! && != ? _ADIF : -> 1 `i -> 0 `i -> 0 `i != ? _ADIE : -> 1 `i -> 0 `i -> 0 `i 98  ]
+"87
+{
+"88
+[e = _ADIF -> -> 0 `i `b ]
+"91
+[e $ ! == -> . `E1499 3 `i -> _eCurrentChannel `i 99  ]
+"92
+{
+"97
+}
+[e $U 100  ]
+"98
+[e :U 99 ]
+[e $ ! > -> _eCurrentChannel `i -> . `E1499 3 `i 101  ]
+"99
+{
+"100
+[e = F1512 -> - -> _eCurrentChannel `i -> 1 `i `E1499 ]
+"104
+}
+[e $U 102  ]
+"105
+[e :U 101 ]
+"106
+{
+"107
+[e = F1512 _eCurrentChannel ]
+"111
+}
+[e :U 102 ]
+[e :U 100 ]
+"114
+[e = *U + &U _ui16ADCBuff * -> F1512 `ux -> -> # *U &U _ui16ADCBuff `ui `ux & + << -> _ADRESH `ui -> 8 `i -> _ADRESL `ui -> -> 1023 `i `ui ]
+"117
+[e $ ! < -> _eCurrentChannel `i - -> . `E1499 8 `i -> 1 `i 103  ]
+"118
+{
+"119
+[e ++ _eCurrentChannel -> -> 1 `i `E1499 ]
+"122
+[e $ ! == -> . `E1499 3 `i -> _eCurrentChannel `i 104  ]
+"123
+{
+"124
+[e ++ _eCurrentChannel -> -> 1 `i `E1499 ]
+"128
+}
+[e :U 104 ]
+"133
+}
+[e $U 105  ]
+"134
+[e :U 103 ]
+"135
+{
+"136
+[e = _eCurrentChannel -> -> 0 `i `E1499 ]
+"140
+}
+[e :U 105 ]
+"143
+[e =& _ADCON0 -> ~ -> 56 `i `uc ]
+[e =| _ADCON0 -> & << -> _eCurrentChannel `i -> 3 `i -> 56 `i `uc ]
+"144
+}
+[e :U 98 ]
+"145
+[e :UE 97 ]
+}
+"164
+[v _adcCycle `(v ~T0 @X0 1 ef ]
+{
+[e :U _adcCycle ]
+[f ]
+"165
+[v F1515 `ui ~T0 @X0 1 s ui16Counter ]
+[i F1515
+-> -> 0 `i `ui
+]
+"166
+[e ++ F1515 -> -> 1 `i `ui ]
+"169
+[e $ ! >= F1515 -> -> 5 `i `ui 107  ]
+"170
+{
+"172
+[e = F1515 -> -> 0 `i `ui ]
+"178
+[e $ ! == -> == -> 1 `i -> 1 `i `i ? _GO_DONE : -> 0 `i -> 1 `i 108  ]
+"179
+{
+"181
+[e = _GO_DONE -> -> 1 `i `b ]
+"185
+}
+[e :U 108 ]
+"186
+}
+[e :U 107 ]
+"187
+[e :UE 106 ]
+}
+"208
+[v _setupADC `(v ~T0 @X0 1 ef1`E1485 ]
+{
+[e :U _setupADC ]
+[v _eVrefSource `E1485 ~T0 @X0 1 r1 ]
+[f ]
+"210
+[e = _ADON -> -> 0 `i `b ]
+"212
+[e =| _TRISA -> -> 1 `i `uc ]
+"213
+[e =| _TRISA -> -> 2 `i `uc ]
+"214
+[e =| _TRISA -> -> 4 `i `uc ]
+"215
+[e =| _TRISA -> -> 32 `i `uc ]
+"216
+[e =| _TRISE -> -> 1 `i `uc ]
+"217
+[e =| _TRISE -> -> 2 `i `uc ]
+"218
+[e =| _TRISE -> -> 4 `i `uc ]
+"220
+[e $ ! == -> . `E1485 1 `i -> _eVrefSource `i 110  ]
+"221
+{
+"223
+[e =& _ADCON1 -> ~ -> 15 `i `uc ]
+[e =| _ADCON1 -> & -> . `E1217 2 `i -> 15 `i `uc ]
+"227
+}
+[e $U 111  ]
+"228
+[e :U 110 ]
+"229
+{
+"231
+[e =& _ADCON1 -> ~ -> 15 `i `uc ]
+[e =| _ADCON1 -> & -> . `E1217 0 `i -> 15 `i `uc ]
+"235
+}
+[e :U 111 ]
+"237
+[e ( _configLowLvlADC ..  ]
+"239
+[e = _eCurrentChannel -> -> 0 `i `E1499 ]
+"240
+[e =& _ADCON0 -> ~ -> 56 `i `uc ]
+[e =| _ADCON0 -> & << -> _eCurrentChannel `i -> 3 `i -> 56 `i `uc ]
+"242
+[e = _ADIF -> -> 0 `i `b ]
+"243
+[e = _ADIE -> -> 1 `i `b ]
+"245
+[e = _ADON -> -> 1 `i `b ]
+"246
+[e $U 112  ]
+[e :U 113 ]
+{
+}
+[e :U 112 ]
+[e $ && == -> 0 `i ? _GIE : -> 1 `i -> 0 `i == -> 1 `i -> ( _get_gblInitialized_FlagValue ..  `i 113  ]
+[e :U 114 ]
+[e = _GIE -> -> 0 `i `b ]
+[e = _PEIE -> -> 0 `i `b ]
+[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 20000000 `l `d .4000000.0 `ul ]
+[e = _GIE -> -> 1 `i `b ]
+[e = _PEIE -> -> 1 `i `b ]
+"248
+[e = _GO_DONE -> -> 1 `i `b ]
+"249
+[e :UE 109 ]
+}
+"268
+[v _adcRead `(ui ~T0 @X0 1 ef1`uc ]
+{
+[e :U _adcRead ]
+[v _ui8Channel `uc ~T0 @X0 1 r1 ]
+[f ]
+"269
+[e ) *U + &U _ui16ADCBuff * -> _ui8Channel `ux -> -> # *U &U _ui16ADCBuff `ui `ux ]
+[e $UE 115  ]
+"270
+[e :UE 115 ]
+}
+"290
+[v _removeADC `(v ~T0 @X0 1 ef ]
+{
+[e :U _removeADC ]
+[f ]
+"292
+[e =& _ADCON1 -> ~ -> 15 `i `uc ]
+[e =| _ADCON1 -> & -> . `E1217 1 `i -> 15 `i `uc ]
+"294
+[e = _ADON -> -> 0 `i `b ]
+"296
+[e =| _TRISA -> -> 1 `i `uc ]
+"297
+[e =| _TRISA -> -> 2 `i `uc ]
+"298
+[e =| _TRISA -> -> 4 `i `uc ]
+"299
+[e =| _TRISA -> -> 32 `i `uc ]
+"300
+[e =| _TRISE -> -> 1 `i `uc ]
+"301
+[e =| _TRISE -> -> 2 `i `uc ]
+"302
+[e =| _TRISE -> -> 4 `i `uc ]
+"303
+[e :UE 116 ]
+}

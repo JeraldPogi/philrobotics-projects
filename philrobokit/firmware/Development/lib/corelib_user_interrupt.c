@@ -4,13 +4,13 @@
 * phirobotics.core@philrobotics.com
 *
 *---------------------------------------------------------------------------------------------
-* |Filename:      | "corelib_user_interrupt.c"                  |
-* |:----          |:----                                        |
-* |Description:   | This is a library for using the external pin interrupt |
-* |Revision:      | v00.02.00                                   |
-* |Author:        | Efren S. Cruzat II                          |
-* |               |                                             |
-* |Dependencies:  |                                             |
+* |Filename:      | "corelib_user_interrupt.c"                              |
+* |:----          |:----                                                    |
+* |Description:   | This is a library for using the external pin interrupt  |
+* |Revision:      | v00.02.00                                               |
+* |Author:        | Efren S. Cruzat II                                      |
+* |               |                                                         |
+* |Dependencies:  |                                                         |
 *
 * > This program is free software: you can redistribute it and/or modify
 * > it under the terms of the GNU General Public License as published by
@@ -25,21 +25,23 @@
 * > along with this program. If not, see http://www.gnu.org/licenses/
 * <BR>
 *---------------------------------------------------------------------------------------------
-* |FW Version   |Date       |Author             |Description                        |
-* |:----        |:----      |:----              |:----                              |
-* |v00.00.01    |20120608   |ESCII              |Library Initial Release            |
+* |FW Version   |Date       |Author             |Description                                |
+* |:----        |:----      |:----              |:----                                      |
+* |v00.00.01    |20120608   |ESCII              |Library Initial Release                    |
 * |v00.00.02    |20120624   |ESCII              |Reorganized for Clarity
 *                                                - Have more strict policy on scope of
-*                                                  variables and functions          |
+*                                                  variables and functions                  |
 * |v00.00.03    |20120711   |ESCII              |Code Cleanup
 *                                                - Removed void type on function pointers
 *                                                - Enumerated interrupt modes and sources   |
-* |v00.01.00    |20130207   |ESCII              |Modified For Layered Architecture  |
-* |v00.02.00    |20130514   |ESCII              |Code Formatted                     |
+* |v00.01.00    |20130207   |ESCII              |Modified For Layered Architecture          |
+* |v00.02.00    |20130514   |ESCII              |Code Formatted                             |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
 
+#include "PhilRoboKit_CoreLib_Macro.h"
+#if defined (USE_INTERRUPT)
 #include "corelib_user_interrupt.h"
 
 /* Local Constants */
@@ -47,7 +49,29 @@
 #define K_RISING_EDGE           1
 
 /* Local Variables */
-volatile uint8_t PORTB_BUFFER=0,PORTB_DIRECTION=0;
+volatile uint8_t PORTB_BUFFER=0, PORTB_DIRECTION=0;
+
+#if(EXTINTENABLED == TRUE)
+enum InterruptModes_et eMod0_Mode, eMod1_Mode, eMod2_Mode, eMod3_Mode;
+#endif
+
+#if(RBINTENABLED == TRUE)
+enum InterruptModes_et eMod4_Mode, eMod5_Mode, eMod6_Mode, eMod7_Mode;
+#endif
+
+#if(EXTINTENABLED == TRUE)
+void (*pt2INT0)() = &nullIntFunction;       // interrupt function pointer
+void (*pt2INT1)() = &nullIntFunction;       // interrupt function pointer
+void (*pt2INT2)() = &nullIntFunction;       // interrupt function pointer
+//void (*pt2INT3)() = &nullIntFunction;     // interrupt function pointer
+#endif
+
+#if(RBINTENABLED == TRUE)
+void (*pt2INT4)() = &nullIntFunction;       // interrupt function pointer
+void (*pt2INT5)() = &nullIntFunction;       // interrupt function pointer
+void (*pt2INT6)() = &nullIntFunction;       // interrupt function pointer
+void (*pt2INT7)() = &nullIntFunction;       // interrupt function pointer
+#endif
 
 /* Private Function Prototypes */
 /* none */
@@ -157,6 +181,8 @@ void setupUserInt(enum InterruptSources_et eIntSource, void(*callback)(), /*enum
         }
         else if(CHANGE == eIntMode)
         {
+#ifndef S_SPLINT_S // esc.comment suppress SPLINT error
+
             /* Set the Inverse of Current Pin State*/
             if(HIGH == mc_getPinState(D8))
             {
@@ -166,6 +192,8 @@ void setupUserInt(enum InterruptSources_et eIntSource, void(*callback)(), /*enum
             {
                 K_INT0_EDGE_BIT  = K_RISING_EDGE;
             }
+
+#endif
         }
         else
         {
@@ -310,6 +338,7 @@ void setupUserInt(enum InterruptSources_et eIntSource, void(*callback)(), /*enum
 /* Private Functions */
 /* none */
 
+#endif
 /* end of corelib_user_interrupt.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 

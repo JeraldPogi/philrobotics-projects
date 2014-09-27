@@ -34,6 +34,8 @@
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
 
+#include "PhilRoboKit_CoreLib_Macro.h"
+#if defined (USE_16BIT_TIMER)
 #include "corelib_16bit_timer.h"
 
 /* Local Constants */
@@ -108,7 +110,7 @@ void setup16BitTimerFull(enum tmr16BitModules_et eTmrModule, void(*callback)(), 
     {
         hal_initTMR1();
         hal_setTMR1Prescaler(ui8Prescaler);
-        //hal_setTMR1Postscaler(ui8Postscaler);                           // not nedded on PIC TMR1
+        //hal_setTMR1Postscaler(ui8Postscaler);                           // not needed on PIC TMR1
         pt2TMR1ISR = callback;
     }
     else
@@ -192,5 +194,6 @@ void set16BitTimer(enum tmr16BitModules_et eTmrModule, uint16_t ui16Value)
 /* Private Functions */
 /* none */
 
+#endif
 /* end of corelib_16bit_timer.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

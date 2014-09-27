@@ -41,7 +41,6 @@
 #ifdef UNIT_TEST                                    // autodefined at unit testing script
 #include "hal_pwm_test_stub.h"
 #else
-#include "PhilRoboKit_CoreLib_Macro.h"
 #include "hal_8bit_timer.h"
 #endif
 
@@ -162,7 +161,7 @@ enum PWMPrescaler_et
 
 #define mc_PWMClk_Source(a)                 \
     REG_CCPTMRS &= ~C1_TIMERSEL_MASK;       \
-    REG_CCPTMRS |= a&C1_TIMERSEL_MASK       // semi-collon intentionally omitted
+    REG_CCPTMRS |= a&C1_TIMERSEL_MASK       // semi-colon intentionally omitted
 #endif
 
 #define hal_enablePWMTmrInt()               hal_enableTMR2Int()
@@ -173,40 +172,38 @@ enum PWMPrescaler_et
 #define hal_disablePWMTmr()                 hal_disableTMR2()
 
 #define hal_configCCP1Mode(a)               \
-    REGISTER_CCP1CON = a&CCP_MODE_MASK      // semi-collon intentionally omitted
+    REGISTER_CCP1CON = a&CCP_MODE_MASK      // semi-colon intentionally omitted
 
 #define hal_configCCP2Mode(a)               \
-    REGISTER_CCP2CON = a&CCP_MODE_MASK      // semi-collon intentionally omitted
+    REGISTER_CCP2CON = a&CCP_MODE_MASK      // semi-colon intentionally omitted
 
 #define hal_setPWM0_On()                    \
-    hal_configCCP1Mode(PWM_MODE)            // semi-collon intentionally omitted
-//hal_enablePWMTmr()
+    hal_configCCP1Mode(PWM_MODE)            // semi-colon intentionally omitted
 
 #define hal_setPWM0_Off()                   \
-    hal_configCCP1Mode(PWM_OFF)             // semi-collon intentionally omitted
-//hal_disablePWMTmr()
+    hal_configCCP1Mode(PWM_OFF)             // semi-colon intentionally omitted
 
 #define hal_setPWM1_On()                    \
-    hal_configCCP2Mode(PWM_MODE)            // semi-collon intentionally omitted
-//hal_enablePWMTmr()
+    hal_configCCP2Mode(PWM_MODE)            // semi-colon intentionally omitted
 
 #define hal_setPWM1_Off()                   \
-    hal_configCCP2Mode(PWM_OFF)             // semi-collon intentionally omitted
-//hal_disablePWMTmr()
+    hal_configCCP2Mode(PWM_OFF)             // semi-colon intentionally omitted
 
 #define hal_initPWMTimer(a)                 setup8BitTimerFull(TIMER2,nullTMRFunction,a,0)
 
-#define hal_setPWMPeriod(period)            set8BitTimer(TIMER2,period)
+#define hal_setPWMPeriod(period)			\
+    hal_setTMR2Value(period);				\
+    hal_enableTMR2()						// semi-colon intentionally omitted
 
 #define hal_setPWM0Ton(a)                   \
     REGISTER_CCP1CON &= ~PWM_DC_LSB_MASK;   \
     REGISTER_CCP1CON |= (a&0x0003)<<4;      \
-    REGISTER_CCPR1L = (a&0x03FC)>>2         // semi-collon intentionally omitted
+    REGISTER_CCPR1L = (a&0x03FC)>>2         // semi-colon intentionally omitted
 
 #define hal_setPWM1Ton(a)                   \
     REGISTER_CCP2CON &= ~PWM_DC_LSB_MASK;   \
     REGISTER_CCP2CON |= (a&0x0003)<<4;      \
-    REGISTER_CCPR2L = (a&0x03FC)>>2         // semi-collon intentionally omitted
+    REGISTER_CCPR2L = (a&0x03FC)>>2         // semi-colon intentionally omitted
 
 /* Public Function Prototypes */
 /* none */

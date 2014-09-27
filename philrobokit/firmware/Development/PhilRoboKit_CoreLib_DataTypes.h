@@ -54,8 +54,14 @@
 
 /* bool */
 #ifndef bool_t
-typedef bool    bool_t;
-#define bool_t  bool_t
+#if defined(HI_TECH_C)
+typedef bool                bool_t;
+#elif defined(SDCC)
+typedef unsigned char       bool_t;
+#else
+typedef bool                bool_t;
+#endif
+#define bool_t    bool_t
 #endif
 
 /*@ignore@*/ // Suppress SPLint Parse Errors
@@ -76,8 +82,15 @@ typedef unsigned char uchar_t;
 /* Same as stdint.h */
 
 /* unsigned int 24 */
+#if defined(SDCC)
+#ifndef uint24_t
+typedef uint32_t uint24_t;
+#define uint24_t uint24_t
+#endif
+#else
 /* uint24_t */
 /* Same as stdint.h */
+#endif
 
 /* unsigned int 32 */
 /* uint32_t */
@@ -114,9 +127,15 @@ typedef float float_t;
 #endif
 /* not recommended */
 
-/* double (24bits  default /32 bits) */
+/* double (24bits default /32 bits) */
 #ifndef double_t
+#if defined(HI_TECH_C)
 typedef double double_t;
+#elif defined(SDCC)
+typedef long double_t;
+#else
+typedef double double_t;
+#endif
 #define double_t double_t
 #endif
 /* not recommended */

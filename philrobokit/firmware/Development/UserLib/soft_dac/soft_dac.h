@@ -56,8 +56,34 @@ enum SoftDACModules_e
 };
 
 /* Macro and Configuration Definitions */
-    /* none */
-    
+#ifdef PHILROBOKIT_LITE
+#define removeDACOutputPin(pin)							inline_makeInput(pin)
+#define configDACOutputPin(pin)							inline_makeOutput(pin)
+#define setDACPin(pin)									inline_setPin(pin)
+#define clrDACPin(pin)									inline_clrPin(pin)
+
+#define setupSDACTimer(tmr_module,isr_pointer)			\
+        hal_setTMR2Prescaler(K_10US_PRESCALE);			\
+        hal_setTMR2Postscaler(K_10US_POSTSCALE);		\
+        pt2TMR2ISR = isr_pointer
+		
+#define setSDACTimer(tmr_timer,value)					\
+        hal_setTMR2Value(value);						\
+        hal_clrTMR2IntFlag();							\
+        hal_enableTMR2Int();							\
+        hal_enableTMR2()
+		
+#else
+#define removeDACOutputPin(pin)							configPin(pin, INPUT)
+#define configDACOutputPin(pin)							configPin(pin, OUTPUT)
+#define setDACPin(pin)									changePinState(pin, SET_PIN)
+#define clrDACPin(pin)									changePinState(pin, CLR_PIN)
+
+#define setupSDACTimer(tmr_module,isr_pointer)			setup8BitTimer(tmr_module,isr_pointer)
+#define setSDACTimer(tmr_timer,value)					set8BitTimer(tmr_timer,value)
+
+#endif
+
 /* Public Function Prototypes */
 void setupSoftDAC(enum SoftDACModules_e eSDACModule, uint8_t ui8Pin, uint8_t ui8Value);
 void setSoftDAC(enum SoftDACModules_e eSDACModule, uint8_t ui8Value);

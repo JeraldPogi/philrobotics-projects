@@ -53,7 +53,7 @@
 /* none */
 
 /* Macro and Configuration Definitions */
-/* none */
+#define program		cycle
 
 /* Public Function Prototypes */
 extern void init();

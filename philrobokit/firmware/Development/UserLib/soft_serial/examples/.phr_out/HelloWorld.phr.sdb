@@ -1,0 +1,1580 @@
+[p LITE_MODE AUTOSTATIC PIC14 PICREGULAR PICMID ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 16F877A ]
+[e E1359 InterruptModes_et `uc
+LOWSTATE 0
+CHANGE 1
+RISING 2
+FALLING 3
+]
+"125 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[v F1380 `(v  1 t 0 ]
+"126
+[v F1383 `(v  1 t 0 ]
+"127
+[v F1386 `(v  1 t 0 ]
+"133
+[v F1391 `(v  1 t 0 ]
+"134
+[v F1394 `(v  1 t 0 ]
+"135
+[v F1397 `(v  1 t 0 ]
+"136
+[v F1400 `(v  1 t 0 ]
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v F1419 `(v  1 t 0 ]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v F1478 `(v  1 t 0 ]
+"128
+[e E1557 SoftUARTModules_e `uc
+SUART0 0
+SUART1 1
+MAX_NUM_OF_SUART 2
+]
+"75 libraries/soft_serial\soft_serial.h
+[e E1169 DigitalPins_et `uc
+D0 0
+D1 1
+D2 2
+D3 3
+D4 4
+D5 5
+D6 6
+D7 7
+D8 8
+D9 9
+D10 10
+D11 11
+D12 12
+D13 13
+D14 14
+D15 15
+D16 16
+D17 17
+D18 18
+D19 19
+D20 20
+D21 21
+D22 22
+D23 23
+D24 24
+D25 25
+D26 26
+D27 27
+D28 28
+]
+"36 C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.phr_out\HelloWorld.phr.c
+[e E1359 InterruptModes_et `uc
+LOWSTATE 0
+CHANGE 1
+RISING 2
+FALLING 3
+]
+"125 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[v hal_user_interrupt@F1380 `(v  1 t 0 ]
+"126
+[v hal_user_interrupt@F1383 `(v  1 t 0 ]
+"127
+[v hal_user_interrupt@F1386 `(v  1 t 0 ]
+"133
+[v hal_user_interrupt@F1391 `(v  1 t 0 ]
+"134
+[v hal_user_interrupt@F1394 `(v  1 t 0 ]
+"135
+[v hal_user_interrupt@F1397 `(v  1 t 0 ]
+"136
+[v hal_user_interrupt@F1400 `(v  1 t 0 ]
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v hal_8bit_timer@F1419 `(v  1 t 0 ]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v hal_16bit_timer@F1478 `(v  1 t 0 ]
+"128
+[e E1557 SoftUARTModules_e `uc
+SUART0 0
+SUART1 1
+MAX_NUM_OF_SUART 2
+]
+[s S151 SUART_TXBuff_s 23 `[16]uc 1 aui8Buffer 16 0 `uc 1 ui8Head 1 16 `uc 1 ui8Tail 1 17 `uc 1 ui8Pin 1 18 `uc 1 ui8TXState 1 19 `uc 1 ui8PollCounter 1 20 `uc 1 ui8BitCounter 1 21 `uc 1 blSendingByte 1 22 ]
+[s S160 SUART_RXBuff_s 28 `[16]uc 1 aui8Buffer 16 0 `uc 1 ui8Head 1 16 `uc 1 ui8Tail 1 17 `uc 1 ui8Pin 1 18 `uc 1 ui8RXState 1 19 `uc 1 ui8PollCounter 1 20 `uc 1 ui8BitCounter 1 21 `uc 1 ui8LowCounter 1 22 `uc 1 ui8HighCounter 1 23 `uc 1 blPinVal 1 24 `uc 1 blPrevPinVal 1 25 `uc 1 blStartBitDetected 1 26 `uc 1 blErrorDetected 1 27 ]
+[e E1591 SoftUARTTXStates_e `uc
+TX_IDLE 0
+SEND_START_BIT 1
+SEND_DATA_BIT 2
+WAIT_3_CYCLES 3
+SEND_STOP_BIT 4
+]
+"294 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_gpio.h
+[e E1165 PinStateOperation_et `uc
+SET_PIN 0
+CLR_PIN 1
+TOGGLE_PIN 2
+]
+"295
+[e E1584 SoftUARTRXStates_e `uc
+RX_IDLE 0
+WAIT_4_START_EDGE 1
+WAIT_4_START_BIT 2
+WAIT_4_DATA_BIT 3
+WAIT_4_STOP_BIT 4
+RECEPTION_ERROR 5
+]
+[e E1421 tmrModules_et `uc
+TIMER2 2
+TIMER4 4
+TIMER6 6
+]
+"66 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\corelib_8bit_timer.h
+[v F1436 `(v  1 t 0 ]
+"732 libraries/soft_serial\soft_serial.c
+[e E1339 InterruptModes_et `uc
+LOWSTATE 0
+CHANGE 1
+RISING 2
+FALLING 3
+]
+"125 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[v F1360 `(v  1 t 0 ]
+"126
+[v F1363 `(v  1 t 0 ]
+"127
+[v F1366 `(v  1 t 0 ]
+"133
+[v F1371 `(v  1 t 0 ]
+"134
+[v F1374 `(v  1 t 0 ]
+"135
+[v F1377 `(v  1 t 0 ]
+"136
+[v hal_user_interrupt@F1380 `(v  1 t 0 ]
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v F1399 `(v  1 t 0 ]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v F1458 `(v  1 t 0 ]
+"153 hardware/cores\PhilRobokit_CoreLib_GlobalDefs.c
+[e E1359 InterruptModes_et `uc
+LOWSTATE 0
+CHANGE 1
+RISING 2
+FALLING 3
+]
+"125 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[v hal_user_interrupt@F1380 `(v  1 t 0 ]
+"126
+[v hal_user_interrupt@F1383 `(v  1 t 0 ]
+"127
+[v hal_user_interrupt@F1386 `(v  1 t 0 ]
+"133
+[v hal_user_interrupt@F1391 `(v  1 t 0 ]
+"134
+[v hal_user_interrupt@F1394 `(v  1 t 0 ]
+"135
+[v hal_user_interrupt@F1397 `(v  1 t 0 ]
+"136
+[v hal_user_interrupt@F1400 `(v  1 t 0 ]
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v hal_8bit_timer@F1419 `(v  1 t 0 ]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v hal_16bit_timer@F1478 `(v  1 t 0 ]
+"111 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_timer.h
+[e E1223 ADCVrefSource_et `uc
+VDD 0
+EXT 1
+INTL 2
+]
+"177 hardware/cores\PhilRoboKit_CoreLib_Macro.c
+[v F1503 `(v  1 t 0 ]
+"189
+[e E1359 InterruptModes_et `uc
+LOWSTATE 0
+CHANGE 1
+RISING 2
+FALLING 3
+]
+"125 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[v hal_user_interrupt@F1380 `(v  1 t 0 ]
+"126
+[v hal_user_interrupt@F1383 `(v  1 t 0 ]
+"127
+[v hal_user_interrupt@F1386 `(v  1 t 0 ]
+"133
+[v hal_user_interrupt@F1391 `(v  1 t 0 ]
+"134
+[v hal_user_interrupt@F1394 `(v  1 t 0 ]
+"135
+[v hal_user_interrupt@F1397 `(v  1 t 0 ]
+"136
+[v hal_user_interrupt@F1400 `(v  1 t 0 ]
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v hal_8bit_timer@F1419 `(v  1 t 0 ]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v hal_16bit_timer@F1478 `(v  1 t 0 ]
+"2654 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[e E1482 tmr16BitModules_et `uc
+TIMER1 1
+]
+"74 hardware/cores/lib\corelib_16bit_timer.h
+[v F1489 `(v  1 t 0 ]
+"75
+[v F1495 `(v  1 t 0 ]
+[e E1471 Tmr1PreScale_et `uc
+TMR1_PRE_DIV1 0
+TMR1_PRE_DIV2 1
+TMR1_PRE_DIV4 2
+TMR1_PRE_DIV8 3
+]
+"102 hardware/cores/lib\corelib_16bit_timer.c
+[v F1502 `(v  1 t 0 ]
+"138
+[v F1507 `(v  1 t 0 ]
+"187
+[e E1359 InterruptModes_et `uc
+LOWSTATE 0
+CHANGE 1
+RISING 2
+FALLING 3
+]
+"125 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[v hal_user_interrupt@F1380 `(v  1 t 0 ]
+"126
+[v hal_user_interrupt@F1383 `(v  1 t 0 ]
+"127
+[v hal_user_interrupt@F1386 `(v  1 t 0 ]
+"133
+[v hal_user_interrupt@F1391 `(v  1 t 0 ]
+"134
+[v hal_user_interrupt@F1394 `(v  1 t 0 ]
+"135
+[v hal_user_interrupt@F1397 `(v  1 t 0 ]
+"136
+[v hal_user_interrupt@F1400 `(v  1 t 0 ]
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v hal_8bit_timer@F1419 `(v  1 t 0 ]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v F1459 `(v  1 t 0 ]
+"2660 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[e E1480 tmrModules_et `uc
+TIMER2 2
+TIMER4 4
+TIMER6 6
+]
+"65 hardware/cores/lib\corelib_8bit_timer.h
+[v corelib_8bit_timer@F1489 `(v  1 t 0 ]
+"66
+[v corelib_8bit_timer@F1495 `(v  1 t 0 ]
+"129 hardware/cores/lib\corelib_8bit_timer.c
+[v corelib_8bit_timer@F1502 `(v  1 t 0 ]
+"184
+[v corelib_8bit_timer@F1507 `(v  1 t 0 ]
+"278
+[e E1345 InterruptModes_et `uc
+LOWSTATE 0
+CHANGE 1
+RISING 2
+FALLING 3
+]
+"125 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[v hal_user_interrupt@F1366 `(v  1 t 0 ]
+"126
+[v F1369 `(v  1 t 0 ]
+"127
+[v F1372 `(v  1 t 0 ]
+"133
+[v hal_user_interrupt@F1377 `(v  1 t 0 ]
+"134
+[v hal_user_interrupt@F1380 `(v  1 t 0 ]
+"135
+[v hal_user_interrupt@F1383 `(v  1 t 0 ]
+"136
+[v hal_user_interrupt@F1386 `(v  1 t 0 ]
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v F1405 `(v  1 t 0 ]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v F1464 `(v  1 t 0 ]
+"128
+[e E1499 adcModules_et `uc
+ADC0 0
+ADC1 1
+ADC2 2
+ADC3 3
+ADC4 4
+ADC5 5
+ADC6 6
+ADC7 7
+MAX_ADC_CHANNELS 8
+]
+"2442 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[e E1485 ADCVrefSource_et `uc
+VDD 0
+EXT 1
+INTL 2
+]
+"2170
+[e E1217 adcModuleCfg_et `uc
+CFG_ALLANALOG 0
+CFG_ALLDIGITAL 7
+CFG_EXTVREF 1
+]
+"303 hardware/cores/lib\corelib_adc.c
+[e E1351 InterruptModes_et `uc
+LOWSTATE 0
+CHANGE 1
+RISING 2
+FALLING 3
+]
+"125 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[v hal_user_interrupt@F1372 `(v  1 t 0 ]
+"126
+[v F1375 `(v  1 t 0 ]
+"127
+[v F1378 `(v  1 t 0 ]
+"133
+[v hal_user_interrupt@F1383 `(v  1 t 0 ]
+"134
+[v hal_user_interrupt@F1386 `(v  1 t 0 ]
+"135
+[v F1389 `(v  1 t 0 ]
+"136
+[v F1392 `(v  1 t 0 ]
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v F1411 `(v  1 t 0 ]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v F1470 `(v  1 t 0 ]
+"168 hardware/cores/lib\corelib_basetimer.c
+[e E1359 InterruptModes_et `uc
+LOWSTATE 0
+CHANGE 1
+RISING 2
+FALLING 3
+]
+"125 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[v hal_user_interrupt@F1380 `(v  1 t 0 ]
+"126
+[v hal_user_interrupt@F1383 `(v  1 t 0 ]
+"127
+[v hal_user_interrupt@F1386 `(v  1 t 0 ]
+"133
+[v hal_user_interrupt@F1391 `(v  1 t 0 ]
+"134
+[v hal_user_interrupt@F1394 `(v  1 t 0 ]
+"135
+[v hal_user_interrupt@F1397 `(v  1 t 0 ]
+"136
+[v hal_user_interrupt@F1400 `(v  1 t 0 ]
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v hal_8bit_timer@F1419 `(v  1 t 0 ]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v F1473 `(v  1 t 0 ]
+"128
+[e E1452 PWMModules_et `uc
+PWM0 0
+PWM1 1
+]
+"96 hardware/cores/lib\corelib_dac.c
+[e E1357 InterruptModes_et `uc
+LOWSTATE 0
+CHANGE 1
+RISING 2
+FALLING 3
+]
+"125 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[v hal_user_interrupt@F1378 `(v  1 t 0 ]
+"126
+[v F1381 `(v  1 t 0 ]
+"127
+[v F1384 `(v  1 t 0 ]
+"133
+[v hal_user_interrupt@F1389 `(v  1 t 0 ]
+"134
+[v hal_user_interrupt@F1392 `(v  1 t 0 ]
+"135
+[v F1395 `(v  1 t 0 ]
+"136
+[v F1398 `(v  1 t 0 ]
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v F1417 `(v  1 t 0 ]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v F1476 `(v  1 t 0 ]
+"88 hardware/cores/lib\corelib_gpio.c
+[e E1359 InterruptModes_et `uc
+LOWSTATE 0
+CHANGE 1
+RISING 2
+FALLING 3
+]
+"125 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[v hal_user_interrupt@F1380 `(v  1 t 0 ]
+"126
+[v hal_user_interrupt@F1383 `(v  1 t 0 ]
+"127
+[v hal_user_interrupt@F1386 `(v  1 t 0 ]
+"133
+[v hal_user_interrupt@F1391 `(v  1 t 0 ]
+"134
+[v hal_user_interrupt@F1394 `(v  1 t 0 ]
+"135
+[v hal_user_interrupt@F1397 `(v  1 t 0 ]
+"136
+[v hal_user_interrupt@F1400 `(v  1 t 0 ]
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v hal_8bit_timer@F1419 `(v  1 t 0 ]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v hal_16bit_timer@F1478 `(v  1 t 0 ]
+[e E1359 InterruptModes_et `uc
+LOWSTATE 0
+CHANGE 1
+RISING 2
+FALLING 3
+]
+"125 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[v hal_user_interrupt@F1380 `(v  1 t 0 ]
+"126
+[v hal_user_interrupt@F1383 `(v  1 t 0 ]
+"127
+[v hal_user_interrupt@F1386 `(v  1 t 0 ]
+"133
+[v hal_user_interrupt@F1391 `(v  1 t 0 ]
+"134
+[v hal_user_interrupt@F1394 `(v  1 t 0 ]
+"135
+[v hal_user_interrupt@F1397 `(v  1 t 0 ]
+"136
+[v hal_user_interrupt@F1400 `(v  1 t 0 ]
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v hal_8bit_timer@F1419 `(v  1 t 0 ]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v hal_16bit_timer@F1464 `(v  1 t 0 ]
+"128
+[e E1485 PWMModules_et `uc
+PWM0 0
+PWM1 1
+]
+"65 hardware/cores/lib\corelib_pwm.h
+[e E1421 tmrModules_et `uc
+TIMER2 2
+TIMER4 4
+TIMER6 6
+]
+"65 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\corelib_8bit_timer.h
+[v F1430 `(v  1 t 0 ]
+"875 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[e E1440 PWMModes_et `uc
+PWM_OFF 0
+COMP_TOGGLE_CCPO 2
+CAPTURE_FALL 4
+CAPTURE_RISE 5
+CAPTURE_4TH_FALL 6
+CAPTURE_16TH_RISE 7
+PWM_MODE 12
+]
+"2660
+[e E1448 PWMPrescaler_et `uc
+PRESCALE0_VAL 0
+PRESCALE1_VAL 1
+PRESCALE2_VAL 2
+]
+"260 hardware/cores/lib\corelib_pwm.c
+[e E1248 InterruptModes_et `uc
+LOWSTATE 0
+CHANGE 1
+RISING 2
+FALLING 3
+]
+"125 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[v F1269 `(v  1 t 0 ]
+"126
+[v F1272 `(v  1 t 0 ]
+"127
+[v F1275 `(v  1 t 0 ]
+"133
+[v F1280 `(v  1 t 0 ]
+"134
+[v F1283 `(v  1 t 0 ]
+"135
+[v F1286 `(v  1 t 0 ]
+"136
+[v F1289 `(v  1 t 0 ]
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v F1308 `(v  1 t 0 ]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v F1367 `(v  1 t 0 ]
+"128
+[s S984 UARTBuff_s 34 `[32]uc 1 aui8Buffer 32 0 `uc 1 ui8Head 1 32 `uc 1 ui8Tail 1 33 ]
+"436 hardware/cores/lib\corelib_uart.c
+[e E1359 InterruptModes_et `uc
+LOWSTATE 0
+CHANGE 1
+RISING 2
+FALLING 3
+]
+"125 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[v hal_user_interrupt@F1380 `(v  1 t 0 ]
+"126
+[v hal_user_interrupt@F1383 `(v  1 t 0 ]
+"127
+[v hal_user_interrupt@F1386 `(v  1 t 0 ]
+"133
+[v hal_user_interrupt@F1391 `(v  1 t 0 ]
+"134
+[v hal_user_interrupt@F1394 `(v  1 t 0 ]
+"135
+[v hal_user_interrupt@F1397 `(v  1 t 0 ]
+"136
+[v hal_user_interrupt@F1400 `(v  1 t 0 ]
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v F1404 `(v  1 t 0 ]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v F1463 `(v  1 t 0 ]
+"132 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[e E1484 InterruptSources_et `uc
+INTR0 0
+INTR1 1
+INTR2 2
+INTR4 3
+INTR5 4
+INTR6 5
+INTR7 6
+]
+"75 hardware/cores/lib\corelib_user_interrupt.h
+[v F1497 `(v  1 t 0 ]
+"141 hardware/cores/lib\corelib_user_interrupt.c
+[v F1504 `(v  1 t 0 ]
+"308
+[e E1359 InterruptModes_et `uc
+LOWSTATE 0
+CHANGE 1
+RISING 2
+FALLING 3
+]
+"125 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[v hal_user_interrupt@F1380 `(v  1 t 0 ]
+"126
+[v hal_user_interrupt@F1383 `(v  1 t 0 ]
+"127
+[v hal_user_interrupt@F1386 `(v  1 t 0 ]
+"133
+[v hal_user_interrupt@F1391 `(v  1 t 0 ]
+"134
+[v hal_user_interrupt@F1394 `(v  1 t 0 ]
+"135
+[v hal_user_interrupt@F1397 `(v  1 t 0 ]
+"136
+[v hal_user_interrupt@F1400 `(v  1 t 0 ]
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v hal_8bit_timer@F1419 `(v  1 t 0 ]
+"130 hardware/cores/lib\hal_16bit_timer.h
+[v hal_16bit_timer@F1497 `(v  1 t 0 ]
+"68 hardware/cores/lib\hal_16bit_timer.c
+[e E1359 InterruptModes_et `uc
+LOWSTATE 0
+CHANGE 1
+RISING 2
+FALLING 3
+]
+"125 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[v hal_user_interrupt@F1380 `(v  1 t 0 ]
+"126
+[v hal_user_interrupt@F1383 `(v  1 t 0 ]
+"127
+[v hal_user_interrupt@F1386 `(v  1 t 0 ]
+"133
+[v hal_user_interrupt@F1391 `(v  1 t 0 ]
+"134
+[v hal_user_interrupt@F1394 `(v  1 t 0 ]
+"135
+[v hal_user_interrupt@F1397 `(v  1 t 0 ]
+"136
+[v hal_user_interrupt@F1400 `(v  1 t 0 ]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v F1474 `(v  1 t 0 ]
+"122 hardware/cores/lib\hal_8bit_timer.h
+[v hal_8bit_timer@F1497 `(v  1 t 0 ]
+"69 hardware/cores/lib\hal_8bit_timer.c
+[e E1353 InterruptModes_et `uc
+LOWSTATE 0
+CHANGE 1
+RISING 2
+FALLING 3
+]
+"125 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[v hal_user_interrupt@F1374 `(v  1 t 0 ]
+"126
+[v hal_user_interrupt@F1377 `(v  1 t 0 ]
+"127
+[v hal_user_interrupt@F1380 `(v  1 t 0 ]
+"133
+[v F1385 `(v  1 t 0 ]
+"134
+[v F1388 `(v  1 t 0 ]
+"135
+[v hal_user_interrupt@F1391 `(v  1 t 0 ]
+"136
+[v hal_user_interrupt@F1394 `(v  1 t 0 ]
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v F1413 `(v  1 t 0 ]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v F1472 `(v  1 t 0 ]
+"1119 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[e E1499 adcClockCfg_et `uc
+FOSC_DIV2 0
+FOSC_DIV8 1
+FOSC_DIV32 2
+FOSC_INTRC0 3
+FOSC_DIV4 4
+FOSC_DIV16 5
+FOSC_DIV64 6
+FOSC_INTRC1 7
+]
+"101 hardware/cores/lib\hal_adc.c
+[e E1309 InterruptModes_et `uc
+LOWSTATE 0
+CHANGE 1
+RISING 2
+FALLING 3
+]
+"125 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[v F1330 `(v  1 t 0 ]
+"126
+[v F1333 `(v  1 t 0 ]
+"127
+[v F1336 `(v  1 t 0 ]
+"133
+[v F1341 `(v  1 t 0 ]
+"134
+[v F1344 `(v  1 t 0 ]
+"135
+[v F1347 `(v  1 t 0 ]
+"136
+[v F1350 `(v  1 t 0 ]
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v hal_8bit_timer@F1369 `(v  1 t 0 ]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v F1428 `(v  1 t 0 ]
+"1454 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[e E1449 PinStateOperation_et `uc
+SET_PIN 0
+CLR_PIN 1
+TOGGLE_PIN 2
+]
+"422 hardware/cores/lib\hal_gpio.c
+[e E1359 InterruptModes_et `uc
+LOWSTATE 0
+CHANGE 1
+RISING 2
+FALLING 3
+]
+"125 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[v hal_user_interrupt@F1380 `(v  1 t 0 ]
+"126
+[v hal_user_interrupt@F1383 `(v  1 t 0 ]
+"127
+[v hal_user_interrupt@F1386 `(v  1 t 0 ]
+"133
+[v hal_user_interrupt@F1391 `(v  1 t 0 ]
+"134
+[v hal_user_interrupt@F1394 `(v  1 t 0 ]
+"135
+[v hal_user_interrupt@F1397 `(v  1 t 0 ]
+"136
+[v hal_user_interrupt@F1400 `(v  1 t 0 ]
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v hal_8bit_timer@F1419 `(v  1 t 0 ]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v F1466 `(v  1 t 0 ]
+[e E1344 InterruptModes_et `uc
+LOWSTATE 0
+CHANGE 1
+RISING 2
+FALLING 3
+]
+"125 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[v F1365 `(v  1 t 0 ]
+"126
+[v F1368 `(v  1 t 0 ]
+"127
+[v hal_user_interrupt@F1371 `(v  1 t 0 ]
+"133
+[v F1376 `(v  1 t 0 ]
+"134
+[v F1379 `(v  1 t 0 ]
+"135
+[v F1382 `(v  1 t 0 ]
+"136
+[v hal_user_interrupt@F1385 `(v  1 t 0 ]
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v hal_8bit_timer@F1404 `(v  1 t 0 ]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v hal_16bit_timer@F1463 `(v  1 t 0 ]
+"1214 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[e E1484 baseTmrPreScale_et `uc
+TMR0_PRE_DIV2 0
+TMR0_PRE_DIV4 1
+TMR0_PRE_DIV8 2
+TMR0_PRE_DIV16 3
+TMR0_PRE_DIV32 4
+TMR0_PRE_DIV64 5
+TMR0_PRE_DIV128 6
+TMR0_PRE_DIV256 7
+]
+"190 hardware/cores/lib\hal_timer.c
+[e E1348 InterruptModes_et `uc
+LOWSTATE 0
+CHANGE 1
+RISING 2
+FALLING 3
+]
+"125 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[v hal_user_interrupt@F1369 `(v  1 t 0 ]
+"126
+[v hal_user_interrupt@F1372 `(v  1 t 0 ]
+"127
+[v hal_user_interrupt@F1375 `(v  1 t 0 ]
+"133
+[v hal_user_interrupt@F1380 `(v  1 t 0 ]
+"134
+[v hal_user_interrupt@F1383 `(v  1 t 0 ]
+"135
+[v hal_user_interrupt@F1386 `(v  1 t 0 ]
+"136
+[v hal_user_interrupt@F1389 `(v  1 t 0 ]
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v F1408 `(v  1 t 0 ]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v F1467 `(v  1 t 0 ]
+"2025 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[e E1488 stdBaudrate_et `ui
+STD_BAUD_1200 1200
+STD_BAUD_2400 2400
+STD_BAUD_4800 4800
+STD_BAUD_9600 9600
+STD_BAUD_19200 19200
+STD_BAUD_38400 -27136
+STD_BAUD_57600 -7936
+STD_BAUD_115200 -15872
+]
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v hal_8bit_timer@F1376 `(v  1 t 0 ]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v F1435 `(v  1 t 0 ]
+"128
+[e E1456 InterruptModes_et `uc
+LOWSTATE 0
+CHANGE 1
+RISING 2
+FALLING 3
+]
+"125 hardware/cores/lib\hal_user_interrupt.h
+[v F1477 `(v  1 t 0 ]
+"126
+[v F1480 `(v  1 t 0 ]
+"127
+[v F1483 `(v  1 t 0 ]
+"133
+[v F1488 `(v  1 t 0 ]
+"134
+[v F1491 `(v  1 t 0 ]
+"135
+[v F1494 `(v  1 t 0 ]
+"136
+[v hal_user_interrupt@F1497 `(v  1 t 0 ]
+"20 C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.phr_out\HelloWorld.phr.c
+[v _init `(v  1 e 0 0 ]
+"26
+[v _cycle `(v  1 e 0 0 ]
+"5 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\abdiv.c
+[v ___abdiv `(c  1 e 1 0 ]
+"5 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\abmod.c
+[v ___abmod `(c  1 e 1 0 ]
+"34 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\abtoft.c
+[v ___abtoft `(f  1 e 3 0 ]
+"5 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\aldiv.c
+[v ___aldiv `(l  1 e 4 0 ]
+"5 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\almod.c
+[v ___almod `(l  1 e 4 0 ]
+"43 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\altoft.c
+[v ___altoft `(f  1 e 3 0 ]
+"5 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\atdiv.c
+[v ___atdiv `(m  1 e 3 0 ]
+"5 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\atmod.c
+[v ___atmod `(m  1 e 3 0 ]
+"38 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\attoft.c
+[v ___attoft `(f  1 e 3 0 ]
+"5 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\awdiv.c
+[v ___awdiv `(i  1 e 2 0 ]
+"5 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\awmod.c
+[v ___awmod `(i  1 e 2 0 ]
+"33 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\awtoft.c
+[v ___awtoft `(f  1 e 3 0 ]
+"3 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\bmul.c
+[v ___bmul `(uc  1 e 1 0 ]
+[v i1___bmul `(uc  1 e 1 0 ]
+[v i1___bmul `(uc  1 e 1 0 ]
+"63 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\float.c
+[v ___ftpack `(f  1 e 3 0 ]
+"87 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\ftadd.c
+[v ___ftadd `(f  1 e 3 0 ]
+"50 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\ftdiv.c
+[v ___ftdiv `(f  1 e 3 0 ]
+"5 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\ftge.c
+[v ___ftge `(b  1 e 0 0 ]
+"52 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\ftmul.c
+[v ___ftmul `(f  1 e 3 0 ]
+"16 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\ftneg.c
+[v ___ftneg `(f  1 e 3 0 ]
+"17 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\ftsub.c
+[v ___ftsub `(f  1 e 3 0 ]
+"45 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\fttol.c
+[v ___fttol `(l  1 e 4 0 ]
+"5 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\lbdiv.c
+[v ___lbdiv `(uc  1 e 1 0 ]
+"5 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\lbmod.c
+[v ___lbmod `(uc  1 e 1 0 ]
+"28 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\lbtoft.c
+[v ___lbtoft `(f  1 e 3 0 ]
+"5 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\lldiv.c
+[v ___lldiv `(ul  1 e 4 0 ]
+"5 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\llmod.c
+[v ___llmod `(ul  1 e 4 0 ]
+"36 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\lltoft.c
+[v ___lltoft `(f  1 e 3 0 ]
+"3 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\lmul.c
+[v ___lmul `(ul  1 e 4 0 ]
+"5 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\ltdiv.c
+[v ___ltdiv `(um  1 e 3 0 ]
+"5 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\ltmod.c
+[v ___ltmod `(um  1 e 3 0 ]
+"31 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\lttoft.c
+[v ___lttoft `(f  1 e 3 0 ]
+"5 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\lwdiv.c
+[v ___lwdiv `(ui  1 e 2 0 ]
+"5 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\lwmod.c
+[v ___lwmod `(ui  1 e 2 0 ]
+"29 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\lwtoft.c
+[v ___lwtoft `(f  1 e 3 0 ]
+"10 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\memset.c
+[v _memset `(*v  1 e 1 0 ]
+"3 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\tmul.c
+[v ___tmul `(um  1 e 3 0 ]
+"3 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\wmul.c
+[v ___wmul `(ui  1 e 2 0 ]
+[v i1___wmul `(ui  1 e 2 0 ]
+[v i1___wmul `(ui  1 e 2 0 ]
+"7 eeprom.c
+[v _eecpymem `(v  1 e 0 0 ]
+"25
+[v _memcpyee `(v  1 e 0 0 ]
+"49
+[v ___eetoc `(uc  1 e 1 0 ]
+"57
+[v ___eetoi `(ui  1 e 2 0 ]
+"65
+[v ___eetom `(um  1 e 3 0 ]
+"73
+[v ___eetol `(ul  1 e 4 0 ]
+"81
+[v ___ctoee `(uc  1 e 1 0 ]
+"88
+[v ___itoee `(ui  1 e 2 0 ]
+"95
+[v ___mtoee `(um  1 e 3 0 ]
+"102
+[v ___ltoee `(ul  1 e 4 0 ]
+"109
+[v ___eetoft `(f  1 e 3 0 ]
+"117
+[v ___eetofl `(d  1 e 3 0 ]
+"125
+[v ___fttoee `(f  1 e 3 0 ]
+"132
+[v ___fltoee `(d  1 e 3 0 ]
+"66 hardware/cores/lib\corelib_16bit_timer.c
+[v _timer16BitISR `(v  1 e 0 0 ]
+"103
+[v _setup16BitTimerFull `(v  1 e 0 0 ]
+"139
+[v _setup16BitTimer `(v  1 e 0 0 ]
+"172
+[v _set16BitTimer `(v  1 e 0 0 ]
+"67 hardware/cores/lib\corelib_8bit_timer.c
+[v _timer8BitISR `(v  1 e 0 0 ]
+"130
+[v _setup8BitTimerFull `(v  1 e 0 0 ]
+"185
+[v _setup8BitTimer `(v  1 e 0 0 ]
+"238
+[v _set8BitTimer `(v  1 e 0 0 ]
+[v i1_set8BitTimer `(v  1 e 0 0 ]
+[v i1_set8BitTimer `(v  1 e 0 0 ]
+"83 hardware/cores/lib\corelib_adc.c
+[v _adcISR `(v  1 e 0 0 ]
+"164
+[v _adcCycle `(v  1 e 0 0 ]
+"208
+[v _setupADC `(v  1 e 0 0 ]
+"268
+[v _adcRead `(ui  1 e 2 0 ]
+"290
+[v _removeADC `(v  1 e 0 0 ]
+"70 hardware/cores/lib\corelib_basetimer.c
+[v _getUs `(ui  1 e 2 0 ]
+"99
+[v _getElapsedUs `(ui  1 e 2 0 ]
+"129
+[v _getMs `(ui  1 e 2 0 ]
+"158
+[v _getElapsedMs `(ui  1 e 2 0 ]
+"67 hardware/cores/lib\corelib_dac.c
+[v _setDAC `(v  1 e 0 0 ]
+"94
+[v _removeDAC `(v  1 e 0 0 ]
+"66 hardware/cores/lib\corelib_gpio.c
+[v _setupGpio `(v  1 e 0 0 ]
+"70 hardware/cores/lib\corelib_pwm.c
+[v _setupPWM `(v  1 e 0 0 ]
+"123
+[v _setPWMFrequency `(v  1 e 0 0 ]
+"202
+[v _setPWMDuty `(v  1 e 0 0 ]
+"246
+[v _removePWM `(v  1 e 0 0 ]
+"73 hardware/cores/lib\corelib_uart.c
+[v _setupSerial `(v  1 e 0 0 ]
+"109
+[v _serialWrite `(v  1 e 0 0 ]
+"144
+[v _serialWriteString `(v  1 e 0 0 ]
+"175
+[v _serialWriteBlock `(v  1 e 0 0 ]
+"204
+[v _serialDataCount `(uc  1 e 1 0 ]
+"239
+[v _serialRead `(uc  1 e 1 0 ]
+"279
+[v _serialFlush `(v  1 e 0 0 ]
+"305
+[v _serialRxISR `(v  1 e 0 0 ]
+"352
+[v _serialTxISR `(v  1 e 0 0 ]
+"403
+[v _isSerialBufferFull `(uc  1 s 1 isSerialBufferFull ]
+"425
+[v _isSerialDataAvailable `(uc  1 s 1 isSerialDataAvailable ]
+"73 hardware/cores/lib\corelib_user_interrupt.c
+[v _userIntISR `(v  1 e 0 0 ]
+"142
+[v _setupUserInt `(v  1 e 0 0 ]
+"66 hardware/cores/lib\hal_16bit_timer.c
+[v _null16BitTMRFunction `(v  1 e 0 0 ]
+"67 hardware/cores/lib\hal_8bit_timer.c
+[v _nullTMRFunction `(v  1 e 0 0 ]
+"93 hardware/cores/lib\hal_adc.c
+[v _configLowLvlADC `(v  1 e 0 0 ]
+"67 hardware/cores/lib\hal_gpio.c
+[v _configPin `(v  1 e 0 0 ]
+"189
+[v _changePinState `(v  1 e 0 0 ]
+[v i1_changePinState `(v  1 e 0 0 ]
+[v i1_changePinState `(v  1 e 0 0 ]
+"316
+[v _checkPinState `(uc  1 e 1 0 ]
+"72 hardware/cores/lib\hal_timer.c
+[v _setupTimer `(v  1 e 0 0 ]
+"105
+[v _timerISR `(v  1 e 0 0 ]
+"161
+[v _getBaseTimerValue `(ui  1 e 2 0 ]
+"70 hardware/cores/lib\hal_uart.c
+[v _hal_setSerialBAUD `(v  1 e 0 0 ]
+"67 hardware/cores/lib\hal_user_interrupt.c
+[v _nullIntFunction `(v  1 e 0 0 ]
+"89
+[v _extIntISR `(v  1 e 0 0 ]
+"180
+[v _rbIntISR `(v  1 e 0 0 ]
+"61 hardware/cores\PhilRobokit_CoreLib_GlobalDefs.c
+[v _set_gblInitialized_FlagValue `(v  1 e 0 0 ]
+"66
+[v _get_gblInitialized_FlagValue `(uc  1 e 1 0 ]
+"73
+[v _set_gblISRLocked_FlagValue `(v  1 e 0 0 ]
+"78
+[v _clr_gblISRLocked_FlagValue `(v  1 e 0 0 ]
+"83
+[v _get_gblISRLocked_FlagValue `(uc  1 e 1 0 ]
+"91
+[v _inc_gui16TimerUsMSB_Value `(v  1 e 0 0 ]
+"102
+[v _get_gui16TimerUsMSB_Value `(ui  1 e 2 0 ]
+"113
+[v _inc_gui16TimerMs_Value `(v  1 e 0 0 ]
+"124
+[v _get_gui16TimerMs_Value `(ui  1 e 2 0 ]
+"135
+[v _inc_gui16TimerSec_Value `(v  1 e 0 0 ]
+"146
+[v _get_gui16TimerSec_Value `(ui  1 e 2 0 ]
+"127 hardware/cores\PhilRoboKit_CoreLib_Macro.c
+[v _main `(i  1 e 2 0 ]
+"177
+[v _isr `II(v  1 e 0 0 ]
+"119 libraries/soft_serial\soft_serial.c
+[v _setupSoftSerial `(v  1 e 0 0 ]
+"162
+[v _serialSoftWrite `(v  1 e 0 0 ]
+"197
+[v _serialSoftWriteString `(v  1 e 0 0 ]
+"228
+[v _serialSoftWriteBlock `(v  1 e 0 0 ]
+"257
+[v _serialSoftDataCount `(uc  1 e 1 0 ]
+"292
+[v _serialSoftRead `(uc  1 e 1 0 ]
+"332
+[v _serialSoftFlush `(v  1 e 0 0 ]
+"359
+[v _softUARTController `(v  1 s 0 softUARTController ]
+"382
+[v _serialSoftRxISR `(v  1 s 0 serialSoftRxISR ]
+"594
+[v _serialSoftTxISR `(v  1 s 0 serialSoftTxISR ]
+"708
+[v _isSoftSerialBufferFull `(uc  1 s 1 isSoftSerialBufferFull ]
+"730
+[v _isSoftSerialDataAvailable `(uc  1 s 1 isSoftSerialDataAvailable ]
+"2228 /Volumes/build/bamboo/xml-data/build-dir/XC8-RELEASE-JOB1/nz/build/dist/osx/include/pic16f877a.h
+[v _EEDATA `VEuc  1 e 1 @268 ]
+"2234
+[v _EEADR `VEuc  1 e 1 @269 ]
+"2252
+[v _EECON1 `VEuc  1 e 1 @396 ]
+"2296
+[v _EECON2 `VEuc  1 e 1 @397 ]
+"2346
+[v _CARRY `VEb  1 e 0 @24 ]
+"2556
+[v _RD `VEb  1 e 0 @3168 ]
+"2756
+[v _WR `VEb  1 e 0 @3169 ]
+"2758
+[v _WREN `VEb  1 e 0 @3170 ]
+"17 C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.phr_out\HelloWorld.phr.c
+[v _Timer `ui  1 s 2 Timer ]
+[v _TimerDelta `ui  1 s 2 TimerDelta ]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v _pt2TMR1ISR `*(v  1 e 1 0 ]
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v _pt2TMR2ISR `*(v  1 e 1 0 ]
+"50 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _TMR0 `VEuc  1 e 1 @1 ]
+"155
+[v _PORTA `VEuc  1 e 1 @5 ]
+"204
+[v _PORTB `VEuc  1 e 1 @6 ]
+"265
+[v _PORTC `VEuc  1 e 1 @7 ]
+"326
+[v _PORTD `VEuc  1 e 1 @8 ]
+"387
+[v _PORTE `VEuc  1 e 1 @9 ]
+"620
+[v _TMR1L `VEuc  1 e 1 @14 ]
+"626
+[v _TMR1H `VEuc  1 e 1 @15 ]
+"632
+[v _T1CON `VEuc  1 e 1 @16 ]
+"712
+[v _T2CON `VEuc  1 e 1 @18 ]
+"863
+[v _CCPR1L `VEuc  1 e 1 @21 ]
+"875
+[v _CCP1CON `VEuc  1 e 1 @23 ]
+"1026
+[v _TXREG `VEuc  1 e 1 @25 ]
+"1032
+[v _RCREG `VEuc  1 e 1 @26 ]
+"1044
+[v _CCPR2L `VEuc  1 e 1 @27 ]
+"1056
+[v _CCP2CON `VEuc  1 e 1 @29 ]
+"1113
+[v _ADRESH `VEuc  1 e 1 @30 ]
+"1119
+[v _ADCON0 `VEuc  1 e 1 @31 ]
+"1214
+[v _OPTION_REG `VEuc  1 e 1 @129 ]
+"1283
+[v _TRISA `VEuc  1 e 1 @133 ]
+"1332
+[v _TRISB `VEuc  1 e 1 @134 ]
+"1393
+[v _TRISC `VEuc  1 e 1 @135 ]
+"1454
+[v _TRISD `VEuc  1 e 1 @136 ]
+"1515
+[v _TRISE `VEuc  1 e 1 @137 ]
+"1765
+[v _PR2 `VEuc  1 e 1 @146 ]
+"2025
+[v _SPBRG `VEuc  1 e 1 @153 ]
+"2164
+[v _ADRESL `VEuc  1 e 1 @158 ]
+"2170
+[v _ADCON1 `VEuc  1 e 1 @159 ]
+"2318
+[v _ADCS2 `VEb  1 e 0 @1278 ]
+"2322
+[v _ADFM `VEb  1 e 0 @1279 ]
+"2324
+[v _ADIE `VEb  1 e 0 @1126 ]
+"2326
+[v _ADIF `VEb  1 e 0 @102 ]
+"2328
+[v _ADON `VEb  1 e 0 @248 ]
+"2336
+[v _BRGH `VEb  1 e 0 @1218 ]
+"2402
+[v _CREN `VEb  1 e 0 @196 ]
+"2438
+[v _GIE `VEb  1 e 0 @95 ]
+"2442
+[v _GO_DONE `VEb  1 e 0 @250 ]
+"2458
+[v _INTE `VEb  1 e 0 @92 ]
+"2460
+[v _INTEDG `VEb  1 e 0 @1038 ]
+"2462
+[v _INTF `VEb  1 e 0 @89 ]
+"2468
+[v _OERR `VEb  1 e 0 @193 ]
+"2478
+[v _PEIE `VEb  1 e 0 @94 ]
+"2488
+[v _PSA `VEb  1 e 0 @1035 ]
+"2524
+[v _RBIE `VEb  1 e 0 @91 ]
+"2526
+[v _RBIF `VEb  1 e 0 @88 ]
+"2552
+[v _RCIE `VEb  1 e 0 @1125 ]
+"2554
+[v _RCIF `VEb  1 e 0 @101 ]
+"2588
+[v _RX9 `VEb  1 e 0 @198 ]
+"2600
+[v _SPEN `VEb  1 e 0 @199 ]
+"2620
+[v _SYNC `VEb  1 e 0 @1220 ]
+"2622
+[v _T0CS `VEb  1 e 0 @1037 ]
+"2636
+[v _T1OSCEN `VEb  1 e 0 @131 ]
+"2638
+[v _T1SYNC `VEb  1 e 0 @130 ]
+"2644
+[v _TMR0IE `VEb  1 e 0 @93 ]
+"2646
+[v _TMR0IF `VEb  1 e 0 @90 ]
+"2648
+[v _TMR1CS `VEb  1 e 0 @129 ]
+"2650
+[v _TMR1IE `VEb  1 e 0 @1120 ]
+"2652
+[v _TMR1IF `VEb  1 e 0 @96 ]
+"2654
+[v _TMR1ON `VEb  1 e 0 @128 ]
+"2656
+[v _TMR2IE `VEb  1 e 0 @1121 ]
+"2658
+[v _TMR2IF `VEb  1 e 0 @97 ]
+"2660
+[v _TMR2ON `VEb  1 e 0 @146 ]
+"2740
+[v _TX9 `VEb  1 e 0 @1222 ]
+"2746
+[v _TXEN `VEb  1 e 0 @1221 ]
+"2748
+[v _TXIE `VEb  1 e 0 @1124 ]
+"2750
+[v _TXIF `VEb  1 e 0 @100 ]
+"58 hardware/cores/lib\corelib_adc.c
+[v _eCurrentChannel `E1499  1 s 1 eCurrentChannel ]
+"59
+[v _ui16ADCBuff `[7]ui  1 s 14 ui16ADCBuff ]
+"43 hardware/cores/lib\corelib_pwm.c
+[v _ui8PreScaler `uc  1 s 1 ui8PreScaler ]
+[v _ui8PreScalerVal `uc  1 s 1 ui8PreScalerVal ]
+[v _ui8PR2plus1 `uc  1 s 1 ui8PR2plus1 ]
+[s S984 UARTBuff_s 34 `[32]uc 1 aui8Buffer 32 0 `uc 1 ui8Head 1 32 `uc 1 ui8Tail 1 33 ]
+"48 hardware/cores/lib\corelib_uart.c
+[v _stUARTTXFiFo `S984  1 s 34 stUARTTXFiFo ]
+"49
+[v _stUARTRXFiFo `S984  1 s 34 stUARTRXFiFo ]
+"50 hardware/cores/lib\corelib_user_interrupt.c
+[v _PORTB_BUFFER `VEuc  1 e 1 0 ]
+[v _PORTB_DIRECTION `VEuc  1 e 1 0 ]
+"112 hardware/cores/lib\hal_user_interrupt.h
+[v _eMod0_Mode `E1359  1 e 1 0 ]
+[v _eMod1_Mode `E1359  1 e 1 0 ]
+[v _eMod2_Mode `E1359  1 e 1 0 ]
+[v _eMod3_Mode `E1359  1 e 1 0 ]
+"116
+[v _eMod4_Mode `E1359  1 e 1 0 ]
+[v _eMod5_Mode `E1359  1 e 1 0 ]
+[v _eMod6_Mode `E1359  1 e 1 0 ]
+[v _eMod7_Mode `E1359  1 e 1 0 ]
+"125
+[v _pt2INT0 `*(v  1 e 1 0 ]
+"126
+[v _pt2INT1 `*(v  1 e 1 0 ]
+"127
+[v _pt2INT2 `*(v  1 e 1 0 ]
+"133
+[v _pt2INT4 `*(v  1 e 1 0 ]
+"134
+[v _pt2INT5 `*(v  1 e 1 0 ]
+"135
+[v _pt2INT6 `*(v  1 e 1 0 ]
+"136
+[v _pt2INT7 `*(v  1 e 1 0 ]
+"44 hardware/cores\PhilRobokit_CoreLib_GlobalDefs.c
+[v _gblInitialized `VEuc  1 s 1 gblInitialized ]
+"45
+[v _gblISRLocked `VEuc  1 s 1 gblISRLocked ]
+"48
+[v _gui16TimerUsMSB `VEui  1 s 2 gui16TimerUsMSB ]
+"49
+[v _gui16TimerMs `VEui  1 s 2 gui16TimerMs ]
+"50
+[v _gui16TimerSec `VEui  1 s 2 gui16TimerSec ]
+"89 libraries/soft_serial\soft_serial.c
+[v _ui16SUARTBitPeriod_div3 `ui  1 s 2 ui16SUARTBitPeriod_div3 ]
+"90
+[v _stSUART_TXFiFo `[2]S151  1 e 46 0 ]
+"91
+[v _stSUART_RXFiFo `[2]S160  1 e 56 0 ]
+"127 hardware/cores\PhilRoboKit_CoreLib_Macro.c
+[v _main `(i  1 e 2 0 ]
+{
+"154
+} 0
+"20 C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.phr_out\HelloWorld.phr.c
+[v _init `(v  1 e 0 0 ]
+{
+"23
+} 0
+"119 libraries/soft_serial\soft_serial.c
+[v _setupSoftSerial `(v  1 e 0 0 ]
+{
+[v setupSoftSerial@eSUARTModule `E1557  1 a 1 wreg ]
+[v setupSoftSerial@eSUARTModule `E1557  1 a 1 wreg ]
+[v setupSoftSerial@ui8TXPin `uc  1 p 1 16 ]
+[v setupSoftSerial@ui8RXPin `uc  1 p 1 17 ]
+[v setupSoftSerial@ui16Baudrate `ui  1 p 2 18 ]
+"143
+} 0
+"26 C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.phr_out\HelloWorld.phr.c
+[v _cycle `(v  1 e 0 0 ]
+{
+"36
+} 0
+"129 hardware/cores/lib\corelib_basetimer.c
+[v _getMs `(ui  1 e 2 0 ]
+{
+"130
+[v getMs@ui16TempBuff `ui  1 a 2 16 ]
+"138
+} 0
+"158
+[v _getElapsedMs `(ui  1 e 2 0 ]
+{
+"159
+[v getElapsedMs@ui16TempBuff `ui  1 a 2 18 ]
+"158
+[v getElapsedMs@ui16TimeMs `ui  1 p 2 14 ]
+"168
+} 0
+"197 libraries/soft_serial\soft_serial.c
+[v _serialSoftWriteString `(v  1 e 0 0 ]
+{
+[v serialSoftWriteString@eSUARTModule `E1557  1 a 1 wreg ]
+[v serialSoftWriteString@eSUARTModule `E1557  1 a 1 wreg ]
+[v serialSoftWriteString@pucStrTxData `*.cDCCuc  1 p 1 20 ]
+"207
+} 0
+"162
+[v _serialSoftWrite `(v  1 e 0 0 ]
+{
+[v serialSoftWrite@eSUARTModule `E1557  1 a 1 wreg ]
+[v serialSoftWrite@eSUARTModule `E1557  1 a 1 wreg ]
+[v serialSoftWrite@ui8TxData `uc  1 p 1 18 ]
+"178
+} 0
+"67 hardware/cores/lib\hal_gpio.c
+[v _configPin `(v  1 e 0 0 ]
+{
+[v configPin@ui8Pin `uc  1 a 1 wreg ]
+"68
+[v configPin@pui8PortDirReg `*uc  1 a 2 13 ]
+"67
+[v configPin@ui8Pin `uc  1 a 1 wreg ]
+[v configPin@ui8Direction `uc  1 p 1 10 ]
+"168
+} 0
+"189
+[v _changePinState `(v  1 e 0 0 ]
+{
+[v changePinState@ui8Pin `uc  1 a 1 wreg ]
+"190
+[v changePinState@pui8PortReg `*uc  1 a 2 13 ]
+"189
+[v changePinState@ui8Pin `uc  1 a 1 wreg ]
+[v changePinState@eOperation `E1449  1 p 1 10 ]
+"297
+} 0
+"185 hardware/cores/lib\corelib_8bit_timer.c
+[v _setup8BitTimer `(v  1 e 0 0 ]
+{
+[v setup8BitTimer@eTmrModule `E1480  1 a 1 wreg ]
+[v setup8BitTimer@eTmrModule `E1480  1 a 1 wreg ]
+[v setup8BitTimer@callback `*(v  1 p 1 10 ]
+"217
+} 0
+"238
+[v _set8BitTimer `(v  1 e 0 0 ]
+{
+[v set8BitTimer@eTmrModule `E1480  1 a 1 wreg ]
+[v set8BitTimer@eTmrModule `E1480  1 a 1 wreg ]
+[v set8BitTimer@ui8Value `uc  1 p 1 10 ]
+"278
+} 0
+"708 libraries/soft_serial\soft_serial.c
+[v _isSoftSerialBufferFull `(uc  1 s 1 isSoftSerialBufferFull ]
+{
+[v isSoftSerialBufferFull@eSUARTModule `E1557  1 a 1 wreg ]
+[v isSoftSerialBufferFull@eSUARTModule `E1557  1 a 1 wreg ]
+"710
+} 0
+"61 hardware/cores\PhilRobokit_CoreLib_GlobalDefs.c
+[v _set_gblInitialized_FlagValue `(v  1 e 0 0 ]
+{
+"63
+} 0
+"83
+[v _get_gblISRLocked_FlagValue `(uc  1 e 1 0 ]
+{
+"84
+[v get_gblISRLocked_FlagValue@blTemp `uc  1 a 1 11 ]
+"87
+} 0
+"124
+[v _get_gui16TimerMs_Value `(ui  1 e 2 0 ]
+{
+"125
+[v get_gui16TimerMs_Value@ui16Temp `ui  1 a 2 12 ]
+"131
+} 0
+"66 hardware/cores/lib\corelib_gpio.c
+[v _setupGpio `(v  1 e 0 0 ]
+{
+"88
+} 0
+"72 hardware/cores/lib\hal_timer.c
+[v _setupTimer `(v  1 e 0 0 ]
+{
+"86
+} 0
+"208 hardware/cores/lib\corelib_adc.c
+[v _setupADC `(v  1 e 0 0 ]
+{
+[v setupADC@eVrefSource `E1485  1 a 1 wreg ]
+[v setupADC@eVrefSource `E1485  1 a 1 wreg ]
+"249
+} 0
+"66 hardware/cores\PhilRobokit_CoreLib_GlobalDefs.c
+[v _get_gblInitialized_FlagValue `(uc  1 e 1 0 ]
+{
+"67
+[v get_gblInitialized_FlagValue@blTemp `uc  1 a 1 11 ]
+"70
+} 0
+"164 hardware/cores/lib\corelib_adc.c
+[v _adcCycle `(v  1 e 0 0 ]
+{
+"165
+[v adcCycle@ui16Counter `ui  1 s 2 ui16Counter ]
+"187
+} 0
+"93 hardware/cores/lib\hal_adc.c
+[v _configLowLvlADC `(v  1 e 0 0 ]
+{
+"101
+} 0
+"3 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\bmul.c
+[v ___bmul `(uc  1 e 1 0 ]
+{
+[v ___bmul@multiplier `uc  1 a 1 wreg ]
+"4
+[v ___bmul@product `uc  1 a 1 12 ]
+"3
+[v ___bmul@multiplier `uc  1 a 1 wreg ]
+[v ___bmul@multiplicand `uc  1 p 1 10 ]
+"13
+} 0
+"177 hardware/cores\PhilRoboKit_CoreLib_Macro.c
+[v _isr `II(v  1 e 0 0 ]
+{
+"189
+} 0
+"73 hardware/cores\PhilRobokit_CoreLib_GlobalDefs.c
+[v _set_gblISRLocked_FlagValue `(v  1 e 0 0 ]
+{
+"75
+} 0
+"78
+[v _clr_gblISRLocked_FlagValue `(v  1 e 0 0 ]
+{
+"80
+} 0
+"105 hardware/cores/lib\hal_timer.c
+[v _timerISR `(v  1 e 0 0 ]
+{
+"106
+[v timerISR@ui16UsCounter `ui  1 s 2 ui16UsCounter ]
+"142
+} 0
+"91 hardware/cores\PhilRobokit_CoreLib_GlobalDefs.c
+[v _inc_gui16TimerUsMSB_Value `(v  1 e 0 0 ]
+{
+[v inc_gui16TimerUsMSB_Value@ui16Value `ui  1 p 2 0 ]
+"99
+} 0
+"113
+[v _inc_gui16TimerMs_Value `(v  1 e 0 0 ]
+{
+"121
+} 0
+"66 hardware/cores/lib\corelib_16bit_timer.c
+[v _timer16BitISR `(v  1 e 0 0 ]
+{
+"80
+} 0
+"67 hardware/cores/lib\corelib_8bit_timer.c
+[v _timer8BitISR `(v  1 e 0 0 ]
+{
+"107
+} 0
+"67 hardware/cores/lib\hal_8bit_timer.c
+[v _nullTMRFunction `(v  1 e 0 0 ]
+{
+"69
+} 0
+"359 libraries/soft_serial\soft_serial.c
+[v _softUARTController `(v  1 s 0 softUARTController ]
+{
+"363
+} 0
+"382
+[v _serialSoftRxISR `(v  1 s 0 serialSoftRxISR ]
+{
+"384
+[v serialSoftRxISR@ui8TempIn `uc  1 s 1 ui8TempIn ]
+"385
+[v serialSoftRxISR@ui8TempByte `uc  1 s 1 ui8TempByte ]
+"386
+[v serialSoftRxISR@ui8ModuleCounter `uc  1 s 1 ui8ModuleCounter ]
+"575
+} 0
+"594
+[v _serialSoftTxISR `(v  1 s 0 serialSoftTxISR ]
+{
+"596
+[v serialSoftTxISR@ui8TempByte `uc  1 s 1 ui8TempByte ]
+"597
+[v serialSoftTxISR@ui8ModuleCounter `uc  1 s 1 ui8ModuleCounter ]
+"688
+} 0
+"316 hardware/cores/lib\hal_gpio.c
+[v _checkPinState `(uc  1 e 1 0 ]
+{
+[v checkPinState@ui8Pin `uc  1 a 1 wreg ]
+"318
+[v checkPinState@pui8PortReg `*uc  1 a 2 4 ]
+"317
+[v checkPinState@ui8PinMask `uc  1 a 1 3 ]
+[v checkPinState@ui8PinStatus `uc  1 a 1 2 ]
+"316
+[v checkPinState@ui8Pin `uc  1 a 1 wreg ]
+"422
+} 0
+"305 hardware/cores/lib\corelib_uart.c
+[v _serialRxISR `(v  1 e 0 0 ]
+{
+"306
+[v serialRxISR@ui8TempIn `uc  1 s 1 ui8TempIn ]
+"333
+} 0
+"73 hardware/cores/lib\corelib_user_interrupt.c
+[v _userIntISR `(v  1 e 0 0 ]
+{
+"120
+} 0
+"352 hardware/cores/lib\corelib_uart.c
+[v _serialTxISR `(v  1 e 0 0 ]
+{
+"382
+} 0
+"83 hardware/cores/lib\corelib_adc.c
+[v _adcISR `(v  1 e 0 0 ]
+{
+"84
+[v adcISR@eEffectiveChannel `E1499  1 s 1 eEffectiveChannel ]
+"145
+} 0
+"89 hardware/cores/lib\hal_user_interrupt.c
+[v _extIntISR `(v  1 e 0 0 ]
+{
+"98
+} 0
+"180
+[v _rbIntISR `(v  1 e 0 0 ]
+{
+"181
+[v rbIntISR@PORTCHANGE_BUFFER `uc  1 s 1 PORTCHANGE_BUFFER ]
+"266
+} 0
+"66 hardware/cores/lib\hal_16bit_timer.c
+[v _null16BitTMRFunction `(v  1 e 0 0 ]
+{
+"68
+} 0
+"67 hardware/cores/lib\hal_user_interrupt.c
+[v _nullIntFunction `(v  1 e 0 0 ]
+{
+"69
+} 0
+"238 hardware/cores/lib\corelib_8bit_timer.c
+[v i1_set8BitTimer `(v  1 e 0 0 ]
+{
+[v i1set8BitTimer@eTmrModule `E1480  1 a 1 wreg ]
+[v i1set8BitTimer@eTmrModule `E1480  1 a 1 wreg ]
+[v i1set8BitTimer@ui8Value `uc  1 p 1 0 ]
+"278
+} 0
+"189 hardware/cores/lib\hal_gpio.c
+[v i1_changePinState `(v  1 e 0 0 ]
+{
+[v i1changePinState@ui8Pin `uc  1 a 1 wreg ]
+[v i1changePinState@pui8PortReg `*uc  1 a 2 7 ]
+[v i1changePinState@ui8Pin `uc  1 a 1 wreg ]
+[v i1changePinState@eOperation `E1449  1 p 1 4 ]
+"297
+} 0
+"3 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\sources\bmul.c
+[v i1___bmul `(uc  1 e 1 0 ]
+{
+[v i1___bmul@multiplier `uc  1 a 1 wreg ]
+[v i1___bmul@product `uc  1 a 1 3 ]
+[v i1___bmul@multiplier `uc  1 a 1 wreg ]
+[v i1___bmul@multiplicand `uc  1 p 1 0 ]
+"13
+} 0

@@ -28,7 +28,7 @@
 * |FW Version   |Date       |Author             |Description                        |
 * |:----        |:----      |:----              |:----                              |
 * |v00.00.01    |201209xx   |Giancarlo A.       |Library Initial Release            |
-* |v00.01.00    |20130408   |ESC II             |enumerations used instead of defines for configurations |
+* |v00.01.00    |20130408   |ESCII              |enumerations used instead of defines for configurations |
 * |v01.01.00    |20130514   |ESCII              |Code Formatted                     |
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
@@ -53,10 +53,10 @@
 
 /* User Configuration Definitions */
 /* PhilRoboKit Hardware Configuration */
-#if defined( _16F873A ) || defined( _16F874A ) || defined( _16F876A ) || defined( _16F877A )
+#if defined(_16F877A) || defined(__SDCC_PIC16F877A) || defined(__SDCC_PIC16F877)
 #define __PHR_CONTROLLER__          (__MCU_PIC16__)
 
-#elif defined( _18F2420 ) || defined( _18F2520 ) || defined( _18F4420 ) || defined( _18F4520 ) || ( _18F4620 )
+#elif defined(_18F4520) || defined(__SDCC_PIC18F4520)
 #define __PHR_CONTROLLER__          (__MCU_PIC18__)
 
 #else
@@ -64,6 +64,7 @@
 /* do nothing */
 #else
 #error  Device not yet supported!!!
+
 #endif  /* SPLINT Switch */
 
 #endif  /* MCU Part Compile Switch */

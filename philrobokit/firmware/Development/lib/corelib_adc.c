@@ -33,11 +33,13 @@
 * |v01.00.01    |20130307   |ESC II             |Organized functions into HAL and CoreLib|
 * |v01.00.02    |20130323   |ESC II             |Get ADCCycle timestamp regardless of ADC EOC status|
 * |v01.01.00    |20130408   |ESC II             |Defined option for timer or counter delay|
-* |v01.02.00    |20130514   |ESCII              |Code Formatted, added tracepoint for unit testing|
+* |v01.02.00    |20130514   |ESC II             |Code Formatted, added tracepoint for unit testing|
 *********************************************************************************************/
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
 
+#include "PhilRoboKit_CoreLib_Macro.h"
+#if defined (USE_ADC)
 #include "corelib_adc.h"
 
 /* Local Constants */
@@ -67,6 +69,9 @@ static      uint16_t        ui16ADCBuff[MAX_ADC_CHANNELS-1] = {0};
 *
 * > This is an interrupt handler called the ADC has finished conversion
 * > of the channel value
+*
+* > PIC18F4520, XC8, @32Mhz(/4) Clock, 2mS Period: 8uS Duration (0.4% resource)
+* > PIC16F877A, XC8, @20Mhz(/4) Clock, 2mS Period: 16.8uS Duration (0.84% resource)
 *
 * > <BR>
 * > **Syntax:**<BR>
@@ -141,48 +146,6 @@ void adcISR(void)
 
         /* Set ADC Channel */
         hal_setADCChannel(eCurrentChannel);
-    }
-}
-
-/*******************************************************************************//**
-* \brief Cyclic ADC rotuines
-*
-* > This function is called at periodic interval to start the ADC conversion
-*
-* > <BR>
-* > **Syntax:**<BR>
-* >     adcCycle()
-* > <BR><BR>
-* > **Parameters:**<BR>
-* >     none
-* > <BR><BR>
-* > **Returns:**<BR>
-* >     none
-* > <BR><BR>
-***********************************************************************************/
-void adcCycle(void)
-{
-    static uint16_t ui16Counter = 0;
-    ui16Counter++;
-
-    /* Check cycle timeout */
-    if(ui16Counter >= ADC_CYCLE_COUNTER_TIMEOUT)
-    {
-        /* get new time stamp */
-        ui16Counter = 0;
-#ifdef UNIT_TEST
-        UCUNIT_Tracepoint(0);
-#endif
-
-        /* Check end of conversion */
-        if(TRUE == hal_checkADCEndofConversion())
-        {
-            /* start new conversion */
-            hal_startADCConversion();
-#ifdef UNIT_TEST
-            UCUNIT_Tracepoint(1);
-#endif
-        }
     }
 }
 
@@ -305,5 +268,6 @@ void removeADC(void)
 /* Private Functions */
 /* none */
 
+#endif
 /* end of corelib_adc.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

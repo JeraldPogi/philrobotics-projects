@@ -1,0 +1,508 @@
+Version 3.2 HI-TECH Software Intermediate Code
+"66 libraries/Mobot_Lib\PBotGlobals.h
+[v _strDProtocolID `uc ~T0 @X0 -> 0 `x e ]
+"49 libraries/Mobot_Lib\Telemetry.h
+[v _setupTelemetry `(v ~T0 @X0 0 ef1`ul ]
+"72 C:\Users\glutnix\Desktop\philrobokit_xc8/hardware/cores/lib\corelib_uart.h
+[v _setupSerial `(v ~T0 @X0 0 ef1`ui ]
+"61 C:\Users\glutnix\Desktop\philrobokit_xc8/hardware/cores/lib\corelib_basetimer.h
+[v _getMs `(ui ~T0 @X0 0 ef ]
+"62
+[v _getElapsedMs `(ui ~T0 @X0 0 ef1`ui ]
+"54 libraries/Mobot_Lib\Telemetry.h
+[v _pollWallSensorsTelemetry `(v ~T0 @X0 0 ef ]
+"55
+[v _pollLineSensorsTelemetry `(v ~T0 @X0 0 ef ]
+"115 libraries/Mobot_Lib\Mobot_Lib.h
+[v _detectObstacle `(uc ~T0 @X0 0 ef ]
+"57 libraries/Mobot_Lib\Telemetry.h
+[v _reportWallSensors `(v ~T0 @X0 0 ef1`uc ]
+"118 libraries/Mobot_Lib\Mobot_Lib.h
+[v _detectLine `(uc ~T0 @X0 0 ef ]
+"58 libraries/Mobot_Lib\Telemetry.h
+[v _reportLineSensors `(v ~T0 @X0 0 ef1`uc ]
+"60
+[v _printD `(v ~T0 @X0 0 ef4`*uc`*uc`*uc`*uc ]
+"90 libraries/Mobot_Lib\Telemetry.c
+[c E1494 0 1 2 3 4 5 6 7 .. ]
+[n E1494 . KI_NO_OBSTACLE KI_OBJECT_LEFT KI_OBJECT_LEFTCENTER KI_OBJECT_RIGHT KI_OBJECT_RIGHTCENTER KI_OBJECT_FARFRONT KI_OBJECT_NEARFRONT KI_OBJECT_BOTHSIDES  ]
+"128
+[c E1503 0 1 2 3 4 5 6 7 .. ]
+[n E1503 . KI_NO_LINE KI_LINE_LEFT KI_LINE_LEFTCENTER KI_LINE_RIGHT KI_LINE_RIGHTCENTER KI_OVER_LINE KI_LINE_CENTER KI_LINE_FRONT  ]
+"75 C:\Users\glutnix\Desktop\philrobokit_xc8/hardware/cores/lib\corelib_uart.h
+[v _serialWriteString `(v ~T0 @X0 0 ef1`*Cuc ]
+"74
+[v _serialWrite `(v ~T0 @X0 0 ef1`uc ]
+"49 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[; <" INDF equ 00h ;# ">
+"55
+[; <" TMR0 equ 01h ;# ">
+"61
+[; <" PCL equ 02h ;# ">
+"67
+[; <" STATUS equ 03h ;# ">
+"154
+[; <" FSR equ 04h ;# ">
+"160
+[; <" PORTA equ 05h ;# ">
+"209
+[; <" PORTB equ 06h ;# ">
+"270
+[; <" PORTC equ 07h ;# ">
+"331
+[; <" PORTD equ 08h ;# ">
+"392
+[; <" PORTE equ 09h ;# ">
+"423
+[; <" PCLATH equ 0Ah ;# ">
+"442
+[; <" INTCON equ 0Bh ;# ">
+"519
+[; <" PIR1 equ 0Ch ;# ">
+"580
+[; <" PIR2 equ 0Dh ;# ">
+"619
+[; <" TMR1 equ 0Eh ;# ">
+"625
+[; <" TMR1L equ 0Eh ;# ">
+"631
+[; <" TMR1H equ 0Fh ;# ">
+"637
+[; <" T1CON equ 010h ;# ">
+"711
+[; <" TMR2 equ 011h ;# ">
+"717
+[; <" T2CON equ 012h ;# ">
+"787
+[; <" SSPBUF equ 013h ;# ">
+"793
+[; <" SSPCON equ 014h ;# ">
+"862
+[; <" CCPR1 equ 015h ;# ">
+"868
+[; <" CCPR1L equ 015h ;# ">
+"874
+[; <" CCPR1H equ 016h ;# ">
+"880
+[; <" CCP1CON equ 017h ;# ">
+"937
+[; <" RCSTA equ 018h ;# ">
+"1031
+[; <" TXREG equ 019h ;# ">
+"1037
+[; <" RCREG equ 01Ah ;# ">
+"1043
+[; <" CCPR2 equ 01Bh ;# ">
+"1049
+[; <" CCPR2L equ 01Bh ;# ">
+"1055
+[; <" CCPR2H equ 01Ch ;# ">
+"1061
+[; <" CCP2CON equ 01Dh ;# ">
+"1118
+[; <" ADRESH equ 01Eh ;# ">
+"1124
+[; <" ADCON0 equ 01Fh ;# ">
+"1219
+[; <" OPTION_REG equ 081h ;# ">
+"1288
+[; <" TRISA equ 085h ;# ">
+"1337
+[; <" TRISB equ 086h ;# ">
+"1398
+[; <" TRISC equ 087h ;# ">
+"1459
+[; <" TRISD equ 088h ;# ">
+"1520
+[; <" TRISE equ 089h ;# ">
+"1576
+[; <" PIE1 equ 08Ch ;# ">
+"1637
+[; <" PIE2 equ 08Dh ;# ">
+"1676
+[; <" PCON equ 08Eh ;# ">
+"1709
+[; <" SSPCON2 equ 091h ;# ">
+"1770
+[; <" PR2 equ 092h ;# ">
+"1776
+[; <" SSPADD equ 093h ;# ">
+"1782
+[; <" SSPSTAT equ 094h ;# ">
+"1950
+[; <" TXSTA equ 098h ;# ">
+"2030
+[; <" SPBRG equ 099h ;# ">
+"2036
+[; <" CMCON equ 09Ch ;# ">
+"2105
+[; <" CVRCON equ 09Dh ;# ">
+"2169
+[; <" ADRESL equ 09Eh ;# ">
+"2175
+[; <" ADCON1 equ 09Fh ;# ">
+"2233
+[; <" EEDATA equ 010Ch ;# ">
+"2239
+[; <" EEADR equ 010Dh ;# ">
+"2245
+[; <" EEDATH equ 010Eh ;# ">
+"2251
+[; <" EEADRH equ 010Fh ;# ">
+"2257
+[; <" EECON1 equ 018Ch ;# ">
+"2301
+[; <" EECON2 equ 018Dh ;# ">
+"38 libraries/Mobot_Lib\Telemetry.c
+[v _ui16PollIntTimer `ui ~T0 @X0 1 s ]
+"44
+[v _setupTelemetryID `(v ~T0 @X0 1 ef2`ul`*uc ]
+"45
+{
+[e :U _setupTelemetryID ]
+"44
+[v _ui32DBaudRate `ul ~T0 @X0 1 r1 ]
+[v _strDProtID `*uc ~T0 @X0 1 r2 ]
+"45
+[f ]
+"46
+[v _iCounter `uc ~T0 @X0 1 a ]
+"48
+{
+[e = _iCounter -> -> 0 `i `uc ]
+[e $ < -> _iCounter `i -> 4 `i 98  ]
+[e $U 99  ]
+"49
+[e :U 98 ]
+{
+"50
+[e = *U + &U _strDProtocolID * -> _iCounter `ux -> -> # *U &U _strDProtocolID `ui `ux *U + _strDProtID * -> _iCounter `ux -> -> # *U _strDProtID `ui `ux ]
+"51
+}
+"48
+[e ++ _iCounter -> -> 1 `i `uc ]
+[e $ < -> _iCounter `i -> 4 `i 98  ]
+[e :U 99 ]
+"51
+}
+"53
+[e ( _setupTelemetry (1 _ui32DBaudRate ]
+"54
+[e :UE 97 ]
+}
+"56
+[v _setupTelemetry `(v ~T0 @X0 1 ef1`ul ]
+"57
+{
+[e :U _setupTelemetry ]
+"56
+[v _ui32DBaudRate `ul ~T0 @X0 1 r1 ]
+"57
+[f ]
+"58
+[e ( _setupSerial (1 -> _ui32DBaudRate `ui ]
+"59
+[e = _ui16PollIntTimer ( _getMs ..  ]
+"60
+[e :UE 101 ]
+}
+"62
+[v _pollSensors `(v ~T0 @X0 1 ef1`ui ]
+"63
+{
+[e :U _pollSensors ]
+"62
+[v _ui16PollingInterval `ui ~T0 @X0 1 r1 ]
+"63
+[f ]
+"64
+[e $ ! >= ( _getElapsedMs (1 _ui16PollIntTimer _ui16PollingInterval 103  ]
+"65
+{
+"66
+[e = _ui16PollIntTimer ( _getMs ..  ]
+"67
+[e ( _pollWallSensorsTelemetry ..  ]
+"68
+[e ( _pollLineSensorsTelemetry ..  ]
+"70
+}
+[e :U 103 ]
+"71
+[e :UE 102 ]
+}
+"74
+[v _pollWallSensorsTelemetry `(v ~T0 @X0 1 ef ]
+"75
+{
+[e :U _pollWallSensorsTelemetry ]
+[f ]
+[v _ui8ObstacleLocation `uc ~T0 @X0 1 a ]
+"77
+[e = _ui8ObstacleLocation ( _detectObstacle ..  ]
+"78
+[e ( _reportWallSensors (1 _ui8ObstacleLocation ]
+"79
+[e :UE 104 ]
+}
+"81
+[v _pollLineSensorsTelemetry `(v ~T0 @X0 1 ef ]
+"82
+{
+[e :U _pollLineSensorsTelemetry ]
+[f ]
+[v _ui8LineLocation `uc ~T0 @X0 1 a ]
+"84
+[e = _ui8LineLocation ( _detectLine ..  ]
+"85
+[e ( _reportLineSensors (1 _ui8LineLocation ]
+"86
+[e :UE 105 ]
+}
+"88
+[v _reportWallSensors `(v ~T0 @X0 1 ef1`uc ]
+"89
+{
+[e :U _reportWallSensors ]
+[v _ui8ObstacleLocation `uc ~T0 @X0 1 r1 ]
+[f ]
+"90
+[e $U 108  ]
+"91
+{
+"92
+[e :U 109 ]
+"93
+[e ( _printD (4 , , , &U _strDProtocolID -> :s 1C `*uc -> :s 2C `*uc -> :s 3C `*uc ]
+"94
+[e $U 107  ]
+"96
+[e :U 110 ]
+"97
+[e ( _printD (4 , , , &U _strDProtocolID -> :s 4C `*uc -> :s 5C `*uc -> :s 6C `*uc ]
+"98
+[e $U 107  ]
+"100
+[e :U 111 ]
+"101
+[e ( _printD (4 , , , &U _strDProtocolID -> :s 7C `*uc -> :s 8C `*uc -> :s 9C `*uc ]
+"102
+[e $U 107  ]
+"104
+[e :U 112 ]
+"105
+[e ( _printD (4 , , , &U _strDProtocolID -> :s 10C `*uc -> :s 11C `*uc -> :s 12C `*uc ]
+"106
+[e $U 107  ]
+"108
+[e :U 113 ]
+"109
+[e ( _printD (4 , , , &U _strDProtocolID -> :s 13C `*uc -> :s 14C `*uc -> :s 15C `*uc ]
+"110
+[e $U 107  ]
+"112
+[e :U 114 ]
+"113
+[e ( _printD (4 , , , &U _strDProtocolID -> :s 16C `*uc -> :s 17C `*uc -> :s 18C `*uc ]
+"114
+[e $U 107  ]
+"116
+[e :U 115 ]
+"117
+[e ( _printD (4 , , , &U _strDProtocolID -> :s 19C `*uc -> :s 20C `*uc -> :s 21C `*uc ]
+"118
+[e $U 107  ]
+"120
+[e :U 116 ]
+"121
+[e ( _printD (4 , , , &U _strDProtocolID -> :s 22C `*uc -> :s 23C `*uc -> :s 24C `*uc ]
+"122
+[e $U 107  ]
+"123
+}
+[e $U 107  ]
+"90
+[e :U 108 ]
+[e [\ _ui8ObstacleLocation , $ -> . `E1494 6 `uc 109
+ , $ -> . `E1494 2 `uc 110
+ , $ -> . `E1494 4 `uc 111
+ , $ -> . `E1494 7 `uc 112
+ , $ -> . `E1494 5 `uc 113
+ , $ -> . `E1494 1 `uc 114
+ , $ -> . `E1494 3 `uc 115
+ 116 ]
+"123
+[e :U 107 ]
+"124
+[e :UE 106 ]
+}
+"126
+[v _reportLineSensors `(v ~T0 @X0 1 ef1`uc ]
+"127
+{
+[e :U _reportLineSensors ]
+[v _ui8LineLocation `uc ~T0 @X0 1 r1 ]
+[f ]
+"128
+[e $U 119  ]
+"129
+{
+"130
+[e :U 120 ]
+"131
+[e ( _printD (4 , , , &U _strDProtocolID -> :s 25C `*uc -> :s 26C `*uc -> :s 27C `*uc ]
+"132
+[e $U 118  ]
+"134
+[e :U 121 ]
+"135
+[e ( _printD (4 , , , &U _strDProtocolID -> :s 28C `*uc -> :s 29C `*uc -> :s 30C `*uc ]
+"136
+[e $U 118  ]
+"138
+[e :U 122 ]
+"139
+[e ( _printD (4 , , , &U _strDProtocolID -> :s 31C `*uc -> :s 32C `*uc -> :s 33C `*uc ]
+"140
+[e $U 118  ]
+"142
+[e :U 123 ]
+"143
+[e ( _printD (4 , , , &U _strDProtocolID -> :s 34C `*uc -> :s 35C `*uc -> :s 36C `*uc ]
+"144
+[e $U 118  ]
+"146
+[e :U 124 ]
+"147
+[e ( _printD (4 , , , &U _strDProtocolID -> :s 37C `*uc -> :s 38C `*uc -> :s 39C `*uc ]
+"148
+[e $U 118  ]
+"150
+[e :U 125 ]
+"151
+[e ( _printD (4 , , , &U _strDProtocolID -> :s 40C `*uc -> :s 41C `*uc -> :s 42C `*uc ]
+"152
+[e $U 118  ]
+"154
+[e :U 126 ]
+"155
+[e ( _printD (4 , , , &U _strDProtocolID -> :s 43C `*uc -> :s 44C `*uc -> :s 45C `*uc ]
+"156
+[e $U 118  ]
+"157
+}
+[e $U 118  ]
+"128
+[e :U 119 ]
+[e [\ _ui8LineLocation , $ -> . `E1503 5 `uc 120
+ , $ -> . `E1503 2 `uc 121
+ , $ -> . `E1503 4 `uc 122
+ , $ -> . `E1503 1 `uc 123
+ , $ -> . `E1503 3 `uc 124
+ , $ -> . `E1503 6 `uc 125
+ 126 ]
+"157
+[e :U 118 ]
+"158
+[e :UE 117 ]
+}
+"167
+[v _printD `(v ~T0 @X0 1 ef4`*uc`*uc`*uc`*uc ]
+"168
+{
+[e :U _printD ]
+"167
+[v _strDHeader `*uc ~T0 @X0 1 r1 ]
+[v _strDCommandCode `*uc ~T0 @X0 1 r2 ]
+[v _strDParam1 `*uc ~T0 @X0 1 r3 ]
+[v _strDParam2 `*uc ~T0 @X0 1 r4 ]
+"168
+[f ]
+"169
+[e ( _serialWriteString (1 -> _strDHeader `*Cuc ]
+"170
+[e ( _serialWriteString (1 :s 46C ]
+"171
+[e ( _serialWriteString (1 -> _strDCommandCode `*Cuc ]
+"172
+[e ( _serialWriteString (1 :s 47C ]
+"174
+[e $ ! != _strDParam1 -> :s 48C `*uc 128  ]
+"175
+{
+"176
+[e ( _serialWriteString (1 -> _strDParam1 `*Cuc ]
+"177
+[e ( _serialWriteString (1 :s 49C ]
+"179
+[e $ ! != _strDParam2 -> :s 50C `*uc 129  ]
+"180
+{
+"181
+[e ( _serialWriteString (1 -> _strDParam2 `*Cuc ]
+"182
+[e ( _serialWriteString (1 :s 51C ]
+"183
+}
+[e :U 129 ]
+"184
+}
+[e :U 128 ]
+"187
+[e ( _serialWrite (1 -> -> 13 `i `uc ]
+"188
+[e ( _serialWrite (1 -> -> 10 `i `uc ]
+"189
+[e :UE 127 ]
+}
+[a 3C 70 82 79 78 84 0 ]
+[a 15C 70 82 79 78 84 0 ]
+[a 8C 82 73 71 72 84 0 ]
+[a 20C 82 73 71 72 84 0 ]
+[a 32C 82 73 71 72 84 0 ]
+[a 38C 82 73 71 72 84 0 ]
+[a 5C 76 69 70 84 0 ]
+[a 17C 76 69 70 84 0 ]
+[a 29C 76 69 70 84 0 ]
+[a 35C 76 69 70 84 0 ]
+[a 12C 83 73 68 69 83 0 ]
+[a 1C 114 87 83 82 0 ]
+[a 4C 114 87 83 82 0 ]
+[a 7C 114 87 83 82 0 ]
+[a 10C 114 87 83 82 0 ]
+[a 13C 114 87 83 82 0 ]
+[a 16C 114 87 83 82 0 ]
+[a 19C 114 87 83 82 0 ]
+[a 22C 114 87 83 82 0 ]
+[a 25C 114 76 83 82 0 ]
+[a 28C 114 76 83 82 0 ]
+[a 31C 114 76 83 82 0 ]
+[a 34C 114 76 83 82 0 ]
+[a 37C 114 76 83 82 0 ]
+[a 40C 114 76 83 82 0 ]
+[a 43C 114 76 83 82 0 ]
+[a 26C 79 86 69 82 0 ]
+[a 6C 67 69 78 84 69 82 0 ]
+[a 9C 67 69 78 84 69 82 0 ]
+[a 30C 67 69 78 84 69 82 0 ]
+[a 33C 67 69 78 84 69 82 0 ]
+[a 41C 67 69 78 84 69 82 0 ]
+[a 14C 70 65 82 0 ]
+[a 2C 78 69 65 82 0 ]
+[a 18C 78 85 76 76 0 ]
+[a 21C 78 85 76 76 0 ]
+[a 24C 78 85 76 76 0 ]
+[a 36C 78 85 76 76 0 ]
+[a 39C 78 85 76 76 0 ]
+[a 42C 78 85 76 76 0 ]
+[a 45C 78 85 76 76 0 ]
+[a 48C 78 85 76 76 0 ]
+[a 50C 78 85 76 76 0 ]
+[a 11C 66 79 84 72 0 ]
+[a 23C 78 79 78 69 0 ]
+[a 44C 78 79 78 69 0 ]
+[a 27C 76 73 78 69 0 ]
+[a 46C 32 0 ]
+[a 47C 32 0 ]
+[a 49C 32 0 ]
+[a 51C 32 0 ]

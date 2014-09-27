@@ -36,34 +36,12 @@
 #define __SHOW_MODULE_HEADER__ /*!< \brief This section includes the Module Header on the documentation */
 #undef  __SHOW_MODULE_HEADER__
 
+#include "PhilRoboKit_CoreLib_Macro.h"
+#if defined (USE_ADC)
 #include "hal_adc.h"
 
 /* Local Constants */
-static enum adcClockCfg_et
-{
-    FOSC_DIV2,
-    FOSC_DIV8,
-    FOSC_DIV32,
-    FOSC_INTRC0,
-    FOSC_DIV4,
-    FOSC_DIV16,
-    FOSC_DIV64,
-    FOSC_INTRC1
-};
 
-#if (__PHR_CONTROLLER__==__MCU_PIC18__)
-static enum adcTADOptions_et
-{
-    TAD_0,
-    TAD_2,
-    TAD_4,
-    TAD_6,
-    TAD_8,
-    TAD_12,
-    TAD_16,
-    TAD_21
-};
-#endif
 
 /* Local Variables */
 /* none */
@@ -89,6 +67,7 @@ static enum adcTADOptions_et
 * > <BR><BR>
 ***********************************************************************************/
 /*@ignore@*/                                // esc.comment SPLINT warns a function configLowLvlADC overshadows outer declaration, this line is not a declaration but a definition, must be a bug on SPLINT
+#if 0 // replaced by macro to save stack
 void configLowLvlADC(void)
 {
     /* 20Mhz Clock: Anito PIC16F877A Specific */
@@ -99,10 +78,12 @@ void configLowLvlADC(void)
     /* Right Justified */
     hal_rightAligned();
 }
+#endif
 /*@end@*/
 
 /* Private Functions */
 /* none */
 
+#endif
 /* end of hal_adc.c */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

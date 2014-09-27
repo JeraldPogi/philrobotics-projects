@@ -68,6 +68,7 @@
 * >     none
 * > <BR><BR>
 ***********************************************************************************/
+#if 0
 void setupTimer(void)
 {
     /* Set Prescaler */
@@ -84,11 +85,15 @@ void setupTimer(void)
     hal_clrBaseTimerIntFlag();
     hal_enableBaseTimerInt();
 }
+#endif
 
 /*******************************************************************************//**
 * \brief Timebase Interrupt Service Routine
 *
 * > This is an interrupt handler called periodically to manage system timebase
+*
+* > PIC18F4520, XC8, @32Mhz(/4) Clock, 255uS Period: 5-10uS from trigger, 12uS Duration (4.7% resource)
+* > PIC16F877A, XC8, @20Mhz(/4) Clock, 204uS Period: 8-16uS from trigger, 28uS Duration (13.73% resource)
 *
 * > <BR>
 * > **Syntax:**<BR>
@@ -103,90 +108,36 @@ void setupTimer(void)
 ***********************************************************************************/
 void timerISR(void)
 {
-    static uint16_t ui16UsCounter = 0;
-#ifdef __TIMER_SEC__
     static uint16_t ui16MsCounter = 0;
-#endif
 
     if(hal_getBaseTimerIntFlag() && hal_getBaseTimerIntEnableStatus())
     {
+        REGISTER_TMR0L = TMR0_1MS_PRELOAD;
         hal_clrBaseTimerIntFlag();
-        inc_gui16TimerUsMSB_Value(256);                     // increment uS Timer High Byte
-        ui16UsCounter += TMR0_US_INCREMENT;
+        inc_gui16TimerMs_Value();
 
-        while(ui16UsCounter >= 1000)
-        {
-            inc_gui16TimerMs_Value();
-            ui16UsCounter -= 1000;
-#ifdef __TIMER_SEC__
-            ui16MsCounter++;
-#endif
-#ifdef UNIT_TEST
-            UCUNIT_Tracepoint(0);
-#endif
-        }
-
-#ifdef __TIMER_SEC__
-
+        ui16MsCounter++;
         if(ui16MsCounter >= 1000)
         {
             inc_gui16TimerSec_Value();
             ui16MsCounter = 0;
 #ifdef UNIT_TEST
-            UCUNIT_Tracepoint(1);
+            UCUNIT_Tracepoint(0);
 #endif
         }
 
+#if defined (USE_ADC)
+        /* Check end of conversion */
+        if(TRUE == hal_checkADCEndofConversion())
+        {
+            /* start new conversion */
+            hal_startADCConversion();
+#ifdef UNIT_TEST
+            UCUNIT_Tracepoint(1);
+#endif
+        }
 #endif
     }
-}
-
-/*******************************************************************************//**
-* \brief Basetimer counter value
-*
-* > This is function which returns the value of the uS base timer counter
-*
-* > <BR>
-* > **Syntax:**<BR>
-* >      getBaseTimerValue(), ISR
-* > <BR><BR>
-* > **Parameters:**<BR>
-* >     none
-* > <BR><BR>
-* > **Returns:**<BR>
-* >     value of the uS counter
-* > <BR><BR>
-***********************************************************************************/
-uint16_t getBaseTimerValue(void)
-{
-    uint16_t ui16Temp,ui16HiTimer;
-
-    while((TRUE == get_gblISRLocked_FlagValue())) {}    // aquire mutex
-
-    disableGlobalInt();                                 // ensure atomic operation
-#if (__PHR_CONTROLLER__==__MCU_PIC18__)
-    hal_disableBaseTimer();
-#elif (__PHR_CONTROLLER__==__MCU_PIC16__)
-
-    do
-#else
-#endif
-    {
-        ui16HiTimer = get_gui16TimerUsMSB_Value();
-        ui16Temp = REGISTER_TMR0L;
-    }
-
-#if (__PHR_CONTROLLER__==__MCU_PIC16__)
-
-    while(ui16HiTimer != get_gui16TimerUsMSB_Value());
-
-#elif (__PHR_CONTROLLER__==__MCU_PIC18__)
-    hal_enableBaseTimer();
-#else
-#endif
-    ui16Temp += ui16HiTimer;
-    //enableGlobalInt();                                // esc.comment enabled on corelib_basetimer.c
-    return ui16Temp;
 }
 
 /* Private Functions */

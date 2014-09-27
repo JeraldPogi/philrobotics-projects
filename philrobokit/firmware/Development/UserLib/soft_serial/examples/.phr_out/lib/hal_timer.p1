@@ -1,0 +1,328 @@
+Version 3.2 HI-TECH Software Intermediate Code
+[c E1344 0 1 2 3 .. ]
+[n E1344 InterruptModes_et LOWSTATE CHANGE RISING FALLING  ]
+"125 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[v F1365 `(v ~T0 @X0 0 tf ]
+"119
+[v _nullIntFunction `(v ~T0 @X0 0 ef ]
+"126
+[v F1368 `(v ~T0 @X0 0 tf ]
+"127
+[v F1371 `(v ~T0 @X0 0 tf ]
+"133
+[v F1376 `(v ~T0 @X0 0 tf ]
+"134
+[v F1379 `(v ~T0 @X0 0 tf ]
+"135
+[v F1382 `(v ~T0 @X0 0 tf ]
+"136
+[v F1385 `(v ~T0 @X0 0 tf ]
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v F1404 `(v ~T0 @X0 0 tf ]
+"120
+[v _nullTMRFunction `(v ~T0 @X0 0 ef ]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v F1463 `(v ~T0 @X0 0 tf ]
+"128
+[v _null16BitTMRFunction `(v ~T0 @X0 0 ef ]
+"1214 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _OPTION_REG `Vuc ~T0 @X0 0 e@129 ]
+[c E1484 0 1 2 3 4 5 6 7 .. ]
+[n E1484 baseTmrPreScale_et TMR0_PRE_DIV2 TMR0_PRE_DIV4 TMR0_PRE_DIV8 TMR0_PRE_DIV16 TMR0_PRE_DIV32 TMR0_PRE_DIV64 TMR0_PRE_DIV128 TMR0_PRE_DIV256  ]
+"2622
+[v _T0CS `Vb ~T0 @X0 0 e@1037 ]
+"2488
+[v _PSA `Vb ~T0 @X0 0 e@1035 ]
+"50
+[v _TMR0 `Vuc ~T0 @X0 0 e@1 ]
+"2646
+[v _TMR0IF `Vb ~T0 @X0 0 e@90 ]
+"2644
+[v _TMR0IE `Vb ~T0 @X0 0 e@93 ]
+"60 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores\PhilRoboKit_CoreLib_GlobalDefs.h
+[v _inc_gui16TimerUsMSB_Value `(v ~T0 @X0 0 ef1`ui ]
+"63
+[v _inc_gui16TimerMs_Value `(v ~T0 @X0 0 ef ]
+"58
+[v _get_gblISRLocked_FlagValue `(uc ~T0 @X0 0 ef ]
+"2438 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _GIE `Vb ~T0 @X0 0 e@95 ]
+"2478
+[v _PEIE `Vb ~T0 @X0 0 e@94 ]
+"61 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores\PhilRoboKit_CoreLib_GlobalDefs.h
+[v _get_gui16TimerUsMSB_Value `(ui ~T0 @X0 0 ef ]
+"46 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[; <" INDF equ 00h ;# ">
+"52
+[; <" TMR0 equ 01h ;# ">
+"58
+[; <" PCL equ 02h ;# ">
+"64
+[; <" STATUS equ 03h ;# ">
+"151
+[; <" FSR equ 04h ;# ">
+"157
+[; <" PORTA equ 05h ;# ">
+"206
+[; <" PORTB equ 06h ;# ">
+"267
+[; <" PORTC equ 07h ;# ">
+"328
+[; <" PORTD equ 08h ;# ">
+"389
+[; <" PORTE equ 09h ;# ">
+"420
+[; <" PCLATH equ 0Ah ;# ">
+"439
+[; <" INTCON equ 0Bh ;# ">
+"516
+[; <" PIR1 equ 0Ch ;# ">
+"577
+[; <" PIR2 equ 0Dh ;# ">
+"616
+[; <" TMR1 equ 0Eh ;# ">
+"622
+[; <" TMR1L equ 0Eh ;# ">
+"628
+[; <" TMR1H equ 0Fh ;# ">
+"634
+[; <" T1CON equ 010h ;# ">
+"708
+[; <" TMR2 equ 011h ;# ">
+"714
+[; <" T2CON equ 012h ;# ">
+"784
+[; <" SSPBUF equ 013h ;# ">
+"790
+[; <" SSPCON equ 014h ;# ">
+"859
+[; <" CCPR1 equ 015h ;# ">
+"865
+[; <" CCPR1L equ 015h ;# ">
+"871
+[; <" CCPR1H equ 016h ;# ">
+"877
+[; <" CCP1CON equ 017h ;# ">
+"934
+[; <" RCSTA equ 018h ;# ">
+"1028
+[; <" TXREG equ 019h ;# ">
+"1034
+[; <" RCREG equ 01Ah ;# ">
+"1040
+[; <" CCPR2 equ 01Bh ;# ">
+"1046
+[; <" CCPR2L equ 01Bh ;# ">
+"1052
+[; <" CCPR2H equ 01Ch ;# ">
+"1058
+[; <" CCP2CON equ 01Dh ;# ">
+"1115
+[; <" ADRESH equ 01Eh ;# ">
+"1121
+[; <" ADCON0 equ 01Fh ;# ">
+"1216
+[; <" OPTION_REG equ 081h ;# ">
+"1285
+[; <" TRISA equ 085h ;# ">
+"1334
+[; <" TRISB equ 086h ;# ">
+"1395
+[; <" TRISC equ 087h ;# ">
+"1456
+[; <" TRISD equ 088h ;# ">
+"1517
+[; <" TRISE equ 089h ;# ">
+"1573
+[; <" PIE1 equ 08Ch ;# ">
+"1634
+[; <" PIE2 equ 08Dh ;# ">
+"1673
+[; <" PCON equ 08Eh ;# ">
+"1706
+[; <" SSPCON2 equ 091h ;# ">
+"1767
+[; <" PR2 equ 092h ;# ">
+"1773
+[; <" SSPADD equ 093h ;# ">
+"1779
+[; <" SSPSTAT equ 094h ;# ">
+"1947
+[; <" TXSTA equ 098h ;# ">
+"2027
+[; <" SPBRG equ 099h ;# ">
+"2033
+[; <" CMCON equ 09Ch ;# ">
+"2102
+[; <" CVRCON equ 09Dh ;# ">
+"2166
+[; <" ADRESL equ 09Eh ;# ">
+"2172
+[; <" ADCON1 equ 09Fh ;# ">
+"2230
+[; <" EEDATA equ 010Ch ;# ">
+"2236
+[; <" EEADR equ 010Dh ;# ">
+"2242
+[; <" EEDATH equ 010Eh ;# ">
+"2248
+[; <" EEADRH equ 010Fh ;# ">
+"2254
+[; <" EECON1 equ 018Ch ;# ">
+"2298
+[; <" EECON2 equ 018Dh ;# ">
+"112 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[v _eMod0_Mode `E1344 ~T0 @X0 1 e ]
+[v _eMod1_Mode `E1344 ~T0 @X0 1 e ]
+[v _eMod2_Mode `E1344 ~T0 @X0 1 e ]
+[v _eMod3_Mode `E1344 ~T0 @X0 1 e ]
+"116
+[v _eMod4_Mode `E1344 ~T0 @X0 1 e ]
+[v _eMod5_Mode `E1344 ~T0 @X0 1 e ]
+[v _eMod6_Mode `E1344 ~T0 @X0 1 e ]
+[v _eMod7_Mode `E1344 ~T0 @X0 1 e ]
+"125
+[v _pt2INT0 `*F1365 ~T0 @X0 1 e ]
+[i _pt2INT0
+&U _nullIntFunction
+]
+"126
+[v _pt2INT1 `*F1368 ~T0 @X0 1 e ]
+[i _pt2INT1
+&U _nullIntFunction
+]
+"127
+[v _pt2INT2 `*F1371 ~T0 @X0 1 e ]
+[i _pt2INT2
+&U _nullIntFunction
+]
+"133
+[v _pt2INT4 `*F1376 ~T0 @X0 1 e ]
+[i _pt2INT4
+&U _nullIntFunction
+]
+"134
+[v _pt2INT5 `*F1379 ~T0 @X0 1 e ]
+[i _pt2INT5
+&U _nullIntFunction
+]
+"135
+[v _pt2INT6 `*F1382 ~T0 @X0 1 e ]
+[i _pt2INT6
+&U _nullIntFunction
+]
+"136
+[v _pt2INT7 `*F1385 ~T0 @X0 1 e ]
+[i _pt2INT7
+&U _nullIntFunction
+]
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v _pt2TMR2ISR `*F1404 ~T0 @X0 1 e ]
+[i _pt2TMR2ISR
+&U _nullTMRFunction
+]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v _pt2TMR1ISR `*F1463 ~T0 @X0 1 e ]
+[i _pt2TMR1ISR
+&U _null16BitTMRFunction
+]
+"72 hardware/cores/lib\hal_timer.c
+[v _setupTimer `(v ~T0 @X0 1 ef ]
+{
+[e :U _setupTimer ]
+[f ]
+"74
+[e =& _OPTION_REG -> ~ -> 7 `i `uc ]
+[e =| _OPTION_REG -> & -> . `E1484 1 `i -> 7 `i `uc ]
+"76
+[e = _T0CS -> -> 0 `i `b ]
+[e = _PSA -> -> 0 `i `b ]
+[e = _TMR0 -> -> 0 `i `uc ]
+"84
+[e = _TMR0IF -> -> 0 `i `b ]
+"85
+[e = _TMR0IE -> -> 1 `i `b ]
+"86
+[e :UE 97 ]
+}
+"105
+[v _timerISR `(v ~T0 @X0 1 ef ]
+{
+[e :U _timerISR ]
+[f ]
+"106
+[v F1501 `ui ~T0 @X0 1 s ui16UsCounter ]
+[i F1501
+-> -> 0 `i `ui
+]
+"111
+[e $ ! && != ? _TMR0IF : -> 1 `i -> 0 `i -> 0 `i != ? _TMR0IE : -> 1 `i -> 0 `i -> 0 `i 99  ]
+"112
+{
+"113
+[e = _TMR0IF -> -> 0 `i `b ]
+"114
+[e ( _inc_gui16TimerUsMSB_Value (1 -> -> 256 `i `ui ]
+"115
+[e =+ F1501 -> -> 205 `i `ui ]
+"117
+[e $U 100  ]
+[e :U 101 ]
+"118
+{
+"119
+[e ( _inc_gui16TimerMs_Value ..  ]
+"120
+[e =- F1501 -> -> 1000 `i `ui ]
+"127
+}
+[e :U 100 ]
+"117
+[e $ >= F1501 -> -> 1000 `i `ui 101  ]
+[e :U 102 ]
+"141
+}
+[e :U 99 ]
+"142
+[e :UE 98 ]
+}
+"161
+[v _getBaseTimerValue `(ui ~T0 @X0 1 ef ]
+{
+[e :U _getBaseTimerValue ]
+[f ]
+"162
+[v _ui16Temp `ui ~T0 @X0 1 a ]
+[v _ui16HiTimer `ui ~T0 @X0 1 a ]
+"164
+[e $U 104  ]
+[e :U 105 ]
+{
+}
+[e :U 104 ]
+[e $ == -> == -> 1 `i -> 1 `i `i -> ( _get_gblISRLocked_FlagValue ..  `i 105  ]
+[e :U 106 ]
+"166
+[e = _GIE -> -> 0 `i `b ]
+[e = _PEIE -> -> 0 `i `b ]
+"171
+[e :U 109 ]
+"174
+{
+"175
+[e = _ui16HiTimer ( _get_gui16TimerUsMSB_Value ..  ]
+"176
+[e = _ui16Temp -> _TMR0 `ui ]
+"177
+}
+"181
+[e $ != _ui16HiTimer ( _get_gui16TimerUsMSB_Value ..  109  ]
+[e :U 108 ]
+"187
+[e =+ _ui16Temp _ui16HiTimer ]
+"189
+[e ) _ui16Temp ]
+[e $UE 103  ]
+"190
+[e :UE 103 ]
+}

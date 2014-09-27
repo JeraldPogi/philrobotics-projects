@@ -1,0 +1,202 @@
+Version 3.2 HI-TECH Software Intermediate Code
+"1217 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _OPTION_REG `Vuc ~T0 @X0 0 e@129 ]
+"74 hardware/cores/lib\hal_timer.c
+[c E1463 0 1 2 3 4 5 6 7 .. ]
+[n E1463 baseTmrPreScale_et TMR0_PRE_DIV2 TMR0_PRE_DIV4 TMR0_PRE_DIV8 TMR0_PRE_DIV16 TMR0_PRE_DIV32 TMR0_PRE_DIV64 TMR0_PRE_DIV128 TMR0_PRE_DIV256  ]
+"2625 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _T0CS `Vb ~T0 @X0 0 e@1037 ]
+"2491
+[v _PSA `Vb ~T0 @X0 0 e@1035 ]
+"53
+[v _TMR0 `Vuc ~T0 @X0 0 e@1 ]
+"2649
+[v _TMR0IF `Vb ~T0 @X0 0 e@90 ]
+"2647
+[v _TMR0IE `Vb ~T0 @X0 0 e@93 ]
+"60 C:\Users\glutnix\Desktop\philrobokit_xc8/hardware/cores\compilers\htc\..\..\PhilRoboKit_CoreLib_GlobalDefs.h
+[v _inc_gui16TimerUsMSB_Value `(v ~T0 @X0 0 ef1`ui ]
+"64
+[v _inc_gui16TimerMs_Value `(v ~T0 @X0 0 ef ]
+"49 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[; <" INDF equ 00h ;# ">
+"55
+[; <" TMR0 equ 01h ;# ">
+"61
+[; <" PCL equ 02h ;# ">
+"67
+[; <" STATUS equ 03h ;# ">
+"154
+[; <" FSR equ 04h ;# ">
+"160
+[; <" PORTA equ 05h ;# ">
+"209
+[; <" PORTB equ 06h ;# ">
+"270
+[; <" PORTC equ 07h ;# ">
+"331
+[; <" PORTD equ 08h ;# ">
+"392
+[; <" PORTE equ 09h ;# ">
+"423
+[; <" PCLATH equ 0Ah ;# ">
+"442
+[; <" INTCON equ 0Bh ;# ">
+"519
+[; <" PIR1 equ 0Ch ;# ">
+"580
+[; <" PIR2 equ 0Dh ;# ">
+"619
+[; <" TMR1 equ 0Eh ;# ">
+"625
+[; <" TMR1L equ 0Eh ;# ">
+"631
+[; <" TMR1H equ 0Fh ;# ">
+"637
+[; <" T1CON equ 010h ;# ">
+"711
+[; <" TMR2 equ 011h ;# ">
+"717
+[; <" T2CON equ 012h ;# ">
+"787
+[; <" SSPBUF equ 013h ;# ">
+"793
+[; <" SSPCON equ 014h ;# ">
+"862
+[; <" CCPR1 equ 015h ;# ">
+"868
+[; <" CCPR1L equ 015h ;# ">
+"874
+[; <" CCPR1H equ 016h ;# ">
+"880
+[; <" CCP1CON equ 017h ;# ">
+"937
+[; <" RCSTA equ 018h ;# ">
+"1031
+[; <" TXREG equ 019h ;# ">
+"1037
+[; <" RCREG equ 01Ah ;# ">
+"1043
+[; <" CCPR2 equ 01Bh ;# ">
+"1049
+[; <" CCPR2L equ 01Bh ;# ">
+"1055
+[; <" CCPR2H equ 01Ch ;# ">
+"1061
+[; <" CCP2CON equ 01Dh ;# ">
+"1118
+[; <" ADRESH equ 01Eh ;# ">
+"1124
+[; <" ADCON0 equ 01Fh ;# ">
+"1219
+[; <" OPTION_REG equ 081h ;# ">
+"1288
+[; <" TRISA equ 085h ;# ">
+"1337
+[; <" TRISB equ 086h ;# ">
+"1398
+[; <" TRISC equ 087h ;# ">
+"1459
+[; <" TRISD equ 088h ;# ">
+"1520
+[; <" TRISE equ 089h ;# ">
+"1576
+[; <" PIE1 equ 08Ch ;# ">
+"1637
+[; <" PIE2 equ 08Dh ;# ">
+"1676
+[; <" PCON equ 08Eh ;# ">
+"1709
+[; <" SSPCON2 equ 091h ;# ">
+"1770
+[; <" PR2 equ 092h ;# ">
+"1776
+[; <" SSPADD equ 093h ;# ">
+"1782
+[; <" SSPSTAT equ 094h ;# ">
+"1950
+[; <" TXSTA equ 098h ;# ">
+"2030
+[; <" SPBRG equ 099h ;# ">
+"2036
+[; <" CMCON equ 09Ch ;# ">
+"2105
+[; <" CVRCON equ 09Dh ;# ">
+"2169
+[; <" ADRESL equ 09Eh ;# ">
+"2175
+[; <" ADCON1 equ 09Fh ;# ">
+"2233
+[; <" EEDATA equ 010Ch ;# ">
+"2239
+[; <" EEADR equ 010Dh ;# ">
+"2245
+[; <" EEDATH equ 010Eh ;# ">
+"2251
+[; <" EEADRH equ 010Fh ;# ">
+"2257
+[; <" EECON1 equ 018Ch ;# ">
+"2301
+[; <" EECON2 equ 018Dh ;# ">
+"71 hardware/cores/lib\hal_timer.c
+[v _setupTimer `(v ~T0 @X0 1 ef ]
+"72
+{
+[e :U _setupTimer ]
+[f ]
+"74
+[e =& _OPTION_REG -> ~ -> 7 `i `uc ]
+[e =| _OPTION_REG -> & -> . `E1463 1 `i -> 7 `i `uc ]
+"76
+[e = _T0CS -> -> 0 `i `b ]
+[e = _PSA -> -> 0 `i `b ]
+[e = _TMR0 -> -> 0 `i `uc ]
+"84
+[e = _TMR0IF -> -> 0 `i `b ]
+"85
+[e = _TMR0IE -> -> 1 `i `b ]
+"86
+[e :UE 97 ]
+}
+"107
+[v _timerISR `(v ~T0 @X0 1 ef ]
+"108
+{
+[e :U _timerISR ]
+[f ]
+"109
+[v F1478 `ui ~T0 @X0 1 s ui16UsCounter ]
+[i F1478
+-> -> 0 `i `ui
+]
+"114
+[e $ ! && != ? _TMR0IF : -> 1 `i -> 0 `i -> 0 `i != ? _TMR0IE : -> 1 `i -> 0 `i -> 0 `i 99  ]
+"115
+{
+"116
+[e = _TMR0IF -> -> 0 `i `b ]
+"117
+[e ( _inc_gui16TimerUsMSB_Value (1 -> -> 256 `i `ui ]
+"118
+[e =+ F1478 -> -> 205 `i `ui ]
+"120
+[e $U 100  ]
+[e :U 101 ]
+"121
+{
+"122
+[e ( _inc_gui16TimerMs_Value ..  ]
+"123
+[e =- F1478 -> -> 1000 `i `ui ]
+"130
+}
+[e :U 100 ]
+"120
+[e $ >= F1478 -> -> 1000 `i `ui 101  ]
+[e :U 102 ]
+"144
+}
+[e :U 99 ]
+"145
+[e :UE 98 ]
+}

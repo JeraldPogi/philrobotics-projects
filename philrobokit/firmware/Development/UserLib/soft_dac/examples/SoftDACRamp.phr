@@ -16,8 +16,8 @@
 *********************************************************************************************/
 #include <soft_dac.h>
 
-static volatile uint16_t LoopTimer;
-                uint8_t  ADCOutValue = 0;
+static uint16_t LoopTimer,TimerDelta;
+       uint8_t  ADCOutValue = 0;
 
 void init()
 {
@@ -28,7 +28,9 @@ void init()
 void cycle()
 {
 	/* New Value Every 1mS */
-	if(getElapsedMs(LoopTimer)>= 1)                 // check if 1mS has elapsed
+	TimerDelta = getElapsedMs(LoopTimer);
+	
+	if(TimerDelta >= 1)                 			// check if 1mS has elapsed
 	{
 		LoopTimer = getMs();                        // get another stamp for the next cycle
         

@@ -46,8 +46,8 @@ void cycle()
 		delayMs(5);
 	}
 	
-	//delayMs(200);
-	//delayMs(200);
+	delayMs(200);
+	delayMs(200);
 	
 	/* decrement angle */
 	for(i=90;i>=-90;i--)
@@ -63,6 +63,6 @@ void cycle()
 		delayMs(5);
 	}
 	
-	//delayMs(200);
-	//delayMs(200);
+	delayMs(200);
+	delayMs(200);
 }

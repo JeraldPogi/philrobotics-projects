@@ -1,0 +1,572 @@
+Version 3.2 HI-TECH Software Intermediate Code
+"96 libraries/Mobot_Lib\Mobot_Lib.h
+[v _setupPBot `(v ~T0 @X0 0 ef3`uc`uc`uc ]
+"55 libraries/Mobot_Lib\Mobot_Lib.c
+[v _startDProtocol `(v ~T0 @X0 0 sf3`uc`uc`ul ]
+"79 libraries/Mobot_Lib\PBotGlobals.h
+[v _blObstacleSensorPolarity `uc ~T0 @X0 0 e ]
+"80
+[v _blLineSensorPolarity `uc ~T0 @X0 0 e ]
+"294 C:\Users\glutnix\Desktop\philrobokit_xc8/hardware/cores/lib\hal_gpio.h
+[v _configPin `(v ~T0 @X0 0 ef2`uc`uc ]
+"77 libraries/Mobot_Lib\Mobot_Lib.c
+[c E1173 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 .. ]
+[n E1173 DigitalPins_et D0 D1 D2 D3 D4 D5 D6 D7 D8 D9 D10 D11 D12 D13 D14 D15 D16 D17 D18 D19 D20 D21 D22 D23 D24 D25 D26 D27 D28  ]
+"85
+[c E1169 0 1 2 .. ]
+[n E1169 PinStateOperation_et SET_PIN CLR_PIN TOGGLE_PIN  ]
+"295 C:\Users\glutnix\Desktop\philrobokit_xc8/hardware/cores/lib\hal_gpio.h
+[v _changePinState `(v ~T0 @X0 0 ef2`uc`E1169 ]
+"73 libraries/Mobot_Lib\LowLevelMobot.h
+[v _runRightMotor `(v ~T0 @X0 0 ef2`uc`uc ]
+"75
+[v _runLeftMotor `(v ~T0 @X0 0 ef2`uc`uc ]
+"77
+[v _stopRightMotor `(v ~T0 @X0 0 ef ]
+"78
+[v _stopLeftMotor `(v ~T0 @X0 0 ef ]
+"84
+[v _pollWallSensors `(v ~T0 @X0 0 ef1`*uc ]
+"56 libraries/Mobot_Lib\PBotGlobals.h
+[v _blWallDetectedonLeft `uc ~T0 @X0 0 e ]
+"57
+[v _blWallDetectedonCenter `uc ~T0 @X0 0 e ]
+"58
+[v _blWallDetectedonRight `uc ~T0 @X0 0 e ]
+"71
+[v _ui8ObstacleLocation `uc ~T0 @X0 0 e ]
+"160 libraries/Mobot_Lib\Mobot_Lib.c
+[c E1494 0 1 2 3 4 5 6 7 .. ]
+[n E1494 . KI_NO_OBSTACLE KI_OBJECT_LEFT KI_OBJECT_LEFTCENTER KI_OBJECT_RIGHT KI_OBJECT_RIGHTCENTER KI_OBJECT_FARFRONT KI_OBJECT_NEARFRONT KI_OBJECT_BOTHSIDES  ]
+"85 libraries/Mobot_Lib\LowLevelMobot.h
+[v _pollLineSensors `(v ~T0 @X0 0 ef1`*uc ]
+"60 libraries/Mobot_Lib\PBotGlobals.h
+[v _blLineDetectedonLeft `uc ~T0 @X0 0 e ]
+"61
+[v _blLineDetectedonCenter `uc ~T0 @X0 0 e ]
+"62
+[v _blLineDetectedonRight `uc ~T0 @X0 0 e ]
+"72
+[v _ui8LineLocation `uc ~T0 @X0 0 e ]
+"209 libraries/Mobot_Lib\Mobot_Lib.c
+[c E1503 0 1 2 3 4 5 6 7 .. ]
+[n E1503 . KI_NO_LINE KI_LINE_LEFT KI_LINE_LEFTCENTER KI_LINE_RIGHT KI_LINE_RIGHTCENTER KI_OVER_LINE KI_LINE_CENTER KI_LINE_FRONT  ]
+"50 libraries/Mobot_Lib\Telemetry.h
+[v _setupTelemetryID `(v ~T0 @X0 0 ef2`ul`*uc ]
+"49 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[; <" INDF equ 00h ;# ">
+"55
+[; <" TMR0 equ 01h ;# ">
+"61
+[; <" PCL equ 02h ;# ">
+"67
+[; <" STATUS equ 03h ;# ">
+"154
+[; <" FSR equ 04h ;# ">
+"160
+[; <" PORTA equ 05h ;# ">
+"209
+[; <" PORTB equ 06h ;# ">
+"270
+[; <" PORTC equ 07h ;# ">
+"331
+[; <" PORTD equ 08h ;# ">
+"392
+[; <" PORTE equ 09h ;# ">
+"423
+[; <" PCLATH equ 0Ah ;# ">
+"442
+[; <" INTCON equ 0Bh ;# ">
+"519
+[; <" PIR1 equ 0Ch ;# ">
+"580
+[; <" PIR2 equ 0Dh ;# ">
+"619
+[; <" TMR1 equ 0Eh ;# ">
+"625
+[; <" TMR1L equ 0Eh ;# ">
+"631
+[; <" TMR1H equ 0Fh ;# ">
+"637
+[; <" T1CON equ 010h ;# ">
+"711
+[; <" TMR2 equ 011h ;# ">
+"717
+[; <" T2CON equ 012h ;# ">
+"787
+[; <" SSPBUF equ 013h ;# ">
+"793
+[; <" SSPCON equ 014h ;# ">
+"862
+[; <" CCPR1 equ 015h ;# ">
+"868
+[; <" CCPR1L equ 015h ;# ">
+"874
+[; <" CCPR1H equ 016h ;# ">
+"880
+[; <" CCP1CON equ 017h ;# ">
+"937
+[; <" RCSTA equ 018h ;# ">
+"1031
+[; <" TXREG equ 019h ;# ">
+"1037
+[; <" RCREG equ 01Ah ;# ">
+"1043
+[; <" CCPR2 equ 01Bh ;# ">
+"1049
+[; <" CCPR2L equ 01Bh ;# ">
+"1055
+[; <" CCPR2H equ 01Ch ;# ">
+"1061
+[; <" CCP2CON equ 01Dh ;# ">
+"1118
+[; <" ADRESH equ 01Eh ;# ">
+"1124
+[; <" ADCON0 equ 01Fh ;# ">
+"1219
+[; <" OPTION_REG equ 081h ;# ">
+"1288
+[; <" TRISA equ 085h ;# ">
+"1337
+[; <" TRISB equ 086h ;# ">
+"1398
+[; <" TRISC equ 087h ;# ">
+"1459
+[; <" TRISD equ 088h ;# ">
+"1520
+[; <" TRISE equ 089h ;# ">
+"1576
+[; <" PIE1 equ 08Ch ;# ">
+"1637
+[; <" PIE2 equ 08Dh ;# ">
+"1676
+[; <" PCON equ 08Eh ;# ">
+"1709
+[; <" SSPCON2 equ 091h ;# ">
+"1770
+[; <" PR2 equ 092h ;# ">
+"1776
+[; <" SSPADD equ 093h ;# ">
+"1782
+[; <" SSPSTAT equ 094h ;# ">
+"1950
+[; <" TXSTA equ 098h ;# ">
+"2030
+[; <" SPBRG equ 099h ;# ">
+"2036
+[; <" CMCON equ 09Ch ;# ">
+"2105
+[; <" CVRCON equ 09Dh ;# ">
+"2169
+[; <" ADRESL equ 09Eh ;# ">
+"2175
+[; <" ADCON1 equ 09Fh ;# ">
+"2233
+[; <" EEDATA equ 010Ch ;# ">
+"2239
+[; <" EEADR equ 010Dh ;# ">
+"2245
+[; <" EEDATH equ 010Eh ;# ">
+"2251
+[; <" EEADRH equ 010Fh ;# ">
+"2257
+[; <" EECON1 equ 018Ch ;# ">
+"2301
+[; <" EECON2 equ 018Dh ;# ">
+"52 libraries/Mobot_Lib\Mobot_Lib.c
+[v _strDProtID `uc ~T0 @X0 -> 4 `i s ]
+"58
+[v _setupPBotUART `(v ~T0 @X0 1 ef5`uc`uc`uc`uc`ul ]
+"59
+{
+[e :U _setupPBotUART ]
+"58
+[v _ui8Mode `uc ~T0 @X0 1 r1 ]
+[v _blObstaclePolarity `uc ~T0 @X0 1 r2 ]
+[v _blLinePolarity `uc ~T0 @X0 1 r3 ]
+[v _blEnableTelemetry `uc ~T0 @X0 1 r4 ]
+[v _ui32DBaudRate `ul ~T0 @X0 1 r5 ]
+"59
+[f ]
+"60
+[v _blEnableRemoteControl `uc ~T0 @X0 1 a ]
+[e = _blEnableRemoteControl -> -> == -> 0 `i -> 1 `i `i `uc ]
+"62
+[e $ ! == -> _ui8Mode `i -> 3 `i 98  ]
+"63
+{
+"64
+[e = _blEnableRemoteControl -> -> == -> 1 `i -> 1 `i `i `uc ]
+"65
+}
+[e :U 98 ]
+"67
+[e ( _setupPBot (3 , , _ui8Mode _blObstaclePolarity _blLinePolarity ]
+"68
+[e ( _startDProtocol (3 , , _blEnableRemoteControl _blEnableTelemetry _ui32DBaudRate ]
+"69
+[e :UE 97 ]
+}
+"72
+[v _setupPBot `(v ~T0 @X0 1 ef3`uc`uc`uc ]
+"73
+{
+[e :U _setupPBot ]
+"72
+[v _ui8Mode `uc ~T0 @X0 1 r1 ]
+[v _blObstaclePolarity `uc ~T0 @X0 1 r2 ]
+[v _blLinePolarity `uc ~T0 @X0 1 r3 ]
+"73
+[f ]
+"74
+[e = _blObstacleSensorPolarity -> -> ! != -> _blObstaclePolarity `i -> -> -> 0 `i `uc `i `i `uc ]
+"75
+[e = _blLineSensorPolarity _blLinePolarity ]
+"77
+[e ( _configPin (2 , -> . `E1173 3 `uc -> -> 1 `i `uc ]
+"78
+[e ( _configPin (2 , -> . `E1173 0 `uc -> -> 1 `i `uc ]
+"79
+[e ( _configPin (2 , -> . `E1173 4 `uc -> -> 1 `i `uc ]
+"81
+[e ( _configPin (2 , -> . `E1173 9 `uc -> -> 1 `i `uc ]
+"82
+[e ( _configPin (2 , -> . `E1173 5 `uc -> -> 1 `i `uc ]
+"83
+[e ( _configPin (2 , -> . `E1173 10 `uc -> -> 1 `i `uc ]
+"85
+[e ( _changePinState (2 , -> . `E1173 8 `uc -> . `E1169 1 `E1169 ]
+"86
+[e ( _changePinState (2 , -> . `E1173 1 `uc -> . `E1169 1 `E1169 ]
+"87
+[e ( _changePinState (2 , -> . `E1173 2 `uc -> . `E1169 1 `E1169 ]
+"88
+[e ( _changePinState (2 , -> . `E1173 11 `uc -> . `E1169 1 `E1169 ]
+"89
+[e ( _configPin (2 , -> . `E1173 8 `uc -> -> 0 `i `uc ]
+"90
+[e ( _configPin (2 , -> . `E1173 1 `uc -> -> 0 `i `uc ]
+"91
+[e ( _configPin (2 , -> . `E1173 2 `uc -> -> 0 `i `uc ]
+"92
+[e ( _configPin (2 , -> . `E1173 11 `uc -> -> 0 `i `uc ]
+"107
+[e :UE 99 ]
+}
+"110
+[v _moveForward `(v ~T0 @X0 1 ef1`uc ]
+"111
+{
+[e :U _moveForward ]
+"110
+[v _ui8Speed `uc ~T0 @X0 1 r1 ]
+"111
+[f ]
+"112
+[e ( _runRightMotor (2 , _ui8Speed -> -> 0 `i `uc ]
+"113
+[e ( _runLeftMotor (2 , _ui8Speed -> -> 0 `i `uc ]
+"114
+[e :UE 100 ]
+}
+"116
+[v _moveBackward `(v ~T0 @X0 1 ef1`uc ]
+"117
+{
+[e :U _moveBackward ]
+"116
+[v _ui8Speed `uc ~T0 @X0 1 r1 ]
+"117
+[f ]
+"118
+[e ( _runRightMotor (2 , _ui8Speed -> -> 1 `i `uc ]
+"119
+[e ( _runLeftMotor (2 , _ui8Speed -> -> 1 `i `uc ]
+"120
+[e :UE 101 ]
+}
+"122
+[v _turnLeft `(v ~T0 @X0 1 ef1`uc ]
+"123
+{
+[e :U _turnLeft ]
+"122
+[v _ui8Speed `uc ~T0 @X0 1 r1 ]
+"123
+[f ]
+"124
+[e ( _runRightMotor (2 , -> -> 255 `i `uc -> -> 0 `i `uc ]
+"125
+[e ( _runLeftMotor (2 , -> - -> 255 `i -> _ui8Speed `i `uc -> -> 0 `i `uc ]
+"126
+[e :UE 102 ]
+}
+"128
+[v _turnRight `(v ~T0 @X0 1 ef1`uc ]
+"129
+{
+[e :U _turnRight ]
+"128
+[v _ui8Speed `uc ~T0 @X0 1 r1 ]
+"129
+[f ]
+"130
+[e ( _runRightMotor (2 , -> - -> 255 `i -> _ui8Speed `i `uc -> -> 0 `i `uc ]
+"131
+[e ( _runLeftMotor (2 , -> -> 255 `i `uc -> -> 0 `i `uc ]
+"132
+[e :UE 103 ]
+}
+"134
+[v _rotateLeft `(v ~T0 @X0 1 ef1`uc ]
+"135
+{
+[e :U _rotateLeft ]
+"134
+[v _ui8Speed `uc ~T0 @X0 1 r1 ]
+"135
+[f ]
+"136
+[e ( _runRightMotor (2 , _ui8Speed -> -> 0 `i `uc ]
+"137
+[e ( _runLeftMotor (2 , _ui8Speed -> -> 1 `i `uc ]
+"138
+[e :UE 104 ]
+}
+"140
+[v _rotateRight `(v ~T0 @X0 1 ef1`uc ]
+"141
+{
+[e :U _rotateRight ]
+"140
+[v _ui8Speed `uc ~T0 @X0 1 r1 ]
+"141
+[f ]
+"142
+[e ( _runRightMotor (2 , _ui8Speed -> -> 1 `i `uc ]
+"143
+[e ( _runLeftMotor (2 , _ui8Speed -> -> 0 `i `uc ]
+"144
+[e :UE 105 ]
+}
+"146
+[v _stopMotors `(v ~T0 @X0 1 ef ]
+"147
+{
+[e :U _stopMotors ]
+[f ]
+"148
+[e ( _stopRightMotor ..  ]
+"149
+[e ( _stopLeftMotor ..  ]
+"150
+[e :UE 106 ]
+}
+"153
+[v _detectObstacle `(uc ~T0 @X0 1 ef ]
+"154
+{
+[e :U _detectObstacle ]
+[f ]
+"155
+[e ( _pollWallSensors (1 &U _blObstacleSensorPolarity ]
+"158
+[e $ ! && && != -> _blWallDetectedonLeft `i -> -> -> 0 `i `uc `i != -> _blWallDetectedonCenter `i -> -> -> 0 `i `uc `i != -> _blWallDetectedonRight `i -> -> -> 0 `i `uc `i 108  ]
+"159
+{
+"160
+[e = _ui8ObstacleLocation -> . `E1494 6 `uc ]
+"161
+}
+[e $U 109  ]
+"163
+[e :U 108 ]
+[e $ ! && != -> _blWallDetectedonLeft `i -> -> -> 0 `i `uc `i != -> _blWallDetectedonCenter `i -> -> -> 0 `i `uc `i 110  ]
+"164
+{
+"165
+[e = _ui8ObstacleLocation -> . `E1494 2 `uc ]
+"166
+}
+[e $U 111  ]
+"168
+[e :U 110 ]
+[e $ ! && != -> _blWallDetectedonCenter `i -> -> -> 0 `i `uc `i != -> _blWallDetectedonRight `i -> -> -> 0 `i `uc `i 112  ]
+"169
+{
+"170
+[e = _ui8ObstacleLocation -> . `E1494 4 `uc ]
+"171
+}
+[e $U 113  ]
+"173
+[e :U 112 ]
+[e $ ! && != -> _blWallDetectedonLeft `i -> -> -> 0 `i `uc `i != -> _blWallDetectedonRight `i -> -> -> 0 `i `uc `i 114  ]
+"174
+{
+"175
+[e = _ui8ObstacleLocation -> . `E1494 7 `uc ]
+"176
+}
+[e $U 115  ]
+"178
+[e :U 114 ]
+[e $ ! != -> _blWallDetectedonCenter `i -> -> -> 0 `i `uc `i 116  ]
+"179
+{
+"180
+[e = _ui8ObstacleLocation -> . `E1494 5 `uc ]
+"181
+}
+[e $U 117  ]
+"183
+[e :U 116 ]
+[e $ ! != -> _blWallDetectedonLeft `i -> -> -> 0 `i `uc `i 118  ]
+"184
+{
+"185
+[e = _ui8ObstacleLocation -> . `E1494 1 `uc ]
+"186
+}
+[e $U 119  ]
+"188
+[e :U 118 ]
+[e $ ! != -> _blWallDetectedonRight `i -> -> -> 0 `i `uc `i 120  ]
+"189
+{
+"190
+[e = _ui8ObstacleLocation -> . `E1494 3 `uc ]
+"191
+}
+[e $U 121  ]
+"193
+[e :U 120 ]
+"194
+{
+"195
+[e = _ui8ObstacleLocation -> . `E1494 0 `uc ]
+"196
+}
+[e :U 121 ]
+[e :U 119 ]
+[e :U 117 ]
+[e :U 115 ]
+[e :U 113 ]
+[e :U 111 ]
+[e :U 109 ]
+"198
+[e ) _ui8ObstacleLocation ]
+[e $UE 107  ]
+"199
+[e :UE 107 ]
+}
+"202
+[v _detectLine `(uc ~T0 @X0 1 ef ]
+"203
+{
+[e :U _detectLine ]
+[f ]
+"204
+[e ( _pollLineSensors (1 &U _blLineSensorPolarity ]
+"207
+[e $ ! && && != -> _blLineDetectedonLeft `i -> -> -> 0 `i `uc `i != -> _blLineDetectedonCenter `i -> -> -> 0 `i `uc `i != -> _blLineDetectedonRight `i -> -> -> 0 `i `uc `i 123  ]
+"208
+{
+"209
+[e = _ui8LineLocation -> . `E1503 5 `uc ]
+"210
+}
+[e $U 124  ]
+"212
+[e :U 123 ]
+[e $ ! && != -> _blLineDetectedonLeft `i -> -> -> 0 `i `uc `i != -> _blLineDetectedonCenter `i -> -> -> 0 `i `uc `i 125  ]
+"213
+{
+"214
+[e = _ui8LineLocation -> . `E1503 2 `uc ]
+"215
+}
+[e $U 126  ]
+"217
+[e :U 125 ]
+[e $ ! && != -> _blLineDetectedonCenter `i -> -> -> 0 `i `uc `i != -> _blLineDetectedonRight `i -> -> -> 0 `i `uc `i 127  ]
+"218
+{
+"219
+[e = _ui8LineLocation -> . `E1503 4 `uc ]
+"220
+}
+[e $U 128  ]
+"222
+[e :U 127 ]
+[e $ ! != -> _blLineDetectedonLeft `i -> -> -> 0 `i `uc `i 129  ]
+"223
+{
+"224
+[e = _ui8LineLocation -> . `E1503 1 `uc ]
+"225
+}
+[e $U 130  ]
+"227
+[e :U 129 ]
+[e $ ! != -> _blLineDetectedonRight `i -> -> -> 0 `i `uc `i 131  ]
+"228
+{
+"229
+[e = _ui8LineLocation -> . `E1503 3 `uc ]
+"230
+}
+[e $U 132  ]
+"232
+[e :U 131 ]
+[e $ ! != -> _blLineDetectedonCenter `i -> -> -> 0 `i `uc `i 133  ]
+"233
+{
+"234
+[e = _ui8LineLocation -> . `E1503 6 `uc ]
+"235
+}
+[e $U 134  ]
+"237
+[e :U 133 ]
+"238
+{
+"239
+[e = _ui8LineLocation -> . `E1503 0 `uc ]
+"240
+}
+[e :U 134 ]
+[e :U 132 ]
+[e :U 130 ]
+[e :U 128 ]
+[e :U 126 ]
+[e :U 124 ]
+"242
+[e ) _ui8LineLocation ]
+[e $UE 122  ]
+"243
+[e :UE 122 ]
+}
+"246
+[v _startDProtocol `(v ~T0 @X0 1 sf3`uc`uc`ul ]
+"247
+{
+[e :U _startDProtocol ]
+"246
+[v _blEnableRemoteControl `uc ~T0 @X0 1 r1 ]
+[v _blEnableTelemetry `uc ~T0 @X0 1 r2 ]
+[v _ui32DBaudRate `ul ~T0 @X0 1 r3 ]
+"247
+[f ]
+"248
+[e $ ! != -> _blEnableRemoteControl `i -> -> -> 0 `i `uc `i 136  ]
+"249
+{
+"250
+[e ( _setupTelemetryID (2 , _ui32DBaudRate &U _strDProtID ]
+"251
+}
+[e :U 136 ]
+"260
+[e :UE 135 ]
+}

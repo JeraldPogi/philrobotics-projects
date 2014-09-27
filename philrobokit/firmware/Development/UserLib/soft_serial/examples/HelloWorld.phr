@@ -1,0 +1,36 @@
+/*****************************************************************************************//**
+* # PhilRobotics | Philippine Electronics and Robotics Enthusiasts Club #
+* http://philrobotics.com | http://philrobotics.com/forum | http://facebook.com/philrobotics
+* phirobotics.core@philrobotics.com
+*
+*---------------------------------------------------------------------------------------------
+* |Filename:      	| "HelloWorld.phr"                                                 					|
+* |:----          	|:----                                                                    					|
+* |Description:   | Send the string "Hello World" every 1 second.						|
+* |Author:        	| Efren S. Cruzat II                                                      				|
+* |               	|                                                                         					|
+* |Dependencies: |                                                                         					|
+*
+* > This program is free software under GNU General Public License.
+*********************************************************************************************/
+#include <soft_serial.h>
+static uint16_t Timer,TimerDelta;
+
+void init()
+{
+	setupSoftSerial(SUART0,D1,D0,4800);					    // 4800 bits per second, TX = D1, RX = D0
+	Timer = getMs();                                        // get time stamp
+}
+
+void cycle()
+{
+	TimerDelta = getElapsedMs(Timer);
+	
+	if(TimerDelta >= 1000)                        			// check if 1000mS has elapsed
+	{
+		Timer = getMs();                                    // get another stamp for the next cycle
+        
+		serialSoftWriteString(SUART0, "Hello World");       // send the string "Hello World"
+		serialSoftWrite(SUART0, '\n');                      // send a return character
+	}
+}

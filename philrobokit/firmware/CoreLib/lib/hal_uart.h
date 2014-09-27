@@ -44,7 +44,7 @@
 #ifdef UNIT_TEST                                    // autodefined at unit testing script
 #include "hal_uart_test_stub.h"
 #else
-#include "PhilRoboKit_CoreLib_Macro.h"
+/* none */
 #endif
 
 /* User Configuration Definitions */
@@ -53,14 +53,14 @@
 /* Global Constants */
 enum stdBaudrate_et
 {
-    STD_BAUD_1200       = 1200UL,
-    STD_BAUD_2400       = 2400UL,
-    STD_BAUD_4800       = 4800UL,
-    STD_BAUD_9600       = 9600UL,
-    STD_BAUD_19200      = 19200UL,
-    STD_BAUD_38400      = 38400UL,
-    STD_BAUD_57600      = 57600UL,
-    STD_BAUD_115200     = 115200UL
+    STD_BAUD_1200       = (uint24_t)1200UL,
+    STD_BAUD_2400       = (uint24_t)2400UL,
+    STD_BAUD_4800       = (uint24_t)4800UL,
+    STD_BAUD_9600       = (uint24_t)9600UL,
+    STD_BAUD_19200      = (uint24_t)19200UL,
+    STD_BAUD_38400      = (uint24_t)38400UL,
+    STD_BAUD_57600      = (uint24_t)57600UL,
+    STD_BAUD_115200     = (uint24_t)115200UL
 };
 
 // @ BRGH 0: BRG = [Fosc / (Baud * 64)] - 1
@@ -138,7 +138,7 @@ enum stdBaudrate_et
 
 #define hal_restartUARTRx()                     \
     BIT_RCSTA_CREN = 0;                         \
-    BIT_RCSTA_CREN = 1                          // semi-collon intentionally omitted
+    BIT_RCSTA_CREN = 1                          // semi-colon intentionally omitted
 
 #define K_RXREG_BUFF                            (REGISTER_RCREG)
 
@@ -148,10 +148,10 @@ enum stdBaudrate_et
 #define hal_enableSerialTX()                    \
     BIT_TXSTA_TX9 = 0;                          \
     BIT_TXSTA_SYNC = 0;                         \
-    BIT_TXSTA_TXEN = 1                          // semi-collon intentionally omitted
+    BIT_TXSTA_TXEN = 1                          // semi-colon intentionally omitted
 
 #define hal_disableSerialTX()                   \
-    BIT_TXSTA_TXEN = 0                          // semi-collon intentionally omitted
+    BIT_TXSTA_TXEN = 0                          // semi-colon intentionally omitted
 // makePinInput();                                esc.comment: UART TX Pin to be set as input
 
 // 8-Bit
@@ -159,10 +159,10 @@ enum stdBaudrate_et
 #define hal_enableSerialRX()                    \
     BIT_RCSTA_RX9 = 0;                          \
     BIT_RCSTA_CREN = 1;                         \
-    BIT_RCSTA_SPEN = 1                          // semi-collon intentionally omitted
+    BIT_RCSTA_SPEN = 1                          // semi-colon intentionally omitted
 
 #define hal_disableSerialRX()                   \
-    BIT_RCSTA_SPEN = 0                          // semi-collon intentionally omitted
+    BIT_RCSTA_SPEN = 0                          // semi-colon intentionally omitted
 // makeInput();                                   esc.comment: UART RX Pin to be set as input
 
 /* Public Function Prototypes */

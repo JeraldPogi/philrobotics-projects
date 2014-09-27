@@ -1,0 +1,160 @@
+
+
+Microchip Technology PIC Macro Assembler V1.12 build 49521 
+                                                                                                           Fri Sep 27 20:39:48 2013
+
+
+     1                           
+     2                           	; Microchip MPLAB XC8 C Compiler V1.12
+     3                           	; Copyright (C) 1984-2012 HI-TECH Software
+     4                           
+     5                           	; Auto-generated runtime startup code for final link stage.
+     6                           
+     7                           	;
+     8                           	; Compiler options:
+     9                           	;
+    10                           	; --CHIP=16F877A \
+    11                           	; --OUTDIR=C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/ex
+                                 amples/.phr_out \
+    12                           	; --SUMMARY=mem -Q \
+    13                           	; C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.p
+                                 hr_out/HelloWorld.phr.p1 \
+    14                           	; C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.p
+                                 hr_out/lib/soft_serial.p1 \
+    15                           	; C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.p
+                                 hr_out/lib/PhilRobokit_CoreLib_GlobalDefs.p1 \
+    16                           	; C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.p
+                                 hr_out/lib/PhilRoboKit_CoreLib_Macro.p1 \
+    17                           	; C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.p
+                                 hr_out/lib/corelib_16bit_timer.p1 \
+    18                           	; C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.p
+                                 hr_out/lib/corelib_8bit_timer.p1 \
+    19                           	; C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.p
+                                 hr_out/lib/corelib_adc.p1 \
+    20                           	; C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.p
+                                 hr_out/lib/corelib_basetimer.p1 \
+    21                           	; C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.p
+                                 hr_out/lib/corelib_dac.p1 \
+    22                           	; C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.p
+                                 hr_out/lib/corelib_gpio.p1 \
+    23                           	; C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.p
+                                 hr_out/lib/corelib_masterlib.p1 \
+    24                           	; C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.p
+                                 hr_out/lib/corelib_pwm.p1 \
+    25                           	; C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.p
+                                 hr_out/lib/corelib_uart.p1 \
+    26                           	; C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.p
+                                 hr_out/lib/corelib_user_interrupt.p1 \
+    27                           	; C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.p
+                                 hr_out/lib/hal_16bit_timer.p1 \
+    28                           	; C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.p
+                                 hr_out/lib/hal_8bit_timer.p1 \
+    29                           	; C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.p
+                                 hr_out/lib/hal_adc.p1 \
+    30                           	; C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.p
+                                 hr_out/lib/hal_gpio.p1 \
+    31                           	; C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.p
+                                 hr_out/lib/hal_pwm.p1 \
+    32                           	; C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.p
+                                 hr_out/lib/hal_timer.p1 \
+    33                           	; C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.p
+                                 hr_out/lib/hal_uart.p1 \
+    34                           	; C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.p
+                                 hr_out/lib/hal_user_interrupt.p1
+    35                           	;
+    36                           
+    37                           
+    38                           	processor	16F877A
+    39                           
+    40                           	global	_main,start,reset_vec
+    41                           	fnroot	_main
+    42                           	psect	config,class=CONFIG,delta=2
+    43                           	psect	idloc,class=IDLOC,delta=2
+    44                           	psect	code,class=CODE,delta=2
+    45                           	psect	powerup,class=CODE,delta=2
+    46                           	psect	reset_vec,class=CODE,delta=2
+    47                           	psect	maintext,class=CODE,delta=2
+    48  0000                     	C	set	0
+    49  0002                     	Z	set	2
+    50  0002                     	PCL	set	2
+    51  0000                     	INDF	set	0
+    52                           
+    53  0003                     	STATUS	equ	3
+    54  000A                     	PCLATH	equ	0Ah
+    55                           
+    56                           	; Microchip MPLAB XC8 C Compiler V1.12
+    57                           	; Copyright (C) 1984-2012 HI-TECH Software
+    58                           
+    59                           	; Auto-generated runtime startup code for final link stage.
+    60  0100                     intlevel0:
+    61  0100                     intlevel1:
+    62  0100                     intlevel2:
+    63  0100                     intlevel3:
+    64  0100                     intlevel4:
+    65  0100                     intlevel5:
+    66                           
+    67                           	; Microchip MPLAB XC8 C Compiler V1.12
+    68                           	; Copyright (C) 1984-2012 HI-TECH Software
+    69                           
+    70                           	; Auto-generated runtime startup code for final link stage.
+    71  0004                     	FSR	set	4
+    72                           
+    73                           	; Microchip MPLAB XC8 C Compiler V1.12
+    74                           	; Copyright (C) 1984-2012 HI-TECH Software
+    75  0000                     reset_vec:
+    76                           
+    77                           	; Microchip MPLAB XC8 C Compiler V1.12
+    78                           	; Copyright (C) 1984-2012 HI-TECH Software
+    79                           
+    80  0000  120A  118A  2812   	goto	start & 0x7FF | (reset_vec & not 0x7FF)
+    81                           
+    82                           	; Microchip MPLAB XC8 C Compiler V1.12
+    83                           	; Copyright (C) 1984-2012 HI-TECH Software
+    84                           
+    85  0012                     start
+    86                           
+    87                           	; Microchip MPLAB XC8 C Compiler V1.12
+    88  0012  120A  158A  28B6   	ljmp start_initialization	;jump to C runtime clear & initialization
+    89                           
+    90                           	; Microchip MPLAB XC8 C Compiler V1.12
+    91                           	; Copyright (C) 1984-2012 HI-TECH Software
+    92                           
+    93                           	; Auto-generated runtime startup code for final link stage.
+    94                           
+    95                           	;
+    96                           	; Compiler options:
+    97                           	;
+    98                           	; --CHIP=16F877A \
+    99                           	; --OUTDIR=C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/ex
+                                 amples/.phr_out \
+   100                           	; --SUMMARY=mem -Q \
+   101                           	; C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.p
+                                 hr_out/HelloWorld.phr.p1 \
+   102                           	; C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.p
+                                 hr_out/lib/soft_serial.p1 \
+   103                           	; C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.p
+                                 hr_out/lib/PhilRobokit_CoreLib_GlobalDefs.p1 \
+   104                           	; C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.p
+                                 hr_out/lib/PhilRoboKit_CoreLib_Macro.p1 \
+   105                           	; C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.p
+                                 hr_out/lib/corelib_16bit_timer.p1 \
+   106                           	; C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.p
+                                 hr_out/lib/corelib_8bit_timer.p1 \
+   107                           	; C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.p
+                                 hr_out/lib/corelib_adc.p1 \
+   108                           	; C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.p
+                                 hr_out/lib/corelib_basetimer.p1 \
+   109                           	; C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.p
+                                 hr_out/lib/corelib_dac.p1 \
+   110                           	; C:/Users/glutnix/Documents/Dropbox/__RapidProto/philrobokit_xc8/libraries/soft_serial/examples/.p
+                                 hr_out/lib/corelib_gpio.p1 \
+   111  2007                     		org 0x0
+   112  2007  FF32               		dw 0xFF32
+
+
+Microchip Technology PIC Macro Assembler V1.12 build 49521 
+Symbol Table                                                                                               Fri Sep 27 20:39:48 2013
+
+               _main 082C                 start 0012  start_initialization 08B6             intlevel0 0100  
+           intlevel1 0100             intlevel2 0100             intlevel3 0100             intlevel4 0100  
+           intlevel5 0100             reset_vec 0000  

@@ -1,0 +1,36 @@
+     1: #include <PhilRoboKit_CoreLib_Macro.h>/*****************************************************************************************//**
+     2: * # PhilRobotics | Philippine Electronics and Robotics Enthusiasts Club #
+     3: * http://philrobotics.com | http://philrobotics.com/forum | http://facebook.com/philrobotics
+     4: * phirobotics.core@philrobotics.com
+     5: *
+     6: *---------------------------------------------------------------------------------------------
+     7: * |Filename:            | "HelloWorld.phr"                                                                                      |
+     8: * |:----                |:----                                                                                                          |
+     9: * |Description:   | Send the string "Hello World" every 1 second.                                               |
+    10: * |Author:              | Efren S. Cruzat II                                                                                    |
+    11: * |                     |                                                                                                               |
+    12: * |Dependencies: |                                                                                                              |
+    13: *
+    14: * > This program is free software under GNU General Public License.
+    15: *********************************************************************************************/
+    16: #include <soft_serial.h>
+    17: static uint16_t Timer,TimerDelta;
+    18: 
+    19: void init()
+    20: {
+    21:         setupSoftSerial(SUART0,D1,D0,4800);                                         // 4800 bits per second, TX = D1, RX = D0
+    22:         Timer = getMs();                                        // get time stamp
+    23: }
+    24: 
+    25: void cycle()
+    26: {
+    27:         TimerDelta = getElapsedMs(Timer);
+    28:         
+    29:         if(TimerDelta >= 1000)                                          // check if 1000mS has elapsed
+    30:         {
+    31:                 Timer = getMs();                                    // get another stamp for the next cycle
+    32:         
+    33:                 serialSoftWriteString(SUART0, "Hello World");       // send the string "Hello World"
+    34:                 serialSoftWrite(SUART0, '\n');                      // send a return character
+    35:         }
+    36: }

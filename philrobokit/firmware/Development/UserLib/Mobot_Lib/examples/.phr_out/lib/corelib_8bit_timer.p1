@@ -1,0 +1,277 @@
+Version 3.2 HI-TECH Software Intermediate Code
+[v F1477 `(v ~T0 @X0 0 tf ]
+"120 C:\Users\glutnix\Desktop\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v _nullTMRFunction `(v ~T0 @X0 0 ef ]
+"2661 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _TMR2IF `Vb ~T0 @X0 0 e@97 ]
+"2659
+[v _TMR2IE `Vb ~T0 @X0 0 e@1121 ]
+"2663
+[v _TMR2ON `Vb ~T0 @X0 0 e@146 ]
+"134 hardware/cores/lib\corelib_8bit_timer.c
+[c E1457 2 4 6 .. ]
+[n E1457 tmrModules_et TIMER2 TIMER4 TIMER6  ]
+[v F1466 `(v ~T0 @X0 0 tf ]
+"715 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _T2CON `Vuc ~T0 @X0 0 e@18 ]
+[v F1472 `(v ~T0 @X0 0 tf ]
+"1768
+[v _PR2 `Vuc ~T0 @X0 0 e@146 ]
+"49 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[; <" INDF equ 00h ;# ">
+"55
+[; <" TMR0 equ 01h ;# ">
+"61
+[; <" PCL equ 02h ;# ">
+"67
+[; <" STATUS equ 03h ;# ">
+"154
+[; <" FSR equ 04h ;# ">
+"160
+[; <" PORTA equ 05h ;# ">
+"209
+[; <" PORTB equ 06h ;# ">
+"270
+[; <" PORTC equ 07h ;# ">
+"331
+[; <" PORTD equ 08h ;# ">
+"392
+[; <" PORTE equ 09h ;# ">
+"423
+[; <" PCLATH equ 0Ah ;# ">
+"442
+[; <" INTCON equ 0Bh ;# ">
+"519
+[; <" PIR1 equ 0Ch ;# ">
+"580
+[; <" PIR2 equ 0Dh ;# ">
+"619
+[; <" TMR1 equ 0Eh ;# ">
+"625
+[; <" TMR1L equ 0Eh ;# ">
+"631
+[; <" TMR1H equ 0Fh ;# ">
+"637
+[; <" T1CON equ 010h ;# ">
+"711
+[; <" TMR2 equ 011h ;# ">
+"717
+[; <" T2CON equ 012h ;# ">
+"787
+[; <" SSPBUF equ 013h ;# ">
+"793
+[; <" SSPCON equ 014h ;# ">
+"862
+[; <" CCPR1 equ 015h ;# ">
+"868
+[; <" CCPR1L equ 015h ;# ">
+"874
+[; <" CCPR1H equ 016h ;# ">
+"880
+[; <" CCP1CON equ 017h ;# ">
+"937
+[; <" RCSTA equ 018h ;# ">
+"1031
+[; <" TXREG equ 019h ;# ">
+"1037
+[; <" RCREG equ 01Ah ;# ">
+"1043
+[; <" CCPR2 equ 01Bh ;# ">
+"1049
+[; <" CCPR2L equ 01Bh ;# ">
+"1055
+[; <" CCPR2H equ 01Ch ;# ">
+"1061
+[; <" CCP2CON equ 01Dh ;# ">
+"1118
+[; <" ADRESH equ 01Eh ;# ">
+"1124
+[; <" ADCON0 equ 01Fh ;# ">
+"1219
+[; <" OPTION_REG equ 081h ;# ">
+"1288
+[; <" TRISA equ 085h ;# ">
+"1337
+[; <" TRISB equ 086h ;# ">
+"1398
+[; <" TRISC equ 087h ;# ">
+"1459
+[; <" TRISD equ 088h ;# ">
+"1520
+[; <" TRISE equ 089h ;# ">
+"1576
+[; <" PIE1 equ 08Ch ;# ">
+"1637
+[; <" PIE2 equ 08Dh ;# ">
+"1676
+[; <" PCON equ 08Eh ;# ">
+"1709
+[; <" SSPCON2 equ 091h ;# ">
+"1770
+[; <" PR2 equ 092h ;# ">
+"1776
+[; <" SSPADD equ 093h ;# ">
+"1782
+[; <" SSPSTAT equ 094h ;# ">
+"1950
+[; <" TXSTA equ 098h ;# ">
+"2030
+[; <" SPBRG equ 099h ;# ">
+"2036
+[; <" CMCON equ 09Ch ;# ">
+"2105
+[; <" CVRCON equ 09Dh ;# ">
+"2169
+[; <" ADRESL equ 09Eh ;# ">
+"2175
+[; <" ADCON1 equ 09Fh ;# ">
+"2233
+[; <" EEDATA equ 010Ch ;# ">
+"2239
+[; <" EEADR equ 010Dh ;# ">
+"2245
+[; <" EEDATH equ 010Eh ;# ">
+"2251
+[; <" EEADRH equ 010Fh ;# ">
+"2257
+[; <" EECON1 equ 018Ch ;# ">
+"2301
+[; <" EECON2 equ 018Dh ;# ">
+"45 hardware/cores/lib\corelib_8bit_timer.c
+[v _pt2TMR2ISR `*F1477 ~T0 @X0 1 s ]
+[i _pt2TMR2ISR
+&U _nullTMRFunction
+]
+"70
+[v _timer8BitISR `(v ~T0 @X0 1 ef ]
+"71
+{
+[e :U _timer8BitISR ]
+[f ]
+"74
+[e $ ! && != ? _TMR2IF : -> 1 `i -> 0 `i -> 0 `i != ? _TMR2IE : -> 1 `i -> 0 `i -> 0 `i 98  ]
+"75
+{
+"77
+[e = _TMR2IF -> -> 0 `i `b ]
+"78
+[e = _TMR2IE -> -> 0 `i `b ]
+"79
+[e = _TMR2ON -> -> 0 `i `b ]
+"81
+[e ( *U _pt2TMR2ISR ..  ]
+"82
+}
+[e :U 98 ]
+"111
+[e :UE 97 ]
+}
+"133
+[v _setup8BitTimerFull `(v ~T0 @X0 1 ef4`E1457`*F1466`uc`uc ]
+"134
+{
+[e :U _setup8BitTimerFull ]
+"133
+[v _eTmrModule `E1457 ~T0 @X0 1 r1 ]
+[v F1482 `(v ~T0 @X0 0 tf ]
+[v _callback `*F1482 ~T0 @X0 1 r2 ]
+[v _ui8Prescaler `uc ~T0 @X0 1 r3 ]
+[v _ui8Postscaler `uc ~T0 @X0 1 r4 ]
+"134
+[f ]
+"136
+[e $ ! == -> . `E1457 0 `i -> _eTmrModule `i 100  ]
+"137
+{
+"138
+[e =& _T2CON -> ~ -> 3 `i `uc ]
+[e =| _T2CON -> & -> _ui8Prescaler `i -> 3 `i `uc ]
+"139
+[e =& _T2CON -> ~ -> 120 `i `uc ]
+[e =| _T2CON -> & << -> _ui8Postscaler `i -> 3 `i -> 120 `i `uc ]
+"140
+[e = _pt2TMR2ISR _callback ]
+"141
+}
+[e $U 101  ]
+"161
+[e :U 100 ]
+"162
+{
+"164
+}
+[e :U 101 ]
+"165
+[e :UE 99 ]
+}
+"189
+[v _setup8BitTimer `(v ~T0 @X0 1 ef2`E1457`*F1472 ]
+"190
+{
+[e :U _setup8BitTimer ]
+"189
+[v _eTmrModule `E1457 ~T0 @X0 1 r1 ]
+[v F1487 `(v ~T0 @X0 0 tf ]
+[v _callback `*F1487 ~T0 @X0 1 r2 ]
+"190
+[f ]
+"193
+[e $ ! == -> . `E1457 0 `i -> _eTmrModule `i 103  ]
+"194
+{
+"195
+[e =& _T2CON -> ~ -> 3 `i `uc ]
+[e =| _T2CON -> & -> 2 `i -> 3 `i `uc ]
+"196
+[e =& _T2CON -> ~ -> 120 `i `uc ]
+[e =| _T2CON -> & << -> 2 `i -> 3 `i -> 120 `i `uc ]
+"197
+[e = _pt2TMR2ISR _callback ]
+"198
+}
+[e $U 104  ]
+"218
+[e :U 103 ]
+"219
+{
+"221
+}
+[e :U 104 ]
+"222
+[e :UE 102 ]
+}
+"243
+[v _set8BitTimer `(v ~T0 @X0 1 ef2`E1457`uc ]
+"244
+{
+[e :U _set8BitTimer ]
+"243
+[v _eTmrModule `E1457 ~T0 @X0 1 r1 ]
+[v _ui8Value `uc ~T0 @X0 1 r2 ]
+"244
+[f ]
+"246
+[e $ ! == -> . `E1457 0 `i -> _eTmrModule `i 106  ]
+"247
+{
+"248
+[e = _PR2 -> - -> _ui8Value `i -> 1 `i `uc ]
+"250
+[e = _TMR2IF -> -> 0 `i `b ]
+"251
+[e = _TMR2IE -> -> 1 `i `b ]
+"253
+[e = _TMR2ON -> -> 1 `i `b ]
+"254
+}
+[e $U 107  ]
+"280
+[e :U 106 ]
+"281
+{
+"283
+}
+[e :U 107 ]
+"284
+[e :UE 105 ]
+}

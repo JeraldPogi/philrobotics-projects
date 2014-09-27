@@ -41,7 +41,6 @@
 #ifdef UNIT_TEST                                    // autodefined at unit testing script
 #include "hal_user_interrupt_test_stub.h"
 #else
-#include <PhilRoboKit_CoreLib_Macro.h>
 #include "hal_gpio.h"
 #endif
 
@@ -108,13 +107,13 @@ enum InterruptModes_et
 #define K_INT2_EDGE_BIT                         (INT2_EDGE)
 
 /* Public Function Prototypes */
-#if(EXTINTENABLED == TRUE)
-enum InterruptModes_et eMod0_Mode, eMod1_Mode, eMod2_Mode, eMod3_Mode;
-#endif
-
-#if(RBINTENABLED == TRUE)
-enum InterruptModes_et eMod4_Mode, eMod5_Mode, eMod6_Mode, eMod7_Mode;
-#endif
+//#if(EXTINTENABLED == TRUE)
+//enum InterruptModes_et eMod0_Mode, eMod1_Mode, eMod2_Mode, eMod3_Mode;
+//#endif
+//
+//#if(RBINTENABLED == TRUE)
+//enum InterruptModes_et eMod4_Mode, eMod5_Mode, eMod6_Mode, eMod7_Mode;
+//#endif
 
 void nullIntFunction();
 
@@ -122,18 +121,18 @@ void nullIntFunction();
 void extIntISR(void);
 void extInt1ISR(void);
 void extInt2ISR(void);
-void (*pt2INT0)() = &nullIntFunction;       // interrupt function pointer
-void (*pt2INT1)() = &nullIntFunction;       // interrupt function pointer
-void (*pt2INT2)() = &nullIntFunction;       // interrupt function pointer
+//void (*pt2INT0)() = &nullIntFunction;       // interrupt function pointer
+//void (*pt2INT1)() = &nullIntFunction;       // interrupt function pointer
+//void (*pt2INT2)() = &nullIntFunction;       // interrupt function pointer
 //void (*pt2INT3)() = &nullIntFunction;     // interrupt function pointer
 #endif
 
 #if(RBINTENABLED == TRUE)
 void rbIntISR(void);
-void (*pt2INT4)() = &nullIntFunction;       // interrupt function pointer
-void (*pt2INT5)() = &nullIntFunction;       // interrupt function pointer
-void (*pt2INT6)() = &nullIntFunction;       // interrupt function pointer
-void (*pt2INT7)() = &nullIntFunction;       // interrupt function pointer
+//void (*pt2INT4)() = &nullIntFunction;       // interrupt function pointer
+//void (*pt2INT5)() = &nullIntFunction;       // interrupt function pointer
+//void (*pt2INT6)() = &nullIntFunction;       // interrupt function pointer
+//void (*pt2INT7)() = &nullIntFunction;       // interrupt function pointer
 #endif
 
 #endif /* end of hal_user_interrupt.h */

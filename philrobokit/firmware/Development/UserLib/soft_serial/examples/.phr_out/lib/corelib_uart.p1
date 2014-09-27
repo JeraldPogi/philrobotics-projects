@@ -1,0 +1,562 @@
+Version 3.2 HI-TECH Software Intermediate Code
+[c E1248 0 1 2 3 .. ]
+[n E1248 InterruptModes_et LOWSTATE CHANGE RISING FALLING  ]
+"125 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[v F1269 `(v ~T0 @X0 0 tf ]
+"119
+[v _nullIntFunction `(v ~T0 @X0 0 ef ]
+"126
+[v F1272 `(v ~T0 @X0 0 tf ]
+"127
+[v F1275 `(v ~T0 @X0 0 tf ]
+"133
+[v F1280 `(v ~T0 @X0 0 tf ]
+"134
+[v F1283 `(v ~T0 @X0 0 tf ]
+"135
+[v F1286 `(v ~T0 @X0 0 tf ]
+"136
+[v F1289 `(v ~T0 @X0 0 tf ]
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v F1308 `(v ~T0 @X0 0 tf ]
+"120
+[v _nullTMRFunction `(v ~T0 @X0 0 ef ]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v F1367 `(v ~T0 @X0 0 tf ]
+"128
+[v _null16BitTMRFunction `(v ~T0 @X0 0 ef ]
+[s S96 `uc -> 32 `i `uc 1 `uc 1 ]
+[n S96 UARTBuff_s aui8Buffer ui8Head ui8Tail ]
+"172 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_uart.h
+[v _hal_setSerialBAUD `(v ~T0 @X0 0 ef1`um ]
+"2740 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _TX9 `Vb ~T0 @X0 0 e@1222 ]
+"2620
+[v _SYNC `Vb ~T0 @X0 0 e@1220 ]
+"2746
+[v _TXEN `Vb ~T0 @X0 0 e@1221 ]
+"2588
+[v _RX9 `Vb ~T0 @X0 0 e@198 ]
+"2402
+[v _CREN `Vb ~T0 @X0 0 e@196 ]
+"2600
+[v _SPEN `Vb ~T0 @X0 0 e@199 ]
+"2748
+[v _TXIE `Vb ~T0 @X0 0 e@1124 ]
+"2750
+[v _TXIF `Vb ~T0 @X0 0 e@100 ]
+"2552
+[v _RCIE `Vb ~T0 @X0 0 e@1125 ]
+"2554
+[v _RCIF `Vb ~T0 @X0 0 e@101 ]
+"53 hardware/cores/lib\corelib_uart.c
+[v _isSerialBufferFull `(uc ~T0 @X0 0 sf ]
+"52
+[v _isSerialDataAvailable `(uc ~T0 @X0 0 sf ]
+"24 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\string.h
+[v _memset `(*v ~T0 @X0 0 ef3`*v`i`ui ]
+"1032 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _RCREG `Vuc ~T0 @X0 0 e@26 ]
+"1026
+[v _TXREG `Vuc ~T0 @X0 0 e@25 ]
+"2468
+[v _OERR `Vb ~T0 @X0 0 e@193 ]
+"46 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[; <" INDF equ 00h ;# ">
+"52
+[; <" TMR0 equ 01h ;# ">
+"58
+[; <" PCL equ 02h ;# ">
+"64
+[; <" STATUS equ 03h ;# ">
+"151
+[; <" FSR equ 04h ;# ">
+"157
+[; <" PORTA equ 05h ;# ">
+"206
+[; <" PORTB equ 06h ;# ">
+"267
+[; <" PORTC equ 07h ;# ">
+"328
+[; <" PORTD equ 08h ;# ">
+"389
+[; <" PORTE equ 09h ;# ">
+"420
+[; <" PCLATH equ 0Ah ;# ">
+"439
+[; <" INTCON equ 0Bh ;# ">
+"516
+[; <" PIR1 equ 0Ch ;# ">
+"577
+[; <" PIR2 equ 0Dh ;# ">
+"616
+[; <" TMR1 equ 0Eh ;# ">
+"622
+[; <" TMR1L equ 0Eh ;# ">
+"628
+[; <" TMR1H equ 0Fh ;# ">
+"634
+[; <" T1CON equ 010h ;# ">
+"708
+[; <" TMR2 equ 011h ;# ">
+"714
+[; <" T2CON equ 012h ;# ">
+"784
+[; <" SSPBUF equ 013h ;# ">
+"790
+[; <" SSPCON equ 014h ;# ">
+"859
+[; <" CCPR1 equ 015h ;# ">
+"865
+[; <" CCPR1L equ 015h ;# ">
+"871
+[; <" CCPR1H equ 016h ;# ">
+"877
+[; <" CCP1CON equ 017h ;# ">
+"934
+[; <" RCSTA equ 018h ;# ">
+"1028
+[; <" TXREG equ 019h ;# ">
+"1034
+[; <" RCREG equ 01Ah ;# ">
+"1040
+[; <" CCPR2 equ 01Bh ;# ">
+"1046
+[; <" CCPR2L equ 01Bh ;# ">
+"1052
+[; <" CCPR2H equ 01Ch ;# ">
+"1058
+[; <" CCP2CON equ 01Dh ;# ">
+"1115
+[; <" ADRESH equ 01Eh ;# ">
+"1121
+[; <" ADCON0 equ 01Fh ;# ">
+"1216
+[; <" OPTION_REG equ 081h ;# ">
+"1285
+[; <" TRISA equ 085h ;# ">
+"1334
+[; <" TRISB equ 086h ;# ">
+"1395
+[; <" TRISC equ 087h ;# ">
+"1456
+[; <" TRISD equ 088h ;# ">
+"1517
+[; <" TRISE equ 089h ;# ">
+"1573
+[; <" PIE1 equ 08Ch ;# ">
+"1634
+[; <" PIE2 equ 08Dh ;# ">
+"1673
+[; <" PCON equ 08Eh ;# ">
+"1706
+[; <" SSPCON2 equ 091h ;# ">
+"1767
+[; <" PR2 equ 092h ;# ">
+"1773
+[; <" SSPADD equ 093h ;# ">
+"1779
+[; <" SSPSTAT equ 094h ;# ">
+"1947
+[; <" TXSTA equ 098h ;# ">
+"2027
+[; <" SPBRG equ 099h ;# ">
+"2033
+[; <" CMCON equ 09Ch ;# ">
+"2102
+[; <" CVRCON equ 09Dh ;# ">
+"2166
+[; <" ADRESL equ 09Eh ;# ">
+"2172
+[; <" ADCON1 equ 09Fh ;# ">
+"2230
+[; <" EEDATA equ 010Ch ;# ">
+"2236
+[; <" EEADR equ 010Dh ;# ">
+"2242
+[; <" EEDATH equ 010Eh ;# ">
+"2248
+[; <" EEADRH equ 010Fh ;# ">
+"2254
+[; <" EECON1 equ 018Ch ;# ">
+"2298
+[; <" EECON2 equ 018Dh ;# ">
+"112 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[v _eMod0_Mode `E1248 ~T0 @X0 1 e ]
+[v _eMod1_Mode `E1248 ~T0 @X0 1 e ]
+[v _eMod2_Mode `E1248 ~T0 @X0 1 e ]
+[v _eMod3_Mode `E1248 ~T0 @X0 1 e ]
+"116
+[v _eMod4_Mode `E1248 ~T0 @X0 1 e ]
+[v _eMod5_Mode `E1248 ~T0 @X0 1 e ]
+[v _eMod6_Mode `E1248 ~T0 @X0 1 e ]
+[v _eMod7_Mode `E1248 ~T0 @X0 1 e ]
+"125
+[v _pt2INT0 `*F1269 ~T0 @X0 1 e ]
+[i _pt2INT0
+&U _nullIntFunction
+]
+"126
+[v _pt2INT1 `*F1272 ~T0 @X0 1 e ]
+[i _pt2INT1
+&U _nullIntFunction
+]
+"127
+[v _pt2INT2 `*F1275 ~T0 @X0 1 e ]
+[i _pt2INT2
+&U _nullIntFunction
+]
+"133
+[v _pt2INT4 `*F1280 ~T0 @X0 1 e ]
+[i _pt2INT4
+&U _nullIntFunction
+]
+"134
+[v _pt2INT5 `*F1283 ~T0 @X0 1 e ]
+[i _pt2INT5
+&U _nullIntFunction
+]
+"135
+[v _pt2INT6 `*F1286 ~T0 @X0 1 e ]
+[i _pt2INT6
+&U _nullIntFunction
+]
+"136
+[v _pt2INT7 `*F1289 ~T0 @X0 1 e ]
+[i _pt2INT7
+&U _nullIntFunction
+]
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v _pt2TMR2ISR `*F1308 ~T0 @X0 1 e ]
+[i _pt2TMR2ISR
+&U _nullTMRFunction
+]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v _pt2TMR1ISR `*F1367 ~T0 @X0 1 e ]
+[i _pt2TMR1ISR
+&U _null16BitTMRFunction
+]
+"48 hardware/cores/lib\corelib_uart.c
+[v _stUARTTXFiFo `S96 ~T0 @X0 1 s ]
+"49
+[v _stUARTRXFiFo `S96 ~T0 @X0 1 s ]
+"73
+[v _setupSerial `(v ~T0 @X0 1 ef1`ui ]
+{
+[e :U _setupSerial ]
+[v _ui16Baudrate `ui ~T0 @X0 1 r1 ]
+[f ]
+"75
+[e = . _stUARTTXFiFo 1 -> -> 0 `i `uc ]
+"76
+[e = . _stUARTTXFiFo 2 -> -> 0 `i `uc ]
+"77
+[e = . _stUARTRXFiFo 1 -> -> 0 `i `uc ]
+"78
+[e = . _stUARTRXFiFo 2 -> -> 0 `i `uc ]
+"80
+[e ( _hal_setSerialBAUD (1 -> _ui16Baudrate `um ]
+"82
+[e = _TX9 -> -> 0 `i `b ]
+[e = _SYNC -> -> 0 `i `b ]
+[e = _TXEN -> -> 1 `i `b ]
+"83
+[e = _RX9 -> -> 0 `i `b ]
+[e = _CREN -> -> 1 `i `b ]
+[e = _SPEN -> -> 1 `i `b ]
+"85
+[e = _TXIE -> -> 0 `i `b ]
+"86
+[e = _TXIF -> -> 0 `i `b ]
+"88
+[e = _RCIE -> -> 1 `i `b ]
+"89
+[e = _RCIF -> -> 0 `i `b ]
+"90
+[e :UE 97 ]
+}
+"109
+[v _serialWrite `(v ~T0 @X0 1 ef1`uc ]
+{
+[e :U _serialWrite ]
+[v _ui8TxData `uc ~T0 @X0 1 r1 ]
+[f ]
+"110
+[e $U 99  ]
+[e :U 100 ]
+"111
+{
+"115
+[e $U 99  ]
+"116
+}
+[e :U 99 ]
+"110
+[e $ != -> ( _isSerialBufferFull ..  `i -> -> -> 0 `i `uc `i 100  ]
+[e :U 101 ]
+"118
+[e = _TXIE -> -> 0 `i `b ]
+"119
+[e = *U + &U . _stUARTTXFiFo 0 * -> ++ . _stUARTTXFiFo 1 -> -> 1 `i `uc `ux -> -> # *U &U . _stUARTTXFiFo 0 `ui `ux _ui8TxData ]
+"120
+[e =& . _stUARTTXFiFo 1 -> - -> 32 `i -> 1 `i `uc ]
+"121
+[e = _TXIE -> -> 1 `i `b ]
+"125
+[e :UE 98 ]
+}
+"144
+[v _serialWriteString `(v ~T0 @X0 1 ef1`*Cuc ]
+{
+[e :U _serialWriteString ]
+[v _pucStrTxData `*Cuc ~T0 @X0 1 r1 ]
+[f ]
+"145
+[e $U 103  ]
+[e :U 104 ]
+"146
+{
+"147
+[e ( _serialWrite (1 *U ++ _pucStrTxData * -> -> 1 `i `x -> -> # *U _pucStrTxData `i `x ]
+"151
+}
+[e :U 103 ]
+"145
+[e $ != -> 0 `ui -> *U _pucStrTxData `ui 104  ]
+[e :U 105 ]
+"153
+[e ( _serialWrite (1 -> -> 0 `ui `uc ]
+"154
+[e :UE 102 ]
+}
+"175
+[v _serialWriteBlock `(v ~T0 @X0 1 ef2`*uc`uc ]
+{
+[e :U _serialWriteBlock ]
+[v _pui8StrTxData `*uc ~T0 @X0 1 r1 ]
+[v _ui8Size `uc ~T0 @X0 1 r2 ]
+[f ]
+"176
+[e $U 107  ]
+[e :U 108 ]
+"177
+{
+"178
+[e ( _serialWrite (1 *U ++ _pui8StrTxData * -> -> 1 `i `x -> -> # *U _pui8StrTxData `i `x ]
+"179
+[e -- _ui8Size -> -> 1 `i `uc ]
+"183
+}
+[e :U 107 ]
+"176
+[e $ != -> 0 `i -> _ui8Size `i 108  ]
+[e :U 109 ]
+"184
+[e :UE 106 ]
+}
+"204
+[v _serialDataCount `(uc ~T0 @X0 1 ef ]
+{
+[e :U _serialDataCount ]
+[f ]
+"205
+[e $ ! == -> == -> 1 `i -> 1 `i `i -> ( _isSerialDataAvailable ..  `i 111  ]
+"206
+{
+"210
+[e ) -> - -> . _stUARTRXFiFo 1 `i -> . _stUARTRXFiFo 2 `i `uc ]
+[e $UE 110  ]
+"211
+}
+[e $U 112  ]
+"212
+[e :U 111 ]
+"213
+{
+"217
+[e ) -> -> 0 `i `uc ]
+[e $UE 110  ]
+"218
+}
+[e :U 112 ]
+"219
+[e :UE 110 ]
+}
+"239
+[v _serialRead `(uc ~T0 @X0 1 ef ]
+{
+[e :U _serialRead ]
+[f ]
+"240
+[v _ui8serialData `uc ~T0 @X0 1 a ]
+"242
+[e $ ! == -> == -> 1 `i -> 0 `i `i -> ( _isSerialDataAvailable ..  `i 114  ]
+"243
+{
+"247
+[e ) -> -> 0 `i `uc ]
+[e $UE 113  ]
+"248
+}
+[e $U 115  ]
+"249
+[e :U 114 ]
+"250
+{
+"251
+[e = _RCIE -> -> 0 `i `b ]
+"252
+[e = _ui8serialData *U + &U . _stUARTRXFiFo 0 * -> ++ . _stUARTRXFiFo 2 -> -> 1 `i `uc `ux -> -> # *U &U . _stUARTRXFiFo 0 `ui `ux ]
+"253
+[e =& . _stUARTRXFiFo 2 -> - -> 32 `i -> 1 `i `uc ]
+"254
+[e = _RCIE -> -> 1 `i `b ]
+"258
+[e ) _ui8serialData ]
+[e $UE 113  ]
+"259
+}
+[e :U 115 ]
+"260
+[e :UE 113 ]
+}
+"279
+[v _serialFlush `(v ~T0 @X0 1 ef ]
+{
+[e :U _serialFlush ]
+[f ]
+"280
+[e = . _stUARTRXFiFo 1 -> -> 0 `i `uc ]
+"281
+[e = . _stUARTTXFiFo 1 -> -> 0 `i `uc ]
+"282
+[e = . _stUARTRXFiFo 2 -> -> 0 `i `uc ]
+"283
+[e = . _stUARTTXFiFo 2 -> -> 0 `i `uc ]
+"284
+[e ( _memset (3 , , -> &U . _stUARTTXFiFo 0 `*v -> 0 `i * -> # *U &U . _stUARTTXFiFo 0 `ui -> -> 32 `i `ui ]
+"285
+[e ( _memset (3 , , -> &U . _stUARTRXFiFo 0 `*v -> 0 `i * -> # *U &U . _stUARTRXFiFo 0 `ui -> -> 32 `i `ui ]
+"286
+[e :UE 116 ]
+}
+"305
+[v _serialRxISR `(v ~T0 @X0 1 ef ]
+{
+[e :U _serialRxISR ]
+[f ]
+"306
+[v F1516 `uc ~T0 @X0 1 s ui8TempIn ]
+"308
+[e $ ! && != ? _RCIF : -> 1 `i -> 0 `i -> 0 `i != ? _RCIE : -> 1 `i -> 0 `i -> 0 `i 118  ]
+"309
+{
+"310
+[e = _RCIF -> -> 0 `i `b ]
+"311
+[e = *U + &U . _stUARTRXFiFo 0 * -> . _stUARTRXFiFo 1 `ux -> -> # *U &U . _stUARTRXFiFo 0 `ui `ux _RCREG ]
+"312
+[e = F1516 -> & + -> . _stUARTRXFiFo 1 `i -> 1 `i - -> 32 `i -> 1 `i `uc ]
+"314
+[e $ ! != -> F1516 `i -> . _stUARTRXFiFo 2 `i 119  ]
+"315
+{
+"316
+[e = . _stUARTRXFiFo 1 F1516 ]
+"320
+}
+[e $U 120  ]
+"321
+[e :U 119 ]
+"322
+{
+"327
+}
+[e :U 120 ]
+"332
+}
+[e :U 118 ]
+"333
+[e :UE 117 ]
+}
+"352
+[v _serialTxISR `(v ~T0 @X0 1 ef ]
+{
+[e :U _serialTxISR ]
+[f ]
+"353
+[e $ ! && != ? _TXIF : -> 1 `i -> 0 `i -> 0 `i != ? _TXIE : -> 1 `i -> 0 `i -> 0 `i 122  ]
+"354
+{
+"355
+[e = _TXIF -> -> 0 `i `b ]
+"358
+[e $ ! == -> . _stUARTTXFiFo 2 `i -> . _stUARTTXFiFo 1 `i 123  ]
+"359
+{
+"360
+[e = _TXIE -> -> 0 `i `b ]
+"364
+}
+[e $U 124  ]
+"365
+[e :U 123 ]
+"366
+{
+"367
+[e = _TXREG *U + &U . _stUARTTXFiFo 0 * -> ++ . _stUARTTXFiFo 2 -> -> 1 `i `uc `ux -> -> # *U &U . _stUARTTXFiFo 0 `ui `ux ]
+"368
+[e =& . _stUARTTXFiFo 2 -> - -> 32 `i -> 1 `i `uc ]
+"373
+[e $ ! == -> . _stUARTTXFiFo 2 `i -> . _stUARTTXFiFo 1 `i 125  ]
+"374
+{
+"375
+[e = _TXIE -> -> 0 `i `b ]
+"379
+}
+[e :U 125 ]
+"380
+}
+[e :U 124 ]
+"381
+}
+[e :U 122 ]
+"382
+[e :UE 121 ]
+}
+"403
+[v _isSerialBufferFull `(uc ~T0 @X0 1 sf ]
+{
+[e :U _isSerialBufferFull ]
+[f ]
+"404
+[e ) -> -> == & + -> . _stUARTTXFiFo 1 `i -> 1 `i - -> 32 `i -> 1 `i -> . _stUARTTXFiFo 2 `i `i `uc ]
+[e $UE 126  ]
+"405
+[e :UE 126 ]
+}
+"425
+[v _isSerialDataAvailable `(uc ~T0 @X0 1 sf ]
+{
+[e :U _isSerialDataAvailable ]
+[f ]
+"426
+[e $ ! != ? _OERR : -> 1 `i -> 0 `i -> 0 `i 128  ]
+"427
+{
+"428
+[e = _CREN -> -> 0 `i `b ]
+[e = _CREN -> -> 1 `i `b ]
+"432
+[e ) -> -> == -> 1 `i -> 0 `i `i `uc ]
+[e $UE 127  ]
+"433
+}
+[e :U 128 ]
+"435
+[e ) -> -> != -> . _stUARTRXFiFo 1 `i -> . _stUARTRXFiFo 2 `i `i `uc ]
+[e $UE 127  ]
+"436
+[e :UE 127 ]
+}

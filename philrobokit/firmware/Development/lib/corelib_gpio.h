@@ -42,7 +42,7 @@
 #ifdef UNIT_TEST                                    // autodefined at unit testing script
 #include "corelib_gpio_test_stub.h"
 #else
-#include <PhilRoboKit_CoreLib_Macro.h>
+#include "PhilRoboKit_CoreLib_Macro.h"
 #include "hal_gpio.h"
 #endif
 
@@ -56,13 +56,13 @@
 
 /* Pin Default Values and Direction */
 #define PORTA_DIR_DEF                   0x3F        //(0b00111111)
-#define PORTA_OUT_DEF                   0x3F        //(0b00111111)
+#define PORTA_OUT_DEF                   0x00        //(0b00000000)
 
-#define PORTB_DIR_DEF                   0x00        //(0b00000000)
+#define PORTB_DIR_DEF                   0xFF        //(0b11111111)
 #define PORTB_OUT_DEF                   0x00        //(0b00000000)
 
-#define PORTC_DIR_DEF                   0x80        //(0b10000000)
-#define PORTC_OUT_DEF                   0xC0        //(0b11000000)
+#define PORTC_DIR_DEF                   0xBF        //(0b10111111)
+#define PORTC_OUT_DEF                   0x80        //(0b10000000)
 
 #define PORTD_DIR_DEF                   0x0C        //(0b00001100)
 #define PORTD_OUT_DEF                   0x0C        //(0b00001100)
@@ -74,6 +74,20 @@
 /* none */
 
 /* Macro and Configuration Definitions */
+#ifdef PHILROBOKIT_LITE
+/* Pin Direction */
+#define makeInput(pin)                  mc_makeInput(pin)
+#define makeOutput(pin)                 mc_makeOutput(pin)
+
+/* Input Pins */
+#define getPinState(pin)                mc_getPinState(pin)
+
+/* Output Pins */
+#define setPin(pin)                     mc_setPin(pin)
+#define clrPin(pin)                     mc_clrPin(pin)
+#define togglePin(pin)                  mc_togglePin(pin)
+
+#else
 /* Pin Direction */
 #define makeInput(pin)                  configPin(pin, INPUT)
 #define makeOutput(pin)                 configPin(pin, OUTPUT)
@@ -85,6 +99,8 @@
 #define setPin(pin)                     changePinState(pin, SET_PIN)
 #define clrPin(pin)                     changePinState(pin, CLR_PIN)
 #define togglePin(pin)                  changePinState(pin, TOGGLE_PIN)
+
+#endif
 
 /* Public Function Prototypes */
 void setupGpio(void);

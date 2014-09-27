@@ -1,0 +1,268 @@
+Version 3.2 HI-TECH Software Intermediate Code
+"2339 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _BRGH `Vb ~T0 @X0 0 e@1218 ]
+"2028
+[v _SPBRG `Vuc ~T0 @X0 0 e@153 ]
+"71 hardware/cores/lib\hal_uart.c
+[c E1457 1200 2400 4800 9600 19200 38400 57600 115200 .. ]
+[n E1457 stdBaudrate_et STD_BAUD_1200 STD_BAUD_2400 STD_BAUD_4800 STD_BAUD_9600 STD_BAUD_19200 STD_BAUD_38400 STD_BAUD_57600 STD_BAUD_115200  ]
+"49 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[; <" INDF equ 00h ;# ">
+"55
+[; <" TMR0 equ 01h ;# ">
+"61
+[; <" PCL equ 02h ;# ">
+"67
+[; <" STATUS equ 03h ;# ">
+"154
+[; <" FSR equ 04h ;# ">
+"160
+[; <" PORTA equ 05h ;# ">
+"209
+[; <" PORTB equ 06h ;# ">
+"270
+[; <" PORTC equ 07h ;# ">
+"331
+[; <" PORTD equ 08h ;# ">
+"392
+[; <" PORTE equ 09h ;# ">
+"423
+[; <" PCLATH equ 0Ah ;# ">
+"442
+[; <" INTCON equ 0Bh ;# ">
+"519
+[; <" PIR1 equ 0Ch ;# ">
+"580
+[; <" PIR2 equ 0Dh ;# ">
+"619
+[; <" TMR1 equ 0Eh ;# ">
+"625
+[; <" TMR1L equ 0Eh ;# ">
+"631
+[; <" TMR1H equ 0Fh ;# ">
+"637
+[; <" T1CON equ 010h ;# ">
+"711
+[; <" TMR2 equ 011h ;# ">
+"717
+[; <" T2CON equ 012h ;# ">
+"787
+[; <" SSPBUF equ 013h ;# ">
+"793
+[; <" SSPCON equ 014h ;# ">
+"862
+[; <" CCPR1 equ 015h ;# ">
+"868
+[; <" CCPR1L equ 015h ;# ">
+"874
+[; <" CCPR1H equ 016h ;# ">
+"880
+[; <" CCP1CON equ 017h ;# ">
+"937
+[; <" RCSTA equ 018h ;# ">
+"1031
+[; <" TXREG equ 019h ;# ">
+"1037
+[; <" RCREG equ 01Ah ;# ">
+"1043
+[; <" CCPR2 equ 01Bh ;# ">
+"1049
+[; <" CCPR2L equ 01Bh ;# ">
+"1055
+[; <" CCPR2H equ 01Ch ;# ">
+"1061
+[; <" CCP2CON equ 01Dh ;# ">
+"1118
+[; <" ADRESH equ 01Eh ;# ">
+"1124
+[; <" ADCON0 equ 01Fh ;# ">
+"1219
+[; <" OPTION_REG equ 081h ;# ">
+"1288
+[; <" TRISA equ 085h ;# ">
+"1337
+[; <" TRISB equ 086h ;# ">
+"1398
+[; <" TRISC equ 087h ;# ">
+"1459
+[; <" TRISD equ 088h ;# ">
+"1520
+[; <" TRISE equ 089h ;# ">
+"1576
+[; <" PIE1 equ 08Ch ;# ">
+"1637
+[; <" PIE2 equ 08Dh ;# ">
+"1676
+[; <" PCON equ 08Eh ;# ">
+"1709
+[; <" SSPCON2 equ 091h ;# ">
+"1770
+[; <" PR2 equ 092h ;# ">
+"1776
+[; <" SSPADD equ 093h ;# ">
+"1782
+[; <" SSPSTAT equ 094h ;# ">
+"1950
+[; <" TXSTA equ 098h ;# ">
+"2030
+[; <" SPBRG equ 099h ;# ">
+"2036
+[; <" CMCON equ 09Ch ;# ">
+"2105
+[; <" CVRCON equ 09Dh ;# ">
+"2169
+[; <" ADRESL equ 09Eh ;# ">
+"2175
+[; <" ADCON1 equ 09Fh ;# ">
+"2233
+[; <" EEDATA equ 010Ch ;# ">
+"2239
+[; <" EEADR equ 010Dh ;# ">
+"2245
+[; <" EEDATH equ 010Eh ;# ">
+"2251
+[; <" EEADRH equ 010Fh ;# ">
+"2257
+[; <" EECON1 equ 018Ch ;# ">
+"2301
+[; <" EECON2 equ 018Dh ;# ">
+"69 hardware/cores/lib\hal_uart.c
+[v _hal_setSerialBAUD `(v ~T0 @X0 1 ef1`um ]
+"70
+{
+[e :U _hal_setSerialBAUD ]
+"69
+[v _ui24Baudrate `um ~T0 @X0 1 r1 ]
+"70
+[f ]
+"71
+[e $U 99  ]
+"72
+{
+"73
+[e :U 100 ]
+"74
+{
+"75
+[e = _BRGH -> -> 1 `i `b ]
+"76
+[e = _SPBRG -> -> 129 `i `uc ]
+"80
+[e $U 98  ]
+"81
+}
+"83
+[e :U 101 ]
+"84
+{
+"85
+[e = _BRGH -> -> 1 `i `b ]
+"86
+[e = _SPBRG -> -> 20 `i `uc ]
+"90
+[e $U 98  ]
+"91
+}
+"95
+[e :U 102 ]
+"96
+{
+"97
+[e = _BRGH -> -> 1 `i `b ]
+"98
+[e = _SPBRG -> -> 10 `i `uc ]
+"102
+[e $U 98  ]
+"103
+}
+"107
+[e :U 103 ]
+"108
+{
+"109
+[e = _BRGH -> -> 1 `i `b ]
+"110
+[e = _SPBRG -> -> 64 `i `uc ]
+"114
+[e $U 98  ]
+"115
+}
+"117
+[e :U 104 ]
+"118
+{
+"119
+[e = _BRGH -> -> 0 `i `b ]
+"120
+[e = _SPBRG -> -> 64 `i `uc ]
+"124
+[e $U 98  ]
+"125
+}
+"127
+[e :U 105 ]
+"128
+{
+"129
+[e = _BRGH -> -> 1 `i `b ]
+"130
+[e = _SPBRG -> -> 32 `i `uc ]
+"134
+[e $U 98  ]
+"135
+}
+"137
+[e :U 106 ]
+"138
+{
+"139
+[e = _BRGH -> -> 0 `i `b ]
+"140
+[e = _SPBRG -> -> 129 `i `uc ]
+"144
+[e $U 98  ]
+"145
+}
+"149
+[e :U 107 ]
+"150
+{
+"151
+[e = _BRGH -> -> 0 `i `b ]
+"152
+[e = _SPBRG -> -> 255 `i `uc ]
+"156
+[e $U 98  ]
+"157
+}
+"161
+[e :U 108 ]
+"162
+{
+"163
+[e = _BRGH -> -> 1 `i `b ]
+"164
+[e = _SPBRG -> -> 129 `i `uc ]
+"168
+[e $U 98  ]
+"169
+}
+"170
+}
+[e $U 98  ]
+"71
+[e :U 99 ]
+[e [\ _ui24Baudrate , $ -> -> . `E1457 3 `m `um 100
+ , $ -> -> . `E1457 6 `m `um 101
+ , $ -> -> . `E1457 7 `m `um 102
+ , $ -> -> . `E1457 4 `m `um 103
+ , $ -> -> . `E1457 2 `m `um 104
+ , $ -> -> . `E1457 5 `m `um 105
+ , $ -> -> . `E1457 1 `m `um 106
+ , $ -> -> . `E1457 0 `m `um 107
+ 108 ]
+"170
+[e :U 98 ]
+"171
+[e :UE 97 ]
+}

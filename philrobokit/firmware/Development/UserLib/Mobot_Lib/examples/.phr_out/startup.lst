@@ -1,0 +1,169 @@
+
+
+Microchip Technology PIC Macro Assembler V1.32 build 58300 
+                                                                                                           Fri Jul 25 23:46:24 2014
+
+
+     1                           
+     2                           	; Microchip MPLAB XC8 C Compiler V1.32
+     3                           	; Copyright (C) 1984-2014 HI-TECH Software
+     4                           
+     5                           	; Auto-generated runtime startup code for final link stage.
+     6                           
+     7                           	;
+     8                           	; Compiler options:
+     9                           	;
+    10                           	; --CHIP=16F877A \
+    11                           	; --OUTDIR=C:/Users/glutnix/Desktop/philrobokit_xc8/libraries/Mobot_Lib/examples/.phr_out \
+    12                           	; --SUMMARY=mem -Q \
+    13                           	; C:/Users/glutnix/Desktop/philrobokit_xc8/libraries/Mobot_Lib/examples/.phr_out/CrazyMobot.phr.p1 
+                                 \
+    14                           	; C:/Users/glutnix/Desktop/philrobokit_xc8/libraries/Mobot_Lib/examples/.phr_out/lib/Config_Pinguin
+                                 o.p1 \
+    15                           	; C:/Users/glutnix/Desktop/philrobokit_xc8/libraries/Mobot_Lib/examples/.phr_out/lib/DProtocol.p1 \
+                                 
+    16                           	; C:/Users/glutnix/Desktop/philrobokit_xc8/libraries/Mobot_Lib/examples/.phr_out/lib/LowLevelMobot.
+                                 p1 \
+    17                           	; C:/Users/glutnix/Desktop/philrobokit_xc8/libraries/Mobot_Lib/examples/.phr_out/lib/Mobot_Lib.p1 \
+                                 
+    18                           	; C:/Users/glutnix/Desktop/philrobokit_xc8/libraries/Mobot_Lib/examples/.phr_out/lib/PBotGlobals.p1
+                                  \
+    19                           	; C:/Users/glutnix/Desktop/philrobokit_xc8/libraries/Mobot_Lib/examples/.phr_out/lib/Telemetry.p1 \
+                                 
+    20                           	; C:/Users/glutnix/Desktop/philrobokit_xc8/libraries/Mobot_Lib/examples/.phr_out/lib/soft_dac.p1 \
+
+    21                           	; C:/Users/glutnix/Desktop/philrobokit_xc8/libraries/Mobot_Lib/examples/.phr_out/lib/servo.p1 \
+    22                           	; C:/Users/glutnix/Desktop/philrobokit_xc8/libraries/Mobot_Lib/examples/.phr_out/lib/PhilRobokit_Co
+                                 reLib_GlobalDefs.p1 \
+    23                           	; C:/Users/glutnix/Desktop/philrobokit_xc8/libraries/Mobot_Lib/examples/.phr_out/lib/PhilRoboKit_Co
+                                 reLib_Macro.p1 \
+    24                           	; C:/Users/glutnix/Desktop/philrobokit_xc8/libraries/Mobot_Lib/examples/.phr_out/lib/corelib_16bit_
+                                 timer.p1 \
+    25                           	; C:/Users/glutnix/Desktop/philrobokit_xc8/libraries/Mobot_Lib/examples/.phr_out/lib/corelib_8bit_t
+                                 imer.p1 \
+    26                           	; C:/Users/glutnix/Desktop/philrobokit_xc8/libraries/Mobot_Lib/examples/.phr_out/lib/corelib_adc.p1
+                                  \
+    27                           	; C:/Users/glutnix/Desktop/philrobokit_xc8/libraries/Mobot_Lib/examples/.phr_out/lib/corelib_baseti
+                                 mer.p1 \
+    28                           	; C:/Users/glutnix/Desktop/philrobokit_xc8/libraries/Mobot_Lib/examples/.phr_out/lib/corelib_dac.p1
+                                  \
+    29                           	; C:/Users/glutnix/Desktop/philrobokit_xc8/libraries/Mobot_Lib/examples/.phr_out/lib/corelib_gpio.p
+                                 1 \
+    30                           	; C:/Users/glutnix/Desktop/philrobokit_xc8/libraries/Mobot_Lib/examples/.phr_out/lib/corelib_master
+                                 lib.p1 \
+    31                           	; C:/Users/glutnix/Desktop/philrobokit_xc8/libraries/Mobot_Lib/examples/.phr_out/lib/corelib_pwm.p1
+                                  \
+    32                           	; C:/Users/glutnix/Desktop/philrobokit_xc8/libraries/Mobot_Lib/examples/.phr_out/lib/corelib_uart.p
+                                 1 \
+    33                           	; C:/Users/glutnix/Desktop/philrobokit_xc8/libraries/Mobot_Lib/examples/.phr_out/lib/corelib_user_i
+                                 nterrupt.p1 \
+    34                           	; C:/Users/glutnix/Desktop/philrobokit_xc8/libraries/Mobot_Lib/examples/.phr_out/lib/hal_16bit_time
+                                 r.p1 \
+    35                           	; C:/Users/glutnix/Desktop/philrobokit_xc8/libraries/Mobot_Lib/examples/.phr_out/lib/hal_8bit_timer
+                                 .p1 \
+    36                           	; C:/Users/glutnix/Desktop/philrobokit_xc8/libraries/Mobot_Lib/examples/.phr_out/lib/hal_adc.p1 \
+    37                           	; C:/Users/glutnix/Desktop/philrobokit_xc8/libraries/Mobot_Lib/examples/.phr_out/lib/hal_gpio.p1 \
+
+    38                           	; C:/Users/glutnix/Desktop/philrobokit_xc8/libraries/Mobot_Lib/examples/.phr_out/lib/hal_pwm.p1 \
+    39                           	; C:/Users/glutnix/Desktop/philrobokit_xc8/libraries/Mobot_Lib/examples/.phr_out/lib/hal_timer.p1 \
+                                 
+    40                           	; C:/Users/glutnix/Desktop/philrobokit_xc8/libraries/Mobot_Lib/examples/.phr_out/lib/hal_uart.p1 \
+
+    41                           	; C:/Users/glutnix/Desktop/philrobokit_xc8/libraries/Mobot_Lib/examples/.phr_out/lib/hal_user_inter
+                                 rupt.p1
+    42                           	;
+    43                           
+    44                           
+    45                           	processor	16F877A
+    46                           
+    47                           	global	_main,start,reset_vec
+    48                           	fnroot	_main
+    49                           	psect	config,class=CONFIG,delta=2,noexec
+    50                           	psect	idloc,class=IDLOC,delta=2,noexec
+    51                           	psect	code,class=CODE,delta=2
+    52                           	psect	powerup,class=CODE,delta=2
+    53                           	psect	reset_vec,class=CODE,delta=2
+    54                           	psect	maintext,class=CODE,delta=2
+    55  0000                     	Z	set	2
+    56  0002                     	PCL	set	2
+    57  0002                     	INDF	set	0
+    58  0000                     
+    59                           	STATUS	equ	3
+    60  0003                     	PCLATH	equ	0Ah
+    61  000A                     
+    62                           	psect	eeprom_data,class=EEDATA,delta=2,space=3,noexec
+    63                           	psect	intentry,class=CODE,delta=2
+    64                           	psect	functab,class=CODE,delta=2
+    65                           	global	intlevel0,intlevel1,intlevel2, intlevel3, intlevel4, intlevel5
+    66                           intlevel0:
+    67  0100                     intlevel1:
+    68  0100                     intlevel2:
+    69  0100                     intlevel3:
+    70  0100                     intlevel4:
+    71  0100                     intlevel5:
+    72  0100                     	psect	init,class=CODE,delta=2
+    73                           	psect	cinit,class=CODE,delta=2
+    74                           	psect	text,class=CODE,delta=2
+    75                           	psect	end_init,class=CODE,delta=2
+    76                           	psect	clrtext,class=CODE,delta=2
+    77                           	FSR	set	4
+    78  0004                     	psect	strings,class=CODE,delta=2,reloc=256
+    79                           
+    80                           	global stacklo, stackhi
+    81                           	stacklo	equ	0
+    82  0000                     	stackhi	equ	0
+    83  0000                     
+    84                           
+    85                           	psect	stack,class=STACK,space=2,noexec
+    86                           	global ___sp,___int_sp
+    87                           	___sp:
+    88  0000                     	___int_sp:
+    89  0000                     	psect	reset_vec
+    90                           reset_vec:
+    91  0000                     	; No powerup routine
+    92                           	global start
+    93                           
+    94                           ; jump to start
+    95                           	goto	start & 0x7FF | (reset_vec & not 0x7FF)
+    96  0000  120A  118A  2812   
+    97                           
+    98                           
+    99                           	psect	init
+   100                           start
+   101  0012                     	psect	end_init
+   102                           	global start_initialization
+   103                           	ljmp start_initialization	;jump to C runtime clear & initialization
+   104  0012  120A  118A  2815   
+   105                           ; Config register CONFIG @ 0x2007
+   106                           ;	Watchdog Timer Enable bit
+   107                           ;	WDTE = OFF, WDT disabled
+   108                           ;	Power-up Timer Enable bit
+   109                           ;	PWRTE = ON, PWRT enabled
+   110                           ;	Flash Program Memory Code Protection bit
+   111                           ;	CP = 0x1, unprogrammed default
+   112                           ;	Brown-out Reset Enable bit
+   113                           ;	BOREN = OFF, BOR disabled
+   114                           ;	In-Circuit Debugger Mode bit
+   115                           ;	DEBUG = 0x1, unprogrammed default
+   116                           ;	Low-Voltage (Single-Supply) In-Circuit Serial Programming Enable bit
+   117                           ;	LVP = OFF, RB3 is digital I/O, HV on MCLR must be used for programming
+   118                           ;	Data EEPROM Memory Code Protection bit
+   119                           ;	CPD = 0x1, unprogrammed default
+   120                           ;	Flash Program Memory Write Enable bits
+   121                           ;	WRT = 0x3, unprogrammed default
+   122                           ;	Oscillator Selection bits
+   123                           ;	FOSC = HS, HS oscillator
+   124                           
+   125                           	psect	config
+   126                           		org 0x0
+   127  2007                     		dw 0xFF32
+   128  2007  FF32               
+
+
+Microchip Technology PIC Macro Assembler V1.32 build 58300 
+Symbol Table                                                                                               Fri Jul 25 23:46:24 2014
+
+               ___sp 0000                 _main 0E3F                 start 0012               stackhi 0000  
+             stacklo 0000  start_initialization 0015             ___int_sp 0000             intlevel0 0100  
+           intlevel1 0100             intlevel2 0100             intlevel3 0100             intlevel4 0100  
+           intlevel5 0100             reset_vec 0000  

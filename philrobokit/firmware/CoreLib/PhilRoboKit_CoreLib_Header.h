@@ -12,14 +12,7 @@
 * |               |                                             |
 * |Dependencies:  |                                             |
 *
-* > This program is free software: you can redistribute it and/or modify
-* > it under the terms of the GNU General Public License as published by
-* > the Free Software Foundation, either version 3 of the License, or
-* > (at your option) any later version.
-* > This program is distributed in the hope that it will be useful,
-* > but WITHOUT ANY WARRANTY; without even the implied warranty of
-* > MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* > GNU General Public License for more details.
+* > This program is free software under the terms of the GNU General Public License
 * > <BR><BR>
 * > You should have received a copy of the GNU General Public License
 * > along with this program. If not, see http://www.gnu.org/licenses/
@@ -50,7 +43,20 @@
 
 /* Normal Compile Path */
 #else
+
+/* remove the comment to enable */
+#define USE_ADC
+#define USE_UART
+#define USE_INTERRUPT
+#define USE_8BIT_TIMER
+#if defined USE_8BIT_TIMER
+#define USE_PWM
+#endif
+#define USE_16BIT_TIMER
+#define PHILROBOKIT_LITE
+
 #if defined(HI_TECH_C)
+
 #if (__PHR_CONTROLLER__==__MCU_PIC16__)
 /* Anito Rev0 */
 #if defined(_16F877A)
@@ -84,9 +90,11 @@
 #elif defined(SDCC)
 #if (__PHR_CONTROLLER__==__MCU_PIC16__)
 #include <pic16regs.h>
+
 /* Anito Rev0 */
-#if defined(__SDCC_PIC16F877A) || defined(__SDCC_PIC16F877)
+#if defined(__SDCC_PIC16F877A)
 #include "compilers\sdcc\sdcc_pic16.h"
+
 #ifndef _XTAL_FREQ
 #define _XTAL_FREQ 20000000     /* 20MHz Crystal */
 #endif
@@ -96,6 +104,7 @@
 
 #elif (__PHR_CONTROLLER__==__MCU_PIC18__)
 #include <pic18fregs.h>
+
 /* Anito Rev1 */
 #if defined(__SDCC_PIC18F4520)
 #include "compilers\sdcc\sdcc_pic18.h"
@@ -129,24 +138,36 @@
 #include "hal_gpio.h"
 #include "corelib_gpio.h"
 
+#if defined (USE_ADC)
 #include "hal_adc.h"
 #include "corelib_adc.h"
+#endif
 
+#if defined (USE_UART)
 #include "hal_uart.h"
 #include "corelib_uart.h"
+#endif
 
+#if defined (USE_INTERRUPT)
 #include "hal_user_interrupt.h"
 #include "corelib_user_interrupt.h"
+#endif
 
+#if defined (USE_8BIT_TIMER)
 #include "hal_8bit_timer.h"
 #include "corelib_8bit_timer.h"
+#endif
 
+#if defined (USE_PWM)
 #include "hal_pwm.h"
 #include "corelib_pwm.h"
 #include "corelib_dac.h"
+#endif
 
+#if defined (USE_16BIT_TIMER)
 #include "hal_16bit_timer.h"
 #include "corelib_16bit_timer.h"
+#endif
 
 #else
 #error Board not yet supported!!!

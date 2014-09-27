@@ -1,0 +1,1170 @@
+Version 3.2 HI-TECH Software Intermediate Code
+"78 C:\Users\glutnix\Desktop\philrobokit_xc8/hardware/cores/lib\corelib_uart.h
+[v _serialDataCount `(uc ~T0 @X0 0 ef ]
+"61 C:\Users\glutnix\Desktop\philrobokit_xc8/hardware/cores/lib\corelib_basetimer.h
+[v _getMs `(ui ~T0 @X0 0 ef ]
+"79 C:\Users\glutnix\Desktop\philrobokit_xc8/hardware/cores/lib\corelib_uart.h
+[v _serialRead `(uc ~T0 @X0 0 ef ]
+"66 libraries/Mobot_Lib\PBotGlobals.h
+[v _strDProtocolID `uc ~T0 @X0 -> 0 `x e ]
+"67
+[v _strCommandCode `uc ~T0 @X0 -> 0 `x e ]
+"68
+[v _strParam1 `uc ~T0 @X0 -> 0 `x e ]
+"69
+[v _strParam2 `uc ~T0 @X0 -> 0 `x e ]
+"75
+[v _blDPacketAvailable `uc ~T0 @X0 0 e ]
+"49 libraries/Mobot_Lib\DProtocol.h
+[v _resetDProtocol `(v ~T0 @X0 0 ef ]
+"77 libraries/Mobot_Lib\PBotGlobals.h
+[v _blTerminationError `uc ~T0 @X0 0 e ]
+"75 C:\Users\glutnix\Desktop\philrobokit_xc8/hardware/cores/lib\corelib_uart.h
+[v _serialWriteString `(v ~T0 @X0 0 ef1`*Cuc ]
+"74
+[v _serialWrite `(v ~T0 @X0 0 ef1`uc ]
+"76 libraries/Mobot_Lib\PBotGlobals.h
+[v _blBufferOverflow `uc ~T0 @X0 0 e ]
+"62 C:\Users\glutnix\Desktop\philrobokit_xc8/hardware/cores/lib\corelib_basetimer.h
+[v _getElapsedMs `(ui ~T0 @X0 0 ef1`ui ]
+"74 libraries/Mobot_Lib\PBotGlobals.h
+[v _blDPacketReady `uc ~T0 @X0 0 e ]
+"53 libraries/Mobot_Lib\DProtocol.h
+[v _checkPBotMotionCommands `(uc ~T0 @X0 0 ef ]
+"52
+[v _checkSensorCommands `(uc ~T0 @X0 0 ef ]
+"60 libraries/Mobot_Lib\Telemetry.h
+[v _printD `(v ~T0 @X0 0 ef4`*uc`*uc`*uc`*uc ]
+"112 libraries/Mobot_Lib\Mobot_Lib.h
+[v _stopMotors `(v ~T0 @X0 0 ef ]
+"57 libraries/Mobot_Lib\Telemetry.h
+[v _reportWallSensors `(v ~T0 @X0 0 ef1`uc ]
+"71 libraries/Mobot_Lib\PBotGlobals.h
+[v _ui8ObstacleLocation `uc ~T0 @X0 0 e ]
+"58 libraries/Mobot_Lib\Telemetry.h
+[v _reportLineSensors `(v ~T0 @X0 0 ef1`uc ]
+"72 libraries/Mobot_Lib\PBotGlobals.h
+[v _ui8LineLocation `uc ~T0 @X0 0 e ]
+"73 libraries/Mobot_Lib\LowLevelMobot.h
+[v _runRightMotor `(v ~T0 @X0 0 ef2`uc`uc ]
+"60 libraries/Mobot_Lib\DProtocol.c
+[v _stringToByte `(uc ~T0 @X0 0 sf1`*uc ]
+"75 libraries/Mobot_Lib\LowLevelMobot.h
+[v _runLeftMotor `(v ~T0 @X0 0 ef2`uc`uc ]
+"77
+[v _stopRightMotor `(v ~T0 @X0 0 ef ]
+"78
+[v _stopLeftMotor `(v ~T0 @X0 0 ef ]
+"106 libraries/Mobot_Lib\Mobot_Lib.h
+[v _moveForward `(v ~T0 @X0 0 ef1`uc ]
+"107
+[v _moveBackward `(v ~T0 @X0 0 ef1`uc ]
+"109
+[v _turnRight `(v ~T0 @X0 0 ef1`uc ]
+"108
+[v _turnLeft `(v ~T0 @X0 0 ef1`uc ]
+"111
+[v _rotateRight `(v ~T0 @X0 0 ef1`uc ]
+"110
+[v _rotateLeft `(v ~T0 @X0 0 ef1`uc ]
+"61 libraries/Mobot_Lib\DProtocol.c
+[v _numberLookup `(uc ~T0 @X0 0 sf1`uc ]
+"49 C:\Users\glutnix\Desktop\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[; <" INDF equ 00h ;# ">
+"55
+[; <" TMR0 equ 01h ;# ">
+"61
+[; <" PCL equ 02h ;# ">
+"67
+[; <" STATUS equ 03h ;# ">
+"154
+[; <" FSR equ 04h ;# ">
+"160
+[; <" PORTA equ 05h ;# ">
+"209
+[; <" PORTB equ 06h ;# ">
+"270
+[; <" PORTC equ 07h ;# ">
+"331
+[; <" PORTD equ 08h ;# ">
+"392
+[; <" PORTE equ 09h ;# ">
+"423
+[; <" PCLATH equ 0Ah ;# ">
+"442
+[; <" INTCON equ 0Bh ;# ">
+"519
+[; <" PIR1 equ 0Ch ;# ">
+"580
+[; <" PIR2 equ 0Dh ;# ">
+"619
+[; <" TMR1 equ 0Eh ;# ">
+"625
+[; <" TMR1L equ 0Eh ;# ">
+"631
+[; <" TMR1H equ 0Fh ;# ">
+"637
+[; <" T1CON equ 010h ;# ">
+"711
+[; <" TMR2 equ 011h ;# ">
+"717
+[; <" T2CON equ 012h ;# ">
+"787
+[; <" SSPBUF equ 013h ;# ">
+"793
+[; <" SSPCON equ 014h ;# ">
+"862
+[; <" CCPR1 equ 015h ;# ">
+"868
+[; <" CCPR1L equ 015h ;# ">
+"874
+[; <" CCPR1H equ 016h ;# ">
+"880
+[; <" CCP1CON equ 017h ;# ">
+"937
+[; <" RCSTA equ 018h ;# ">
+"1031
+[; <" TXREG equ 019h ;# ">
+"1037
+[; <" RCREG equ 01Ah ;# ">
+"1043
+[; <" CCPR2 equ 01Bh ;# ">
+"1049
+[; <" CCPR2L equ 01Bh ;# ">
+"1055
+[; <" CCPR2H equ 01Ch ;# ">
+"1061
+[; <" CCP2CON equ 01Dh ;# ">
+"1118
+[; <" ADRESH equ 01Eh ;# ">
+"1124
+[; <" ADCON0 equ 01Fh ;# ">
+"1219
+[; <" OPTION_REG equ 081h ;# ">
+"1288
+[; <" TRISA equ 085h ;# ">
+"1337
+[; <" TRISB equ 086h ;# ">
+"1398
+[; <" TRISC equ 087h ;# ">
+"1459
+[; <" TRISD equ 088h ;# ">
+"1520
+[; <" TRISE equ 089h ;# ">
+"1576
+[; <" PIE1 equ 08Ch ;# ">
+"1637
+[; <" PIE2 equ 08Dh ;# ">
+"1676
+[; <" PCON equ 08Eh ;# ">
+"1709
+[; <" SSPCON2 equ 091h ;# ">
+"1770
+[; <" PR2 equ 092h ;# ">
+"1776
+[; <" SSPADD equ 093h ;# ">
+"1782
+[; <" SSPSTAT equ 094h ;# ">
+"1950
+[; <" TXSTA equ 098h ;# ">
+"2030
+[; <" SPBRG equ 099h ;# ">
+"2036
+[; <" CMCON equ 09Ch ;# ">
+"2105
+[; <" CVRCON equ 09Dh ;# ">
+"2169
+[; <" ADRESL equ 09Eh ;# ">
+"2175
+[; <" ADCON1 equ 09Fh ;# ">
+"2233
+[; <" EEDATA equ 010Ch ;# ">
+"2239
+[; <" EEADR equ 010Dh ;# ">
+"2245
+[; <" EEDATH equ 010Eh ;# ">
+"2251
+[; <" EEADRH equ 010Fh ;# ">
+"2257
+[; <" EECON1 equ 018Ch ;# ">
+"2301
+[; <" EECON2 equ 018Dh ;# ">
+"49 libraries/Mobot_Lib\DProtocol.c
+[v _strRxDProtocolID `uc ~T0 @X0 -> 4 `i s ]
+"50
+[v _strRxCommandCode `uc ~T0 @X0 -> 5 `i s ]
+"51
+[v _strRxParam1 `uc ~T0 @X0 -> 7 `i s ]
+"52
+[v _strRxParam2 `uc ~T0 @X0 -> 7 `i s ]
+"53
+[v _strRxDTerminator `uc ~T0 @X0 -> 3 `i s ]
+"55
+[v _bl_reply_supressed `uc ~T0 @X0 1 s ]
+"56
+[v _ui16DProtocolTimeout `ui ~T0 @X0 1 s ]
+"57
+[v _iByteCounter `uc ~T0 @X0 1 s ]
+"63
+[v _parseIncomingBytes `(v ~T0 @X0 1 ef ]
+"64
+{
+[e :U _parseIncomingBytes ]
+[f ]
+"65
+[v _bRecievedByte `uc ~T0 @X0 1 a ]
+"67
+[e $ ! > -> ( _serialDataCount ..  `i -> 0 `i 98  ]
+"68
+{
+"69
+[e = _ui16DProtocolTimeout ( _getMs ..  ]
+"70
+[e = _bRecievedByte ( _serialRead ..  ]
+"73
+[e $ ! <= -> _iByteCounter `i -> 3 `i 99  ]
+"74
+{
+"75
+[e = *U + &U _strRxDProtocolID * -> _iByteCounter `ux -> -> # *U &U _strRxDProtocolID `ui `ux _bRecievedByte ]
+"78
+[e $ ! == -> *U + &U _strRxDProtocolID * -> _iByteCounter `ux -> -> # *U &U _strRxDProtocolID `ui `ux `ui -> 32 `ui 100  ]
+"79
+{
+"80
+[e = *U + &U _strRxDProtocolID * -> _iByteCounter `ux -> -> # *U &U _strRxDProtocolID `ui `ux -> -> 0 `ui `uc ]
+"81
+[e = _iByteCounter -> -> 3 `i `uc ]
+"82
+}
+[e :U 100 ]
+"83
+}
+[e $U 101  ]
+"85
+[e :U 99 ]
+[e $ ! <= -> _iByteCounter `i -> 8 `i 102  ]
+"86
+{
+"87
+[e = *U + &U _strRxCommandCode * -> -> - -> _iByteCounter `i -> 4 `i `ui `ux -> -> # *U &U _strRxCommandCode `ui `ux _bRecievedByte ]
+"90
+[e $ ! == -> *U + &U _strRxCommandCode * -> -> - -> _iByteCounter `i -> 4 `i `ui `ux -> -> # *U &U _strRxCommandCode `ui `ux `ui -> 32 `ui 103  ]
+"91
+{
+"92
+[e = *U + &U _strRxCommandCode * -> -> - -> _iByteCounter `i -> 4 `i `ui `ux -> -> # *U &U _strRxCommandCode `ui `ux -> -> 0 `ui `uc ]
+"93
+[e = _iByteCounter -> -> 8 `i `uc ]
+"94
+}
+[e :U 103 ]
+"95
+}
+[e $U 104  ]
+"97
+[e :U 102 ]
+[e $ ! <= -> _iByteCounter `i -> 15 `i 105  ]
+"98
+{
+"100
+[e $ ! == -> _bRecievedByte `i -> 13 `i 106  ]
+"101
+{
+"102
+[e = *U + &U _strRxDTerminator * -> -> -> 0 `i `ui `ux -> -> # *U &U _strRxDTerminator `ui `ux _bRecievedByte ]
+"103
+[e = *U + &U _strRxParam1 * -> -> -> 0 `i `ui `ux -> -> # *U &U _strRxParam1 `ui `ux -> -> 0 `ui `uc ]
+"104
+[e = *U + &U _strRxParam2 * -> -> -> 0 `i `ui `ux -> -> # *U &U _strRxParam2 `ui `ux -> -> 0 `ui `uc ]
+"105
+[e = _iByteCounter -> -> 23 `i `uc ]
+"106
+}
+[e :U 106 ]
+"108
+[e = *U + &U _strRxParam1 * -> -> - -> _iByteCounter `i -> 9 `i `ui `ux -> -> # *U &U _strRxParam1 `ui `ux _bRecievedByte ]
+"110
+[e $ ! == -> *U + &U _strRxParam1 * -> -> - -> _iByteCounter `i -> 9 `i `ui `ux -> -> # *U &U _strRxParam1 `ui `ux `ui -> 32 `ui 107  ]
+"111
+{
+"112
+[e = *U + &U _strRxParam1 * -> -> - -> _iByteCounter `i -> 9 `i `ui `ux -> -> # *U &U _strRxParam1 `ui `ux -> -> 0 `ui `uc ]
+"113
+[e = _iByteCounter -> -> 15 `i `uc ]
+"114
+}
+[e :U 107 ]
+"115
+}
+[e $U 108  ]
+"117
+[e :U 105 ]
+[e $ ! <= -> _iByteCounter `i -> 22 `i 109  ]
+"118
+{
+"120
+[e $ ! == -> _bRecievedByte `i -> 13 `i 110  ]
+"121
+{
+"122
+[e = *U + &U _strRxDTerminator * -> -> -> 0 `i `ui `ux -> -> # *U &U _strRxDTerminator `ui `ux _bRecievedByte ]
+"123
+[e = *U + &U _strRxParam2 * -> -> -> 0 `i `ui `ux -> -> # *U &U _strRxParam2 `ui `ux -> -> 0 `ui `uc ]
+"124
+[e = _iByteCounter -> -> 23 `i `uc ]
+"125
+}
+[e :U 110 ]
+"127
+[e = *U + &U _strRxParam2 * -> -> - -> _iByteCounter `i -> 16 `i `ui `ux -> -> # *U &U _strRxParam2 `ui `ux _bRecievedByte ]
+"130
+[e $ ! == -> *U + &U _strRxParam2 * -> -> - -> _iByteCounter `i -> 16 `i `ui `ux -> -> # *U &U _strRxParam2 `ui `ux `ui -> 32 `ui 111  ]
+"131
+{
+"132
+[e = *U + &U _strRxParam2 * -> -> - -> _iByteCounter `i -> 16 `i `ui `ux -> -> # *U &U _strRxParam2 `ui `ux -> -> 0 `ui `uc ]
+"133
+[e = _iByteCounter -> -> 22 `i `uc ]
+"134
+}
+[e :U 111 ]
+"135
+}
+[e $U 112  ]
+"137
+[e :U 109 ]
+[e $ ! <= -> _iByteCounter `i -> 24 `i 113  ]
+"138
+{
+"139
+[e = *U + &U _strRxDTerminator * -> -> - -> _iByteCounter `i -> 23 `i `ui `ux -> -> # *U &U _strRxDTerminator `ui `ux _bRecievedByte ]
+"141
+[e $ ! == -> _iByteCounter `i -> 24 `i 114  ]
+"142
+{
+"143
+[e $ ! && == -> *U + &U _strRxDTerminator * -> -> -> 0 `i `ui `ux -> -> # *U &U _strRxDTerminator `ui `ux `i -> 13 `i == -> *U + &U _strRxDTerminator * -> -> -> 1 `i `ui `ux -> -> # *U &U _strRxDTerminator `ui `ux `i -> 10 `i 115  ]
+"144
+{
+"146
+{
+[e = _iByteCounter -> -> 0 `i `uc ]
+[e $ < -> _iByteCounter `i -> 4 `i 116  ]
+[e $U 117  ]
+"147
+[e :U 116 ]
+{
+"148
+[e = *U + &U _strDProtocolID * -> _iByteCounter `ux -> -> # *U &U _strDProtocolID `ui `ux *U + &U _strRxDProtocolID * -> _iByteCounter `ux -> -> # *U &U _strRxDProtocolID `ui `ux ]
+"149
+}
+"146
+[e ++ _iByteCounter -> -> 1 `i `uc ]
+[e $ < -> _iByteCounter `i -> 4 `i 116  ]
+[e :U 117 ]
+"149
+}
+"151
+{
+[e = _iByteCounter -> -> 0 `i `uc ]
+[e $ < -> _iByteCounter `i -> 5 `i 119  ]
+[e $U 120  ]
+"152
+[e :U 119 ]
+{
+"153
+[e = *U + &U _strCommandCode * -> _iByteCounter `ux -> -> # *U &U _strCommandCode `ui `ux *U + &U _strRxCommandCode * -> _iByteCounter `ux -> -> # *U &U _strRxCommandCode `ui `ux ]
+"154
+}
+"151
+[e ++ _iByteCounter -> -> 1 `i `uc ]
+[e $ < -> _iByteCounter `i -> 5 `i 119  ]
+[e :U 120 ]
+"154
+}
+"156
+{
+[e = _iByteCounter -> -> 0 `i `uc ]
+[e $ < -> _iByteCounter `i -> 7 `i 122  ]
+[e $U 123  ]
+"157
+[e :U 122 ]
+{
+"158
+[e = *U + &U _strParam1 * -> _iByteCounter `ux -> -> # *U &U _strParam1 `ui `ux *U + &U _strRxParam1 * -> _iByteCounter `ux -> -> # *U &U _strRxParam1 `ui `ux ]
+"159
+}
+"156
+[e ++ _iByteCounter -> -> 1 `i `uc ]
+[e $ < -> _iByteCounter `i -> 7 `i 122  ]
+[e :U 123 ]
+"159
+}
+"161
+{
+[e = _iByteCounter -> -> 0 `i `uc ]
+[e $ < -> _iByteCounter `i -> 7 `i 125  ]
+[e $U 126  ]
+"162
+[e :U 125 ]
+{
+"163
+[e = *U + &U _strParam2 * -> _iByteCounter `ux -> -> # *U &U _strParam2 `ui `ux *U + &U _strRxParam2 * -> _iByteCounter `ux -> -> # *U &U _strRxParam2 `ui `ux ]
+"164
+}
+"161
+[e ++ _iByteCounter -> -> 1 `i `uc ]
+[e $ < -> _iByteCounter `i -> 7 `i 125  ]
+[e :U 126 ]
+"164
+}
+"166
+[e = _blDPacketAvailable -> -> == -> 1 `i -> 1 `i `i `uc ]
+"168
+[e ( _resetDProtocol ..  ]
+"169
+}
+[e $U 128  ]
+"171
+[e :U 115 ]
+"172
+{
+"173
+[e = _blTerminationError -> -> == -> 1 `i -> 1 `i `i `uc ]
+"174
+[e ( _serialWriteString (1 -> -> :s 1C `*uc `*Cuc ]
+"175
+[e ( _serialWrite (1 -> -> 13 `i `uc ]
+"176
+[e ( _serialWrite (1 -> -> 10 `i `uc ]
+"177
+}
+[e :U 128 ]
+"178
+}
+[e :U 114 ]
+"179
+}
+[e $U 129  ]
+"181
+[e :U 113 ]
+"182
+{
+"183
+[e = _blBufferOverflow -> -> == -> 1 `i -> 1 `i `i `uc ]
+"184
+[e ( _serialWriteString (1 -> -> :s 2C `*uc `*Cuc ]
+"185
+[e ( _serialWrite (1 -> -> 13 `i `uc ]
+"186
+[e ( _serialWrite (1 -> -> 10 `i `uc ]
+"187
+[e = _blDPacketAvailable -> -> == -> 0 `i -> 1 `i `i `uc ]
+"188
+}
+[e :U 129 ]
+[e :U 112 ]
+[e :U 108 ]
+[e :U 104 ]
+[e :U 101 ]
+"190
+[e ++ _iByteCounter -> -> 1 `i `uc ]
+"191
+}
+[e :U 98 ]
+"194
+[e $ ! >= ( _getElapsedMs (1 _ui16DProtocolTimeout -> -> 100 `i `ui 130  ]
+"195
+{
+"196
+[e = _ui16DProtocolTimeout ( _getMs ..  ]
+"197
+[e ( _resetDProtocol ..  ]
+"198
+}
+[e :U 130 ]
+"199
+[e :UE 97 ]
+}
+"201
+[v _resetDProtocol `(v ~T0 @X0 1 ef ]
+"202
+{
+[e :U _resetDProtocol ]
+[f ]
+"203
+[e = _ui16DProtocolTimeout ( _getMs ..  ]
+"204
+[e = _iByteCounter -> -> 0 `i `uc ]
+"205
+[e = *U + &U _strRxDProtocolID * -> -> -> 0 `i `ui `ux -> -> # *U &U _strRxDProtocolID `ui `ux -> -> 0 `ui `uc ]
+"206
+[e = *U + &U _strRxCommandCode * -> -> -> 0 `i `ui `ux -> -> # *U &U _strRxCommandCode `ui `ux -> -> 0 `ui `uc ]
+"207
+[e = *U + &U _strRxParam1 * -> -> -> 0 `i `ui `ux -> -> # *U &U _strRxParam1 `ui `ux -> -> 0 `ui `uc ]
+"208
+[e = *U + &U _strRxParam2 * -> -> -> 0 `i `ui `ux -> -> # *U &U _strRxParam2 `ui `ux -> -> 0 `ui `uc ]
+"209
+[e = *U + &U _strRxDTerminator * -> -> -> 0 `i `ui `ux -> -> # *U &U _strRxDTerminator `ui `ux -> -> 0 `ui `uc ]
+"210
+[e :UE 131 ]
+}
+"213
+[v _interpretDProtocolCommands `(v ~T0 @X0 1 ef ]
+"214
+{
+[e :U _interpretDProtocolCommands ]
+[f ]
+"215
+[e $ ! != -> _blDPacketReady `i -> -> -> 0 `i `uc `i 133  ]
+"216
+{
+"217
+[e $ ! != -> ( _checkPBotMotionCommands ..  `i -> -> -> 0 `i `uc `i 134  ]
+"218
+{
+"220
+}
+[e $U 135  ]
+"221
+[e :U 134 ]
+[e $ ! != -> ( _checkSensorCommands ..  `i -> -> -> 0 `i `uc `i 136  ]
+"222
+{
+"224
+}
+[e $U 137  ]
+"228
+[e :U 136 ]
+"229
+{
+"230
+[e ( _serialWriteString (1 -> -> :s 3C `*uc `*Cuc ]
+"231
+[e ( _serialWrite (1 -> -> 13 `i `uc ]
+"232
+[e ( _serialWrite (1 -> -> 10 `i `uc ]
+"233
+[e ( _printD (4 , , , &U _strDProtocolID -> :s 4C `*uc -> :s 5C `*uc -> :s 6C `*uc ]
+"234
+[e = _bl_reply_supressed -> -> == -> 1 `i -> 1 `i `i `uc ]
+"235
+[e ( _stopMotors ..  ]
+"236
+}
+[e :U 137 ]
+[e :U 135 ]
+"239
+[e $ ! != -> _bl_reply_supressed `i -> -> -> 0 `i `uc `i 138  ]
+"240
+{
+"241
+[e = _bl_reply_supressed -> -> == -> 0 `i -> 1 `i `i `uc ]
+"242
+}
+[e $U 139  ]
+"243
+[e :U 138 ]
+"244
+{
+"245
+[e ( _serialWriteString (1 -> &U _strDProtocolID `*Cuc ]
+"246
+[e ( _serialWriteString (1 -> -> -> 32 `ui `*uc `*Cuc ]
+"247
+[e ( _serialWriteString (1 -> &U _strCommandCode `*Cuc ]
+"248
+[e ( _serialWriteString (1 -> -> -> 32 `ui `*uc `*Cuc ]
+"249
+[e ( _serialWriteString (1 -> &U _strParam1 `*Cuc ]
+"250
+[e ( _serialWriteString (1 -> -> -> 32 `ui `*uc `*Cuc ]
+"251
+[e ( _serialWriteString (1 -> &U _strParam2 `*Cuc ]
+"252
+[e ( _serialWriteString (1 -> -> -> 32 `ui `*uc `*Cuc ]
+"253
+[e ( _serialWrite (1 -> -> 13 `i `uc ]
+"254
+[e ( _serialWrite (1 -> -> 10 `i `uc ]
+"255
+}
+[e :U 139 ]
+"257
+[e = _blDPacketReady -> -> == -> 0 `i -> 1 `i `i `uc ]
+"258
+}
+[e :U 133 ]
+"259
+[e :UE 132 ]
+}
+"261
+[v _checkSensorCommands `(uc ~T0 @X0 1 ef ]
+"262
+{
+[e :U _checkSensorCommands ]
+[f ]
+"264
+[e $ ! == &U _strCommandCode -> :s 7C `*uc 141  ]
+"265
+{
+"266
+[e ( _serialWriteString (1 -> -> :s 8C `*uc `*Cuc ]
+"267
+[e ( _serialWrite (1 -> -> 13 `i `uc ]
+"268
+[e ( _serialWrite (1 -> -> 10 `i `uc ]
+"269
+[e ( _serialWriteString (1 -> -> :s 9C `*uc `*Cuc ]
+"270
+[e ( _reportWallSensors (1 _ui8ObstacleLocation ]
+"271
+[e = _bl_reply_supressed -> -> == -> 1 `i -> 1 `i `i `uc ]
+"272
+[e ) -> -> == -> 1 `i -> 1 `i `i `uc ]
+[e $UE 140  ]
+"273
+}
+[e $U 142  ]
+"274
+[e :U 141 ]
+[e $ ! == &U _strCommandCode -> :s 10C `*uc 143  ]
+"275
+{
+"276
+[e ( _serialWriteString (1 -> -> :s 11C `*uc `*Cuc ]
+"277
+[e ( _serialWrite (1 -> -> 13 `i `uc ]
+"278
+[e ( _serialWrite (1 -> -> 10 `i `uc ]
+"279
+[e ( _serialWriteString (1 -> -> :s 12C `*uc `*Cuc ]
+"280
+[e ( _reportLineSensors (1 _ui8LineLocation ]
+"281
+[e = _bl_reply_supressed -> -> == -> 1 `i -> 1 `i `i `uc ]
+"282
+[e ) -> -> == -> 1 `i -> 1 `i `i `uc ]
+[e $UE 140  ]
+"283
+}
+[e :U 143 ]
+"285
+[e :U 142 ]
+[e ) -> -> == -> 0 `i -> 1 `i `i `uc ]
+[e $UE 140  ]
+"286
+[e :UE 140 ]
+}
+"288
+[v _checkPBotMotionCommands `(uc ~T0 @X0 1 ef ]
+"289
+{
+[e :U _checkPBotMotionCommands ]
+[f ]
+"290
+[v _bl_Temp `uc ~T0 @X0 1 a ]
+"293
+[e $ ! == &U _strCommandCode -> :s 13C `*uc 145  ]
+"294
+{
+"295
+[e ( _serialWriteString (1 -> -> :s 14C `*uc `*Cuc ]
+"296
+[e ( _serialWrite (1 -> -> 13 `i `uc ]
+"297
+[e ( _serialWrite (1 -> -> 10 `i `uc ]
+"299
+[e $ ! == &U _strParam2 -> :s 15C `*uc 146  ]
+"300
+{
+"301
+[e = _bl_Temp -> -> 0 `i `uc ]
+"302
+}
+[e $U 147  ]
+"303
+[e :U 146 ]
+"304
+{
+"305
+[e = _bl_Temp -> -> 1 `i `uc ]
+"306
+}
+[e :U 147 ]
+"308
+[e ( _runRightMotor (2 , ( _stringToByte (1 &U _strParam1 _bl_Temp ]
+"309
+[e ) -> -> == -> 1 `i -> 1 `i `i `uc ]
+[e $UE 144  ]
+"310
+}
+[e $U 148  ]
+"311
+[e :U 145 ]
+[e $ ! == &U _strCommandCode -> :s 16C `*uc 149  ]
+"312
+{
+"313
+[e ( _serialWriteString (1 -> -> :s 17C `*uc `*Cuc ]
+"314
+[e ( _serialWrite (1 -> -> 13 `i `uc ]
+"315
+[e ( _serialWrite (1 -> -> 10 `i `uc ]
+"317
+[e $ ! == &U _strParam2 -> :s 18C `*uc 150  ]
+"318
+{
+"319
+[e = _bl_Temp -> -> 0 `i `uc ]
+"320
+}
+[e $U 151  ]
+"321
+[e :U 150 ]
+"322
+{
+"323
+[e = _bl_Temp -> -> 1 `i `uc ]
+"324
+}
+[e :U 151 ]
+"326
+[e ( _runLeftMotor (2 , ( _stringToByte (1 &U _strParam1 _bl_Temp ]
+"327
+[e ) -> -> == -> 1 `i -> 1 `i `i `uc ]
+[e $UE 144  ]
+"328
+}
+[e $U 152  ]
+"329
+[e :U 149 ]
+[e $ ! == &U _strCommandCode -> :s 19C `*uc 153  ]
+"330
+{
+"331
+[e ( _serialWriteString (1 -> -> :s 20C `*uc `*Cuc ]
+"332
+[e ( _serialWrite (1 -> -> 13 `i `uc ]
+"333
+[e ( _serialWrite (1 -> -> 10 `i `uc ]
+"334
+[e ( _stopRightMotor ..  ]
+"335
+[e ) -> -> == -> 1 `i -> 1 `i `i `uc ]
+[e $UE 144  ]
+"336
+}
+[e $U 154  ]
+"337
+[e :U 153 ]
+[e $ ! == &U _strCommandCode -> :s 21C `*uc 155  ]
+"338
+{
+"339
+[e ( _serialWriteString (1 -> -> :s 22C `*uc `*Cuc ]
+"340
+[e ( _serialWrite (1 -> -> 13 `i `uc ]
+"341
+[e ( _serialWrite (1 -> -> 10 `i `uc ]
+"342
+[e ( _stopLeftMotor ..  ]
+"343
+[e ) -> -> == -> 1 `i -> 1 `i `i `uc ]
+[e $UE 144  ]
+"344
+}
+[e $U 156  ]
+"346
+[e :U 155 ]
+[e $ ! == &U _strCommandCode -> :s 23C `*uc 157  ]
+"347
+{
+"348
+[e ( _serialWriteString (1 :s 24C ]
+"349
+[e ( _serialWrite (1 -> -> 13 `i `uc ]
+"350
+[e ( _serialWrite (1 -> -> 10 `i `uc ]
+"351
+[e ( _moveForward (1 ( _stringToByte (1 &U _strParam1 ]
+"352
+[e ) -> -> == -> 1 `i -> 1 `i `i `uc ]
+[e $UE 144  ]
+"353
+}
+[e $U 158  ]
+"354
+[e :U 157 ]
+[e $ ! == &U _strCommandCode -> :s 25C `*uc 159  ]
+"355
+{
+"356
+[e ( _serialWriteString (1 -> -> :s 26C `*uc `*Cuc ]
+"357
+[e ( _serialWrite (1 -> -> 13 `i `uc ]
+"358
+[e ( _serialWrite (1 -> -> 10 `i `uc ]
+"359
+[e ( _moveBackward (1 ( _stringToByte (1 &U _strParam1 ]
+"360
+[e ) -> -> == -> 1 `i -> 1 `i `i `uc ]
+[e $UE 144  ]
+"361
+}
+[e $U 160  ]
+"362
+[e :U 159 ]
+[e $ ! == &U _strCommandCode -> :s 27C `*uc 161  ]
+"363
+{
+"364
+[e ( _serialWriteString (1 -> -> :s 28C `*uc `*Cuc ]
+"365
+[e ( _serialWrite (1 -> -> 13 `i `uc ]
+"366
+[e ( _serialWrite (1 -> -> 10 `i `uc ]
+"367
+[e ( _turnRight (1 ( _stringToByte (1 &U _strParam1 ]
+"368
+[e ) -> -> == -> 1 `i -> 1 `i `i `uc ]
+[e $UE 144  ]
+"369
+}
+[e $U 162  ]
+"370
+[e :U 161 ]
+[e $ ! == &U _strCommandCode -> :s 29C `*uc 163  ]
+"371
+{
+"372
+[e ( _serialWriteString (1 -> -> :s 30C `*uc `*Cuc ]
+"373
+[e ( _serialWrite (1 -> -> 13 `i `uc ]
+"374
+[e ( _serialWrite (1 -> -> 10 `i `uc ]
+"375
+[e ( _turnLeft (1 ( _stringToByte (1 &U _strParam1 ]
+"376
+[e ) -> -> == -> 1 `i -> 1 `i `i `uc ]
+[e $UE 144  ]
+"377
+}
+[e $U 164  ]
+"378
+[e :U 163 ]
+[e $ ! == &U _strCommandCode -> :s 31C `*uc 165  ]
+"379
+{
+"380
+[e ( _serialWriteString (1 -> -> :s 32C `*uc `*Cuc ]
+"381
+[e ( _serialWrite (1 -> -> 13 `i `uc ]
+"382
+[e ( _serialWrite (1 -> -> 10 `i `uc ]
+"383
+[e ( _rotateRight (1 ( _stringToByte (1 &U _strParam1 ]
+"384
+[e ) -> -> == -> 1 `i -> 1 `i `i `uc ]
+[e $UE 144  ]
+"385
+}
+[e $U 166  ]
+"386
+[e :U 165 ]
+[e $ ! == &U _strCommandCode -> :s 33C `*uc 167  ]
+"387
+{
+"388
+[e ( _serialWriteString (1 -> -> :s 34C `*uc `*Cuc ]
+"389
+[e ( _serialWrite (1 -> -> 13 `i `uc ]
+"390
+[e ( _serialWrite (1 -> -> 10 `i `uc ]
+"391
+[e ( _rotateLeft (1 ( _stringToByte (1 &U _strParam1 ]
+"392
+[e ) -> -> == -> 1 `i -> 1 `i `i `uc ]
+[e $UE 144  ]
+"393
+}
+[e $U 168  ]
+"394
+[e :U 167 ]
+[e $ ! == &U _strCommandCode -> :s 35C `*uc 169  ]
+"395
+{
+"396
+[e ( _serialWriteString (1 -> -> :s 36C `*uc `*Cuc ]
+"397
+[e ( _serialWrite (1 -> -> 13 `i `uc ]
+"398
+[e ( _serialWrite (1 -> -> 10 `i `uc ]
+"399
+[e ( _stopMotors ..  ]
+"400
+[e ) -> -> == -> 1 `i -> 1 `i `i `uc ]
+[e $UE 144  ]
+"401
+}
+[e :U 169 ]
+"403
+[e :U 168 ]
+[e :U 166 ]
+[e :U 164 ]
+[e :U 162 ]
+[e :U 160 ]
+[e :U 158 ]
+[e :U 156 ]
+[e :U 154 ]
+[e :U 152 ]
+[e :U 148 ]
+[e ) -> -> == -> 0 `i -> 1 `i `i `uc ]
+[e $UE 144  ]
+"404
+[e :UE 144 ]
+}
+"406
+[v _stringToByte `(uc ~T0 @X0 1 sf1`*uc ]
+"407
+{
+[e :U _stringToByte ]
+"406
+[v _cNumeral `*uc ~T0 @X0 1 r1 ]
+"407
+[f ]
+"408
+[v _bTemp `uc ~T0 @X0 1 a ]
+[e = _bTemp -> -> 0 `i `uc ]
+"409
+[v _iTemp1 `uc ~T0 @X0 1 a ]
+[v _iTemp2 `uc ~T0 @X0 1 a ]
+"411
+{
+[e = _iTemp1 -> -> 0 `i `uc ]
+[e $ < -> _iTemp1 `i -> 10 `i 171  ]
+[e $U 172  ]
+"412
+[e :U 171 ]
+{
+"413
+[e $ ! == -> *U + _cNumeral * -> _iTemp1 `ux -> -> # *U _cNumeral `ui `ux `ui -> 0 `ui 174  ]
+"414
+{
+"415
+[e $U 172  ]
+"416
+}
+[e :U 174 ]
+"417
+}
+"411
+[e ++ _iTemp1 -> -> 1 `i `uc ]
+[e $ < -> _iTemp1 `i -> 10 `i 171  ]
+[e :U 172 ]
+"417
+}
+"419
+[e = _iTemp2 _iTemp1 ]
+"422
+[e $ ! == -> _iTemp1 `i -> 3 `i 175  ]
+"423
+{
+"424
+[e = _bTemp -> * -> ( _numberLookup (1 *U + _cNumeral * -> - -> _iTemp2 `i -> _iTemp1 `i `x -> -> # *U _cNumeral `i `x `i -> 100 `i `uc ]
+"425
+[e -- _iTemp1 -> -> 1 `i `uc ]
+"426
+}
+[e :U 175 ]
+"429
+[e $ ! == -> _iTemp1 `i -> 2 `i 176  ]
+"430
+{
+"431
+[e =+ _bTemp -> * -> ( _numberLookup (1 *U + _cNumeral * -> - -> _iTemp2 `i -> _iTemp1 `i `x -> -> # *U _cNumeral `i `x `i -> 10 `i `uc ]
+"432
+[e -- _iTemp1 -> -> 1 `i `uc ]
+"433
+}
+[e :U 176 ]
+"436
+[e $ ! == -> _iTemp1 `i -> 1 `i 177  ]
+"437
+{
+"438
+[e =+ _bTemp ( _numberLookup (1 *U + _cNumeral * -> - -> _iTemp2 `i -> _iTemp1 `i `x -> -> # *U _cNumeral `i `x ]
+"439
+}
+[e :U 177 ]
+"441
+[e ) _bTemp ]
+[e $UE 170  ]
+"442
+[e :UE 170 ]
+}
+"444
+[v _numberLookup `(uc ~T0 @X0 1 sf1`uc ]
+"445
+{
+[e :U _numberLookup ]
+"444
+[v _cNumeral `uc ~T0 @X0 1 r1 ]
+"445
+[f ]
+"446
+[e $ ! == -> _cNumeral `ui -> 49 `ui 179  ]
+"447
+{
+"448
+[e ) -> -> 1 `i `uc ]
+[e $UE 178  ]
+"449
+}
+[e $U 180  ]
+"450
+[e :U 179 ]
+[e $ ! == -> _cNumeral `ui -> 50 `ui 181  ]
+"451
+{
+"452
+[e ) -> -> 2 `i `uc ]
+[e $UE 178  ]
+"453
+}
+[e $U 182  ]
+"454
+[e :U 181 ]
+[e $ ! == -> _cNumeral `ui -> 51 `ui 183  ]
+"455
+{
+"456
+[e ) -> -> 3 `i `uc ]
+[e $UE 178  ]
+"457
+}
+[e $U 184  ]
+"458
+[e :U 183 ]
+[e $ ! == -> _cNumeral `ui -> 52 `ui 185  ]
+"459
+{
+"460
+[e ) -> -> 4 `i `uc ]
+[e $UE 178  ]
+"461
+}
+[e $U 186  ]
+"462
+[e :U 185 ]
+[e $ ! == -> _cNumeral `ui -> 53 `ui 187  ]
+"463
+{
+"464
+[e ) -> -> 5 `i `uc ]
+[e $UE 178  ]
+"465
+}
+[e $U 188  ]
+"466
+[e :U 187 ]
+[e $ ! == -> _cNumeral `ui -> 54 `ui 189  ]
+"467
+{
+"468
+[e ) -> -> 6 `i `uc ]
+[e $UE 178  ]
+"469
+}
+[e $U 190  ]
+"470
+[e :U 189 ]
+[e $ ! == -> _cNumeral `ui -> 55 `ui 191  ]
+"471
+{
+"472
+[e ) -> -> 7 `i `uc ]
+[e $UE 178  ]
+"473
+}
+[e $U 192  ]
+"474
+[e :U 191 ]
+[e $ ! == -> _cNumeral `ui -> 56 `ui 193  ]
+"475
+{
+"476
+[e ) -> -> 8 `i `uc ]
+[e $UE 178  ]
+"477
+}
+[e $U 194  ]
+"478
+[e :U 193 ]
+[e $ ! == -> _cNumeral `ui -> 57 `ui 195  ]
+"479
+{
+"480
+[e ) -> -> 9 `i `uc ]
+[e $UE 178  ]
+"481
+}
+[e $U 196  ]
+"482
+[e :U 195 ]
+"483
+{
+"484
+[e ) -> -> 0 `i `uc ]
+[e $UE 178  ]
+"485
+}
+[e :U 196 ]
+[e :U 194 ]
+[e :U 192 ]
+[e :U 190 ]
+[e :U 188 ]
+[e :U 186 ]
+[e :U 184 ]
+[e :U 182 ]
+[e :U 180 ]
+"486
+[e :UE 178 ]
+}
+[a 2C 35 66 117 102 102 101 114 32 79 118 101 114 102 108 111 119 0 ]
+[a 36C 35 83 116 111 112 32 80 66 111 116 0 ]
+[a 28C 35 84 117 114 110 32 82 105 103 104 116 0 ]
+[a 32C 35 82 111 116 97 116 101 32 82 105 103 104 116 0 ]
+[a 30C 35 84 117 114 110 32 76 101 102 116 0 ]
+[a 34C 35 82 111 116 97 116 101 32 76 101 102 116 0 ]
+[a 8C 35 87 97 108 108 32 83 101 110 115 111 114 115 32 83 116 97 116 117 115 0 ]
+[a 11C 35 76 105 110 101 32 83 101 110 115 111 114 115 32 83 116 97 116 117 115 0 ]
+[a 20C 35 83 116 111 112 32 82 105 103 104 116 32 77 111 116 111 114 0 ]
+[a 14C 35 82 117 110 32 82 105 103 104 116 32 77 111 116 111 114 0 ]
+[a 22C 35 83 116 111 112 32 76 101 102 116 32 77 111 116 111 114 0 ]
+[a 17C 35 82 117 110 32 76 101 102 116 32 77 111 116 111 114 0 ]
+[a 1C 35 84 101 114 109 105 110 97 116 111 114 32 80 114 111 98 108 101 109 0 ]
+[a 24C 35 77 111 118 101 32 70 111 114 119 97 114 100 0 ]
+[a 26C 35 77 111 118 101 32 66 97 99 107 119 97 114 100 0 ]
+[a 3C 35 67 111 109 109 97 110 100 32 78 111 116 32 83 117 112 112 111 114 116 101 100 0 ]
+[a 5C 78 79 84 0 ]
+[a 19C 115 82 77 84 0 ]
+[a 13C 114 82 77 84 0 ]
+[a 21C 115 76 77 84 0 ]
+[a 16C 114 76 77 84 0 ]
+[a 27C 116 82 71 84 0 ]
+[a 31C 114 82 71 84 0 ]
+[a 29C 116 76 70 84 0 ]
+[a 33C 114 76 70 84 0 ]
+[a 35C 115 80 66 84 0 ]
+[a 4C 99 78 83 80 0 ]
+[a 6C 75 78 79 87 78 0 ]
+[a 25C 109 66 67 75 0 ]
+[a 15C 70 0 ]
+[a 18C 70 0 ]
+[a 23C 109 70 87 68 0 ]
+[a 7C 114 87 83 67 0 ]
+[a 10C 114 76 83 67 0 ]
+[a 9C 68 48 48 0 ]
+[a 12C 68 48 48 0 ]

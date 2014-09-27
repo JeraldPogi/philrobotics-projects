@@ -1,0 +1,345 @@
+Version 3.2 HI-TECH Software Intermediate Code
+[c E1348 0 1 2 3 .. ]
+[n E1348 InterruptModes_et LOWSTATE CHANGE RISING FALLING  ]
+"125 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[v F1369 `(v ~T0 @X0 0 tf ]
+"119
+[v _nullIntFunction `(v ~T0 @X0 0 ef ]
+"126
+[v F1372 `(v ~T0 @X0 0 tf ]
+"127
+[v F1375 `(v ~T0 @X0 0 tf ]
+"133
+[v F1380 `(v ~T0 @X0 0 tf ]
+"134
+[v F1383 `(v ~T0 @X0 0 tf ]
+"135
+[v F1386 `(v ~T0 @X0 0 tf ]
+"136
+[v F1389 `(v ~T0 @X0 0 tf ]
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v F1408 `(v ~T0 @X0 0 tf ]
+"120
+[v _nullTMRFunction `(v ~T0 @X0 0 ef ]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v F1467 `(v ~T0 @X0 0 tf ]
+"128
+[v _null16BitTMRFunction `(v ~T0 @X0 0 ef ]
+"2336 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[v _BRGH `Vb ~T0 @X0 0 e@1218 ]
+"2025
+[v _SPBRG `Vuc ~T0 @X0 0 e@153 ]
+[c E1488 1200 2400 4800 9600 19200 38400 57600 115200 .. ]
+[n E1488 stdBaudrate_et STD_BAUD_1200 STD_BAUD_2400 STD_BAUD_4800 STD_BAUD_9600 STD_BAUD_19200 STD_BAUD_38400 STD_BAUD_57600 STD_BAUD_115200  ]
+"46 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8\tools\xc8_win32\include\pic16f877a.h
+[; <" INDF equ 00h ;# ">
+"52
+[; <" TMR0 equ 01h ;# ">
+"58
+[; <" PCL equ 02h ;# ">
+"64
+[; <" STATUS equ 03h ;# ">
+"151
+[; <" FSR equ 04h ;# ">
+"157
+[; <" PORTA equ 05h ;# ">
+"206
+[; <" PORTB equ 06h ;# ">
+"267
+[; <" PORTC equ 07h ;# ">
+"328
+[; <" PORTD equ 08h ;# ">
+"389
+[; <" PORTE equ 09h ;# ">
+"420
+[; <" PCLATH equ 0Ah ;# ">
+"439
+[; <" INTCON equ 0Bh ;# ">
+"516
+[; <" PIR1 equ 0Ch ;# ">
+"577
+[; <" PIR2 equ 0Dh ;# ">
+"616
+[; <" TMR1 equ 0Eh ;# ">
+"622
+[; <" TMR1L equ 0Eh ;# ">
+"628
+[; <" TMR1H equ 0Fh ;# ">
+"634
+[; <" T1CON equ 010h ;# ">
+"708
+[; <" TMR2 equ 011h ;# ">
+"714
+[; <" T2CON equ 012h ;# ">
+"784
+[; <" SSPBUF equ 013h ;# ">
+"790
+[; <" SSPCON equ 014h ;# ">
+"859
+[; <" CCPR1 equ 015h ;# ">
+"865
+[; <" CCPR1L equ 015h ;# ">
+"871
+[; <" CCPR1H equ 016h ;# ">
+"877
+[; <" CCP1CON equ 017h ;# ">
+"934
+[; <" RCSTA equ 018h ;# ">
+"1028
+[; <" TXREG equ 019h ;# ">
+"1034
+[; <" RCREG equ 01Ah ;# ">
+"1040
+[; <" CCPR2 equ 01Bh ;# ">
+"1046
+[; <" CCPR2L equ 01Bh ;# ">
+"1052
+[; <" CCPR2H equ 01Ch ;# ">
+"1058
+[; <" CCP2CON equ 01Dh ;# ">
+"1115
+[; <" ADRESH equ 01Eh ;# ">
+"1121
+[; <" ADCON0 equ 01Fh ;# ">
+"1216
+[; <" OPTION_REG equ 081h ;# ">
+"1285
+[; <" TRISA equ 085h ;# ">
+"1334
+[; <" TRISB equ 086h ;# ">
+"1395
+[; <" TRISC equ 087h ;# ">
+"1456
+[; <" TRISD equ 088h ;# ">
+"1517
+[; <" TRISE equ 089h ;# ">
+"1573
+[; <" PIE1 equ 08Ch ;# ">
+"1634
+[; <" PIE2 equ 08Dh ;# ">
+"1673
+[; <" PCON equ 08Eh ;# ">
+"1706
+[; <" SSPCON2 equ 091h ;# ">
+"1767
+[; <" PR2 equ 092h ;# ">
+"1773
+[; <" SSPADD equ 093h ;# ">
+"1779
+[; <" SSPSTAT equ 094h ;# ">
+"1947
+[; <" TXSTA equ 098h ;# ">
+"2027
+[; <" SPBRG equ 099h ;# ">
+"2033
+[; <" CMCON equ 09Ch ;# ">
+"2102
+[; <" CVRCON equ 09Dh ;# ">
+"2166
+[; <" ADRESL equ 09Eh ;# ">
+"2172
+[; <" ADCON1 equ 09Fh ;# ">
+"2230
+[; <" EEDATA equ 010Ch ;# ">
+"2236
+[; <" EEADR equ 010Dh ;# ">
+"2242
+[; <" EEDATH equ 010Eh ;# ">
+"2248
+[; <" EEADRH equ 010Fh ;# ">
+"2254
+[; <" EECON1 equ 018Ch ;# ">
+"2298
+[; <" EECON2 equ 018Dh ;# ">
+"112 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_user_interrupt.h
+[v _eMod0_Mode `E1348 ~T0 @X0 1 e ]
+[v _eMod1_Mode `E1348 ~T0 @X0 1 e ]
+[v _eMod2_Mode `E1348 ~T0 @X0 1 e ]
+[v _eMod3_Mode `E1348 ~T0 @X0 1 e ]
+"116
+[v _eMod4_Mode `E1348 ~T0 @X0 1 e ]
+[v _eMod5_Mode `E1348 ~T0 @X0 1 e ]
+[v _eMod6_Mode `E1348 ~T0 @X0 1 e ]
+[v _eMod7_Mode `E1348 ~T0 @X0 1 e ]
+"125
+[v _pt2INT0 `*F1369 ~T0 @X0 1 e ]
+[i _pt2INT0
+&U _nullIntFunction
+]
+"126
+[v _pt2INT1 `*F1372 ~T0 @X0 1 e ]
+[i _pt2INT1
+&U _nullIntFunction
+]
+"127
+[v _pt2INT2 `*F1375 ~T0 @X0 1 e ]
+[i _pt2INT2
+&U _nullIntFunction
+]
+"133
+[v _pt2INT4 `*F1380 ~T0 @X0 1 e ]
+[i _pt2INT4
+&U _nullIntFunction
+]
+"134
+[v _pt2INT5 `*F1383 ~T0 @X0 1 e ]
+[i _pt2INT5
+&U _nullIntFunction
+]
+"135
+[v _pt2INT6 `*F1386 ~T0 @X0 1 e ]
+[i _pt2INT6
+&U _nullIntFunction
+]
+"136
+[v _pt2INT7 `*F1389 ~T0 @X0 1 e ]
+[i _pt2INT7
+&U _nullIntFunction
+]
+"122 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_8bit_timer.h
+[v _pt2TMR2ISR `*F1408 ~T0 @X0 1 e ]
+[i _pt2TMR2ISR
+&U _nullTMRFunction
+]
+"130 C:\Users\glutnix\Documents\Dropbox\__RapidProto\philrobokit_xc8/hardware/cores/lib\hal_16bit_timer.h
+[v _pt2TMR1ISR `*F1467 ~T0 @X0 1 e ]
+[i _pt2TMR1ISR
+&U _null16BitTMRFunction
+]
+"70 hardware/cores/lib\hal_uart.c
+[v _hal_setSerialBAUD `(v ~T0 @X0 1 ef1`um ]
+{
+[e :U _hal_setSerialBAUD ]
+[v _ui24Baudrate `um ~T0 @X0 1 r1 ]
+[f ]
+"71
+[e $U 99  ]
+"72
+{
+"73
+[e :U 100 ]
+"74
+{
+"75
+[e = _BRGH -> -> 1 `i `b ]
+"76
+[e = _SPBRG -> -> 129 `i `uc ]
+"80
+[e $U 98  ]
+"81
+}
+"83
+[e :U 101 ]
+"84
+{
+"85
+[e = _BRGH -> -> 1 `i `b ]
+"86
+[e = _SPBRG -> -> 20 `i `uc ]
+"90
+[e $U 98  ]
+"91
+}
+"95
+[e :U 102 ]
+"96
+{
+"97
+[e = _BRGH -> -> 1 `i `b ]
+"98
+[e = _SPBRG -> -> 10 `i `uc ]
+"102
+[e $U 98  ]
+"103
+}
+"107
+[e :U 103 ]
+"108
+{
+"109
+[e = _BRGH -> -> 1 `i `b ]
+"110
+[e = _SPBRG -> -> 64 `i `uc ]
+"114
+[e $U 98  ]
+"115
+}
+"117
+[e :U 104 ]
+"118
+{
+"119
+[e = _BRGH -> -> 0 `i `b ]
+"120
+[e = _SPBRG -> -> 64 `i `uc ]
+"124
+[e $U 98  ]
+"125
+}
+"127
+[e :U 105 ]
+"128
+{
+"129
+[e = _BRGH -> -> 1 `i `b ]
+"130
+[e = _SPBRG -> -> 32 `i `uc ]
+"134
+[e $U 98  ]
+"135
+}
+"137
+[e :U 106 ]
+"138
+{
+"139
+[e = _BRGH -> -> 0 `i `b ]
+"140
+[e = _SPBRG -> -> 129 `i `uc ]
+"144
+[e $U 98  ]
+"145
+}
+"149
+[e :U 107 ]
+"150
+{
+"151
+[e = _BRGH -> -> 0 `i `b ]
+"152
+[e = _SPBRG -> -> 255 `i `uc ]
+"156
+[e $U 98  ]
+"157
+}
+"161
+[e :U 108 ]
+"162
+{
+"163
+[e = _BRGH -> -> 1 `i `b ]
+"164
+[e = _SPBRG -> -> 129 `i `uc ]
+"168
+[e $U 98  ]
+"169
+}
+"170
+}
+[e $U 98  ]
+"71
+[e :U 99 ]
+[e [\ _ui24Baudrate , $ -> -> . `E1488 3 `m `um 100
+ , $ -> -> . `E1488 6 `m `um 101
+ , $ -> -> . `E1488 7 `m `um 102
+ , $ -> -> . `E1488 4 `m `um 103
+ , $ -> -> . `E1488 2 `m `um 104
+ , $ -> -> . `E1488 5 `m `um 105
+ , $ -> -> . `E1488 1 `m `um 106
+ , $ -> -> . `E1488 0 `m `um 107
+ 108 ]
+"170
+[e :U 98 ]
+"171
+[e :UE 97 ]
+}
